@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # 核心评估服务
+  evaluator:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: sa_ti_evaluator
+    environment:
+      - BENCH=${BENCH:-mmlu_pro}
+      - MODEL=${MODEL:-llama-3-8b}
+      - OUTPUT_DIR=${OUTPUT_DIR:-./eval/results}
+    volumes:
+      - ./eval/results:/src/eval/results
+      - /mnt/models:/src/models  # 挂载本地模型
+    depends_on:
+      - result_notifier
+    command: ["python", "scripts/eval/run_benchmark.py"]
+
+  # 结果通知服务
+  result_notifier:
+    image: mgett/sendmail:latest
+    container_name: sa_ti_result_notifier
+    volumes:
+      - ./mail:/mail
+      - /var/mail:/mail
+    environment:
+      - SMTP_SERVER=${SMTP_SERVER:-localhost}
+      - SMTP_USER=${SMTP_USER:-admin}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-secret}
+      - RECIPIENT=${RECIPIENT:-niograpcode@gmail.com}
+      - SUBJECT=${SMTP_SUBJECT:-SaTi Evaluation Result}
+    command: 
+      - /bin/bash
+      - -c
+      - "echo 'Evaluation complete' | mailx -v -s '$${SMTP_SUBJECT}' -r 'evaluator' -R '$${RECIPIENT}' /mail/report.txt"
+    depends_on:
+      - evaluator
+
+  # 结果存储
+  results:
+    image: alpine
+    container_name: sa_ti_results
+    volumes:
+      - ./eval/results:/results
+    command:
+      - tail
+      - -f
+      - /dev/null

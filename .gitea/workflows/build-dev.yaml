@@ -1,0 +1,49 @@
+name: Build SaTi Dev Image
+
+on:
+  push:
+    branches: ["dev"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: reg.grepcode.cn/nio/cicd-runtime:latest
+      options: -u root
+    steps:
+      - name: Clean up old runtime image
+        run: docker rmi -f reg.grepcode.cn/nio/cicd-runtime:latest || true
+
+      - name: Checkout code
+        uses: https://repos.grepcode.cn/actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Read .env.example
+        run: |
+          cat SaTi/.env.example
+
+      - name: Trust internal registry CA for Docker
+        run: |
+          mkdir -p /etc/docker/certs.d/reg.grepcode.cn
+          cp /usr/local/share/ca-certificates/nio.crt /etc/docker/certs.d/reg.grepcode.cn/ca.crt || true
+
+      - name: Create .env from secrets
+        run: |
+          cat SaTi/.env.example | \
+            sed "s|GITEA_SMTP_PASSWORD|${{ secrets.SMTP_PASSWORD }}|g" > SaTi/.env
+          cat SaTi/.env
+
+      - name: Build SaTi Docker image
+        run: |
+          cd SaTi
+          docker build -t reg.grepcode.cn/nio/sa_ti:dev .
+          docker push reg.grepcode.cn/nio/sa_ti:dev
+          echo "✅ Image pushed to reg.grepcode.cn/nio/sa_ti:dev"
+
+      - name: Notify Build Success
+        run: |
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          echo -e "SaTi Build Complete\nRepo: ${GITHUB_REPOSITORY}\nTag: dev\nCommit: ${COMMIT_HASH}\nMessage: ${COMMIT_MSG}" | sendme -s "CI/CD: SaTi dev built" || true

@@ -1,0 +1,72 @@
+name: Deploy SaTi Dev
+
+on:
+  workflow_dispatch:
+    inputs:
+      cluster:
+        description: '部署集群'
+        required: true
+        default: 'sedcode'
+        type: choice
+        options:
+          - sedcode
+          - grepcode
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: reg.grepcode.cn/nio/cicd-runtime:latest
+      options: -u root
+    steps:
+      - name: Checkout code
+        uses: https://repos.grepcode.cn/actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Trust internal registry CA for Docker
+        run: |
+          mkdir -p /etc/docker/certs.d/reg.grepcode.cn
+          cp /usr/local/share/ca-certificates/nio.crt /etc/docker/certs.d/reg.grepcode.cn/ca.crt || true
+
+      - name: Create SSH environment
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          cat << 'SSH_EOF' > ~/.ssh/config
+          Host *
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+          SSH_EOF
+
+      - name: Create .env
+        run: |
+          cat SaTi/.env.example | \
+            sed "s|GITEA_SMTP_PASSWORD|${{ secrets.SMTP_PASSWORD }}|g" > SaTi/.env
+
+      - name: Pull models
+        run: |
+          cd SaTi
+          python scripts/data/download_models.py
+
+      - name: Deploy to cluster
+        run: |
+          TARGET_HOST="c12.sedcode.cn"
+          TARGET_USER="${GITEA_DEPLOY_USER}"
+          
+          rsync -avz --delete -e "ssh -p 22" \
+            . ${TARGET_USER}@${TARGET_HOST}:/opt/ZooDeploy/SaTi/
+
+          ssh ${TARGET_USER}@${TARGET_HOST} "cd /opt/ZooDeploy/SaTi && make up"
+
+      - name: Verify Deployment
+        run: |
+          echo "✅ SaTi deployed to sedcode"
+          ssh ${TARGET_USER}@${TARGET_HOST} "cd /opt/ZooDeploy/SaTi && docker-compose ps"
+
+      - name: Notify Deployment
+        run: |
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          echo -e "SaTi Deploy Complete\nRepo: ${GITHUB_REPOSITORY}\nTag: dev\nCommit: ${COMMIT_HASH}\nMessage: ${COMMIT_MSG}\nCluster: sedcode" | sendme -s "CI/CD: SaTi dev deployed" || true

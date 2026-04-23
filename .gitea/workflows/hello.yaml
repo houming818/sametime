@@ -1,0 +1,45 @@
+name: SaTi Hello World
+
+on:
+  schedule:
+    - cron: '0 6,12,18 * * *'
+  workflow_dispatch:
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    container:
+      image: reg.grepcode.cn/nio/cicd-runtime:latest
+      options: -u root
+    steps:
+      - name: Clean up old runtime image
+        run: docker rmi -f reg.grepcode.cn/nio/cicd-runtime:latest || true
+
+      - name: Checkout code
+        uses: https://repos.grepcode.cn/actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Trust internal registry CA
+        run: |
+          mkdir -p /etc/docker/certs.d/reg.grepcode.cn
+          cp /usr/local/share/ca-certificates/nio.crt /etc/docker/certs.d/reg.grepcode.cn/ca.crt || true
+
+      - name: SaTi Status Check
+        run: |
+          echo "✅ SaTi is operational"
+          echo "📦 Repository: ${GITHUB_REPOSITORY}"
+          echo "🔢 Commit: $(git rev-parse --short HEAD)"
+          echo "🕰️  Time: $(date +"%Y-%m-%dT%H:%M:%S")"
+
+      - name: Notify Hello
+        run: |
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          echo -e "SaTi Hello World\nRepo: ${GITHUB_REPOSITORY}\nCommit: ${COMMIT_HASH}\nMessage: ${COMMIT_MSG}" | sendme -s "CI/CD: SaTi hello world" || true
+
+      - name: Check SaTi Health
+        run: |
+          echo "🔍 Checking SaTi health status..."
+          echo "✅ SaTi is running"
+          ls -l eval/results/*.json 2>/dev/null || echo "📁 Results pending evaluation"

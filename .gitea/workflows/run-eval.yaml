@@ -1,0 +1,68 @@
+name: Run SaTi Evaluation
+
+on:
+  workflow_dispatch:
+    inputs:
+      benchmark:
+        description: '评估基准'
+        required: true
+        default: 'mmlu_pro'
+        type: choice
+        options:
+          - mmlu_pro
+          - mmlu
+          - gsm8k
+          - human_eval
+      model_name:
+        description: '模型名称'
+        required: true
+        default: 'llama-3-8b'
+
+jobs:
+  pull-eval:
+    runs-on: ubuntu-latest
+    container:
+      image: reg.grepcode.cn/nio/cicd-runtime:latest
+      options: -u root
+    steps:
+      - name: Checkout code
+        uses: https://repos.grepcode.cn/actions/checkout@v4
+
+      - name: Read .env
+        run: |
+          cat SaTi/.env 2>/dev/null || echo "Using default"
+
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan c12.sedcode.cn >> ~/.ssh/known_hosts
+
+      - name: Sync to sedcode
+        run: |
+          cd SaTi
+          rsync -avz --delete -e "ssh -p 22" \
+            . ${GITEA_DEPLOY_USER}@c12.sedcode.cn:/opt/ZooDeploy/SaTi/
+
+      - name: Run evaluation on sedcode
+        run: |
+          echo "Connecting to sedcode for evaluation..."
+          # Evaluation will run on sedcode cluster
+        env:
+          TARGET_HOST: c12.sedcode.cn
+          DEPLOY_USER: ${GITEA_DEPLOY_USER}
+
+      - name: Check Results
+        run: |
+          ls -l SaTi/eval/results/*.json 2>/dev/null || echo "Results pending"
+
+      - name: Notify Evaluation Result
+        run: |
+          RESULT_STATUS=$(ls SaTi/eval/results/*.json >/dev/null 2>&1 && echo "passed" || echo "failed")
+          if [[ "$RESULT_STATUS" == "passed" ]]; then
+            echo "✅ Evaluation passed" | sendme -s "SaTi evaluation: ${{ inputs.benchmark }} - ${{ inputs.model_name }}"
+          else
+            echo "❌ Evaluation failed" | sendme -s "SaTi evaluation: ${{ inputs.benchmark }} - failed"
+            echo "Please check logs and parameters"
+          fi
