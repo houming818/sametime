@@ -1,0 +1,20 @@
+services:
+  phase:
+    image: reg.grepcode.cn/sati/sametime-base:cu121-py310
+    working_dir: /workspace
+    command: python3 phase2_bahdanau/train.py
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    volumes:
+      - /data/homecicd/sametime/code/wmt:/workspace
+      - /data/homecicd/sametime:/data
+    environment:
+      - HF_DATASETS_CACHE=/data/datasets
+      - HF_HOME=/data/huggingface
+      - HF_TRUST_REMOTE_CODE=1
+      - HTTP_PROXY=http://192.168.1.101:10809
+      - HTTPS_PROXY=http://192.168.1.101:10809
+      - NO_PROXY=localhost,127.0.0.0/24,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.grepcode.cn,*.sedcode.cn

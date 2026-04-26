@@ -1,11 +1,127 @@
-# SaTi/AGENTS.txt
+# SameTime/AGENTS.txt
+# 项目 Agent 协作规范
+# 维护者：T3 (架构师/平台负责人)
+# 最后更新：2026-04-25
 
-【初始职责】
-本文件由 T3（架构师/平台负责人）维护。
+## 项目概述
+- **项目名称**: SameTime (Study and Tuning for LLMs)
+- **项目用途**: 学习 LLM/LLaMA 模型相关技术，包括微调、推理、性能优化
+- **技术栈**: Python 3.10+, PyTorch 2.0+, Transformers, PEFT, DeepSpeed, Docker
+- **仓库结构**: 
+  - `./scripts/` - T1 工程师编写的微调/推理脚本
+  - `./data/` - 训练/测试数据集（不包含生产数据）
+  - `./models/` - 模型权重存储（gitignored）
+  - `./experiments/` - 实验配置和日志
+  - `./docs/` - 学习笔记和文档
+  - `./benchmark/wmt/` - NMT 历史演进复现代码（Phase 0→6）
+  - history.txt 每次重要操作或变更，都主动记录到history.txt中
+  - Makefile 快速指令文件，用于快速构建与触发测试文件
+- 环境描述：
+  - 开发主机 ni 开发账号nio 无显卡
+  - 运行主机 io 运行账号houming818 运行主机有24G显存 有限采用DOCKER_HOST的方式基于docker运行
+  - 有一个docker的registry: https://reg.grepcode.cn 可以使用,要善于将公网的image，缓存到本地重复使用，例如：
+  docker tag nvidia/cuda:12.1.0-runtime-ubuntu22.04 reg.grepcode.cn/sati/nvidia_cuda:12.1.0-runtime-ubuntu22.04
 
-1. SaTi 项目用途：学习LLM/LLaMA模型相关技术
-2. 开发阶段：T1工程师负责模型微调、推理脚本编写、数据准备
-3. 环境隔离：使用独立 Docker 容器，不占用生产端口
-4. 测试流程：所有实验在 test 环境验证，严禁直接修改生产数据
+## 角色职责
 
-——（后续随着实际工作逐步补充具体职责）——
+### T1 - 算法工程师
+**核心职责**:
+- 编写 LLaMA 模型微调脚本（LoRA, QLoRA, Full Fine-tuning）
+- 实现推理脚本（单卡/多卡推理，量化推理）
+- 准备和处理训练/验证数据集（格式转换、Tokenization）
+- 实验设计和超参数调优
+- 在 test 环境中验证模型效果
+
+**工作流程**:
+1. 从 T3 领受任务（Issue/需求文档）
+2. 在 `feature/xxx` 分支开发脚本
+3. 本地 Docker 容器内测试运行
+4. 提交 PR 给 T3 审查
+5. 合并后更新 `./experiments/` 中的实验记录
+
+**限制**:
+- ❌ 不得直接修改生产数据或访问生产环境
+- ❌ 不得在非 test 环境运行耗时代码
+- ✅ 所有模型权重文件必须放在 `./models/` 且通过 `.gitignore` 排除
+- ✅ 所有实验配置必须可复现（记录随机种子、依赖版本）
+
+### T2 - 测试/运维工程师
+**核心职责**:
+- 维护 Docker 镜像和环境配置（`Dockerfile`, `docker-compose.yml`）
+- 设计评估指标（BLEU, ROUGE, 推理速度, 显存占用）
+- 编写自动化测试脚本（单元测试、集成测试）
+- 监控 test 环境资源使用（避免 GPU 冲突）
+- 文档化环境搭建步骤
+
+**工作流程**:
+1. 为 T1 提供基础镜像和环境模板
+2. 编写测试用例验证 T1 的 PR
+3. 记录性能基线和回归测试结果
+4. 定期更新依赖和优化容器配置
+
+**限制**:
+- ❌ 不得在生产环境部署未经验证的配置
+- ❌ 不得在多人共用 GPU 上未经预约运行任务
+- ✅ 测试报告必须包含可重现的命令和日志
+
+### T3 - 架构师/平台负责人
+**核心职责**:
+- 制定项目技术路线和技术选型
+- 分配任务和优先级
+- Code Review 所有 PR（重点关注：代码规范、资源安全、实验可复现性）
+- 维护本项目 `AGENTS.txt` 和 `./AGENTS` 目录
+- 管理对外文档和知识沉淀
+
+**决策权**:
+- 批准/拒绝架构变更提案
+- 决定是否引入新依赖或工具
+- 裁定实验结果的验收标准
+
+**限制**:
+- ✅ 每周至少 Review 一次待处理的 PR
+- ✅ 所有重要决策必须记录在 `./decisions/` 中
+
+## 环境隔离与测试规范
+
+### 分层镜像缓存策略
+将镜像分为两层，避免每次迭代都下载 CUDA wheels（~2.5GB）：
+```
+base/           # 底层：nvidia/cuda + python3 + torch cu121（频繁变化）
+Dockerfile      # 应用层：FROM base + 业务脚本（每次迭代变化）
+```
+构建一次 base 后 push 到 registry，后续应用层迭代只需秒级构建。
+
+```bash
+# 首次构建 base（15-20 分钟）
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker build -t reg.grepcode.cn/sati/sametime-base:cu121-py310 benchmark/hello_sati/base/
+DOCKER_HOST=ssh://houming818@io.grepcode.cn docker push reg.grepcode.cn/sati/sametime-base:cu121-py310
+
+# 应用层迭代（秒级）
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker build -t reg.grepcode.cn/sati/sametime-hello:latest benchmark/hello_sati/
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker run --gpus all --rm reg.grepcode.cn/sati/sametime-hello:latest
+```
+
+### 历史记录规范
+- 每次实验/操作完成后，将操作过程和可复现步骤记录到 `history.txt`
+- `history.txt` 按时间倒序排列（最新在前），每条包含日期、目标、工作流、结果
+- 脚本代码与日志分离：脚本放 `benchmark/xxx/`，日志放 `history.txt`
+
+### Docker 容器使用
+```bash
+# 标准开发流程
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker build -t reg.grepcode.cn/sati/SameTime-dev:latest .
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker run --gpus all -it --rm \
+  -v $(pwd):/workspace \
+  -v /data/models:/models:ro \
+  SameTime-dev:latest
+
+  $$$
+  1 现在构造makefile，让我可以按照你预计的进度，按个逐步运行
+  2 你的代码，没有用docker 或者docker compose,例如phase0_skeleton,这算功能缺失，无法在io上运行代码
+  3 在io上，有个host dir /data/homecicd/ 用在docker compose中，作为持久卷，用于持久化数据，例如dataset，日志，环境变量等
+  另外 nmt被我重命名为wmt

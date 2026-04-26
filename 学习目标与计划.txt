@@ -74,4 +74,184 @@
 - 每次评估记录实验日志，便于追溯
 - 遵循开源协议与合理使用规范
 
+你可以把“从 RNN 时代一路做到 Transformer（WMT 翻译任务）”拆成一条**可复现实验时间线**：每一步只引入一个关键思想/改动，并且让代码保持同一套数据处理与评测口径（BLEU）。这样 AI 才能按阶段生成“能跑、能对比”的 Python 代码。
+
+下面给你两部分：**(A) 任务拆解路线图** + **(B) 可直接复制的提示词模板（让 AI 分阶段产出代码）**。
+
+---
+
+## A) 如何拆解：从历史方案到 Transformer 的最小增量路线
+
+### Phase 0：实验底座（先把“跑通”）
+目标：固定数据、分词、词表、训练/验证循环、BLEU 评测、日志与保存。
+- 数据：WMT14 En-De（太大）可用 IWSLT14 De-En 做“快速复刻”，或用 WMT 的小子集做教程
+- 分词：从最早的 word-level（带 `<unk>`）开始，后面逐步升级到 BPE/SentencePiece
+- 评测：sacreBLEU（保证可比）
+- 训练：teacher forcing，label smoothing（可后置），checkpoint
+
+**产物**：一个 `dataset.py / model.py / train.py / eval.py` 的骨架，先用“最简 Seq2Seq”跑出一个 baseline BLEU（哪怕很低）。
+
+---
+
+### Phase 1：RNN Seq2Seq（2014）
+模型：Encoder RNN + Decoder RNN（无 attention）
+- Encoder: (bi)LSTM/GRU
+- Decoder: LSTM/GRU
+- 输入输出：teacher forcing + greedy decoding
+- 痛点：长句性能差、信息瓶颈（最后 hidden state）
+
+**对比点**：训练速度、BLEU、长句翻译质量明显差。
+
+---
+
+### Phase 2：Additive Attention（Bahdanau 2015）
+在 Phase 1 上最小改动：给 decoder 加 attention。
+- 对齐机制：Additive (MLP) attention
+- context vector 每个 step 动态算
+- 显著提升：长句翻译、对齐可视化
+
+**对比点**：同样的数据/分词，BLEU 上升；可输出 attention heatmap。
+
+---
+
+### Phase 3：Luong Attention（2015）+ 双向 Encoder + beam search
+仍然在 RNN 系列里演进：
+- Attention 变体：dot/general
+- 引入 beam search（这通常会显著提高 BLEU）
+- length penalty / coverage（可选）
+
+**对比点**：同一模型，仅解码策略变化对 BLEU 的影响；再对比 attention 类型。
+
+---
+
+### Phase 4：从 word-level 到 BPE（2015-2016）
+这是当年 NMT 提升的关键工程手段：
+- 用 SentencePiece/BPE 建子词词表（8k/16k/32k）
+- `<unk>` 显著减少
+- 训练更稳定
+
+**对比点**：同模型+不同分词方式，BLEU 变化；OOV 率变化。
+
+---
+
+### Phase 5：ConvS2S / ByteNet（可选分支）
+如果你想完整回顾 “attention 之前/并行化探索”：
+- CNN Encoder/Decoder（fairseq 有经典实现）
+- 但从“自己写”角度成本较高，建议作为阅读+引用结果，不一定要自己从零复现
+
+---
+
+### Phase 6：Transformer（Vaswani 2017）
+最后才上 “Attention Is All You Need”：
+- Multi-head self-attention
+- Position encoding
+- FFN + residual + layernorm
+- Label smoothing、warmup LR、dropout
+- beam search
+
+**对比点**：训练并行度（吞吐）、收敛速度、BLEU、参数量与速度。
+
+---
+
+## B) 如何写提示词，让 AI 逐步生成“可运行的 Python 代码”
+
+核心原则：**一次只让 AI 输出一个可运行的最小单元**，并且你提供“硬约束”，避免它生成一堆跑不起来的伪代码。
+
+### 你要固定的“实验规范”（提示词里写死）
+- 框架：PyTorch（建议）
+- 数据：先用 IWSLT14 De-En 或 WMT14 En-De 子集（给定下载方式）
+- 分词：最初 whitespace + vocab；之后 SentencePiece/BPE
+- 评测：sacreBLEU
+- 解码：先 greedy，之后 beam search
+- 可复现：seed、版本、requirements.txt
+- 结构：每一步保持同目录结构，上一阶段可直接复用
+
+---
+
+## 可复制的提示词：总控（让 AI 先出计划和目录）
+把下面整段丢给 AI：
+
+> 你是我的 NMT 复现实验助手。我想按历史时间线复现机器翻译：  
+> (1) RNN Seq2Seq（无 attention）→ (2) Bahdanau attention → (3) Luong attention + beam search → (4) BPE → (5) Transformer。  
+> 约束：只用 PyTorch；单机单卡可跑；先用 IWSLT14 De-En（默认），之后可切换到 WMT14 En-De；评测必须用 sacreBLEU；每个阶段都要能训练、验证、保存 checkpoint、并输出 BLEU。  
+> 请先输出：  
+> 1) 每个阶段的最小可运行目标（MVP）和对比指标  
+> 2) 统一的项目目录结构  
+> 3) requirements.txt  
+> 4) 每一步你将生成哪些文件、每个文件包含什么  
+> 不要写代码，先给计划。
+
+---
+
+## 可复制的提示词：每个阶段“生成代码”的模板
+每次只生成一个阶段，并强制它“先生成骨架、再补细节”。
+
+### Step 0：生成可运��底座（数据+训练框架）
+> 现在开始 Phase 0：搭建实验底座。  
+> 目标：IWSLT14 De-En，最简单的 word-level tokenizer + vocab；实现 dataset/dataloader；实现训练循环（teacher forcing）；实现 greedy 解码；实现 sacreBLEU 评测；能在 CPU 上用很小数据跑通 1 个 epoch。  
+> 输出要求：  
+> - 给出完整可运行代码（多文���），用 markdown code fence 并标注文件名。  
+> - 每个文件尽量短；不写无用功能。  
+> - 命令行：`python train.py ...` / `python eval.py ...` 必须可运行。  
+> - 数据下载如果复杂，请给出“使用 torchtext 或 huggingface datasets”的最简方式。  
+> 开始输出代码。
+
+### Phase 1：RNN Seq2Seq（无 attention）
+> 基于 Phase 0 的代码，在不改数据管线/评测的前提下，实现 Phase 1：BiLSTM Encoder + LSTM Decoder 的 Seq2Seq（无 attention）。  
+> 约束：  
+> - 只改 `models/seq2seq_rnn.py` 和最少量训练脚本配置  
+> - 解释张量 shape（batch-first）  
+> - 支持 greedy decode  
+> 输出：修改/新增的文件完整内容 + 如何运行 + 预期现象（BLEU 很低也没关系）。
+
+### Phase 2：Bahdanau Attention
+> 在 Phase 1 的基础上，实现 Bahdanau additive attention。  
+> 约束：  
+> - attention 单独一个模块 `models/attention.py`  
+> - decoder 每一步计算 context，concat 到输入或输出（你选一种，但要写清公式）  
+> - 保留旧模型可对比  
+> 输出：新增/修改文件 + 运��命令 + 如何打印/保存一条样例的 attention heatmap（可选用 matplotlib）。
+
+### Phase 3：Luong + Beam Search
+> 在 Phase 2 基础上加入：  
+> 1) Luong dot/general attention（与 Bahdanau 并存，可通过参数选择）  
+> 2) beam search 解码（beam_size 可配，带长度惩罚）  
+> 约束：beam search 写成独立函数 `decoding/beam_search.py`，并提供单元测试或最小 demo。  
+> 输出：代码 + 示例 + 注意事项。
+
+### Phase 4：BPE/SentencePiece
+> 在不改变模型结构的情况下，把分词从 word-level 替换为 SentencePiece BPE（例如 vocab_size=8000）。  
+> 约束：  
+> - 提供训练 spm 模型脚本 `scripts/train_spm.py`  
+> - 数据预处理与训练/评测全链路能跑通  
+> 输出：新增脚本/修改点 + 运行流程（一步步命令）。
+
+### Phase 6：Transformer
+> 在现有数据/评测框架上新增 Transformer（encoder-decoder）。  
+> 约束：  
+> - 参考 Vaswani 2017：multi-head attention、positional encoding、FFN、residual+layernorm  
+> - 提供学习率 warmup scheduler、label smoothing  
+> - beam search 复用 Phase 3  
+> 输出：新增/修改文件 + 推荐超参（小模型能在 3090 上跑）+ 你预计 BLEU 相对 RNN 的提升原因。
+
+---
+
+## 让 AI “别跑偏”的几个关键写法
+- 明确“只输出改动文件”，避免它重写一整个项目导致你无法对比。
+- 明确“必须可运行”，并要求给出运行命令。
+- 明确“固定评测��具 sacreBLEU”和数据集，否则 BLEU 不可比。
+- 明确“每阶段只引入一个变量”，否则对比无意义。
+
+---
+
+## 我建议你先选哪套数据/规模（避免 WMT 直接卡住）
+如果你是“回顾历史+自己动手写代码”，强烈建议：
+- 先用 **IWSLT14 De-En** 跑通 Phase 0-3（快）
+- Phase 4 上 SentencePiece
+- Transformer 成功后再考虑迁移到 WMT14 En-De（数据大、训练久、工程要求更高）
+
+---
+
+如果你告诉我：你想用 **PyTorch + torchtext** 还是 **HuggingFace datasets**，以及你机器环境（你有 3090 24GB 对吧），我可以把上面的 Phase 0/1 的提示词再“收紧”成更具体的版本（比如固定 batch size、max_len、embedding dim），让 AI 更容易一次生成就能跑。
+
 —— 后续将逐步补充实验数据、评估结果与优化记录 ——

@@ -1,0 +1,110 @@
+## 2026-04-26: Phase 0 端到端跑通（wmt_phase0）
+
+- 数据：直接下载 IWSLT14 原始 XML 并解析（不依赖 `datasets` 库）
+- 持久卷：`/data/homecicd/sametime/` 挂载到容器 `/data`
+- 方式：`docker compose` + `DOCKER_HOST` + rsync 代码到 io
+- 结果：`make wmt_phase0` 2 epoch 完成，BLEU=1.88（Dummy 模型）
+- 耗时：首次下载数据 ~2min + 训练 ~1min
+
+---
+
+## 2026-04-26: 搭建 NMT 复现实验结构 (Phase 0→6)
+
+在 `benchmark/nmt/` 下创建 NMT 历史演进复现代码：
+
+```
+benchmark/nmt/
+├── base/                    # 共享：dataset.py / eval.py / utils.py
+├── phase0_skeleton/         # 骨架：验证数据+评测管线
+├── phase1_rnn/              # RNN Seq2Seq（无 attention）
+├── phase2_bahdanau/         # + Bahdanau additive attention
+├── phase3_luong/            # + Luong attention + beam search
+├── phase4_bpe/              # + SentencePiece BPE 替换 word-level
+└── phase6_transformer/      # Transformer（multi-head + pos enc + warmup）
+```
+
+每个 phase 独立可运行，通过 `make nmt_phaseX` 启动：
+```bash
+make nmt_phase0   # 骨架验证
+make nmt_phase1   # RNN 训练
+make nmt_phase2   # + Bahdanau attention
+make nmt_phase3   # + beam search
+make nmt_phase4_bpe  # BPE 分词 + 训练
+make nmt_phase6   # Transformer
+```
+
+实现原理：基于 `sametime-base:cu121-py310` 镜像，通过 `-v $(PWD):/workspace` 挂载代码目录运行，无需构建。
+
+---
+
+## 2026-04-26: 构建并推送 sametime-base + make hello_sati 验证
+
+- 构建 `reg.grepcode.cn/sati/sametime-base:cu121-py310`（来自 `benchmark/hello_sati/base/Dockerfile`）
+- 推送到 registry（nvidia/cuda 层复用，仅新增 python3 + torch 层）
+- `make hello_sati` 全链路验证通过，构建 0.0s（缓存命中），RTX 3090 识别正常
+
+---
+
+## 2026-04-26: 新增 make hello_sati 快速启动
+
+根 `Makefile` 新增 `hello_sati` target，一键构建 + 运行：
+```bash
+make hello_sati                          # 默认 DOCKER_HOST
+DOCKER_HOST=... make hello_sati          # 自定义 host
+```
+
+新增 benchmark 只需追加类似 target，模式为 `build + run --gpus all`。
+
+---
+
+## 2026-04-26: Hello World GPU 验证
+
+### 目标
+通过 `DOCKER_HOST` 在 `io` 上用 GPU 运行。建立分层镜像缓存，实现秒级迭代。
+
+### 目录结构
+```
+benchmark/hello_sati/
+├── base/
+│   └── Dockerfile        # 底层镜像：nvidia/cuda + python3 + torch cu121
+├── Dockerfile            # 应用镜像：FROM base + 业务脚本
+├── docker-compose.yml    # GPU 资源声明
+└── hello_world.py        # Hello World 脚本
+```
+
+### 工作流
+
+#### 1. 构建并缓存底层镜像（仅首次/更新依赖时）
+```bash
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker build -t reg.grepcode.cn/sati/sametime-base:cu121-py310 \
+  benchmark/hello_sati/base/
+
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker push reg.grepcode.cn/sati/sametime-base:cu121-py310
+```
+耗时约 15-20 分钟（pip 下载 CUDA wheels）。
+
+#### 2. 构建应用镜像（秒级）
+```bash
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker build -t reg.grepcode.cn/sati/sametime-hello:latest \
+  benchmark/hello_sati/
+```
+
+#### 3. 运行
+```bash
+# docker run
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker run --gpus all --rm reg.grepcode.cn/sati/sametime-hello:latest
+
+# docker compose
+DOCKER_HOST=ssh://houming818@io.grepcode.cn \
+  docker compose -f benchmark/hello_sati/docker-compose.yml run --rm hello-sati
+```
+
+### 结果
+- **GPU**: NVIDIA GeForce RTX 3090 (23.69 GB)
+- **CUDA**: 12.1 / PyTorch: 2.5.1+cu121
+- **Matmul**: ✅ 通过
+- **DOCKER_HOST**: ✅ `docker run --gpus all` 和 `docker compose run` 均验证通过

@@ -1,0 +1,11 @@
+services:
+  hello-sati:
+    build: .
+    image: reg.grepcode.cn/sati/sametime-hello:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
