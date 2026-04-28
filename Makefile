@@ -1,6 +1,6 @@
 # SaTi - 本地开发工作流
 .PHONY: install eval fine test deploy clean deps hello_sati \
-        wmt_phase0 wmt_phase1 wmt_phase2 wmt_phase3 wmt_phase4_bpe wmt_phase6
+        wmt_phase0 wmt_phase1_0 wmt_phase1_1 wmt_phase2 wmt_phase3 wmt_phase4_bpe wmt_phase6
 
 DOCKER_HOST ?= ssh://houming818@io.grepcode.cn
 REGISTRY ?= reg.grepcode.cn/sati
@@ -31,8 +31,11 @@ wmt_base:
 # Each phase runs via docker compose
 wmt_phase0: wmt_base
 	DOCKER_HOST=$(DOCKER_HOST) docker compose -f $(WMT_DIR)/phase0_skeleton/docker-compose.yml run --rm phase
-wmt_phase1: wmt_base
-	DOCKER_HOST=$(DOCKER_HOST) docker compose -f $(WMT_DIR)/phase1_rnn/docker-compose.yml run --rm phase $(ARGS)
+wmt_phase1_0: wmt_base
+	DOCKER_HOST=$(DOCKER_HOST) docker compose -f $(WMT_DIR)/phase1_0_rnn/docker-compose.yml run --rm phase $(ARGS)
+wmt_phase1_1: wmt_base
+	DOCKER_HOST=$(DOCKER_HOST) docker compose -f $(WMT_DIR)/phase1_1_lstm/docker-compose.yml run --rm phase $(ARGS)
+wmt_phase1: wmt_phase1_1
 wmt_phase2: wmt_base
 	DOCKER_HOST=$(DOCKER_HOST) docker compose -f $(WMT_DIR)/phase2_bahdanau/docker-compose.yml run --rm phase $(ARGS)
 wmt_phase3: wmt_base

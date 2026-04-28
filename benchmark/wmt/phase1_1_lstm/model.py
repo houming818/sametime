@@ -1,14 +1,28 @@
 """
-Phase 1: RNN Seq2Seq（无 attention）
+Phase 1.1: LSTM Seq2Seq（三扇门 + 细胞状态）
+========
 
 Encoder: BiLSTM
 Decoder: LSTM
 训练: teacher forcing
+
+LSTM 用三个门（遗忘门 f_t、输入门 i_t、输出门 o_t）加上细胞状态 c_t，
+解决了 vanilla RNN 的梯度消失问题：
+
+  f_t = σ(W_f·[h_{t-1}, x_t])      # 遗忘门：丢掉多少旧记忆
+  i_t = σ(W_i·[h_{t-1}, x_t])      # 输入门：写入多少新信息
+  o_t = σ(W_o·[h_{t-1}, x_t])      # 输出门：暴露多少给外面
+  c̃_t = tanh(W_c·[h_{t-1}, x_t])   # 候选记忆
+
+  c_t = f_t ⊙ c_{t-1} + i_t ⊙ c̃_t   # 细胞状态：加性更新 → 梯度直通
+  h_t = o_t ⊙ tanh(c_t)             # 隐藏输出
+
+关键：c_t 的更新是 f_t*c_{t-1} + i_t*c̃_t，没有连乘 tanh，
+梯度可以通过 c_{t-1}→c_t 的"高速公路"直达早期时间步。
 """
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 class Encoder(nn.Module):
@@ -17,22 +31,16 @@ class Encoder(nn.Module):
         self.embed = nn.Embedding(vocab_size, embed_size, padding_idx=0)
         self.rnn = nn.LSTM(embed_size, hidden_size, num_layers,
                            bidirectional=True, dropout=dropout, batch_first=True)
-        self.proj = nn.Linear(hidden_size * 2, hidden_size)  # 合并双向 → decoder hidden_size
 
     def forward(self, src, src_len):
-        # src: (B, S)   src_len: (B,)
-        embedded = self.embed(src)                     # (B, S, E)
+        embedded = self.embed(src)
         packed = nn.utils.rnn.pack_padded_sequence(
             embedded, src_len.cpu(), batch_first=True, enforce_sorted=False)
         packed_out, (hidden, cell) = self.rnn(packed)
         enc_out, _ = nn.utils.rnn.pad_packed_sequence(packed_out, batch_first=True)
-        # enc_out: (B, S, H*2)
-        # hidden: (2*num_layers, B, H)  — 前向后向各一层
-        # cell:   (2*num_layers, B, H)
 
-        # 将双向 hidden 合并为单向 (num_layers, B, H)
-        hidden = hidden.view(2, 2, -1, hidden.size(2))  # (2_dir, num_layers, B, H)
-        hidden = hidden.sum(dim=0)                       # (num_layers, B, H)
+        # BiLSTM 双向合并
+        hidden = hidden.view(2, 2, -1, hidden.size(2)).sum(dim=0)
         cell = cell.view(2, 2, -1, cell.size(2)).sum(dim=0)
 
         return enc_out, (hidden, cell)
@@ -42,15 +50,15 @@ class Decoder(nn.Module):
     def __init__(self, vocab_size, embed_size, hidden_size, num_layers=2, dropout=0.3):
         super().__init__()
         self.embed = nn.Embedding(vocab_size, embed_size, padding_idx=0)
-        self.rnn = nn.LSTM(embed_size, hidden_size, num_layers, dropout=dropout, batch_first=True)
+        self.rnn = nn.LSTM(embed_size, hidden_size, num_layers,
+                           dropout=dropout, batch_first=True)
         self.out = nn.Linear(hidden_size, vocab_size)
 
     def forward(self, tgt, encoder_states):
-        # tgt: (B, T)
         enc_out, (hidden, cell) = encoder_states
-        embedded = self.embed(tgt)       # (B, T, E)
-        output, (hidden, cell) = self.rnn(embedded, (hidden, cell))  # (B, T, H)
-        logits = self.out(output)        # (B, T, V)
+        embedded = self.embed(tgt)
+        output, (hidden, cell) = self.rnn(embedded, (hidden, cell))
+        logits = self.out(output)
         return logits, (hidden, cell)
 
 
@@ -61,6 +69,6 @@ class Seq2Seq(nn.Module):
         self.decoder = decoder
 
     def forward(self, src, tgt, src_len):
-        enc_out, hidden = self.encoder(src, src_len)
-        logits, _ = self.decoder(tgt, (enc_out, hidden))
+        enc_out, states = self.encoder(src, src_len)
+        logits, _ = self.decoder(tgt, states)
         return logits

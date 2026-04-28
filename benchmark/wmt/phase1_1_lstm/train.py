@@ -1,5 +1,5 @@
 """
-Phase 1: RNN Seq2Seq 训练入口
+Phase 1.1: LSTM Seq2Seq 训练入口
 """
 
 import sys
@@ -21,10 +21,10 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def greedy_decode(model, src, src_len, vocab_tgt, max_len=50, device="cuda"):
     model.eval()
     with torch.no_grad():
-        enc_out, hidden = model.encoder(src, src_len)
+        enc_out, (hidden, cell) = model.encoder(src, src_len)
         ys = torch.full((src.size(0), 1), vocab_tgt.SOS, dtype=torch.long, device=device)
         for _ in range(max_len):
-            logits, hidden = model.decoder(ys, (enc_out, hidden))
+            logits, (hidden, cell) = model.decoder(ys, (enc_out, (hidden, cell)))
             pred = logits[:, -1:, :].argmax(-1)
             ys = torch.cat([ys, pred], dim=1)
             if (pred == vocab_tgt.EOS).all():
@@ -37,7 +37,7 @@ def train_epoch(model, loader, criterion, optimizer, clip=1.0):
     total_loss = 0
     for src, tgt, src_len, tgt_len in loader:
         src, tgt = src.to(DEVICE), tgt.to(DEVICE)
-        logits = model(src, tgt[:, :-1], src_len)       # (B, T-1, V)
+        logits = model(src, tgt[:, :-1], src_len)
         loss = criterion(logits.reshape(-1, logits.size(-1)),
                          tgt[:, 1:].reshape(-1))
         optimizer.zero_grad()
@@ -62,32 +62,34 @@ def evaluate(model, loader, vocab_tgt):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--checkpoint", type=str, default=None, help="resume from checkpoint")
+    parser.add_argument("--checkpoint", type=str, default=None)
     parser.add_argument("--epochs", type=int, default=5)
+    parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--hidden", type=int, default=256)
+    parser.add_argument("--embed", type=int, default=256)
+    parser.add_argument("--layers", type=int, default=2)
+    parser.add_argument("--dropout", type=float, default=0.3)
+    parser.add_argument("--batch-size", type=int, default=64)
     args = parser.parse_args()
 
     set_seed(42)
-    print(f"[Phase 1] device={DEVICE}")
+    print(f"[Phase 1.1 LSTM] device={DEVICE}")
 
-    # ---- data ----
     print("  building vocab...")
     train_raw = load_iwslt14("train")
     vocab_src = Vocab([p["de"] for p in train_raw], min_freq=2)
     vocab_tgt = Vocab([p["en"] for p in train_raw], min_freq=2)
     print(f"  |src|={len(vocab_src)}  |tgt|={len(vocab_tgt)}")
 
-    train_loader = build_dataloader("train", vocab_src, vocab_tgt, batch_size=64)
-    valid_loader = build_dataloader("validation", vocab_src, vocab_tgt, batch_size=64, shuffle=False)
+    train_loader = build_dataloader("train", vocab_src, vocab_tgt, batch_size=args.batch_size)
+    valid_loader = build_dataloader("validation", vocab_src, vocab_tgt, batch_size=args.batch_size, shuffle=False)
 
-    # ---- model ----
-    HIDDEN = 256
-    EMBED = 256
-    encoder = Encoder(len(vocab_src), EMBED, HIDDEN)
-    decoder = Decoder(len(vocab_tgt), EMBED, HIDDEN)
+    encoder = Encoder(len(vocab_src), args.embed, args.hidden, args.layers, args.dropout)
+    decoder = Decoder(len(vocab_tgt), args.embed, args.hidden, args.layers, args.dropout)
     model = Seq2Seq(encoder, decoder).to(DEVICE)
     print(f"  params={sum(p.numel() for p in model.parameters()):,}")
 
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    optimizer = optim.Adam(model.parameters(), lr=args.lr)
     criterion = torch.nn.CrossEntropyLoss(ignore_index=Vocab.PAD)
     start_epoch = 0
 
@@ -96,16 +98,15 @@ def main():
         start_epoch = ckpt["epoch"] + 1
         print(f"  resumed from epoch {ckpt['epoch']} (BLEU={ckpt['bleu']:.2f})")
 
-    # ---- train ----
     for epoch in range(start_epoch, args.epochs):
         loss = train_epoch(model, train_loader, criterion, optimizer)
         bleu = evaluate(model, valid_loader, vocab_tgt)
         print(f"  epoch={epoch}  loss={loss:.3f}  BLEU={bleu:.2f}")
-        log_metrics(epoch, loss, bleu, 1e-3)
+        log_metrics(epoch, loss, bleu, args.lr)
 
     os.makedirs("checkpoints", exist_ok=True)
-    save_checkpoint("checkpoints/phase1.pt", model, optimizer, epoch, bleu, {"phase": 1})
-    print("[Phase 1] done")
+    save_checkpoint("checkpoints/phase1_1_lstm.pt", model, optimizer, epoch, bleu, {"phase": "1.1"})
+    print("[Phase 1.1 LSTM] done")
 
 
 if __name__ == "__main__":
