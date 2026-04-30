@@ -66,35 +66,36 @@ make wmt_phase1_0
 
 #### 已完成组 (2026-04-30)
 
-| hidden | params | epoch-0 loss | epoch-0 BLEU | epoch-4 loss | epoch-4 BLEU | best BLEU | 时间 |
-|---|---|---|---|---|---|---|---|
-| 128 | 24,308,556 | 5.967 | 2.71 | 4.841 | 2.17 | 2.71 (epoch 0) | ~2min |
-| 256 | 49,019,212 | 5.736 | 2.02 | 4.561 | 2.24 | 2.32 (epoch 2) | ~5min |
+| hidden | params | epoch-0 loss | best BLEU | epoch-0 BLEU | epoch-4 BLEU | 耗时 |
+|---|---|---|---|---|---|---|
+| 16 | 3,063,052 | 7.038 | 2.13 (ep4) | 0.00 | 2.13 | 285s |
+| 32 | 6,076,620 | 6.631 | 2.94 (ep4) | 1.05 | 2.94 | 290s |
+| 64 | 12,125,260 | 6.240 | 2.97 (ep0) | 2.97 | 2.55 | 307s |
+| 128 | 24,308,556 | 5.967 | 2.71 (ep0) | 2.71 | 2.17 | 379s |
+| 256 | 49,019,212 | 5.736 | 2.32 (ep2) | 2.02 | 2.24 | 528s |
+| 512 | 99,816,780 | 5.691 | **3.02 (ep2)** | 1.84 | 2.48 | 895s |
+| 1024 | 206,916,940 | 5.981 | 2.42 (ep1) | 1.57 | 1.60 | 1741s |
 
-**原始数据**：
+**原始 jsonl 数据**：
 
-```
-# H128
-{"epoch":0,"loss":5.967,"bleu":2.71}
-{"epoch":1,"loss":5.287,"bleu":2.44}
-{"epoch":2,"loss":5.070,"bleu":2.26}
-{"epoch":3,"loss":4.936,"bleu":2.52}
-{"epoch":4,"loss":4.841,"bleu":2.17}
+| 文件 | 行数 | 说明 |
+|---|---|---|
+| `results/metrics_h16.jsonl` | 5 | H=16, 5 epochs |
+| `results/metrics_h32.jsonl` | 5 | H=32, 5 epochs |
+| `results/metrics_h64.jsonl` | 5 | H=64, 5 epochs |
+| `results/metrics_h128.jsonl` | 5 | H=128, 5 epochs |
+| `results/metrics_h256.jsonl` | 5 | H=256, 5 epochs |
+| `results/metrics_h512.jsonl` | 5 | H=512, 5 epochs |
+| `results/metrics_h1024.jsonl` | 5 | H=1024, 5 epochs |
 
-# H256
-{"epoch":0,"loss":5.736,"bleu":2.02}
-{"epoch":1,"loss":5.050,"bleu":2.12}
-{"epoch":2,"loss":4.817,"bleu":2.32}
-{"epoch":3,"loss":4.668,"bleu":2.17}
-{"epoch":4,"loss":4.561,"bleu":2.24}
-```
+存储于 io: `/data/homecicd/sametime/results/`
 
 #### 初步结论
 
-1. **容量翻倍，BLEU 不变**：H128→H256 参数量翻倍（24M→49M），但 BLEU 在 2.0~2.7 之间没有显著提升。这符合无 Attention 的 Seq2Seq 信息瓶颈理论——hidden 再大也无法绕过"上下文向量瓶颈"。
-2. **最佳 BLEU 出现在早期 epoch**：H128 的 best BLEU 在 epoch 0（2.71），之后不升反降。可能在小容量模型中发生了过拟合。
-3. **H256 loss 收敛更快**：final loss 4.56 vs H128 的 4.84，但 BLEU 在 epoch 2 达到峰值后就停滞了。
-
-**待补数据**：H=16/32/64/512/1024 (io GPU 离线，需重启后执行 `./exp_hidden_scale.sh`)
+1. **BLEU 天花板 ≈ 3.0**：所有配置的最高 BLEU 不超过 3.02（H=512, epoch 2）。无 Attention 的 Seq2Seq 在 IWSLT14 de-en 上存在硬上限。
+2. **隐藏层扩大有最佳点**：BLEU 随 hidden 增大先升后降——H=512 (100M) 达峰 3.02，H=1024 (207M) 反而退到 2.42。**过参数化导致过拟合**。
+3. **小模型收敛慢但持续进步**：H=16/32 的 BLEU 随 epoch 单调上升，epoch-4 才达到 peak。大模型 (H≥128) 在 epoch 0-2 即达峰后衰退。
+4. **Loss 持续下降，BLEU 不升反降**：所有配置 loss 均递减，但多个 (H=128/512/1024) 的 BLEU 在中期 epoch 后下降。这是**过拟合**的典型信号——模型在 teacher forcing 上愈学愈好，但泛化到 Greedy Decode 时反而退化。
+5. **参数量与时间基本线性**：H=16 (3M) 285s → H=1024 (207M) 1741s，每 10M 参数约 80 秒。
 
 ### 对照分析实验 end
