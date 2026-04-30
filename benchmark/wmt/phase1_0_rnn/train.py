@@ -70,9 +70,10 @@ def main():
     parser.add_argument("--layers", type=int, default=2)
     parser.add_argument("--dropout", type=float, default=0.3)
     parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
-    set_seed(42)
+    set_seed(args.seed)
     print(f"[Phase 1.0 RNN] device={DEVICE}")
 
     # ---- data ----
