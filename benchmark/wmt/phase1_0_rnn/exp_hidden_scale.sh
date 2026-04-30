@@ -7,6 +7,7 @@ set -e
 DOCKER_HOST=${DOCKER_HOST:-ssh://houming818@io.grepcode.cn}
 IO="houming818@io.grepcode.cn"
 IO_DATA="/data/homecicd/sametime/code/wmt"
+IO_SAFE="/data/homecicd/sametime/results"
 COMPOSE_FILE="benchmark/wmt/phase1_0_rnn/docker-compose.yml"
 SUMMARY="./metrics_hidden_scale.jsonl"
 
@@ -38,9 +39,9 @@ for H in 16 32 64 128 256 512 1024; do
     T1=$(date +%s)
     DURATION=$((T1 - T0))
     
-    # 拉取 metrics
-    ssh $IO "cp ${IO_DATA}/metrics.jsonl ${IO_DATA}/metrics_h${H}.jsonl 2>/dev/null || true"
-    scp ${IO}:${IO_DATA}/metrics_h${H}.jsonl ./metrics_h${H}.jsonl 2>/dev/null || true
+    # 保存到安全目录（不被 make wmt_base 的 rm -rf 清掉）
+    ssh $IO "mkdir -p ${IO_SAFE} && cp ${IO_DATA}/metrics.jsonl ${IO_SAFE}/metrics_h${H}.jsonl 2>/dev/null || true"
+    scp ${IO}:${IO_SAFE}/metrics_h${H}.jsonl ./metrics_h${H}.jsonl 2>/dev/null || true
     
     # 写入摘要
     EPOCHS_OK=$(wc -l < ./metrics_h${H}.jsonl 2>/dev/null || echo 0)
