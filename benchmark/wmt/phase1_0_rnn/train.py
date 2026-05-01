@@ -69,6 +69,7 @@ def main():
     parser.add_argument("--embed", type=int, default=256)
     parser.add_argument("--enc-embed", type=int, default=None)
     parser.add_argument("--dec-embed", type=int, default=None)
+    parser.add_argument("--data-repeat", type=int, default=1, help="repeat training data N times")
     parser.add_argument("--layers", type=int, default=2)
     parser.add_argument("--dropout", type=float, default=0.3)
     parser.add_argument("--batch-size", type=int, default=64)
@@ -86,6 +87,14 @@ def main():
     print(f"  |src|={len(vocab_src)}  |tgt|={len(vocab_tgt)}")
 
     train_loader = build_dataloader("train", vocab_src, vocab_tgt, batch_size=args.batch_size)
+    # data repeat: artificially increase N_data for K_lang hypothesis testing
+    if args.data_repeat > 1:
+        train_raw = [p for _ in range(args.data_repeat) for p in train_raw]
+        from torch.utils.data import DataLoader
+        data = [(vocab_src.encode(p["de"]), vocab_tgt.encode(p["en"])) for p in train_raw]
+        from base.dataset import collate_fn
+        train_loader = DataLoader(data, batch_size=args.batch_size, shuffle=True, collate_fn=collate_fn)
+        print(f"  train data repeated {args.data_repeat}x → {len(train_raw):,} effective samples")
     valid_loader = build_dataloader("validation", vocab_src, vocab_tgt, batch_size=args.batch_size, shuffle=False)
 
     # ---- model ----
