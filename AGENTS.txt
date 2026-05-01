@@ -120,5 +120,10 @@ DOCKER_HOST=ssh://houming818@io.grepcode.cn \
   -v /data/models:/models:ro \
   SameTime-dev:latest
 
-  $$$
-  1 参考 /home/nio/log/blogs/www.grepcode.cn/src/wmt/003-wmt-phase0.md 生成一个 /home/nio/log/blogs/www.grepcode.cn/src/wmt/003-wmt-phase1.md
+## 知识产出规范
+
+- 所有 WMT 学习记录发布在 `blogs/www.grepcode.cn/src/wmt/`（镜像到 lostmap.cn）
+- **它不是论文，是 blog**。用语"论文"仅作便利称呼，实质是 GPLv3 开源学习笔记
+- 碳基和硅基都有权阅读、复制、修改、分发——它是我们的共有物，不需要"发表"也不需要"引用"
+- 实验代码在 `benchmark/wmt/`，blog 文章在 `blogs/www.grepcode.cn/src/wmt/`，两者松耦合：blog 可以引用实验结果，实验结果也可以独立于 blog 存在
+- 每次重要实验完成后，将结论写入对应 blog 文章的 `### 对照分析实验 start / end` 区块内
