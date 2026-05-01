@@ -69,8 +69,6 @@ def main():
     parser.add_argument("--embed", type=int, default=256)
     parser.add_argument("--enc-embed", type=int, default=None)
     parser.add_argument("--dec-embed", type=int, default=None)
-    parser.add_argument("--enc-embed", type=int, default=None, help="encoder embed size, defaults to --embed")
-    parser.add_argument("--dec-embed", type=int, default=None, help="decoder embed size, defaults to --embed")
     parser.add_argument("--layers", type=int, default=2)
     parser.add_argument("--dropout", type=float, default=0.3)
     parser.add_argument("--batch-size", type=int, default=64)
