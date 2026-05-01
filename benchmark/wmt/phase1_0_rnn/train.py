@@ -67,6 +67,10 @@ def main():
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--hidden", type=int, default=256)
     parser.add_argument("--embed", type=int, default=256)
+    parser.add_argument("--enc-embed", type=int, default=None)
+    parser.add_argument("--dec-embed", type=int, default=None)
+    parser.add_argument("--enc-embed", type=int, default=None, help="encoder embed size, defaults to --embed")
+    parser.add_argument("--dec-embed", type=int, default=None, help="decoder embed size, defaults to --embed")
     parser.add_argument("--layers", type=int, default=2)
     parser.add_argument("--dropout", type=float, default=0.3)
     parser.add_argument("--batch-size", type=int, default=64)
@@ -87,8 +91,10 @@ def main():
     valid_loader = build_dataloader("validation", vocab_src, vocab_tgt, batch_size=args.batch_size, shuffle=False)
 
     # ---- model ----
-    encoder = Encoder(len(vocab_src), args.embed, args.hidden, args.layers, args.dropout)
-    decoder = Decoder(len(vocab_tgt), args.embed, args.hidden, args.layers, args.dropout)
+    enc_embed = args.enc_embed if args.enc_embed is not None else args.embed
+    dec_embed = args.dec_embed if args.dec_embed is not None else args.embed
+    encoder = Encoder(len(vocab_src), enc_embed, args.hidden, args.layers, args.dropout)
+    decoder = Decoder(len(vocab_tgt), dec_embed, args.hidden, args.layers, args.dropout)
     model = Seq2Seq(encoder, decoder).to(DEVICE)
     print(f"  params={sum(p.numel() for p in model.parameters()):,}")
 
