@@ -1,0 +1,8 @@
+FROM ubuntu:22.04
+COPY artalk /usr/local/bin/artalk
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata ca-certificates && \
+    chmod +x /usr/local/bin/artalk && rm -rf /var/lib/apt/lists/*
+EXPOSE 23366
+ENTRYPOINT ["artalk", "server", "--host", "0.0.0.0", "--port", "23366"]
