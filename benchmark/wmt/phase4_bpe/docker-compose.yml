@@ -2,7 +2,7 @@ services:
   phase:
     image: reg.grepcode.cn/sati/sametime-base:cu121-py310
     working_dir: /workspace
-    command: python3 phase4_bpe/train_spm.py
+    entrypoint: ["python3", "phase4_bpe/train.py"]
     deploy:
       resources:
         reservations:
