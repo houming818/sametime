@@ -61,7 +61,7 @@ class MultiHeadAttention(nn.Module):
             scores = scores.masked_fill(mask == 0, -1e9)
 
         attn = F.softmax(scores, dim=-1)
-        out = torch.matmul(attn, V).transpose(1, 2).contiguous().view(B, -1, -1)
+        out = torch.matmul(attn, V).transpose(1, 2).contiguous().view(B, -1, self.W_o.out_features)
         return self.W_o(out)
 
 

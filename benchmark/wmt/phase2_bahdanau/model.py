@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), 'phase2_bahdanau'))
 from phase1_1_lstm.model import Encoder
 from attention import BahdanauAttention
 
@@ -24,22 +25,27 @@ class AttnDecoder(nn.Module):
 
     def forward(self, tgt, encoder_states):
         enc_out, (hidden, cell) = encoder_states
-        # enc_out: (B, S, H*2)
-        # hidden:  (num_layers, B, H)
+        # enc_out: (B, S, H*2), hidden: (num_layers, B, H)
 
-        embedded = self.embed(tgt)            # (B, T, E)
-        outputs = []
-        for t in range(embedded.size(1)):
-            # 上一步 hidden[-1] 作为 decoder state
-            dec_h = hidden[-1]                # (B, H)
-            src_mask = (enc_out.sum(-1) == 0)  # (B, S) — padding mask
-            context, _ = self.attention(dec_h, enc_out, src_mask)   # (B, H*2)
+        embedded = self.embed(tgt)  # (B, T, E)
+        src_mask = (enc_out.sum(-1) == 0)  # (B, S)
 
-            rnn_input = torch.cat([embedded[:, t, :], context], dim=-1).unsqueeze(1)  # (B, 1, E+H*2)
-            output, (hidden, cell) = self.rnn(rnn_input, (hidden, cell))
-            outputs.append(output)
+        # Step 1: Get LSTM decoder outputs for all time steps at once
+        # First, run LSTM on just the embeddings (no context yet)
+        # to get rough decoder states for attention computation
+        dec_outputs, (hidden, cell) = self.rnn(
+            torch.cat([embedded, torch.zeros(embedded.size(0), embedded.size(1), enc_out.size(-1), device=embedded.device)], dim=-1),
+            (hidden, cell)
+        )  # (B, T, H)
 
-        logits = self.out(torch.cat(outputs, dim=1))  # (B, T, V)
+        # Step 2: Compute attention for ALL time steps in parallel
+        context, _ = self.attention(dec_outputs, enc_out, src_mask)  # (B, T, H*2)
+
+        # Step 3: Re-run LSTM with context concatenated (teacher forcing in parallel)
+        rnn_input = torch.cat([embedded, context], dim=-1)  # (B, T, E+H*2)
+        dec_outputs, (hidden, cell) = self.rnn(rnn_input, (hidden, cell))  # (B, T, H)
+
+        logits = self.out(dec_outputs)  # (B, T, V)
         return logits, (hidden, cell)
 
 
