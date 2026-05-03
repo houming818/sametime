@@ -10,9 +10,11 @@ import torch.nn.functional as F
 
 
 class BahdanauAttention(nn.Module):
-    def __init__(self, hidden_size):
+    def __init__(self, hidden_size, enc_hidden_size=None):
         super().__init__()
-        self.W = nn.Linear(hidden_size, hidden_size, bias=False)   # U_a: project encoder outputs
+        if enc_hidden_size is None:
+            enc_hidden_size = hidden_size * 2  # bidirectional encoder output
+        self.W = nn.Linear(enc_hidden_size, hidden_size, bias=False)   # U_a: project encoder outputs
         self.U = nn.Linear(hidden_size, hidden_size, bias=False)   # W_a: project decoder states
         self.v = nn.Linear(hidden_size, 1, bias=False)             # v_a: score projection
 

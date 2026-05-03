@@ -88,3 +88,14 @@ def soft_bleu_loss(logits, ref_ids, pad_id=0, eos_id=2, max_n=4, ce_weight=0.7):
     bleu_loss = 1.0 - bleu
     total = ce_weight * ce + (1.0 - ce_weight) * bleu_loss
     return total, ce.detach(), bleu.detach()
+
+
+def soft_bleu_only_loss(logits, ref_ids, pad_id=0, eos_id=2, max_n=4):
+    """
+    Pure SoftBLEU loss: L = 1 - SoftBLEU(all n-grams 1..max_n).
+    No CE term — 1-gram in SoftBLEU naturally handles token accuracy.
+    CE and SoftBLEU 1-gram are equivalent, eliminating gradient conflict.
+    """
+    bleu, precisions = soft_bleu(logits, ref_ids, pad_id, eos_id, max_n)
+    loss = 1.0 - bleu
+    return loss, bleu.detach(), precisions

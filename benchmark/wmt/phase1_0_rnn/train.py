@@ -35,17 +35,13 @@ def greedy_decode(model, src, src_len, vocab_tgt, max_len=50, device="cuda"):
 def train_epoch(model, loader, criterion, optimizer, vocab_tgt=None, soft_bleu_w=0.0, clip=1.0):
     model.train()
     total_loss = 0
-    ce_total = 0
     bleu_total = 0
     for src, tgt, src_len, tgt_len in loader:
         src, tgt = src.to(DEVICE), tgt.to(DEVICE)
         logits = model(src, tgt[:, :-1], src_len)       # (B, T-1, V)
         
         if soft_bleu_w > 0:
-            from base.soft_bleu import soft_bleu_loss
-            ce_weight = 1.0 - soft_bleu_w
-            loss, ce_val, bleu_val = soft_bleu_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS, max_n=4, ce_weight=ce_weight)
-            ce_total += ce_val.item()
+            loss, bleu_val, _ = soft_bleu_only_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS)
             bleu_total += bleu_val.item()
         else:
             loss = criterion(logits.reshape(-1, logits.size(-1)),
@@ -58,7 +54,7 @@ def train_epoch(model, loader, criterion, optimizer, vocab_tgt=None, soft_bleu_w
         total_loss += loss.item()
     avg = total_loss / len(loader)
     if soft_bleu_w > 0:
-        print(f"  (CE={ce_total/len(loader):.3f} BLEU_soft={bleu_total/len(loader):.3f})", end="")
+        print(f"  (SoftBLEU={bleu_total/len(loader):.3f})", end="")
     return avg
 
 

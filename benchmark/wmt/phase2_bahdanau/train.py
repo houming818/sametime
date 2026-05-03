@@ -1,7 +1,5 @@
 """
-Phase 2: Bahdanau Attention 训练入口
-
-与 Phase 1 的训练代码几乎相同，仅模型换为 AttnSeq2Seq。
+Phase 2: Bahdanau Attention 训练入口 （SoftBLEU 支持）
 """
 
 import sys
@@ -15,7 +13,7 @@ import torch.optim as optim
 from base.dataset import Vocab, load_iwslt14, build_dataloader
 from base.eval import compute_bleu
 from base.utils import set_seed, save_checkpoint, log_metrics, load_checkpoint
-from model import Encoder, AttnDecoder, AttnSeq2Seq
+from model import AttnSeq2Seq
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -29,18 +27,23 @@ def greedy_decode(model, src, src_len, vocab_tgt, max_len=50):
             logits, hidden = model.decoder(ys, (enc_out, hidden))
             pred = logits[:, -1:, :].argmax(-1)
             ys = torch.cat([ys, pred], dim=1)
-            if (pred == vocab_tgt.EOS).all():
-                break
+            if (pred == vocab_tgt.EOS).all(): break
     return ys
 
 
-def train_epoch(model, loader, criterion, optimizer, clip=1.0):
+def train_epoch(model, loader, criterion, optimizer, soft_bleu_w=0.0, clip=1.0):
     model.train()
     total_loss = 0
     for src, tgt, src_len, tgt_len in loader:
         src, tgt = src.to(DEVICE), tgt.to(DEVICE)
         logits = model(src, tgt[:, :-1], src_len)
-        loss = criterion(logits.reshape(-1, logits.size(-1)), tgt[:, 1:].reshape(-1))
+
+        if soft_bleu_w > 0:
+            from base.soft_bleu import soft_bleu_only_loss
+            loss, _, _ = soft_bleu_only_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS)
+        else:
+            loss = criterion(logits.reshape(-1, logits.size(-1)), tgt[:, 1:].reshape(-1))
+
         optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
@@ -65,12 +68,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkpoint", type=str, default=None)
     parser.add_argument("--epochs", type=int, default=5)
+    parser.add_argument("--hidden", type=int, default=256)
+    parser.add_argument("--embed", type=int, default=256)
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--soft-bleu", type=float, default=0.0)
     args = parser.parse_args()
 
-    set_seed(42)
+    set_seed(args.seed)
     print(f"[Phase 2] device={DEVICE}")
 
-    # ---- data ----
     train_raw = load_iwslt14("train")
     vocab_src = Vocab([p["de"] for p in train_raw], min_freq=2)
     vocab_tgt = Vocab([p["en"] for p in train_raw], min_freq=2)
@@ -79,10 +85,9 @@ def main():
     train_loader = build_dataloader("train", vocab_src, vocab_tgt, batch_size=64)
     valid_loader = build_dataloader("validation", vocab_src, vocab_tgt, batch_size=64, shuffle=False)
 
-    # ---- model ----
-    HIDDEN, EMBED = 256, 256
-    encoder = Encoder(len(vocab_src), EMBED, HIDDEN)
-    decoder = AttnDecoder(len(vocab_tgt), EMBED, HIDDEN)
+    from model import Encoder, AttnDecoder
+    encoder = Encoder(len(vocab_src), args.embed, args.hidden)
+    decoder = AttnDecoder(len(vocab_tgt), args.embed, args.hidden)
     model = AttnSeq2Seq(encoder, decoder).to(DEVICE)
     print(f"  params={sum(p.numel() for p in model.parameters()):,}")
 
@@ -94,12 +99,10 @@ def main():
         start_epoch = ckpt["epoch"] + 1
         print(f"  resumed from epoch {ckpt['epoch']} (BLEU={ckpt['bleu']:.2f})")
 
-    # ---- train ----
     for epoch in range(start_epoch, args.epochs):
-        loss = train_epoch(model, train_loader, criterion, optimizer)
+        loss = train_epoch(model, train_loader, criterion, optimizer, args.soft_bleu)
         bleu = evaluate(model, valid_loader, vocab_tgt)
         print(f"  epoch={epoch}  loss={loss:.3f}  BLEU={bleu:.2f}")
-        log_metrics(epoch, loss, bleu, 1e-3)
 
     os.makedirs("checkpoints", exist_ok=True)
     save_checkpoint("checkpoints/phase2.pt", model, optimizer, epoch, bleu, {"phase": 2})

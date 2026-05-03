@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-from phase1_rnn.model import Encoder
+from phase1_1_lstm.model import Encoder
 from attention import BahdanauAttention
 
 
