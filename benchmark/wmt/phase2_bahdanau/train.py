@@ -39,8 +39,9 @@ def train_epoch(model, loader, criterion, optimizer, soft_bleu_w=0.0, clip=1.0):
         logits = model(src, tgt[:, :-1], src_len)
 
         if soft_bleu_w > 0:
-            from base.soft_bleu import soft_bleu_only_loss
-            loss, _, _ = soft_bleu_only_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS)
+            from base.soft_bleu import soft_bleu_loss
+            ce_weight = 1.0 - soft_bleu_w
+            loss, _, _ = soft_bleu_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS, max_n=4, ce_weight=ce_weight)
         else:
             loss = criterion(logits.reshape(-1, logits.size(-1)), tgt[:, 1:].reshape(-1))
 
