@@ -32,7 +32,7 @@ def greedy_decode(model, src, src_len, vocab_tgt, max_len=50, device="cuda"):
     return ys
 
 
-def train_epoch(model, loader, criterion, optimizer, vocab_tgt=None, soft_bleu_w=0.0, bleu_func=False, freq_loss_w=0.0, clip=1.0):
+def train_epoch(model, loader, criterion, optimizer, vocab_tgt=None, soft_bleu_w=0.0, bleu_func=False, bleu_invert=False, freq_loss_w=0.0, clip=1.0):
     model.train()
     total_loss = 0
     bleu_total = 0
@@ -46,7 +46,7 @@ def train_epoch(model, loader, criterion, optimizer, vocab_tgt=None, soft_bleu_w
             bleu_total += bleu_val.item()
         elif bleu_func:
             from base.bleu_function import bleu_loss
-            loss, bleu_val = bleu_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS)
+            loss, bleu_val = bleu_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS, invert=bleu_invert)
             bleu_total += bleu_val.item()
         elif freq_loss_w > 0:
             from base.freq_loss import freq_bleu_loss
@@ -90,6 +90,7 @@ def main():
     parser.add_argument("--data-repeat", type=int, default=1, help="repeat training data N times")
     parser.add_argument("--soft-bleu", type=float, default=0.0, help="SoftBLEU weight (0=CE only, 1=BLEU only)")
     parser.add_argument("--bleu-func", action="store_true", help="Use BLEU Function (autograd 0/1 signal)")
+    parser.add_argument("--bleu-invert", action="store_true", help="Invert BLEU signal (inverted hash hypothesis)")
     parser.add_argument("--freq-loss", type=float, default=0.0, help="Frequency smoothness regularization weight")
     parser.add_argument("--layers", type=int, default=2)
     parser.add_argument("--dropout", type=float, default=0.3)
@@ -137,7 +138,7 @@ def main():
 
     # ---- train ----
     for epoch in range(start_epoch, args.epochs):
-        loss = train_epoch(model, train_loader, criterion, optimizer, vocab_tgt, args.soft_bleu, args.bleu_func, args.freq_loss)
+        loss = train_epoch(model, train_loader, criterion, optimizer, vocab_tgt, args.soft_bleu, args.bleu_func, args.bleu_invert, args.freq_loss)
         bleu = evaluate(model, valid_loader, vocab_tgt)
         print(f"  epoch={epoch}  loss={loss:.3f}  BLEU={bleu:.2f}")
         log_metrics(epoch, loss, bleu, args.lr)

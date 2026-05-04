@@ -52,10 +52,11 @@ class BLEUFunction(Function):
     """
 
     @staticmethod
-    def forward(ctx, logits, ref_ids, pad_id=0, eos_id=2, max_n=4):
+    def forward(ctx, logits, ref_ids, pad_id=0, eos_id=2, max_n=4, invert=False):
         """
         logits: (B, T, V)  model logits
         ref_ids: (B, R)   reference token ids (padded)
+        invert: if True, signal=1 for wrong tokens (inverted hash hypothesis)
         Returns: (B,) BLEU per sample (detached)
         """
         B, T, V = logits.shape
@@ -66,6 +67,7 @@ class BLEUFunction(Function):
         ctx.save_for_backward(probs, ref_ids)
         ctx.pad_id = pad_id
         ctx.eos_id = eos_id
+        ctx.invert = invert
 
         # Hard argmax for forward BLEU
         pred_tokens = logits.argmax(dim=-1)  # (B, T)
@@ -75,7 +77,6 @@ class BLEUFunction(Function):
         ctx.ref_lists = []
 
         for b in range(B):
-            # Build reference list (exclude PAD/EOS)
             ref_list = []
             for r in ref_ids[b]:
                 r = r.item()
@@ -83,7 +84,6 @@ class BLEUFunction(Function):
                     break
                 ref_list.append(r)
 
-            # Build hypothesis list (stop at first EOS, exclude PAD)
             hyp_list = []
             for t in range(T):
                 tok = pred_tokens[b, t].item()
@@ -105,6 +105,7 @@ class BLEUFunction(Function):
         B, T, V = probs.shape
         pad_id = ctx.pad_id
         eos_id = ctx.eos_id
+        invert = getattr(ctx, 'invert', False)
         device = probs.device
 
         grad_logits = torch.zeros_like(probs)
@@ -119,19 +120,34 @@ class BLEUFunction(Function):
             if not ref_set:
                 continue
 
-            # 0/1 signal per position: is the max-prob token in ref?
-            pred = probs[b].argmax(dim=-1)  # (T,)
-            signal = torch.zeros(T, device=device)
-            for t in range(T):
-                if pred[t].item() in ref_set:
-                    signal[t] = 1.0
+            # Multi-head gradient: Token head (exact) + POS head (category)
+            ref_tensor = torch.tensor(list(ref_set), device=device, dtype=torch.long)
+            ref_freq_weight = ref_tensor.float() / V
+            
+            # Head 1: Token match (narrow, precise)
+            token_match = (probs[b, :, ref_tensor] * (1.0 + ref_freq_weight * 10.0)).sum(dim=-1)
+            token_signal = torch.exp(token_match * 20.0)
+            
+            # Head 2: POS category match (wide, ~200 categories)
+            POS_BOUNDARY = 200
+            ref_has_func = (ref_tensor < POS_BOUNDARY).any().float()
+            ref_has_content = (ref_tensor >= POS_BOUNDARY).any().float()
+            hyp_func = probs[b, :, :POS_BOUNDARY].sum(dim=-1)
+            hyp_content = 1.0 - hyp_func
+            pos_match = ref_has_func * hyp_func + ref_has_content * hyp_content
+            pos_signal = torch.exp(pos_match * 10.0)
+            
+            # Multi-head combination: both signals contribute independently
+            signal = token_signal + pos_signal
+            
+            if invert:
+                signal = 1.0 / (signal + 1e-8)
 
-            # Distribute signal through softmax to logits
-            grad_token = signal.unsqueeze(-1) * probs[b]  # (T, V)
-            grad_token = grad_token - grad_token.mean(dim=-1, keepdim=True)
-            grad_logits[b] = grad_token * grad_output[b]
+            grad_raw = signal.unsqueeze(-1) * probs[b]
+            grad_raw = grad_raw - grad_raw.mean(dim=-1, keepdim=True)
+            grad_logits[b] = grad_raw * grad_output[b]
 
-        return grad_logits, None, None, None, None
+        return grad_logits, None, None, None, None, None
 
 
 def logits_argmax(logits):
@@ -139,10 +155,23 @@ def logits_argmax(logits):
     return logits.argmax(dim=-1)
 
 
-def bleu_loss(logits, ref_ids, pad_id=0, eos_id=2, max_n=4):
+def bleu_loss(logits, ref_ids, pad_id=0, eos_id=2, max_n=4, invert=False):
     """
     BLEU Function loss: L = 1 - BLEU.
-    Fully differentiable via custom backward.
+    invert=True tests the inverted hash hypothesis.
     """
-    bleu = BLEUFunction.apply(logits, ref_ids, pad_id, eos_id, max_n)
+    bleu = BLEUFunction.apply(logits, ref_ids, pad_id, eos_id, max_n, invert)
     return (1.0 - bleu).mean(), bleu.mean().detach()
+
+
+def bleu_ce_loss(logits, ref_ids, pad_id=0, eos_id=2, ce_weight=0.7, invert=False):
+    """
+    Hybrid: CE + BLEU Function. CE provides initial gradient,
+    BLEU Function provides directional correction.
+    """
+    import torch.nn.functional as F
+    ce = F.cross_entropy(logits.reshape(-1, logits.size(-1)), ref_ids.reshape(-1), ignore_index=pad_id)
+    bleu = BLEUFunction.apply(logits, ref_ids, pad_id, eos_id, 4, invert)
+    bleu_loss_val = (1.0 - bleu).mean()
+    total = ce_weight * ce + (1.0 - ce_weight) * bleu_loss_val
+    return total, ce.detach(), bleu.mean().detach()
