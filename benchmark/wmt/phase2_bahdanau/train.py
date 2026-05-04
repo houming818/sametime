@@ -31,22 +31,31 @@ def greedy_decode(model, src, src_len, vocab_tgt, max_len=50):
     return ys
 
 
-def train_epoch(model, loader, criterion, optimizer, soft_bleu_w=0.0, clip=1.0):
+def train_epoch(model, loader, criterion, optimizer, soft_bleu_w=0.0, dual_head=False, clip=1.0):
     model.train()
     total_loss = 0
     for src, tgt, src_len, tgt_len in loader:
         src, tgt = src.to(DEVICE), tgt.to(DEVICE)
-        logits = model(src, tgt[:, :-1], src_len)
-
-        if soft_bleu_w > 0:
+        
+        if dual_head:
+            ce_logits, sb_logits = model(src, tgt[:, :-1], src_len)
+            # CE head
+            ce_loss = criterion(ce_logits.reshape(-1, ce_logits.size(-1)), tgt[:, 1:].reshape(-1))
+            # SB head
+            from base.soft_bleu import soft_bleu_loss
+            sb_loss, _, _ = soft_bleu_loss(sb_logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS, max_n=4, ce_weight=0.0)
+            loss = ce_loss + 0.5 * sb_loss
+        elif soft_bleu_w > 0:
+            logits = model(src, tgt[:, :-1], src_len)
             from base.soft_bleu import soft_bleu_loss, soft_bleu_only_loss
             if soft_bleu_w >= 1.0:
                 loss, _, _ = soft_bleu_only_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS)
             else:
                 loss, _, _ = soft_bleu_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS, max_n=4, ce_weight=1.0-soft_bleu_w)
         else:
+            logits = model(src, tgt[:, :-1], src_len)
             loss = criterion(logits.reshape(-1, logits.size(-1)), tgt[:, 1:].reshape(-1))
-
+        
         optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
@@ -75,6 +84,7 @@ def main():
     parser.add_argument("--embed", type=int, default=256)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--soft-bleu", type=float, default=0.0)
+    parser.add_argument("--dual-head", action="store_true")
     args = parser.parse_args()
 
     set_seed(args.seed)
