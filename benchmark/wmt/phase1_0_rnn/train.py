@@ -41,9 +41,13 @@ def train_epoch(model, loader, criterion, optimizer, vocab_tgt=None, soft_bleu_w
         logits = model(src, tgt[:, :-1], src_len)       # (B, T-1, V)
         
         if soft_bleu_w > 0:
-            from base.soft_bleu import soft_bleu_only_loss
-            loss, bleu_val, _ = soft_bleu_only_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS)
-            bleu_total += bleu_val.item()
+            from base.soft_bleu import soft_bleu_loss, soft_bleu_only_loss
+            if soft_bleu_w >= 1.0:
+                loss, bleu_val, _ = soft_bleu_only_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS)
+                bleu_total += bleu_val.item()
+            else:
+                loss, _, bleu_val = soft_bleu_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS, max_n=4, ce_weight=1.0-soft_bleu_w)
+                bleu_total += bleu_val.item()
         elif bleu_func:
             from base.bleu_function import bleu_loss
             loss, bleu_val = bleu_loss(logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS, invert=bleu_invert)
