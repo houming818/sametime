@@ -39,12 +39,11 @@ def train_epoch(model, loader, criterion, optimizer, soft_bleu_w=0.0, dual_head=
         
         if dual_head:
             ce_logits, sb_logits = model(src, tgt[:, :-1], src_len)
-            # CE head
             ce_loss = criterion(ce_logits.reshape(-1, ce_logits.size(-1)), tgt[:, 1:].reshape(-1))
-            # SB head
             from base.soft_bleu import soft_bleu_loss
             sb_loss, _, _ = soft_bleu_loss(sb_logits, tgt[:, 1:], Vocab.PAD, Vocab.EOS, max_n=4, ce_weight=0.0)
-            loss = ce_loss + 0.5 * sb_loss
+            # Gradient multiply: CE * SB — CE kicks early, SB takes over late
+            loss = ce_loss * (1.0 + 0.5 * sb_loss)
         elif soft_bleu_w > 0:
             logits = model(src, tgt[:, :-1], src_len)
             from base.soft_bleu import soft_bleu_loss, soft_bleu_only_loss
