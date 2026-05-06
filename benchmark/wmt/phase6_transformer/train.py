@@ -34,10 +34,10 @@ class WarmupScheduler:
 def greedy_decode(model, src, src_len, vocab_tgt, max_len=50):
     model.eval()
     with torch.no_grad():
-        enc_out = model.encoder(src, src_len)
+        enc_out, src_mask = model.encoder(src, src_len)
         ys = torch.full((src.size(0), 1), vocab_tgt.SOS, dtype=torch.long, device=DEVICE)
         for _ in range(max_len):
-            logits = model.decoder(ys, enc_out, src_len)
+            logits = model.decoder(ys, enc_out, src_mask)
             pred = logits[:, -1:, :].argmax(-1)
             ys = torch.cat([ys, pred], dim=1)
             if (pred == vocab_tgt.EOS).all():

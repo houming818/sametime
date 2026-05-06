@@ -117,7 +117,7 @@ class Encoder(nn.Module):
         x = self.pos(x)
         for layer in self.layers:
             x = layer(x, src_mask)
-        return self.norm(x)  # (B, S, d_model)
+        return self.norm(x), src_mask  # (B, S, d_model), mask
 
 
 # ═══════════════════════════════════════════
@@ -149,7 +149,7 @@ class DecoderLayer(nn.Module):
 
 class Decoder(nn.Module):
     def __init__(self, vocab_size, d_model=256, num_layers=3, num_heads=4,
-                 d_ff=1024, max_len=128, dropout=0.1):
+                 d_ff=1024, max_len=128, dropout=0.1, dual_head=False):
         super().__init__()
         self.embed = nn.Embedding(vocab_size, d_model, padding_idx=0)
         self.pos = PositionalEncoding(d_model, max_len, dropout)
@@ -158,19 +158,22 @@ class Decoder(nn.Module):
         ])
         self.norm = nn.LayerNorm(d_model)
         self.out = nn.Linear(d_model, vocab_size)
+        self.dual_head = dual_head
+        if dual_head:
+            self.out_sb = nn.Linear(d_model, vocab_size)
 
-    def forward(self, tgt, enc_out, src_len):
-        # causal mask（确保 decoder 不能看到未来 token）
+    def forward(self, tgt, enc_out, src_mask):
         T = tgt.size(1)
-        tgt_mask = torch.tril(torch.ones(1, 1, T, T, device=tgt.device))  # (1, 1, T, T)
-
-        src_mask = (tgt != 0).unsqueeze(1).unsqueeze(2)  # (B, 1, 1, S)
+        tgt_mask = torch.tril(torch.ones(1, 1, T, T, device=tgt.device))
 
         x = self.embed(tgt) * math.sqrt(self.embed.embedding_dim)
         x = self.pos(x)
         for layer in self.layers:
             x = layer(x, enc_out, src_mask, tgt_mask)
-        return self.out(self.norm(x))  # (B, T, V)
+        x = self.norm(x)
+        if self.dual_head:
+            return self.out(x), self.out_sb(x)
+        return self.out(x)
 
 
 # ═══════════════════════════════════════════
@@ -184,6 +187,5 @@ class Transformer(nn.Module):
         self.decoder = decoder
 
     def forward(self, src, tgt, src_len):
-        enc_out = self.encoder(src, src_len)
-        logits = self.decoder(tgt, enc_out, src_len)
-        return logits
+        enc_out, src_mask = self.encoder(src, src_len)
+        return self.decoder(tgt, enc_out, src_mask)

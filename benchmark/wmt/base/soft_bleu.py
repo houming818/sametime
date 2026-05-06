@@ -30,50 +30,122 @@ def soft_bleu(logits, ref_ids, pad_id=0, eos_id=2, max_n=4, smooth=1e-8):
     probs = F.softmax(logits, dim=-1)  # (B, T, V)
 
     # --- 1-gram reference mask (vectorized) ---
-    # ref_ids: (B, R). Build (B, 1, V) mask where mask[b, 0, v] = 1 if token v in ref[b]
-    ref_mask = torch.zeros(B, V, dtype=probs.dtype, device=device)
-    # Convert to 0/1 with scatter: set mask[b, ref_ids[b,r]] = 1 for all valid r
     valid = (ref_ids != pad_id) & (ref_ids != eos_id) & (ref_ids < V)
     idx = ref_ids.clone()
-    idx[~valid] = 0  # safe dummy index
+    idx[~valid] = 0
     src = torch.ones_like(ref_ids, dtype=probs.dtype)
     src[~valid] = 0.0
+    ref_mask = torch.zeros(B, V, dtype=probs.dtype, device=device)
     ref_mask.scatter_add_(1, idx, src)
-    ref_mask = (ref_mask > 0).to(probs.dtype)  # binary
+    ref_mask = (ref_mask > 0).to(probs.dtype)
 
-    # --- 1-gram: soft precision per position ---
-    # (B, T, V) * (B, 1, V) → sum → (B, T)
-    match_1gram = (probs * ref_mask.unsqueeze(1)).sum(dim=-1)  # (B, T)
+    # --- precisions for all n-gram orders ---
+    precisions = _soft_precisions(probs, ref_ids, valid, max_n, pad_id, eos_id, smooth)
 
-    # Hyp length: count positions where model is "active" (sum probs > threshold)
-    hyp_len = torch.ones(B, dtype=torch.float32, device=device) * T
-    ref_len = valid.sum(dim=1).float().clamp(min=1)  # (B,)
-
-    # Clipped precision for 1-gram
-    prec_1 = (match_1gram.sum(dim=1) + smooth) / (hyp_len + smooth)  # (B,)
-    prec_1 = prec_1.mean()  # scalar
-
-    # --- Higher n-grams: geometric decay approximation ---
-    precisions = [prec_1]
-    for n in range(2, max_n + 1):
-        decay = 0.5 ** (n - 1)
-        p_n = prec_1 * (1.0 - decay) + decay * smooth  # geometric extrapolation
-        p_n = torch.clamp(p_n, smooth, 1.0)
-        precisions.append(p_n)
-
-    # --- BLEU = geometric mean of n-gram precisions ---
     bleu = torch.tensor(1.0, device=device)
     for p in precisions:
         bleu = bleu * torch.clamp(p, smooth, 1.0)
     bleu = bleu ** (1.0 / len(precisions))
+    return bleu, precisions
 
+
+def _soft_precisions(probs, ref_ids, valid, max_n, pad_id, eos_id, smooth):
+    """Compute 1-gram through max_n-gram soft precision via scatter_add."""
+    B, T, V = probs.shape
+    R = ref_ids.size(1)
+    device = probs.device
+
+    # 1-gram: bag-of-words match
+    ref_mask = torch.zeros(B, V, dtype=probs.dtype, device=device)
+    idx = ref_ids.clone(); idx[~valid] = 0
+    src = torch.ones_like(ref_ids, dtype=probs.dtype); src[~valid] = 0.0
+    ref_mask.scatter_add_(1, idx, src)
+    ref_mask = (ref_mask > 0).to(probs.dtype)
+    match_1gram = (probs * ref_mask.unsqueeze(1)).sum(dim=-1)  # (B, T)
+    prec_1 = (match_1gram.sum(dim=1) + smooth) / (T + smooth)
+    prec_1 = prec_1.mean()
+
+    precisions = [prec_1]
+
+    # Higher n-grams: scatter_add over sliding windows
+    ref_len = valid.sum(dim=1)  # (B,)
+    for n in range(2, max_n + 1):
+        total_match = torch.tensor(0.0, device=device)
+        total_windows = torch.tensor(0, device=device)
+        for b in range(B):
+            L = int(ref_len[b].item())
+            if L < n or T < n:
+                continue
+            ref_b = ref_ids[b, :L]  # (L,)
+            ngram_idx = ref_b.unfold(0, n, 1)  # (L-n+1, n)
+            valid_ng = ((ngram_idx != pad_id) & (ngram_idx != eos_id)).all(dim=1)
+            ngram_idx = ngram_idx[valid_ng]  # (N, n)
+            if ngram_idx.size(0) == 0:
+                continue
+
+            # Joint probability: prod over n consecutive model positions
+            joint = torch.ones(T - n + 1, ngram_idx.size(0), device=device)
+            for d in range(n):
+                gathered = probs[b, d:T - n + 1 + d].gather(
+                    1, ngram_idx[:, d].unsqueeze(0).expand(T - n + 1, -1))
+                joint *= gathered
+            total_match += joint.sum()
+            total_windows += (T - n + 1)
+
+        if total_windows == 0:
+            p_n = prec_1 * (0.5 ** (n - 1))  # fallback geometric
+        else:
+            p_n = (total_match + smooth) / (total_windows * B + smooth)
+        precisions.append(p_n.clamp(smooth, 1.0))
+
+    return precisions
+
+
+def soft_bleu_restricted(logits, ref_ids, pad_id=0, eos_id=2, max_n=4, k=170, smooth=1e-8):
+    """
+    Restricted-softmax SoftBLEU.
+    
+    Instead of softmax over full vocab (56K), normalize over top-k + ref tokens
+    (~190 tokens). Gradient amplified by ≈300x — matches CE gradient magnitude.
+    
+    k defaults to 170 ≈ K_lang * |V| = 0.003 * 56652.
+    """
+    B, T, V = logits.shape
+    device = logits.device
+
+    # 1. Top-k per position
+    topk_vals, topk_idx = torch.topk(logits, k, dim=-1)
+
+    # 2. Initialize restricted logits with -inf (zero probability for excluded tokens)
+    restricted = torch.full_like(logits, float('-inf'))
+    restricted.scatter_(-1, topk_idx, topk_vals)
+
+    # 3. Reference token mask — union with topk
+    valid = (ref_ids != pad_id) & (ref_ids != eos_id) & (ref_ids < V)
+    ref_mask = torch.zeros(B, V, dtype=torch.bool, device=device)
+    idx_safe = ref_ids.clone()
+    idx_safe[~valid] = 0
+    ref_mask.scatter_(1, idx_safe, valid)
+
+    # Include reference tokens: their own logits replace -inf if not already in topk
+    restricted = torch.where(ref_mask.unsqueeze(1), logits, restricted)
+
+    # 4. Restricted softmax (denominator over ~190 tokens, not 56K)
+    probs = F.softmax(restricted, dim=-1)
+
+    # 5. Real n-gram precision (same scatter_add as full version)
+    precisions = _soft_precisions(probs, ref_ids, valid, max_n, pad_id, eos_id, smooth)
+
+    bleu = torch.tensor(1.0, device=device)
+    for p in precisions:
+        bleu = bleu * torch.clamp(p, smooth, 1.0)
+    bleu = bleu ** (1.0 / len(precisions))
     return bleu, precisions
 
 
 def soft_bleu_loss(logits, ref_ids, pad_id=0, eos_id=2, max_n=4, ce_weight=0.7):
     """
     Combined: λ*CE + (1-λ)*(1-SoftBLEU).
-    All vectorized, no Python for-loops.
     """
     # CE
     ce = F.cross_entropy(
