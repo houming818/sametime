@@ -47,11 +47,85 @@ def greedy_decode(model, src, src_len, vocab_tgt, max_len=50):
         for _ in range(max_len):
             logits = model.decoder(ys, enc_out, src_mask)
             if isinstance(logits, tuple):
-                logits = logits[0]  # use CE head for decode
+                logits = logits[0]
             pred = logits[:, -1:, :].argmax(-1)
             ys = torch.cat([ys, pred], dim=1)
             if (pred == vocab_tgt.EOS).all(): break
     return ys
+
+
+def beam_search(model, src, src_len, vocab_tgt, beam_size=4, max_len=50, alpha=0.6):
+    """Beam search with length normalization. Returns (B, max_len) token ids."""
+    model.eval()
+    B = src.size(0)
+    device = src.device
+    SOS, EOS, PAD = vocab_tgt.SOS, vocab_tgt.EOS, vocab_tgt.PAD
+
+    with torch.no_grad():
+        enc_out, src_mask = model.encoder(src, src_len)
+
+        # Expand encoder output for beam: (B*beam, S, d_model)
+        enc_out = enc_out.unsqueeze(1).expand(-1, beam_size, -1, -1).reshape(B * beam_size, *enc_out.shape[1:])
+        src_mask = src_mask.unsqueeze(1).expand(-1, beam_size, -1, -1, -1).reshape(B * beam_size, *src_mask.shape[1:])
+
+        # Initialize: (B, beam) sequences, each starting with SOS
+        ys = torch.full((B, beam_size, 1), SOS, dtype=torch.long, device=device)
+        scores = torch.zeros(B, beam_size, device=device)
+        done = torch.zeros(B, beam_size, dtype=torch.bool, device=device)
+        lengths = torch.ones(B, beam_size, device=device)
+
+        for step in range(max_len):
+            if done.all(): break
+
+            # Flatten for decoder: (B*beam, T)
+            ys_flat = ys.reshape(B * beam_size, -1)
+            logits = model.decoder(ys_flat, enc_out, src_mask)
+            if isinstance(logits, tuple):
+                logits = logits[0]
+            # Next-token log-probs: (B*beam, V)
+            log_probs = torch.log_softmax(logits[:, -1, :], dim=-1)
+            log_probs = log_probs.reshape(B, beam_size, -1)
+
+            # Length-normalized cumulative scores
+            cum_scores = (scores.unsqueeze(-1) + log_probs)  # (B, beam, V)
+            # Penalize EOS to avoid early stop bias
+            cum_scores[:, :, EOS] -= 1.0
+
+            # Mask done beams
+            cum_scores[done.unsqueeze(-1).expand(-1, -1, cum_scores.size(-1))] = -float('inf')
+
+            # Top-k across beam*V
+            top_scores, top_idx = torch.topk(cum_scores.reshape(B, -1), beam_size, dim=-1)
+
+            # Decode indices: beam_idx = idx // V, token = idx % V
+            beam_idx = top_idx // log_probs.size(-1)
+            token = top_idx % log_probs.size(-1)
+
+            # Build new sequences
+            new_ys = torch.zeros(B, beam_size, step + 2, dtype=torch.long, device=device)
+            new_scores = torch.zeros(B, beam_size, device=device)
+            new_done = torch.zeros(B, beam_size, dtype=torch.bool, device=device)
+            new_lengths = torch.zeros(B, beam_size, device=device)
+
+            for b in range(B):
+                for i in range(beam_size):
+                    bi = beam_idx[b, i]
+                    new_ys[b, i, :step + 1] = ys[b, bi, :]
+                    new_ys[b, i, step + 1] = token[b, i]
+                    new_scores[b, i] = top_scores[b, i]
+                    new_done[b, i] = done[b, bi] or token[b, i] == EOS
+                    new_lengths[b, i] = lengths[b, bi] + (0 if new_done[b, i] else 1)
+
+            ys = new_ys
+            scores = new_scores
+            done = new_done
+            lengths = new_lengths
+
+        # Length-normalize and pick best beam per batch
+        final_scores = scores / (lengths ** alpha)
+        best_beam = final_scores.argmax(dim=-1)  # (B,)
+        result = ys[torch.arange(B), best_beam]  # (B, T)
+        return result
 
 
 def main():
@@ -68,6 +142,9 @@ def main():
     parser.add_argument("--restricted-bleu", action="store_true")
     parser.add_argument("--k-lang", type=int, default=170)
     parser.add_argument("--sb-alpha", type=float, default=0.8)
+    parser.add_argument("--beam-size", type=int, default=1, help="beam search size (1=greedy)")
+    parser.add_argument("--dropout", type=float, default=0.3, help="dropout rate")
+    parser.add_argument("--weight-decay", type=float, default=0.01, help="Adam weight decay")
     args = parser.parse_args()
 
     set_seed(42)
@@ -80,13 +157,13 @@ def main():
     train_loader = build_dataloader("train", vocab_src, vocab_tgt, batch_size=args.batch_size)
     valid_loader = build_dataloader("validation", vocab_src, vocab_tgt, batch_size=args.batch_size, shuffle=False)
 
-    encoder = Encoder(len(vocab_src), args.d_model, args.n_layers, args.n_heads, args.d_ff)
-    decoder = Decoder(len(vocab_tgt), args.d_model, args.n_layers, args.n_heads, args.d_ff, dual_head=args.dual_head)
+    encoder = Encoder(len(vocab_src), args.d_model, args.n_layers, args.n_heads, args.d_ff, dropout=args.dropout)
+    decoder = Decoder(len(vocab_tgt), args.d_model, args.n_layers, args.n_heads, args.d_ff, dropout=args.dropout, dual_head=args.dual_head)
     model = Transformer(encoder, decoder).to(DEVICE)
     print(f"exp={args.exp_name} params={sum(p.numel() for p in model.parameters()):,}" + 
           (f" dual_head=true k={args.k_lang} alpha={args.sb_alpha}" if args.dual_head else ""))
 
-    optimizer = optim.Adam(model.parameters(), betas=(0.9, 0.98), eps=1e-9)
+    optimizer = optim.Adam(model.parameters(), betas=(0.9, 0.98), eps=1e-9, weight_decay=args.weight_decay)
     scheduler = WarmupScheduler(optimizer, args.d_model)
     criterion = torch.nn.CrossEntropyLoss(ignore_index=BPEVocab.PAD, label_smoothing=0.1)
 
@@ -114,9 +191,10 @@ def main():
         bleu = 0
         if epoch >= 5 or epoch == 0:
             model.eval(); refs, hyps = [], []
+            decode_fn = beam_search if args.beam_size > 1 else greedy_decode
             for src, tgt, src_len, tgt_len in valid_loader:
                 src = src.to(DEVICE)
-                out_ids = greedy_decode(model, src, src_len, vocab_tgt)
+                out_ids = decode_fn(model, src, src_len, vocab_tgt, beam_size=args.beam_size)
                 for i in range(src.size(0)):
                     refs.append(vocab_tgt.decode(tgt[i].tolist()))
                     hyps.append(vocab_tgt.decode(out_ids[i].tolist()))
