@@ -6,6 +6,9 @@ from pathlib import Path
 QUEUE_FILE = Path(os.environ.get("Q_FILE", os.path.join(os.path.dirname(__file__), "queue.json")))
 LOG_DIR = Path(os.environ.get("Q_LOG_DIR", os.path.join(os.path.dirname(__file__), "q_logs")))
 
+# Default cgroup limits — prevents OOM on the host
+DOCKER_DEFAULTS = os.environ.get("Q_DOCKER_DEFAULTS", "--memory=12g --memory-swap=12g")
+
 STATUS_QUEUED = "QUEUED"
 STATUS_RUNNING = "RUNNING"
 STATUS_DONE = "DONE"
@@ -100,7 +103,7 @@ def cmd_start(args):
     
     print(f"[q] launching {name} → log: {log_path}")
     cmd_str = job['cmd']
-    full_cmd = f"docker run --rm --name {container_name} {cmd_str} > {log_path} 2>&1"
+    full_cmd = f"docker run --rm --name {container_name} {DOCKER_DEFAULTS} {cmd_str} > {log_path} 2>&1"
     proc = subprocess.Popen(
         ["bash", "-c", full_cmd],
         env={**os.environ, "DOCKER_HOST": "unix:///var/run/docker.sock"},
