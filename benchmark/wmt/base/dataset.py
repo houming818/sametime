@@ -4,13 +4,16 @@ base/dataset.py — IWSLT14 De-En 数据加载 + word-level Vocab
 从原始 XML 文件解析 IWSLT TED 数据，不依赖 HuggingFace datasets。
 """
 
+import json
 import os
 import re
+import subprocess
+import time
 import xml.etree.ElementTree as ET
 import urllib.request
 import tarfile
 import torch
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 from collections import Counter
 
 
@@ -162,15 +165,15 @@ class Vocab:
 
 def collate_fn(batch):
     src_ids, tgt_ids = zip(*batch)
-    src_len = [len(s) for s in src_ids]
-    tgt_len = [len(t) for t in tgt_ids]
+    src_len = [s.size(0) for s in src_ids]
+    tgt_len = [t.size(0) for t in tgt_ids]
     max_src = max(src_len)
     max_tgt = max(tgt_len)
     src_padded = torch.full((len(batch), max_src), Vocab.PAD, dtype=torch.long)
     tgt_padded = torch.full((len(batch), max_tgt), Vocab.PAD, dtype=torch.long)
     for i, (s, t) in enumerate(zip(src_ids, tgt_ids)):
-        src_padded[i, : len(s)] = torch.tensor(s, dtype=torch.long)
-        tgt_padded[i, : len(t)] = torch.tensor(t, dtype=torch.long)
+        src_padded[i, :s.size(0)] = s
+        tgt_padded[i, :t.size(0)] = t
     return src_padded, tgt_padded, torch.tensor(src_len), torch.tensor(tgt_len)
 
 
@@ -182,3 +185,159 @@ def build_dataloader(split, vocab_src, vocab_tgt, batch_size=64, shuffle=True, m
         tgt_ids = vocab_tgt.encode(pair["en"], max_len)
         data.append((src_ids, tgt_ids))
     return DataLoader(data, batch_size=batch_size, shuffle=shuffle, collate_fn=collate_fn)
+
+
+# ═══════════════════════════════════════════
+# WMT14 De-En
+# ═══════════════════════════════════════════
+# WMT14 De-En — streaming tokenization + sharded .pt cache
+# ═══════════════════════════════════════════
+
+
+def load_wmt14_de_en(split="train", data_dir="/data/datasets/wmt14"):
+    """
+    Download WMT14 from HF datasets, write tab-separated cache file.
+    Returns list of {"de": str, "en": str} (used only by word-level Vocab).
+    """
+    os.makedirs(data_dir, exist_ok=True)
+    cache_path = os.path.join(data_dir, f"wmt14.{split}.de-en")
+
+    if os.path.exists(cache_path):
+        return _read_tab(cache_path)
+
+    print(f"  downloading WMT14 De-En ({split})...", flush=True)
+    from datasets import load_dataset
+    split_map = {"train": "train", "validation": "validation", "valid": "validation", "test": "test"}
+    hf_split = split_map.get(split, split)
+    ds = load_dataset("wmt14", "de-en", split=hf_split, trust_remote_code=True)
+
+    pairs = []
+    with open(cache_path, "w", encoding="utf-8") as f:
+        for ex in ds:
+            de = ex["translation"]["de"]
+            en = ex["translation"]["en"]
+            pairs.append({"de": de, "en": en})
+            f.write(f"{de}\t{en}\n")
+    print(f"  wmt14 {split}: {len(pairs)} pairs", flush=True)
+    return pairs
+
+
+def _read_tab(path):
+    pairs = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if "\t" in line:
+                de, en = line.split("\t", 1)
+                pairs.append({"de": de, "en": en})
+    return pairs
+
+
+def tokenize_and_cache_wmt14(split, vocab_src, vocab_tgt, max_len=128, shard_size=500000, data_dir="/data/datasets/wmt14"):
+    """
+    Stream-tokenize WMT14 tab file into sharded .pt files (concatenated 1D format).
+    Memory: ~200 MB per shard buffer regardless of total dataset size.
+    """
+    cache_dir = os.path.join(data_dir, "tokenized", split)
+    os.makedirs(cache_dir, exist_ok=True)
+
+    tab_path = os.path.join(data_dir, f"wmt14.{split}.de-en")
+    if not os.path.exists(tab_path):
+        load_wmt14_de_en(split, data_dir)
+
+    n_total = int(subprocess.run(["wc", "-l", tab_path], capture_output=True, text=True).stdout.split()[0])
+
+    t0 = time.time()
+    shard_id = 0
+    processed = 0
+    src_buf, tgt_buf = [], []
+    src_n, tgt_n = [], []
+
+    def flush():
+        nonlocal shard_id, src_buf, tgt_buf, src_n, tgt_n
+        if not src_buf:
+            return
+        src = torch.cat(src_buf)
+        tgt = torch.cat(tgt_buf)
+        src_ptr = torch.zeros(len(src_buf) + 1, dtype=torch.int64)
+        tgt_ptr = torch.zeros(len(tgt_buf) + 1, dtype=torch.int64)
+        for i, n in enumerate(src_n):
+            src_ptr[i+1] = src_ptr[i] + n
+        for i, n in enumerate(tgt_n):
+            tgt_ptr[i+1] = tgt_ptr[i] + n
+        path = os.path.join(cache_dir, f"shard_{shard_id:03d}.pt")
+        torch.save({"src": src, "tgt": tgt, "src_ptr": src_ptr, "tgt_ptr": tgt_ptr}, path)
+        src_buf, tgt_buf, src_n, tgt_n = [], [], [], []
+        shard_id += 1
+
+    print(f"  streaming tokenize {n_total} sentences -> shard_{shard_id:03d}.pt ...", flush=True)
+    with open(tab_path, "r", encoding="utf-8") as f:
+        for line in f:
+            parts = line.strip().split("\t", 1)
+            if len(parts) != 2:
+                continue
+            de, en = parts
+            s = vocab_src.encode(de, max_len)
+            t = vocab_tgt.encode(en, max_len)
+            src_buf.append(torch.tensor(s, dtype=torch.int32))
+            tgt_buf.append(torch.tensor(t, dtype=torch.int32))
+            src_n.append(len(s))
+            tgt_n.append(len(t))
+            processed += 1
+            if len(src_buf) >= shard_size:
+                flush()
+                r = processed / (time.time() - t0)
+                print(f"  shard {shard_id} ({processed}/{n_total}, {r:.0f} s/s, ~{(n_total-processed)/r/60:.0f} min)", flush=True)
+    flush()
+
+    with open(os.path.join(cache_dir, "metadata.json"), "w") as f:
+        json.dump({"total": n_total, "shards": shard_id, "shard_size": shard_size}, f)
+    print(f"  tokenized {n_total} -> {shard_id} shards ({time.time()-t0:.0f}s)", flush=True)
+
+
+class WMT14CachedDataset(Dataset):
+    def __init__(self, src, src_ptr, tgt, tgt_ptr, n):
+        self.src, self.src_ptr = src, src_ptr
+        self.tgt, self.tgt_ptr = tgt, tgt_ptr
+        self.n = n
+
+    def __len__(self):
+        return self.n
+
+    def __getitem__(self, idx):
+        s = self.src[self.src_ptr[idx]:self.src_ptr[idx+1]].to(torch.long)
+        t = self.tgt[self.tgt_ptr[idx]:self.tgt_ptr[idx+1]].to(torch.long)
+        return s, t
+
+
+def load_wmt14_tokenized(split, data_dir="/data/datasets/wmt14"):
+    cache_dir = os.path.join(data_dir, "tokenized", split)
+    with open(os.path.join(cache_dir, "metadata.json")) as f:
+        meta = json.load(f)
+
+    src_p, tgt_p, src_off, tgt_off = [], [], 0, 0
+    src_ptr_all, tgt_ptr_all = [0], [0]
+
+    for i in range(meta["shards"]):
+        d = torch.load(os.path.join(cache_dir, f"shard_{i:03d}.pt"), weights_only=True)
+        src_p.append(d["src"])
+        tgt_p.append(d["tgt"])
+        src_ptr_all.extend((d["src_ptr"][1:] + src_off).tolist())
+        tgt_ptr_all.extend((d["tgt_ptr"][1:] + tgt_off).tolist())
+        src_off += d["src"].size(0)
+        tgt_off += d["tgt"].size(0)
+
+    return WMT14CachedDataset(
+        torch.cat(src_p), torch.tensor(src_ptr_all, dtype=torch.int64),
+        torch.cat(tgt_p), torch.tensor(tgt_ptr_all, dtype=torch.int64),
+        meta["total"]
+    )
+
+
+def build_dataloader_wmt14(split, vocab_src, vocab_tgt, batch_size=64, shuffle=True, max_len=128, data_dir="/data/datasets/wmt14"):
+    cache_dir = os.path.join(data_dir, "tokenized", split)
+    meta_path = os.path.join(cache_dir, "metadata.json")
+    if not os.path.exists(meta_path):
+        tokenize_and_cache_wmt14(split, vocab_src, vocab_tgt, max_len, data_dir=data_dir)
+    ds = load_wmt14_tokenized(split, data_dir)
+    return DataLoader(ds, batch_size=batch_size, shuffle=shuffle, collate_fn=collate_fn, pin_memory=True)

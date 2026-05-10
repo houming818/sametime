@@ -17,8 +17,11 @@
   - history.txt 每次重要操作或变更，都主动记录到history.txt中
   - Makefile 快速指令文件，用于快速构建与触发测试文件
 - 环境描述：
-  - 开发主机 ni 开发账号nio 无显卡
-  - 运行主机 io 运行账号houming818 运行主机有24G显存 有限采用DOCKER_HOST的方式基于docker运行
+  - **SSH 对称假设**: 所有主机统一使用 `nio` 用户 + 相同密钥（`~/.ssh/id_ed25519`），Ansible 部署保证一致性。`houming818@io` 是例外（io 保留旧账号），其他节点一律 `nio@` 登录。
+  - 开发主机 ni 开发账号nio 无显卡 (i5-4690, 32GB, 240GB SSD)
+  - 运行主机 io 运行账号houming818 运行主机有24G显存 (i7-4790, 16GB, RTX3090) — 待升级 B550+5700X
+  - 服务主机 o16 基础设施 (i7-6700HQ, 32GB, GTX950M 4GB, 联想笔记本当服务器)
+    运行: Milvus, Loki, Grafana, Prometheus, Gitea, Umami, Minio
   - 有一个docker的registry: https://reg.grepcode.cn 可以使用,要善于将公网的image，缓存到本地重复使用，例如：
   docker tag nvidia/cuda:12.1.0-runtime-ubuntu22.04 reg.grepcode.cn/sati/nvidia_cuda:12.1.0-runtime-ubuntu22.04
 
@@ -127,3 +130,58 @@ DOCKER_HOST=ssh://houming818@io.grepcode.cn \
 - 碳基和硅基都有权阅读、复制、修改、分发——它是我们的共有物，不需要"发表"也不需要"引用"
 - 实验代码在 `benchmark/wmt/`，blog 文章在 `blogs/www.grepcode.cn/src/wmt/`，两者松耦合：blog 可以引用实验结果，实验结果也可以独立于 blog 存在
 - 每次重要实验完成后，将结论写入对应 blog 文章的 `### 对照分析实验 start / end` 区块内
+
+## 实验纪律 (2026-05-07 复盘确定的规则)
+
+1. **每轮实验必须复盘** — 跑完不总结 = 白跑。记录在 history.txt。
+2. **控制变量** — 一次只改一个参数。B6/B7 改了 k_lang + 架构 + max_n 三个变量。
+3. **失败比成功更有价值** — B8 的 0.74 BLEU 比 B3 的 11.70 教了更多东西 (dropout 过杀)。
+4. **GPU 时间是有限的** — 33h 产出 11.70 BLEU, 还需要精打细算。
+5. **每次操作记 FamilyChat.txt** — 给别人看, 也给自己看。
+
+## 硬件条件与限制 (2026-05-08 复盘)
+
+### io 算力节点
+
+| 组件 | 型号 | 问题 |
+|------|------|------|
+| CPU | i7-4790 (4c/8t, 3.6GHz) | 老旧，单核尚可 |
+| 主板 | 技嘉 B85M-D3H (2013) | **RTX 3090 不兼容** |
+| RAM | 16GB DDR3-1600 | 够用但慢 |
+| GPU | RTX 3090 ROG 24GB | 核心算力 |
+| 电源 | 长城铂金巨龙 1250W | 够用 |
+| 存储 | NVMe 950GB | 够用 |
+
+### 已知硬件问题
+
+1. **XID 79 — GPU has fallen off the bus**
+   - 根因: B85M-D3H 的 PCIe 控制器（2013）与 RTX 3090（2020）电源状态转换不兼容
+   - 现象: 训练约 1 小时后 GPU 从 PCI 总线断开，`lspci -d 10de:` 显示 `rev ff`
+   - 已部署缓解: `nvidia-smi -pl 250`(功率墙) + `pcie_aspm=off`(内核参数) + nvidia-power-limit.service(systemd)
+   - 根治: 需要换主板+CPU 平台（B550+Ryzen 或 B760+Intel 12代+），支持 Above 4G Decoding / Resizable BAR
+   - IaC 位置: `engines/sedcode-script/ansibles/roles/l1_os_security/tasks/dirty_frag.yml`
+
+2. **Dirty Frag (2026-05-07)**: 通用 Linux LPE，通过 esp4/esp6/rxrpc 解密路径提权
+   - 已部署: `/etc/modprobe.d/dirtyfrag.conf` 黑名单
+   - 无 CVE 无补丁，缓解措施已生效
+
+3. **Copy Fail (CVE-2026-31431)**: 已修复，全集群 kernel 升级完成
+
+### 训练经验教训
+
+- **batch_size 与 VRAM**: d256/3L + WMT14: batch=256 → OOM, batch=128 → 15GB VRAM 正常
+- **真实 epoch 时间**: WMT14 4.5M 句, d256/3L, batch=128 → ~30 分钟/epoch (包含验证 greedy decode)
+- **分词缓存**: streaming + sharded .pt (500K 句/片, 9 片, 总 1.05GB) → O(n) 内存, O(1) 重复实验
+- **collate_fn 陷阱**: `torch.tensor(tensor)` 产生未必要的拷贝, 修成直接 `s` 引用
+- **greedy_decode bug**: 调用时传了 `beam_size` 关键字但函数签名未接收 → 修成 `**kwargs`
+
+### 重构方案（io 升级）
+
+**已下单 (2026-05-08):**
+- 主板: 技嘉 B550M DS3H (WiFi, mATX)
+- CPU: AMD R7 5700X (8c16t, 65W, Zen3)
+- 内存: 忆捷 DDR4-3200 16G×2 = 32GB (4 DIMM, 未来补到 64GB)
+- 保留: RTX 3090 ROG + 致态 TiPlus7100 2TB + 长城 1250W
+- 总价: ¥2428
+- 旧板 (B85+i7+16G DDR3) 可用于替 o16 或冷备
+- 不换机箱，mATX 直接装

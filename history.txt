@@ -1,3 +1,36 @@
+## 2026-05-08: T-series WMT14 启动 & 硬件问题诊断
+
+### WMT14 实验基础设施
+- 迁移 WMT14 (4.5M 句, HuggingFace)，BPE 32K vocab
+- 流式分词 + sharded .pt cache: 500K 句/片 × 9 片，总 1.05 GB int32
+- 修复 dataset.py OOM: Python list[int] → torch.tensor streaming
+- q.py 队列管理器: +timeout，去 --rm，清理死容器
+- Makefile CI/CD: make sync / deploy / start / status / loki
+
+### 训练进展
+- T1 (d256/3L, batch=128): 97% GPU，250W，epoch 0 训练成功
+  - batch=256 → CUDA OOM；batch=128 → 15GB VRAM
+  - greedy_decode bug: 加 **kwargs 接收不用的 beam_size
+- T2 (d512/6L): 同 bug，已修复
+- 真实 WMT14 epoch: d256/3L batch=128 ≈ 30 分钟/epoch，20ep ≈ 10h
+
+### 硬件问题
+- io B85M-D3H + RTX 3090 → XID 79 "GPU has fallen off the bus"
+  - 训练约 1h 后 GPU 从 PCI 总线断开 (rev ff)
+  - 缓解: nvidia-smi -pl 250 + pcie_aspm=off + systemd service
+  - 根治: 需换平台 (B550+Ryzen ~¥2500)
+
+### 安全加固
+- Dirty Frag: esp4/esp6/rxrpc 黑名单，已入 IaC
+- CVE-2026-31431: 已修复
+
+### 结论
+- 实验暂停，优先修复 io 硬件
+- 分词 cache + shard 方案 ✅，WMT14 生态位就绪
+- q.py + Makefile CI/CD ✅，后续重启只需 make start
+
+---
+
 ## 2026-04-26: Phase 0 端到端跑通（wmt_phase0）
 
 - 数据：直接下载 IWSLT14 原始 XML 并解析（不依赖 `datasets` 库）
@@ -108,3 +141,190 @@ DOCKER_HOST=ssh://houming818@io.grepcode.cn \
 - **CUDA**: 12.1 / PyTorch: 2.5.1+cu121
 - **Matmul**: ✅ 通过
 - **DOCKER_HOST**: ✅ `docker run --gpus all` 和 `docker compose run` 均验证通过
+## 2026-05-07: UFW TOTP Knock 门禁系统
+
+### 背景
+opencode web (oc.lovelake.cn:55443) 全网开放，需要限制为白名单访问。
+公网访问需要敲门机制——不能永远开着，也不能永远关着。
+
+### 架构
+- **ra nginx (9443)**: /utils/ → FRP 8818 → se:8818
+- **se nginx (8818)**: /utils/knock → knockd:8899
+- **knockd.py**: TOTP 验证 → ufw allow from <real_ip>
+- **自动过期**: 3h 后 sleep + ufw delete
+- **/utils/ 前缀**: 预留未来扩展(/utils/health, /utils/balabala...)
+
+### 密钥
+TOTP Secret: AEMSSRYXKYXOH5753SOUQWNTDZPYWFQI
+Google Authenticator: otpauth://totp/GrepCode:ufw-knock
+
+### 测试链路
+www.grepcode.cn/utils/knock?code=xxxx
+  → CDN → ra:9443/utils/ → FRP 8818 → se:8818/utils/knock → knockd:8899
+  → TOTP 验证 → ufw allow from <real-ip> 55443 (3h)
+
+### UFW 55443 白名单
+127.0.0.1 + 192.168.1.0/24 (永久)
++ TOTP 敲门临时规则 (3h 自动过期)
+
+### IaC 文件
+- l1_os_security/files/knockd.py
+- l1_os_security/templates/ufw-knock.service.j2
+- l1_os_security/tasks/ufw_knock.yml
+- l2_nginx/templates/endpoints/utils.conf.j2 (ra)
+- l2_nginx/templates/internal_endpoints/www.grepcode.cn/utils.conf.j2 (se)
+
+### 坑
+1. nginx 容器内 127.0.0.1 ≠ 宿主机 —— 改 192.168.1.101
+2.  命令在 systemd PATH 里找不到 —— 改用 sleep 后台
+3. X-Real-IP 被 ra 设为 CDN 边缘 IP，knockd 优先取它 —— 改为 XFF 优先
+4. FRP 隧道后 se nginx 的  永远是 127.0.0.1 —— XFF 才是真实 IP
+
+## 2026-05-07: o16 GTX 950M GPU 1h 压测
+
+### 配置
+- GPU: NVIDIA GeForce GTX 950M (Maxwell, 640 CUDA Cores)
+- VRAM: 3.9 GB
+- Driver: 535.288.01 / CUDA 12.2
+- 测试: 2048x2048 FP32 GEMM 循环, 1h
+- Docker: nvidia-container-toolkit 1.13.5-1 (从 io dpkg-repack 离线部署)
+
+### 结果
+- 总迭代: 88,028 次 GEMM
+- 峰值 GFLOPS: 981 (冷启动)
+- 稳态 GFLOPS: ~420 (1h 后, 热节流)
+- 降幅: −57%
+- 温度: 89-91°C 持续
+- 对比 RTX 3090: 理论 35,000 GFLOPS (83× 慢)
+
+### 适用场景
+- 小实验验证 (d256/3L, batch=32)
+- 不推荐: d256/6L (VRAM 可能不够)
+- 主力训练: io RTX 3090
+
+## 2026-05-07: WMT Phase 6 实验复盘总结
+
+### 总览：从 RNN BLEU=3 到 Transformer BLEU=12
+
+| Phase | 架构 | 最优实验 | BLEU | 对比基线 |
+|-------|------|----------|------|----------|
+| 1 (RNN) | word-level LSTM | E6 | 3.21 | +5.2% vs CE |
+| 2 (Attention) | Bahdanau | A15 (CE+SB α=0.8) | 3.77 | +9.3% vs CE |
+| 6 (Transformer) | BPE d256/6L | B3 | 11.70 | 最优 |
+
+### 全部 Transformer 实验矩阵
+
+| 实验 | 配置 | Params | BLEU | 分析 |
+|------|------|--------|------|------|
+| B0  | word d256/3L/4H | 53.6M | 11.49 | 词级基线 |
+| B1  | BPE d256/3L/4H | 11.6M | 10.66 | BPE 小模型过浅 |
+| B2  | BPE d512/6L/8H | 56.4M | 8.18 | 严重过拟合 |
+| B3  | BPE d256/6L/4H | 17.2M | **11.70** | ✅ 最优 BPE |
+| B4  | BPE d512/3L/8H | ~30M | 8.57 | 宽不加深,仍过拟合 |
+| B5  | BPE d256/4L/4H | ~14M | 11.52 | B1→B3 中间验证 |
+| B6  | BPE+K_lang k=170 | 19.3M | ~8.1 | SB 反降 |
+| B7  | BPE+K_lang k=24 | 19.3M | 8.95 | SB 仍不及 CE |
+| B8  | BPE paper baseline | 56.4M | 0.74 | dropout=0.3 过杀 |
+
+### 核心发现
+
+1. **深度 > 宽度** — d256/3L→4L→6L 步步上升 (10.66→11.52→11.70)
+   d512/3L 和 d512/6L 双双过拟合。160K 句的 IWSLT14 上, 17M 参数是甜点。
+
+2. **K_lang 是缺陷补偿器** — RNN (+7%), Attention (+9%), Transformer (−24%).
+   基线越强，SB 增益越小甚至为负。
+
+3. **SoftBLEU 在 Transformer 上纯负收益** — 多花 3× GPU 时间, 得到 −24% BLEU。
+   BLEU/GPU-min: CE-only=0.098, K_lang=0.037
+
+4. **BPE 需要深度补偿** — K_lang 碰撞桶从词级 170 缩到 BPE 24，
+   浅模型 3L 不够，6L 才补回分辨率。
+
+5. **论文基线未达** — 学术标准 20-25 BLEU, 我们最好 11.70。
+   差距: d_model=256 vs 512, 无 beam search 有效增益, dropout 参数待优化。
+
+6. **架构跳变的收益远大于损失函数调优** —
+   RNN→Attention: +0.57 BLEU (CE-only)
+   Attention→Transformer: +7.93 BLEU (CE-only)
+   而 K_lang 在 Transformer 上是 −2.75
+
+### 算力消耗估算
+
+| 实验组 | GPU | 估计时间 | 产出 |
+|--------|-----|----------|------|
+| B1-B5 (架构 sweep) | RTX 3090 | ~15h | B3 甜点 (11.70) |
+| B6-B7 (K_lang sweep) | RTX 3090 | ~12h | 结论: CE-only 最优 |
+| B8 (基线尝试) | RTX 3090 | ~5h | 失败: dropout 过杀 |
+| o16 压测 | GTX 950M | 1h | 稳态 420 GFLOPS |
+| **总计** | | **~33h** | |
+
+### 尚未完成的探索
+
+1. Beam search 参数调优 (B8 的 dropout=0.3 过杀, 但 beam 本身没验证)
+2. d512 模型的正则化甜点 (dropout=0.1-0.2)
+3. K_lang 完整 k 值扫描 (k=50/100 只跑了 0-1 epoch)
+4. 真正复现论文基线 20-25 BLEU
+
+---
+
+## 2026-05-07 实验分类评估
+
+### ✅ 符合预期（理论预测正确）
+
+| 实验 | 结果 | 预期 | 为什么对 |
+|------|------|------|----------|
+| B0 (word d256/3L) | 11.49 | ~10-12 | 词级 Transformer 正常发挥 |
+| B3 (BPE d256/6L) | **11.70** 🏆 | 12-14 | **深度补偿了 BPE 的桶压缩**，K_lang 框架预测的方向正确 |
+| B5 (d256/4L) | 11.52 | 11-12 | B1(3L)→B5(4L)→B3(6L) 单调递增，深度-性能正相关 |
+| K_lang Attention A15 | 3.77 (+9.3%) | +5-10% | 弱模型上 SB 有效，缺陷补偿器理论成立 |
+| K_lang RNN E6 | 3.21 (+5.2%) | +3-8% | 同上 |
+
+### ❌ 不符合预期（理论预测错误）
+
+| 实验 | 结果 | 预期 | 为什么错 |
+|------|------|------|----------|
+| B6/B7 K_lang on Transformer | 8.18-8.95 | +2-5% | **SB 在强模型上捣乱**。CE 的梯度已经够准，SB 穿过 6 层 Transformer 打乱了 attention 模式。K_lang 常量 0.003 在 BPE 词表上也失效 |
+| B2 (BPE d512/6L) | 8.18 | 12-15 | 56M 参数在 160K 句上严重过拟合。**宽度比深度更容易过拟合** |
+| B1 (BPE d256/3L) | 10.66 | 12-13 | BPE 8K vocab 桶太少，3 层不够把子词语义分开。预期 BPE > word，实际反了 |
+
+### ❌ 实验失败（未产出有效数据）
+
+| 实验 | 现象 | 根因 |
+|------|------|------|
+| B8 (d512/6L + beam=4 + dropout=0.3 + wd=0.01) | BLEU=0.74, loss 卡在 6.13 | **dropout=0.3 过大**——160K 句小数据集上相当于每层扔掉 30% 神经元，模型学不动 |
+| B7_k50/k100/k170 | 只跑了 0-1 epoch | sweep 脚本并行执行被 kill，只保留 k24 完整 |
+| o16 B7_k50 | 数据集下载失败 | Samba 网络不通 + HF cache 未同步，容器内 IncompleteRead |
+| Phase 2 beam search | 从未实现 | greedy decode 是默认，beam search 在 B8 才第一次使用但被 dropout 过杀覆盖 |
+
+### 💡 如果重来，怎么做
+
+1. **B8 不该和 beam search 一起调**——一次改两件事（dropout 参数 + beam search），不知道谁导致失败。应先验证 dropout=0.1 的 greedy 基线，再逐项加。
+2. **K_lang sweep 该在 BPE 上重新扫 k 值**——0.003 是词级经验值，BPE 的碰撞空间不同，k=24/50/100 都该跑完整 20 epoch。
+3. **o16 不要碰训练**——GTX 950M 只有 3.9G VRAM，d256/6L 装不下，文件共享也靠 Samba 不稳。验证就够了。
+4. **每次只改一个变量**——B6 同时改了架构（双头）+ 损失函数 + k 值 + max_n，完全不知道哪个是瓶颈。
+
+## 2026-05-07: 网络暴露收束
+
+### 决策
+- **io 从公网完全下掉** — UFW 只允许 192.168.1.0/24
+- **se 为唯一公网入口** — SSH/CDN/API 都走 se
+- ra 藏在 CDN 后面，不直接暴露
+
+### 新拓扑
+  公网 → se:22 (唯一入口) → 内网跳转 → io/n14/o16/ni
+  公网 → CDN → ra:9443 → se (www.grepcode.cn)
+  公网 → se:55443 (oc.lovelake.cn, TOTP敲门)
+
+### SSH 访问
+  io 恢复前: 公网直连 io:22 (已挂)
+  io 恢复后: LAN 直连, 或 ssh -J nio@se.grepcode.cn nio@io.grepcode.cn
+
+## 2026-05-07: Docker memory limit fix
+
+### 问题
+io 15GB RAM, Docker 容器无内存限制, OOM killer 可能杀死 sshd 导致 SSH 服务崩溃
+
+### 修复
+所有 docker run 命令加 `--memory=12g --memory-swap=12g`
+留 3GB 给系统进程 (sshd, docker daemon, nvidia driver)
+已应用到所有 sweep 脚本 (B-series, T-series, K_lang)

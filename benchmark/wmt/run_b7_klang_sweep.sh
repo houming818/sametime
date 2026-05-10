@@ -5,7 +5,7 @@
 
 CODE=/data/homecicd/sametime/code/wmt
 IMAGE=reg.grepcode.cn/sati/sametime-base:cu121-py310
-BASE="docker run --rm --gpus all -e PYTHONUNBUFFERED=1 \
+BASE="docker run --rm --gpus all --memory=12g --memory-swap=12g -e PYTHONUNBUFFERED=1 \
     -e HF_DATASETS_CACHE=/data/datasets -e HF_HOME=/data/huggingface \
     -e HF_TRUST_REMOTE_CODE=1 \
     -e HTTP_PROXY=http://192.168.1.101:10809 \

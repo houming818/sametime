@@ -1,0 +1,15 @@
+## 2026-05-07: UFW 白名单 + TOTP 敲门
+
+门禁好了——oc.lovelake.cn:55443 现在只对内网 + 我敲门过的 IP 开放。
+手机 Google Authenticator 扫码即可敲门，3 小时自动失效。
+
+敲门地址：https://www.grepcode.cn/utils/knock?code=你的6位码
+
+## 2026-05-07: Phase 6 实验复盘
+
+跑了 30+ GPU 小时，核心结论三条：
+1. IWSLT14 上 BPE d256/6L 是甜点 (BLEU 11.70)
+2. K_lang 只在弱模型上有效，Transformer 上纯负收益
+3. dropout=0.3 + weight_decay=0.01 过大，d512 模型被过杀
+
+习惯：每次实验跑完必须复盘，暴力算力需要总结提炼。
