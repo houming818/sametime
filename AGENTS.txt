@@ -1,7 +1,37 @@
 # SameTime/AGENTS.txt
 # 项目 Agent 协作规范
 # 维护者：T3 (架构师/平台负责人)
-# 最后更新：2026-04-25
+# 最后更新：2026-05-16
+
+## 实验命名规范
+
+| 前缀 | 架构 | 数据集 | 示例 |
+|------|------|------|------|
+| **R** | RNN | IWSLT14 | R1-R8 |
+| **A** | Attention | IWSLT14 | A1-A15 |
+| **TI** | Transformer | IWSLT14 | TI0-TI6（原 B 系列） |
+| **TW** | Transformer | WMT14 | TW1-TW4 |
+| **AW** | Attention | WMT14 | AW1-AW2 |
+| **SB** | SoftBLEU | 待定 | 需 CUDA 优化 |
+
+## WMT14 实验矩阵
+
+全部 30 epoch, BPE 32K, batch=128, AMP enabled：
+
+| 实验 | 架构 | 配置 | 状态 | BLEU |
+|------|------|------|------|------|
+| AW1 | Attention | d256/3L | ⏳ 待排 | — |
+| AW2 | Attention | d512/3L/8H | ⏳ 待排 | — |
+| **TW1** | Transformer | d256/3L | 🔄 跑中 | — |
+| TW2 | Transformer | d512/6L | ⏳ | — |
+| TW3 | Transformer | d256/6L | ⏳ | — |
+| TW1-SB | Transformer | d256/3L + SoftBLEU | ⏸ 需 CUDA | — |
+
+**先导实验（非 30 epoch）：**
+| 实验 | 架构 | 配置 | epoch | BLEU |
+|------|------|------|-------|------|
+| T1 | Transformer | d256/3L | 20 | 3.58 |
+| T2 | Transformer | d512/6L | 10 | 4.33 |
 
 ## 项目概述
 - **项目名称**: SameTime (Study and Tuning for LLMs)
