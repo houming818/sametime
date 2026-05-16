@@ -1,4 +1,40 @@
-## 2026-05-08: T-series WMT14 启动 & 硬件问题诊断
+## 2026-05-16: 实验命名规范 & TW 系列启动
+
+### 命名规范
+三层命名：`{架构}.{Linear算法}.{损失}-{序号}`
+- 架构: T=Transformer, A=Attention, R=RNN
+- 算法: STD=Standard, RST=Restricted, SPR=Tree, HSH=Hash
+- 损失: CE=CrossEntropy, SB=CE+SoftBLEU
+
+### T 系列重命名为 TW（Transformer WMT14）
+- T1 (d256/3L, 20ep): BLEU=3.58 ✅
+- T2 (d512/6L, 10ep+AMP): BLEU=4.33 ✅
+- T3 已杀，T1SB 跑了 14h 0 epoch 已杀（SoftBLEU 太慢）
+
+### 当前跑 T.STD.CE-1
+- d256/3L, 30 epoch, AMP, batch=128
+- 2026-05-16 14:17 起，GPU 97%/267W
+- 预计 ~1h/epoch × 30 = ~30h
+
+### SoftBLEU 需 CUDA 优化
+- soft_bleu_restricted 每 batch 调 topk+scatter+softmax，14h 跑不完 1 epoch
+- 跑完 TW 和 AW 的 CE 基线后再写 CUDA kernel
+
+## 2026-05-14: T1 跑通 & T2 进行中
+
+### T1 (d256/3L)
+- 20 epoch 跑完，best BLEU=3.58，全程 270W 不掉卡 ✅
+- 耗时约 26.5 小时
+- 日志加时间戳（train_wmt14.py 第 209 行）
+
+### T2 (d512/6L/8H/dff2048)
+- 已起，GPU 100%/257W，等出 epoch
+
+### TODO: OpenWebText
+- OpenAI WebText 的开源复现，~8M 文档，~40GB 纯文本
+- 可用于 GPT-2 规模预训练实验
+- 跑完 T 系列 WMT 后接入
+- https://github.com/eukaryote31/openwebtext
 
 ### WMT14 实验基础设施
 - 迁移 WMT14 (4.5M 句, HuggingFace)，BPE 32K vocab
