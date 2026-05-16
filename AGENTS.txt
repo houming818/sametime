@@ -5,33 +5,30 @@
 
 ## 实验命名规范
 
-| 前缀 | 架构 | 数据集 | 示例 |
-|------|------|------|------|
-| **R** | RNN | IWSLT14 | R1-R8 |
-| **A** | Attention | IWSLT14 | A1-A15 |
-| **TI** | Transformer | IWSLT14 | TI0-TI6（原 B 系列） |
-| **TW** | Transformer | WMT14 | TW1-TW4 |
-| **AW** | Attention | WMT14 | AW1-AW2 |
-| **SB** | SoftBLEU | 待定 | 需 CUDA 优化 |
+格式: `{架构}.{损失}-{序号}`
+
+| 前缀 | 架构 | 损失 | 数据集 | 示例 |
+|------|------|------|------|------|
+| R.CE | RNN | CE | IWSLT14 | R1-R8 |
+| R.SB | RNN | CE+SoftBLEU | IWSLT14 | RSB-1 |
+| A.CE | Attention | CE | IWSLT14 | A1-A15 |
+| TI.CE | Transformer | CE | IWSLT14 | TI0-TI6（原 B 系列） |
+| TW.CE | Transformer | CE | WMT14 | TW.CE-1（原 TW1） |
+| TW.SB | Transformer | CE+SoftBLEU | WMT14 | TW.SB-1 |
+| AW.CE | Attention | CE | WMT14 | AW.CE-1 |
+| AW.SB | Attention | CE+SoftBLEU | WMT14 | AW.SB-1 |
 
 ## WMT14 实验矩阵
 
 全部 30 epoch, BPE 32K, batch=128, AMP enabled：
 
-| 实验 | 架构 | 配置 | 状态 | BLEU |
-|------|------|------|------|------|
-| AW1 | Attention | d256/3L | ⏳ 待排 | — |
-| AW2 | Attention | d512/3L/8H | ⏳ 待排 | — |
-| **TW1** | Transformer | d256/3L | 🔄 跑中 | — |
-| TW2 | Transformer | d512/6L | ⏳ | — |
-| TW3 | Transformer | d256/6L | ⏳ | — |
-| TW1-SB | Transformer | d256/3L + SoftBLEU | ⏸ 需 CUDA | — |
-
-**先导实验（非 30 epoch）：**
-| 实验 | 架构 | 配置 | epoch | BLEU |
-|------|------|------|-------|------|
-| T1 | Transformer | d256/3L | 20 | 3.58 |
-| T2 | Transformer | d512/6L | 10 | 4.33 |
+| 实验 | 配置 | 状态 | BLEU |
+|------|------|------|------|
+| **TW.CE-1** | d256/3L | 🔄 跑中 | — |
+| TW.CE-2 | d512/6L | ⏳ | — |
+| TW.CE-3 | d256/6L | ⏳ | — |
+| AW.CE-1 | d256/3L | ⏳ 待排 | — |
+| AW.CE-2 | d512/3L | ⏳ 待排 | — |
 
 ## 项目概述
 - **项目名称**: SameTime (Study and Tuning for LLMs)
