@@ -5,30 +5,51 @@
 
 ## 实验命名规范
 
-格式: `{架构}.{损失}-{序号}`
+格式: `{架构}.{Linear算法}.{损失}-{序号}`
 
-| 前缀 | 架构 | 损失 | 数据集 | 示例 |
-|------|------|------|------|------|
-| R.CE | RNN | CE | IWSLT14 | R1-R8 |
-| R.SB | RNN | CE+SoftBLEU | IWSLT14 | RSB-1 |
-| A.CE | Attention | CE | IWSLT14 | A1-A15 |
-| TI.CE | Transformer | CE | IWSLT14 | TI0-TI6（原 B 系列） |
-| TW.CE | Transformer | CE | WMT14 | TW.CE-1（原 TW1） |
-| TW.SB | Transformer | CE+SoftBLEU | WMT14 | TW.SB-1 |
-| AW.CE | Attention | CE | WMT14 | AW.CE-1 |
-| AW.SB | Attention | CE+SoftBLEU | WMT14 | AW.SB-1 |
+### 架构（Layer 1）
+| 缩写 | 全称 |
+|------|------|
+| R | RNN |
+| A | Attention (LSTM+Bahdanau) |
+| T | Transformer |
+
+### Linear 算法（Layer 2）
+| 缩写 | 全称 | 说明 |
+|------|------|------|
+| STD | Standard | 全量 Linear(d, V) + Softmax（默认） |
+| RST | Restricted | Top-k Softmax，k=K_lang×V |
+| SPR | Semantic Prefix Routing | 树递归路由判定 |
+| HSH | Hash-based | 哈希碰撞桶 |
+
+### 损失（Layer 3）
+| 缩写 | 全称 |
+|------|------|
+| CE | Cross-Entropy |
+| SB | CE + SoftBLEU（α=0.5, k=170） |
+
+### 示例
+
+| 实验 | 含义 |
+|------|------|
+| T.STD.CE-1 | Transformer, 标准 Linear, CE, 实验 1 |
+| T.RST.SB-1 | Transformer, Restricted top-k, CE+SoftBLEU |
+| A.STD.CE-1 | Attention, 标准线性, CE |
+| A.STD.SB-1 | Attention, 标准线性, SoftBLEU |
 
 ## WMT14 实验矩阵
 
 全部 30 epoch, BPE 32K, batch=128, AMP enabled：
 
-| 实验 | 配置 | 状态 | BLEU |
-|------|------|------|------|
-| **TW.CE-1** | d256/3L | 🔄 跑中 | — |
-| TW.CE-2 | d512/6L | ⏳ | — |
-| TW.CE-3 | d256/6L | ⏳ | — |
-| AW.CE-1 | d256/3L | ⏳ 待排 | — |
-| AW.CE-2 | d512/3L | ⏳ 待排 | — |
+| 实验 | 配置 | Linear | 损失 | 状态 |
+|------|------|------|------|------|
+| T.STD.CE-1 | d256/3L | STD | CE | 🔄 跑中 |
+| T.STD.CE-2 | d512/6L | STD | CE | ⏳ |
+| T.STD.CE-3 | d256/6L | STD | CE | ⏳ |
+| A.STD.CE-1 | d256/3L | STD | CE | ⏳ 待排 |
+| A.STD.CE-2 | d512/3L | STD | CE | ⏳ 待排 |
+| T.RST.SB-1 | d256/3L | RST | SB | ⏸ 需 CUDA |
+| A.RST.SB-1 | d256/3L | RST | SB | ⏸ 需 CUDA |
 
 ## 项目概述
 - **项目名称**: SameTime (Study and Tuning for LLMs)
