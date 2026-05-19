@@ -39,7 +39,7 @@ class BahdanauAttention(nn.Module):
 
         # mask padding 位置
         if src_mask is not None:
-            energy = energy.masked_fill(src_mask, -1e9)
+            energy = energy.masked_fill(src_mask, float("-inf"))
         attn = F.softmax(energy, dim=-1)               # (B, S)
 
         # 上下文向量 = 加权求和

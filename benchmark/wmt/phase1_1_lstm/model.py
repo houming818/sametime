@@ -34,14 +34,20 @@ class Encoder(nn.Module):
 
     def forward(self, src, src_len):
         embedded = self.embed(src)
+        src_len_sorted, sort_idx = src_len.sort(0, descending=True)
+        _, unsort_idx = sort_idx.sort(0)
+        embedded_sorted = embedded[sort_idx]
         packed = nn.utils.rnn.pack_padded_sequence(
-            embedded, src_len.cpu(), batch_first=True, enforce_sorted=False)
+            embedded_sorted, src_len_sorted.cpu(), batch_first=True, enforce_sorted=True)
         packed_out, (hidden, cell) = self.rnn(packed)
         enc_out, _ = nn.utils.rnn.pad_packed_sequence(packed_out, batch_first=True)
+        enc_out = enc_out[unsort_idx]
+        unsort_dev = unsort_idx.to(hidden.device)
+        hidden = hidden.index_select(1, unsort_dev)
+        cell = cell.index_select(1, unsort_dev)
 
-        # BiLSTM 双向合并
-        hidden = hidden.view(2, 2, -1, hidden.size(2)).sum(dim=0)
-        cell = cell.view(2, 2, -1, cell.size(2)).sum(dim=0)
+        hidden = hidden.view(2, self.rnn.num_layers, -1, hidden.size(2)).sum(dim=0)
+        cell = cell.view(2, self.rnn.num_layers, -1, cell.size(2)).sum(dim=0)
 
         return enc_out, (hidden, cell)
 
