@@ -166,6 +166,7 @@ def main():
     encoder = Encoder(len(vocab_src), args.d_model, args.n_layers, args.n_heads, args.d_ff, dropout=args.dropout)
     decoder = Decoder(len(vocab_tgt), args.d_model, args.n_layers, args.n_heads, args.d_ff, dropout=args.dropout, dual_head=args.dual_head)
     model = Transformer(encoder, decoder).to(DEVICE)
+    torch.backends.cudnn.benchmark = True
     print(f"exp={args.exp_name} params={sum(p.numel() for p in model.parameters()):,}" + 
           (f" dual_head=true k={args.k_lang} alpha={args.sb_alpha}" if args.dual_head else ""))
 
@@ -174,24 +175,29 @@ def main():
     criterion = torch.nn.CrossEntropyLoss(ignore_index=BPEVocab.PAD, label_smoothing=0.1)
 
     best_bleu = 0
+    scaler = torch.cuda.amp.GradScaler()
     for epoch in range(args.epochs):
         model.train(); total_loss = 0
         for src, tgt, src_len, tgt_len in train_loader:
             src, tgt = src.to(DEVICE), tgt.to(DEVICE)
             
-            if args.dual_head:
-                ce_logits, sb_logits = model(src, tgt[:, :-1], src_len)
-                ce_loss = criterion(ce_logits.reshape(-1, ce_logits.size(-1)), tgt[:, 1:].reshape(-1))
-                from base.soft_bleu import soft_bleu_restricted
-                sb_bleu_val, _ = soft_bleu_restricted(sb_logits, tgt[:, 1:], 0, 2, 4, k=args.k_lang)
-                loss = ce_loss * (1.0 + args.sb_alpha * (1.0 - sb_bleu_val))
-            else:
-                logits = model(src, tgt[:, :-1], src_len)
-                loss = criterion(logits.reshape(-1, logits.size(-1)), tgt[:, 1:].reshape(-1))
+            with torch.cuda.amp.autocast():
+                if args.dual_head:
+                    ce_logits, sb_logits = model(src, tgt[:, :-1], src_len)
+                    ce_loss = criterion(ce_logits.reshape(-1, ce_logits.size(-1)), tgt[:, 1:].reshape(-1))
+                    from base.soft_bleu import soft_bleu_restricted
+                    sb_bleu_val, _ = soft_bleu_restricted(sb_logits, tgt[:, 1:], 0, 2, 4, k=args.k_lang)
+                    loss = ce_loss * (1.0 + args.sb_alpha * (1.0 - sb_bleu_val))
+                else:
+                    logits = model(src, tgt[:, :-1], src_len)
+                    loss = criterion(logits.reshape(-1, logits.size(-1)), tgt[:, 1:].reshape(-1))
             
-            optimizer.zero_grad(); loss.backward()
+            optimizer.zero_grad()
+            scaler.scale(loss).backward()
+            scaler.unscale_(optimizer)
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-            optimizer.step(); scheduler.step()
+            scaler.step(optimizer); scaler.update()
+            scheduler.step()
             total_loss += loss.item()
 
         bleu = 0
@@ -206,7 +212,8 @@ def main():
                     hyps.append(vocab_tgt.decode(out_ids[i].tolist()))
             bleu = compute_bleu(refs, hyps)
         avg_loss = total_loss / len(train_loader)
-        print(f"exp={args.exp_name} epoch={epoch} loss={avg_loss:.3f} bleu={bleu:.2f}")
+        import datetime; now = datetime.datetime.now().strftime("%m-%d_%H:%M")
+        print(f"[{now}] exp={args.exp_name} epoch={epoch} loss={avg_loss:.3f} bleu={bleu:.2f}")
         log_metrics(epoch, avg_loss, bleu, optimizer.param_groups[0]["lr"])
         if bleu > best_bleu:
             best_bleu = bleu
