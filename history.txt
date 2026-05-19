@@ -364,3 +364,34 @@ io 15GB RAM, Docker 容器无内存限制, OOM killer 可能杀死 sshd 导致 S
 所有 docker run 命令加 `--memory=12g --memory-swap=12g`
 留 3GB 给系统进程 (sshd, docker daemon, nvidia driver)
 已应用到所有 sweep 脚本 (B-series, T-series, K_lang)
+
+## 2026-05-17: 链→树→图 谱系 & encoder 并发性
+
+### 数据结构谱系
+梯度传播视角下，NMT 架构按矩阵拓扑可分为三元：
+- **链** (RNN/LSTM): 一维序列，梯度逐站串行传递，路径 O(n)，并发度=1
+- **树** (SPR): 按前缀分流，路径 O(log n)，并发度=树宽，需设计专属 encoder
+- **图/邻接矩阵** (Transformer): 全连接二维矩阵，任意两点直达 O(1)，并发度=n
+
+### 数据结构决定 encoder 的并发模型
+- RNN Encoder：逐个递归，等上一步，串行
+- Self-Attention Encoder：全并行，一次 matmul
+- 树 Encoder：没现成的——应做到按层并行（同层节点同时算，层间串行），核心问题是每个 token 怎么分配到树节点。SPR-004 的 heap 路由矩阵尝试用掩码排除法解决。
+
+### 视角框架
+分析架构差异可从四个视角切入：
+1. 递归/拓扑：梯度流动路径
+2. 信息论：信息漏斗 vs 按位置展开
+3. 计算并行：GPU 调度方式
+4. 线性代数：矩阵的秩、谱、稀疏性
+
+### TF-001 博客
+写了 Transformer 从零到一的专题文章，9 节覆盖 Self-Attention/Multi-Head/PositionalEncoding/FFN+Residual+LayerNorm/Encoder-Decoder/训练三件套/代码全图/NMT→GPT
+线上：https://www.grepcode.cn/tf/001-transformer-from-scratch.html
+
+### 实验队列
+io GPU 当前排队：
+- TW2  RUNNING (Transformer d512/6L, 80.7M params, 30ep, AMP)
+- TW3  QUEUED  (Transformer d256/6L, 30ep)
+- AW1  QUEUED  (Bahdanau d256/3L, 31.1M params, 30ep)
+- AW2  QUEUED  (Bahdanau d512/3L, 75.2M params, 30ep)
