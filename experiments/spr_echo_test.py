@@ -1,31 +1,27 @@
 """
-SPR Echo Test
-验证堆路由能否实现自映射：token → 路由 → 叶子 → 取出自己
-手工设阈值，不训练。
+SPR Echo Test — 路径即哈希版本
+token → 每层判定 → 路径 = 哈希 → echo = 同路径
+碰撞 = 两个 token 哈希前缀相同
 """
 import numpy as np
+from collections import Counter
 
-V, D, d = 100, 3, 16          # 100 tokens, depth=3 (7 nodes / 8 leaves), 16-dim
+V, D, d = 100, 4, 8          # more depth for richer collision analysis
 np.random.seed(42)
 tokens = np.random.randn(V, d)
 
-n_nodes = (1 << D) - 1        # 7 internal nodes
-n_leaves = 1 << D             # 8 leaves
-H = np.zeros(n_nodes)         # thresholds
-leaf_values = np.zeros((n_leaves, d))
+n_nodes = (1 << D) - 1        # 15 internal nodes (depth 4)
+n_leaves = 1 << D             # 16 leaves
+H = np.zeros(n_nodes)         # thresholds — one per node
 
-# ── 递归手工设阈值 ──
-def set_thresholds(token_ids, node_idx, depths):
-    """对 token_ids 集合在深度 depths 设阈值. node_idx 起始=0."""
+# ── 递归设阈值 ──
+def set_thresholds(token_ids, node_idx, depth, max_depth=D):
+    if depth >= max_depth:
+        return  # leaf
     if node_idx >= n_nodes:
-        leaf_idx = node_idx - n_nodes
-        if len(token_ids) == 1:
-            leaf_values[leaf_idx] = tokens[token_ids[0]]
-        elif len(token_ids) > 1:
-            leaf_values[leaf_idx] = np.mean(tokens[token_ids], axis=0)
         return
 
-    dim = depths[0] % d
+    dim = depth % d
     vals = tokens[token_ids, dim]
     median = np.median(vals)
     H[node_idx] = median
@@ -33,64 +29,79 @@ def set_thresholds(token_ids, node_idx, depths):
     left = token_ids[vals <= median]
     right = token_ids[vals > median]
 
-    next_depths = depths[1:]
     if len(left) > 0:
-        set_thresholds(left, 2 * node_idx + 1, next_depths)
+        set_thresholds(left, 2 * node_idx + 1, depth + 1)
     if len(right) > 0:
-        set_thresholds(right, 2 * node_idx + 2, next_depths)
+        set_thresholds(right, 2 * node_idx + 2, depth + 1)
 
+set_thresholds(np.arange(V), 0, 0)
 
-set_thresholds(np.arange(V), 0, list(range(D)))
-
-# ── 路由函数 ──
+# ── 路由：返回完整路径（每一步的判定）──
 def route(token_vec):
+    """Returns tuple of 0/1 decisions — this IS the hash."""
+    path = []
     i = 0
     for step in range(D):
         dim = step % d
         if token_vec[dim] <= H[i]:
+            path.append(0)  # left
             i = 2 * i + 1
         else:
+            path.append(1)  # right
             i = 2 * i + 2
-    return i - n_nodes  # leaf index
+    return tuple(path)
 
 # ── 验证 ──
 print(f"V={V} d={d} depth={D} nodes={n_nodes} leaves={n_leaves}")
-print(f"H thresholds: {H.round(3)}")
+print(f"H: {H.round(3)}")
 print()
 
-errors = []
-leaf_hit = np.zeros(n_leaves, dtype=int)
+# 1. Echo = 同 token 同路径
+paths = {}
 deterministic = 0
-out_of_bounds = 0
-
 for idx in range(V):
     token = tokens[idx]
-    leaf = route(token)
-
-    # bounds check
-    if leaf < 0 or leaf >= n_leaves:
-        out_of_bounds += 1
-        continue
-
-    leaf_hit[leaf] += 1
-
-    # determinism
-    leaf2 = route(token)
-    if leaf == leaf2:
+    p1 = route(token)
+    p2 = route(token)
+    paths[idx] = p1
+    if p1 == p2:
         deterministic += 1
 
-    # echo: is leaf value == token?
-    err = np.abs(leaf_values[leaf] - token).mean()
-    errors.append(err)
+# 2. 路径分布 = hash 碰撞统计
+path_counts = Counter(paths.values())
+unique_paths = len(path_counts)
+
+# 3. 前缀碰撞（中继节点碰撞）
+prefix_shared = 0
+for i in range(V):
+    for j in range(i+1, V):
+        pi, pj = paths[i], paths[j]
+        for k in range(1, D):
+            if pi[:k] == pj[:k]:
+                prefix_shared += 1
 
 print(f"=== Results ===")
-print(f"Out of bounds: {out_of_bounds}/{V}")
-print(f"Deterministic : {deterministic}/{V}")
-print(f"Mean abs error: {np.mean(errors):.6f}")
-print(f"Zero-error echos: {sum(1 for e in errors if e < 1e-6)}/{V}")
-print(f"Leaf distribution: {leaf_hit}")
-print(f"Dead leaves: {sum(leaf_hit == 0)}/{n_leaves}")
+print(f"Deterministic  : {deterministic}/{V}")
+print(f"Unique paths   : {unique_paths}/{n_leaves} possible")
+print(f"Token/path dist: {dict(path_counts)}")
+print(f"Prefix collisions (pair×depth): {prefix_shared}")
+print(f"Avg colliding pairs per depth prefix: {prefix_shared / (V*(V-1)/2):.1f}")
+print()
 
-assert out_of_bounds == 0, f"OOB!"
+# 4. 展示碰撞——前 10 个 token 的路径
+print("=== Path (hash) samples ===")
+for idx in range(10):
+    p = paths[idx]
+    print(f"  token_{idx:3d}: {p}")
+print()
+
+# 5. 同路径 token 组（碰撞组）
+path_groups = {}
+for idx, p in paths.items():
+    path_groups.setdefault(p, []).append(idx)
+print("=== Collision groups (same hash) ===")
+for p, ids in sorted(path_groups.items(), key=lambda x: -len(x[1])):
+    print(f"  {p}: {len(ids)} tokens — {ids[:8]}{'...' if len(ids)>8 else ''}")
+
 assert deterministic == V, f"Not deterministic!"
 print("\\n=== ECHO TEST PASSED ===")
