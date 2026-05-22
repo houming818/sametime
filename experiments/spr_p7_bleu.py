@@ -35,7 +35,7 @@ torch.manual_seed(42)
 embed = torch.randn(V, d) * 0.5
 
 # ── 树模型 ──
-depth = 8  # 256 leaves > 200 words → each word gets its own leaf
+depth = 9  # 512 leaves >> 200 words → perfect echo
 n_leaves = 2**depth
 weights = nn.ParameterList([nn.Parameter(torch.randn(d)*0.05) for _ in range(depth)])
 opt = torch.optim.Adam(weights, lr=0.03)
@@ -60,7 +60,7 @@ all_ids = list(range(V))
 all_emb = embed[all_ids]
 
 print(f"training {V} words into {n_leaves} leaves...")
-for step in range(500):
+for step in range(800):
     opt.zero_grad()
     assign = route(all_emb, weights, depth)
     leaf_sum = assign.sum(dim=0) + 1e-8
