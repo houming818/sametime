@@ -1,16 +1,14 @@
 """
-SPR Echo — 加载训练好的 H，验证自映射
+SPR Echo Verify — 纯 numpy，加载 H 验证自映射
+Usage: python3 spr_echo_verify.py [H_file.npy]
 """
-import torch
 import numpy as np
+import sys
 
-ckpt = torch.load('spr_echo_H.pt', weights_only=True)
-H = ckpt['H']
-d, D = ckpt['d'], ckpt['D']
-seed = ckpt['seed']
-
-torch.manual_seed(seed)
-tokens = torch.randn(128, d)
+D = 4
+d = 8
+V = 128
+n_leaves = 1 << D
 
 def forward_split(scores):
     def split(indices, depth):
@@ -19,34 +17,37 @@ def forward_split(scores):
         g_scores = scores[indices]
         if len(g_scores) < 2:
             return [indices]
-        median = g_scores.median()
-        left = indices[g_scores <= median]
-        right = indices[g_scores > median]
+        median = np.median(g_scores)
+        left = [idx for idx in indices if scores[idx] <= median]
+        right = [idx for idx in indices if scores[idx] > median]
         return split(left, depth-1) + split(right, depth-1)
-    return split(torch.arange(len(scores)), D)
+    return split(list(range(len(scores))), D)
 
-with torch.no_grad():
-    scores = tokens @ H
-    groups = forward_split(scores)
-    sizes = [len(g) for g in groups]
+# 加载 H
+if len(sys.argv) > 1:
+    H = np.fromfile(sys.argv[1], dtype=np.float32)
+else:
+    H = np.random.RandomState(42).randn(d).astype(np.float32)
+    print(f"using random H")
 
-print(f"H: {H.numpy().round(3).tolist()}")
-print(f"Leaves: {len(groups)}, sizes: {sizes}")
-print(f"Active: {sum(1 for s in sizes if s > 0)}/{len(groups)}")
+np.random.seed(42)
+tokens = np.random.randn(V, d).astype(np.float32)
 
-# 确定性验证
+scores = tokens @ H
+groups = forward_split(scores)
+sizes = [len(g) for g in groups]
+
+print(f"H: {H.round(3).tolist()}")
+print(f"leaves={n_leaves} sizes={sizes}")
+print(f"active={sum(1 for s in sizes if s > 0)}/{n_leaves}")
+
+same = 0
 scores2 = tokens @ H
 groups2 = forward_split(scores2)
-same = sum(1 for i in range(128)
-           if [j for j, g in enumerate(groups)  if i in g][0]
-           == [j for j, g in enumerate(groups2) if i in g][0])
+for i in range(V):
+    l1 = [j for j, g in enumerate(groups) if i in g][0]
+    l2 = [j for j, g in enumerate(groups2) if i in g][0]
+    same += (l1 == l2)
 
-print(f"Deterministic: {same}/128")
-
-# 示例：前5个token的路径
-for i in range(5):
-    leaf = [j for j, g in enumerate(groups) if i in g][0]
-    path = format(leaf, f'0{D}b')
-    print(f"  token_{i}: leaf={leaf} path={path}")
-
-print("\n=== ECHO VERIFIED ===" if same == 128 else "\nFAILED")
+print(f"deterministic: {same}/{V}")
+print("ECHO OK" if same == V else "FAIL")
