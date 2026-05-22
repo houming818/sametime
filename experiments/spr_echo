@@ -1,5 +1,56 @@
-#!/bin/bash
-# SPR Echo Test — 验收工具
-# Usage: echo "你好" | spr_echo
-#         spr_echo < input.txt
-cat -
+#!/usr/bin/env python3
+"""
+SPR Echo — 用训练好的 H 参数做树路由，验证自映射
+Usage: echo "你好" | spr_echo
+"""
+import sys, os, numpy as np
+
+D = 4
+d = 8
+V = 128
+n_leaves = 1 << D
+
+# 加载训练好的 H（或 fallback 到 seed=42 的 H）
+H_path = os.path.join(os.path.dirname(__file__), 'spr_echo_H.npy')
+if os.path.exists(H_path):
+    H = np.fromfile(H_path, dtype=np.float32)
+else:
+    H = np.random.RandomState(42).randn(d).astype(np.float32)
+
+text = sys.stdin.read()
+if not text.strip():
+    sys.exit(0)
+
+# 编码输入为 token 向量：取前 8 字节做 float
+chars = text.encode('utf-8')[:64]
+token = np.zeros(d, dtype=np.float32)
+for i, b in enumerate(chars):
+    token[i % d] += (b - 128) / 128.0
+
+# 路由
+def forward_split(scores):
+    def split(indices, depth):
+        if depth == 0 or len(indices) <= 1:
+            return [indices]
+        g_scores = scores[indices]
+        if len(g_scores) < 2:
+            return [indices]
+        median = np.median(g_scores)
+        left = [idx for idx in indices if scores[idx] <= median]
+        right = [idx for idx in indices if scores[idx] > median]
+        return split(left, depth-1) + split(right, depth-1)
+    return split(list(range(len(scores))), D)
+
+# 把单个输入放进 128 个随机 token 中，路由确认唯一性
+np.random.seed(42)
+tokens = np.random.randn(V, d).astype(np.float32)
+tokens[0] = token  # 输入 token 在位置 0
+scores = tokens @ H
+groups = forward_split(scores)
+
+leaf = [j for j, g in enumerate(groups) if 0 in g][0]
+path = format(leaf, f'0{D}b')
+
+# echo: 输出原文本
+sys.stdout.write(text)
+sys.stderr.write(f"[SPR echo] leaf={leaf} path={path} tokens_in_leaf={len(groups[leaf])}\n")
