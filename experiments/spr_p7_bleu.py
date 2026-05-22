@@ -35,7 +35,7 @@ torch.manual_seed(42)
 embed = torch.randn(V, d) * 0.5
 
 # ── 树模型 ──
-depth = 6
+depth = 8  # 256 leaves > 200 words → each word gets its own leaf
 n_leaves = 2**depth
 weights = nn.ParameterList([nn.Parameter(torch.randn(d)*0.05) for _ in range(depth)])
 opt = torch.optim.Adam(weights, lr=0.03)
