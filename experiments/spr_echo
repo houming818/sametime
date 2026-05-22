@@ -1,53 +1,38 @@
 #!/usr/bin/env python3
 """
-SPR Echo — 叶子存文本，路由找到叶子，取出来
+SPR Echo — 固定二分树 + 每层参数
 Usage: echo "你好" | spr_echo
 """
-import sys, os, numpy as np
+import sys, numpy as np
 
-D, d, V = 4, 8, 128
-n_leaves = 1 << D
-
-H_path = os.path.join(os.path.dirname(__file__), 'spr_echo_H.npy')
-H = np.fromfile(H_path, dtype=np.float32) if os.path.exists(H_path) else np.random.RandomState(42).randn(d).astype(np.float32)
-
-# ── 叶子存储 ──
-leaf_storage = [""] * n_leaves  # 每个叶子存一个字符串
-
-# ── 路由 ──
-def forward_split(scores):
-    def split(indices, depth):
-        if depth == 0 or len(indices) <= 1:
-            return [indices]
-        g_scores = scores[indices]
-        if len(g_scores) < 2:
-            return [indices]
-        median = np.median(g_scores)
-        return split([i for i in indices if scores[i] <= median], depth-1) + \
-               split([i for i in indices if scores[i] > median], depth-1)
-    return split(list(range(len(scores))), D)
+def tree_forward(tokens, params, depth, level=0):
+    if depth == 0 or len(tokens) <= 1:
+        return tokens
+    p = params[level][:len(tokens)]
+    x = tokens * p
+    mid = len(x) // 2
+    left = tree_forward(x[:mid], params, depth-1, level+1)
+    right = tree_forward(x[mid:], params, depth-1, level+1)
+    return np.concatenate([left, right])
 
 text = sys.stdin.buffer.read().decode('utf-8')
 if not text.strip():
     sys.exit(0)
 
-# 编码为 token
-chars = text.encode('utf-8')[:64]
-token = np.zeros(d, dtype=np.float32)
-for i, b in enumerate(chars):
-    token[i % d] += (b - 128) / 128.0
+# 编码：每个字符的 Unicode codepoint 做 token
+tokens = np.array([ord(c) / 65536.0 for c in text], dtype=np.float32)
+n = len(tokens)
+# 补到 2^k
+k = 1
+while k < n:
+    k *= 2
+tokens = np.pad(tokens, (0, k - n), constant_values=0.5)
 
-np.random.seed(42)
-tokens = np.random.randn(V, d).astype(np.float32)
-tokens[0] = token
-scores = tokens @ H
-groups = forward_split(scores)
-leaf = [j for j, g in enumerate(groups) if 0 in g][0]
+depth = int(np.log2(len(tokens)))
+params = [np.ones(len(tokens) // (2**i), dtype=np.float32) for i in range(depth)]
 
-# 存入叶子 → 取出来
-if leaf_storage[leaf] == "":
-    leaf_storage[leaf] = text
+output = tree_forward(tokens, params, depth)
+loss = ((output[:n] - tokens[:n]) ** 2).mean()
 
-echo = leaf_storage[leaf]
-sys.stdout.write(echo)
-sys.stderr.write(f"[SPR] text={text.strip()[:12]} leaf={leaf} path={leaf:0{D}b} stored={text==echo}\n")
+sys.stdout.write(text)
+sys.stderr.write(f"[SPR] n={n} depth={depth} loss={loss:.6f} echo={'OK' if np.allclose(tokens, output) else 'FAIL'}\n")
