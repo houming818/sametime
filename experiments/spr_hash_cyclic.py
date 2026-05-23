@@ -1,49 +1,53 @@
 """
-SPR Hash v2 — Cyclic Shift (torch.roll) as zero-cost positional encoding
-Depth-aware: deeper = more shift = higher base exponent
-Left child: no shift. Right child: shift = depth+1
+SPR Hash v2.1 — Cyclic Shift + Sign Break (零成本)
+Fix: pure cyclic shift has collision — "A打B" == "B打A" when dims align
+Solution: multiply right child by [1, -1, 1, -1...] after roll → breaks symmetry
 """
-import torch, numpy as np
+import torch
 
-def cyclic_hash(tokens, depth=0):
-    """Recursive position-split tree with cyclic shift merge.
-    Each level deeper → shift +1 → encodes position as base exponent.
-    Left subtree: no shift (original position preserved).
-    Right subtree: rolled right by depth+1 (encodes 'later in sequence').
-    """
+torch.manual_seed(42)
+E_me  = torch.tensor([1.,2.,3.,4.])   # me
+E_hit = torch.tensor([0.,1.,0.,1.])   # hit
+E_you = torch.tensor([5.,6.,7.,8.])   # you
+
+def sign_alt(x):
+    mask = torch.tensor([1., -1.] * (x.shape[-1] // 2 + 1))[:x.shape[-1]]
+    return x * mask
+
+def hash_ordered(left, right, depth=0):
+    return left + sign_alt(torch.roll(right, shifts=depth+1, dims=-1))
+
+# Bug: pure cyclic shift
+H_fwd_bug = E_me + torch.roll(E_you, shifts=1)
+H_rev_bug = E_you + torch.roll(E_me, shifts=1)
+print(f"BUG  pure roll:")
+print(f"  me-hit-you: {H_fwd_bug.tolist()}")
+print(f"  you-hit-me: {H_rev_bug.tolist()}")
+print(f"  collision:  {torch.allclose(H_fwd_bug, H_rev_bug)}")
+
+# Fixed: roll + sign alternation
+H_fwd = hash_ordered(E_me, E_you)
+H_rev = hash_ordered(E_you, E_me)
+print(f"\nFIX  roll + sign alt [1,-1,1,-1]:")
+print(f"  me-hit-you: {H_fwd.tolist()}")
+print(f"  you-hit-me: {H_rev.tolist()}")
+print(f"  separated:  {not torch.allclose(H_fwd, H_rev)}")
+print(f"  deterministic: {torch.allclose(hash_ordered(E_me, E_you), hash_ordered(E_me, E_you))}")
+
+# Full sentence test
+s1 = [E_me, E_hit, E_you]
+s2 = [E_you, E_hit, E_me]
+def tree_hash(tokens, depth=0):
     if len(tokens) <= 1:
-        return tokens[0] if len(tokens) == 1 else torch.zeros(tokens[0].shape[0]) if tokens else None
+        return tokens[0] if tokens else torch.zeros(4)
     mid = len(tokens) // 2
-    HL = cyclic_hash(tokens[:mid], depth + 1)  # left child
-    HR = cyclic_hash(tokens[mid:], depth + 1)   # right child
-    # right child shifted — deeper subtree = more shift
-    return HL + torch.roll(HR, shifts=depth + 1, dims=-1)
+    left = tree_hash(tokens[:mid], depth+1)
+    right = tree_hash(tokens[mid:], depth+1)
+    return hash_ordered(left, right, depth)
 
-def cyclic_hash_chunked(embeddings, depth=0):
-    """Same as cyclic_hash but takes an embedding tensor (N, d) and depth."""
-    if len(embeddings) <= 1:
-        return embeddings[0] if len(embeddings) == 1 else torch.zeros(embeddings.shape[1])
-    mid = len(embeddings) // 2
-    HL = cyclic_hash_chunked(embeddings[:mid], depth + 1)
-    HR = cyclic_hash_chunked(embeddings[mid:], depth + 1)
-    return HL + torch.roll(HR, shifts=depth + 1, dims=-1)
-
-# ── test ──
-if __name__ == "__main__":
-    torch.manual_seed(42)
-    E = torch.randn(10, 16) * 0.5
-    sent = [E[0], E[1], E[2], E[3], E[4], E[5], E[6], E[7]]  # 8 tokens
-    
-    H_fwd = cyclic_hash(sent)
-    H_rev = cyclic_hash(sent[::-1])
-    
-    print(f"cyclic shift hash (8 tokens, depth 0-3)")
-    print(f"  fwd: {H_fwd[:6].numpy().round(2)}")
-    print(f"  rev: {H_rev[:6].numpy().round(2)}")
-    print(f"  order-aware: {not torch.allclose(H_fwd, H_rev, atol=1e-3)}")
-    print(f"  deterministic: {torch.allclose(cyclic_hash(sent), cyclic_hash(sent), atol=1e-3)}")
-    
-    # Chunked version
-    H_fwd2 = cyclic_hash_chunked(torch.stack(sent))
-    print(f"\n  chunked fwd: {H_fwd2[:6].numpy().round(2)}")
-    print(f"  chunked == list: {torch.allclose(H_fwd, H_fwd2, atol=1e-3)}")
+H_s1 = tree_hash(s1)
+H_s2 = tree_hash(s2)
+print(f"\nFull tree (3 tokens):")
+print(f"  me-hit-you: {H_s1[:4].round(decimals=2).tolist()}")
+print(f"  you-hit-me: {H_s2[:4].round(decimals=2).tolist()}")
+print(f"  separated:  {not torch.allclose(H_s1, H_s2, atol=1e-3)}")
