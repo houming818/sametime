@@ -1,87 +1,125 @@
 """
-SPR Translation — Twin Tree: Encoder + Bridge + Decoder
-Encoder: cyclic shift hash (source → root)
-Bridge: Linear(d,d) cross-lingual mapping
-Decoder: reverse shift split → leaf tokens → nearest neighbor
+SPR-008 Twin Tree v2 — Trainable Decoder
+Encoder: cyclic shift (0 params, deterministic)
+Decoder: per-depth W_split (d×d, layer-shared)
+Training: source → encode → decode → MSE(target_tree)
 """
 import torch, torch.nn as nn
-import numpy as np
 
 torch.manual_seed(42)
 d = 16
+depth = 2  # 3 tokens → depth 2
+n_leaves = 1 << depth
 
-# ── Mock bilingual embeddings ──
-E_cn = torch.randn(10, d) * 0.5  # 10 Chinese tokens
-E_en = torch.randn(10, d) * 0.5  # 10 English tokens
+# ── Mock embeddings: 10 tokens ──
+E = torch.randn(10, d) * 0.5
 
-# Sample sentence: 我(0) 打(1) 你(2) → I(5) hit(6) you(7)
-src_tokens = [E_cn[0], E_cn[1], E_cn[2]]  # 我打你
-tgt_tokens = [E_en[5], E_en[6], E_en[7]]  # I hit you
+# Sample training data
+src_sents = [
+    [0, 1, 2],  # 我 打 你
+    [3, 4, 5],  # 他 吃 鱼
+    [6, 0, 7],  # 她 我 看
+    [1, 3, 8],  # 打 他 球
+]
+tgt_sents = [
+    [5, 6, 7],  # I hit you
+    [8, 9, 2],  # He eat fish
+    [7, 5, 0],  # She I see
+    [9, 8, 6],  # Hit him ball
+]
 
-# ── Encoder: cyclic shift hash ──
 def sign_alt(x):
     mask = torch.tensor([1., -1.] * (d//2 + 1))[:d]
     return x * mask
 
-def encoder(tokens, depth=0):
+# ── Encoder (deterministic, 0 params) ──
+def encode(tokens, depth=0):
+    """Cyclic shift hash — bottom-up merge"""
     if len(tokens) <= 1:
-        return tokens[0] if len(tokens) == 1 else torch.zeros(d)
+        return E[tokens[0]] if len(tokens) == 1 else torch.zeros(d)
     mid = len(tokens) // 2
-    HL = encoder(tokens[:mid], depth + 1)
-    HR = encoder(tokens[mid:], depth + 1)
+    HL = encode(tokens[:mid], depth + 1)
+    HR = encode(tokens[mid:], depth + 1)
     return HL + sign_alt(torch.roll(HR, shifts=depth + 1, dims=-1))
 
-H_src = encoder(src_tokens)  # Chinese root hash
-H_tgt = encoder(tgt_tokens)  # English root hash (ground truth)
+# ── Decoder (trainable W_split per depth) ──
+class Decoder(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.W_split = nn.ParameterList([
+            nn.Parameter(torch.randn(d, d) * 0.1) for _ in range(depth)
+        ])
+    
+    def split(self, H, level):
+        """Predict H_left from parent hash H"""
+        H_left_pred = H @ self.W_split[level]
+        # H_right computed deterministically from encoding rule
+        # H = HL + sign_alt(roll(HR, level+1))
+        # → HR = reverse_roll(sign_alt(H - HL_pred))
+        residual = H - H_left_pred
+        H_right_pred = sign_alt(residual)  # undo sign_alt
+        H_right_pred = torch.roll(H_right_pred, shifts=-(level + 1), dims=-1)  # un-roll
+        return H_left_pred, H_right_pred
+    
+    def forward(self, H, remaining_depth, level=0):
+        """Recursively split to leaves"""
+        if remaining_depth == 0:
+            # Leaf: return hash vector
+            return [H]
+        HL, HR = self.split(H, level)
+        left_tokens = self.forward(HL, remaining_depth - 1, level + 1)
+        right_tokens = self.forward(HR, remaining_depth - 1, level + 1)
+        return left_tokens + right_tokens
 
-print(f"Encoder: 我打你 → H_src={H_src[:4].round(decimals=2).tolist()}")
-print(f"Encoder: I hit you → H_tgt={H_tgt[:4].round(decimals=2).tolist()}")
+decoder = Decoder()
+opt = torch.optim.Adam(decoder.parameters(), lr=0.03)
 
-# ── Bridge: learn to map H_src → H_tgt ──
-bridge = nn.Linear(d, d)
-opt = torch.optim.SGD(bridge.parameters(), lr=0.1)
-
-for step in range(100):
+# ── Train ──
+print("Training decoder with per-depth W_split...")
+for step in range(300):
     opt.zero_grad()
-    H_pred = bridge(H_src)
-    loss = ((H_pred - H_tgt) ** 2).mean()
+    loss = torch.tensor(0.0)
+    
+    for src_ids, tgt_ids in zip(src_sents, tgt_sents):
+        # Encode source → root hash
+        H_src = encode(src_ids)
+        
+        # Decode → predicted leaf hashes
+        leaf_preds = decoder.forward(H_src, depth)
+        
+        # Ground truth: encode target to get target leaf hashes
+        tgt_emb = E[tgt_ids]
+        # Each leaf should match its corresponding target token embedding
+        for i, (leaf_h, tgt_h) in enumerate(zip(leaf_preds, tgt_emb)):
+            loss += ((leaf_h - tgt_h) ** 2).mean()
+    
+    loss = loss / (len(src_sents) * 3)  # avg per token
     loss.backward()
     opt.step()
-
-with torch.no_grad():
-    H_mapped = bridge(H_src)
-    print(f"\nBridge: H_src → H_mapped={H_mapped[:4].round(decimals=2).tolist()}")
-    print(f"        target={H_tgt[:4].round(decimals=2).tolist()}")
-    print(f"        MSE={((H_mapped - H_tgt)**2).mean().item():.4f}")
-
-# ── Decoder: reverse the hash split ──
-def decoder(H, depth, emb_matrix):
-    """Reverse cyclic shift: predict left/right child hashes, recurse to leaves"""
-    if depth == 0:
-        # Leaf: nearest neighbor in target vocabulary
-        scores = H @ emb_matrix.T  # (V,)
-        return [scores.argmax().item()]
     
-    # Predict left and right child hashes from parent
-    # Simple split: use half of H as left, other half as right (learned weights would be better)
-    HL_pred = H[:d//2].repeat(2)  # naive: expand half to full dim
-    HR_pred = H[d//2:].repeat(2)
-    
-    # Un-shift the right child
-    HR_unshifted = sign_alt(torch.roll(HR_pred, shifts=-(depth), dims=-1))
-    
-    left_tokens = decoder(HL_pred, depth - 1, emb_matrix)
-    right_tokens = decoder(HR_unshifted, depth - 1, emb_matrix)
-    return left_tokens + right_tokens
+    if step % 60 == 0:
+        with torch.no_grad():
+            # Test: decode "我打你" → should predict leaf tokens
+            H_test = encode([0, 1, 2])
+            leaf_test = decoder.forward(H_test, depth)
+            pred_tokens = []
+            for lh in leaf_test:
+                scores = lh @ E.T
+                pred_tokens.append(scores.argmax().item())
+            acc = sum(1 for a, b in zip(pred_tokens, [5, 6, 7]) if a == b)
+        print(f"  step {step:3d}: loss={loss.item():.4f}  test acc={acc}/3  pred={pred_tokens}")
 
-# ── Test: decode the mapped hash ──
-pred_tokens = decoder(H_mapped, depth=2, emb_matrix=E_en)
-print(f"\nDecoder: mapped hash → predicted tokens = {pred_tokens}")
-print(f"         expected (I hit you) = [5, 6, 7]")
-print(f"         match: {pred_tokens == [5, 6, 7]}")
+# ── Final test ──
+print(f"\n=== Final Results ===")
+for i, (src_ids, tgt_ids) in enumerate(zip(src_sents, tgt_sents)):
+    H_src = encode(src_ids)
+    with torch.no_grad():
+        leaf_preds = decoder.forward(H_src, depth)
+        pred_tokens = [lh @ E.T for lh in leaf_preds]
+        pred_tokens = [p.argmax().item() for p in pred_tokens]
+    acc = sum(1 for a, b in zip(pred_tokens, tgt_ids) if a == b)
+    print(f"  sent {i}: src={src_ids} → pred={pred_tokens} tgt={tgt_ids} acc={acc}/3")
 
-# Also test: perfect echo (decode source hash in source space)
-echo_tokens = decoder(H_src, depth=2, emb_matrix=E_cn)
-print(f"\nEcho test: src hash → source tokens = {echo_tokens}")
-print(f"           expected (我打你)   = [0, 1, 2]")
-print(f"           match: {echo_tokens == [0, 1, 2]}")
+print(f"\nW_split norms:")
+for level, w in enumerate(decoder.W_split):
+    print(f"  L{level}: {w.detach().norm().item():.3f}")
