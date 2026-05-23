@@ -1,125 +1,212 @@
 """
-SPR-008 Twin Tree v2 — Trainable Decoder
-Encoder: cyclic shift (0 params, deterministic)
-Decoder: per-depth W_split (d×d, layer-shared)
-Training: source → encode → decode → MSE(target_tree)
+SPR Translation v3 — WMT14 50K, bilingual tree, GPU training
+Encoder (cyclic shift) + Bridge + Trainable Decoder → BLEU
 """
-import torch, torch.nn as nn
+import torch, torch.nn as nn, torch.nn.functional as F
+import numpy as np, math, os
+from collections import Counter
 
-torch.manual_seed(42)
-d = 16
-depth = 2  # 3 tokens → depth 2
+train_file = "/data/datasets/wmt14/wmt14.train.de-en"
+val_file = "/data/datasets/wmt14/wmt14.validation.de-en"
+
+def load_pairs(path, n):
+    pairs = []
+    with open(path) as f:
+        for i, l in enumerate(f):
+            if i >= n: break
+            if "\t" in l:
+                de, en = l.strip().split("\t", 1)
+                pairs.append((de.split(), en.split()))
+    return pairs
+
+print("loading data...")
+train_pairs = load_pairs(train_file, 50000)
+val_pairs = load_pairs(val_file, 500)
+print(f"train={len(train_pairs)} val={len(val_pairs)}")
+
+# bilingual vocabulary
+word2id_de, id2word_de = {}, {}
+word2id_en, id2word_en = {}, {}
+for de, en in train_pairs + val_pairs:
+    for w in de:
+        if w not in word2id_de: word2id_de[w] = len(word2id_de); id2word_de[len(id2word_de)] = w
+    for w in en:
+        if w not in word2id_en: word2id_en[w] = len(word2id_en); id2word_en[len(id2word_en)] = w
+
+V_de, V_en, d = len(word2id_de), len(word2id_en), 128
+print(f"de={V_de} en={V_en} d={d}")
+
+# bilingual co-occ embeddings
+print("building bilingual co-occ...")
+coocc = np.zeros((V_en + V_de, d), dtype=np.float32)
+for di, (de, en) in enumerate(train_pairs):
+    for i, w in enumerate(en):
+        wid = word2id_en[w]
+        for j in range(max(0,i-3), min(len(en), i+4)):
+            if i != j and en[j] in word2id_en:
+                coocc[wid, word2id_en[en[j]] % d] += 1
+    for i, w in enumerate(de):
+        wid = V_en + word2id_de[w]
+        for j in range(max(0,i-3), min(len(de), i+4)):
+            if i != j and de[j] in word2id_de:
+                coocc[wid, (V_en + word2id_de[de[j]]) % d] += 1
+    for de_w in de:
+        for en_w in en:
+            coocc[V_en + word2id_de[de_w], word2id_en[en_w] % d] += 1
+            coocc[word2id_en[en_w], (V_en + word2id_de[de_w]) % d] += 1
+    if di % 10000 == 9999: print(f"  processed {di+1} sentences")
+
+norms = np.linalg.norm(coocc, axis=1, keepdims=True) + 1e-8
+E_all = torch.tensor(coocc / norms, dtype=torch.float32).cuda()
+E_de = E_all[V_en:]
+E_en = E_all[:V_en]
+
+# ── trainable modules ──
+depth = 3  # pad to 8 tokens
 n_leaves = 1 << depth
 
-# ── Mock embeddings: 10 tokens ──
-E = torch.randn(10, d) * 0.5
+class Encoder:
+    @staticmethod
+    def sign_alt(x):
+        mask = torch.tensor([1., -1.] * (d//2 + 1), device=x.device)[:d]
+        return x * mask
+    
+    def encode(self, tokens, emb, depth=0):
+        if len(tokens) <= 1:
+            return emb[tokens[0]] if len(tokens) == 1 else torch.zeros(d, device=emb.device)
+        mid = len(tokens) // 2
+        HL = self.encode(tokens[:mid], emb, depth + 1)
+        HR = self.encode(tokens[mid:], emb, depth + 1)
+        return HL + self.sign_alt(torch.roll(HR, shifts=depth + 1, dims=-1))
 
-# Sample training data
-src_sents = [
-    [0, 1, 2],  # 我 打 你
-    [3, 4, 5],  # 他 吃 鱼
-    [6, 0, 7],  # 她 我 看
-    [1, 3, 8],  # 打 他 球
-]
-tgt_sents = [
-    [5, 6, 7],  # I hit you
-    [8, 9, 2],  # He eat fish
-    [7, 5, 0],  # She I see
-    [9, 8, 6],  # Hit him ball
-]
-
-def sign_alt(x):
-    mask = torch.tensor([1., -1.] * (d//2 + 1))[:d]
-    return x * mask
-
-# ── Encoder (deterministic, 0 params) ──
-def encode(tokens, depth=0):
-    """Cyclic shift hash — bottom-up merge"""
-    if len(tokens) <= 1:
-        return E[tokens[0]] if len(tokens) == 1 else torch.zeros(d)
-    mid = len(tokens) // 2
-    HL = encode(tokens[:mid], depth + 1)
-    HR = encode(tokens[mid:], depth + 1)
-    return HL + sign_alt(torch.roll(HR, shifts=depth + 1, dims=-1))
-
-# ── Decoder (trainable W_split per depth) ──
 class Decoder(nn.Module):
     def __init__(self):
         super().__init__()
         self.W_split = nn.ParameterList([
-            nn.Parameter(torch.randn(d, d) * 0.1) for _ in range(depth)
+            nn.Parameter(torch.randn(d, d).cuda() * 0.1) for _ in range(depth)
         ])
     
-    def split(self, H, level):
-        """Predict H_left from parent hash H"""
-        H_left_pred = H @ self.W_split[level]
-        # H_right computed deterministically from encoding rule
-        # H = HL + sign_alt(roll(HR, level+1))
-        # → HR = reverse_roll(sign_alt(H - HL_pred))
-        residual = H - H_left_pred
-        H_right_pred = sign_alt(residual)  # undo sign_alt
-        H_right_pred = torch.roll(H_right_pred, shifts=-(level + 1), dims=-1)  # un-roll
-        return H_left_pred, H_right_pred
+    def sign_alt(self, x):
+        mask = torch.tensor([1., -1.] * (d//2 + 1), device=x.device)[:d]
+        return x * mask
     
-    def forward(self, H, remaining_depth, level=0):
-        """Recursively split to leaves"""
-        if remaining_depth == 0:
-            # Leaf: return hash vector
-            return [H]
-        HL, HR = self.split(H, level)
-        left_tokens = self.forward(HL, remaining_depth - 1, level + 1)
-        right_tokens = self.forward(HR, remaining_depth - 1, level + 1)
-        return left_tokens + right_tokens
+    def forward(self, H, level=0):
+        if level >= depth:
+            return [H]  # leaf
+        HL = H @ self.W_split[level]
+        residual = H - HL
+        HR = self.sign_alt(residual)
+        HR = torch.roll(HR, shifts=-(level + 1), dims=-1)
+        left = self.forward(HL, level + 1)
+        right = self.forward(HR, level + 1)
+        return left + right
 
-decoder = Decoder()
-opt = torch.optim.Adam(decoder.parameters(), lr=0.03)
+encoder = Encoder()
+decoder = Decoder().cuda()
+bridge = nn.Linear(d, d).cuda()
+opt = torch.optim.Adam(list(decoder.parameters()) + list(bridge.parameters()), lr=0.01)
 
-# ── Train ──
-print("Training decoder with per-depth W_split...")
-for step in range(300):
+# pad sentences to 8 tokens
+def pad_ids(ids):
+    ids = ids[:8]
+    while len(ids) < 8: ids.append(0)
+    return ids
+
+print(f"\ntraining (samples={len(train_pairs[:2000])})...")
+for step in range(500):
     opt.zero_grad()
-    loss = torch.tensor(0.0)
+    loss = torch.tensor(0.0, device='cuda')
+    n_tokens = 0
     
-    for src_ids, tgt_ids in zip(src_sents, tgt_sents):
-        # Encode source → root hash
-        H_src = encode(src_ids)
+    # batch: random subset of training pairs
+    batch_idx = np.random.choice(min(2000, len(train_pairs)), 16, replace=False)
+    for i in batch_idx:
+        de, en = train_pairs[i]
+        de_ids = pad_ids([word2id_de[w] for w in de if w in word2id_de])
+        en_ids = pad_ids([word2id_en[w] for w in en if w in word2id_en])
         
-        # Decode → predicted leaf hashes
-        leaf_preds = decoder.forward(H_src, depth)
+        # Encode DE → root hash
+        H_src = encoder.encode(de_ids, E_de)
         
-        # Ground truth: encode target to get target leaf hashes
-        tgt_emb = E[tgt_ids]
-        # Each leaf should match its corresponding target token embedding
-        for i, (leaf_h, tgt_h) in enumerate(zip(leaf_preds, tgt_emb)):
-            loss += ((leaf_h - tgt_h) ** 2).mean()
+        # Bridge: DE space → EN space
+        H_tgt = bridge(H_src)
+        
+        # Decode → leaf hashes
+        leaf_preds = decoder.forward(H_tgt)
+        
+        # Target: encode EN sentence → leaf hashes
+        tgt_emb = E_en[en_ids]
+        for i, (lh, th) in enumerate(zip(leaf_preds, tgt_emb)):
+            loss += ((lh - th) ** 2).mean()
+            n_tokens += 1
     
-    loss = loss / (len(src_sents) * 3)  # avg per token
+    loss = loss / max(n_tokens, 1)
     loss.backward()
     opt.step()
     
-    if step % 60 == 0:
+    if step % 100 == 0:
+        # quick BLEU check on a validation sentence
         with torch.no_grad():
-            # Test: decode "我打你" → should predict leaf tokens
-            H_test = encode([0, 1, 2])
-            leaf_test = decoder.forward(H_test, depth)
-            pred_tokens = []
-            for lh in leaf_test:
-                scores = lh @ E.T
-                pred_tokens.append(scores.argmax().item())
-            acc = sum(1 for a, b in zip(pred_tokens, [5, 6, 7]) if a == b)
-        print(f"  step {step:3d}: loss={loss.item():.4f}  test acc={acc}/3  pred={pred_tokens}")
+            for de, en in val_pairs[:1]:
+                de_ids = pad_ids([word2id_de[w] for w in de[:8] if w in word2id_de])
+                H_src = encoder.encode(de_ids, E_de)
+                H_tgt = bridge(H_src)
+                leaves = decoder.forward(H_tgt)
+                pred_words = []
+                for lh in leaves:
+                    scores = lh @ E_en.T
+                    pred_words.append(id2word_en.get(scores.argmax().item(), '?'))
+                ref_words = en[:8]
+        print(f"  step {step:3d}: loss={loss.item():.4f}  "
+              f"pred={' '.join(pred_words[:4])}  ref={' '.join(ref_words[:4])}")
 
-# ── Final test ──
-print(f"\n=== Final Results ===")
-for i, (src_ids, tgt_ids) in enumerate(zip(src_sents, tgt_sents)):
-    H_src = encode(src_ids)
-    with torch.no_grad():
-        leaf_preds = decoder.forward(H_src, depth)
-        pred_tokens = [lh @ E.T for lh in leaf_preds]
-        pred_tokens = [p.argmax().item() for p in pred_tokens]
-    acc = sum(1 for a, b in zip(pred_tokens, tgt_ids) if a == b)
-    print(f"  sent {i}: src={src_ids} → pred={pred_tokens} tgt={tgt_ids} acc={acc}/3")
+# ── BLEU on validation ──
+print(f"\n=== BLEU evaluation ===")
+def ng(t,n): return [tuple(t[i:i+n]) for i in range(len(t)-n+1)]
+refs, hyps = [], []
+with torch.no_grad():
+    for de, en in val_pairs[:100]:
+        de_ids = pad_ids([word2id_de[w] for w in de[:8] if w in word2id_de])
+        H_src = encoder.encode(de_ids, E_de)
+        H_tgt = bridge(H_src)
+        leaves = decoder.forward(H_tgt)
+        hyp_ids = []
+        for lh in leaves:
+            scores = lh @ E_en.T
+            hyp_ids.append(scores.argmax().item())
+        ref_ids = [word2id_en[w] for w in en if w in word2id_en]
+        if ref_ids:
+            refs.append(ref_ids[:8])
+            hyps.append(hyp_ids[:len(ref_ids[:8])])
 
-print(f"\nW_split norms:")
-for level, w in enumerate(decoder.W_split):
-    print(f"  L{level}: {w.detach().norm().item():.3f}")
+def bleu(rf, hp):
+    C=Counter; ps=[]
+    for n in range(1,5):
+        mch,ttl=0,0
+        for r,h in zip(rf,hp):
+            rc=C(ng(r,n)); hc=C(ng(h,n))
+            ttl+=sum(hc.values()); mch+=sum(min(hc[k],rc.get(k,0)) for k in hc)
+        ps.append(mch/max(ttl,1))
+    bpv=[1-len(r)/max(len(h),1) for r,h in zip(rf,hp) if len(h)>0]
+    bp=min(1.0,math.exp(max(bpv) if bpv else 0))
+    return bp*math.exp(sum(math.log(max(p,1e-10)) for p in ps)/4)*100
+
+b = bleu(refs, hyps)
+print(f"BLEU-4 = {b:.2f}")
+
+print(f"\n=== samples ===")
+with torch.no_grad():
+    for i in [0, 1, 2, 5]:
+        de, en = val_pairs[i]
+        de_ids = pad_ids([word2id_de[w] for w in de[:8] if w in word2id_de])
+        H_src = encoder.encode(de_ids, E_de)
+        H_tgt = bridge(H_src)
+        leaves = decoder.forward(H_tgt)
+        pred = []
+        for lh in leaves:
+            scores = lh @ E_en.T
+            pred.append(id2word_en.get(scores.argmax().item(), '?'))
+        print(f"  src(de): {' '.join(de[:6])}")
+        print(f"  ref(en): {' '.join(en[:6])}")
+        print(f"  pred:    {' '.join(pred[:6])}")
+        print()
