@@ -1,38 +1,49 @@
 """
-SPR Decoder v3 — bilingual co-occ embeddings
-en/de words co-embedded in shared space via sentence co-occurrence
+SPR Decoder v4 — WMT14 50K training sentences
+bilingual co-occ embeddings → nearest-neighbor translation
 """
 import torch, numpy as np, math, os
 from collections import Counter
 
-tab = "/data/datasets/wmt14/wmt14.validation.de-en"
-pairs = []
-with open(tab) as f:
-    for l in f:
-        if "\t" in l and len(pairs) < 512:
-            de, en = l.strip().split("\t", 1)
-            pairs.append((de.split(), en.split()))
+train_file = "/data/datasets/wmt14/wmt14.train.de-en"
+val_file = "/data/datasets/wmt14/wmt14.validation.de-en"
 
+def load_pairs(path, n):
+    pairs = []
+    with open(path) as f:
+        for i, l in enumerate(f):
+            if i >= n: break
+            if "\t" in l:
+                de, en = l.strip().split("\t", 1)
+                pairs.append((de.split(), en.split()))
+    return pairs
+
+print("loading training data...")
+train_pairs = load_pairs(train_file, 50000)
+val_pairs = load_pairs(val_file, 1000)
+print(f"train={len(train_pairs)} val={len(val_pairs)}")
+
+# build vocab from train only
 word2id_en, id2word_en = {}, {}
 word2id_de, id2word_de = {}, {}
-for de, en in pairs:
+for de, en in train_pairs:
     for w in en:
         if w not in word2id_en: word2id_en[w] = len(word2id_en); id2word_en[len(id2word_en)] = w
     for w in de:
         if w not in word2id_de: word2id_de[w] = len(word2id_de); id2word_de[len(id2word_de)] = w
 
-V_en, V_de, d = len(word2id_en), len(word2id_de), 64
-train_n = int(len(pairs) * 0.8)
-
-# bilingual co-occ: en-en, de-de, AND en-de all in same matrix
+V_en, V_de, d = len(word2id_en), len(word2id_de), 128
 V_all = V_en + V_de
+print(f"en vocab={V_en} de vocab={V_de} d={d}")
+
+# bilingual co-occ
 coocc = np.zeros((V_all, d), dtype=np.float32)
 
 def en_idx(w): return word2id_en[w]
 def de_idx(w): return V_en + word2id_de[w]
 
-for de, en in pairs[:train_n]:
-    # en-en context
+for di, (de, en) in enumerate(train_pairs):
+    # en-en context (window=3)
     for i, w in enumerate(en):
         wid = en_idx(w)
         for j in range(max(0,i-3), min(len(en), i+4)):
@@ -49,22 +60,26 @@ for de, en in pairs[:train_n]:
         for de_w in de:
             coocc[en_idx(en_w), de_idx(de_w) % d] += 1
             coocc[de_idx(de_w), en_idx(en_w) % d] += 1
+    if di % 10000 == 9999:
+        print(f"  processed {di+1} sentences")
 
 norms = np.linalg.norm(coocc, axis=1, keepdims=True) + 1e-8
 E_all = torch.tensor(coocc / norms, dtype=torch.float32)
 E_en = E_all[:V_en]
 E_de = E_all[V_en:]
 
-# translation: en word → nearest de word
-print(f"en={V_en} de={V_de} d={d}")
-print(f"\nsimilarity samples:")
-pairs_to_check = [('president','Präsident'),('strategy','Strategie'),('court','Gericht'),('cat','Katze'),('the','der')]
-for en_w, de_w in pairs_to_check:
+# similarity check
+pairs_check = [('the','der'),('president','Präsident'),('strategy','Strategie'),('court','Gericht'),('european','europäischen'),('commission','Kommission')]
+print(f"\nbilingual sims:")
+for en_w, de_w in pairs_check:
     if en_w in word2id_en and de_w in word2id_de:
-        sim = float(torch.cosine_similarity(E_en[word2id_en[en_w]].unsqueeze(0), E_de[word2id_de[de_w]].unsqueeze(0)).item())
-        print(f"  '{en_w}'↔'{de_w}': {sim:.3f}")
+        s = float(torch.cosine_similarity(E_en[word2id_en[en_w]].unsqueeze(0), E_de[word2id_de[de_w]].unsqueeze(0)).item())
+        print(f"  '{en_w}'↔'{de_w}': {s:.3f}")
 
-# tree on en
+# per-word nearest neighbor BLEU
+def ng(t,n): return [tuple(t[i:i+n]) for i in range(len(t)-n+1)]
+
+# ── tree routing ──
 depth = 8; n_leaves = 1<<depth; n_nodes = n_leaves-1
 
 def soft_assign(emb, nw, depth, idx=0):
@@ -78,22 +93,39 @@ def soft_assign(emb, nw, depth, idx=0):
 with torch.no_grad():
     leaf_en = soft_assign(E_en, torch.randn(n_nodes,d)*0.05, depth).argmax(dim=1)
 
-# Nearest neighbor: for each en word, H_leaf → nearest de word
+# leaf→de word frequency table (from 50K training sentences)
+leaf_de = [Counter() for _ in range(n_leaves)]
+for de, en in train_pairs:
+    en_ids = [word2id_en[w] for w in en if w in word2id_en]
+    de_ids = [word2id_de[w] for w in de if w in word2id_de]
+    if not en_ids: continue
+    leaf_votes = Counter([leaf_en[eid].item() for eid in en_ids])
+    best_leaf = leaf_votes.most_common(1)[0][0]
+    for did in de_ids:
+        leaf_de[best_leaf][did] += 1
+
+leaf_trans_best = {}
+for lid in range(n_leaves):
+    if leaf_de[lid]:
+        leaf_trans_best[lid] = leaf_de[lid].most_common(1)[0][0]
+
+active = sum(1 for l in leaf_de if l)
+print(f"\ntree: leaves={n_leaves} active={active}")
+
+# BLEU
 refs, hyps = [], []
-for i in range(train_n, len(pairs)):
-    de, en = pairs[i]
+for de, en in val_pairs:
     de_ref = [word2id_de[w] for w in de if w in word2id_de]
     hyp = []
     for w in en:
         if w in word2id_en:
             eid = word2id_en[w]
-            scores = E_en[eid] @ E_de.T  # per-word nearest neighbor
-            hyp.append(scores.argmax().item())
+            lid = leaf_en[eid].item()
+            hyp.append(leaf_trans_best.get(lid, 0))
     refs.append(de_ref)
     hyps.append(hyp[:len(de_ref)])
 
 def bleu(rf, hp):
-    def ng(t,n): return [tuple(t[i:i+n]) for i in range(len(t)-n+1)]
     C=Counter; ps=[]
     for n in range(1,5):
         mch,ttl=0,0
@@ -106,16 +138,17 @@ def bleu(rf, hp):
     return bp*math.exp(sum(math.log(max(p,1e-10)) for p in ps)/4)*100
 
 b = bleu(refs, hyps)
-print(f"BLEU-4 = {b:.2f}")
+print(f"\nBLEU-4 = {b:.2f}")
 
 # samples
-for i in [0, 2]:
-    de, en = pairs[train_n + i]
+for i in [0, 3, 7]:
+    de, en = val_pairs[i]
     hyp_words = []
     for w in en[:8]:
         if w in word2id_en:
-            scores = E_en[word2id_en[w]] @ E_de.T
-            hyp_words.append(id2word_de.get(scores.argmax().item(), '?'))
+            eid = word2id_en[w]
+            lid = leaf_en[eid].item()
+            hyp_words.append(id2word_de.get(leaf_trans_best.get(lid, 0), '?'))
     print(f"\n  src: {' '.join(en[:6])}")
     print(f"  ref: {' '.join(de[:6])}")
     print(f"  hyp: {' '.join(hyp_words[:6])}")
