@@ -27,7 +27,7 @@ for s in train_sents + val_sents:
         if w not in word2id: word2id[w] = len(word2id)
 V, d = len(word2id), 64
 id2word = {v: k for k, v in word2id.items()}
-depth = 8; n_leaves = 1 << depth; n_nodes = n_leaves - 1
+depth = 12; n_leaves = 1 << depth; n_nodes = n_leaves - 1
 print(f"vocab={V} d={d} depth={depth} leaves={n_leaves}")
 
 # co-occ
