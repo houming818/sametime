@@ -11,6 +11,17 @@ train_file = "/data/datasets/wmt14/wmt14.train.de-en"
 val_file = "/data/datasets/wmt14/wmt14.validation.de-en"
 
 def load_sents(path, n):
+    if not os.path.exists(path):
+        print(f"  ERROR: {path} not found.")
+        print(f"  Download command:")
+        print(f"  pip install datasets")
+        print(f"  python3 -c \"from datasets import load_dataset;")
+        print(f"  ds = load_dataset('wmt14', 'de-en');")
+        print(f"  import os; os.makedirs('/data/datasets/wmt14', exist_ok=True);")
+        print(f"  for split in ['train','validation','test']:")
+        print(f"    with open(f'/data/datasets/wmt14/wmt14.{split}.de-en','w') as f:")
+        print(f"      for ex in ds[split]: f.write(ex['translation']['de']+'\\t'+ex['translation']['en']+'\\n')\"")
+        import sys; sys.exit(1)
     sents = []
     with open(path) as f:
         for i, l in enumerate(f):
