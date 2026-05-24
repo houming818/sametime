@@ -48,15 +48,25 @@ def spr_route_offset(embeddings, depth_start, depth_end):
         idx[go_right] += 1
     return idx - ((1 << n_depths) - 1)
 
-# ── Tree 1: coarse (shifts 0-6 → 7 depths → 128 leaves) ──
+# ── Tree 1: coarse (shifts 0-6 → 128 leaves) ──
 d1 = 7; l1 = 1 << d1
-print(f"Tree1: shifts 0-6, depth={d1} leaves={l1}")
 leaf1 = spr_route_offset(E, 0, 7)
 
-# ── Tree 2: fine (shifts 7-13 → 7 depths → 128 leaves) ──
+# Compute tree1 leaf centers
+centers1 = torch.zeros(l1, d, device='cuda')
+for lid in range(l1):
+    mask = leaf1 == lid
+    if mask.any():
+        centers1[lid] = E[mask].mean(dim=0)
+
+# True residual: E - coarse center, then re-normalize
+E_res = E - centers1[leaf1]
+E_res = E_res / (E_res.norm(dim=1, keepdim=True) + 1e-8)
+
+# ── Tree 2: residuals (shifts 7-13 → 128 leaves) ──
 d2 = 7; l2 = 1 << d2
-print(f"Tree2: shifts 7-13, depth={d2} leaves={l2}")
-leaf2 = spr_route_offset(E, 7, 14)
+print(f"Tree2: shifts 7-13 on true residuals, leaves={l2}")
+leaf2 = spr_route_offset(E_res, 7, 14)
 
 # ── Combined leaf: leaf1 * l2 + leaf2 = 128*128 = 16384 ──
 leaf_combined = leaf1 * l2 + leaf2
