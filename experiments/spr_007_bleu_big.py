@@ -1,5 +1,5 @@
 """
-SPR-007 BLEU — 50K WMT14, train routing, measure BLEU on reconstruction
+SPR-007 BLEU v3 — Fixed: depth=7 safe, frequency-weighted leaf top, <unk> handling
 """
 import torch, torch.nn as nn, torch.nn.functional as F
 import numpy as np, math, os, time
@@ -21,26 +21,36 @@ train_sents = load_sents(train_file, 50000)
 val_sents = load_sents(val_file, 2000)
 print(f"train={len(train_sents)} val={len(val_sents)}")
 
-word2id = {"<pad>": 0}
-for s in train_sents + val_sents:
+# Frequency-weighted vocabulary
+word_counts = Counter()
+for s in train_sents: word_counts.update(s)
+
+word2id = {"<pad>": 0, "<unk>": 1}
+for w, _ in word_counts.most_common(15000):
+    if w not in word2id: word2id[w] = len(word2id)
+for s in val_sents:
     for w in s:
         if w not in word2id: word2id[w] = len(word2id)
+
 V, d = len(word2id), 64
 id2word = {v: k for k, v in word2id.items()}
-depth = 12; n_leaves = 1 << depth; n_nodes = n_leaves - 1
+depth = 7; n_leaves = 1 << depth; n_nodes = n_leaves - 1
 print(f"vocab={V} d={d} depth={depth} leaves={n_leaves}")
 
-# co-occ
-print("building co-occ...")
-coocc = np.zeros((V, d), dtype=np.float32)
-for s in train_sents[:10000]:
-    for i, w in enumerate(s):
-        if w not in word2id: continue
-        wid = word2id[w]
-        for j in range(max(0,i-3), min(len(s), i+4)):
-            if i != j and s[j] in word2id: coocc[wid, word2id[s[j]] % d] += 1
-norms = np.linalg.norm(coocc, axis=1, keepdims=True) + 1e-8
-E = torch.tensor(coocc / norms, dtype=torch.float32).cuda()
+# Co-occ
+print("building co-occ on GPU...")
+coocc = torch.zeros(V, d, device='cuda')
+for si, s in enumerate(train_sents):
+    ids = [word2id.get(w, 1) for w in s]
+    n = len(ids)
+    for i in range(n):
+        wid = ids[i]
+        start, end = max(0, i-3), min(n, i+4)
+        ctx = torch.tensor(ids[start:end], device='cuda')
+        coocc[wid].scatter_add_(0, ctx % d, torch.ones(len(ctx), device='cuda'))
+    if si % 50000 == 49999: print(f"  {si+1} done")
+norms = coocc.norm(dim=1, keepdim=True) + 1e-8
+E = coocc / norms
 
 # Non-recursive routing
 def get_routing_probs(emb, nw):
@@ -54,30 +64,45 @@ def get_routing_probs(emb, nw):
         probs = (probs * splits).view(N, -1)
     return probs
 
-# ── Train node_W ──
+# Train
 nw = nn.Parameter(torch.randn(n_nodes, d).cuda() * 0.05)
-opt = torch.optim.Adam([nw], lr=0.01)
+opt = torch.optim.Adam([nw], lr=0.02)
 ideal = V / n_leaves
 
-print("training routing...")
+print("training...")
 for step in range(300):
     opt.zero_grad()
     assign = get_routing_probs(E, nw)
     ls = assign.sum(dim=0) + 1e-8
     lc = assign.T @ E / ls.unsqueeze(1)
-    loss = F.mse_loss(E, assign @ lc) + 2.0 * ((ls - ideal)**2).mean()/ideal
+    loss = F.mse_loss(E, assign @ lc) + 2.0 * ((ls - ideal)**2).mean() / ideal
     loss.backward(); opt.step()
 
 with torch.no_grad():
     leaf_for = get_routing_probs(E, nw).argmax(dim=1)
 
-# ── BLEU: word → leaf → top word at leaf ──
-leaf_top = {}
-for lid in range(n_leaves):
-    ids = (leaf_for == lid).nonzero(as_tuple=True)[0]
-    if len(ids) > 0:
-        leaf_top[lid] = Counter(ids.tolist()).most_common(1)[0][0]
+# Fix: frequency-weighted leaf top
+def leaf_top_freq(leaf_assign):
+    lt = {}
+    for lid in range(n_leaves):
+        wids = (leaf_assign == lid).nonzero(as_tuple=True)[0].tolist()
+        if wids:
+            # Pick word with highest corpus frequency in this leaf
+            best = max(wids, key=lambda wid: word_counts.get(id2word.get(wid, ''), 0))
+            lt[lid] = best
+        else:
+            lt[lid] = 1  # <unk>
+    return lt
 
+leaf_top = leaf_top_freq(leaf_for)
+
+# Random baseline
+nw_rand = torch.randn(n_nodes, d).cuda() * 0.05
+with torch.no_grad():
+    lf_rand = get_routing_probs(E, nw_rand).argmax(dim=1)
+lt_rand = leaf_top_freq(lf_rand)
+
+# BLEU
 def ng(t,n): return [tuple(t[i:i+n]) for i in range(len(t)-n+1)]
 def bleu(rf, hp):
     C=Counter; ps=[]
@@ -86,45 +111,38 @@ def bleu(rf, hp):
         for r,h in zip(rf,hp):
             rc=C(ng(r,n)); hc=C(ng(h,n))
             ttl+=sum(hc.values()); mch+=sum(min(hc[k],rc.get(k,0)) for k in hc)
-        ps.append(mch/max(ttl,1))
+        ps.append(mch / max(ttl, 1) if ttl > 0 else 1.0)  # no n-gram = no penalty
     bpv=[1-len(r)/max(len(h),1) for r,h in zip(rf,hp) if len(h)>0]
     bp=min(1.0,math.exp(max(bpv) if bpv else 0))
     return bp*math.exp(sum(math.log(max(p,1e-10)) for p in ps)/4)*100
 
-# Random baseline
-nw_rand = torch.randn(n_nodes, d).cuda() * 0.05
-with torch.no_grad():
-    lf_rand = get_routing_probs(E, nw_rand).argmax(dim=1)
-    lt_rand = {}
-    for lid in range(n_leaves):
-        ids = (lf_rand == lid).nonzero(as_tuple=True)[0]
-        if len(ids) > 0: lt_rand[lid] = Counter(ids.tolist()).most_common(1)[0][0]
+# Sanity checks
+refs_p = [[0,1,2]]; hyps_p = [[0,1,2]]
+print(f"\nsanity perfect echo BLEU = {bleu(refs_p, hyps_p):.1f} (expect 100)")
 
-refs, hyps_rand, hyps_trained = [], [], []
+refs, hyps_r, hyps_t = [], [], []
 for s in val_sents[:500]:
-    ids = [word2id.get(w, 0) for w in s if word2id.get(w, 0) > 0]
-    if len(ids) < 3: continue
+    ids = [word2id.get(w, 1) for w in s]  # <unk> for unknown, preserve length
+    if len(ids) < 4: continue
     refs.append(ids)
-    hyps_rand.append([lt_rand.get(lf_rand[wid].item(), 0) for wid in ids])
-    hyps_trained.append([leaf_top.get(leaf_for[wid].item(), 0) for wid in ids])
+    hyps_r.append([lt_rand.get(lf_rand[wid].item(), 1) for wid in ids])
+    hyps_t.append([leaf_top.get(leaf_for[wid].item(), 1) for wid in ids])
 
-b_rand = bleu(refs, hyps_rand)
-b_trained = bleu(refs, hyps_trained)
+b_r = bleu(refs, hyps_r)
+b_t = bleu(refs, hyps_t)
+print(f"random  BLEU: {b_r:.2f}")
+print(f"trained BLEU: {b_t:.2f}")
+print(f"delta       : {b_t - b_r:+.2f}")
 
-print(f"\n=== BLEU-4 ===")
-print(f"random  : {b_rand:.2f}")
-print(f"trained : {b_trained:.2f}")
-print(f"delta   : {b_trained - b_rand:+.2f}")
-print(f"improved: {'YES' if b_trained > b_rand else 'NO'}")
-
-# samples
+# Samples
 print(f"\n=== samples ===")
-for i in [0, 1, 2]:
+for i in range(min(3, len(val_sents))):
     s = val_sents[i]
-    ids = [word2id.get(w, 0) for w in s if word2id.get(w, 0) > 0][:6]
-    hyp_r = [id2word.get(lt_rand.get(lf_rand[wid].item(), 0), '?') for wid in ids]
-    hyp_t = [id2word.get(leaf_top.get(leaf_for[wid].item(), 0), '?') for wid in ids]
-    print(f"  src: {' '.join([id2word[w] for w in ids[:5]])}")
-    print(f"  rnd: {' '.join(hyp_r[:5])}")
-    print(f"  trn: {' '.join(hyp_t[:5])}")
+    ids = [word2id.get(w, 1) for w in s][:6]
+    src = ' '.join([id2word.get(w, '?') for w in ids])
+    rnd = ' '.join([id2word.get(lt_rand.get(lf_rand[wid].item(), 1), '?') for wid in ids])
+    trn = ' '.join([id2word.get(leaf_top.get(leaf_for[wid].item(), 1), '?') for wid in ids])
+    print(f"  src: {src}")
+    print(f"  rnd: {rnd}")
+    print(f"  trn: {trn}")
     print()
