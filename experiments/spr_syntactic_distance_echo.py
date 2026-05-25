@@ -101,18 +101,21 @@ class WSplitDecoder(nn.Module):
     def __init__(self, d, n_modules=8):
         super().__init__()
         self.d = d
+        # Small MLP per split level: node → [left, right]
         self.W_split = nn.ModuleList([
-            nn.Linear(d, d * 2) for _ in range(n_modules)
+            nn.Sequential(
+                nn.Linear(d, d * 2),
+                nn.ReLU(),
+                nn.Linear(d * 2, d * 2)
+            ) for _ in range(n_modules)
         ])
         for w in self.W_split:
-            nn.init.normal_(w.weight, 0, 0.02)
-            nn.init.zeros_(w.bias)
+            for layer in w:
+                if isinstance(layer, nn.Linear):
+                    nn.init.normal_(layer.weight, 0, 0.02)
+                    nn.init.zeros_(layer.bias)
     
     def forward(self, node_hash, depth, tree_struct):
-        """
-        Recursively decode. Returns (node_hashes, leaf_hashes)
-        node_hashes: for MSE supervision, leaf_hashes: for CE supervision
-        """
         return self._decode(node_hash, depth, tree_struct)
     
     def _decode(self, node_hash, depth, struct):
@@ -130,7 +133,10 @@ class WSplitDecoder(nn.Module):
         left_pred = split_out[:self.d]
         right_pred = split_out[self.d:]
         
-        # Store decoded node hash for supervision (depth, pred, structure)
+        # Residual: anchor children near parent to reduce drift
+        left_pred = left_pred + 0.1 * node_hash
+        right_pred = right_pred + 0.1 * node_hash
+        
         decoded_nodes = [(node_depth, node_hash, left_pred, right_pred)]
         
         left_decoded, left_leaves = self._decode(left_pred, depth + 1, left_struct)
@@ -167,7 +173,7 @@ t0 = time.time()
 for epoch in range(300):
     decoder.train()
     random.shuffle(train_sents)
-    ti, tl_node, tl_ce, tt = 0, 0, 0, 0
+    ti, tl_node, tl_ce, tl_leaf, tt = 0, 0, 0, 0, 0
     
     for bi in range(0, 3000, 32):  # 3000 sentences per epoch for speed
         batch_sents = train_sents[bi:bi+32]
@@ -205,24 +211,28 @@ for epoch in range(300):
             
             # CE on leaf tokens
             loss_ce = torch.tensor(0.0, device=device)
+            loss_leaf_mse = torch.tensor(0.0, device=device)
             leaf_count = 0
             for lh in decoded_leaves:
                 logits = lh @ E.weight.T  # [V]
                 if leaf_count < len(ids):
+                    target_emb = E.weight[ids_t[leaf_count]]  # true token embedding
                     loss_ce += F.cross_entropy(logits.unsqueeze(0), ids_t[leaf_count].unsqueeze(0))
+                    loss_leaf_mse += F.mse_loss(lh, target_emb)  # leaf hash → token embedding
                 leaf_count += 1
             
             if leaf_count > 0:
                 loss_ce = loss_ce / leaf_count
+                loss_leaf_mse = loss_leaf_mse / leaf_count
             
-            loss = loss_node + loss_ce
+            loss = loss_node + loss_ce + 0.5 * loss_leaf_mse
             
             opt.zero_grad()
             loss.backward()
             torch.nn.utils.clip_grad_norm_(decoder.parameters(), 2.0)
             opt.step()
             
-            ti += 1; tl_node += loss_node.item(); tl_ce += loss_ce.item(); tt += len(ids)
+            ti += 1; tl_node += loss_node.item(); tl_ce += loss_ce.item(); tl_leaf += loss_leaf_mse.item(); tt += len(ids)
     
     if ti == 0: continue
     scheduler.step()
@@ -251,7 +261,7 @@ for epoch in range(300):
         tok_tot = sum(len(r) for r in refs)
         
         elapsed = time.time() - t0
-        print(f"  ep {epoch:3d} node_loss={tl_node/ti:.4f} ce_loss={tl_ce/ti:.4f} "
+        print(f"  ep {epoch:3d} node_loss={tl_node/ti:.4f} ce_loss={tl_ce/ti:.4f} leaf_mse={tl_leaf:.4f} "
               f"BLEU={bleu:.1f} tok_acc={tok_acc}/{tok_tot}={100*tok_acc/tok_tot:.1f}% "
               f"time={elapsed:.0f}s")
         decoder.train()
