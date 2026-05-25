@@ -1,13 +1,13 @@
 """
-SPR Syntactic Distance Tree — Autoencoder with Internal Node Supervision
-Encoder: pure geometry (0 params), stores ALL node hashes
-Decoder: trained W_split, supervised by MSE on intermediate nodes + CE on leaves
+SPR Syntactic Distance Tree — Flat Path-Conditioned Decoder
+Encode: syntactic distances → recursive tree → root_hash + leaf_paths
+Decode: each leaf = MLP(root_hash + path_embedding), no recursion, no gradient chain
 """
 import torch, torch.nn as nn, torch.nn.functional as F
 import numpy as np, math, time, random
 from collections import Counter
 
-device = 'cuda'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"device={device}")
 
 train_file = "/data/datasets/wmt14/wmt14.train.de-en"
@@ -27,7 +27,7 @@ val_sents = load_sents(val_file, 500)
 
 word2id = {"<pad>": 0, "<unk>": 1}
 freq = Counter()
-for s in train_sents: 
+for s in train_sents:
     for w in s: freq[w] += 1
 for w, c in freq.most_common():
     if c >= 2: word2id[w] = len(word2id)
@@ -44,7 +44,6 @@ E = nn.Embedding(V, d).to(device)
 nn.init.normal_(E.weight, 0, 0.02)
 SIGN_MASK = torch.tensor([1., -1.] * (d//2 + 1), device=device)[:d]
 
-# ──── Encoder: Syntactic Distance Tree (stores ALL node hashes) ────
 def syntactic_distances(embs):
     T = embs.shape[0]
     dists = torch.zeros(T-1, device=device)
@@ -55,100 +54,62 @@ def syntactic_distances(embs):
         dists += (scores[:-1] - scores[1:]).abs()
     return dists / 3.0
 
-def build_tree_with_hashes(embs, dists, tree_depth=1):
-    """
-    Build tree AND store all node hashes.
-    Returns: (root_hash, node_hashes, tree_struct, leaf_hashes)
-    node_hashes: list of (depth, node_hash) for all internal nodes
-    """
+def build_tree_with_paths(embs, dists, tree_depth=1):
     T = len(embs)
     if T <= 1:
         leaf = embs[0] if T >= 1 else torch.zeros(d, device=device)
-        return leaf, [], [('leaf',)], [leaf]
+        return leaf, [leaf], ['']
     if len(dists) == 0:
-        return embs[0], [], [('leaf',)], [embs[0]]
-    
-    split_pos = dists.argmax().item()
-    L = split_pos + 1
-    
-    left_embs = embs[:L]
-    left_dists = dists[:split_pos] if split_pos > 0 else dists[:0]
-    right_embs = embs[L:]
-    right_dists = dists[L:] if L < len(dists) else dists[:0]
-    
-    left_hash, left_nodes, left_struct, left_leaves = \
-        build_tree_with_hashes(left_embs, left_dists, tree_depth + 1)
-    right_hash, right_nodes, right_struct, right_leaves = \
-        build_tree_with_hashes(right_embs, right_dists, tree_depth + 1)
-    
-    # Merge with depth-dependent shift
-    shifts = tree_depth
-    merged = left_hash + SIGN_MASK * torch.roll(right_hash, shifts=shifts)
+        return embs[0], [embs[0]], ['']
+    split_pos = dists.argmax().item(); L = split_pos + 1
+    left_root, left_leaves, left_paths = build_tree_with_paths(embs[:L], dists[:split_pos] if split_pos > 0 else dists[:0], tree_depth + 1)
+    right_root, right_leaves, right_paths = build_tree_with_paths(embs[L:], dists[L:] if L < len(dists) else dists[:0], tree_depth + 1)
+    merged = left_root + SIGN_MASK * torch.roll(right_root, shifts=tree_depth)
     merged = merged / (merged.norm() + 1e-8)
-    
-    # Store this node's hash (for supervision)
-    node_hashes = [(tree_depth, merged.detach(), left_hash.detach(), right_hash.detach())]
-    node_hashes += left_nodes + right_nodes
-    
-    tree_struct = [('node', tree_depth, left_struct, right_struct)] + left_struct + right_struct
-    all_leaves = left_leaves + right_leaves
-    
-    return merged, node_hashes, tree_struct, all_leaves
+    return merged, left_leaves + right_leaves, ['L' + p for p in left_paths] + ['R' + p for p in right_paths]
 
 
-# ──── Decoder: Trainable W_split ────
-class WSplitDecoder(nn.Module):
-    def __init__(self, d, n_modules=8):
+class FlatPathDecoder(nn.Module):
+    """Direct mapping: root_hash + path_info → leaf_hash (no recursion)"""
+    def __init__(self, d, max_path_len=20):
         super().__init__()
         self.d = d
-        # Small MLP per split level: node → [left, right]
-        self.W_split = nn.ModuleList([
-            nn.Sequential(
-                nn.Linear(d, d * 2),
-                nn.ReLU(),
-                nn.Linear(d * 2, d * 2)
-            ) for _ in range(n_modules)
-        ])
-        for w in self.W_split:
-            for layer in w:
-                if isinstance(layer, nn.Linear):
-                    nn.init.normal_(layer.weight, 0, 0.02)
-                    nn.init.zeros_(layer.bias)
+        # Path embedding: 'L'→[0], 'R'→[1], positional encoding for depth
+        self.path_enc = nn.Embedding(max_path_len, d)  # position → embedding
+        
+        # MLP: [root_hash(d) + path_summary(d)] → leaf_hash(d)
+        self.decoder = nn.Sequential(
+            nn.Linear(d * 2, d * 4),
+            nn.ReLU(),
+            nn.Linear(d * 4, d * 2),
+            nn.ReLU(),
+            nn.Linear(d * 2, d)
+        )
     
-    def forward(self, node_hash, depth, tree_struct):
-        return self._decode(node_hash, depth, tree_struct)
-    
-    def _decode(self, node_hash, depth, struct):
-        if not struct:
-            return [], [node_hash]
+    def forward(self, root_hash, leaf_paths):
+        T = len(leaf_paths)
+        leaf_hashes = torch.zeros(T, self.d, device=root_hash.device)
         
-        head = struct[0]
-        if head[0] == 'leaf':
-            return [], [node_hash]
+        for t, path in enumerate(leaf_paths):
+            # Encode path: sum of position embeddings weighted by direction
+            path_vec = torch.zeros(self.d, device=root_hash.device)
+            for depth, c in enumerate(path):
+                if depth < self.path_enc.num_embeddings:
+                    pe = self.path_enc(torch.tensor(depth, device=root_hash.device))
+                    if c == 'R': pe = -pe  # sign flip for right
+                    path_vec = path_vec + pe
+            path_vec = path_vec / max(len(path), 1)  # normalize
+            
+            # Combine root + path → leaf
+            inp = torch.cat([root_hash, path_vec])
+            leaf_hashes[t] = self.decoder(inp)
         
-        _, node_depth, left_struct, right_struct = head
-        
-        idx = depth % len(self.W_split)
-        split_out = self.W_split[idx](node_hash)
-        left_pred = split_out[:self.d]
-        right_pred = split_out[self.d:]
-        
-        # Residual: anchor children near parent to reduce drift
-        left_pred = left_pred + 0.1 * node_hash
-        right_pred = right_pred + 0.1 * node_hash
-        
-        decoded_nodes = [(node_depth, node_hash, left_pred, right_pred)]
-        
-        left_decoded, left_leaves = self._decode(left_pred, depth + 1, left_struct)
-        right_decoded, right_leaves = self._decode(right_pred, depth + 1, right_struct)
-        
-        return decoded_nodes + left_decoded + right_decoded, left_leaves + right_leaves
+        return leaf_hashes
 
 
-# ──── Train + Eval ────
-decoder = WSplitDecoder(d, n_modules=6).to(device)
-opt = torch.optim.Adam(list(decoder.parameters()), lr=0.003)
-scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=300)
+decoder = FlatPathDecoder(d).to(device)
+opt = torch.optim.Adam(decoder.parameters(), lr=0.003)
+scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=100)
 
 def ng(t, n): return [tuple(t[i:i+n]) for i in range(len(t)-n+1)]
 def compute_bleu(refs, hyps):
@@ -166,142 +127,76 @@ def compute_bleu(refs, hyps):
 val_data = [(s, [word2id.get(w, 1) for w in s]) for s in val_sents[:200] if len(s) >= 2]
 
 print(f"\n{'='*60}")
-print(f"Training W_split decoder with internal node supervision...")
-print(f"  n_modules=6 epochs=300 batch=32 lr=0.003")
+print(f"Training Flat-Path Decoder...")
+print(f"  epochs=100 batch=32 lr=0.003")
 t0 = time.time()
 
-for epoch in range(300):
+for epoch in range(100):
     decoder.train()
     random.shuffle(train_sents)
-    ti, tl_node, tl_ce, tl_leaf, tt = 0, 0, 0, 0, 0
+    ti, tl, tt = 0, 0, 0
     
-    for bi in range(0, 3000, 32):  # 3000 sentences per epoch for speed
+    for bi in range(0, 2000, 32):
         batch_sents = train_sents[bi:bi+32]
         if not batch_sents: continue
-        
         for s in batch_sents:
             ids = [word2id.get(w, 1) for w in s]
             if len(ids) < 3: continue
-            
-            ids_t = torch.tensor(ids, device=device)
-            embs = E(ids_t)
-            
-            # ── Encode (no grad, save node hashes for supervision) ──
+            ids_t = torch.tensor(ids, device=device); embs = E(ids_t)
             with torch.no_grad():
                 dists = syntactic_distances(embs)
-                root_hash, true_nodes, tree_struct, true_leaves = \
-                    build_tree_with_hashes(embs, dists)
-            decoded_nodes, decoded_leaves = decoder(root_hash, 1, tree_struct)
-            
-            # ── Losses ──
-            # MSE on internal nodes: each (depth, parent) → (left, right) vs true
-            loss_node = torch.tensor(0.0, device=device)
-            node_count = 0
-            for (depth, parent, true_left, true_right) in true_nodes:
-                # Find matching decoded node
-                for (d_depth, d_parent, d_left, d_right) in decoded_nodes:
-                    if d_depth == depth:
-                        # Supervise: d_left ≈ true_left, d_right ≈ true_right
-                        loss_node += F.mse_loss(d_left, true_left) + F.mse_loss(d_right, true_right)
-                        node_count += 1
-                        break
-            
-            if node_count > 0:
-                loss_node = loss_node / node_count
-            
-            # CE on leaf tokens
-            loss_ce = torch.tensor(0.0, device=device)
-            loss_leaf_mse = torch.tensor(0.0, device=device)
-            leaf_count = 0
-            for lh in decoded_leaves:
-                logits = lh @ E.weight.T  # [V]
-                if leaf_count < len(ids):
-                    target_emb = E.weight[ids_t[leaf_count]]  # true token embedding
-                    loss_ce += F.cross_entropy(logits.unsqueeze(0), ids_t[leaf_count].unsqueeze(0))
-                    loss_leaf_mse += F.mse_loss(lh, target_emb)  # leaf hash → token embedding
-                leaf_count += 1
-            
-            if leaf_count > 0:
-                loss_ce = loss_ce / leaf_count
-                loss_leaf_mse = loss_leaf_mse / leaf_count
-            
-            loss = loss_node + loss_ce + 0.5 * loss_leaf_mse
-            
-            opt.zero_grad()
-            loss.backward()
-            torch.nn.utils.clip_grad_norm_(decoder.parameters(), 2.0)
-            opt.step()
-            
-            ti += 1; tl_node += loss_node.item(); tl_ce += loss_ce.item(); tl_leaf += loss_leaf_mse.item(); tt += len(ids)
+                root_hash, _, leaf_paths = build_tree_with_paths(embs, dists)
+            leaf_hashes = decoder(root_hash, leaf_paths)
+            loss = torch.tensor(0.0, device=device)
+            for t in range(len(ids)):
+                logits = leaf_hashes[t] @ E.weight.T
+                loss += F.cross_entropy(logits.unsqueeze(0), ids_t[t].unsqueeze(0))
+            loss = loss / len(ids)
+            opt.zero_grad(); loss.backward()
+            torch.nn.utils.clip_grad_norm_(decoder.parameters(), 2.0); opt.step()
+            ti += 1; tl += loss.item(); tt += len(ids)
     
     if ti == 0: continue
     scheduler.step()
     
-    if epoch % 30 == 0 or epoch == 299:
+    if epoch % 10 == 0 or epoch == 99:
         decoder.eval()
         refs, hyps = [], []
         with torch.no_grad():
             for s, ids in val_data[:50]:
-                ids_t = torch.tensor(ids, device=device)
-                embs = E(ids_t)
+                ids_t = torch.tensor(ids, device=device); embs = E(ids_t)
                 dists = syntactic_distances(embs)
-                root_hash, _, tree_struct, _ = build_tree_with_hashes(embs, dists)
-                _, d_leaves = decoder(root_hash, 1, tree_struct)
-                
-                pred = []
-                for lh in d_leaves[:len(ids)]:
-                    logits = lh @ E.weight.T
-                    pred.append(int(logits.argmax().item()))
-                
-                refs.append(ids)
-                hyps.append(pred[:len(ids)])
-        
+                root_hash, _, leaf_paths = build_tree_with_paths(embs, dists)
+                leaf_hashes = decoder(root_hash, leaf_paths)
+                pred = [int((leaf_hashes[t] @ E.weight.T).argmax().item()) for t in range(len(ids))]
+                refs.append(ids); hyps.append(pred)
         bleu = compute_bleu(refs, hyps)
-        tok_acc = sum(1 for r, h in zip(refs, hyps) for ri, hi in zip(r, h) if ri == hi)
-        tok_tot = sum(len(r) for r in refs)
-        
-        elapsed = time.time() - t0
-        print(f"  ep {epoch:3d} node_loss={tl_node/ti:.4f} ce_loss={tl_ce/ti:.4f} leaf_mse={tl_leaf:.4f} "
-              f"BLEU={bleu:.1f} tok_acc={tok_acc}/{tok_tot}={100*tok_acc/tok_tot:.1f}% "
-              f"time={elapsed:.0f}s")
+        tok_acc = sum(1 for r,h in zip(refs,hyps) for ri,hi in zip(r,h) if ri==hi)
+        print(f"  ep {epoch:3d} loss={tl/ti:.4f} BLEU={bleu:.1f} tok_acc={tok_acc}/{sum(len(r) for r in refs)}={100*tok_acc/sum(len(r) for r in refs):.1f}% time={time.time()-t0:.0f}s")
         decoder.train()
 
-# ──── Final ────
-print(f"\n{'='*60}")
-decoder.eval()
-refs, hyps = [], []
+# Final
+decoder.eval(); refs, hyps = [], []
 with torch.no_grad():
     for s, ids in val_data:
-        ids_t = torch.tensor(ids, device=device)
-        embs = E(ids_t)
+        ids_t = torch.tensor(ids, device=device); embs = E(ids_t)
         dists = syntactic_distances(embs)
-        root_hash, _, tree_struct, _ = build_tree_with_hashes(embs, dists)
-        _, d_leaves = decoder(root_hash, 1, tree_struct)
-        
-        pred = []
-        for lh in d_leaves[:len(ids)]:
-            pred.append(int((lh @ E.weight.T).argmax().item()))
-        
-        refs.append(ids)
-        hyps.append(pred[:len(ids)])
-
-bleu = compute_bleu(refs, hyps)
-print(f"Final BLEU-4 = {bleu:.1f}")
+        root_hash, _, leaf_paths = build_tree_with_paths(embs, dists)
+        leaf_hashes = decoder(root_hash, leaf_paths)
+        pred = [int((leaf_hashes[t] @ E.weight.T).argmax().item()) for t in range(len(ids))]
+        refs.append(ids); hyps.append(pred)
+print(f"\nFinal BLEU-4 = {compute_bleu(refs, hyps):.1f}")
 print(f"Token accuracy = {sum(1 for r,h in zip(refs,hyps) for ri,hi in zip(r,h) if ri==hi)}/{sum(len(r) for r in refs)}")
 
 print(f"\n=== samples ===")
 for i in range(min(5, len(val_sents))):
-    s = val_sents[i]
-    ids = [word2id.get(w, 1) for w in s]
+    s = val_sents[i]; ids = [word2id.get(w, 1) for w in s]
     if len(ids) < 3: continue
-    ids_t = torch.tensor(ids, device=device)
-    embs = E(ids_t)
+    ids_t = torch.tensor(ids, device=device); embs = E(ids_t)
     dists = syntactic_distances(embs)
-    root_hash, _, tree_struct, _ = build_tree_with_hashes(embs, dists)
-    _, d_leaves = decoder(root_hash, 1, tree_struct)
-    pred = [id2word.get((lh @ E.weight.T).argmax().item(), '?') for lh in d_leaves[:len(ids)]]
-    src = ' '.join(s[:8])
-    hyp = ' '.join(pred[:8])
-    print(f"  src: {src}")
-    print(f"  hyp: {hyp}")
+    root_hash, _, leaf_paths = build_tree_with_paths(embs, dists)
+    leaf_hashes = decoder(root_hash, leaf_paths)
+    pred = [id2word.get((leaf_hashes[t] @ E.weight.T).argmax().item(), '?') for t in range(len(ids))]
+    print(f"  src: {' '.join(s[:8])}")
+    print(f"  hyp: {' '.join(pred[:8])}")
     print()
