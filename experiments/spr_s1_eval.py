@@ -19,12 +19,14 @@ Metrics:
   §9  Bridge-ready assessment
 """
 import torch, torch.nn as nn, torch.nn.functional as F
-import numpy as np, math, time, random, json
+import numpy as np, math, time, random, json, sys, os
 from collections import Counter, defaultdict
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-print(f"device={device}")
-print(f"SPR S1 EVALUATION — Sentence-Level Echo")
+lang = sys.argv[1] if len(sys.argv) > 1 else os.environ.get('LANG','en')
+col = 0 if lang == 'de' else 1
+print(f"device={device} lang={lang} col={col}")
+print(f"SPR S1 EVALUATION — Sentence-Level Echo [{lang.upper()}]")
 print(f"=" * 60)
 
 # ═════════════════════════════════════════════════════════
@@ -38,13 +40,13 @@ def load_sents(path, n):
     with open(path) as f:
         for i, l in enumerate(f):
             if i >= n: break
-            if "\t" in l: sents.append(l.split("\t", 1)[1].strip().lower().split())
+            if "\t" in l: sents.append(l.split("\t")[col].strip().lower().split())
     return sents
 
 print("loading...")
 train_sents_all = load_sents(train_file, 50000)
 val_sents_all = load_sents(val_file, 500)
-train_sents = train_sents_all[:20000]  # 20K for training speed
+train_sents = train_sents_all[:30000]  # 30K for large-scale test
 val_sents = val_sents_all[:300]
 
 word2id = {"<pad>": 0, "<unk>": 1}
@@ -215,7 +217,7 @@ for epoch in range(EPOCHS):
     
     p_teacher = max(0.2, 1.0 - epoch / 30.0) if epoch > 5 else 1.0
     
-    for bi in range(0, 3000, BATCH_SZ):
+    for bi in range(0, 5000, BATCH_SZ):
         batch_sents = train_sents[bi:bi+BATCH_SZ]
         if not batch_sents: continue
         
@@ -399,13 +401,16 @@ root_hash_table = {}; collisions = 0; total = 0
 for s in train_sents[:2000]:
     ids = [word2id.get(w, 1) for w in s]
     if len(ids) < 2: continue
-    root = compute_root_hash(ids, TEMPLATE_NAMES[0])  # use Balanced
+    root = compute_root_hash(ids, TEMPLATE_NAMES[0])
     _, topk = root.abs().topk(8)
-    key = tuple(topk.cpu().tolist())
+    key = tuple(topk.view(-1).cpu().tolist())
     sent_key = tuple(ids)
-    if key in root_hash_table and root_hash_table[key] != sent_key:
-        collisions += 1
-    root_hash_table[key] = sent_key
+    if key in root_hash_table:
+        prev = root_hash_table[key]
+        if prev != sent_key:
+            collisions += 1
+    else:
+        root_hash_table[key] = sent_key
     total += 1
 print(f"  Sentences: {total}, Collisions: {collisions}, Rate: {100*collisions/total:.2f}%")
 
