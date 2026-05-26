@@ -140,23 +140,34 @@ def _build_tree_from_paths(embs, paths):
     return root.squeeze()
 
 
-# ──── Decoder: per-token routing + GRU momentum ────
+# ──── Decoder: per-token routing + GRU momentum + Scheduled Sampling ────
 class PerTokenDecoder(nn.Module):
     def __init__(self):
         super().__init__()
         self.gru = nn.GRUCell(d, d)
         self.W_out = nn.Linear(d, V)
     
-    def forward(self, leaf_hashes, gold_ids=None):
+    def forward(self, leaf_hashes, gold_ids=None, p_teacher=1.0):
         T = len(leaf_hashes)
         h = torch.zeros(d, device=leaf_hashes.device)
         logits_list = []
+        prev_pred_emb = torch.zeros(d, device=leaf_hashes.device)
         for t in range(T):
             inp = leaf_hashes[t]
-            if t > 0 and gold_ids is not None:
-                inp = inp + 0.3 * E.weight[gold_ids[t-1]]
+            if t > 0:
+                # Scheduled Sampling: teacher or self-prediction?
+                if gold_ids is not None and random.random() < p_teacher:
+                    runtime_prev = E.weight[gold_ids[t-1]]
+                else:
+                    runtime_prev = prev_pred_emb
+                inp = inp + 0.3 * runtime_prev
             h = self.gru(inp, h)
-            logits_list.append(self.W_out(h))
+            logits = self.W_out(h)
+            logits_list.append(logits)
+            # Record model's own prediction for next step (no grad on this branch)
+            with torch.no_grad():
+                pred_id = logits.argmax(dim=-1)
+            prev_pred_emb = E.weight[pred_id]
         return torch.stack(logits_list, dim=0)
 
 
@@ -197,6 +208,9 @@ for epoch in range(100):
     random.shuffle(train_sents)
     ti, tl, tt = 0, 0, 0
     
+    # Scheduled Sampling annealing: 1.0 → 0.2 over epochs
+    p_teacher = max(0.2, 1.0 - epoch / 40.0) if epoch > 5 else 1.0
+    
     for bi in range(0, 3000, 16):
         batch_sents = train_sents[bi:bi+16]
         if not batch_sents: continue
@@ -217,13 +231,12 @@ for epoch in range(100):
             leaf_hashes = E(ids_t) + 0.5 * pos_emb
             leaf_hashes = leaf_hashes / (leaf_hashes.norm(dim=-1, keepdim=True) + 1e-8)
             
-            # Try all templates, pick best by geometric score
-            best_score = -1
+            # Try all templates, pick best by geometric score (with grad for E training)
+            best_score = -1e9
             best_root = None
             for tname in TEMPLATES:
-                with torch.no_grad():
-                    root = compute_root_hash(ids, tname)
-                score = root.norm().item()  # geometric resonance
+                root = compute_root_hash(ids, tname)
+                score = root.norm()  # geometric resonance (differentiable)
                 if score > best_score:
                     best_score = score
                     best_root = root
@@ -232,7 +245,7 @@ for epoch in range(100):
             root_context = best_root.reshape(-1).unsqueeze(0).expand(T, -1)
             combined = leaf_hashes + 0.1 * root_context
             
-            logits = decoder(combined, ids_t)
+            logits = decoder(combined, ids_t, p_teacher=p_teacher)
             loss = F.cross_entropy(logits, ids_t)
             batch_loss = batch_loss + loss
             n_sents += 1
