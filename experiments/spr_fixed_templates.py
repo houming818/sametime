@@ -167,7 +167,7 @@ class PerTokenDecoder(nn.Module):
             # Record model's own prediction for next step (no grad on this branch)
             with torch.no_grad():
                 pred_id = logits.argmax(dim=-1)
-            prev_pred_emb = E.weight[pred_id]
+            prev_pred_emb = E.weight[pred_id].detach()
         return torch.stack(logits_list, dim=0)
 
 
@@ -231,14 +231,14 @@ for epoch in range(100):
             leaf_hashes = E(ids_t) + 0.5 * pos_emb
             leaf_hashes = leaf_hashes / (leaf_hashes.norm(dim=-1, keepdim=True) + 1e-8)
             
-            # Try all templates, pick best by geometric score (with grad for E training)
-            best_score = -1e9
+            # Try all templates, pick best by geometric score (grad kept for winner only)
+            best_score_val = -1e9
             best_root = None
             for tname in TEMPLATES:
                 root = compute_root_hash(ids, tname)
-                score = root.norm()  # geometric resonance (differentiable)
-                if score > best_score:
-                    best_score = score
+                score_val = root.norm().item()  # float compare, detach losers
+                if score_val > best_score_val:
+                    best_score_val = score_val
                     best_root = root
             
             # Use root hash as context for decoder
