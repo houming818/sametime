@@ -228,17 +228,46 @@ n_params = sum(p.numel() for p in list(E_de.parameters())+list(E_en.parameters()
 print(f"params={n_params/1e6:.1f}M")
 
 # ════════════════════════════════════════════════
-# PHASE 1: Freeze EN, train bridge + E_de + LeafPredictor
+# PHASE 0: EN Echo pretraining (quick warm-up)
 # ════════════════════════════════════════════════
 print(f"\n{'='*60}")
-print("PHASE 1: Freeze EN, train bridge + E_de + LeafPredictor")
+print("PHASE 0: EN Echo pretraining (5 epochs, all modules)")
+print(f"  epochs=5 batch=8 lr=0.003")
+
+opt0 = torch.optim.Adam(list(E_en.parameters()) + list(decoder.parameters()), lr=0.003)
+for epoch in range(5):
+    random.shuffle(train_pairs)
+    ti, tl = 0, 0
+    for bi in range(0, 3000, 8):
+        batch = train_pairs[bi:bi+8]
+        if not batch: continue
+        opt0.zero_grad()
+        b_loss, n = torch.tensor(0.0, device=device), 0
+        for de, en in batch:
+            ids_en = [word2id_en.get(w,1) for w in en][:MAX_LEN]
+            if len(ids_en) < 3: continue
+            ids_en_t = torch.tensor(ids_en, device=device)
+            pos_emb = get_pos_emb(len(ids_en))
+            leaf_en = E_en(ids_en_t) + 0.5 * pos_emb
+            leaf_en = leaf_en / (leaf_en.norm(dim=-1, keepdim=True)+1e-8)
+            logits = decoder(leaf_en, ids_en_t, p_teacher=1.0)
+            loss = F.cross_entropy(logits, ids_en_t)
+            b_loss += loss; n += 1
+        if n == 0: continue
+        (b_loss/n).backward()
+        opt0.step()
+        ti += 1; tl += (b_loss/n).item()
+    print(f"  echo ep {epoch} loss={tl/max(ti,1):.4f}")
+
+# ════════════════════════════════════════════════
+# PHASE 1: Joint train DE+EN+bridge+decoder
+# ════════════════════════════════════════════════
+print(f"\n{'='*60}")
+print("PHASE 1: Joint train all modules")
 print(f"  epochs=30 batch=8 lr=0.003")
 t0 = time.time()
 
-for p in E_en.parameters(): p.requires_grad = False
-for p in decoder.parameters(): p.requires_grad = False
-
-opt1 = torch.optim.Adam(list(E_de.parameters()) + list(bridge.parameters()) + list(leaf_pred.parameters()), lr=0.003)
+opt1 = torch.optim.Adam(list(E_de.parameters()) + list(E_en.parameters()) + list(bridge.parameters()) + list(leaf_pred.parameters()) + list(decoder.parameters()), lr=0.003)
 sched1 = torch.optim.lr_scheduler.CosineAnnealingLR(opt1, T_max=30)
 
 for epoch in range(30):
@@ -261,23 +290,19 @@ for epoch in range(30):
                 root_de = get_best_root(E_de, ids_de)
             root_en_pred = bridge(root_de)
             
-            # English leaf_hashes (gold, for teacher forcing)
             ids_en_t = torch.tensor(ids_en, device=device)
-            pos_emb = get_pos_emb(len(ids_en))
-            leaf_en = E_en(ids_en_t) + 0.5 * pos_emb
-            leaf_en = leaf_en / (leaf_en.norm(dim=-1, keepdim=True)+1e-8)
             
-            # Also compute LeafPredictor output for training
+            # English: use PREDICTED leaves (not gold) so decoder learns bridge output distribution
             leaf_pred_en = leaf_pred(root_en_pred, len(ids_en))
-            
-            # Combine: use gold leaf for teacher forcing, predicted leaf as auxiliary
-            combined = leaf_en + 0.1 * root_en_pred.unsqueeze(0).expand_as(leaf_en)
+            combined = leaf_pred_en + 0.1 * root_en_pred.unsqueeze(0).expand_as(leaf_pred_en)
             logits = decoder(combined, ids_en_t, p_teacher=p_t)
             loss = F.cross_entropy(logits, ids_en_t)
             
-            # Leaf predictor loss
-            loss_leaf = F.mse_loss(leaf_pred_en, leaf_en.detach())
-            loss = loss + 0.5 * loss_leaf
+            # Also train leaf_pred to match gold for MSE signal
+            pos_emb = get_pos_emb(len(ids_en))
+            leaf_gold = E_en(ids_en_t) + 0.5 * pos_emb
+            leaf_gold = leaf_gold / (leaf_gold.norm(dim=-1, keepdim=True)+1e-8)
+            loss = loss + 0.1 * F.mse_loss(leaf_pred_en, leaf_gold.detach())
             
             b_loss += loss; n += 1
         
