@@ -148,13 +148,13 @@ print(f"val={len(val_de)} pairs")
 # ══════════════════════════════════════════
 # PHASE 0: EN echo pretrain
 # ══════════════════════════════════════════
-print(f"\n{'='*60}\nPHASE 0: EN echo pretrain (15 epochs × 20K sents)\n{'='*60}")
+print(f"\n{'='*60}\nPHASE 0: EN echo pretrain (2 epochs × 10K sents)\n{'='*60}")
 opt0=torch.optim.Adam(list(E_en.parameters())+list(decoder.parameters()),lr=0.003)
 t0=time.time()
-for ep in range(15):
+for ep in range(2):
     random.shuffle(train_pairs);tl,tt=0,0
     p_t=max(0.2,1.0-ep/10.0)
-    for bi in range(0, 20000, 16):
+    for bi in range(0, 10000, 16):
         batch_s = train_pairs[bi:bi+16]
         opt0.zero_grad();loss_sum=torch.tensor(0.0,device=device);n_sents=0
         for de_s, en_s in batch_s:
@@ -165,40 +165,21 @@ for ep in range(15):
             logits=decoder(leaf,ids_t,p_teacher=p_t);loss_sum+=F.cross_entropy(logits,ids_t);n_sents+=1
         if n_sents==0: continue
         (loss_sum/n_sents).backward();opt0.step();tl+=loss_sum.item()/n_sents;tt+=1
-    if ep%5==0 or ep==14: print(f"  echo EN ep {ep:3d} loss={tl/max(tt,1):.4f}")
+    if ep%1==0 or ep==1: print(f"  echo EN ep {ep} loss={tl/max(tt,1):.4f}")
 
-# Phase 0b: DE echo pretrain
-print(f"\n{'='*60}\nPHASE 0b: DE echo pretrain (5 epochs × 20K sents)\n{'='*60}")
-opt0b=torch.optim.Adam(list(E_de.parameters()),lr=0.003)
-for ep in range(5):
-    random.shuffle(train_pairs);tl,tt=0,0
-    for bi in range(0, 20000, 16):
-        batch_s = train_pairs[bi:bi+16]
-        opt0b.zero_grad();loss_sum=torch.tensor(0.0,device=device);n_sents=0
-        for de_s, en_s in batch_s:
-            ids_de=[word2id_de.get(w,1) for w in de_s[:MAX_LEN]]
-            if len(ids_de)<3: continue
-            ids_t=torch.tensor(ids_de,device=device);T=len(ids_de)
-            leaf=E_de(ids_t)+0.5*get_pos_emb(T);leaf=leaf/(leaf.norm(dim=-1,keepdim=True)+1e-8)
-            # Simple echo: predict token from its own embedding
-            logits=leaf @ E_de.weight.T  # [T,V_de]
-            loss_sum+=F.cross_entropy(logits,ids_t);n_sents+=1
-        if n_sents==0: continue
-        (loss_sum/n_sents).backward();opt0b.step();tl+=loss_sum.item()/n_sents;tt+=1
-    if ep%5==0 or ep==4: print(f"  echo DE ep {ep:3d} loss={tl/max(tt,1):.4f}")
-
-
+# ══════════════════════════════════════════
+# PHASE 1: Bridge + Decoder Joint Training
 # ══════════════════════════════════════════
 # PHASE 1: Root MSE + Gold-Leaf Decoder
 # ══════════════════════════════════════════
-print(f"\n{'='*60}\nPHASE 1: Bridge root MSE + decoder CE (15 epochs)\n{'='*60}")
+print(f"\n{'='*60}\nPHASE 1: Bridge MSE + Decoder CE (5 epochs × 3K sents)\n{'='*60}")
 opt1=torch.optim.Adam(list(E_de.parameters())+list(bridge.parameters())+list(E_en.parameters())+list(decoder.parameters()),lr=0.003)
-sched1=torch.optim.lr_scheduler.CosineAnnealingLR(opt1,T_max=15)
-for ep in range(15):
+sched1=torch.optim.lr_scheduler.CosineAnnealingLR(opt1,T_max=5)
+for ep in range(5):
     random.shuffle(train_pairs);tl,tt=0,0
-    p_t=max(0.2,1.0-ep/20.0) if ep>3 else 1.0
+    p_t=max(0.2,1.0-ep/5.0)
     
-    for bi in range(0,5000,8):
+    for bi in range(0,3000,8):
         batch = train_pairs[bi:bi+8]
         opt1.zero_grad();bl=torch.tensor(0.0,device=device);n=0
         
@@ -216,11 +197,9 @@ for ep in range(15):
             leaf_gold=E_en(ids_en_t)+0.5*get_pos_emb(T)
             leaf_gold=leaf_gold/(leaf_gold.norm(dim=-1,keepdim=True)+1e-8)
             
-            # Decoder uses gold root (not predicted) — no distribution shift
-            combined=leaf_gold+0.1*root_en_gold.unsqueeze(0).expand_as(leaf_gold)
+            # Decoder uses predicted root — learns to tolerate bridge output
+            combined=leaf_gold+0.1*root_en_pred.unsqueeze(0).expand_as(leaf_gold)
             logits=decoder(combined,ids_en_t,p_teacher=p_t)
-            
-            # Bridge trained ONLY via root MSE
             loss=F.mse_loss(root_en_pred,root_en_gold.detach())+F.cross_entropy(logits,ids_en_t)
             bl+=loss;n+=1
         
@@ -229,7 +208,7 @@ for ep in range(15):
         tl+=(bl/n).item();tt+=1
     
     if tt==0: continue;sched1.step()
-    if ep%3==0 or ep==14:
+    if ep%2==0 or ep==4:
         E_de.eval();E_en.eval();bridge.eval();decoder.eval()
         rf,hp=[],[]
         with torch.no_grad():
@@ -247,14 +226,14 @@ for ep in range(15):
 # ══════════════════════════════════════════
 # PHASE 2: Joint fine-tune
 # ══════════════════════════════════════════
-print(f"\n{'='*60}\nPHASE 2: Joint fine-tune (10 epochs, lr=1e-4)\n{'='*60}")
+print(f"\n{'='*60}\nPHASE 2: Joint fine-tune (3 epochs, lr=1e-4)\n{'='*60}")
 opt2=torch.optim.Adam(list(E_de.parameters())+list(E_en.parameters())+list(bridge.parameters())+list(decoder.parameters()),lr=1e-4)
-sched2=torch.optim.lr_scheduler.CosineAnnealingLR(opt2,T_max=10)
-for ep in range(10):
+sched2=torch.optim.lr_scheduler.CosineAnnealingLR(opt2,T_max=3)
+for ep in range(3):
     random.shuffle(train_pairs);tl,tt=0,0
-    p_t=max(0.2,1.0-(ep+30)/30.0)
+    p_t=max(0.2,1.0-(ep+5)/10.0)
     
-    for bi in range(0,3000,8):
+    for bi in range(0,2000,8):
         batch = train_pairs[bi:bi+8]
         opt2.zero_grad();bl=torch.tensor(0.0,device=device);n=0
         
@@ -268,7 +247,7 @@ for ep in range(10):
             
             ids_en_t=torch.tensor(ids_en,device=device);T=len(ids_en)
             leaf_gold=E_en(ids_en_t)+0.5*get_pos_emb(T);leaf_gold=leaf_gold/(leaf_gold.norm(dim=-1,keepdim=True)+1e-8)
-            combined=leaf_gold+0.1*root_en_gold.unsqueeze(0).expand_as(leaf_gold)
+            combined=leaf_gold+0.1*root_en_pred.unsqueeze(0).expand_as(leaf_gold)
             logits=decoder(combined,ids_en_t,p_teacher=p_t)
             loss=F.mse_loss(root_en_pred,root_en_gold.detach())+F.cross_entropy(logits,ids_en_t)
             bl+=loss;n+=1
@@ -278,7 +257,7 @@ for ep in range(10):
         tl+=(bl/n).item();tt+=1
     
     if tt==0: continue;sched2.step()
-    if ep%3==0 or ep==9:
+    if ep%1==0 or ep==2:
         E_de.eval();E_en.eval();bridge.eval();decoder.eval();rf,hp=[],[]
         with torch.no_grad():
             for ids_de,ids_en in zip(val_de[:50],val_en[:50]):
