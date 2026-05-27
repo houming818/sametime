@@ -148,12 +148,12 @@ print(f"val={len(val_de)} pairs")
 # ══════════════════════════════════════════
 # PHASE 0: EN echo pretrain
 # ══════════════════════════════════════════
-print(f"\n{'='*60}\nPHASE 0: EN echo pretrain (5 epochs × 20K sents)\n{'='*60}")
+print(f"\n{'='*60}\nPHASE 0: EN echo pretrain (15 epochs × 20K sents)\n{'='*60}")
 opt0=torch.optim.Adam(list(E_en.parameters())+list(decoder.parameters()),lr=0.003)
 t0=time.time()
-for ep in range(5):
+for ep in range(15):
     random.shuffle(train_pairs);tl,tt=0,0
-    p_t=1.0
+    p_t=max(0.2,1.0-ep/10.0)
     for bi in range(0, 20000, 16):
         batch_s = train_pairs[bi:bi+16]
         opt0.zero_grad();loss_sum=torch.tensor(0.0,device=device);n_sents=0
@@ -165,7 +165,7 @@ for ep in range(5):
             logits=decoder(leaf,ids_t,p_teacher=p_t);loss_sum+=F.cross_entropy(logits,ids_t);n_sents+=1
         if n_sents==0: continue
         (loss_sum/n_sents).backward();opt0.step();tl+=loss_sum.item()/n_sents;tt+=1
-    if ep%5==0 or ep==4: print(f"  echo EN ep {ep:3d} loss={tl/max(tt,1):.4f}")
+    if ep%5==0 or ep==14: print(f"  echo EN ep {ep:3d} loss={tl/max(tt,1):.4f}")
 
 # Phase 0b: DE echo pretrain
 print(f"\n{'='*60}\nPHASE 0b: DE echo pretrain (5 epochs × 20K sents)\n{'='*60}")
@@ -191,11 +191,10 @@ for ep in range(5):
 # ══════════════════════════════════════════
 # PHASE 1: Root MSE + Gold-Leaf Decoder
 # ══════════════════════════════════════════
-print(f"\n{'='*60}\nPHASE 1: Bridge root MSE + decoder CE (30 epochs)\n{'='*60}")
+print(f"\n{'='*60}\nPHASE 1: Bridge root MSE + decoder CE (15 epochs)\n{'='*60}")
 opt1=torch.optim.Adam(list(E_de.parameters())+list(bridge.parameters())+list(E_en.parameters())+list(decoder.parameters()),lr=0.003)
-sched1=torch.optim.lr_scheduler.CosineAnnealingLR(opt1,T_max=30)
-
-for ep in range(30):
+sched1=torch.optim.lr_scheduler.CosineAnnealingLR(opt1,T_max=15)
+for ep in range(15):
     random.shuffle(train_pairs);tl,tt=0,0
     p_t=max(0.2,1.0-ep/20.0) if ep>3 else 1.0
     
@@ -212,14 +211,17 @@ for ep in range(30):
             root_en_pred=bridge(root_de)
             
             with torch.no_grad(): root_en_gold=get_best_root(E_en,ids_en)
-            loss_root=F.mse_loss(root_en_pred,root_en_gold.detach())
             
             ids_en_t=torch.tensor(ids_en,device=device);T=len(ids_en)
             leaf_gold=E_en(ids_en_t)+0.5*get_pos_emb(T)
             leaf_gold=leaf_gold/(leaf_gold.norm(dim=-1,keepdim=True)+1e-8)
-            combined=leaf_gold+0.1*root_en_pred.unsqueeze(0).expand_as(leaf_gold)
+            
+            # Decoder uses gold root (not predicted) — no distribution shift
+            combined=leaf_gold+0.1*root_en_gold.unsqueeze(0).expand_as(leaf_gold)
             logits=decoder(combined,ids_en_t,p_teacher=p_t)
-            loss=loss_root+F.cross_entropy(logits,ids_en_t)
+            
+            # Bridge trained ONLY via root MSE
+            loss=F.mse_loss(root_en_pred,root_en_gold.detach())+F.cross_entropy(logits,ids_en_t)
             bl+=loss;n+=1
         
         if n==0: continue;(bl/n).backward()
@@ -227,7 +229,7 @@ for ep in range(30):
         tl+=(bl/n).item();tt+=1
     
     if tt==0: continue;sched1.step()
-    if ep%5==0 or ep==29:
+    if ep%3==0 or ep==14:
         E_de.eval();E_en.eval();bridge.eval();decoder.eval()
         rf,hp=[],[]
         with torch.no_grad():
@@ -245,11 +247,10 @@ for ep in range(30):
 # ══════════════════════════════════════════
 # PHASE 2: Joint fine-tune
 # ══════════════════════════════════════════
-print(f"\n{'='*60}\nPHASE 2: Joint fine-tune (20 epochs, lr=1e-4)\n{'='*60}")
+print(f"\n{'='*60}\nPHASE 2: Joint fine-tune (10 epochs, lr=1e-4)\n{'='*60}")
 opt2=torch.optim.Adam(list(E_de.parameters())+list(E_en.parameters())+list(bridge.parameters())+list(decoder.parameters()),lr=1e-4)
-sched2=torch.optim.lr_scheduler.CosineAnnealingLR(opt2,T_max=20)
-
-for ep in range(20):
+sched2=torch.optim.lr_scheduler.CosineAnnealingLR(opt2,T_max=10)
+for ep in range(10):
     random.shuffle(train_pairs);tl,tt=0,0
     p_t=max(0.2,1.0-(ep+30)/30.0)
     
@@ -267,7 +268,7 @@ for ep in range(20):
             
             ids_en_t=torch.tensor(ids_en,device=device);T=len(ids_en)
             leaf_gold=E_en(ids_en_t)+0.5*get_pos_emb(T);leaf_gold=leaf_gold/(leaf_gold.norm(dim=-1,keepdim=True)+1e-8)
-            combined=leaf_gold+0.1*root_en_pred.unsqueeze(0).expand_as(leaf_gold)
+            combined=leaf_gold+0.1*root_en_gold.unsqueeze(0).expand_as(leaf_gold)
             logits=decoder(combined,ids_en_t,p_teacher=p_t)
             loss=F.mse_loss(root_en_pred,root_en_gold.detach())+F.cross_entropy(logits,ids_en_t)
             bl+=loss;n+=1
@@ -277,7 +278,7 @@ for ep in range(20):
         tl+=(bl/n).item();tt+=1
     
     if tt==0: continue;sched2.step()
-    if ep%5==0 or ep==19:
+    if ep%3==0 or ep==9:
         E_de.eval();E_en.eval();bridge.eval();decoder.eval();rf,hp=[],[]
         with torch.no_grad():
             for ids_de,ids_en in zip(val_de[:50],val_en[:50]):
