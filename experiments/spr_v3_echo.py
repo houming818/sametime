@@ -54,31 +54,39 @@ class AttnPoolEncoder(nn.Module):
         return root / (root.norm() + 1e-8)
 
 class ContinuousSplitCell(nn.Module):
-    def __init__(self, d):
+    def __init__(self, d, max_depth=8):
         super().__init__()
+        self.depth_emb = nn.Embedding(max_depth, d)
+        self.dir_emb_L = nn.Embedding(max_depth, d)
+        self.dir_emb_R = nn.Embedding(max_depth, d)
         self.net = nn.Sequential(nn.Linear(d, d * 4), nn.GELU(), nn.Linear(d * 4, d * 2))
-    def forward(self, h):
-        raw = self.net(h)
-        hl, hr = torch.chunk(raw, 2, dim=-1)
-        return hl / (hl.norm(dim=-1, keepdim=True) + 1e-8), hr / (hr.norm(dim=-1, keepdim=True) + 1e-8)
+    def forward(self, h, depth):
+        d_idx = torch.tensor(depth, device=h.device)
+        d_emb = self.depth_emb(d_idx)
+        hL = h + d_emb + self.dir_emb_L(d_idx)
+        hR = h + d_emb + self.dir_emb_R(d_idx)
+        rawL = self.net(hL)
+        rawR = self.net(hR)
+        hl, hr = torch.chunk(rawL, 2, dim=-1)[0], torch.chunk(rawR, 2, dim=-1)[1]
+        return hl / (hl.norm() + 1e-8), hr / (hr.norm() + 1e-8)
 
 class FractalDecoder(nn.Module):
     def __init__(self, d, V, max_depth=5, n_splits=3):
         super().__init__()
         self.d = d; self.max_depth = max_depth; self.n_leaves = 1 << max_depth
-        self.splits = nn.ModuleList([ContinuousSplitCell(d) for _ in range(n_splits)])
+        self.splits = nn.ModuleList([ContinuousSplitCell(d, max_depth) for _ in range(n_splits)])
         self.W_out = nn.Linear(d, V)
     def forward(self, root):
-        nodes = [root]  # list of [d]
+        nodes = [root]
         for depth in range(self.max_depth):
             split = self.splits[depth % len(self.splits)]
             next_nodes = []
             for node in nodes:
-                hl, hr = split(node)
+                hl, hr = split(node, depth)
                 next_nodes.extend([hl, hr])
             nodes = next_nodes
-        leaves = torch.stack(nodes, dim=0)  # [N_LEAVES, d]
-        return self.W_out(leaves)  # [N_LEAVES, V]
+        leaves = torch.stack(nodes, dim=0)
+        return self.W_out(leaves)
 
 # ──── Init ────
 torch.manual_seed(42)
