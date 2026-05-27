@@ -96,9 +96,9 @@ def get_best_root(E,ids):
         if sv>bv: bv,br=sv,r
     return br
 
-def get_pos_emb(T):
+def get_pos_emb(T,dim=128):
     pos=torch.arange(T,device=device).float().unsqueeze(1)
-    div=10000**(torch.arange(0,d,2,device=device).float()/d)
+    div=10000**(torch.arange(0,dim//2,device=device).float()*2/dim)
     phase=pos/div
     return torch.cat([torch.sin(phase),torch.cos(phase)],dim=-1)
 
@@ -141,30 +141,52 @@ def compute_bleu(refs,hyps):
     bp=min(2.0,math.exp(max(bpv) if bpv else 0))
     return bp*math.exp(sum(math.log(max(p,1e-10)) for p in ps)/4)*100
 
-val_de = [[word2id_de.get(w,1) for w in d] for d,e in val_pairs[:300] if len(d)>=2 and len(e)>=2]
-val_en = [[word2id_en.get(w,1) for w in e] for d,e in val_pairs[:300] if len(d)>=2 and len(e)>=2]
+val_de = [[word2id_de.get(w,1) for w in de] for de,en in val_pairs[:300] if len(de)>=2 and len(en)>=2]
+val_en = [[word2id_en.get(w,1) for w in en] for de,en in val_pairs[:300] if len(de)>=2 and len(en)>=2]
 print(f"val={len(val_de)} pairs")
 
 # ══════════════════════════════════════════
 # PHASE 0: EN echo pretrain
 # ══════════════════════════════════════════
-print(f"\n{'='*60}\nPHASE 0: EN echo pretrain (5 epochs)\n{'='*60}")
+print(f"\n{'='*60}\nPHASE 0: EN echo pretrain (5 epochs × 20K sents)\n{'='*60}")
 opt0=torch.optim.Adam(list(E_en.parameters())+list(decoder.parameters()),lr=0.003)
 t0=time.time()
 for ep in range(5):
     random.shuffle(train_pairs);tl,tt=0,0
-    for bi in range(0,3000,8):
-        b=[(d,e) for d,e in train_pairs[bi:bi+8] if len(e)>=3]
-        if not b: continue
-        opt0.zero_grad();loss=torch.tensor(0.0,device=device);n=0
-        for d,e in b:
-            ids=[word2id_en.get(w,1) for w in e[:MAX_LEN]]
-            if len(ids)<3: continue
-            ids_t=torch.tensor(ids,device=device);T=len(ids)
+    p_t=1.0
+    for bi in range(0, 20000, 16):
+        batch_s = train_pairs[bi:bi+16]
+        opt0.zero_grad();loss_sum=torch.tensor(0.0,device=device);n_sents=0
+        for de_s, en_s in batch_s:
+            ids_en=[word2id_en.get(w,1) for w in en_s[:MAX_LEN]]
+            if len(ids_en)<3: continue
+            ids_t=torch.tensor(ids_en,device=device);T=len(ids_en)
             leaf=E_en(ids_t)+0.5*get_pos_emb(T);leaf=leaf/(leaf.norm(dim=-1,keepdim=True)+1e-8)
-            logits=decoder(leaf,ids_t,p_teacher=1.0);loss+=F.cross_entropy(logits,ids_t);n+=1
-        if n==0: continue;(loss/n).backward();opt0.step();tl+=loss.item()/n;tt+=1
-    print(f"  echo ep {ep} loss={tl/max(tt,1):.4f}")
+            logits=decoder(leaf,ids_t,p_teacher=p_t);loss_sum+=F.cross_entropy(logits,ids_t);n_sents+=1
+        if n_sents==0: continue
+        (loss_sum/n_sents).backward();opt0.step();tl+=loss_sum.item()/n_sents;tt+=1
+    if ep%5==0 or ep==4: print(f"  echo EN ep {ep:3d} loss={tl/max(tt,1):.4f}")
+
+# Phase 0b: DE echo pretrain
+print(f"\n{'='*60}\nPHASE 0b: DE echo pretrain (5 epochs × 20K sents)\n{'='*60}")
+opt0b=torch.optim.Adam(list(E_de.parameters()),lr=0.003)
+for ep in range(5):
+    random.shuffle(train_pairs);tl,tt=0,0
+    for bi in range(0, 20000, 16):
+        batch_s = train_pairs[bi:bi+16]
+        opt0b.zero_grad();loss_sum=torch.tensor(0.0,device=device);n_sents=0
+        for de_s, en_s in batch_s:
+            ids_de=[word2id_de.get(w,1) for w in de_s[:MAX_LEN]]
+            if len(ids_de)<3: continue
+            ids_t=torch.tensor(ids_de,device=device);T=len(ids_de)
+            leaf=E_de(ids_t)+0.5*get_pos_emb(T);leaf=leaf/(leaf.norm(dim=-1,keepdim=True)+1e-8)
+            # Simple echo: predict token from its own embedding
+            logits=leaf @ E_de.weight.T  # [T,V_de]
+            loss_sum+=F.cross_entropy(logits,ids_t);n_sents+=1
+        if n_sents==0: continue
+        (loss_sum/n_sents).backward();opt0b.step();tl+=loss_sum.item()/n_sents;tt+=1
+    if ep%5==0 or ep==4: print(f"  echo DE ep {ep:3d} loss={tl/max(tt,1):.4f}")
+
 
 # ══════════════════════════════════════════
 # PHASE 1: Root MSE + Gold-Leaf Decoder
@@ -178,12 +200,12 @@ for ep in range(30):
     p_t=max(0.2,1.0-ep/20.0) if ep>3 else 1.0
     
     for bi in range(0,5000,8):
-        b=[(d,e) for d,e in train_pairs[bi:bi+8] if len(d)>=3 and len(e)>=3]
-        if not b: continue
+        batch = train_pairs[bi:bi+8]
         opt1.zero_grad();bl=torch.tensor(0.0,device=device);n=0
         
-        for de,en in b:
-            ids_de=[word2id_de.get(w,1) for w in de[:MAX_LEN]];ids_en=[word2id_en.get(w,1) for w in en[:MAX_LEN]]
+        for de_s, en_s in batch:
+            ids_de=[word2id_de.get(w,1) for w in de_s[:MAX_LEN]]
+            ids_en=[word2id_en.get(w,1) for w in en_s[:MAX_LEN]]
             if len(ids_de)<3 or len(ids_en)<3: continue
             
             root_de=get_best_root(E_de,ids_de)
@@ -232,12 +254,12 @@ for ep in range(20):
     p_t=max(0.2,1.0-(ep+30)/30.0)
     
     for bi in range(0,3000,8):
-        b=[(d,e) for d,e in train_pairs[bi:bi+8] if len(d)>=3 and len(e)>=3]
-        if not b: continue
+        batch = train_pairs[bi:bi+8]
         opt2.zero_grad();bl=torch.tensor(0.0,device=device);n=0
         
-        for de,en in b:
-            ids_de=[word2id_de.get(w,1) for w in de[:MAX_LEN]];ids_en=[word2id_en.get(w,1) for w in en[:MAX_LEN]]
+        for de_s, en_s in batch:
+            ids_de=[word2id_de.get(w,1) for w in de_s[:MAX_LEN]]
+            ids_en=[word2id_en.get(w,1) for w in en_s[:MAX_LEN]]
             if len(ids_de)<3 or len(ids_en)<3: continue
             
             root_de=get_best_root(E_de,ids_de);root_en_pred=bridge(root_de)
