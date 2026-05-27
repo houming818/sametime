@@ -292,17 +292,20 @@ for epoch in range(30):
             
             ids_en_t = torch.tensor(ids_en, device=device)
             
-            # English: use PREDICTED leaves (not gold) so decoder learns bridge output distribution
-            leaf_pred_en = leaf_pred(root_en_pred, len(ids_en))
-            combined = leaf_pred_en + 0.1 * root_en_pred.unsqueeze(0).expand_as(leaf_pred_en)
-            logits = decoder(combined, ids_en_t, p_teacher=p_t)
-            loss = F.cross_entropy(logits, ids_en_t)
-            
-            # Also train leaf_pred to match gold for MSE signal
+            # Gold leaf for decoder input (always)
             pos_emb = get_pos_emb(len(ids_en))
             leaf_gold = E_en(ids_en_t) + 0.5 * pos_emb
             leaf_gold = leaf_gold / (leaf_gold.norm(dim=-1, keepdim=True)+1e-8)
-            loss = loss + 0.1 * F.mse_loss(leaf_pred_en, leaf_gold.detach())
+            
+            # Predicted leaf for bridge training (MSE only)
+            leaf_pred_en = leaf_pred(root_en_pred, len(ids_en))
+            
+            # Decoder always gets gold leaves during Phase 1
+            combined = leaf_gold + 0.1 * root_en_pred.unsqueeze(0).expand_as(leaf_gold)
+            logits = decoder(combined, ids_en_t, p_teacher=p_t)
+            
+            # Loss: CE on decoder + MSE on bridge/leafPred
+            loss = F.cross_entropy(logits, ids_en_t) + 0.5 * F.mse_loss(leaf_pred_en, leaf_gold.detach())
             
             b_loss += loss; n += 1
         
@@ -367,15 +370,17 @@ for epoch in range(20):
             
             ids_en_t = torch.tensor(ids_en, device=device)
             pos_emb = get_pos_emb(len(ids_en))
-            leaf_en = E_en(ids_en_t) + 0.5 * pos_emb
-            leaf_en = leaf_en / (leaf_en.norm(dim=-1, keepdim=True)+1e-8)
-            
             leaf_pred_en = leaf_pred(root_en_pred, len(ids_en))
-            combined = leaf_en + 0.1 * root_en_pred.unsqueeze(0).expand_as(leaf_en)
+            
+            # Phase 2: use PREDICTED leaves so decoder adapts to bridge output
+            combined = leaf_pred_en + 0.1 * root_en_pred.unsqueeze(0).expand_as(leaf_pred_en)
             logits = decoder(combined, ids_en_t, p_teacher=p_t)
             loss = F.cross_entropy(logits, ids_en_t)
-            loss_leaf = F.mse_loss(leaf_pred_en, leaf_en.detach())
-            loss = loss + 0.5 * loss_leaf
+            
+            # Also train toward gold for stability
+            leaf_gold = E_en(ids_en_t) + 0.5 * pos_emb
+            leaf_gold = leaf_gold / (leaf_gold.norm(dim=-1, keepdim=True)+1e-8)
+            loss = loss + 0.3 * F.mse_loss(leaf_pred_en, leaf_gold.detach())
             
             b_loss += loss; n += 1
         
