@@ -211,6 +211,11 @@ class WSplitDecoder(nn.Module):
         return torch.stack(pred_leaves, dim=0), loss_internal
 
 
+def get_pos_emb(T, dim=128):
+    pos = torch.arange(T, device=device).float().unsqueeze(1)
+    div = 10000 ** (torch.arange(0, dim // 2, device=device).float() * 2 / dim)
+    return torch.cat([torch.sin(pos / div), torch.cos(pos / div)], dim=-1)
+
 # ════════════════════════════════════════
 # INIT
 # ════════════════════════════════════════
@@ -274,8 +279,10 @@ for epoch in range(30):
             # Decode: follow paths, produce leaves + internal node MSE
             pred_leaves, loss_node = decoder(root, paths, node_table)
 
-            # Leaf MSE: pred_leaves → close to gold token embeddings
-            gold_leaf = E(ids_t)  # [T, d]
+            # Leaf MSE: pred_leaves → close to gold token embeddings + position info
+            pos_emb = get_pos_emb(T)
+            gold_leaf = E(ids_t) + 0.3 * pos_emb  # position-differentiated targets
+            gold_leaf = gold_leaf / (gold_leaf.norm(dim=-1, keepdim=True) + 1e-8)
             loss_leaf = F.mse_loss(pred_leaves[:T], gold_leaf)
 
             loss = loss_node + loss_leaf
@@ -320,10 +327,12 @@ for epoch in range(30):
 
         # Mean off-diagonal cosine (lower = more differentiated)
         if cos_all:
-            cat = torch.cat([c for c in cos_all], dim=0)
-            n_leaves = cat.shape[0]
-            off_diag = cat[~torch.eye(n_leaves, dtype=torch.bool, device=cat.device)]
-            mean_cos = off_diag.mean().item()
+            off_diag_vals = []
+            for c in cos_all:
+                n = c.shape[0]
+                mask = ~torch.eye(n, dtype=torch.bool, device=c.device)
+                off_diag_vals.append(c[mask])
+            mean_cos = torch.cat(off_diag_vals).mean().item() if off_diag_vals else 1.0
         else:
             mean_cos = 1.0
 
