@@ -24,7 +24,7 @@ def load_sents(path, n):
     return sents
 
 print("loading...")
-train_sents = load_sents(train_file, 450000)
+train_sents = load_sents(train_file, 100000)
 val_sents = load_sents(val_file, 500)
 
 word2id = {"<pad>": 0, "<unk>": 1}
@@ -32,7 +32,7 @@ freq = Counter()
 for s in train_sents:
     for w in s: freq[w] += 1
 for w, c in freq.most_common():
-    if c >= 2: word2id[w] = len(word2id)
+    if c >= 5: word2id[w] = len(word2id)
 for s in val_sents:
     for w in s:
         if w not in word2id: word2id[w] = len(word2id)
@@ -58,37 +58,37 @@ def heap_encode(E, ids):
     ids_pad = ids + [0] * (P - T)
     ids_t = torch.tensor(ids_pad, device=device)
     embs = E(ids_t)  # [P, d]
-    hashes = [h.clone() for h in embs]
-    for i in range((P - 2) // 2, -1, -1):
-        l, r = 2 * i + 1, 2 * i + 2
-        if r >= P: continue
-        merged = hashes[l] + SIGN_MASK * torch.roll(hashes[r], shifts=1)
-        hashes[i] = merged / (merged.norm() + 1e-8)
-    root = hashes[0]
+    # Bottom-up merge (safe for-loop, O(logT) — negligible cost)
+    for i in range(P - 1, 0, -2):
+        parent = (i - 1) // 2
+        if i < P:
+            merged = embs[i - 1] + SIGN_MASK * torch.roll(embs[i], shifts=1)
+            embs[parent] = merged / (merged.norm() + 1e-8)
+    root = embs[0]
+    leaf_start = (1 << (depth - 1)) - 1 if depth > 0 else 0
     mask = torch.tensor([1.0 if t < T else 0.0 for t in range(n_leaves)], device=device)
-    return root, embs[:n_leaves], mask, P, n_leaves, depth
+    return root, embs[leaf_start:leaf_start + n_leaves], mask, P, n_leaves, depth
 
 
 # ──── Path Encoding ────
 class PathEncoder(nn.Module):
-    """Map heap index → unique path embedding"""
     def __init__(self, d, max_heap=256):
         super().__init__()
-        self.depth_enc = nn.Embedding(16, d)   # depth of node
-        self.index_enc = nn.Embedding(max_heap, d)  # relative index within depth
-    def forward(self, node_idx, P, depth):
-        """node_idx: 0 to P-1. Returns [d] path embedding"""
-        rel_pos = 0
-        if depth > 0:
-            level_start = (1 << (depth - 1)) - 1 if depth > 0 else 0
-            rel_pos = node_idx - level_start
-        max_level_nodes = 1 << depth
-        d_emb = self.depth_enc(torch.tensor(min(depth, 15), device=device))
-        i_emb = self.index_enc(torch.tensor(min(rel_pos % max_level_nodes, self.index_enc.weight.shape[0]-1), device=device))
-        return d_emb + i_emb
+        self.depth_enc = nn.Embedding(16, d)
+        self.index_enc = nn.Embedding(max_heap, d)
+    def forward(self, leaf_indices, P, tree_depth):
+        """leaf_indices: [N] — batch of leaf heap indices. Returns [N, d]"""
+        N = len(leaf_indices)
+        leaf_level = tree_depth - 1
+        level_start = (1 << leaf_level) - 1 if leaf_level >= 0 else 0
+        rel_pos = leaf_indices - level_start
+        max_nodes = max(1, 1 << leaf_level)
+        d_idx = torch.clamp(torch.full((N,), leaf_level, device=device, dtype=torch.long), 0, 15)
+        i_idx = torch.clamp(rel_pos % max_nodes, 0, self.index_enc.weight.shape[0] - 1)
+        return self.depth_enc(d_idx) + self.index_enc(i_idx)
 
 
-# ──── Flat Decoder ────
+# ──── Flat Decoder (vectorized) ────
 class FlatPathDecoder(nn.Module):
     def __init__(self, d, V, max_heap=256):
         super().__init__()
@@ -96,14 +96,16 @@ class FlatPathDecoder(nn.Module):
         self.path_enc = PathEncoder(d, max_heap)
         self.mlp = nn.Sequential(nn.Linear(d * 2, d * 4), nn.ReLU(), nn.Linear(d * 4, d))
     def forward(self, root, E_weight, P, n_leaves, depth, T):
-        leaves = []
-        for i in range(n_leaves):
-            leaf_idx = (1 << (depth - 1)) - 1 + i if depth > 0 else 0
-            path_vec = self.path_enc(leaf_idx, P, depth - 1)
-            inp = torch.cat([root, path_vec], dim=-1)
-            leaf = self.mlp(inp)
-            leaves.append(leaf)
-        leaf_tensor = torch.stack(leaves, dim=0)  # [n_leaves, d]
+        # All leaves in one matrix operation
+        leaf_indices = torch.arange(
+            (1 << (depth - 1)) - 1 if depth > 0 else 0,
+            (1 << (depth - 1)) - 1 + n_leaves if depth > 0 else n_leaves,
+            device=device
+        )  # [n_leaves]
+        path_vecs = self.path_enc(leaf_indices, P, depth)  # [n_leaves, d]
+        root_expand = root.unsqueeze(0).expand(n_leaves, -1)  # [n_leaves, d]
+        inp = torch.cat([root_expand, path_vecs], dim=-1)  # [n_leaves, 2d]
+        leaf_tensor = self.mlp(inp)  # [n_leaves, d]
         logits = leaf_tensor[:T] @ E_weight.T
         return logits, leaf_tensor
 
