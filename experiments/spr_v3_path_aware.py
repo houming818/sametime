@@ -6,11 +6,13 @@ Decoder: PathAwareSplit(depth, path_prefix) → left, right
 Loss: internal MSE + leaf MSE + leaf dot E → CE
 """
 import torch, torch.nn as nn, torch.nn.functional as F
-import numpy as np, math, time, random
+import numpy as np, math, time, random, sys
 from collections import Counter
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-print(f"device={device}  SPR v3 PATH-AWARE")
+lang = sys.argv[1] if len(sys.argv) > 1 else 'en'
+col = 0 if lang == 'de' else 1
+print(f"device={device}  SPR v3 PATH-AWARE [{lang.upper()}] col={col}")
 print("=" * 60)
 
 train_file = "/data/datasets/wmt14/wmt14.train.de-en"
@@ -21,11 +23,11 @@ def load_sents(path, n):
     with open(path) as f:
         for i, l in enumerate(f):
             if i >= n: break
-            if "\t" in l: sents.append(l.split("\t", 1)[1].strip().lower().split())
+            if "\t" in l: sents.append(l.split("\t")[col].strip().lower().split())
     return sents
 
 print("loading...")
-train_sents = load_sents(train_file, 10000)
+train_sents = load_sents(train_file, 450000)  # 10% of WMT14
 val_sents = load_sents(val_file, 500)
 
 word2id = {"<pad>": 0, "<unk>": 1}
@@ -140,8 +142,8 @@ class PathAwareDecoder(nn.Module):
         super().__init__()
         self.d = d; self.max_depth = max_depth
         self.splits = nn.ModuleList([PathAwareSplit(d, max_depth) for _ in range(n_splits)])
-        self.W_out = nn.Linear(d, V)
-    def forward(self, root, paths, node_table):
+        # No W_out — leaves directly dot E.weight for token recall
+    def forward(self, root, E_weight, paths, node_table):
         T = len(paths)
         pred_leaves = [None] * T
         layer_losses = []
@@ -171,7 +173,7 @@ class PathAwareDecoder(nn.Module):
         for i in range(T):
             if pred_leaves[i] is None: pred_leaves[i] = torch.zeros(d, device=root.device)
         leaves = torch.stack(pred_leaves, dim=0)
-        logits = self.W_out(leaves)
+        logits = leaves @ E_weight.T  # dot product, no classifier
         return logits, leaves, loss_internal
 
 
@@ -199,8 +201,8 @@ val_data = [(s, [word2id.get(w, 1) for w in s]) for s in val_sents[:100] if len(
 
 # ──── Train ────
 print(f"\n{'='*60}")
-print(f"Training Path-Aware + Contrastive Echo")
-print(f"  epochs=30 batch=16 lr=0.003")
+print(f"Training Path-Aware + Contrastive Echo [{lang.upper()}]")
+print(f"  epochs=30 batch=16 lr=0.003 train=50K")
 t0 = time.time()
 tau=1.0
 
@@ -210,7 +212,7 @@ for epoch in range(30):
     ti, tl_ce, tl_mse, tl_ct, tt = 0, 0, 0, 0, 0
     tau = max(0.1, 1.0 - epoch / 20.0)
 
-    for bi in range(0, 4000, 16):
+    for bi in range(0, 50000, 16):
         batch = train_sents[bi:bi + 16]
         if not batch: continue
         opt.zero_grad()
@@ -222,7 +224,7 @@ for epoch in range(30):
             ids_t = torch.tensor(ids, device=device)
 
             root, tpl, paths, table = encode(E, ids, tau)
-            logits, leaves, loss_node = decoder(root, paths, table)
+            logits, leaves, loss_node = decoder(root, E.weight, paths, table)
             loss_ce = F.cross_entropy(logits[:T], ids_t)
 
             # Contrastive: penalize leaf homogeneity (cos>0.5 between different positions)
@@ -250,12 +252,23 @@ for epoch in range(30):
             for s, ids in val_data[:30]:
                 T = min(len(ids), MAX_LEN); ids = ids[:T]
                 root, tpl, paths, table = encode(E, ids, tau=0.1)
-                logits, leaves, _ = decoder(root, paths, table)
+                logits, leaves, _ = decoder(root, E.weight, paths, table)
                 pred = logits[:T].argmax(dim=-1).cpu().tolist()
                 rf.append(ids); hp.append(pred)
         bleu = compute_bleu(rf, hp)
         tok_acc = 100 * sum(1 for r, h in zip(rf, hp) for ri, hi in zip(r, h) if ri == hi) / max(1, sum(len(r) for r in rf))
-        print(f"  ep {epoch:3d} ce={avg_ce:.4f} mse={avg_mse:.4f} ct={avg_ct:.4f} BLEU={bleu:.1f} tok_acc={tok_acc:.1f}% τ={tau:.2f} {time.time()-t0:.0f}s")
+
+        # Parameter diagnostics
+        E_mu = E.weight.mean().item(); E_sigma = E.weight.std().item()
+        W_mus = []
+        for sp in decoder.splits:
+            for p in sp.net.parameters():
+                W_mus.append(p.mean().item())
+        avg_W_mu = sum(W_mus) / len(W_mus) if W_mus else 0
+
+        print(f"  ep {epoch:3d} ce={avg_ce:.4f} mse={avg_mse:.4f} ct={avg_ct:.4f} BLEU={bleu:.1f} tok_acc={tok_acc:.1f}% "
+              f"E μ={E_mu:.3f} σ={E_sigma:.3f} W μ={avg_W_mu:.3f} "
+              f"τ={tau:.2f} {time.time()-t0:.0f}s")
         E.train(); decoder.train()
 
 # Final
@@ -264,7 +277,7 @@ with torch.no_grad():
     for s, ids in val_data:
         T = min(len(ids), MAX_LEN); ids = ids[:T]
         root, tpl, paths, table = encode(E, ids, tau=0.1)
-        logits, leaves, _ = decoder(root, paths, table)
+        logits, leaves, _ = decoder(root, E.weight, paths, table)
         pred = logits[:T].argmax(dim=-1).cpu().tolist()
         rf.append(ids); hp.append(pred)
 bleu = compute_bleu(rf, hp)
@@ -277,7 +290,7 @@ for i in range(min(5, len(val_sents))):
     if len(ids) < 3: continue
     with torch.no_grad():
         root, tpl, paths, table = encode(E, ids, tau=0.1)
-        logits, leaves, _ = decoder(root, paths, table)
+        logits, leaves, _ = decoder(root, E.weight, paths, table)
         pred = [id2word.get(p, '?') for p in logits[:len(ids)].argmax(dim=-1).cpu().tolist()]
     print(f"  src: {' '.join(s[:6])}")
     print(f"  hyp: {' '.join(pred[:6])}  [{tpl}]")
