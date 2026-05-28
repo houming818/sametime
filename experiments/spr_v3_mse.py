@@ -161,27 +161,16 @@ class WSplitDecoder(nn.Module):
         self.splits = nn.ModuleList([nn.Linear(d, d * 2) for _ in range(n_splits)])
 
     def forward(self, root, paths, node_table):
-        """
-        Follow tree paths from root to leaves.
-        Returns: (pred_leaves, loss_internal)
-        - pred_leaves: [T, d] predicted leaf hashes matching E[token] targets
-        - loss_internal: MSE on all internal nodes
-        """
         T = len(paths)
         pred_leaves = [None] * T
-        loss_internal = torch.tensor(0.0, device=root.device)
-        count = 0
+        layer_losses = []  # Fix 2: per-layer average, not global average
 
         def split_recurse(node, idxs, depth):
-            nonlocal loss_internal, count
             if len(idxs) == 0: return
             if all(len(paths[i]) <= depth for i in idxs):
-                # All paths ended here → leaves
-                for i in idxs:
-                    pred_leaves[i] = node
+                for i in idxs: pred_leaves[i] = node
                 return
 
-            # Split paths by direction at this depth
             left_idx, right_idx = [], []
             for i in idxs:
                 if len(paths[i]) > depth:
@@ -190,29 +179,34 @@ class WSplitDecoder(nn.Module):
                     left_idx.append(i)
 
             level = depth % len(self.splits)
-            split_out = self.splits[level](node)  # [d*2]
+            split_out = self.splits[level](node)
             left_child = split_out[:self.d]
             right_child = split_out[self.d:]
 
-            # MSE supervision if this depth has true children
-            if depth + 1 in node_table:
-                for ph, lh, rh in node_table[depth + 1]:
-                    loss_internal += F.mse_loss(left_child, lh) + F.mse_loss(right_child, rh)
-                    count += 1
+            # Fix 3: sphere normalization — lock output to unit sphere (match encoder)
+            left_child = left_child / (left_child.norm() + 1e-8)
+            right_child = right_child / (right_child.norm() + 1e-8)
 
-            # Recurse
+            # Fix 2: accumulate per-layer, then average across layers
+            if depth + 1 in node_table:
+                step_loss = torch.tensor(0.0, device=root.device)
+                step_count = 0
+                for ph, lh, rh in node_table[depth + 1]:
+                    step_loss += F.mse_loss(left_child, lh) + F.mse_loss(right_child, rh)
+                    step_count += 1
+                if step_count > 0:
+                    layer_losses.append(step_loss / step_count)
+
             split_recurse(left_child, left_idx, depth + 1)
             split_recurse(right_child, right_idx, depth + 1)
 
         split_recurse(root, list(range(T)), 0)
 
-        if count > 0:
-            loss_internal = loss_internal / count
+        loss_internal = sum(layer_losses) / len(layer_losses) if layer_losses else torch.tensor(0.0, device=root.device)
 
-        # Ensure all leaves filled
         for i in range(T):
             if pred_leaves[i] is None:
-                pred_leaves[i] = torch.zeros(d, device=root.device)
+                pred_leaves[i] = torch.zeros(self.d, device=root.device)
 
         return torch.stack(pred_leaves, dim=0), loss_internal
 
