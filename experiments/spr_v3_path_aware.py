@@ -199,22 +199,22 @@ val_data = [(s, [word2id.get(w, 1) for w in s]) for s in val_sents[:100] if len(
 
 # ──── Train ────
 print(f"\n{'='*60}")
-print(f"Training Path-Aware Echo: W_split sees its tree position")
-print(f"  epochs=20 batch=16 lr=0.003")
+print(f"Training Path-Aware + Contrastive Echo")
+print(f"  epochs=30 batch=16 lr=0.003")
 t0 = time.time()
 tau=1.0
 
-for epoch in range(20):
+for epoch in range(30):
     E.train(); decoder.train()
     random.shuffle(train_sents)
-    ti, tl_ce, tl_mse, tt = 0, 0, 0, 0
-    tau = max(0.1, 1.0 - epoch / 15.0)
+    ti, tl_ce, tl_mse, tl_ct, tt = 0, 0, 0, 0, 0
+    tau = max(0.1, 1.0 - epoch / 20.0)
 
-    for bi in range(0, 2000, 16):
+    for bi in range(0, 4000, 16):
         batch = train_sents[bi:bi + 16]
         if not batch: continue
         opt.zero_grad()
-        bl_ce, bl_mse, n = torch.tensor(0.0, device=device), torch.tensor(0.0, device=device), 0
+        bl_ce, bl_mse, bl_ct, n = torch.tensor(0.0, device=device), torch.tensor(0.0, device=device), torch.tensor(0.0, device=device), 0
         for s in batch:
             ids = [word2id.get(w, 1) for w in s]
             if len(ids) < 3: continue
@@ -224,8 +224,16 @@ for epoch in range(20):
             root, tpl, paths, table = encode(E, ids, tau)
             logits, leaves, loss_node = decoder(root, paths, table)
             loss_ce = F.cross_entropy(logits[:T], ids_t)
-            loss = loss_ce + loss_node
-            bl_ce += loss_ce.item(); bl_mse += loss_node.item(); n += 1
+
+            # Contrastive: penalize leaf homogeneity (cos>0.5 between different positions)
+            leaf_norm = leaves[:T] / (leaves[:T].norm(dim=-1, keepdim=True) + 1e-8)
+            cos_mat = leaf_norm @ leaf_norm.T  # [T,T]
+            off_mask = ~torch.eye(T, dtype=torch.bool, device=device)
+            off_diag = cos_mat[off_mask]
+            loss_contrast = F.relu(off_diag - 0.5).mean()
+
+            loss = loss_ce + loss_node + 0.1 * loss_contrast
+            bl_ce += loss_ce.item(); bl_mse += loss_node.item(); bl_ct += loss_contrast.item(); n += 1
             loss.backward(retain_graph=False)
 
         if n == 0: continue
@@ -233,9 +241,9 @@ for epoch in range(20):
         ti += 1; tl_ce += bl_ce / n; tl_mse += bl_mse / n; tt += 1
 
     if ti == 0: continue
-    avg_ce = tl_ce / ti; avg_mse = tl_mse / ti
+    avg_ce = tl_ce / ti; avg_mse = tl_mse / ti; avg_ct = tl_ct / ti
 
-    if epoch % 5 == 0 or epoch == 19:
+    if epoch % 5 == 0 or epoch == 29:
         E.eval(); decoder.eval()
         rf, hp = [], []
         with torch.no_grad():
@@ -247,7 +255,7 @@ for epoch in range(20):
                 rf.append(ids); hp.append(pred)
         bleu = compute_bleu(rf, hp)
         tok_acc = 100 * sum(1 for r, h in zip(rf, hp) for ri, hi in zip(r, h) if ri == hi) / max(1, sum(len(r) for r in rf))
-        print(f"  ep {epoch:3d} ce={avg_ce:.4f} mse={avg_mse:.4f} BLEU={bleu:.1f} tok_acc={tok_acc:.1f}% τ={tau:.2f} {time.time()-t0:.0f}s")
+        print(f"  ep {epoch:3d} ce={avg_ce:.4f} mse={avg_mse:.4f} ct={avg_ct:.4f} BLEU={bleu:.1f} tok_acc={tok_acc:.1f}% τ={tau:.2f} {time.time()-t0:.0f}s")
         E.train(); decoder.train()
 
 # Final
