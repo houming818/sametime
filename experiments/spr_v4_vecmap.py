@@ -118,22 +118,28 @@ for epoch in range(EPOCHS):
             logits = decoded.squeeze(0)[:T_orig] @ L0.weight.T
             loss = F.cross_entropy(logits, ids_target[:T_orig])
 
-            # Polish-notation heap-sibling: each pair gets tree-level positional encoding
+            # Tree-partition: each internal node predicts its subtree tokens (batched)
             h = ctx.squeeze(0)
-            n_pairs = T_orig // 2
-            if n_pairs >= 2:
-                # Polish positional encoding: which depth level these siblings share
-                depth_pos = [int(math.log2(t + n_leaves)) for t in range(T_orig)]
-                # Sibling pairs: (0,1) share depth D₀, (2,3) share depth D₁, etc.
-                even_h = h[0:2*n_pairs:2]; odd_h  = h[1:2*n_pairs:2]
-                # Shallow siblings (closer to root) get larger clustering weight
-                even_depths = torch.tensor(depth_pos[0:2*n_pairs:2], device=device).float().unsqueeze(-1)
-                odd_depths  = torch.tensor(depth_pos[1:2*n_pairs:2], device=device).float().unsqueeze(-1)
-                # Depth weighting: deeper siblings (leaves) cluster less strongly
-                dw_even = 1.0 / (even_depths + 1); dw_odd = 1.0 / (odd_depths + 1)
-                logits_e = (even_h * dw_even) @ L0.weight.T; logits_o = (odd_h * dw_odd) @ L0.weight.T
-                loss = loss + 0.1 * F.cross_entropy(logits_e, ids_target[1:2*n_pairs:2])
-                loss = loss + 0.1 * F.cross_entropy(logits_o, ids_target[0:2*n_pairs:2])
+            if T_orig >= 4 and n_leaves >= 3:
+                leaf_start = n_leaves - 1
+                subtree_count = 0
+                for node_i in range(n_leaves - 1):
+                    first, last = T_orig, 0
+                    for t in range(T_orig):
+                        node = t + leaf_start
+                        while node > node_i: node = (node - 1) // 2
+                        if node == node_i:
+                            if t < first: first = t
+                            if t > last: last = t
+                    if first < last:
+                        op = h[first:last+1].mean(dim=0)
+                        logits_op = op @ L0.weight.T  # [V]
+                        n_kids = last - first + 1
+                        loss = loss + 0.001 * F.cross_entropy(
+                            logits_op.unsqueeze(0).expand(n_kids, -1),
+                            ids_target[first:last+1]
+                        )
+                        subtree_count += n_kids
 
             bl += loss; n_s += 1
         if n_s == 0: continue
