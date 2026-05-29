@@ -118,12 +118,20 @@ for epoch in range(EPOCHS):
             logits = decoded.squeeze(0)[:T_orig] @ L0.weight.T
             loss = F.cross_entropy(logits, ids_target[:T_orig])
 
-            # Heap-sibling clustering: pair (2i,2i+1) predict each other
+            # Polish-notation heap-sibling: each pair gets tree-level positional encoding
             h = ctx.squeeze(0)
             n_pairs = T_orig // 2
             if n_pairs >= 2:
+                # Polish positional encoding: which depth level these siblings share
+                depth_pos = [int(math.log2(t + n_leaves)) for t in range(T_orig)]
+                # Sibling pairs: (0,1) share depth D₀, (2,3) share depth D₁, etc.
                 even_h = h[0:2*n_pairs:2]; odd_h  = h[1:2*n_pairs:2]
-                logits_e = even_h @ L0.weight.T; logits_o = odd_h @ L0.weight.T
+                # Shallow siblings (closer to root) get larger clustering weight
+                even_depths = torch.tensor(depth_pos[0:2*n_pairs:2], device=device).float().unsqueeze(-1)
+                odd_depths  = torch.tensor(depth_pos[1:2*n_pairs:2], device=device).float().unsqueeze(-1)
+                # Depth weighting: deeper siblings (leaves) cluster less strongly
+                dw_even = 1.0 / (even_depths + 1); dw_odd = 1.0 / (odd_depths + 1)
+                logits_e = (even_h * dw_even) @ L0.weight.T; logits_o = (odd_h * dw_odd) @ L0.weight.T
                 loss = loss + 0.1 * F.cross_entropy(logits_e, ids_target[1:2*n_pairs:2])
                 loss = loss + 0.1 * F.cross_entropy(logits_o, ids_target[0:2*n_pairs:2])
 
@@ -155,18 +163,7 @@ for epoch in range(EPOCHS):
 # ══════════════════════════════════════════
 L0.eval(); L1.eval()
 print(f"\n{'='*60}")
-print("PHASE C: Cosine similarity + Repair BLEU")
-
-print(f"\n=== Cosine similarity (CBOW effect) ===")
-pairs_test = [("cat", "dog"), ("cat", "cup"), ("sit", "stand"), ("sit", "cup")]
-for a, b in pairs_test:
-    aid = sp.piece_to_id(str(a)) if str(a) in sp else (sp.piece_to_id('▁'+a) if '▁'+a in sp else -1)
-    bid = sp.piece_to_id(b) if b in sp else (sp.piece_to_id('▁'+b) if '▁'+b in sp else -1)
-    if aid >= 0 and bid >= 0:
-        cos = F.cosine_similarity(L0.weight[aid].unsqueeze(0), L0.weight[bid].unsqueeze(0)).item()
-        print(f"  cos({a},{b}) = {cos:.3f}")
-    else:
-        print(f"  {a} or {b} not in vocab")
+print("PHASE C: Repair BLEU diagnostic")
 
 print(f"\n=== Repair BLEU (masked autoencode) ===")
 rf_repair, hp_repair = [], []
