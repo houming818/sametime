@@ -44,9 +44,10 @@ with open("/data/datasets/wmt14/wmt14.train.de-en") as f:
         if "\t" in l: train_en.append(sp.encode_as_ids(l.split("\t",1)[1].strip().lower()))
 val_en=[sp.encode_as_ids(l.split("\t",1)[1].strip().lower()) for l in open("/data/datasets/wmt14/wmt14.validation.de-en")][:300]
 
-n_auto=100000
-auto_en=[ids[:MAX_LEN] for ids in train_en[:n_auto//2] if len(ids)>=3]
-auto_zh=[zh[:MAX_LEN] for zh,_ in pairs[:n_auto//2] if len(zh)>=2]
+n_auto_data = int(args.get("--data", "100000"))
+
+auto_en=[ids[:MAX_LEN] for ids in train_en[:n_auto_data//2] if len(ids)>=3]
+auto_zh=[zh[:MAX_LEN] for zh,_ in pairs[:n_auto_data//2] if len(zh)>=2]
 all_auto=auto_en+auto_zh
 bridge_pairs=pairs[-50000:]
 print(f"auto={len(all_auto)} bridge={len(bridge_pairs)} val={len(val_en)}")
@@ -93,7 +94,7 @@ def tree_loss(ctx,ids_target,nL,wgt):
                 if t>l:l=t
         if f<l:
             op=h[f:l+1].mean(dim=0);nk=l-f+1
-            loss=loss+wgt*F.cross_entropy(op@L0.weight.T.unsqueeze(0).expand(nk,-1),ids_target[f:l+1])
+            loss=loss+wgt*F.cross_entropy((op@L0.weight.T).unsqueeze(0).expand(nk,-1),ids_target[f:l+1])
     return loss
 
 def heap_loss(ctx,ids_target):
@@ -168,9 +169,12 @@ elif phase=='bridge':
     C_EPOCHS=100;t0=time.time()
     print(f"PHASE BRIDGE: l1={l1_mode} bridge={bridge_mode} epochs={C_EPOCHS}")
     for p in L0.parameters():p.requires_grad=False
-    for p in L1_en.parameters():p.requires_grad=False
-    for p in L1_zh.parameters():p.requires_grad=False
-    opt=torch.optim.Adam(Wb.parameters(),lr=0.003)
+    for p in L1_en.enc.parameters():p.requires_grad=False
+    for p in L1_en.ep.parameters():p.requires_grad=False
+    if l1_mode=='independent':
+        for p in L1_zh.enc.parameters():p.requires_grad=False
+        for p in L1_zh.ep.parameters():p.requires_grad=False
+    opt=torch.optim.Adam(list(Wb.parameters())+list(L1_zh.dec.parameters())+list(L1_zh.dp.parameters()),lr=0.003)
     for ep in range(C_EPOCHS):
         Wb.train();tl,ti=0,0;random.shuffle(bridge_pairs)
         for bi in range(0,3000,16):
@@ -210,6 +214,23 @@ elif phase=='bridge':
                         rf.append(zh[:T]);hp.append(lo.argmax(dim=-1).cpu().tolist())
                 if len(rf)>=5:
                     print(f"  ep{ep:4d} loss={tl/ti:.4f} bridge_BLEU={bleu(rf,hp):.1f} {t_elapsed:.0f}s")
+                    # Single-word bridge test (no word order)
+                    if ep%30==0:
+                        sw_ok,sw_n,shown=0,0,0
+                        for zh_i,en_i in bridge_pairs[-200:-180]:
+                            for t in range(min(min(len(en_i),len(zh_i)),3)):
+                                e_t=torch.tensor([en_i[t]],device=device)
+                                with torch.no_grad():
+                                    he_t=L1_en.fe(L0(e_t).unsqueeze(0)).squeeze(0)
+                                    ha_t=Wb(he_t) if bridge_mode=='token' else Wb(he_t.mean(0))  
+                                    dz_t=L1_zh.fd(ha_t.unsqueeze(0))
+                                    pid=dz_t.squeeze(0)@L0.weight.T
+                                    pred_id=pid.argmax(-1).item()
+                                    if pred_id==zh_i[t]:sw_ok+=1
+                                    sw_n+=1
+                                    if shown<5:
+                                        print(f"    {sp.decode_ids([en_i[t]]):15s} → {sp.decode_ids([pred_id]):15s} (gold: {sp.decode_ids([zh_i[t]]):15s})");shown+=1
+                        if sw_n>0: print(f"    single-word acc: {sw_ok}/{sw_n}={100*sw_ok/sw_n:.1f}%")
                 L1_zh.train();Wb.train()
             else:
                 print(f"  ep{ep:4d} loss={tl/ti:.6f} {t_elapsed:.0f}s")
