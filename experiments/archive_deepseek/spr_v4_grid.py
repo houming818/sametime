@@ -192,7 +192,12 @@ elif phase=='bridge':
                 if bridge_mode=='token':
                     ha=Wb(he)
                     dz=L1_zh.fd(ha.unsqueeze(0))
-                    loss=F.cross_entropy(dz.squeeze(0)[:T]@L0.weight.T,ids_pad_zh[:T])+0.5*F.mse_loss(ha,hz)
+                    logits_all=dz.squeeze(0)[:T]@L0.weight.T
+                    loss=F.cross_entropy(logits_all,ids_pad_zh[:T])+0.5*F.mse_loss(ha,hz)
+                    # Entropy penalty: prevent L1 decoder collapse to single token
+                    log_p=F.log_softmax(logits_all,dim=-1)
+                    entropy = -(torch.exp(log_p)*log_p).sum(-1).mean()
+                    loss = loss + 0.01*F.relu(0.3-entropy)
                 else:
                     loss=F.mse_loss(Wb(he.mean(dim=0)),hz.mean(dim=0))
                 bl+=loss;ns+=1

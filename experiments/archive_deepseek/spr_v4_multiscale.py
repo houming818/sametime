@@ -231,6 +231,55 @@ bleu_final = compute_bleu(rf, hp)
 tok_final = 100 * sum(1 for r, h in zip(rf, hp) for ri, hi in zip(r, h) if ri == hi) / max(1, sum(len(r) for r in rf))
 print(f"\nFinal: BLEU={bleu_final:.1f} tok_acc={tok_final:.1f}% Time={time.time()-t0:.0f}s")
 
+# ══════════════════════════════════════════
+# PHASE C: Zero-Param Bridge — mean pool DE GRU → EN decoder
+# ══════════════════════════════════════════
+print(f"\n{'='*60}")
+print("PHASE C: Zero-param bridge — mean pool DE GRU output → EN decoder")
+print(f"{'='*60}")
+
+L0.eval(); L1.eval()
+all_refs, all_hyps = [], []
+print(f"\n=== DE→EN translation samples ===")
+for i, (de, en) in enumerate(train_pairs[-20:-10]):  # use last 10 untrained pairs
+    de_ids = [word2id.get(w, 1) for w in de[:MAX_LEN]]
+    en_ids = [word2id.get(w, 1) for w in en[:MAX_LEN]]
+    T_en = min(len(en_ids), MAX_LEN)
+    de_ids = de_ids[:MAX_LEN]
+    
+    if len(de_ids) < 3 or T_en < 3: continue
+    
+    with torch.no_grad():
+        # Encode DE
+        de_pad, n_leaves_de, _ = pad_to_heap(de_ids, len(de_ids))
+        de_emb = L0(de_pad).unsqueeze(0)
+        ctx_de = L1.forward_encode(de_emb)  # [1, n_leaves_de, d]
+        
+        # Zero-param bridge: mean pool
+        root = ctx_de.mean(dim=1, keepdim=True)  # [1, 1, d]
+        
+        # Decode EN: expand root to n_leaves and feed to EN L1 decoder
+        en_n_leaves = max(n_leaves_de, 1)
+        root_tiled = root.expand(-1, en_n_leaves, -1)
+        decoded_en = L1.forward_decode(root_tiled)
+        
+        logits_en = decoded_en.squeeze(0)[:T_en] @ L0.weight.T
+        pred = [id2word.get(p, '?') for p in logits_en.argmax(dim=-1).cpu().tolist()]
+        
+        print(f"  DE: {' '.join(de[:8])}")
+        print(f"  EN: {' '.join(en[:8])}")
+        print(f"  PR: {' '.join(pred[:8])}")
+        
+        if len(pred) >= 4 and pred[0] != '?':
+            all_refs.append([word2id.get(w,1) for w in en[:T_en]])
+            all_hyps.append(logits_en[:T_en].argmax(dim=-1).cpu().tolist())
+        print()
+
+if len(all_refs) >= 2:
+    bridge_bleu = compute_bleu(all_refs, all_hyps)
+    print(f"Bridge BLEU (zero-param, mean pool): {bridge_bleu:.1f}")
+
+
 print(f"\n=== samples ===")
 for i in range(min(5, len(val_en_sents))):
     s = val_en_sents[i]; ids = [word2id.get(w, 1) for w in s[:MAX_LEN]]
