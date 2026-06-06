@@ -26,6 +26,7 @@ parser.add_argument('--save_dir', type=str, default='/mnt/nas/datasets/wmt_massi
 parser.add_argument('--data_path', type=str, default='/mnt/nas/datasets/wmt_massive/train.massive.zh-en.tsv')
 parser.add_argument('--bpe_model', type=str, default='/mnt/nas/datasets/wmt_massive/sp_bpe_massive.model')
 parser.add_argument('--ckpt_l1', type=str, default='/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep3.pt')
+parser.add_argument('--poc', action='store_true', help="Run small POC with 5000 rows to fast fail")
 args = parser.parse_args()
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -35,7 +36,7 @@ D_MODEL_L2 = args.d_model
 TD = 5
 VOCAB_SIZE = 32000
 BATCH_SIZE = args.batch_size
-EPOCHS = args.epochs
+EPOCHS = 1 if args.poc else args.epochs
 LR = args.lr
 MAX_LEN = 60
 
@@ -69,8 +70,12 @@ class MassiveWMTDataset(Dataset):
         # Split train/test
         if is_test:
             self.offsets = self.offsets[-2000:]
+            if args.poc:
+                self.offsets = self.offsets[:50] # Just 50 for testing POC
         else:
             self.offsets = self.offsets[:-2000]
+            if args.poc:
+                self.offsets = self.offsets[:5000] # 5000 for train POC
             
         print(f"Indexed {len(self.offsets)} pairs.")
         
@@ -363,7 +368,7 @@ def main():
         
         # Display a sample
         sample_idx = indices[0]
-        en_str, zh_ref = test_dataset.pairs[sample_idx]
+        en_str, zh_ref = test_dataset.get_text(sample_idx)
         print(f"  EN:  {en_str}")
         print(f"  REF: {zh_ref}")
         print(f"  HYP: {' '.join(hyps[0])}")
