@@ -94,6 +94,14 @@ class MassiveWMTDataset(Dataset):
         
         return torch.tensor(en_ids, dtype=torch.long), torch.tensor(zh_ids, dtype=torch.long)
 
+    def get_text(self, idx):
+        self.f.seek(self.offsets[idx])
+        line = self.f.readline()
+        parts = line.strip().split('\t')
+        if len(parts) == 2:
+            return parts[1].lower(), parts[0]
+        return "", ""
+
 def collate_fn(batch):
     sp = spm.SentencePieceProcessor()
     sp.load(BPE_MODEL)
@@ -268,7 +276,7 @@ def evaluate_model(encoder, decoder, test_dataset, sp, num_samples=100):
     hyps, refs = [], []
     
     for idx in subset_indices:
-        en, zh = test_dataset.pairs[idx]
+        en, zh = test_dataset.get_text(idx)
         en_ids = torch.tensor(sp.encode_as_ids(en)[:MAX_LEN])
         zh_ids = sp.encode_as_ids(zh)
         
