@@ -6,6 +6,7 @@
 
 | ID | Name | Core Question | Status | Entry |
 |----|------|--------------|--------|-------|
+| **M0** | TreeHeap Math | TreeHeap 能否先成为数学闭包工具箱？ | 🔄 Active | `ara/m0-treeheap-math/` |
 | **S1** | Echo | 语义前缀路由能否替代稠密输出层？ | ✅ Baseline | `ara/s1-echo/` |
 | **S2** | Translation | 折叠栈能否替代 Transformer 注意力搜索？ | 🔄 Active | `ara/s2-translation/` |
 | **S3** | Generation | TreeHeap 能否驱动可控文本生成？ | 📋 Planned | `ara/s3-generation/` |
@@ -13,6 +14,12 @@
 ## Dependency Graph
 
 ```
+M0 (TreeHeap Math)
+  │
+  └──→ S1/S2
+        先验证 compose/decompose/transpose/match_subheap 等数学算子
+        再进入 Echo、结构不变量和翻译任务
+
 S1 (Echo)
   │
   ├──→ S2 (Translation)
@@ -27,6 +34,7 @@ S1 (Echo)
 ## Timeline
 
 ```
+2026.06            M0 TreeHeap Math (代数闭包、子堆核搜索)
 2026.03 ~ 2026.05   S1 Echo     (堆树、多义消歧、InfoNCE)
 2026.05 ~ now        S2 Translation (折叠栈、图组装、跨语言)
 future               S3 Generation  (可控生成、文本计划)
@@ -37,6 +45,11 @@ future               S3 Generation  (可控生成、文本计划)
 ```
 ara/
 ├── index.yaml           ← this file
+├── m0-treeheap-math/
+│   ├── logic/           ← pure math problem, predicts, operators
+│   ├── src/             ← synthetic probes
+│   ├── trace/           ← math-first route
+│   └── evidence/        ← synthetic summaries
 ├── s1-echo/
 │   ├── logic/           ← problem, claims, experiments
 │   ├── src/             ← core code, env

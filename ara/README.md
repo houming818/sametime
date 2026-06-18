@@ -8,6 +8,13 @@ Supports multiple research topics with cross-referencing.
 ```
 ara/
 ├── index.yaml                    ← multi-topic registry + dependency graph
+├── m0-treeheap-math/             ← Active: TreeHeap as algebraic toolbox
+│   ├── logic/{problem,predicts,experiments}.md
+│   ├── logic/solution/algebra.md
+│   ├── src/treeheap_math_probe.py
+│   ├── trace/research_dag.yaml
+│   └── evidence/treeheap_math_probe/
+│
 ├── s2-fold-stack/                ← Active: Fold Stack replaces Transformer
 │   ├── logic/{problem,claims,experiments}.md
 │   ├── src/environment.md

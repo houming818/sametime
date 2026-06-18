@@ -1,0 +1,119 @@
+{
+  "run": {
+    "seed": 20260618,
+    "dim": 64,
+    "proj_dim": 24
+  },
+  "metrics": {
+    "closure_ok": true,
+    "noncomm_distance": 1.1930861484999091,
+    "noncomm_margin": 0.7117272788711737,
+    "transpose_inverse_shape_ok": true,
+    "transpose_inverse_error": 0.0,
+    "compose_decompose_error": 0.0,
+    "projection_top1_preserved": true,
+    "projection_order_agreement": 0.8333333333333334,
+    "subheap_hit_at_1": 1.0,
+    "subheap_hit_at_3": 1.0,
+    "role_swap_margin": 0.9091461256178817,
+    "prob_mass_error": 0.0
+  },
+  "matches": {
+    "kernel_H_ab": [
+      {
+        "name": "H_ab",
+        "score": 1.0,
+        "prob": 0.9999798802909283,
+        "slot": "atom",
+        "children": [
+          "A",
+          "B"
+        ]
+      },
+      {
+        "name": "H_nested",
+        "score": -0.12847191809272876,
+        "prob": 1.2563191852334764e-05,
+        "slot": "atom",
+        "children": [
+          "H_ab",
+          "E"
+        ]
+      },
+      {
+        "name": "E",
+        "score": -0.23029858821300517,
+        "prob": 4.538082454235483e-06,
+        "slot": "atom",
+        "children": []
+      },
+      {
+        "name": "A",
+        "score": -0.3352975696729361,
+        "prob": 1.5880625342868523e-06,
+        "slot": "atom",
+        "children": []
+      },
+      {
+        "name": "B",
+        "score": -0.3457555726417339,
+        "prob": 1.430372230767668e-06,
+        "slot": "atom",
+        "children": []
+      }
+    ],
+    "kernel_H_ba": [
+      {
+        "name": "H_ab",
+        "score": 0.09085387438211837,
+        "prob": 0.8670832758954048,
+        "slot": "atom",
+        "children": [
+          "A",
+          "B"
+        ]
+      },
+      {
+        "name": "H_nested",
+        "score": -0.14687380720175391,
+        "prob": 0.08046788872023587,
+        "slot": "atom",
+        "children": [
+          "H_ab",
+          "E"
+        ]
+      },
+      {
+        "name": "A",
+        "score": -0.26983057464375226,
+        "prob": 0.023530337182587978,
+        "slot": "atom",
+        "children": []
+      },
+      {
+        "name": "E",
+        "score": -0.3006925541569142,
+        "prob": 0.017282090557701472,
+        "slot": "atom",
+        "children": []
+      },
+      {
+        "name": "B",
+        "score": -0.3402457505949507,
+        "prob": 0.011636407644069945,
+        "slot": "atom",
+        "children": []
+      }
+    ]
+  },
+  "pass": {
+    "closure": true,
+    "noncomm": true,
+    "transpose_inverse": true,
+    "compose_decompose": true,
+    "projection": true,
+    "subheap": true,
+    "probability": true
+  },
+  "pilot_pass": true
+}

@@ -1,0 +1,41 @@
+# M0 TreeHeap Math Research DAG
+
+dag:
+  root:
+    type: question
+    question: "Can TreeHeap be established as a mathematical operator space before language tasks?"
+    reason: "Direct WMT/BLEU is too coarse to diagnose missing algebraic tools."
+
+  p_math01:
+    type: predict
+    id: P-MATH01
+    title: "Minimal TreeHeap algebra"
+    source: "logic/predicts.md#P-MATH01"
+    claim_if_passes: "TreeHeap has a synthetic operator toolbox worth testing with echo."
+    evidence_gates:
+      - E-MATH01
+      - E-MATH02
+      - E-MATH03
+      - E-MATH04
+      - E-MATH05
+      - E-MATH06
+    status: running
+
+  experiment_treeheap_math_probe:
+    type: experiment
+    source: "src/treeheap_math_probe.py"
+    evidence: "evidence/treeheap_math_probe/"
+    parent: p_math01
+    status: executed
+    result: "pilot_pass=true after adding head_v root reference to the TreeHeap object"
+    lesson: "A collapsed whole-vector is insufficient for exact transpose inverse; TreeHeap needs a root/head reference field."
+
+  next_if_pass:
+    type: decision
+    condition: "P-MATH01 pilot passes"
+    action: "Build M1/M2 echo tests on TreeHeap objects rather than raw token echo."
+
+  next_if_fail:
+    type: decision
+    condition: "P-MATH01 pilot fails"
+    action: "Revise algebra operators before touching echo or S2."
