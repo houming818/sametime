@@ -182,6 +182,48 @@ This is the TreeHeap analogue of convolution or correlation.
 In a matrix, a convolution kernel scans local neighborhoods. In TreeHeap, a
 SubHeap kernel scans local heap neighborhoods.
 
+The convolution analogy should first be understood as an address-space
+operation, not only as a 2D image operation:
+
+```text
+linear order
++ local window
++ modular shift
++ repeated kernel action
+```
+
+For a sequence, the neighborhood can be:
+
+```text
+i - 1 mod n
+i
+i + 1 mod n
+```
+
+For a flattened matrix, the neighborhood can be generated from fixed offsets:
+
+```text
+index = row * width + col
+left  = index - 1
+right = index + 1
+up    = index - width
+down  = index + width
+```
+
+Therefore TreeHeap kernel matching also needs an explicit address algebra:
+
+```text
+path
+parent(path)
+left(path)
+right(path)
+sibling(path)
+next_dfs(path) mod N
+next_bfs(path) mod N
+```
+
+Without this address space, a kernel has no well-defined way to move.
+
 The kernel is not a fixed 2D mask. It is a small structured pattern:
 
 ```text

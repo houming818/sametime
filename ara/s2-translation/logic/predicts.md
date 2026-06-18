@@ -280,6 +280,28 @@ In a matrix, a kernel such as:
 
 can be slid over the whole matrix to find regions with the same local pattern.
 
+The lower-level interpretation is:
+
+```text
+linear order + local window + modular shift + repeated kernel action
+```
+
+This means P-ALG02 also depends on a TreeHeap address algebra:
+
+```text
+path
+parent(path)
+left(path)
+right(path)
+sibling(path)
+next_dfs(path) mod N
+next_bfs(path) mod N
+```
+
+The first implementation should not jump directly to rich linguistic kernels.
+It should first test whether cyclic/local neighborhood search over TreeHeap
+addresses can reproduce simple convolution-like matching.
+
 For TreeHeap, the analogous question is:
 
 ```text
