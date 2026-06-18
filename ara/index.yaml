@@ -1,0 +1,55 @@
+# nio.log — Research Artifacts Index
+
+> Three projects, one ARA protocol. Typed dependencies between projects.
+
+## Projects
+
+| ID | Name | Core Question | Status | Entry |
+|----|------|--------------|--------|-------|
+| **S1** | Echo | 语义前缀路由能否替代稠密输出层？ | ✅ Baseline | `ara/s1-echo/` |
+| **S2** | Translation | 折叠栈能否替代 Transformer 注意力搜索？ | 🔄 Active | `ara/s2-translation/` |
+| **S3** | Generation | TreeHeap 能否驱动可控文本生成？ | 📋 Planned | `ara/s3-generation/` |
+
+## Dependency Graph
+
+```
+S1 (Echo)
+  │
+  ├──→ S2 (Translation)
+  │     L0/L1 语义架构来自 S1 的堆树设计
+  │     Token 的 128D 路径向量 = S1 的 TreeHeap 输出
+  │
+  └──→ S3 (Generation)
+        L1 语义坍缩 = S1 的多义消歧机制
+        S2 的折叠结构 → S3 的生成器输入
+```
+
+## Timeline
+
+```
+2026.03 ~ 2026.05   S1 Echo     (堆树、多义消歧、InfoNCE)
+2026.05 ~ now        S2 Translation (折叠栈、图组装、跨语言)
+future               S3 Generation  (可控生成、文本计划)
+```
+
+## ARA Layers per Project
+
+```
+ara/
+├── index.yaml           ← this file
+├── s1-echo/
+│   ├── logic/           ← problem, claims, experiments
+│   ├── src/             ← core code, env
+│   ├── trace/           ← research DAG, dead ends
+│   └── evidence/        ← results, logs
+├── s2-translation/
+│   ├── logic/
+│   ├── src/
+│   ├── trace/
+│   └── evidence/
+└── s3-generation/
+    ├── logic/
+    ├── src/
+    ├── trace/
+    └── evidence/
+```

@@ -1,0 +1,241 @@
+# S2 Research DAG
+
+> Full exploration graph: questions → decisions → experiments → dead ends → pivots.
+> Captures knowledge lost in traditional linear narratives.
+
+```yaml
+dag:
+  root:
+    question: "能否用显式结构(折叠)替代Transformer的注意力搜索?"
+    source: S2-13 (为什么抛弃Transformer)
+
+  # ── Phase A: Structure Predictability ──
+  phase_a:
+    question: "语义向量能否预测折叠动作?"
+    decision: 用sentence-transformer 384D作为L1语义代理
+    experiments:
+      - name: "384D→128D(MNLP)→47动作"
+        verdict: "✓ Top-5=95%"
+        source: phase_a.py, S2-15
+      - name: "跨源验证"
+        verdict: "✓ 无过拟合"
+        source: falsification.py
+      - name: "洗牌测试"
+        verdict: "△ 73.6% vs 61.1% shuffled, 95% inflated by freq bias"
+        source: falsification.py
+        note: "频率偏差抬高了Top-1表面数字"
+
+  # ── Dead End: Word-by-word Translation ──
+  dead_end_mt_v0:
+    type: dead_end
+    hypothesis: "词对词字典+折叠动作 = 可行的ZH→EN翻译"
+    experiment: mt_v0.py, mt_v1.py
+    result: "BLEU≈0, OOV rate 88.5%"
+    failure_mode: "中英结构差异大, 首尾词对齐覆盖不足"
+    lesson: "词对词翻译对差异大的语言对不可行; 需要短语级结构迁移"
+    pivot_to: "折叠词典 + 折叠翻译器 (fold_lexicon.py)"
+    evidence: mt_v1.py output (BLEU=0.5, OOV=32%)
+    note: "v0的BLEU=24.6后来确认为测试顺序 bug"
+
+  # ── Dead End: Fold Translator ──
+  dead_end_fold_translator:
+    type: dead_end
+    hypothesis: "ZH折叠节点→EN折叠节点→英文句子 (短语级翻译)"
+    experiment: fold_translator.py
+    result: "BLEU≈0.2"
+    failure_mode: "折叠节点的词汇翻译依赖6000词字典, 词对齐不可靠"
+    lesson: "折叠翻译需要: (1)更好的词对齐, (2)语义上下文的词汇生成, (3)非词对词映射"
+    pivot_to: "回到Graph Assembly优化, 暂时放弃端到端翻译"
+    evidence: fold_translator.py output (BLEU=0.2)
+
+  # ── Phase D1: Cross-lingual ──
+  phase_d1:
+    question: "跨语言结构预测是否可行?"
+    experiments:
+      - name: "ZH语义→EN折叠"
+        verdict: "✓ AUC=0.701"
+        source: phase_d1.py
+      - name: "EN语义→ZH折叠"
+        verdict: "✓ AUC=0.671, 中文特有结构(Aspect AUC=0.81)"
+        source: e2a.py
+
+  # ── Phase D2: Structure Binding ──
+  phase_d2:
+    question: "折叠节点检测+跨度+动作能否从语义预测?"
+    experiments:
+      - name: "头检测"
+        verdict: "✓ F1=87.6%"
+      - name: "跨度检测"
+        verdict: "✓ F1=88.2%"
+      - name: "动作分类(gold head)"
+        verdict: "✓ Top-5=96.7%"
+    source: phase_d2a.py
+
+  # ── Phase D3: Oracle Ablation ──
+  phase_d3:
+    question: "哪些模块是UAS瓶颈?"
+    decision: "用Oracle消融逐个替换Head/Span/Child为gold"
+    experiments:
+      - name: "All Predicted→Gold Head"
+        verdict: "△ +18% UAS (53% from 35%)"
+      - name: "All Predicted→Gold Span"
+        verdict: "✗ +1% UAS (not bottleneck)"
+      - name: "All Predicted→Gold Child"
+        verdict: "✓ +41% UAS (100% of gap)"
+    conclusion: "子节点分配是唯一瓶颈"
+    source: phase_d3.py, S2-15
+
+  # ── Dead End: Learned Edge Predictor ──
+  dead_end_edge_predictor:
+    type: dead_end
+    hypothesis: "MLP/RandomForest可直接预测父节点, 替代启发式"
+    experiments:
+      - name: "Logistic Regression (simple features)"
+        verdict: "✗ UAS=47% < nearest 56%"
+        source: p1_residual.py
+      - name: "MLP 128→64 (template prior)"
+        verdict: "✗ UAS=48% < nearest 56%"
+        source: phase_e1b.py
+      - name: "MLP + word vectors (en_core_web_md)"
+        verdict: "✗ UAS=48% < nearest 56%"
+        source: phase_e1b.py
+    failure_mode: "7维几何特征 + 训练数据(77K pairs)不足以区分候选父节点; 概率趋近均匀"
+    lesson: "模板规则(55.2%)已经是当前特征空间的最优解; 需要更强的特征或不同的表示"
+    pivot_to: "概率容器 → 延迟决策 + 下游消歧"
+    evidence: graph_bench.py (methods comparison)
+
+  # ── Dead End: Beam Search ──
+  dead_end_beam_search:
+    type: dead_end
+    hypothesis: "Top-3父节点×分图长度=9候选图, Beam Search→选最优"
+    experiments:
+      - name: "P2 Beam Search (K=3, B=20)"
+        verdict: "✗ UAS=49% < nearest 56%"
+        source: p2_beam.py
+      - name: "P3 概率容器(Top-3 graphs)"
+        verdict: "✗ Best-in-top3=58%, same as nearest; 无法区分"
+        source: p3_container.py
+    failure_mode: "7维特征产生的概率分布质量不足, Beam Search 无法选出优于nearest的图"
+    lesson: "不是搜索深度问题, 是候选图质量上限就是nearest的水平"
+    pivot_to: "放弃Edge Prediction→转向几何/张量方法"
+    evidence: p3_container.py (gap filled=-2%)
+
+  # ── Dead End: 几何Graph Builder ──
+  dead_end_geometric:
+    type: dead_end
+    hypothesis: "联合空间几何运算(cosine+distance+direction)可替代分类器"
+    experiment: graph_geo.py
+    result: "UAS=34% << nearest 58%"
+    failure_mode: "spaCy词向量代理不编码句法关系; cosine('cat','look')低但他们是主谓关系"
+    lesson: "几何运算需要真正的TreeHeap 128D向量, 词向量代理无效"
+    evidence: graph_geo.py output
+
+  # ── Dead End: 路径⊗向量 非交换张量 ──
+  dead_end_path_tensor:
+    type: dead_end
+    hypothesis: "TreeHeap路径+128D向量的非交换张量积可以能量最小化找到正确结构"
+    experiments:
+      - name: "Pairwise outer product (sum)"
+        verdict: "✗ 交换律, 排列不变"
+      - name: "位置加权拼接"
+        verdict: "△ 非交换✓, 但能量未对齐句法(3-token: gold #4/6, 4-token: #22/24)"
+        source: path_tensor.py
+      - name: "Centrality权重"
+        verdict: "✗ 归一化后排列不变"
+      - name: "纯路径(无128D向量)"
+        verdict: "✗ 路径=token ID编码, 不编码语法"
+        source: path_hash.py
+    failure_mode: "128D向量(3 epoch)未编码句法角色; 权重方案(linear/centered/centrality)只是位置偏置"
+    lesson: "当前TreeHeap checkpoint(3 epoch)的128D向量不具备句法区分度; 需要更多训练或架构修改"
+    pivot_to: "重新训练TreeHeap(更多epoch) or 接受3-epoch向量质量上限"
+
+  # ── Pivot: 从分类器→概率容器→非交换张量 ──
+  pivot_graph_assembly:
+    type: pivot
+    from: "图组装作为分类问题(Edge Predictor)"
+    to: "图组装作为延迟决策的几何问题(概率容器→非交换张量)"
+    trigger: "D3: 100% gap来自子节点分配; 所有学习预测器均不超过模板"
+    source: S2-15
+
+  # ── Pivot: 从SVO先验→纯数学方法 ──
+  pivot_math:
+    type: pivot
+    from: "折叠/角色/图组装依赖语言学先验(NP/VP/SUBJ/OBJ)"
+    to: "纯TreeHeap数学方法(路径⊗向量, 能量最小化, 非交换张量)"
+    trigger: "用户要求'放弃spaCy, 放弃词性, 放弃SVO执念'"
+    source: latest
+
+  # ── Diagnostic: World Model / Reference Frame ──
+  diagnostic_world_model:
+    type: diagnostic
+    question: "TreeHeap 的 CMul/t_merge 是否已经形成可解释的世界模型参考系?"
+    predict: P-FRAME01
+    experiments:
+      - name: "frame_probe_2h_queue"
+        verdict: "△ diagnostic only; legacy checkpoint不能背书"
+        evidence: "evidence/frame_probe_2h_queue/output/README.md"
+      - name: "world_model_long_20260617_180554"
+        verdict: "△ fresh checkpoint trained; t_merge未全局坍缩, 但局部BPE目标未证明世界模型拓扑"
+        evidence: "evidence/world_model_long_20260617_180554/README.md"
+    lesson: "Echo/CMul 能证明信息保留和参与变换, 但不能单独证明拓扑世界模型; 需要更强的代数操作和任务损失"
+    pivot_to: "TreeHeap algebra and subheap kernel search"
+
+  # ── Pivot: 从单一乘法→TreeHeap代数闭包 ──
+  pivot_treeheap_algebra:
+    type: pivot
+    from: "TreeHeap as CMul + t_merge"
+    to: "TreeHeap as algebraic substrate"
+    trigger: "用户指出需要先完成数学操作闭包, 再讨论语言推理"
+    logic:
+      - "logic/solution/treeheap_algebra.md"
+      - "logic/predicts.md#P-ALG01"
+    design:
+      - "compose/decompose"
+      - "transpose"
+      - "inverse or partial inverse"
+      - "project/unproject"
+      - "energy"
+      - "probability container"
+    status: "design, not yet evidence claim"
+
+  # ── Predict: SubHeap Kernel Search ──
+  predict_subheap_kernel:
+    type: predict
+    id: P-ALG02
+    question: "TreeHeap 中是否存在类似矩阵卷积核的局部拓扑搜索操作?"
+    source:
+      logic: "logic/predicts.md#P-ALG02"
+      theory: "logic/solution/treeheap_algebra.md#subheap-kernel-match"
+      blog: "blogs/www.grepcode.cn/src/spr/012-subheap-kernel-search.md"
+    hypothesis: "一个小的 SubHeap kernel 可以在大 TreeHeap 中匹配等价局部结构, 输出 ProbabilityContainer[SubHeap]"
+    evidence_gates:
+      - id: E-ALG05
+        name: "kernel invariance"
+        pass: "active/passive/paraphrase variants rank the same event subheap in top-k"
+      - id: E-ALG06
+        name: "kernel selectivity"
+        pass: "role-swapped structures score lower than gold structures"
+      - id: E-ALG07
+        name: "cross-lingual kernel transfer"
+        pass: "ZH/EN aligned event structures activate compatible kernels above shuffled baselines"
+    failure_modes:
+      - "kernel matching only tracks token order"
+      - "kernel matching only tracks lexical overlap"
+      - "active/passive variants do not share a high-scoring subheap"
+      - "role-swapped structures score the same as gold"
+    next:
+      - "implement src/subheap_kernel_probe.py"
+      - "write evidence/subheap_kernel_probe/summary.json"
+    status: design
+
+  # ── Open Questions ──
+  open_questions:
+    - q: "TreeHeap 更多epoch能否改善128D向量句法区分度?"
+      status: untested
+    - q: "非交换张量积(128^n)的投影近似能否保持结构区分度?"
+      status: untested
+    - q: "概率容器在翻译/表层生成阶段消歧是否有信号?"
+      status: untested
+    - q: "中文折叠器是否可以用英文TreeHeap? 还是需要独立训练?"
+      status: untested
+```

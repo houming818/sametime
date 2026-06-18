@@ -1,0 +1,87 @@
+# S1 Echo Research DAG
+#
+# Owner: Review Engineer
+# Writer: Codex
+# Created: 2026-06-16
+# Updated: 2026-06-16
+# Purpose: ARA trace for SPR Echo: decisions, evidence, dead ends, and next gates.
+
+project: S1
+name: SPR Echo
+root_question: Can recursive semantic prefix routing replace dense output-layer lookup with path-based structure?
+
+nodes:
+  - id: root
+    type: question
+    text: Can path routing carry enough information to replace dense token output?
+
+  - id: capacity_echo
+    type: experiment
+    parents: [root]
+    script: /data/homecicd/sametime/code/wmt/spr_echo_proof.py
+    result: "solo=41311/41429; solo%=99.7%; BLEU-4=99.99"
+    verdict: supports_capacity_not_semantics
+    evidence: ara/s1-echo/evidence/README.md#E-S1-20260616-echo-proof
+
+  - id: order_collision
+    type: experiment
+    parents: [root]
+    script: /data/homecicd/sametime/code/wmt/spr_hash_cyclic.py
+    result: "pure cyclic roll collides; roll+sign-alt separates"
+    verdict: verified_order_sensitivity
+    evidence: ara/s1-echo/evidence/README.md#E-S1-20260616-hash-cyclic
+
+  - id: semantic_gap
+    type: architecture_gate
+    parents: [capacity_echo, order_collision]
+    text: Echo is not semantics. Prove path features survive semantic falsification.
+    verdict: open
+
+  - id: polysemy_test
+    type: experiment
+    parents: [semantic_gap]
+    script: holds/SameTime/experiments/spr_context_proof.py
+    result: "token_acc=0.429; context_acc=1.000; shuffled_acc=0.482; context_purity=1.000"
+    verdict: supports_controlled_context_routing_not_real_corpus_semantics
+    evidence: ara/s1-echo/evidence/README.md#E-S1-20260616-context-proof
+
+  - id: real_corpus_polysemy_test
+    type: planned_experiment
+    parents: [polysemy_test]
+    text: Repeat same-token different-sense routing on corpus examples, not synthetic sense-anchored context vectors.
+    required_output: "sense_cluster_auc, path_separation, shuffled_label_delta, random_hash_delta"
+
+  - id: shuffle_test
+    type: planned_experiment
+    parents: [semantic_gap]
+    text: Preserve token frequency/length distribution but shuffle semantic or syntactic labels.
+    required_output: "metric_real, metric_shuffled, delta, p_value_or_bootstrap_ci"
+
+  - id: baseline_battle
+    type: planned_experiment
+    parents: [semantic_gap]
+    text: Compare SPR path features against nearest-neighbor, token frequency, random hash, and bag-of-words MLP.
+    required_output: "SPR must beat cheap baselines before the semantic claim advances."
+
+dead_ends:
+  - id: dense_capacity_as_semantics
+    hypothesis: Near-perfect echo proves semantic routing.
+    failure_mode: High-dimensional sparse routing can behave like a hash table.
+    lesson: Treat echo as capacity evidence only.
+    pivot_to: semantic_gap
+
+  - id: pure_cyclic_order_hash
+    hypothesis: Cyclic shift alone encodes order.
+    failure_mode: Symmetric collisions for reversed pairs.
+    lesson: Add sign alternation or another non-commutative operation.
+    pivot_to: order_collision
+
+next_decision:
+  gate: "Promote S1 from capacity demo to semantic representation"
+  pass_if:
+    - "SPR path features beat all cheap baselines on semantic/polysemy tests."
+    - "Shuffle falsification causes a material metric drop."
+    - "Evidence is written to ara/s1-echo/evidence and claims.md is updated."
+  fail_if:
+    - "Performance survives label shuffle."
+    - "Random hash or token frequency matches SPR."
