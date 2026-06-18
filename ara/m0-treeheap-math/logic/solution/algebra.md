@@ -80,3 +80,30 @@ softmax probability container.
 ## Status
 
 Design plus first synthetic probe.
+
+## Open Extension: Primitive and Plus
+
+The current M0 toolbox defines composition and matching on synthetic TreeHeap
+objects. The next lower-level question is whether TreeHeap order can be
+generated internally.
+
+Integer order is generated from:
+
+```text
+primitive: 1
+operator: plus / successor
+order: n -> n + 1
+```
+
+TreeHeap should test the analogous structure:
+
+```text
+x_0 = origin
+x_{n+1} = plus(x_n, p)
+x_{n+base} ~= x_n
+```
+
+If this holds, convolution over TreeHeap addresses can be defined over the
+generated cyclic orbit rather than over an externally assigned traversal index.
+
+This is tracked as `P-MATH02`.
