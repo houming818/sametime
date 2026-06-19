@@ -1,0 +1,230 @@
+{
+  "run": {
+    "seed": 20260619,
+    "dim": 64,
+    "base": 8,
+    "steps": 10
+  },
+  "metrics": {
+    "closure_ok": true,
+    "root_ok": true,
+    "successor_ok": true,
+    "info_gain_pre_base": true,
+    "info_saturates_after_base": true,
+    "mod_fold_targets": [
+      0,
+      1
+    ],
+    "mod_fold_ok": true,
+    "overwritten_root_ok": true,
+    "kernel_hit_at_1": 1.0,
+    "kernel_top_score": 1.0,
+    "kernel_after_wrap_top_score": 0.6731517435938855,
+    "wrap_breaks_old_kernel": true,
+    "address_laws_ok": true,
+    "summary_consistency_ok": true,
+    "summary_min_delta": 0.4124184600459178,
+    "cycle_address_error": 0
+  },
+  "pass": {
+    "closure": true,
+    "root_reference": true,
+    "successor": true,
+    "info_gain_pre_base": true,
+    "info_saturation_after_base": true,
+    "mod_fold": true,
+    "overwritten_root": true,
+    "cyclic_kernel": true,
+    "wrap_breaks_old_kernel": true,
+    "address_laws": true,
+    "summary_consistency": true,
+    "summary_moves": true
+  },
+  "pilot_pass": true,
+  "write_trace": [
+    {
+      "step": 1,
+      "primitive": "p0",
+      "target": 0,
+      "target_expected": 0,
+      "info_before": 0,
+      "info_after": 1,
+      "root": "p0"
+    },
+    {
+      "step": 2,
+      "primitive": "p1",
+      "target": 1,
+      "target_expected": 1,
+      "info_before": 1,
+      "info_after": 2,
+      "root": "p0"
+    },
+    {
+      "step": 3,
+      "primitive": "p2",
+      "target": 2,
+      "target_expected": 2,
+      "info_before": 2,
+      "info_after": 3,
+      "root": "p0"
+    },
+    {
+      "step": 4,
+      "primitive": "p3",
+      "target": 3,
+      "target_expected": 3,
+      "info_before": 3,
+      "info_after": 4,
+      "root": "p0"
+    },
+    {
+      "step": 5,
+      "primitive": "p4",
+      "target": 4,
+      "target_expected": 4,
+      "info_before": 4,
+      "info_after": 5,
+      "root": "p0"
+    },
+    {
+      "step": 6,
+      "primitive": "p5",
+      "target": 5,
+      "target_expected": 5,
+      "info_before": 5,
+      "info_after": 6,
+      "root": "p0"
+    },
+    {
+      "step": 7,
+      "primitive": "p6",
+      "target": 6,
+      "target_expected": 6,
+      "info_before": 6,
+      "info_after": 7,
+      "root": "p0"
+    },
+    {
+      "step": 8,
+      "primitive": "p7",
+      "target": 7,
+      "target_expected": 7,
+      "info_before": 7,
+      "info_after": 8,
+      "root": "p0"
+    },
+    {
+      "step": 9,
+      "primitive": "p8",
+      "target": 0,
+      "target_expected": 0,
+      "info_before": 8,
+      "info_after": 8,
+      "root": "p8"
+    },
+    {
+      "step": 10,
+      "primitive": "p9",
+      "target": 1,
+      "target_expected": 1,
+      "info_before": 8,
+      "info_after": 8,
+      "root": "p8"
+    }
+  ],
+  "kernel_matches": [
+    {
+      "center": 1,
+      "score": 1.0,
+      "patch": [
+        "p0",
+        "p1",
+        "p2"
+      ]
+    },
+    {
+      "center": 7,
+      "score": 0.03355975318646112,
+      "patch": [
+        "p6",
+        "p7",
+        "p0"
+      ]
+    },
+    {
+      "center": 4,
+      "score": 0.01631454808353732,
+      "patch": [
+        "p3",
+        "p4",
+        "p5"
+      ]
+    },
+    {
+      "center": 5,
+      "score": -0.003987351744761882,
+      "patch": [
+        "p4",
+        "p5",
+        "p6"
+      ]
+    },
+    {
+      "center": 3,
+      "score": -0.00938484505180203,
+      "patch": [
+        "p2",
+        "p3",
+        "p4"
+      ]
+    }
+  ],
+  "kernel_matches_after_wrap": [
+    {
+      "center": 1,
+      "score": 0.6731517435938855,
+      "patch": [
+        "p8",
+        "p1",
+        "p2"
+      ]
+    },
+    {
+      "center": 7,
+      "score": 0.08072139671433325,
+      "patch": [
+        "p6",
+        "p7",
+        "p8"
+      ]
+    },
+    {
+      "center": 4,
+      "score": 0.01631454808353732,
+      "patch": [
+        "p3",
+        "p4",
+        "p5"
+      ]
+    },
+    {
+      "center": 5,
+      "score": -0.003987351744761882,
+      "patch": [
+        "p4",
+        "p5",
+        "p6"
+      ]
+    },
+    {
+      "center": 3,
+      "score": -0.00938484505180203,
+      "patch": [
+        "p2",
+        "p3",
+        "p4"
+      ]
+    }
+  ]
+}

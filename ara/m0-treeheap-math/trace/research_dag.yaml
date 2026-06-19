@@ -39,3 +39,26 @@ dag:
     type: decision
     condition: "P-MATH01 pilot fails"
     action: "Revise algebra operators before touching echo or S2."
+
+  p_math02:
+    type: predict
+    id: P-MATH02
+    title: "Semantic primitive and plus operator"
+    source: "logic/predicts.md#P-MATH02"
+    parent: p_math01
+    claim_if_passes: "Addressable TreeHeap can use plus as successor, information gain, and mod-fold operator in synthetic mode."
+    evidence_gates:
+      - E-MATH07
+      - E-MATH08
+      - E-MATH09
+      - E-MATH10
+    status: running
+
+  experiment_primitive_plus_probe:
+    type: experiment
+    source: "src/primitive_plus_probe.py"
+    evidence: "evidence/primitive_plus_probe/"
+    parent: p_math02
+    status: executed
+    result: "pilot_pass=true; plus writes next address, increases information before base is full, and folds to arr[0]/arr[1] after base."
+    lesson: "P-MATH02 should treat arr/address as primary state and summary as projection; plus can be tested before language."
