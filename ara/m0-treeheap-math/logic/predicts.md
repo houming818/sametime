@@ -229,4 +229,104 @@ evidence/trainability_quiz/
 
 ### Status
 
-Running.
+Executed.
+
+## P-EXIST01: Addressable closure extrapolation
+
+### Predict
+
+If TreeHeap has a useful explicit structure bias, then a model that preserves
+TreeHeap state should extrapolate address/read/overwrite tasks to longer
+sequences better than flattened baselines trained only on short sequences.
+
+### Evidence gates
+
+E-EXIST01 address closure:
+
+```text
+train length <= 8
+test length in {16, 32, 64}
+address_accuracy(TreeHeap) > address_accuracy(flatten baseline)
+```
+
+E-EXIST02 overwrite/read:
+
+```text
+read_accuracy and overwrite_accuracy remain stable after multiple mod folds
+```
+
+E-EXIST03 sample efficiency:
+
+```text
+TreeHeap reaches target accuracy with fewer samples than flatten MLP
+```
+
+### Status
+
+Planned.
+
+## P-EXIST02: Subheap kernel relocation
+
+### Predict
+
+If TreeHeap kernel search is a real structural operator, then a fixed local
+subheap pattern learned or matched at shallow/seen addresses should still be
+detectable at unseen addresses and deeper heap positions.
+
+### Evidence gates
+
+E-EXIST04 relocation:
+
+```text
+train pattern positions = {0, 1, 2}
+test pattern positions = unseen addresses
+new_address_accuracy(TreeHeap kernel) > sequence/flatten baselines
+```
+
+E-EXIST05 hit ranking:
+
+```text
+gold subheap appears in hit@1 or hit@k
+```
+
+E-EXIST06 false positives:
+
+```text
+false_positive_rate remains bounded on negative heaps
+```
+
+### Status
+
+Planned.
+
+## P-EXIST03: Prefix compression and delayed collapse
+
+### Predict
+
+If TreeHeap paths provide useful prefix structure, then shared prefixes should
+reduce description length, support probability containers at prefix nodes, and
+adapt to new branches faster than non-sharing sequence baselines.
+
+### Evidence gates
+
+E-EXIST07 compression:
+
+```text
+compression_ratio = sequence_node_count / prefix_tree_node_count > 1
+```
+
+E-EXIST08 probability container:
+
+```text
+prefix node keeps calibrated candidates instead of early argmax collapse
+```
+
+E-EXIST09 new branch adaptation:
+
+```text
+few-shot updates for A-B-C-Z require fewer examples than sequence baseline
+```
+
+### Status
+
+Planned.

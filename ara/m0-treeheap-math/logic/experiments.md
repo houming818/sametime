@@ -142,3 +142,121 @@ evidence/trainability_quiz/README.md
 This does not test language. It only checks whether gradient learning can solve
 small tasks that cover linear maps, nonlinear boundaries, and cyclic mod-base
 structure.
+
+---
+
+## existence_proof_suite.py
+
+### Question
+
+Does TreeHeap have an existence claim beyond being another trainable model?
+
+The suite should test whether explicit TreeHeap structure gives measurable
+advantages on:
+
+```text
+A. addressable closure and length extrapolation
+B. subheap kernel relocation
+C. prefix compression and delayed collapse
+```
+
+### Design A: addressable closure
+
+Generate short TreeHeap plus traces:
+
+```text
+base = 8
+train length <= 8
+test length = 16, 32, 64
+```
+
+Ask read/write questions:
+
+```text
+target address
+arr[k] value
+overwritten address after mod fold
+left/right subtree contents
+```
+
+Compare:
+
+```text
+rule TreeHeap upper bound
+TreeHeap-readable model
+flatten MLP
+small Transformer
+```
+
+### Design B: subheap kernel relocation
+
+Create a fixed pattern:
+
+```text
+K = root(A, left=B, right=C)
+```
+
+Train or match on seen positions:
+
+```text
+positions = {0, 1, 2}
+```
+
+Test on unseen positions:
+
+```text
+positions = {6, 10, 13}
+```
+
+Measure:
+
+```text
+detection accuracy
+hit@k
+false positive rate
+```
+
+### Design C: prefix compression
+
+Construct shared-prefix samples:
+
+```text
+A B C X
+A B C Y
+A B D X
+A B D Y
+A E F X
+```
+
+Measure:
+
+```text
+sequence_node_count
+prefix_tree_node_count
+compression_ratio
+prefix_reuse_rate
+candidate calibration
+new_branch_adaptation_speed
+```
+
+### Outputs
+
+Planned:
+
+```text
+evidence/existence_proof_suite/summary.json
+evidence/existence_proof_suite/README.md
+evidence/existence_proof_suite/trace.jsonl
+```
+
+### Interpretation
+
+This suite is not a language test. It is an existence proof attempt for
+TreeHeap's structural inductive bias:
+
+```text
+explicit addresses
+subheap kernels
+shared prefixes
+probability containers
+```
