@@ -62,3 +62,25 @@ dag:
     status: executed
     result: "pilot_pass=true; plus writes next address, increases information before base is full, and folds to arr[0]/arr[1] after base."
     lesson: "P-MATH02 should treat arr/address as primary state and summary as projection; plus can be tested before language."
+
+  p_learn01:
+    type: predict
+    id: P-LEARN01
+    title: "TreeHeap trainability quiz"
+    parent: p_math02
+    source: "logic/predicts.md#P-LEARN01"
+    claim_if_passes: "The local learning stack can solve standard toy tasks before TreeHeap-object echo."
+    evidence_gates:
+      - E-LEARN01
+      - E-LEARN02
+      - E-LEARN03
+    status: running
+
+  experiment_trainability_quiz:
+    type: experiment
+    source: "src/trainability_quiz.py"
+    evidence: "evidence/trainability_quiz/"
+    parent: p_learn01
+    status: executed
+    result: "pilot_pass=true; linear regression R2=1.0, XOR accuracy=1.0, base-8 modular addition accuracy=1.0."
+    lesson: "The local NumPy gradient stack passes standard toy learning tasks; next step can build trainable TreeHeap encoder/plus/decoder."

@@ -171,3 +171,62 @@ evidence/primitive_plus_probe/
 ### Status
 
 Design phase.
+
+## P-LEARN01: TreeHeap trainability quiz
+
+### Predict
+
+Before building a trainable TreeHeap encoder/plus/decoder, the local learning
+stack should pass a minimal ML entrance exam:
+
+```text
+linear regression
+XOR
+modular addition
+```
+
+### Motivation
+
+Transformer is powerful not only because attention is a retrieval operator, but
+because gradients reshape trainable matrices. TreeHeap also needs a learning
+path before it can become a model.
+
+This quiz checks whether small modules with manual gradients can learn:
+
+```text
+linear maps
+nonlinear decision boundaries
+cyclic mod-base structure
+```
+
+### Evidence gates
+
+E-LEARN01 linear regression:
+
+```text
+MSE -> near zero
+R2 -> near 1
+```
+
+E-LEARN02 XOR:
+
+```text
+accuracy = 1.0
+```
+
+E-LEARN03 modular addition:
+
+```text
+(a + b) mod base accuracy = 1.0
+```
+
+### Planned implementation
+
+```text
+src/trainability_quiz.py
+evidence/trainability_quiz/
+```
+
+### Status
+
+Running.
