@@ -260,3 +260,63 @@ subheap kernels
 shared prefixes
 probability containers
 ```
+
+---
+
+## soft_plus_probe.py
+
+### Question
+
+Can Kernel-guided Soft Plus prove the minimal differentiable TreeHeap operator
+path?
+
+```text
+K_write(subheap(H, a), x)
+-> p(a)
+-> sum_a p(a) * Plus_a(H, x)
+-> loss
+```
+
+### Design
+
+Toy TreeHeap address set:
+
+```text
+LL, LR, RL, RR
+```
+
+For each key, the hard address is the binary-search-tree insertion side:
+
+```text
+2, 3   -> LL
+5, 6   -> LR
+10, 11 -> RL
+13, 14 -> RR
+```
+
+The kernel receives local subheap/key features and produces address scores.
+Softmax produces route probability. Soft Plus mixes plus candidates.
+
+The loss combines:
+
+```text
+MSE(H_next, target)
++ route_ce_weight * CE(p(address), hard_address)
+```
+
+This is intentionally a multi-kernel toy: MSE checks the output object, and CE
+checks collapse-route correctness.
+
+### Outputs
+
+```text
+evidence/soft_plus_probe/summary.json
+evidence/soft_plus_probe/README.md
+evidence/soft_plus_probe/trace.jsonl
+```
+
+### Interpretation
+
+This experiment supports only the M0 pilot claim that Kernel-guided Soft Plus is
+differentiable, trainable in a synthetic toy, and able to collapse back to the
+hard plus address. It does not prove language learning or WMT translation.

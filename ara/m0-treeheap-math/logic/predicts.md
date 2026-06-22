@@ -330,3 +330,56 @@ few-shot updates for A-B-C-Z require fewer examples than sequence baseline
 ### Status
 
 Planned.
+
+## P-SOFT01: Kernel-guided Soft Plus
+
+### Predict
+
+If Soft TreeHeap is a differentiable extension of Hard TreeHeap algebra, then
+TreeHeap plus can be lifted into a probability container:
+
+```text
+H_next = sum_a p(a | H, x) * (H ⊕_a x)
+```
+
+where the address distribution is produced by a TreeHeap kernel:
+
+```text
+score(a) = K_write(subheap(H, a), x)
+p(a) = softmax(score(a))
+```
+
+### Evidence Gates
+
+E-SOFT01 gradient reaches write kernel:
+
+```text
+norm(d loss / d K_write) > 0
+```
+
+E-SOFT02 gradient reaches plus parameters:
+
+```text
+norm(d loss / d Plus_a) > 0
+```
+
+E-SOFT03 training improves the objective:
+
+```text
+final_loss < initial_loss
+```
+
+E-SOFT04 low-temperature collapse recovers hard plus address:
+
+```text
+collapse_accuracy_tau_0.05 = 1.0
+```
+
+### Status
+
+Executed pilot:
+
+```text
+src/soft_plus_probe.py
+evidence/soft_plus_probe/
+```

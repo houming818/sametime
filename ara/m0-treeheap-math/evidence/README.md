@@ -9,4 +9,5 @@ Current planned evidence:
 treeheap_math_probe/
 primitive_plus_probe/
 trainability_quiz/
+soft_plus_probe/
 ```

@@ -142,10 +142,10 @@ M0 math toolbox
 | C5-001 | SPR-019 | TreeHeap needs differentiable operator lifting before it can be trained like MLP / Transformer. | design | Blog SPR-019 | Useful TreeHeap training succeeds with only hard non-differentiable operators. |
 | C5-002 | SPR-019 | Soft TreeHeap should be a probability lifting of Hard TreeHeap operators: `SoftO(H)=sum_a p(a) O_a(H)`. | mathematical design | Blog SPR-019 | One-hot soft operation fails to recover hard operation. |
 | C5-003 | SPR-019 | Naive soft memory write is insufficient as a TreeHeap claim because it updates array slots, not the plus algebra. | design / critique | Blog SPR-019 | Slot interpolation is shown equivalent to TreeHeap plus under a formal mapping. |
-| C5-004 | SPR-019 | Soft Plus should lift TreeHeap plus: `H_next=sum_a p(a|H,x) (H ⊕_a x)`. | open | Blog SPR-019 Experiment 3 plan | Gradient cannot flow through soft plus or collapse gives illegal TreeHeap. |
-| C5-005 | SPR-019 | Kernel-guided Soft Plus should use a TreeHeap convolution kernel to decide write/merge route. | open | Blog SPR-019 Experiment 3 plan | Kernel-guided plus is worse than naive memory write or encoder soft plus. |
+| C5-004 | SPR-019 | Soft Plus should lift TreeHeap plus: `H_next=sum_a p(a|H,x) (H ⊕_a x)`. | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/` | Gradient cannot flow through soft plus or collapse gives illegal TreeHeap. |
+| C5-005 | SPR-019 | Kernel-guided Soft Plus should use a TreeHeap convolution kernel to decide write/merge route. | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `pilot_pass=true` | Kernel-guided plus is worse than naive memory write or encoder soft plus in ablation. |
 | C5-006 | SPR-019 | Multi-kernel / staged training is preferable to a single "big pot" loss. | open | Blog SPR-019 Experiment 3 loss ablation | Single total loss is more stable and generalizes better under matched budget. |
-| C5-007 | SPR-019 | Soft collapse should recover legal Hard TreeHeap structure. | open | Blog SPR-019 Predict 4 | Collapse legality, route interpretability, or hard-soft gap fails. |
+| C5-007 | SPR-019 | Soft collapse should recover legal Hard TreeHeap structure. | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `collapse_accuracy_tau_0.05=1.0` | Collapse legality, route interpretability, or hard-soft gap fails in larger/noisy tests. |
 
 ## SPR Blog Source Map
 
@@ -203,8 +203,9 @@ Highest priority open experiments:
 
 1. `Kernel-guided Soft Plus Autograd`
    - Claim: C5-004, C5-005
-   - Minimal proof: gradients reach `K_write`, route scores, and plus parameters.
-   - Counterexample: gradients only update generic array memory.
+   - Status: executed pilot in `ara/m0-treeheap-math/evidence/soft_plus_probe/`.
+   - Result: gradients reach `K_write` and plus parameters; low-temperature collapse is correct in the toy.
+   - Next: compare against naive memory write and encoder soft plus.
 
 2. `Write Mechanism Ablation`
    - Claim: C5-003..C5-005
