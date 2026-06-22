@@ -11,11 +11,15 @@ The `ara/` directory is a public, lightweight mirror of the research record:
 
 ```text
 ara/
+├── PAPER.md
 ├── index.yaml
 ├── s1-echo/
 ├── s2-translation/
 └── s3-generation/
 ```
+
+Start from `ara/PAPER.md` for the current claim tree, evidence map, downgraded
+claims, and next proof queue.
 
 ARA means Agent-Native Research Artifact. The intended reading order is:
 

@@ -7,6 +7,7 @@ Supports multiple research topics with cross-referencing.
 
 ```
 ara/
+├── PAPER.md                      ← Root ARA manifest + claim tree
 ├── index.yaml                    ← multi-topic registry + dependency graph
 ├── m0-treeheap-math/             ← Active: TreeHeap as algebraic toolbox
 │   ├── logic/{problem,predicts,experiments}.md
@@ -37,6 +38,10 @@ cp template.md ara/{topic-id}/trace/dag.yaml     # ← fill in
 ```
 
 ## Key Rule
+
+Start from `PAPER.md` when reviewing the whole project. It binds the SPR blog
+series to the ARA claim registry, evidence pointers, downgraded claims, and the
+next proof queue.
 
 **Every claim in `/logic` must have an evidence pointer to `/evidence`.**
 **Every dead end in `/trace` must have: hypothesis + failure mode + lesson + pivot_to.**
