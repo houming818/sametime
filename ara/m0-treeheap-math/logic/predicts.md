@@ -466,3 +466,130 @@ raw/basic feature set: collapse_acc = 0.250
 
 So the next proof target is not "does gradient flow?" It is "can a clean,
 learned kernel discover the routing rule?"
+
+## P-SOFT03: Structural C05 ablation
+
+### Predict
+
+If C05 is a TreeHeap claim rather than a generic soft-memory claim, then the
+kernel must gain value from structural inputs:
+
+```text
+path address
+path prefix relation
+local subheap patch
+recursive route / plus
+```
+
+The minimal proof should show that a model with only flat address identity does
+not extrapolate to unseen tree depths, while a shared subheap kernel can relocate
+the same local pattern at unseen addresses.
+
+### Toy Problem
+
+Generate synthetic full binary TreeHeaps. Inject a small local pattern:
+
+```text
+pattern = root/value + left/value + right/value
+```
+
+at one target subheap address. The model sees all candidate addresses and must
+rank the target subheap highest.
+
+Train only on shallow trees:
+
+```text
+depth in {2, 3}
+```
+
+Test on deeper trees:
+
+```text
+depth in {5, 6}
+```
+
+### Model Variants
+
+```text
+C0 flat_address:
+  sees only absolute address identity.
+
+C1 path_only:
+  sees path length and L/R prefix features, but not node contents.
+
+C2 subheap_kernel:
+  sees the local subheap patch and query pattern.
+
+C3 path_subheap_kernel:
+  sees both path features and local subheap patch; emits target address and
+  route path for recursive TreeHeap plus.
+```
+
+### Evidence Gates
+
+E-SOFT08 unseen-depth relocation:
+
+```text
+accuracy(C2 or C3, depth>=5) >> accuracy(C0 and C1)
+```
+
+E-SOFT09 structural necessity:
+
+```text
+removing subheap features causes a large OOD drop
+```
+
+E-SOFT10 path/route exposure:
+
+```text
+C3 returns a path address that can be executed by recursive plus
+```
+
+### Decision Rule
+
+If C2/C3 win on unseen depth while C0/C1 fail:
+
+```text
+M0-SOFT-C07 becomes supported pilot.
+M0-SOFT-C05 remains open until write-mechanism A/B/C training is tested.
+```
+
+If flat/path-only baselines match C2/C3:
+
+```text
+TreeHeap structural features are not yet carrying the proof.
+Revise C05 before any S2 language claim.
+```
+
+### Status
+
+Executed:
+
+```text
+src/structural_c05_probe.py
+evidence/structural_c05_probe/
+```
+
+Result:
+
+```text
+pilot_pass = true
+flat_address test_accuracy        = 0.000
+path_only test_accuracy           = 0.000
+subheap_kernel test_accuracy      = 1.000
+path_subheap_kernel test_accuracy = 1.000
+```
+
+Interpretation:
+
+```text
+The toy supports the structural necessity claim: unseen-depth relocation is
+carried by the local subheap signal, not by flat address identity or path alone.
+```
+
+Boundary:
+
+```text
+This supports M0-SOFT-C07.
+It does not by itself prove M0-SOFT-C05's full write-mechanism superiority.
+```

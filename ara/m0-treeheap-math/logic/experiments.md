@@ -398,3 +398,93 @@ If all fail:
 ### Status
 
 Planned.
+
+---
+
+## structural_c05_probe.py
+
+### Question
+
+Does C05 contain real TreeHeap structure, or is it only a flat soft-memory
+scorer with TreeHeap names?
+
+### Design
+
+Build synthetic full binary TreeHeaps. A query pattern is a small subheap:
+
+```text
+pattern = (root_value, left_value, right_value)
+```
+
+For each generated heap, inject that pattern at exactly one target address. The
+model must score all candidate subheaps and recover the target address.
+
+Training uses only shallow targets. Testing uses deeper, unseen target
+addresses.
+
+### Variants
+
+```text
+C0 flat_address
+  Absolute address identity only.
+
+C1 path_only
+  Path length and L/R prefix features only.
+
+C2 subheap_kernel
+  Local subheap patch compared with the query pattern.
+
+C3 path_subheap_kernel
+  Path features plus local subheap patch; target address can be executed as a
+  recursive plus route.
+```
+
+### Required Metrics
+
+```text
+train_accuracy
+test_accuracy
+unseen_depth_accuracy
+hit_at_3
+mean_target_rank
+route_executable_rate
+```
+
+### Interpretation
+
+This experiment is a structural proof, not a full learning proof for language.
+
+If C2/C3 succeed and C0/C1 fail, then subheap structure is carrying a genuine
+relocation signal. This supports M0-SOFT-C07 and narrows the design for C05.
+
+If C0/C1 match C2/C3, the proposed C05 formula is not yet TreeHeap-specific.
+
+### Outputs
+
+Executed:
+
+```text
+evidence/structural_c05_probe/summary.json
+evidence/structural_c05_probe/README.md
+evidence/structural_c05_probe/trace.jsonl
+```
+
+### Result
+
+| Variant | Train acc | Test acc | Hit@3 | Mean rank |
+|---|---:|---:|---:|---:|
+| flat_address | 0.439 | 0.000 | 0.000 | 16.09 |
+| path_only | 0.439 | 0.000 | 0.000 | 35.44 |
+| subheap_kernel | 1.000 | 1.000 | 1.000 | 1.00 |
+| path_subheap_kernel | 1.000 | 1.000 | 1.000 | 1.00 |
+
+### Decision
+
+```text
+M0-SOFT-C07 -> supported pilot
+M0-SOFT-C05 -> still open
+```
+
+The experiment shows that local subheap structure is a real relocation signal
+in this toy. It does not yet compare full TreeHeap write against naive soft
+memory write or generic encoder soft plus.

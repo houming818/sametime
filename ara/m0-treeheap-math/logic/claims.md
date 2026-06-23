@@ -39,6 +39,7 @@ Updated: 2026-06-23
 | M0-SOFT-C04 | Kernel-guided Soft Plus can collapse to the correct hard plus address at low temperature in the synthetic toy. | supported | `evidence/soft_plus_probe/summary.json`: `collapse_accuracy_tau_0.05=1.0` | Low-temperature collapse accuracy falls below 1.0 under deterministic rerun. |
 | M0-SOFT-C05 | Kernel-guided Soft Plus is better than naive memory write or generic encoder soft plus. | open | Planned write-mechanism ablation | Naive memory write or encoder soft plus matches/bests kernel-guided soft plus on accuracy, collapse legality, and OOD relocation. |
 | M0-SOFT-C06 | Multi-kernel staged training is more stable than a single big-pot loss. | open | Planned loss ablation | Big-pot loss is more stable and generalizes better under matched budget. |
+| M0-SOFT-C07 | A TreeHeap write/search kernel must expose path, subheap, and recursive-plus structure; otherwise it degenerates into flat soft memory. | supported pilot | `evidence/structural_c05_probe/`: flat/path-only test acc 0.0; subheap/path+subheap test acc 1.0 | Flat address or path-only baselines match subheap/path-subheap kernels on unseen-depth relocation. |
 
 ### Soft Claim Scope Notes
 
@@ -53,6 +54,7 @@ synthetic toy. It does narrow what the evidence is allowed to mean.
 | M0-SOFT-C03 | The loss can send nonzero gradient through `K_write` and `Plus_a` in `src/soft_plus_probe.py`. | The kernel can learn the route from raw subheap geometry without hand-coded alignment features. |
 | M0-SOFT-C04 | The current toy collapses to the correct hard plus address at low temperature when using the current feature set. | Collapse after removing hand-coded route hints; noisy, larger, or language-scale collapse. |
 | M0-SOFT-C05 | Not yet supported. This is the comparison claim for write mechanisms. | It must not borrow M0-SOFT-C03/C04 evidence as proof of superiority. |
+| M0-SOFT-C07 | The next structural proof asks whether path/subheap features produce measurable relocation value beyond flat memory. | It does not claim language syntax, WMT, or full Soft Plus training. |
 
 Audit ablations:
 
@@ -71,6 +73,28 @@ M0-SOFT-C05 remains open.
 The next proof must test whether a clean kernel can learn routing from subheap
 geometry, and whether it beats naive soft memory write / generic encoder soft
 plus.
+
+The next proof must also check whether the proposed kernel is genuinely
+TreeHeap-shaped:
+
+```text
+flat address only        -> should fail on unseen addresses
+path only                -> should fail when the signal is local substructure
+subheap kernel           -> should relocate the local pattern
+path + subheap kernel    -> should relocate and expose a legal route
+```
+
+Observed in `structural_c05_probe.py`:
+
+```text
+flat_address test_accuracy        = 0.000
+path_only test_accuracy           = 0.000
+subheap_kernel test_accuracy      = 1.000
+path_subheap_kernel test_accuracy = 1.000
+```
+
+This supports M0-SOFT-C07 as a structural pilot. It does not upgrade
+M0-SOFT-C05, because C05 still needs the full write-mechanism comparison.
 ```
 
 ## Existence Bias

@@ -1,0 +1,631 @@
+{
+  "experiment": "structural_c05_probe",
+  "seed": 42,
+  "train_examples": 900,
+  "test_examples": 400,
+  "train_depths": [
+    2,
+    3
+  ],
+  "test_depths": [
+    5,
+    6
+  ],
+  "pattern": [
+    5.0,
+    -4.0,
+    3.0
+  ],
+  "variants": [
+    "flat_address",
+    "path_only",
+    "subheap_kernel",
+    "path_subheap_kernel"
+  ],
+  "pilot_pass": true,
+  "pass_rule": {
+    "subheap_kernel_accuracy_min": 0.95,
+    "path_subheap_kernel_accuracy_min": 0.95,
+    "flat_address_accuracy_max": 0.25,
+    "path_only_accuracy_max": 0.25
+  },
+  "results": {
+    "flat_address": {
+      "feature_dim": 7,
+      "train": {
+        "accuracy": 0.4388888888888889,
+        "hit_at_3": 0.8366666666666667,
+        "mean_rank": 2.307777777777778,
+        "median_rank": 2.0,
+        "route_executable_rate": 1.0
+      },
+      "test": {
+        "accuracy": 0.0,
+        "hit_at_3": 0.0,
+        "mean_rank": 16.09,
+        "median_rank": 14.0,
+        "route_executable_rate": 1.0
+      },
+      "test_examples": [
+        {
+          "depth": 5,
+          "target_path": "RRRL",
+          "pred_path": "ROOT",
+          "rank": 26,
+          "target_score": -0.22757370230890503,
+          "pred_score": 1.13595483384008,
+          "candidate_count": 31
+        },
+        {
+          "depth": 5,
+          "target_path": "LLRL",
+          "pred_path": "ROOT",
+          "rank": 15,
+          "target_score": -0.22757370230890503,
+          "pred_score": 1.13595483384008,
+          "candidate_count": 31
+        },
+        {
+          "depth": 6,
+          "target_path": "LRLLR",
+          "pred_path": "ROOT",
+          "rank": 10,
+          "target_score": -0.22757370230890503,
+          "pred_score": 1.13595483384008,
+          "candidate_count": 63
+        },
+        {
+          "depth": 6,
+          "target_path": "RLLLL",
+          "pred_path": "ROOT",
+          "rank": 31,
+          "target_score": -0.22757370230890503,
+          "pred_score": 1.13595483384008,
+          "candidate_count": 63
+        },
+        {
+          "depth": 5,
+          "target_path": "LLLR",
+          "pred_path": "ROOT",
+          "rank": 16,
+          "target_score": -0.22757370230890503,
+          "pred_score": 1.13595483384008,
+          "candidate_count": 31
+        },
+        {
+          "depth": 6,
+          "target_path": "RRRLL",
+          "pred_path": "ROOT",
+          "rank": 29,
+          "target_score": -0.22757370230890503,
+          "pred_score": 1.13595483384008,
+          "candidate_count": 63
+        },
+        {
+          "depth": 6,
+          "target_path": "LLLRL",
+          "pred_path": "ROOT",
+          "rank": 18,
+          "target_score": -0.22757370230890503,
+          "pred_score": 1.13595483384008,
+          "candidate_count": 63
+        },
+        {
+          "depth": 5,
+          "target_path": "RLRR",
+          "pred_path": "ROOT",
+          "rank": 6,
+          "target_score": -0.22757370230890503,
+          "pred_score": 1.13595483384008,
+          "candidate_count": 31
+        }
+      ],
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 1.1080461587684407,
+          "grad_norm": 0.3570678754114508,
+          "mean_prob_pos": 0.5,
+          "mean_prob_neg": 0.5
+        },
+        {
+          "epoch": 1,
+          "loss": 1.1080461587684407,
+          "grad_norm": 0.3570678754114508,
+          "mean_prob_pos": 0.5,
+          "mean_prob_neg": 0.5
+        },
+        {
+          "epoch": 5,
+          "loss": 1.0214524467366861,
+          "grad_norm": 0.17399244022106622,
+          "mean_prob_pos": 0.552467346013448,
+          "mean_prob_neg": 0.4808744566841997
+        },
+        {
+          "epoch": 25,
+          "loss": 0.9858208550095878,
+          "grad_norm": 0.018440533289811392,
+          "mean_prob_pos": 0.5767120621440386,
+          "mean_prob_neg": 0.4368021587208561
+        },
+        {
+          "epoch": 100,
+          "loss": 0.9852008021852121,
+          "grad_norm": 3.948660955744651e-05,
+          "mean_prob_pos": 0.5735076039615793,
+          "mean_prob_neg": 0.4265510324256496
+        },
+        {
+          "epoch": 250,
+          "loss": 0.9852007906516738,
+          "grad_norm": 2.3747668489786393e-10,
+          "mean_prob_pos": 0.5734963208886653,
+          "mean_prob_neg": 0.4265270951043777
+        },
+        {
+          "epoch": 500,
+          "loss": 0.985200790651625,
+          "grad_norm": 1.632359681675038e-16,
+          "mean_prob_pos": 0.5734963208257323,
+          "mean_prob_neg": 0.4265270949696268
+        },
+        {
+          "epoch": 700,
+          "loss": 0.985200790651625,
+          "grad_norm": 1.632359681675038e-16,
+          "mean_prob_pos": 0.5734963208257323,
+          "mean_prob_neg": 0.4265270949696268
+        }
+      ]
+    },
+    "path_only": {
+      "feature_dim": 9,
+      "train": {
+        "accuracy": 0.4388888888888889,
+        "hit_at_3": 0.8366666666666667,
+        "mean_rank": 2.312222222222222,
+        "median_rank": 2.0,
+        "route_executable_rate": 1.0
+      },
+      "test": {
+        "accuracy": 0.0,
+        "hit_at_3": 0.0,
+        "mean_rank": 35.4375,
+        "median_rank": 32.0,
+        "route_executable_rate": 1.0
+      },
+      "test_examples": [
+        {
+          "depth": 5,
+          "target_path": "RRRL",
+          "pred_path": "ROOT",
+          "rank": 17,
+          "target_score": -2.9079108725572085,
+          "pred_score": 1.1361676700780152,
+          "candidate_count": 31
+        },
+        {
+          "depth": 5,
+          "target_path": "LLRL",
+          "pred_path": "ROOT",
+          "rank": 29,
+          "target_score": -3.203975567012105,
+          "pred_score": 1.1361676700780152,
+          "candidate_count": 31
+        },
+        {
+          "depth": 6,
+          "target_path": "LRLLR",
+          "pred_path": "ROOT",
+          "rank": 42,
+          "target_score": -4.023551025182224,
+          "pred_score": 1.1361676700780152,
+          "candidate_count": 63
+        },
+        {
+          "depth": 6,
+          "target_path": "RLLLL",
+          "pred_path": "ROOT",
+          "rank": 40,
+          "target_score": -3.9437542848777265,
+          "pred_score": 1.1361676700780152,
+          "candidate_count": 63
+        },
+        {
+          "depth": 5,
+          "target_path": "LLLR",
+          "pred_path": "ROOT",
+          "rank": 30,
+          "target_score": -3.203975567012105,
+          "pred_score": 1.1361676700780152,
+          "candidate_count": 31
+        },
+        {
+          "depth": 6,
+          "target_path": "RRRLL",
+          "pred_path": "ROOT",
+          "rank": 33,
+          "target_score": -3.857178216474673,
+          "pred_score": 1.1361676700780152,
+          "candidate_count": 63
+        },
+        {
+          "depth": 6,
+          "target_path": "LLLRL",
+          "pred_path": "ROOT",
+          "rank": 57,
+          "target_score": -4.196358728273864,
+          "pred_score": 1.1361676700780152,
+          "candidate_count": 63
+        },
+        {
+          "depth": 5,
+          "target_path": "RLRR",
+          "pred_path": "ROOT",
+          "rank": 28,
+          "target_score": -3.166950210337436,
+          "pred_score": 1.1361676700780152,
+          "candidate_count": 31
+        }
+      ],
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 1.1080461587684407,
+          "grad_norm": 0.37111692381074957,
+          "mean_prob_pos": 0.5,
+          "mean_prob_neg": 0.5
+        },
+        {
+          "epoch": 1,
+          "loss": 1.1080461587684407,
+          "grad_norm": 0.37111692381074957,
+          "mean_prob_pos": 0.5,
+          "mean_prob_neg": 0.5
+        },
+        {
+          "epoch": 5,
+          "loss": 1.0177661129570619,
+          "grad_norm": 0.1700821349353443,
+          "mean_prob_pos": 0.5556075607411823,
+          "mean_prob_neg": 0.47968374855407464
+        },
+        {
+          "epoch": 25,
+          "loss": 0.9872251204792399,
+          "grad_norm": 0.01643388972646169,
+          "mean_prob_pos": 0.5757636949755601,
+          "mean_prob_neg": 0.4356775956894922
+        },
+        {
+          "epoch": 100,
+          "loss": 0.985682725831857,
+          "grad_norm": 0.004703852234994134,
+          "mean_prob_pos": 0.5730329717798044,
+          "mean_prob_neg": 0.42733369804760596
+        },
+        {
+          "epoch": 250,
+          "loss": 0.9853672897615113,
+          "grad_norm": 0.0011834889433540623,
+          "mean_prob_pos": 0.5733301329112783,
+          "mean_prob_neg": 0.42675234926300665
+        },
+        {
+          "epoch": 500,
+          "loss": 0.9853323359946354,
+          "grad_norm": 0.00031936570411786276,
+          "mean_prob_pos": 0.5734115562109032,
+          "mean_prob_neg": 0.42661588182760785
+        },
+        {
+          "epoch": 700,
+          "loss": 0.9853291996297282,
+          "grad_norm": 0.00013228105711842624,
+          "mean_prob_pos": 0.5734241443653898,
+          "mean_prob_neg": 0.4266000540592652
+        }
+      ]
+    },
+    "subheap_kernel": {
+      "feature_dim": 13,
+      "train": {
+        "accuracy": 1.0,
+        "hit_at_3": 1.0,
+        "mean_rank": 1.0,
+        "median_rank": 1.0,
+        "route_executable_rate": 1.0
+      },
+      "test": {
+        "accuracy": 1.0,
+        "hit_at_3": 1.0,
+        "mean_rank": 1.0,
+        "median_rank": 1.0,
+        "route_executable_rate": 1.0
+      },
+      "test_examples": [
+        {
+          "depth": 5,
+          "target_path": "RRRL",
+          "pred_path": "RRRL",
+          "rank": 1,
+          "target_score": 6.028187002390749,
+          "pred_score": 6.028187002390749,
+          "candidate_count": 31
+        },
+        {
+          "depth": 5,
+          "target_path": "LLRL",
+          "pred_path": "LLRL",
+          "rank": 1,
+          "target_score": 6.02818700239075,
+          "pred_score": 6.02818700239075,
+          "candidate_count": 31
+        },
+        {
+          "depth": 6,
+          "target_path": "LRLLR",
+          "pred_path": "LRLLR",
+          "rank": 1,
+          "target_score": 6.02818700239075,
+          "pred_score": 6.02818700239075,
+          "candidate_count": 63
+        },
+        {
+          "depth": 6,
+          "target_path": "RLLLL",
+          "pred_path": "RLLLL",
+          "rank": 1,
+          "target_score": 6.02818700239075,
+          "pred_score": 6.02818700239075,
+          "candidate_count": 63
+        },
+        {
+          "depth": 5,
+          "target_path": "LLLR",
+          "pred_path": "LLLR",
+          "rank": 1,
+          "target_score": 6.02818700239075,
+          "pred_score": 6.02818700239075,
+          "candidate_count": 31
+        },
+        {
+          "depth": 6,
+          "target_path": "RRRLL",
+          "pred_path": "RRRLL",
+          "rank": 1,
+          "target_score": 6.02818700239075,
+          "pred_score": 6.02818700239075,
+          "candidate_count": 63
+        },
+        {
+          "depth": 6,
+          "target_path": "LLLRL",
+          "pred_path": "LLLRL",
+          "rank": 1,
+          "target_score": 6.02818700239075,
+          "pred_score": 6.02818700239075,
+          "candidate_count": 63
+        },
+        {
+          "depth": 5,
+          "target_path": "RLRR",
+          "pred_path": "RLRR",
+          "rank": 1,
+          "target_score": 6.02818700239075,
+          "pred_score": 6.02818700239075,
+          "candidate_count": 31
+        }
+      ],
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 1.1080461587684407,
+          "grad_norm": 2.517463403415241,
+          "mean_prob_pos": 0.5,
+          "mean_prob_neg": 0.5
+        },
+        {
+          "epoch": 1,
+          "loss": 1.1080461587684407,
+          "grad_norm": 2.517463403415241,
+          "mean_prob_pos": 0.5,
+          "mean_prob_neg": 0.5
+        },
+        {
+          "epoch": 5,
+          "loss": 0.3183504810655388,
+          "grad_norm": 0.23994976881421554,
+          "mean_prob_pos": 0.9848285718203679,
+          "mean_prob_neg": 0.27913966037268895
+        },
+        {
+          "epoch": 25,
+          "loss": 0.1484972307522892,
+          "grad_norm": 0.11550110149250362,
+          "mean_prob_pos": 0.9887727171922981,
+          "mean_prob_neg": 0.1425476579728884
+        },
+        {
+          "epoch": 100,
+          "loss": 0.04977629603990537,
+          "grad_norm": 0.0372511832289827,
+          "mean_prob_pos": 0.99216293982162,
+          "mean_prob_neg": 0.04865713666277422
+        },
+        {
+          "epoch": 250,
+          "loss": 0.022790149783053812,
+          "grad_norm": 0.01588083057667388,
+          "mean_prob_pos": 0.9953197530390464,
+          "mean_prob_neg": 0.021899808190349028
+        },
+        {
+          "epoch": 500,
+          "loss": 0.012686137112786688,
+          "grad_norm": 0.008172960931660174,
+          "mean_prob_pos": 0.9969959767504583,
+          "mean_prob_neg": 0.011976088009065088
+        },
+        {
+          "epoch": 700,
+          "loss": 0.009594864033756716,
+          "grad_norm": 0.005880746000643649,
+          "mean_prob_pos": 0.9975936614596944,
+          "mean_prob_neg": 0.00897729838894897
+        }
+      ]
+    },
+    "path_subheap_kernel": {
+      "feature_dim": 22,
+      "train": {
+        "accuracy": 1.0,
+        "hit_at_3": 1.0,
+        "mean_rank": 1.0,
+        "median_rank": 1.0,
+        "route_executable_rate": 1.0
+      },
+      "test": {
+        "accuracy": 1.0,
+        "hit_at_3": 1.0,
+        "mean_rank": 1.0,
+        "median_rank": 1.0,
+        "route_executable_rate": 1.0
+      },
+      "test_examples": [
+        {
+          "depth": 5,
+          "target_path": "RRRL",
+          "pred_path": "RRRL",
+          "rank": 1,
+          "target_score": 4.580324785537279,
+          "pred_score": 4.580324785537279,
+          "candidate_count": 31
+        },
+        {
+          "depth": 5,
+          "target_path": "LLRL",
+          "pred_path": "LLRL",
+          "rank": 1,
+          "target_score": 5.374165378219317,
+          "pred_score": 5.374165378219317,
+          "candidate_count": 31
+        },
+        {
+          "depth": 6,
+          "target_path": "LRLLR",
+          "pred_path": "LRLLR",
+          "rank": 1,
+          "target_score": 4.760540759386509,
+          "pred_score": 4.760540759386509,
+          "candidate_count": 63
+        },
+        {
+          "depth": 6,
+          "target_path": "RLLLL",
+          "pred_path": "RLLLL",
+          "rank": 1,
+          "target_score": 5.008796273681533,
+          "pred_score": 5.008796273681533,
+          "candidate_count": 63
+        },
+        {
+          "depth": 5,
+          "target_path": "LLLR",
+          "pred_path": "LLLR",
+          "rank": 1,
+          "target_score": 5.374165378219317,
+          "pred_score": 5.374165378219317,
+          "candidate_count": 31
+        },
+        {
+          "depth": 6,
+          "target_path": "RRRLL",
+          "pred_path": "RRRLL",
+          "rank": 1,
+          "target_score": 4.413127847053046,
+          "pred_score": 4.413127847053046,
+          "candidate_count": 63
+        },
+        {
+          "depth": 6,
+          "target_path": "LLLRL",
+          "pred_path": "LLLRL",
+          "rank": 1,
+          "target_score": 5.057727693455172,
+          "pred_score": 5.057727693455172,
+          "candidate_count": 63
+        },
+        {
+          "depth": 5,
+          "target_path": "RLRR",
+          "pred_path": "RLRR",
+          "rank": 1,
+          "target_score": 4.579030227046117,
+          "pred_score": 4.579030227046117,
+          "candidate_count": 31
+        }
+      ],
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 1.1080461587684407,
+          "grad_norm": 2.544670854683141,
+          "mean_prob_pos": 0.5,
+          "mean_prob_neg": 0.5
+        },
+        {
+          "epoch": 1,
+          "loss": 1.1080461587684407,
+          "grad_norm": 2.544670854683141,
+          "mean_prob_pos": 0.5,
+          "mean_prob_neg": 0.5
+        },
+        {
+          "epoch": 5,
+          "loss": 0.308530265013771,
+          "grad_norm": 0.24383684630024668,
+          "mean_prob_pos": 0.9857164706428286,
+          "mean_prob_neg": 0.2719578604664536
+        },
+        {
+          "epoch": 25,
+          "loss": 0.1408011714130656,
+          "grad_norm": 0.11280658870038494,
+          "mean_prob_pos": 0.9899035796845016,
+          "mean_prob_neg": 0.13663955012613696
+        },
+        {
+          "epoch": 100,
+          "loss": 0.04683072824107418,
+          "grad_norm": 0.036325218344060294,
+          "mean_prob_pos": 0.9930832376273472,
+          "mean_prob_neg": 0.046612908551366065
+        },
+        {
+          "epoch": 250,
+          "loss": 0.021224864744591173,
+          "grad_norm": 0.015437831737240476,
+          "mean_prob_pos": 0.995853172754876,
+          "mean_prob_neg": 0.020840851547303967
+        },
+        {
+          "epoch": 500,
+          "loss": 0.011704975786711782,
+          "grad_norm": 0.007913485986201625,
+          "mean_prob_pos": 0.997348574389957,
+          "mean_prob_neg": 0.011320416231685324
+        },
+        {
+          "epoch": 700,
+          "loss": 0.008810932740463542,
+          "grad_norm": 0.0056801480370124,
+          "mean_prob_pos": 0.9978828614981351,
+          "mean_prob_neg": 0.008455189522065575
+        }
+      ]
+    }
+  },
+  "interpretation": "This is a structural toy proof. It tests whether subheap features carry unseen-depth relocation signal beyond flat address or path-only baselines. It does not prove language understanding or WMT performance."
+}

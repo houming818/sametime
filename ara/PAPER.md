@@ -146,6 +146,7 @@ M0 math toolbox
 | C5-005 | SPR-019, SPR-020 | Kernel-guided Soft Plus should use a TreeHeap convolution kernel to decide write/merge route. | open / scoped pilot evidence | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `pilot_pass=true`; GLM audit shows current collapse depends on engineered alignment features | Kernel-guided plus is worse than naive memory write or encoder soft plus in clean-feature ablation. |
 | C5-006 | SPR-019 | Multi-kernel / staged training is preferable to a single "big pot" loss. | open | Blog SPR-019 Experiment 3 loss ablation | Single total loss is more stable and generalizes better under matched budget. |
 | C5-007 | SPR-019 | Soft collapse should recover legal Hard TreeHeap structure. | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `collapse_accuracy_tau_0.05=1.0` | Collapse legality, route interpretability, or hard-soft gap fails in larger/noisy tests. |
+| C5-008 | SPR-021 | C05 must expose TreeHeap structure: path, subheap, and recursive route/plus; otherwise it degenerates into flat soft memory. | supported pilot | `ara/m0-treeheap-math/evidence/structural_c05_probe/`: flat/path-only test acc 0.0; subheap/path+subheap test acc 1.0 | Flat address or path-only baselines match subheap/path-subheap kernels on unseen-depth relocation. |
 
 ## SPR Blog Source Map
 
@@ -171,6 +172,7 @@ M0 math toolbox
 | 018 | `blogs/.../spr/018-treeheap-structural-inductive-bias.md` | Learned encoding and conjugate kernel refinement |
 | 019 | `blogs/.../spr/019-soft-treeheap-gradient.md` | Soft algebra, kernel-guided soft plus, multi-kernel training |
 | 020 | `blogs/.../spr/020-soft-treeheap-audit.md` | GLM audit, ARA scope repair, clean-kernel next proof |
+| 021 | `blogs/.../spr/021-c05-structural-proof.md` | C05 structural proof: path, subheap, recursive plus |
 
 The canonical local blog source is:
 
@@ -198,6 +200,7 @@ https://www.lostmap.cn/spr/
 | `ara/m0-treeheap-math/evidence/primitive_plus_probe/` | Addressable plus and mod-fold toy |
 | `ara/m0-treeheap-math/evidence/trainability_quiz/` | Linear regression, XOR, modular addition learning checks |
 | `ara/m0-treeheap-math/evidence/soft_plus_probe/` | Soft Plus gradient path, toy collapse, GLM feature-ablation audit |
+| `ara/m0-treeheap-math/evidence/structural_c05_probe/` | C05 structural ablation: flat/path-only vs subheap/path-subheap relocation |
 
 ## Current Open Proof Queue
 
@@ -219,6 +222,12 @@ A: naive soft memory write
 B: encoder soft plus
 C: kernel-guided soft plus
 ```
+
+2.5. `Structural C05 Probe`
+   - Claim: C5-008 / M0-SOFT-C07
+   - Status: executed pilot in `ara/m0-treeheap-math/evidence/structural_c05_probe/`.
+   - Result: subheap/path-subheap kernels relocate the target at unseen depth; flat address and path-only fail.
+   - Boundary: supports structural necessity, not full C5-005 write-mechanism superiority.
 
 3. `Hard/Soft Consistency`
    - Claim: C5-002, C5-007
@@ -264,6 +273,7 @@ Current graph builder needs probability containers and better allocation.
 TreeHeap math/toy probes support a narrow algebraic toolbox direction.
 Soft Plus has a working gradient-path toy proof.
 Kernel-guided clean route learning remains open.
+Subheap structure carries unseen-depth relocation in the C05 structural toy.
 ```
 
 ## Maintenance Rule
