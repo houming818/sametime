@@ -383,3 +383,86 @@ Executed pilot:
 src/soft_plus_probe.py
 evidence/soft_plus_probe/
 ```
+
+## P-SOFT02: Clean kernel route learning
+
+### Predict
+
+If Kernel-guided Soft Plus is more than a hand-coded route hint, then a learned
+kernel should infer the write/merge address from clean subheap observations:
+
+```text
+key
+parent key
+left child key
+right child key
+leaf flag
+depth/address metadata
+```
+
+It should not receive precomputed route hints such as:
+
+```text
+root_side
+child_side
+root_alignment = root_diff * root_side
+child_alignment = diff * child_side
+```
+
+### Why This Matters
+
+P-SOFT01 proves that the gradient path exists. P-SOFT02 asks whether the model
+can learn the route. These are different questions.
+
+Analogy:
+
+```text
+P-SOFT01: the pencil can write numbers into the answer sheet.
+P-SOFT02: the student can solve the routing problem without being told the answer.
+```
+
+### Evidence Gates
+
+E-SOFT05 clean-kernel route learning:
+
+```text
+collapse_accuracy_tau_0.05 >= 0.95
+final_loss < initial_loss
+```
+
+E-SOFT06 no hand-coded route hint:
+
+```text
+feature set does not include root_side, child_side, root_alignment, child_alignment
+```
+
+E-SOFT07 baseline comparison:
+
+```text
+C: kernel-guided soft plus > A: naive soft memory write
+C: kernel-guided soft plus > B: generic encoder soft plus
+```
+
+Measure:
+
+```text
+accuracy
+collapse legality
+OOD address relocation
+sample efficiency
+hard-soft gap
+```
+
+### Status
+
+Open.
+
+The GLM audit confirms why this experiment is necessary:
+
+```text
+current feature set: collapse_acc = 1.000
+raw/basic feature set: collapse_acc = 0.250
+```
+
+So the next proof target is not "does gradient flow?" It is "can a clean,
+learned kernel discover the routing rule?"

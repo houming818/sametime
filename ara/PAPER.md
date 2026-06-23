@@ -143,7 +143,7 @@ M0 math toolbox
 | C5-002 | SPR-019 | Soft TreeHeap should be a probability lifting of Hard TreeHeap operators: `SoftO(H)=sum_a p(a) O_a(H)`. | mathematical design | Blog SPR-019 | One-hot soft operation fails to recover hard operation. |
 | C5-003 | SPR-019 | Naive soft memory write is insufficient as a TreeHeap claim because it updates array slots, not the plus algebra. | design / critique | Blog SPR-019 | Slot interpolation is shown equivalent to TreeHeap plus under a formal mapping. |
 | C5-004 | SPR-019 | Soft Plus should lift TreeHeap plus: `H_next=sum_a p(a|H,x) (H ⊕_a x)`. | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/` | Gradient cannot flow through soft plus or collapse gives illegal TreeHeap. |
-| C5-005 | SPR-019 | Kernel-guided Soft Plus should use a TreeHeap convolution kernel to decide write/merge route. | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `pilot_pass=true` | Kernel-guided plus is worse than naive memory write or encoder soft plus in ablation. |
+| C5-005 | SPR-019, SPR-020 | Kernel-guided Soft Plus should use a TreeHeap convolution kernel to decide write/merge route. | open / scoped pilot evidence | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `pilot_pass=true`; GLM audit shows current collapse depends on engineered alignment features | Kernel-guided plus is worse than naive memory write or encoder soft plus in clean-feature ablation. |
 | C5-006 | SPR-019 | Multi-kernel / staged training is preferable to a single "big pot" loss. | open | Blog SPR-019 Experiment 3 loss ablation | Single total loss is more stable and generalizes better under matched budget. |
 | C5-007 | SPR-019 | Soft collapse should recover legal Hard TreeHeap structure. | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `collapse_accuracy_tau_0.05=1.0` | Collapse legality, route interpretability, or hard-soft gap fails in larger/noisy tests. |
 
@@ -170,6 +170,7 @@ M0 math toolbox
 | 017 | `blogs/.../spr/017-treeheap-existence-proofs.md` | Existence proof claims A/B/C |
 | 018 | `blogs/.../spr/018-treeheap-structural-inductive-bias.md` | Learned encoding and conjugate kernel refinement |
 | 019 | `blogs/.../spr/019-soft-treeheap-gradient.md` | Soft algebra, kernel-guided soft plus, multi-kernel training |
+| 020 | `blogs/.../spr/020-soft-treeheap-audit.md` | GLM audit, ARA scope repair, clean-kernel next proof |
 
 The canonical local blog source is:
 
@@ -196,6 +197,7 @@ https://www.lostmap.cn/spr/
 | `ara/m0-treeheap-math/evidence/treeheap_math_probe/` | Minimal algebra probe |
 | `ara/m0-treeheap-math/evidence/primitive_plus_probe/` | Addressable plus and mod-fold toy |
 | `ara/m0-treeheap-math/evidence/trainability_quiz/` | Linear regression, XOR, modular addition learning checks |
+| `ara/m0-treeheap-math/evidence/soft_plus_probe/` | Soft Plus gradient path, toy collapse, GLM feature-ablation audit |
 
 ## Current Open Proof Queue
 
@@ -205,7 +207,8 @@ Highest priority open experiments:
    - Claim: C5-004, C5-005
    - Status: executed pilot in `ara/m0-treeheap-math/evidence/soft_plus_probe/`.
    - Result: gradients reach `K_write` and plus parameters; low-temperature collapse is correct in the toy.
-   - Next: compare against naive memory write and encoder soft plus.
+   - Boundary: current success depends on engineered alignment features.
+   - Next: compare against naive memory write and encoder soft plus using clean features.
 
 2. `Write Mechanism Ablation`
    - Claim: C5-003..C5-005
@@ -247,7 +250,7 @@ The research is currently not allowed to claim:
 TreeHeap beats Transformer on WMT.
 TreeHeap has learned syntax from the current historical checkpoint.
 Soft TreeHeap training is already proved.
-Kernel-guided soft plus works.
+Kernel-guided soft plus has learned clean routing from raw TreeHeap geometry.
 ```
 
 The research is allowed to claim:
@@ -259,7 +262,8 @@ Context-conditioned routing works in a controlled proof.
 S2 fold/action signals are probe-predictable.
 Current graph builder needs probability containers and better allocation.
 TreeHeap math/toy probes support a narrow algebraic toolbox direction.
-Soft Plus / Kernel-guided Soft Plus is the current design hypothesis.
+Soft Plus has a working gradient-path toy proof.
+Kernel-guided clean route learning remains open.
 ```
 
 ## Maintenance Rule

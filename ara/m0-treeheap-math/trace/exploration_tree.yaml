@@ -1,0 +1,92 @@
+# M0 Soft TreeHeap exploration trace
+#
+# This file keeps the reasoning path that would otherwise be buried in blog
+# narrative or .squad mail. It follows the ARA rule that failed paths and pivots
+# are evidence, not trash.
+
+nodes:
+  - id: Q-SOFT-001
+    type: question
+    title: "Can Hard TreeHeap be lifted into a differentiable Soft TreeHeap?"
+    source:
+      - "blogs/.../spr/019-soft-treeheap-gradient.md"
+      - "logic/soft_treeheap.md"
+    asks:
+      - "Can loss reach a TreeHeap write kernel?"
+      - "Can loss reach TreeHeap plus candidates?"
+      - "Can the soft distribution collapse back to a legal hard address?"
+
+  - id: D-SOFT-001
+    type: decision
+    parent: Q-SOFT-001
+    title: "Reject naive soft memory write as sufficient TreeHeap proof"
+    decision: "Use Soft Plus instead of direct slot interpolation."
+    reason: "Slot interpolation is differentiable, but it updates memory cells rather than lifting the TreeHeap plus algebra."
+    claim_link:
+      - "M0-SOFT-C02"
+      - "C5-003"
+
+  - id: E-SOFT-001
+    type: experiment
+    parent: D-SOFT-001
+    title: "First Soft Plus pilot"
+    source: "src/soft_plus_probe.py"
+    evidence: "evidence/soft_plus_probe/"
+    result: "pilot_pass=true; final_loss=0.0007743342; collapse_accuracy_tau_0.05=1.0"
+    metrics:
+      dL_dK_write: 0.09024252282755797
+      dL_dPlus: 0.14386881319232503
+      final_mse: 0.0000169194911978286
+      final_route_ce: 0.003029658878559251
+    supports:
+      - "M0-SOFT-C03"
+      - "M0-SOFT-C04"
+    boundary: "Only proves gradient reachability and toy collapse under current engineered features."
+
+  - id: A-SOFT-001
+    type: audit
+    parent: E-SOFT-001
+    title: "GLM independent rerun and ablation"
+    source: ".squad/outbox/006-runner-reviewer-01-soft-treeheap-ara-audit.md"
+    summary: "Multiple seeds pass. Route CE is not necessary. Removing engineered alignment features breaks or weakens collapse."
+    audit_metrics:
+      current_features_collapse_acc: 1.0
+      no_alignment_sum_collapse_acc: 0.625
+      raw_basic_features_collapse_acc: 0.25
+      random_projection_side_flags_collapse_acc: 0.25
+
+  - id: D-SOFT-002
+    type: dead_end
+    parent: A-SOFT-001
+    title: "Raw/basic feature kernel does not learn routing"
+    failed_hypothesis: "A simple linear kernel over raw/basic features can discover the correct address route."
+    result: "collapse_acc=0.25, random-level routing."
+    lesson: "The current successful probe depends on engineered alignment features."
+    does_not_falsify:
+      - "M0-SOFT-C03"
+      - "M0-SOFT-C04"
+    falsifies_or_blocks:
+      - "Any claim that current evidence proves clean kernel route learning."
+
+  - id: P-SOFT-002
+    type: pivot
+    parent: D-SOFT-002
+    title: "Move from gradient-path proof to clean-kernel proof"
+    next_predict: "P-SOFT02"
+    next_experiment: "soft_plus_write_ablation.py"
+    plan:
+      - "Remove route-hint features."
+      - "Compare naive soft memory write, generic encoder soft plus, and kernel-guided soft plus."
+      - "Measure collapse accuracy, hard-soft gap, legality, OOD relocation, and sample efficiency."
+
+edges:
+  - from: Q-SOFT-001
+    to: D-SOFT-001
+  - from: D-SOFT-001
+    to: E-SOFT-001
+  - from: E-SOFT-001
+    to: A-SOFT-001
+  - from: A-SOFT-001
+    to: D-SOFT-002
+  - from: D-SOFT-002
+    to: P-SOFT-002

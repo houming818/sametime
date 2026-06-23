@@ -2,6 +2,7 @@
 
 Status: supported pilot
 Created: 2026-06-22
+Updated: 2026-06-23
 Source: SPR-019
 
 ## Question
@@ -117,6 +118,26 @@ Transformer replacement
 general superiority over neural memory
 ```
 
+It also does not prove that the write kernel has learned a route from raw
+TreeHeap geometry. The current probe uses engineered alignment features:
+
+```text
+root_alignment = root_diff * root_side
+child_alignment = diff * child_side
+```
+
+The audit in `.squad/outbox/006-runner-reviewer-01-soft-treeheap-ara-audit.md`
+found:
+
+```text
+current features: collapse_acc = 1.000
+remove alignment/sum features: collapse_acc = 0.625
+raw/basic features: collapse_acc = 0.250
+```
+
+So the current proof is a gradient-path and collapse smoke proof. It is not yet
+a proof that a TreeHeap convolution kernel can independently learn routing.
+
 ## Next Experiments
 
 1. Compare write mechanisms:
@@ -132,3 +153,18 @@ C: kernel-guided soft plus
 3. Test multi-kernel staged loss against big-pot loss.
 
 4. Add stochastic / noisy subheap features and check collapse legality.
+
+5. Replace hand-coded alignment features with a learned kernel over clean
+   subheap observations:
+
+```text
+key
+parent key
+left child key
+right child key
+leaf flag
+depth/address metadata
+```
+
+The clean-kernel experiment is the bridge from "Soft Plus can receive gradient"
+to "TreeHeap can learn a searchable structure."

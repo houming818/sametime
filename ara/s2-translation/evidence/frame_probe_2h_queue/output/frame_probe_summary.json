@@ -1,0 +1,148 @@
+{
+  "started_finished_at": "2026-06-17 17:46:57",
+  "predict": "P-FRAME01",
+  "config": {
+    "bpe": "/mnt/nas/datasets/wmt_massive/sp_bpe_massive.model",
+    "ckpt_glob": "/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep*.pt",
+    "out": "/data/homecicd/sametime/ara/s2-translation/evidence/frame_probe_2h_queue/output",
+    "seed": 42,
+    "device": "cuda"
+  },
+  "n_probes": 14,
+  "n_words": 78,
+  "checkpoints": [
+    "/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep1.pt",
+    "/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep2.pt",
+    "/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep3.pt"
+  ],
+  "modes": [
+    "random",
+    "l0",
+    "path",
+    "cmul",
+    "merge_no_bias",
+    "tree",
+    "centered_tree"
+  ],
+  "verdict": "inconclusive",
+  "best_l0": {
+    "checkpoint": "anchor_tree_massive_ep1",
+    "mode": "l0",
+    "auc": 0.46595238095238095,
+    "ap": 0.4894063938706795,
+    "mrr": 0.8673469387755102,
+    "hit1": 0.7857142857142857,
+    "hit3": 0.9285714285714286
+  },
+  "best_internal": {
+    "checkpoint": "anchor_tree_massive_ep1",
+    "mode": "merge_no_bias",
+    "auc": 0.5697619047619049,
+    "ap": 0.5485452708666994,
+    "mrr": 0.8928571428571429,
+    "hit1": 0.8571428571428571,
+    "hit3": 0.8571428571428571
+  },
+  "top_rows": [
+    {
+      "checkpoint": "anchor_tree_massive_ep1",
+      "mode": "merge_no_bias",
+      "auc": 0.5697619047619049,
+      "ap": 0.5485452708666994,
+      "mrr": 0.8928571428571429,
+      "hit1": 0.8571428571428571,
+      "hit3": 0.8571428571428571
+    },
+    {
+      "checkpoint": "anchor_tree_massive_ep1",
+      "mode": "tree",
+      "auc": 0.5697619047619049,
+      "ap": 0.5485452708666994,
+      "mrr": 0.8928571428571429,
+      "hit1": 0.8571428571428571,
+      "hit3": 0.8571428571428571
+    },
+    {
+      "checkpoint": "anchor_tree_massive_ep1",
+      "mode": "centered_tree",
+      "auc": 0.5697619047619049,
+      "ap": 0.5485452708666994,
+      "mrr": 0.8928571428571429,
+      "hit1": 0.8571428571428571,
+      "hit3": 0.8571428571428571
+    },
+    {
+      "checkpoint": "anchor_tree_massive_ep2",
+      "mode": "merge_no_bias",
+      "auc": 0.5697619047619048,
+      "ap": 0.5484525064882207,
+      "mrr": 0.8928571428571429,
+      "hit1": 0.8571428571428571,
+      "hit3": 0.8571428571428571
+    },
+    {
+      "checkpoint": "anchor_tree_massive_ep2",
+      "mode": "tree",
+      "auc": 0.5697619047619048,
+      "ap": 0.5484525064882207,
+      "mrr": 0.8928571428571429,
+      "hit1": 0.8571428571428571,
+      "hit3": 0.8571428571428571
+    },
+    {
+      "checkpoint": "anchor_tree_massive_ep2",
+      "mode": "centered_tree",
+      "auc": 0.5697619047619048,
+      "ap": 0.5484525064882207,
+      "mrr": 0.8928571428571429,
+      "hit1": 0.8571428571428571,
+      "hit3": 0.8571428571428571
+    },
+    {
+      "checkpoint": "anchor_tree_massive_ep3",
+      "mode": "merge_no_bias",
+      "auc": 0.5685714285714286,
+      "ap": 0.5482920584706298,
+      "mrr": 0.8928571428571429,
+      "hit1": 0.8571428571428571,
+      "hit3": 0.8571428571428571
+    },
+    {
+      "checkpoint": "anchor_tree_massive_ep3",
+      "mode": "tree",
+      "auc": 0.5685714285714286,
+      "ap": 0.5482920584706298,
+      "mrr": 0.8928571428571429,
+      "hit1": 0.8571428571428571,
+      "hit3": 0.8571428571428571
+    }
+  ],
+  "events": [
+    {
+      "time": "2026-06-17 17:46:57",
+      "msg": "starting P-FRAME01 pilot"
+    },
+    {
+      "time": "2026-06-17 17:46:57",
+      "msg": "found checkpoints=['/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep1.pt', '/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep2.pt', '/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep3.pt']"
+    },
+    {
+      "time": "2026-06-17 17:46:57",
+      "msg": "loading /mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep1.pt"
+    },
+    {
+      "time": "2026-06-17 17:46:57",
+      "msg": "loading /mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep2.pt"
+    },
+    {
+      "time": "2026-06-17 17:46:57",
+      "msg": "loading /mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep3.pt"
+    }
+  ],
+  "files": [
+    "frame_probe_summary.csv",
+    "frame_probe_details.csv",
+    "frame_probe_summary.json",
+    "README.md"
+  ]
+}

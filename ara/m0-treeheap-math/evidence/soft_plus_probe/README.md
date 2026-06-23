@@ -70,3 +70,21 @@ synthetic key/address toy.
 
 It does not prove language understanding, syntax induction, WMT translation,
 or superiority over Transformer.
+
+## Audit Note
+
+GLM / Runner independently re-ran this proof and added feature ablations. See:
+
+```text
+glm_audit_summary.md
+```
+
+Main result:
+
+```text
+current features collapse_acc = 1.000
+raw/basic features collapse_acc = 0.250
+```
+
+So the proof remains valid as a gradient-path and toy-collapse proof, but the
+clean-kernel route-learning claim remains open.

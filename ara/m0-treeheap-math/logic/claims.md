@@ -2,7 +2,7 @@
 
 Owner: Review Engineer
 Created: 2026-06-22
-Updated: 2026-06-22
+Updated: 2026-06-23
 
 ## Status Rules
 
@@ -39,6 +39,39 @@ Updated: 2026-06-22
 | M0-SOFT-C04 | Kernel-guided Soft Plus can collapse to the correct hard plus address at low temperature in the synthetic toy. | supported | `evidence/soft_plus_probe/summary.json`: `collapse_accuracy_tau_0.05=1.0` | Low-temperature collapse accuracy falls below 1.0 under deterministic rerun. |
 | M0-SOFT-C05 | Kernel-guided Soft Plus is better than naive memory write or generic encoder soft plus. | open | Planned write-mechanism ablation | Naive memory write or encoder soft plus matches/bests kernel-guided soft plus on accuracy, collapse legality, and OOD relocation. |
 | M0-SOFT-C06 | Multi-kernel staged training is more stable than a single big-pot loss. | open | Planned loss ablation | Big-pot loss is more stable and generalizes better under matched budget. |
+
+### Soft Claim Scope Notes
+
+The GLM / Runner audit in `.squad/outbox/006-runner-reviewer-01-soft-treeheap-ara-audit.md`
+re-ran the Soft Plus proof and added feature ablations. The audit does not
+falsify M0-SOFT-C03 or M0-SOFT-C04, because those claims are intentionally
+scoped to gradient reachability and low-temperature collapse in the current
+synthetic toy. It does narrow what the evidence is allowed to mean.
+
+| ID | In scope | Out of scope |
+|---|---|---|
+| M0-SOFT-C03 | The loss can send nonzero gradient through `K_write` and `Plus_a` in `src/soft_plus_probe.py`. | The kernel can learn the route from raw subheap geometry without hand-coded alignment features. |
+| M0-SOFT-C04 | The current toy collapses to the correct hard plus address at low temperature when using the current feature set. | Collapse after removing hand-coded route hints; noisy, larger, or language-scale collapse. |
+| M0-SOFT-C05 | Not yet supported. This is the comparison claim for write mechanisms. | It must not borrow M0-SOFT-C03/C04 evidence as proof of superiority. |
+
+Audit ablations:
+
+```text
+current feature set:              collapse_acc = 1.000
+without alignment/sum features:   collapse_acc = 0.625
+raw/basic feature set:            collapse_acc = 0.250
+random projection + side flags:   collapse_acc = 0.250
+```
+
+Interpretation:
+
+```text
+M0-SOFT-C03/C04 are supported toy claims.
+M0-SOFT-C05 remains open.
+The next proof must test whether a clean kernel can learn routing from subheap
+geometry, and whether it beats naive soft memory write / generic encoder soft
+plus.
+```
 
 ## Existence Bias
 

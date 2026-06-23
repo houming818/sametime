@@ -1,0 +1,378 @@
+{
+  "started_at": "2026-06-17 15:01:12",
+  "config": {
+    "data": "/mnt/nas/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "bpe": "/mnt/nas/datasets/wmt_massive/sp_bpe_massive.model",
+    "ckpt_glob": "/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep*.pt",
+    "out": "/data/homecicd/sametime/logs/s2_overnight_20260617_150111",
+    "hours": 8.0,
+    "sample_lines": 80000,
+    "max_role_examples": 160000,
+    "ctx_window": 2,
+    "n_jobs": 4,
+    "seed": 42,
+    "device": "cuda",
+    "probe_epochs": 8
+  },
+  "hypotheses": [
+    "H1: ep3 collapse may be a post-merge vector issue; raw L0/path/CMul may preserve signal.",
+    "H2: context features should improve role-slot prediction over token-only TreeHeap.",
+    "H3: tensor energy needs syntax-bearing vectors; non-commutativity alone is insufficient.",
+    "H4: probability containers are justified only if top-k coverage is stable across slices."
+  ],
+  "events": [
+    {
+      "time": "2026-06-17 15:01:12",
+      "msg": "loading texts"
+    },
+    {
+      "time": "2026-06-17 15:01:12",
+      "msg": "loaded texts=80000"
+    },
+    {
+      "time": "2026-06-17 15:01:12",
+      "msg": "parsing docs"
+    },
+    {
+      "time": "2026-06-17 15:01:49",
+      "msg": "parsed docs=80000"
+    },
+    {
+      "time": "2026-06-17 15:01:51",
+      "msg": "extracted role_examples=160000 svo_cases=660"
+    },
+    {
+      "time": "2026-06-17 15:01:51",
+      "msg": "found checkpoints=['/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep1.pt', '/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep2.pt', '/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep3.pt']"
+    },
+    {
+      "time": "2026-06-17 15:01:51",
+      "msg": "loading checkpoint /mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep1.pt"
+    },
+    {
+      "time": "2026-06-17 15:01:51",
+      "msg": "geometry audit anchor_tree_massive_ep1"
+    },
+    {
+      "time": "2026-06-17 15:01:51",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=l0 ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:01:53",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=l0 ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:02:16",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=l0 ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:02:39",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=l0 ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:03:02",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=path ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:03:03",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=path ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:03:54",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=path ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:04:47",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=path ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:05:37",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=cmul ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:05:38",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=cmul ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:06:51",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=cmul ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:08:02",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=cmul ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:09:12",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=tree ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:09:13",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=tree ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:10:29",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=tree ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:11:46",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=tree ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:13:03",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=l0_path ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:13:04",
+      "msg": "role probe ckpt=anchor_tree_massive_ep1 mode=l0_path ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:13:28",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep1 mode=l0"
+    },
+    {
+      "time": "2026-06-17 15:13:28",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep1 mode=cmul"
+    },
+    {
+      "time": "2026-06-17 15:13:28",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep1 mode=tree"
+    },
+    {
+      "time": "2026-06-17 15:13:29",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep1 mode=l0_path"
+    },
+    {
+      "time": "2026-06-17 15:13:30",
+      "msg": "loading checkpoint /mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep2.pt"
+    },
+    {
+      "time": "2026-06-17 15:13:30",
+      "msg": "geometry audit anchor_tree_massive_ep2"
+    },
+    {
+      "time": "2026-06-17 15:13:30",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=l0 ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:13:31",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=l0 ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:13:53",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=l0 ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:14:16",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=l0 ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:14:40",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=path ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:14:41",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=path ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:15:35",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=path ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:16:28",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=path ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:17:18",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=cmul ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:17:19",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=cmul ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:18:28",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=cmul ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:19:38",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=cmul ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:20:47",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=tree ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:20:48",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=tree ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:22:03",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=tree ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:23:17",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=tree ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:24:32",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=l0_path ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:24:33",
+      "msg": "role probe ckpt=anchor_tree_massive_ep2 mode=l0_path ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:24:56",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep2 mode=l0"
+    },
+    {
+      "time": "2026-06-17 15:24:56",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep2 mode=cmul"
+    },
+    {
+      "time": "2026-06-17 15:24:57",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep2 mode=tree"
+    },
+    {
+      "time": "2026-06-17 15:24:58",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep2 mode=l0_path"
+    },
+    {
+      "time": "2026-06-17 15:24:58",
+      "msg": "loading checkpoint /mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep3.pt"
+    },
+    {
+      "time": "2026-06-17 15:24:58",
+      "msg": "geometry audit anchor_tree_massive_ep3"
+    },
+    {
+      "time": "2026-06-17 15:24:58",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=l0 ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:24:59",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=l0 ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:25:22",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=l0 ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:25:45",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=l0 ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:26:07",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=path ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:26:08",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=path ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:26:58",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=path ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:27:48",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=path ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:28:38",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=cmul ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:28:39",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=cmul ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:29:48",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=cmul ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:31:00",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=cmul ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:32:10",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=tree ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:32:11",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=tree ctx=ctx_only"
+    },
+    {
+      "time": "2026-06-17 15:33:26",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=tree ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:34:40",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=tree ctx=token_minus_ctx"
+    },
+    {
+      "time": "2026-06-17 15:35:55",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=l0_path ctx=none"
+    },
+    {
+      "time": "2026-06-17 15:35:57",
+      "msg": "role probe ckpt=anchor_tree_massive_ep3 mode=l0_path ctx=token_ctx"
+    },
+    {
+      "time": "2026-06-17 15:36:20",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep3 mode=l0"
+    },
+    {
+      "time": "2026-06-17 15:36:20",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep3 mode=cmul"
+    },
+    {
+      "time": "2026-06-17 15:36:20",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep3 mode=tree"
+    },
+    {
+      "time": "2026-06-17 15:36:21",
+      "msg": "tensor ranking ckpt=anchor_tree_massive_ep3 mode=l0_path"
+    },
+    {
+      "time": "2026-06-17 15:36:22",
+      "msg": "container stability sample=5000"
+    },
+    {
+      "time": "2026-06-17 15:43:26",
+      "msg": "container stability sample=12000"
+    },
+    {
+      "time": "2026-06-17 15:59:25",
+      "msg": "container stability sample=30000"
+    },
+    {
+      "time": "2026-06-17 16:42:58",
+      "msg": "container stability sample=80000"
+    }
+  ],
+  "data": {
+    "n_texts": 80000,
+    "n_docs": 80000,
+    "n_role_examples": 160000,
+    "role_counts": {
+      "PREP": 17205,
+      "DET": 13915,
+      "POBJ": 16953,
+      "SUBJ": 11234,
+      "AUX": 6895,
+      "ROOT": 11733,
+      "OBJ": 7865,
+      "AMOD": 10542,
+      "OTHER": 51803,
+      "COMP": 5733,
+      "NEG": 838,
+      "ADVMOD": 5284
+    },
+    "n_svo_cases": 660
+  },
+  "checkpoints": [
+    "/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep1.pt",
+    "/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep2.pt",
+    "/mnt/nas/datasets/wmt_massive/checkpoints/anchor_tree_massive_ep3.pt"
+  ]
+}

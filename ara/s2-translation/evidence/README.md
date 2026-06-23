@@ -49,12 +49,26 @@ Organized by experiment phase. Each result file supports specific claims in `/ar
 |------|---------|----------|
 | (console) `mt_v1.py` output | BLEU=0.5, OOV=32% | C-024 |
 
+### Diagnostic Runs Added From `log/ara`
+| Directory | Content | Verdict |
+|-----------|---------|---------|
+| `frame_probe_2h_queue/` | 2-hour frame/world-model diagnostic over legacy vectors; includes `frame_probe_summary.json`, CSV details, and GPU snapshots | inconclusive; not positive TreeHeap evidence |
+| `overnight_stopped_20260617/` | 8-hour role/tensor/container diagnostic over `anchor_tree_massive_ep1..3`; includes role classifier, tensor ranking, container stability, and geometry CSVs | diagnostic; supports downgrade boundaries rather than WMT success |
+
 ## Log Files
 | File | Content |
 |------|---------|
 | `local_train.log` | Local training runs |
 | `q_run.log` | Remote GPU queue manager |
 | `nio_thinking.log` | Thinking/decision traces |
+
+## Integration Note
+
+`frame_probe_2h_queue/` and `overnight_stopped_20260617/` were first kept in
+the outer `log/ara` tree. They are now copied into SameTime so the public ARA
+record has the same diagnostic evidence index. These runs should not be cited
+as proof that TreeHeap solves translation; they are evidence for what remains
+unproved.
 
 ## Experimental Data Sizes
 | Experiment | Sentences | Tokens/Pairs |

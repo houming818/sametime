@@ -320,3 +320,81 @@ evidence/soft_plus_probe/trace.jsonl
 This experiment supports only the M0 pilot claim that Kernel-guided Soft Plus is
 differentiable, trainable in a synthetic toy, and able to collapse back to the
 hard plus address. It does not prove language learning or WMT translation.
+
+### Audit Result
+
+The GLM / Runner audit re-ran the proof and then ablated the kernel features.
+
+```text
+current feature set:              pilot_pass=true, collapse_acc=1.000
+route_ce_weight=0.0:              pilot_pass=true, collapse_acc=1.000
+without alignment/sum features:   pilot_pass=false, collapse_acc=0.625
+raw/basic feature set:            pilot_pass=false, collapse_acc=0.250
+```
+
+Interpretation:
+
+```text
+route CE is not the main reason the proof passes.
+the engineered alignment features are the main reason the route collapses.
+```
+
+This means `soft_plus_probe.py` is valid as a gradient-path smoke proof, but it
+is not a clean proof that a TreeHeap kernel can learn routing from raw geometry.
+
+---
+
+## soft_plus_write_ablation.py
+
+### Question
+
+Can a clean, learned write kernel beat simpler differentiable write mechanisms?
+
+This is the next experiment required by P-SOFT02 and M0-SOFT-C05.
+
+### Designs
+
+All three systems should receive the same train/test split and the same clean
+observations. No system may receive `root_side`, `child_side`,
+`root_alignment`, or `child_alignment`.
+
+```text
+A: naive soft memory write
+   arr_new[i] = (1 - p[i]) * arr_old[i] + p[i] * write_vector
+
+B: encoder soft plus
+   MLP(H, x) -> p(a)
+   H_next = sum_a p(a) * Plus_a(H, x)
+
+C: kernel-guided soft plus
+   K_write(subheap(H, a), x) -> score(a)
+   H_next = sum_a softmax(score(a)) * Plus_a(H, x)
+```
+
+### Required Metrics
+
+```text
+collapse_accuracy_tau_0.05
+final_loss
+hard_soft_gap
+collapse_legality
+unseen_address_accuracy
+sample_efficiency
+```
+
+### Decision Rule
+
+```text
+If C beats A and B on clean features:
+  upgrade M0-SOFT-C05 from open to supported.
+
+If A or B matches C:
+  keep M0-SOFT-C05 open/rejected and revise the TreeHeap write claim.
+
+If all fail:
+  revise the kernel architecture before moving to S2 language tasks.
+```
+
+### Status
+
+Planned.
