@@ -695,3 +695,89 @@ Executed pilot:
 src/kernel_convolution_ops_probe.py
 evidence/kernel_convolution_ops_probe/
 ```
+
+## P-SOFT05-KL: Deductive/inductive kernel split
+
+### Predict
+
+If TreeHeap kernel reasoning is split correctly, then two proof modes should be
+measured separately:
+
+```text
+deductive proof:
+  algebraic identities such as mirror/conjugate/one-hot Soft Plus hold exactly
+
+inductive proof:
+  learned probabilistic kernels reduce KL divergence against a world-model
+  operation distribution
+```
+
+The probability learning target is:
+
+```text
+P_W(a|H,q) = softmax(-||patch(a)-query||^2 / temperature)
+```
+
+The learned model predicts:
+
+```text
+P_theta(a|H,q)
+```
+
+and is evaluated by:
+
+```text
+KL(P_W || P_theta)
+```
+
+### Evidence Gates
+
+E-SOFT20 deductive exactness:
+
+```text
+mirror_patch_involution_error = 0
+conjugate_equiv_error = 0
+one_hot_soft_plus_error = 0
+```
+
+E-SOFT21 inductive KL learning:
+
+```text
+mlp_raw test_KL << linear_raw test_KL
+mlp_raw OOD_KL << linear_raw OOD_KL
+```
+
+E-SOFT22 structural honesty:
+
+```text
+If treeheap_prob_kernel does not beat mlp_raw, do not claim TreeHeap
+structural advantage from this toy.
+```
+
+### Status
+
+Executed pilot:
+
+```text
+src/deductive_inductive_kernel_probe.py
+evidence/deductive_inductive_kernel_probe/
+```
+
+Result:
+
+```text
+deductive_pass = true
+mlp_raw OOD_KL = 0.022695
+treeheap_prob_kernel OOD_KL = 0.053386
+linear_raw OOD_KL = 2.403392
+address_prior OOD_KL = 2.403086
+oracle_fixed_kernel OOD_KL = 0.0
+```
+
+Interpretation:
+
+```text
+The pilot supports inductive probability learning with KL.
+It does not support a TreeHeap structural advantage yet, because the world
+distribution is content-distance based and `mlp_raw` generalizes best.
+```

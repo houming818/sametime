@@ -1,0 +1,139 @@
+{
+  "claim": "M0-SOFT-C09",
+  "deductive": {
+    "conjugate_equiv_error": 0.0,
+    "deductive_pass": true,
+    "mirror_involution_ok": true,
+    "mirror_patch_involution_error": 0.0,
+    "one_hot_soft_plus_error": 0.0
+  },
+  "epochs": 700,
+  "inductive": {
+    "inductive_pass": true,
+    "metrics": {
+      "address_prior": {
+        "ood": {
+          "calibration_l1": 0.05468832115212668,
+          "cross_entropy": 3.4334428489721804,
+          "entropy_error": 2.4029658239184344,
+          "kl": 2.40308550882287,
+          "top1_agreement": 0.04666666666666667
+        },
+        "test": {
+          "calibration_l1": 0.20690710185973343,
+          "cross_entropy": 1.9469473374492343,
+          "entropy_error": 1.4307961742286632,
+          "kl": 1.4347639862597963,
+          "top1_agreement": 0.15333333333333332
+        },
+        "train": {
+          "calibration_l1": 0.20669809800926048,
+          "cross_entropy": 1.9429795254181017,
+          "entropy_error": 1.4352861784151536,
+          "kl": 1.4352861784151543,
+          "top1_agreement": 0.17333333333333334
+        }
+      },
+      "linear_raw": {
+        "ood": {
+          "calibration_l1": 0.054686251316900546,
+          "cross_entropy": 3.433749475825191,
+          "entropy_error": 2.4005748395865325,
+          "kl": 2.40339213567588,
+          "top1_agreement": 0.04
+        },
+        "test": {
+          "calibration_l1": 0.20722114690499738,
+          "cross_entropy": 1.9524364784707071,
+          "entropy_error": 1.431737937509689,
+          "kl": 1.4402531272812689,
+          "top1_agreement": 0.09
+        },
+        "train": {
+          "calibration_l1": 0.2067405629146916,
+          "cross_entropy": 1.9438398014950369,
+          "entropy_error": 1.436146928589469,
+          "kl": 1.4361464544920897,
+          "top1_agreement": 0.1288888888888889
+        }
+      },
+      "mlp_raw": {
+        "ood": {
+          "calibration_l1": 0.0029757624574801565,
+          "cross_entropy": 1.053052156128741,
+          "entropy_error": 0.10555592930598819,
+          "kl": 0.02269481597942992,
+          "top1_agreement": 0.9566666666666667
+        },
+        "test": {
+          "calibration_l1": 0.007189364760896097,
+          "cross_entropy": 0.5212098538223013,
+          "entropy_error": 0.04858722773024611,
+          "kl": 0.009026502632863267,
+          "top1_agreement": 0.9933333333333333
+        },
+        "train": {
+          "calibration_l1": 0.0067785354170683135,
+          "cross_entropy": 0.5156279250691912,
+          "entropy_error": 0.044718326215273184,
+          "kl": 0.007934578066243815,
+          "top1_agreement": 0.9844444444444445
+        }
+      },
+      "oracle_fixed_kernel": {
+        "ood": {
+          "calibration_l1": 0.0,
+          "cross_entropy": 1.030357340149311,
+          "entropy_error": 0.0,
+          "kl": 0.0,
+          "top1_agreement": 1.0
+        },
+        "test": {
+          "calibration_l1": 0.0,
+          "cross_entropy": 0.512183351189438,
+          "entropy_error": 0.0,
+          "kl": 0.0,
+          "top1_agreement": 1.0
+        },
+        "train": {
+          "calibration_l1": 0.0,
+          "cross_entropy": 0.5076933470029474,
+          "entropy_error": 0.0,
+          "kl": 0.0,
+          "top1_agreement": 1.0
+        }
+      },
+      "treeheap_prob_kernel": {
+        "ood": {
+          "calibration_l1": 0.006091582755200655,
+          "cross_entropy": 1.0837432361506911,
+          "entropy_error": 0.15008498293642453,
+          "kl": 0.05338589600138024,
+          "top1_agreement": 0.8766666666666667
+        },
+        "test": {
+          "calibration_l1": 0.00869798240028311,
+          "cross_entropy": 0.5230181441635784,
+          "entropy_error": 0.05387364598779712,
+          "kl": 0.010834792974140367,
+          "top1_agreement": 0.9733333333333334
+        },
+        "train": {
+          "calibration_l1": 0.008312231009204144,
+          "cross_entropy": 0.5176429354209066,
+          "entropy_error": 0.05111977827938301,
+          "kl": 0.009949588417959168,
+          "top1_agreement": 0.9711111111111111
+        }
+      }
+    },
+    "ood_examples": 300,
+    "temperature": 0.45,
+    "test_examples": 300,
+    "train_examples": 900,
+    "world_model": "P_W(a|H,q)=softmax(-||patch(a)-query||^2 / temperature)"
+  },
+  "pilot_pass": true,
+  "predict": "P-SOFT05-KL",
+  "seed": 13
+}

@@ -569,3 +569,94 @@ This does not prove learned kernel routing.
 This does not prove C05 write-mechanism superiority.
 This does not prove language syntax or WMT translation.
 ```
+
+---
+
+## deductive_inductive_kernel_probe.py
+
+### Question
+
+Can we separate two proof modes for TreeHeap kernels?
+
+```text
+deductive proof:
+  algebraic kernel identities hold because the operations are correctly defined
+
+inductive proof:
+  trainable probabilistic kernels reduce KL against a world-model distribution
+```
+
+### Design A: deductive checks
+
+Check deterministic algebraic identities:
+
+```text
+mirror_path(mirror_path(p)) == p
+mirror_patch(mirror_patch(x)) == x
+conjugate score equivalence error == 0
+one-hot Soft Plus == Hard Plus
+```
+
+### Design B: inductive KL learning
+
+Generate a world-model distribution over candidate subheaps:
+
+```text
+P_W(a|H,q) = softmax(-||patch(a)-query||^2 / temperature)
+```
+
+Train models to imitate `P_W`:
+
+```text
+address_prior
+linear_raw
+mlp_raw
+treeheap_prob_kernel
+oracle_fixed_kernel
+```
+
+Evaluate:
+
+```text
+train_KL
+test_KL
+OOD_KL
+top1_agreement
+entropy_error
+calibration_l1
+```
+
+### Outputs
+
+Executed:
+
+```text
+evidence/deductive_inductive_kernel_probe/summary.json
+evidence/deductive_inductive_kernel_probe/README.md
+evidence/deductive_inductive_kernel_probe/trace.jsonl
+```
+
+### Result
+
+| Model | Train KL | Test KL | OOD KL | OOD top1 |
+|---|---:|---:|---:|---:|
+| address_prior | 1.435286 | 1.434764 | 2.403086 | 0.047 |
+| linear_raw | 1.436146 | 1.440253 | 2.403392 | 0.040 |
+| mlp_raw | 0.007935 | 0.009027 | 0.022695 | 0.957 |
+| treeheap_prob_kernel | 0.009950 | 0.010835 | 0.053386 | 0.877 |
+| oracle_fixed_kernel | 0.000000 | 0.000000 | 0.000000 | 1.000 |
+
+### Decision
+
+```text
+M0-SOFT-C09 -> supported pilot
+```
+
+Boundary:
+
+```text
+This supports the deductive/inductive proof split and the use of KL for
+probability-kernel learning. It does not prove TreeHeap structural advantage;
+in this toy the world-model distribution is content-distance based, so `mlp_raw`
+has the best learned OOD KL.
+```

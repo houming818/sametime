@@ -41,6 +41,7 @@ Updated: 2026-06-23
 | M0-SOFT-C06 | Multi-kernel staged training is more stable than a single big-pot loss. | open | Planned loss ablation | Big-pot loss is more stable and generalizes better under matched budget. |
 | M0-SOFT-C07 | A TreeHeap write/search kernel must expose path, subheap, and recursive-plus structure; otherwise it degenerates into flat soft memory. | supported pilot | `evidence/structural_c05_probe/`: flat/path-only test acc 0.0; subheap/path+subheap test acc 1.0 | Flat address or path-only baselines match subheap/path-subheap kernels on unseen-depth relocation. |
 | M0-SOFT-C08 | TreeHeap primitive operations can be defined as kernel convolutions over the whole tree state: search emits a score map, plus/write uses that map as an update field, and conjugate is a symmetry transform of the kernel. | supported pilot | `evidence/kernel_convolution_ops_probe/` | Search/plus/conjugate require unrelated hand-written procedures, or mirrored kernel scores fail to match the original score map under path symmetry. |
+| M0-SOFT-C09 | TreeHeap kernel proof must separate deductive algebraic identities from inductive probability learning; KL divergence can measure whether a learned probabilistic kernel imitates a world-model operation distribution. | supported pilot | `evidence/deductive_inductive_kernel_probe/`: deductive errors 0; MLP raw OOD KL 0.0227 vs linear raw OOD KL 2.4034 | Deductive identities fail, or trainable probabilistic kernels cannot reduce held-out/OOD KL below address/linear baselines. |
 
 ### Soft Claim Scope Notes
 
@@ -57,6 +58,7 @@ synthetic toy. It does narrow what the evidence is allowed to mean.
 | M0-SOFT-C05 | Not yet supported. This is the comparison claim for write mechanisms. | It must not borrow M0-SOFT-C03/C04 evidence as proof of superiority. |
 | M0-SOFT-C07 | The next structural proof asks whether path/subheap features produce measurable relocation value beyond flat memory. | It does not claim language syntax, WMT, or full Soft Plus training. |
 | M0-SOFT-C08 | The operator-semantics proof asks whether TreeHeap operations can be expressed as full-tree kernel convolution maps. | It does not prove learned kernels, C05 superiority, language syntax, or WMT translation. |
+| M0-SOFT-C09 | The KL proof asks whether learned parameters can imitate a world-model probability distribution. | It does not prove TreeHeap structural advantage, because in the current toy `mlp_raw` beats `treeheap_prob_kernel` on OOD KL. |
 
 Audit ablations:
 
