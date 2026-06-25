@@ -781,3 +781,104 @@ The pilot supports inductive probability learning with KL.
 It does not support a TreeHeap structural advantage yet, because the world
 distribution is content-distance based and `mlp_raw` generalizes best.
 ```
+
+## P-DIFF01: TreeHeap diff algebra before distance and learning
+
+### Predict
+
+If TreeHeap distance is mathematically usable for learning, it should not be a
+free-standing scalar function. It should be derived from diff algebra:
+
+```text
+Zero TreeHeap
+subtraction:       Diff(A,B) = A - B
+norm:              ||H||_T = ||H - Zero||_T
+inner product:     <A,B>_T
+cosine:            cos_T(A,B) = <A,B>_T / (||A||_T ||B||_T)
+finite difference: dL / dH direction checks
+```
+
+The basic depth-weighted norm is:
+
+```text
+||H||_T = sqrt(sum_i alpha^depth(i) * ||H[i]||_2^2)
+```
+
+Distance is derived:
+
+```text
+d(A,B) = ||A-B||_T
+```
+
+Learning signal gate:
+
+```text
+For prob vector plus H' = H + p_theta(i) * x,
+finite-difference gradients over theta should match the analytic gradient.
+One gradient step should reduce d(H', Target).
+```
+
+### Evidence Gates
+
+E-DIFF01 algebra identities:
+
+```text
+||Zero|| = 0
+d(A,A) = 0
+d(A,B) = d(B,A)
+cos_T(A,A) = 1
+Diff(A,B) = -Diff(B,A)
+```
+
+E-DIFF02 state finite difference:
+
+```text
+[L(H + eps U) - L(H - eps U)] / (2 eps)
+matches <H-Target, U>_T
+```
+
+E-DIFF03 prob vector plus finite difference:
+
+```text
+finite_diff(dL/dtheta) ~= analytic(dL/dtheta)
+```
+
+E-DIFF04 learning signal:
+
+```text
+one gradient step decreases TreeHeap weighted MSE distance to target
+and increases target node write probability
+```
+
+### Status
+
+Executed pilot on `io.grepcode.cn`:
+
+```text
+src/treeheap_diff_algebra_probe.py
+evidence/treeheap_diff_algebra_probe/
+```
+
+Result:
+
+```text
+norm_zero = 0
+dist_aa = 0
+dist_ab = dist_ba = 8.779953
+cos_aa = 1.0
+directional_derivative_abs_error = 3.48e-10
+theta_grad_abs_error = 4.21e-10
+theta_grad_rel_error = 2.10e-10
+initial_loss = 29.138441
+stepped_loss = 0.000660
+target_prob_before = 0.064808
+target_prob_after = 0.995534
+```
+
+Interpretation:
+
+```text
+M0-DIFF-C01 is supported as a pilot. TreeHeap distance can be derived from
+diff->norm/inner-product, and finite differences provide the learning signal
+needed by probabilistic vector plus.
+```

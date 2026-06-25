@@ -660,3 +660,102 @@ probability-kernel learning. It does not prove TreeHeap structural advantage;
 in this toy the world-model distribution is content-distance based, so `mlp_raw`
 has the best learned OOD KL.
 ```
+
+---
+
+## treeheap_diff_algebra_probe.py
+
+### Question
+
+Can TreeHeap distance be defined from first principles as:
+
+```text
+diff -> norm / inner product / cosine -> finite difference -> learning signal
+```
+
+rather than as an ad hoc scalar metric?
+
+### Design
+
+Define:
+
+```text
+Zero[i] = 0 in R^128
+Diff(A,B)[i] = A[i] - B[i]
+||H||_T = sqrt(sum_i alpha^depth(i) * ||H[i]||_2^2)
+d(A,B) = ||A-B||_T
+<A,B>_T = sum_i alpha^depth(i) * <A[i],B[i]>
+cos_T(A,B) = <A,B>_T / (||A||_T ||B||_T)
+```
+
+Then test finite difference in two spaces:
+
+```text
+TreeHeap state:
+  [L(H + eps U) - L(H - eps U)] / (2 eps)
+
+prob vector plus route parameter:
+  H' = H + softmax(theta)_i * x
+  finite_diff(dL/dtheta) ~= analytic(dL/dtheta)
+```
+
+### Execution
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Command:
+
+```bash
+cd /home/nio/log/holds/SameTime
+python3 ara/m0-treeheap-math/src/treeheap_diff_algebra_probe.py \
+  --out ara/m0-treeheap-math/evidence/treeheap_diff_algebra_probe \
+  --seed 27 \
+  --nodes 15 \
+  --dim 128 \
+  --alpha 0.72 \
+  --eps 1e-5
+```
+
+Outputs:
+
+```text
+evidence/treeheap_diff_algebra_probe/summary.json
+evidence/treeheap_diff_algebra_probe/README.md
+evidence/treeheap_diff_algebra_probe/trace.jsonl
+```
+
+### Result
+
+| Metric | Value |
+|---|---:|
+| `norm_zero` | 0.000000 |
+| `dist_aa` | 0.000000 |
+| `dist_ab` | 8.779953 |
+| `dist_ba` | 8.779953 |
+| `cos_aa` | 1.000000 |
+| `anti_sym_error` | 0.000000 |
+| `directional_derivative_abs_error` | 3.48e-10 |
+| `theta_grad_abs_error` | 4.21e-10 |
+| `theta_grad_rel_error` | 2.10e-10 |
+| `initial_loss` | 29.138441 |
+| `stepped_loss` | 0.000660 |
+| `target_prob_before` | 0.064808 |
+| `target_prob_after` | 0.995534 |
+
+### Decision
+
+```text
+M0-DIFF-C01 -> supported pilot
+```
+
+Boundary:
+
+```text
+This proves a usable TreeHeap diff/distance/finite-difference algebra for
+learning signals. It does not prove semantic world-model alignment, a final S1
+encoder, WMT, or superiority over MLP/Transformer.
+```
