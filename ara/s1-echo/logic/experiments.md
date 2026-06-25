@@ -319,3 +319,88 @@ the encoder so that TreeHeap structure actually matters: shared family slots,
 subheap reuse, copy/read pointer constraints, and route entropy/collapse
 controls. Then rerun against vector_add.
 ```
+
+---
+
+## E7: Local Corpus Embedding + Structured TreeHeap Kernel
+
+Question:
+
+```text
+Can we avoid pretrained-vector distillation by training a small coordinate
+space from local corpus co-occurrence, then test whether a structured TreeHeap
+write/compose kernel improves over vector_add?
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_corpus_embedding_kernel_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Coordinate source:
+
+```text
+local SGNS corpus embedding
+external_model = false
+vocab_size = 85
+corpus_sentences = 888
+skipgram_pairs = 10448
+```
+
+Kernel design:
+
+```text
+left token  -> left child
+right token -> right child
+root        -> compose kernel(left_child, right_child)
+```
+
+This is different from E6's unconstrained TreeHeap reader. The kernel design
+forces the write operation to use TreeHeap structure.
+
+Models:
+
+| Model | Meaning |
+|---|---|
+| `vector_add` | normalize(left + right), zero trainable parameters |
+| `concat_mlp` | MLP over `[left, right, left*right, abs(left-right)]` |
+| `structured_treeheap_kernel` | child writes plus root compose kernel |
+
+Result:
+
+| Model | Train cosine | Test cosine | OOD cosine | OOD top1 |
+|---|---:|---:|---:|---:|
+| `vector_add` | 0.5705 | 0.5965 | 0.5785 | 0.000 |
+| `concat_mlp` | 0.9994 | 0.6957 | 0.7321 | 0.167 |
+| `structured_treeheap_kernel` | 0.9999 | 0.6801 | 0.7126 | 0.000 |
+
+Decision:
+
+```text
+S1-WM-C02 -> supported pilot, narrow scope
+```
+
+Interpretation:
+
+```text
+The local-corpus coordinate setup removes the pretrained-vector advantage. In
+this setting, structured TreeHeap kernel beats vector_add on OOD cosine and is
+close to concat_mlp. However, OOD top1 is still 0, so the probe supports
+coordinate closeness but not reliable target retrieval.
+```
+
+Next action:
+
+```text
+Run multi-seed/corpus variants and improve kernel constraints:
+family slots, explicit subheap reuse, route collapse regularization, and
+nearest-neighbor margin loss. The next proof should require OOD top1 or MRR
+improvement, not only cosine.
+```

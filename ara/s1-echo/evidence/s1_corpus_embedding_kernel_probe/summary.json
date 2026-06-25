@@ -1,0 +1,780 @@
+{
+  "claim": "S1-WM-C02",
+  "predict": "P-S1-WM02",
+  "host": "io.grepcode.cn",
+  "seed": 43,
+  "coordinate_source": {
+    "kind": "local SGNS corpus embedding",
+    "external_model": false,
+    "distillation_guard": "no pretrained embedding model is used; coordinates are trained from the local curated compound corpus",
+    "vocab_size": 85,
+    "corpus_sentences": 888,
+    "skipgram_pairs": 10448
+  },
+  "dataset": {
+    "train": 17,
+    "test": 9,
+    "ood": 6,
+    "rows": [
+      {
+        "left": "foot",
+        "right": "ball",
+        "target": "football",
+        "split": "train",
+        "family": "ball"
+      },
+      {
+        "left": "basket",
+        "right": "ball",
+        "target": "basketball",
+        "split": "train",
+        "family": "ball"
+      },
+      {
+        "left": "base",
+        "right": "ball",
+        "target": "baseball",
+        "split": "train",
+        "family": "ball"
+      },
+      {
+        "left": "snow",
+        "right": "ball",
+        "target": "snowball",
+        "split": "test",
+        "family": "ball"
+      },
+      {
+        "left": "hand",
+        "right": "ball",
+        "target": "handball",
+        "split": "ood",
+        "family": "ball"
+      },
+      {
+        "left": "rain",
+        "right": "coat",
+        "target": "raincoat",
+        "split": "train",
+        "family": "coat"
+      },
+      {
+        "left": "over",
+        "right": "coat",
+        "target": "overcoat",
+        "split": "train",
+        "family": "coat"
+      },
+      {
+        "left": "trench",
+        "right": "coat",
+        "target": "trenchcoat",
+        "split": "test",
+        "family": "coat"
+      },
+      {
+        "left": "book",
+        "right": "shelf",
+        "target": "bookshelf",
+        "split": "train",
+        "family": "storage"
+      },
+      {
+        "left": "book",
+        "right": "case",
+        "target": "bookcase",
+        "split": "train",
+        "family": "storage"
+      },
+      {
+        "left": "cup",
+        "right": "board",
+        "target": "cupboard",
+        "split": "test",
+        "family": "board"
+      },
+      {
+        "left": "key",
+        "right": "board",
+        "target": "keyboard",
+        "split": "ood",
+        "family": "board"
+      },
+      {
+        "left": "black",
+        "right": "board",
+        "target": "blackboard",
+        "split": "train",
+        "family": "board"
+      },
+      {
+        "left": "white",
+        "right": "board",
+        "target": "whiteboard",
+        "split": "test",
+        "family": "board"
+      },
+      {
+        "left": "note",
+        "right": "book",
+        "target": "notebook",
+        "split": "train",
+        "family": "book"
+      },
+      {
+        "left": "guide",
+        "right": "book",
+        "target": "guidebook",
+        "split": "train",
+        "family": "book"
+      },
+      {
+        "left": "text",
+        "right": "book",
+        "target": "textbook",
+        "split": "test",
+        "family": "book"
+      },
+      {
+        "left": "scrap",
+        "right": "book",
+        "target": "scrapbook",
+        "split": "ood",
+        "family": "book"
+      },
+      {
+        "left": "sun",
+        "right": "light",
+        "target": "sunlight",
+        "split": "train",
+        "family": "light"
+      },
+      {
+        "left": "moon",
+        "right": "light",
+        "target": "moonlight",
+        "split": "train",
+        "family": "light"
+      },
+      {
+        "left": "star",
+        "right": "light",
+        "target": "starlight",
+        "split": "test",
+        "family": "light"
+      },
+      {
+        "left": "flash",
+        "right": "light",
+        "target": "flashlight",
+        "split": "ood",
+        "family": "light"
+      },
+      {
+        "left": "bed",
+        "right": "room",
+        "target": "bedroom",
+        "split": "train",
+        "family": "room"
+      },
+      {
+        "left": "bath",
+        "right": "room",
+        "target": "bathroom",
+        "split": "train",
+        "family": "room"
+      },
+      {
+        "left": "class",
+        "right": "room",
+        "target": "classroom",
+        "split": "test",
+        "family": "room"
+      },
+      {
+        "left": "tooth",
+        "right": "brush",
+        "target": "toothbrush",
+        "split": "train",
+        "family": "brush"
+      },
+      {
+        "left": "hair",
+        "right": "brush",
+        "target": "hairbrush",
+        "split": "test",
+        "family": "brush"
+      },
+      {
+        "left": "paint",
+        "right": "brush",
+        "target": "paintbrush",
+        "split": "ood",
+        "family": "brush"
+      },
+      {
+        "left": "head",
+        "right": "phone",
+        "target": "headphone",
+        "split": "train",
+        "family": "phone"
+      },
+      {
+        "left": "ear",
+        "right": "phone",
+        "target": "earphone",
+        "split": "test",
+        "family": "phone"
+      },
+      {
+        "left": "door",
+        "right": "bell",
+        "target": "doorbell",
+        "split": "train",
+        "family": "door"
+      },
+      {
+        "left": "door",
+        "right": "way",
+        "target": "doorway",
+        "split": "ood",
+        "family": "door"
+      }
+    ]
+  },
+  "kernel_design": "structured TreeHeap kernel: left write -> left child, right write -> right child, root compose kernel",
+  "models": {
+    "vector_add": {
+      "parameters": 0,
+      "train": {
+        "mean_cosine": 0.5704810619354248,
+        "top1": 0.058823529411764705,
+        "mrr": 0.3411764705882353,
+        "mean_rank": 3.4705882352941178,
+        "examples": [
+          {
+            "gold": "football",
+            "pred_top1": "baseball",
+            "rank": 5,
+            "cosine": 0.5184186100959778
+          },
+          {
+            "gold": "basketball",
+            "pred_top1": "baseball",
+            "rank": 5,
+            "cosine": 0.5337609052658081
+          },
+          {
+            "gold": "baseball",
+            "pred_top1": "handball",
+            "rank": 5,
+            "cosine": 0.5966231226921082
+          },
+          {
+            "gold": "raincoat",
+            "pred_top1": "trenchcoat",
+            "rank": 3,
+            "cosine": 0.5794172286987305
+          },
+          {
+            "gold": "overcoat",
+            "pred_top1": "trenchcoat",
+            "rank": 3,
+            "cosine": 0.5350545644760132
+          },
+          {
+            "gold": "bookshelf",
+            "pred_top1": "bookcase",
+            "rank": 3,
+            "cosine": 0.5459800362586975
+          },
+          {
+            "gold": "bookcase",
+            "pred_top1": "bookshelf",
+            "rank": 5,
+            "cosine": 0.48565202951431274
+          },
+          {
+            "gold": "blackboard",
+            "pred_top1": "keyboard",
+            "rank": 4,
+            "cosine": 0.5749919414520264
+          }
+        ]
+      },
+      "test": {
+        "mean_cosine": 0.5965154767036438,
+        "top1": 0.0,
+        "mrr": 0.32407407407407407,
+        "mean_rank": 3.2222222222222223,
+        "examples": [
+          {
+            "gold": "snowball",
+            "pred_top1": "baseball",
+            "rank": 4,
+            "cosine": 0.5852711200714111
+          },
+          {
+            "gold": "trenchcoat",
+            "pred_top1": "raincoat",
+            "rank": 3,
+            "cosine": 0.6620035171508789
+          },
+          {
+            "gold": "cupboard",
+            "pred_top1": "keyboard",
+            "rank": 3,
+            "cosine": 0.6043436527252197
+          },
+          {
+            "gold": "whiteboard",
+            "pred_top1": "keyboard",
+            "rank": 3,
+            "cosine": 0.5754809379577637
+          },
+          {
+            "gold": "textbook",
+            "pred_top1": "guidebook",
+            "rank": 4,
+            "cosine": 0.5515270233154297
+          },
+          {
+            "gold": "starlight",
+            "pred_top1": "sunlight",
+            "rank": 4,
+            "cosine": 0.6016740798950195
+          },
+          {
+            "gold": "classroom",
+            "pred_top1": "bathroom",
+            "rank": 3,
+            "cosine": 0.6064897179603577
+          },
+          {
+            "gold": "hairbrush",
+            "pred_top1": "toothbrush",
+            "rank": 3,
+            "cosine": 0.5650043487548828
+          }
+        ]
+      },
+      "ood": {
+        "mean_cosine": 0.5785092115402222,
+        "top1": 0.0,
+        "mrr": 0.3333333333333333,
+        "mean_rank": 3.1666666666666665,
+        "examples": [
+          {
+            "gold": "handball",
+            "pred_top1": "baseball",
+            "rank": 3,
+            "cosine": 0.5526849031448364
+          },
+          {
+            "gold": "keyboard",
+            "pred_top1": "blackboard",
+            "rank": 4,
+            "cosine": 0.6031520366668701
+          },
+          {
+            "gold": "scrapbook",
+            "pred_top1": "guidebook",
+            "rank": 3,
+            "cosine": 0.5392894148826599
+          },
+          {
+            "gold": "flashlight",
+            "pred_top1": "starlight",
+            "rank": 4,
+            "cosine": 0.6017436981201172
+          },
+          {
+            "gold": "paintbrush",
+            "pred_top1": "toothbrush",
+            "rank": 3,
+            "cosine": 0.5860300660133362
+          },
+          {
+            "gold": "doorway",
+            "pred_top1": "doorbell",
+            "rank": 2,
+            "cosine": 0.5881552696228027
+          }
+        ]
+      }
+    },
+    "concat_mlp": {
+      "parameters": 61664,
+      "train": {
+        "mean_cosine": 0.9993910789489746,
+        "top1": 1.0,
+        "mrr": 1.0,
+        "mean_rank": 1.0,
+        "examples": [
+          {
+            "gold": "football",
+            "pred_top1": "football",
+            "rank": 1,
+            "cosine": 0.999492883682251
+          },
+          {
+            "gold": "basketball",
+            "pred_top1": "basketball",
+            "rank": 1,
+            "cosine": 0.9994783401489258
+          },
+          {
+            "gold": "baseball",
+            "pred_top1": "baseball",
+            "rank": 1,
+            "cosine": 0.9993935823440552
+          },
+          {
+            "gold": "raincoat",
+            "pred_top1": "raincoat",
+            "rank": 1,
+            "cosine": 0.9990795850753784
+          },
+          {
+            "gold": "overcoat",
+            "pred_top1": "overcoat",
+            "rank": 1,
+            "cosine": 0.9984204769134521
+          },
+          {
+            "gold": "bookshelf",
+            "pred_top1": "bookshelf",
+            "rank": 1,
+            "cosine": 0.9996413588523865
+          },
+          {
+            "gold": "bookcase",
+            "pred_top1": "bookcase",
+            "rank": 1,
+            "cosine": 0.9995157718658447
+          },
+          {
+            "gold": "blackboard",
+            "pred_top1": "blackboard",
+            "rank": 1,
+            "cosine": 0.9994428753852844
+          }
+        ]
+      },
+      "test": {
+        "mean_cosine": 0.6957399845123291,
+        "top1": 0.0,
+        "mrr": 0.3888888888888889,
+        "mean_rank": 2.7777777777777777,
+        "examples": [
+          {
+            "gold": "snowball",
+            "pred_top1": "football",
+            "rank": 3,
+            "cosine": 0.7150970697402954
+          },
+          {
+            "gold": "trenchcoat",
+            "pred_top1": "raincoat",
+            "rank": 3,
+            "cosine": 0.723896324634552
+          },
+          {
+            "gold": "cupboard",
+            "pred_top1": "blackboard",
+            "rank": 2,
+            "cosine": 0.6794633865356445
+          },
+          {
+            "gold": "whiteboard",
+            "pred_top1": "blackboard",
+            "rank": 2,
+            "cosine": 0.6043030023574829
+          },
+          {
+            "gold": "textbook",
+            "pred_top1": "guidebook",
+            "rank": 4,
+            "cosine": 0.719189465045929
+          },
+          {
+            "gold": "starlight",
+            "pred_top1": "moonlight",
+            "rank": 4,
+            "cosine": 0.7041807174682617
+          },
+          {
+            "gold": "classroom",
+            "pred_top1": "bathroom",
+            "rank": 3,
+            "cosine": 0.7060574293136597
+          },
+          {
+            "gold": "hairbrush",
+            "pred_top1": "toothbrush",
+            "rank": 2,
+            "cosine": 0.7176746129989624
+          }
+        ]
+      },
+      "ood": {
+        "mean_cosine": 0.7321094870567322,
+        "top1": 0.16666666666666666,
+        "mrr": 0.5833333333333334,
+        "mean_rank": 1.8333333333333333,
+        "examples": [
+          {
+            "gold": "handball",
+            "pred_top1": "basketball",
+            "rank": 2,
+            "cosine": 0.7494951486587524
+          },
+          {
+            "gold": "keyboard",
+            "pred_top1": "blackboard",
+            "rank": 2,
+            "cosine": 0.645011305809021
+          },
+          {
+            "gold": "scrapbook",
+            "pred_top1": "notebook",
+            "rank": 2,
+            "cosine": 0.7981685400009155
+          },
+          {
+            "gold": "flashlight",
+            "pred_top1": "flashlight",
+            "rank": 1,
+            "cosine": 0.8065349459648132
+          },
+          {
+            "gold": "paintbrush",
+            "pred_top1": "toothbrush",
+            "rank": 2,
+            "cosine": 0.6900893449783325
+          },
+          {
+            "gold": "doorway",
+            "pred_top1": "doorbell",
+            "rank": 2,
+            "cosine": 0.7033573389053345
+          }
+        ]
+      }
+    },
+    "structured_treeheap_kernel": {
+      "parameters": 94432,
+      "train": {
+        "mean_cosine": 0.9998989105224609,
+        "top1": 1.0,
+        "mrr": 1.0,
+        "mean_rank": 1.0,
+        "examples": [
+          {
+            "gold": "football",
+            "pred_top1": "football",
+            "rank": 1,
+            "cosine": 0.9999673366546631
+          },
+          {
+            "gold": "basketball",
+            "pred_top1": "basketball",
+            "rank": 1,
+            "cosine": 0.9999407529830933
+          },
+          {
+            "gold": "baseball",
+            "pred_top1": "baseball",
+            "rank": 1,
+            "cosine": 0.9999377727508545
+          },
+          {
+            "gold": "raincoat",
+            "pred_top1": "raincoat",
+            "rank": 1,
+            "cosine": 0.9998971223831177
+          },
+          {
+            "gold": "overcoat",
+            "pred_top1": "overcoat",
+            "rank": 1,
+            "cosine": 0.9998624324798584
+          },
+          {
+            "gold": "bookshelf",
+            "pred_top1": "bookshelf",
+            "rank": 1,
+            "cosine": 0.9998489618301392
+          },
+          {
+            "gold": "bookcase",
+            "pred_top1": "bookcase",
+            "rank": 1,
+            "cosine": 0.9998348355293274
+          },
+          {
+            "gold": "blackboard",
+            "pred_top1": "blackboard",
+            "rank": 1,
+            "cosine": 0.999940037727356
+          }
+        ]
+      },
+      "test": {
+        "mean_cosine": 0.6801076531410217,
+        "top1": 0.0,
+        "mrr": 0.374074074074074,
+        "mean_rank": 3.0,
+        "examples": [
+          {
+            "gold": "snowball",
+            "pred_top1": "football",
+            "rank": 5,
+            "cosine": 0.646804928779602
+          },
+          {
+            "gold": "trenchcoat",
+            "pred_top1": "overcoat",
+            "rank": 3,
+            "cosine": 0.6896752119064331
+          },
+          {
+            "gold": "cupboard",
+            "pred_top1": "blackboard",
+            "rank": 2,
+            "cosine": 0.6427029967308044
+          },
+          {
+            "gold": "whiteboard",
+            "pred_top1": "blackboard",
+            "rank": 2,
+            "cosine": 0.6408771276473999
+          },
+          {
+            "gold": "textbook",
+            "pred_top1": "guidebook",
+            "rank": 4,
+            "cosine": 0.681315541267395
+          },
+          {
+            "gold": "starlight",
+            "pred_top1": "sunlight",
+            "rank": 4,
+            "cosine": 0.6991034746170044
+          },
+          {
+            "gold": "classroom",
+            "pred_top1": "bathroom",
+            "rank": 3,
+            "cosine": 0.7024420499801636
+          },
+          {
+            "gold": "hairbrush",
+            "pred_top1": "toothbrush",
+            "rank": 2,
+            "cosine": 0.7051963806152344
+          }
+        ]
+      },
+      "ood": {
+        "mean_cosine": 0.7126012444496155,
+        "top1": 0.0,
+        "mrr": 0.4166666666666667,
+        "mean_rank": 2.5,
+        "examples": [
+          {
+            "gold": "handball",
+            "pred_top1": "basketball",
+            "rank": 3,
+            "cosine": 0.7429779767990112
+          },
+          {
+            "gold": "keyboard",
+            "pred_top1": "blackboard",
+            "rank": 2,
+            "cosine": 0.6568906307220459
+          },
+          {
+            "gold": "scrapbook",
+            "pred_top1": "notebook",
+            "rank": 3,
+            "cosine": 0.7531235814094543
+          },
+          {
+            "gold": "flashlight",
+            "pred_top1": "sunlight",
+            "rank": 3,
+            "cosine": 0.787381112575531
+          },
+          {
+            "gold": "paintbrush",
+            "pred_top1": "toothbrush",
+            "rank": 2,
+            "cosine": 0.6456232070922852
+          },
+          {
+            "gold": "doorway",
+            "pred_top1": "doorbell",
+            "rank": 2,
+            "cosine": 0.6896108388900757
+          }
+        ]
+      }
+    }
+  },
+  "traces": {
+    "sgns": [
+      {
+        "epoch": 0,
+        "loss": 3.884226157873367
+      },
+      {
+        "epoch": 110,
+        "loss": 2.086684994091484
+      },
+      {
+        "epoch": 219,
+        "loss": 2.0867633585907965
+      }
+    ],
+    "concat_mlp": [
+      {
+        "epoch": 0,
+        "loss": 0.9598734378814697
+      },
+      {
+        "epoch": 450,
+        "loss": 0.0001494884490966797
+      },
+      {
+        "epoch": 899,
+        "loss": 0.0004934422904625535
+      }
+    ],
+    "structured_treeheap_kernel": [
+      {
+        "epoch": 0,
+        "loss": 1.0801501274108887
+      },
+      {
+        "epoch": 450,
+        "loss": 0.0002003732806770131
+      },
+      {
+        "epoch": 899,
+        "loss": 0.00010773714893730357
+      }
+    ]
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "Structured TreeHeap kernel beats vector_add on OOD in the local corpus coordinate system.",
+    "not_proved": [
+      "not WMT",
+      "not full language world model",
+      "not superiority over all MLP/Transformer variants",
+      "small curated corpus may encode the task too directly or too weakly"
+    ]
+  },
+  "elapsed_sec": 11.87
+}
