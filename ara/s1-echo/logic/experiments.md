@@ -404,3 +404,126 @@ family slots, explicit subheap reuse, route collapse regularization, and
 nearest-neighbor margin loss. The next proof should require OOD top1 or MRR
 improvement, not only cosine.
 ```
+
+---
+
+## E8: WMT SentencePiece Echo Kernel Probe
+
+Question:
+
+```text
+Can a structured TreeHeap kernel write and read real WMT SentencePiece short
+sequences, using address/path structure rather than only flat token
+memorization?
+```
+
+Why this follows E7:
+
+```text
+E7 tested a local co-occurrence coordinate system.
+E8 returns to real WMT text, but uses an echo target rather than translation.
+This isolates the write/read kernel before asking for semantic generation.
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_wmt_echo_kernel_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_wmt_echo_kernel_probe/
+```
+
+Dataset:
+
+```text
+WMT17 English side
+source file = /mnt/nas/datasets/wmt17/train.zh-en
+SentencePiece model = /mnt/nas/datasets/wmt17/sp_bpe.model
+samples = 3000
+train/test/ood = 2400/300/300
+token length = 3..8
+average non-pad length = 5.9533
+vocab limit including PAD = 2048
+```
+
+Kernel design:
+
+```text
+token id -> shared token embedding
+position -> fixed heap leaf address
+internal nodes -> shared bottom-up compose kernel
+leaf readout -> shared decoder
+```
+
+This means the model is not free to read from an arbitrary flat vector. It must
+write token states into leaf addresses, compose them upward through a TreeHeap,
+and decode from leaf states.
+
+Models:
+
+| Model | Meaning |
+|---|---|
+| `bow_linear` | unordered bag-of-token baseline |
+| `seq_mlp` | flat position-aware MLP baseline |
+| `treeheap_kernel_echo` | fixed leaf write plus shared TreeHeap compose/read kernels |
+
+Result:
+
+| Model | Params | Test token | Test exact | OOD token | OOD exact |
+|---|---:|---:|---:|---:|---:|
+| `bow_linear` | 33,570,816 | 0.1679 | 0.0033 | 0.1659 | 0.0033 |
+| `seq_mlp` | 16,794,112 | 0.5801 | 0.0567 | 0.5986 | 0.0533 |
+| `treeheap_kernel_echo` | 423,104 | 0.9818 | 0.8900 | 0.9818 | 0.9000 |
+
+Training traces:
+
+```text
+bow_linear loss:          7.5012 -> 2.6490 -> 1.0412
+seq_mlp loss:             6.7628 -> 0.0105 -> 0.0034
+treeheap_kernel_echo loss:6.0619 -> 0.0149 -> 0.0049
+```
+
+Decision:
+
+```text
+S1-WMT-ECHO-C01 -> supported pilot
+```
+
+Interpretation:
+
+```text
+TreeHeap kernel can write/read real WMT short BPE sequences in this echo
+setting. The result supports address/path-sensitive kernel design: the
+TreeHeap model is much smaller than the flat sequence MLP but generalizes much
+better on held-out and OOD short sequences.
+```
+
+What this does not prove:
+
+```text
+not translation
+not semantic world model
+not compression
+not long-sequence syntax
+not victory over copy-capable sequence baselines
+```
+
+Next falsification:
+
+```text
+1. length 8 -> 16/32 echo
+2. noisy echo: mask/drop/swap one token, ask kernel to restore
+3. subheap query: read a phrase/window, not the whole sequence
+4. matched copy/pointer sequence baseline
+5. multi-seed and larger WMT slices
+```
