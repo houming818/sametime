@@ -43,8 +43,14 @@ Purpose: Track SPR S1 claims, evidence, and falsification criteria.
 |----|-------|--------|----------|---------------|
 | S1-C30 | A learnable shallow TreeHeap write can encode real short sentences into queryable `root/subject/object` slots, including OOD lexical copy-by-address. | supported pilot | `shallow_treeheap_s1_probe.py` on ni, 2026-06-25: soft TreeHeap train/test/OOD exact `1.0/1.0/1.0`; learned position writes `subject/root/object`; BoW and seq linear OOD exact `0.0`. | If a matched copy-capable flat baseline or sequence model matches OOD copy and structural query accuracy under the same parameter and data budget, this pilot does not show a TreeHeap-specific S1 advantage. |
 
+## World-Model Coordinates
+
+| ID | Claim | Status | Evidence | Falsification |
+|----|-------|--------|----------|---------------|
+| S1-WM-C01 | Frozen external embeddings can be used as a world-coordinate ruler for compound words; a TreeHeap prob vector plus encoder should map compound inputs toward target compound coordinates at least comparably to simple baselines. | rejected pilot | `s1_world_model_compound_probe.py` on io, 2026-06-25: local cached `all-MiniLM-L6-v2` projected to 128D; `vector_add` OOD cosine/top1 `0.7198/0.833`; `concat_mlp` OOD `0.5766/0.0`; `treeheap_prob_vector_plus` OOD `0.3919/0.0`; pilot_pass=false. | Reopen only if a constrained TreeHeap encoder beats `vector_add` and matches/exceeds copy/concat baselines on held-out/OOD compound families without treating frozen embeddings as a trainable teacher. |
+
 ## Architecture Position
 
 Current S1 conclusion:
 
-SPR Echo has proved capacity, order sensitivity, and near-lossless self-mapping. Current token-only S1 routing has failed the first polysemy falsification, so it should be treated as a high-capacity identity/path hash. A controlled context proof now supports the S1b interface, but only as a mechanism proof. The 2026-06-25 shallow sentence pilot adds the first post-M0 S1 bridge: real-word short sentences can be written into shallow TreeHeap slots and queried with OOD lexical copy. The next architecture gate is to make this less position-template-like by adding variable length, modifiers, passive/OSV order, and matched copy-capable baselines.
+SPR Echo has proved capacity, order sensitivity, and near-lossless self-mapping. Current token-only S1 routing has failed the first polysemy falsification, so it should be treated as a high-capacity identity/path hash. A controlled context proof now supports the S1b interface, but only as a mechanism proof. The 2026-06-25 shallow sentence pilot adds the first post-M0 S1 bridge: real-word short sentences can be written into shallow TreeHeap slots and queried with OOD lexical copy. The first frozen-embedding world-coordinate probe is a negative result: simple vector addition is already a strong compound baseline, while the current unconstrained TreeHeap prob vector plus overfits train and fails OOD. The next architecture gate is to make the TreeHeap encoder structurally constrained and compare against `vector_add`, copy/pointer, and concat baselines.

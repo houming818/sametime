@@ -211,3 +211,111 @@ Add variable length, modifiers, passive/OSV order, and matched pointer/copy
 sequence baselines. If those baselines match TreeHeap, this pilot is only an
 existence proof, not a TreeHeap advantage proof.
 ```
+
+---
+
+## E6: Frozen Embedding Compound Coordinate Probe
+
+Question:
+
+```text
+Can a TreeHeap prob vector plus encoder use M0 diff/loss machinery to write two
+word vectors into a zero TreeHeap and read out a compound concept vector close
+to a frozen external world-coordinate target?
+```
+
+Distillation guard:
+
+```text
+The external embedding model is frozen and used only as a coordinate ruler.
+This experiment must not claim that TreeHeap learned the external model's world
+knowledge. It only tests whether TreeHeap can fit and generalize in that
+coordinate system.
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_world_model_compound_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Embedding source:
+
+```text
+sentence-transformers/all-MiniLM-L6-v2
+local cached snapshot:
+/home/nio/.cache/huggingface/hub/models--sentence-transformers--all-MiniLM-L6-v2/snapshots/1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+raw_dim = 384
+projected_dim = 128
+```
+
+No `proxychains4` was needed for this run because the model snapshot was already
+cached on `io`. If a future dataset or embedding is not cached, use
+`proxychains4` explicitly and record the download command in the evidence.
+
+Dataset:
+
+```text
+compound words
+train = 20
+test  = 11
+ood   = 6
+targets = 37
+```
+
+Examples:
+
+```text
+foot + ball -> football
+basket + ball -> basketball
+hand + ball -> handball
+rain + coat -> raincoat
+book + shelf -> bookshelf
+flash + light -> flashlight
+```
+
+Models:
+
+| Model | Meaning |
+|---|---|
+| `vector_add` | normalize(left + right), zero trainable parameters |
+| `concat_mlp` | MLP over `[left, right, left*right, abs(left-right)]` |
+| `treeheap_prob_vector_plus` | write left/right into a zero TreeHeap with probabilistic vector plus, then read out |
+
+Result:
+
+| Model | Train cosine | Test cosine | OOD cosine | Test top1 | OOD top1 |
+|---|---:|---:|---:|---:|---:|
+| `vector_add` | 0.7117 | 0.7256 | 0.7198 | 0.909 | 0.833 |
+| `concat_mlp` | 1.0000 | 0.6269 | 0.5766 | 0.000 | 0.000 |
+| `treeheap_prob_vector_plus` | 0.9999 | 0.5051 | 0.3919 | 0.000 | 0.000 |
+
+Decision:
+
+```text
+S1-WM-C01 -> rejected pilot
+```
+
+Interpretation:
+
+```text
+The frozen embedding coordinate experiment did connect TreeHeap to an external
+world-coordinate ruler, but the current TreeHeap encoder overfits the small
+training set and fails OOD. Simple vector addition is a strong baseline for
+compound coordinates and must be treated as the first baseline to beat.
+```
+
+Next action:
+
+```text
+Do not add more parameters to the current TreeHeap reader. Instead, constrain
+the encoder so that TreeHeap structure actually matters: shared family slots,
+subheap reuse, copy/read pointer constraints, and route entropy/collapse
+controls. Then rerun against vector_add.
+```
