@@ -108,3 +108,106 @@ Every experiment output must write:
 - claim IDs affected
 
 Evidence goes in `ara/s1-echo/evidence/README.md`.
+
+---
+
+## E5: Shallow Real-Sentence TreeHeap Write
+
+Question:
+
+```text
+Can real short sentences be encoded into a shallow TreeHeap memory and queried
+by root/subject/object/subheap probes?
+```
+
+Why this is the first post-M0 S1 step:
+
+```text
+M0 proved that TreeHeap operations can be defined.
+S1 must now test whether data can be written into a TreeHeap-shaped memory.
+```
+
+Script:
+
+```text
+ara/s1-echo/src/shallow_treeheap_s1_probe.py
+```
+
+Remote host:
+
+```text
+ni.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/shallow_treeheap_s1_probe/
+```
+
+Dataset:
+
+```text
+curated real-word short sentences
+train = 63
+test  = 17
+ood   = 10
+vocab = 37
+slots = root / subject / object
+```
+
+The OOD split contains lexical items unseen as train outputs:
+
+```text
+erin draws cup
+nurse brings water
+teacher holds book
+...
+```
+
+Models:
+
+| Model | Meaning |
+|---|---|
+| `bow_linear` | unordered bag-of-words linear probe |
+| `seq_linear` | position-aware sequence linear probe |
+| `soft_treeheap` | learned position-to-slot soft write plus copy-by-address memory |
+
+Result:
+
+| Model | Train exact | Test exact | OOD exact | Test subheap | OOD subheap |
+|---|---:|---:|---:|---:|---:|
+| `bow_linear` | 0.873 | 0.765 | 0.000 | 0.765 | 0.000 |
+| `seq_linear` | 1.000 | 0.765 | 0.000 | 0.765 | 0.000 |
+| `soft_treeheap` | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+
+Learned TreeHeap write:
+
+```text
+position 0 -> subject 0.9968
+position 1 -> root    0.9968
+position 2 -> object  0.9968
+```
+
+Decision:
+
+```text
+S1-C30 -> supported pilot
+```
+
+Interpretation:
+
+```text
+This supports the first S1 bridge: a learned shallow TreeHeap write can encode
+real short sentences into queryable slots, and copy OOD lexical items by
+address. It does not prove WMT, full syntax, deep TreeHeap, or superiority over
+copy-capable sequence models.
+```
+
+Next falsification:
+
+```text
+Add variable length, modifiers, passive/OSV order, and matched pointer/copy
+sequence baselines. If those baselines match TreeHeap, this pilot is only an
+existence proof, not a TreeHeap advantage proof.
+```
