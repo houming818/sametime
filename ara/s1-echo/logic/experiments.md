@@ -527,3 +527,192 @@ Next falsification:
 4. matched copy/pointer sequence baseline
 5. multi-seed and larger WMT slices
 ```
+
+---
+
+## E9: WMT Multi-Kernel Specialization Probe
+
+Question:
+
+```text
+If TreeHeap has a bank of convolution-style kernels, will structural
+perturbation tasks push those kernels to specialize, or will they remain
+redundant?
+```
+
+Relation to Transformer multi-head:
+
+```text
+Transformer multi-head attention gives different heads the opportunity to
+learn different relations, but it does not guarantee every head is useful.
+This experiment asks the analogous TreeHeap question: do multiple tree kernels
+actually differentiate under gradient pressure?
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_wmt_multikernel_specialization_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_wmt_multikernel_specialization_probe/
+ara/s1-echo/evidence/s1_wmt_multikernel_specialization_probe_common512/
+```
+
+Dataset:
+
+```text
+WMT17 English side
+SentencePiece model = /mnt/nas/datasets/wmt17/sp_bpe.model
+samples = 4000
+train/test/ood = 3200/400/400
+token length = 4..8
+```
+
+Tasks:
+
+| Task | Meaning |
+|---|---|
+| `echo` | reconstruct the original sequence |
+| `mask_restore` | one token is masked; reconstruct the sequence |
+| `left_query` | read the left subheap |
+| `right_query` | read the right subheap |
+| `mirror` | reconstruct the reversed sequence |
+
+Model design:
+
+```text
+token id -> leaf embedding
+leaf addresses -> complete binary heap leaves
+internal node -> kernel(left_child, right_child)
+task query -> soft gate over K kernels
+selected node -> task decoder
+```
+
+The multi-kernel model has four kernels. The single-kernel model has the same
+TreeHeap shape but only one compose kernel.
+
+Predict:
+
+```text
+P-S1-MK01:
+If structural perturbation creates useful gradient pressure, multi-kernel
+TreeHeap should outperform single-kernel TreeHeap, and kernel gates/ablations
+should show task-dependent specialization.
+```
+
+Pass gate:
+
+```text
+multi OOD mean exact - single OOD mean exact >= 0.05
+multi OOD mean exact >= 0.65
+at least two task argmax kernels are used
+max ablation exact drop >= 0.10
+```
+
+Run A: full vocab pilot
+
+```text
+vocab limit including PAD/MASK = 2049
+epochs = 28
+```
+
+Result:
+
+| Model | Params | OOD mean exact |
+|---|---:|---:|
+| `single_kernel_treeheap` | 4,641,545 | 0.0495 |
+| `multi_kernel_treeheap` | 4,938,764 | 0.0600 |
+
+Specialization signals:
+
+```text
+task_argmax_kernel = {
+  echo: 2,
+  mask_restore: 1,
+  left_query: 3,
+  right_query: 3,
+  mirror: 0
+}
+unique_argmax_kernels = 4
+max_ood_ablation_exact_drop = 0.1100
+```
+
+Run B: common-token pilot
+
+```text
+vocab limit including PAD/MASK = 513
+epochs = 60
+```
+
+Result:
+
+| Model | Params | OOD mean exact |
+|---|---:|---:|
+| `single_kernel_treeheap` | 1,286,921 | 0.1275 |
+| `multi_kernel_treeheap` | 1,584,140 | 0.1420 |
+
+Task exact on OOD:
+
+| Task | Single exact | Multi exact |
+|---|---:|---:|
+| `echo` | 0.0300 | 0.0375 |
+| `mask_restore` | 0.0050 | 0.0025 |
+| `left_query` | 0.1475 | 0.1775 |
+| `right_query` | 0.4525 | 0.4925 |
+| `mirror` | 0.0025 | 0.0000 |
+
+Specialization signals:
+
+```text
+task_argmax_kernel = {
+  echo: 0,
+  mask_restore: 1,
+  left_query: 0,
+  right_query: 3,
+  mirror: 2
+}
+unique_argmax_kernels = 4
+max_ood_ablation_exact_drop = 0.3050
+drop_kernel_0 left_query = 0.1775
+drop_kernel_3 right_query = 0.3050
+```
+
+Decision:
+
+```text
+S1-MK-C01 -> open / mixed pilot
+```
+
+Interpretation:
+
+```text
+The positive signal is real: task gates use different kernels, and kernel
+ablation causes task-specific damage, especially for left/right subheap
+queries. This supports the idea that structural perturbation can create
+kernel differentiation pressure.
+
+The negative signal is also real: OOD mean exact is low, multi-kernel improves
+single-kernel by only 0.0105 to 0.0145, and echo/mask/mirror remain weak under
+the current root-bottleneck decoder. Therefore this is not yet a supported
+multi-kernel capability proof.
+```
+
+Next action:
+
+```text
+1. Replace single root bottleneck decoding with path-conditioned read kernels.
+2. Keep subheap/path/noise tasks, but score token accuracy and exact separately.
+3. Add matched flat MLP and small Transformer baselines.
+4. Add kernel dropout and task-free query variants to test whether
+   specialization survives without explicit task labels.
+```

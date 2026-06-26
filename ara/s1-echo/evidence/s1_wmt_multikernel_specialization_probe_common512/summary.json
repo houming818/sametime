@@ -1,0 +1,345 @@
+{
+  "claim": "S1-MK-C01",
+  "predict": "P-S1-MK01",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "dataset": {
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "spm_model": "/mnt/nas/datasets/wmt17/sp_bpe.model",
+    "samples": 4000,
+    "train": 3200,
+    "test": 400,
+    "ood": 400,
+    "min_len": 4,
+    "max_len": 8,
+    "vocab_limit_including_pad_and_mask": 513,
+    "examples": [
+      "The tendency is either excessive restraint (Europe) or a diffusion of the effort (the United States).",
+      "For geo-strategists, however, the year that naturally comes to mind, in both politics and economics, is 1989.",
+      "The end of the East-West ideological divide and the end of absolute faith in markets are historical turning points.",
+      "One senses something like the making of an American-Asian dominated universe.",
+      "The consequences of 1989 ended up being less enduring than many observers, including me, would have assumed."
+    ]
+  },
+  "tasks": [
+    "echo",
+    "mask_restore",
+    "left_query",
+    "right_query",
+    "mirror"
+  ],
+  "predict_statement": "If structural perturbation tasks create useful gradient pressure, a TreeHeap kernel bank should outperform a single shared kernel, and kernel ablation/gates should show task-dependent specialization.",
+  "models": {
+    "single_kernel_treeheap": {
+      "parameters": 1286921,
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 5.051744346618652,
+          "test_mean_exact": 0.036
+        },
+        {
+          "epoch": 30,
+          "loss": 1.597869601249695,
+          "test_mean_exact": 0.11099999999999999
+        },
+        {
+          "epoch": 59,
+          "loss": 0.793964376449585,
+          "test_mean_exact": 0.12799999999999997
+        }
+      ],
+      "test": {
+        "echo": {
+          "token_acc": 0.43077547706049535,
+          "exact": 0.0275
+        },
+        "mask_restore": {
+          "token_acc": 0.38449045879009336,
+          "exact": 0.015
+        },
+        "left_query": {
+          "token_acc": 0.585625,
+          "exact": 0.12
+        },
+        "right_query": {
+          "token_acc": 0.578215527230591,
+          "exact": 0.4775
+        },
+        "mirror": {
+          "token_acc": 0.17295980511571254,
+          "exact": 0.0
+        },
+        "gate_mean_by_task": {
+          "echo": [
+            1.0
+          ],
+          "mask_restore": [
+            1.0
+          ],
+          "left_query": [
+            1.0
+          ],
+          "right_query": [
+            1.0
+          ],
+          "mirror": [
+            1.0
+          ]
+        },
+        "gate_entropy_by_task": {
+          "echo": -0.0,
+          "mask_restore": -0.0,
+          "left_query": -0.0,
+          "right_query": -0.0,
+          "mirror": -0.0
+        }
+      },
+      "ood": {
+        "echo": {
+          "token_acc": 0.4535211267605634,
+          "exact": 0.03
+        },
+        "mask_restore": {
+          "token_acc": 0.39758551307847084,
+          "exact": 0.005
+        },
+        "left_query": {
+          "token_acc": 0.590625,
+          "exact": 0.1475
+        },
+        "right_query": {
+          "token_acc": 0.5672316384180791,
+          "exact": 0.4525
+        },
+        "mirror": {
+          "token_acc": 0.18108651911468812,
+          "exact": 0.0025
+        },
+        "gate_mean_by_task": {
+          "echo": [
+            1.0
+          ],
+          "mask_restore": [
+            1.0
+          ],
+          "left_query": [
+            1.0
+          ],
+          "right_query": [
+            1.0
+          ],
+          "mirror": [
+            1.0
+          ]
+        },
+        "gate_entropy_by_task": {
+          "echo": -0.0,
+          "mask_restore": -0.0,
+          "left_query": -0.0,
+          "right_query": -0.0,
+          "mirror": -0.0
+        }
+      },
+      "test_mean_exact": 0.12799999999999997,
+      "ood_mean_exact": 0.1275
+    },
+    "multi_kernel_treeheap": {
+      "parameters": 1584140,
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 5.080122814178467,
+          "test_mean_exact": 0.0375
+        },
+        {
+          "epoch": 30,
+          "loss": 1.598224539756775,
+          "test_mean_exact": 0.1315
+        },
+        {
+          "epoch": 59,
+          "loss": 0.9921161341667175,
+          "test_mean_exact": 0.14550000000000002
+        }
+      ],
+      "test": {
+        "echo": {
+          "token_acc": 0.4782785221274868,
+          "exact": 0.0425
+        },
+        "mask_restore": {
+          "token_acc": 0.41250507511165246,
+          "exact": 0.0175
+        },
+        "left_query": {
+          "token_acc": 0.63625,
+          "exact": 0.18
+        },
+        "right_query": {
+          "token_acc": 0.6002317497103129,
+          "exact": 0.4875
+        },
+        "mirror": {
+          "token_acc": 0.1806739748274462,
+          "exact": 0.0
+        },
+        "gate_mean_by_task": {
+          "echo": [
+            0.4363958239555359,
+            0.3838653564453125,
+            0.0019447281956672668,
+            0.17779406905174255
+          ],
+          "mask_restore": [
+            0.3543386459350586,
+            0.4348493814468384,
+            0.0365937203168869,
+            0.17421825230121613
+          ],
+          "left_query": [
+            0.9975729584693909,
+            0.001433436875231564,
+            0.0005166109185665846,
+            0.0004770190571434796
+          ],
+          "right_query": [
+            0.0022681665141135454,
+            0.001199454301968217,
+            0.0008824077085591853,
+            0.9956499338150024
+          ],
+          "mirror": [
+            0.0030415221117436886,
+            0.20987223088741302,
+            0.7849318981170654,
+            0.0021543391048908234
+          ]
+        },
+        "gate_entropy_by_task": {
+          "echo": 1.0486124753952026,
+          "mask_restore": 1.1552350521087646,
+          "left_query": 0.019367825239896774,
+          "right_query": 0.0324242077767849,
+          "mirror": 0.5485972166061401
+        }
+      },
+      "ood": {
+        "echo": {
+          "token_acc": 0.47484909456740443,
+          "exact": 0.0375
+        },
+        "mask_restore": {
+          "token_acc": 0.4301810865191147,
+          "exact": 0.0025
+        },
+        "left_query": {
+          "token_acc": 0.626875,
+          "exact": 0.1775
+        },
+        "right_query": {
+          "token_acc": 0.6146892655367232,
+          "exact": 0.4925
+        },
+        "mirror": {
+          "token_acc": 0.193158953722334,
+          "exact": 0.0
+        },
+        "gate_mean_by_task": {
+          "echo": [
+            0.4363958239555359,
+            0.3838653564453125,
+            0.0019447281956672668,
+            0.17779406905174255
+          ],
+          "mask_restore": [
+            0.3543386459350586,
+            0.4348493814468384,
+            0.0365937203168869,
+            0.17421825230121613
+          ],
+          "left_query": [
+            0.9975729584693909,
+            0.001433436875231564,
+            0.0005166109185665846,
+            0.0004770190571434796
+          ],
+          "right_query": [
+            0.0022681665141135454,
+            0.001199454301968217,
+            0.0008824077085591853,
+            0.9956499338150024
+          ],
+          "mirror": [
+            0.0030415221117436886,
+            0.20987223088741302,
+            0.7849318981170654,
+            0.0021543391048908234
+          ]
+        },
+        "gate_entropy_by_task": {
+          "echo": 1.0486124753952026,
+          "mask_restore": 1.1552350521087646,
+          "left_query": 0.019367825239896774,
+          "right_query": 0.0324242077767849,
+          "mirror": 0.5485972166061401
+        }
+      },
+      "test_mean_exact": 0.14550000000000002,
+      "ood_mean_exact": 0.142,
+      "ood_ablation_exact_drop": {
+        "drop_kernel_0": {
+          "echo": 0.03,
+          "mask_restore": 0.0,
+          "left_query": 0.1775,
+          "right_query": 0.0025000000000000022,
+          "mirror": 0.0
+        },
+        "drop_kernel_1": {
+          "echo": 0.0325,
+          "mask_restore": 0.0025,
+          "left_query": 0.0,
+          "right_query": 0.0,
+          "mirror": -0.0025
+        },
+        "drop_kernel_2": {
+          "echo": 0.0,
+          "mask_restore": 0.0,
+          "left_query": 0.0025000000000000022,
+          "right_query": 0.0,
+          "mirror": 0.0
+        },
+        "drop_kernel_3": {
+          "echo": 0.0024999999999999953,
+          "mask_restore": -0.004999999999999999,
+          "left_query": 0.0,
+          "right_query": 0.305,
+          "mirror": 0.0
+        }
+      }
+    }
+  },
+  "derived": {
+    "ood_mean_exact_improvement_multi_minus_single": 0.014499999999999985,
+    "task_argmax_kernel": {
+      "echo": 0,
+      "mask_restore": 1,
+      "left_query": 0,
+      "right_query": 3,
+      "mirror": 2
+    },
+    "unique_argmax_kernels": 4,
+    "max_ood_ablation_exact_drop": 0.305
+  },
+  "pilot_pass": false,
+  "interpretation": {
+    "supported": "Multi-kernel TreeHeap specialization is supported if pilot_pass is true.",
+    "not_proved": [
+      "not translation",
+      "not semantic world model",
+      "not natural syntax induction",
+      "not proof that Transformer heads always specialize"
+    ]
+  },
+  "elapsed_sec": 54.283
+}
