@@ -879,3 +879,146 @@ Next action:
    learn collapse from answer loss alone.
 4. Feed this read kernel back into the multi-kernel tasks from E9.
 ```
+
+---
+
+## E11: WMT Algebraic Internal Readout Probe
+
+Question:
+
+```text
+After a probabilistic read kernel reaches an internal TreeHeap node, does
+internal-node readout become easier if the target is an algebraically natural
+subheap attribute instead of an arbitrary checksum bucket?
+```
+
+Why this follows E10:
+
+```text
+E10 proved that path collapse from arr[1] can route to the target node, but
+internal checksum labels stayed weak. E11 tests whether the failure was caused
+by asking the internal state to predict an unnatural label.
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_algebraic_readout_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_algebraic_readout_probe/
+ara/s1-echo/evidence/s1_algebraic_readout_probe_b16/
+```
+
+Dataset:
+
+```text
+WMT17 English side
+SentencePiece model = /mnt/nas/datasets/wmt17/sp_bpe.model
+samples = 5000
+train/test/ood = 4000/500/500
+token length = 4..8
+vocab limit including PAD = 513
+```
+
+Targets:
+
+| Target | Meaning |
+|---|---|
+| `length` | number of non-pad tokens in the queried subheap span |
+| `first` | first non-pad token in the subheap span |
+| `last` | last non-pad token in the subheap span |
+| `residue` | modular checksum bucket over the subheap span |
+| `prefix0` | first ordered token slot |
+| `prefix1` | second ordered token slot |
+
+Models:
+
+| Model | Meaning |
+|---|---|
+| `root_query_decoder` | TreeEncoder root state plus query id predicts all targets. This is the root bottleneck baseline. |
+| `routed_state_decoder` | Target node state plus query id predicts all targets. This assumes E10's route collapse has selected the node. |
+| `algebraic_oracle` | Deterministic TreeHeap span decoder. This is the mathematical upper bound, not a trainable model. |
+
+Predict:
+
+```text
+P-S1-READ02:
+If internal TreeHeap state contains useful algebraic subheap information, then
+routed internal-node state should beat root bottleneck on natural subheap
+attributes. If only arbitrary checksum fails, residue/checksum will remain
+harder than length/first/last/prefix.
+```
+
+Run A: 64 residue buckets
+
+```text
+epochs = 80
+```
+
+Internal OOD result:
+
+| Model | Length | First | Last | Residue | Prefix0 | Prefix1 | Mean | Exact all |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| `root_query_decoder` | 0.8388 | 0.5543 | 0.2387 | 0.0847 | 0.5543 | 0.3756 | 0.4411 | 0.0516 |
+| `routed_state_decoder` | 0.9886 | 0.9277 | 0.8725 | 0.3675 | 0.9267 | 0.8725 | 0.8259 | 0.3571 |
+| `algebraic_oracle` | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+
+Run B: 16 residue buckets diagnostic
+
+```text
+epochs = 80
+```
+
+Internal OOD result:
+
+| Model | Length | First | Last | Residue | Prefix0 | Prefix1 | Mean | Exact all |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| `root_query_decoder` | 0.8527 | 0.5624 | 0.2303 | 0.1087 | 0.5637 | 0.3675 | 0.4476 | 0.0380 |
+| `routed_state_decoder` | 0.9919 | 0.9355 | 0.9011 | 0.5203 | 0.9367 | 0.8849 | 0.8617 | 0.4755 |
+| `algebraic_oracle` | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+
+Decision:
+
+```text
+S1-READ-C02 -> supported / mixed pilot
+```
+
+Interpretation:
+
+```text
+This supports the idea that internal-node readout should first target natural
+TreeHeap algebraic attributes. Routed node state is much better than the root
+bottleneck on length, first/last token, and ordered prefix. The residue target
+is still weak: reducing the number of residue buckets helps, but does not
+solve modular/checksum readout.
+```
+
+What this does not prove:
+
+```text
+not translation
+not semantic phrase meaning
+not unsupervised route discovery
+not long-sequence syntax
+not superiority over Transformer/pointer baselines
+```
+
+Next action:
+
+```text
+1. Add a residue-aware finite-field slot or mod-specific kernel.
+2. Add matched pointer/Transformer read baselines.
+3. Remove teacher-forced target node state and connect E10 route probabilities
+   to E11 algebraic readout.
+4. Use the natural algebraic readout as the base for semantic phrase decoders.
+```
