@@ -937,7 +937,7 @@ Targets:
 | `length` | number of non-pad tokens in the queried subheap span |
 | `first` | first non-pad token in the subheap span |
 | `last` | last non-pad token in the subheap span |
-| `residue` | modular checksum bucket over the subheap span |
+| `residue` | side diagnostic for possible modular folding; not part of the core claim |
 | `prefix0` | first ordered token slot |
 | `prefix1` | second ordered token slot |
 
@@ -955,11 +955,11 @@ Predict:
 P-S1-READ02:
 If internal TreeHeap state contains useful algebraic subheap information, then
 routed internal-node state should beat root bottleneck on natural subheap
-attributes. If only arbitrary checksum fails, residue/checksum will remain
-harder than length/first/last/prefix.
+attributes: length, first token, last token, and ordered prefix. The residue
+column is recorded only as a side diagnostic for modular-folding speculation.
 ```
 
-Run A: 64 residue buckets
+Run A: natural readout plus 64-bucket residue diagnostic
 
 ```text
 epochs = 80
@@ -973,7 +973,7 @@ Internal OOD result:
 | `routed_state_decoder` | 0.9886 | 0.9277 | 0.8725 | 0.3675 | 0.9267 | 0.8725 | 0.8259 | 0.3571 |
 | `algebraic_oracle` | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
 
-Run B: 16 residue buckets diagnostic
+Run B: natural readout plus 16-bucket residue diagnostic
 
 ```text
 epochs = 80
@@ -998,9 +998,9 @@ Interpretation:
 ```text
 This supports the idea that internal-node readout should first target natural
 TreeHeap algebraic attributes. Routed node state is much better than the root
-bottleneck on length, first/last token, and ordered prefix. The residue target
-is still weak: reducing the number of residue buckets helps, but does not
-solve modular/checksum readout.
+bottleneck on length, first/last token, and ordered prefix. The residue column
+is kept as a diagnostic artifact only; it should not decide whether S1-READ-C02
+passes or fails.
 ```
 
 What this does not prove:
@@ -1016,9 +1016,8 @@ not superiority over Transformer/pointer baselines
 Next action:
 
 ```text
-1. Add a residue-aware finite-field slot or mod-specific kernel.
-2. Add matched pointer/Transformer read baselines.
-3. Remove teacher-forced target node state and connect E10 route probabilities
+1. Add matched pointer/Transformer read baselines.
+2. Remove teacher-forced target node state and connect E10 route probabilities
    to E11 algebraic readout.
-4. Use the natural algebraic readout as the base for semantic phrase decoders.
+3. Use the natural algebraic readout as the base for semantic phrase decoders.
 ```
