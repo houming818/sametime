@@ -716,3 +716,166 @@ Next action:
 4. Add kernel dropout and task-free query variants to test whether
    specialization survives without explicit task labels.
 ```
+
+---
+
+## E10: WMT Probabilistic Read Collapse Kernel Probe
+
+Question:
+
+```text
+Can TreeHeap read be implemented as a query-conditioned collapse process from
+arr[1], where each step chooses stop/left/right, instead of decoding every
+answer from the root bottleneck?
+```
+
+Why this follows E9:
+
+```text
+E9 showed that a root-bottleneck decoder makes multi-kernel tasks hard.
+SPR-032 tests the missing read mechanism directly: do not ask the root to
+contain the whole answer; let a read kernel walk the TreeHeap address/path.
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_probabilistic_read_kernel_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_probabilistic_read_kernel_probe/
+ara/s1-echo/evidence/s1_probabilistic_read_kernel_probe_b32/
+```
+
+Dataset:
+
+```text
+WMT17 English side
+SentencePiece model = /mnt/nas/datasets/wmt17/sp_bpe.model
+samples = 3000
+train/test/ood = 2400/300/300
+token length = 4..8
+vocab limit including PAD = 513
+```
+
+Toy target:
+
+```text
+1. Write the short BPE sequence into the leaves of a complete binary heap.
+2. Query a target heap node id.
+3. If the target is a leaf, return the token id at that leaf.
+4. If the target is an internal node, return a checksum bucket of the whole
+   subheap span.
+```
+
+The internal checksum is intentionally synthetic. It gives `stop` at an
+internal node a measurable meaning:
+
+```text
+stop at leaf     -> read one token
+stop at internal -> read a subheap summary
+```
+
+Models:
+
+| Model | Meaning |
+|---|---|
+| `root_query_decoder` | TreeEncoder root state plus query id directly predicts the answer. This is the root bottleneck baseline. |
+| `probabilistic_read_kernel` | TreeEncoder states plus `K_read(q, h_node, path)` choose `stop/left/right`; hard mode is a tail-recursive while loop, soft mode is frontier probability accumulation. |
+
+Predict:
+
+```text
+P-S1-READ01:
+If TreeHeap read should be a probabilistic path collapse, then a read kernel
+should beat root-only decoding on OOD queries, route accurately from arr[1],
+and support both leaf stop and internal stop.
+```
+
+Pass gate:
+
+```text
+tail_recursive_interpreter_ok = true
+read OOD hard acc >= 0.80
+route acc >= 0.95
+read OOD hard acc - root OOD acc >= 0.20
+internal stop route acc >= 0.90
+leaf stop route acc >= 0.90
+```
+
+Run A: 128 checksum buckets
+
+```text
+epochs = 40
+labels = 641
+```
+
+Result:
+
+| Model | Params | OOD acc | OOD internal | OOD leaf | Route acc |
+|---|---:|---:|---:|---:|---:|
+| `root_query_decoder` | 398,209 | 0.0638 | 0.0205 | 0.1066 | n/a |
+| `probabilistic_read_kernel` | 499,588 | 0.6124 | 0.2214 | 0.9989 | 1.0000 |
+
+Run B: 32 checksum buckets diagnostic
+
+```text
+epochs = 80
+labels = 545
+```
+
+Result:
+
+| Model | Params | OOD acc | OOD internal | OOD leaf | Route acc |
+|---|---:|---:|---:|---:|---:|
+| `root_query_decoder` | 373,537 | 0.1184 | 0.0765 | 0.1598 | n/a |
+| `probabilistic_read_kernel` | 474,916 | 0.7177 | 0.4332 | 0.9989 | 1.0000 |
+
+Decision:
+
+```text
+S1-READ-C01 -> open / mixed pilot
+```
+
+Interpretation:
+
+```text
+The positive result is strong: path collapse from arr[1] is learnable, and
+the hard tail-recursive read and soft frontier read agree. The read kernel
+nearly solves leaf copy, and beats the root bottleneck by 0.55 to 0.60 OOD
+accuracy.
+
+The negative result is also important: internal subheap summaries are still
+weak. Reducing checksum buckets from 128 to 32 improves internal OOD accuracy
+from 0.2214 to 0.4332, but this is not enough to claim solved subheap meaning.
+```
+
+What this does not prove:
+
+```text
+not translation
+not semantic world model
+not unsupervised route learning
+not long-sequence syntax
+not solved internal subheap summaries
+```
+
+Next action:
+
+```text
+1. Replace arbitrary checksum labels with compositional subheap targets:
+   length, first/last token, bag checksum, or learned phrase vector.
+2. Add a matched pointer/Transformer read baseline.
+3. Remove or weaken route supervision to test whether the path kernel can
+   learn collapse from answer loss alone.
+4. Feed this read kernel back into the multi-kernel tasks from E9.
+```
