@@ -49,6 +49,12 @@ Updated: 2026-06-23
 |---|---|---|---|---|
 | M0-DIFF-C01 | TreeHeap distance must be derived from a diff algebra: `Zero`, subtraction, depth-weighted norm, inner product, cosine, and finite difference. This diff algebra can expose a learning signal for probabilistic vector plus. | supported pilot | `evidence/treeheap_diff_algebra_probe/` on io, 2026-06-25: zero/self/symmetry/cosine checks pass; theta finite-diff abs error `4.21e-10`; one gradient step lowers loss `29.1384 -> 0.00066` and raises target write prob `0.0648 -> 0.9955`. | Norm/cosine identities fail, finite difference disagrees with analytic derivative, or a prob vector plus gradient step cannot reduce TreeHeap distance to target. |
 
+## Algebraic Decoders
+
+| ID | Claim | Status | Evidence | Falsification |
+|---|---|---|---|---|
+| M0-DEC-C01 | TreeHeap internal state can be a finite-field, path-addressed latent/hash state while still having mathematical decoders: projection, decompose/recompose, mod residue, conjugate mirror, length, and ordered-slot readout. | supported pilot | `evidence/algebraic_decoder_probe/` on io, 2026-06-29: `projection_exact=1.0`, `decompose_recompose_exact=1.0`, `mirror_involution_exact=1.0`, `mod_residue_exact=1.0`, `length_decode_exact=1.0`, `ordered_token_decode_exact=1.0`, `checksum_stability_exact=1.0` across 5000 random finite-field TreeHeaps. | Any algebraic decoder identity fails under deterministic rerun, or the representation requires an unrelated learned decoder to recover path/subheap/mod/mirror properties. |
+
 ### Soft Claim Scope Notes
 
 The GLM / Runner audit in `.squad/outbox/006-runner-reviewer-01-soft-treeheap-ara-audit.md`

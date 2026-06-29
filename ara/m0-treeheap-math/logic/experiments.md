@@ -759,3 +759,172 @@ This proves a usable TreeHeap diff/distance/finite-difference algebra for
 learning signals. It does not prove semantic world-model alignment, a final S1
 encoder, WMT, or superiority over MLP/Transformer.
 ```
+
+---
+
+## algebraic_decoder_probe.py
+
+### Question
+
+SPR-032 showed that a probabilistic read kernel can route to an internal node,
+but the checksum decoder for that internal node was weak. Does that mean the
+internal state has no information?
+
+This experiment tests a different interpretation:
+
+```text
+internal state may be a high-dimensional algebraic/hash state.
+It is not meant to be read directly by human eyes.
+It needs decoders.
+Some decoders should come from TreeHeap algebra itself, not only from training.
+```
+
+### Design
+
+Define a finite-field TreeHeap over:
+
+```text
+field = Z_1000003
+max_len = 8
+channel_dim = 16
+vocab = 257
+```
+
+Each token id maps to a deterministic primitive vector:
+
+```text
+token_id -> v_token in Z_p^16
+```
+
+The TreeHeap state is path-addressed:
+
+```text
+state[leaf_slot] = v_token
+internal_state = modular sum over descendant path slots
+```
+
+This means the internal state is a latent vector/set object. It is not a
+surface string. But because slots are addressable, several algebraic decoders
+are available without training:
+
+| Decoder | Meaning |
+|---|---|
+| `project(H, node)` | Keep only the slots belonging to one subheap. |
+| `decompose(H, node)` | Split a node into left/right child states. |
+| `compose(left, right)` | Recombine child states by modular addition. |
+| `residue(H, m)` | Aggregate leaf slots by address modulo `m`. |
+| `mirror(H)` | Conjugate operation reversing left/right slot order. |
+| `norm0(H)` | Count non-empty leaf slots, a length decoder. |
+| `decode_ordered_tokens(H)` | Read exact primitive vectors from ordered slots. |
+
+### Predict
+
+```text
+P-MATH-DEC01:
+If TreeHeap is a number-theoretic/path-addressed structure, internal node state
+should have algebraic decoders. Projection, decompose/recompose, mod residue,
+mirror, length, and ordered readout should pass exactly in the finite-field toy.
+```
+
+### Execution
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Command:
+
+```bash
+cd /home/nio/log/holds/SameTime
+python3 ara/m0-treeheap-math/src/algebraic_decoder_probe.py \
+  --out ara/m0-treeheap-math/evidence/algebraic_decoder_probe \
+  --samples 5000 \
+  --max-len 8 \
+  --channel-dim 16 \
+  --vocab 257 \
+  --seed 33
+```
+
+Outputs:
+
+```text
+evidence/algebraic_decoder_probe/summary.json
+evidence/algebraic_decoder_probe/README.md
+evidence/algebraic_decoder_probe/trace.jsonl
+```
+
+### Result
+
+| Metric | Value |
+|---|---:|
+| `projection_exact` | 1.0000 |
+| `decompose_recompose_exact` | 1.0000 |
+| `mirror_involution_exact` | 1.0000 |
+| `mod_residue_exact` | 1.0000 |
+| `length_decode_exact` | 1.0000 |
+| `ordered_token_decode_exact` | 1.0000 |
+| `checksum_stability_exact` | 1.0000 |
+
+Example trace:
+
+```text
+tokens = [120, 142, 246, 0, 0, 0, 0, 0]
+query_node = 2
+span = [0, 4]
+decoded_tokens = [120, 142, 246, 0, 0, 0, 0, 0]
+subheap_length = 3
+subheap_checksum = 914574
+```
+
+### Decision
+
+```text
+M0-DEC-C01 -> supported pilot
+```
+
+### Interpretation
+
+SPR-033 supports a correction to SPR-032:
+
+```text
+Low checksum accuracy does not prove the internal state is empty.
+It may prove that the decoder target was not the natural algebraic decoder.
+```
+
+At the M0 level, TreeHeap can have decoders that are not learned MLP heads:
+
+```text
+projection
+decompose
+mod residue
+conjugate mirror
+length
+ordered slot readout
+```
+
+This is the number-theoretic reading of TreeHeap: the structure itself gives
+some ways to read the latent state, just as decimal notation gives `hundreds`,
+`tens`, and `ones` decoders.
+
+### Boundary
+
+```text
+This does not prove language semantics.
+This does not prove a learned decoder is unnecessary.
+This does not prove WMT translation.
+This does not prove compression optimality.
+This does not prove robustness when a noisy neural encoder writes the state.
+```
+
+### Next Action
+
+```text
+1. Build learned decoders on top of the algebraic decoders:
+   phrase vector, bag sketch, first/last token, local syntax label.
+2. Return to SPR-032's internal node read with algebraic targets instead of
+   arbitrary checksum buckets.
+3. Test whether neural write kernels preserve enough algebraic structure for
+   these decoders to remain useful after training noise.
+```
