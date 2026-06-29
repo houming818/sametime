@@ -990,7 +990,7 @@ Internal OOD result:
 Decision:
 
 ```text
-S1-READ-C02 -> supported / mixed pilot
+S1-READ-C02 -> supported pilot
 ```
 
 Interpretation:
@@ -1020,4 +1020,129 @@ Next action:
 2. Remove teacher-forced target node state and connect E10 route probabilities
    to E11 algebraic readout.
 3. Use the natural algebraic readout as the base for semantic phrase decoders.
+```
+
+---
+
+## E12: Ordered Fold Kernel Probe
+
+Question:
+
+```text
+When a 1D ordered token array is folded into a TreeHeap, what must be preserved
+for natural internal-node readout to work?
+```
+
+Why this follows E11:
+
+```text
+E11 clarified that residue/mod should not decide SPR-034. E12 separates the
+issue: first prove that order-preserving TreeHeap fold is sufficient for
+natural subheap readout, then treat modulo/cyclic folding as a later optional
+operator.
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_ordered_fold_kernel_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_ordered_fold_kernel_probe/
+```
+
+Dataset:
+
+```text
+pure toy data
+samples = 5000
+sequence length = 8..16
+max_len = 16
+vocab = 257
+mod_base = 4
+```
+
+Models:
+
+| Model | Meaning |
+|---|---|
+| `ordered_tree_fold` | Complete binary TreeHeap. Leaf addresses preserve original order; internal nodes compose exact subheap summaries. |
+| `bag_root_fold` | Collapses the whole sequence into one global/root summary, losing subheap locality. |
+| `modulo_fold_base4` | Folds positions by `position % 4` before answering; this intentionally aliases distant positions. |
+
+Targets:
+
+```text
+length, first, last, prefix0, prefix1
+```
+
+Predict:
+
+```text
+P-S1-FOLD01:
+If natural TreeHeap readout depends on ordered path/address preservation, then
+ordered_tree_fold should be exact, while bag/global fold and early modulo fold
+should lose subheap locality. Modulo may still be useful later, but not as a
+replacement for the first ordered fold.
+```
+
+Result:
+
+| Model | Length | First | Last | Prefix0 | Prefix1 | Mean natural | Exact all |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| `ordered_tree_fold` | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| `bag_root_fold` | 0.0888 | 0.3236 | 0.3236 | 0.3236 | 0.3235 | 0.2766 | 0.0888 |
+| `modulo_fold_base4` | 0.0888 | 0.4032 | 0.4034 | 0.4032 | 0.4036 | 0.3405 | 0.0888 |
+
+Derived:
+
+```text
+ordered_minus_bag_mean_natural = +0.7234
+ordered_minus_mod_mean_natural = +0.6595
+pilot_pass = true
+```
+
+Decision:
+
+```text
+S1-FOLD-C01 -> supported pilot
+```
+
+Interpretation:
+
+```text
+The first fold from a linear ordered array into a TreeHeap must preserve leaf
+address/path locality. A bag/root collapse cannot answer local subheap
+queries. An early modulo/cyclic fold aliases positions and also fails natural
+subheap readout. This does not reject modulo as a later operator; it only says
+modulo should be studied as a separate folding kernel after ordered structure
+exists.
+```
+
+What this does not prove:
+
+```text
+not translation
+not learned semantic routing
+not a neural baseline battle
+not proof that modulo is useless
+not long real syntax
+```
+
+Next action:
+
+```text
+1. Connect ordered fold with probabilistic route collapse from E10.
+2. Add learned baselines: flat MLP, pointer network, small Transformer read.
+3. Separately design a modulo/cyclic folding experiment where the target is
+   truly periodic, not natural subheap readout.
 ```
