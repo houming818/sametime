@@ -1473,9 +1473,11 @@ not Transformer superiority
 ```
 ## P-S1-KERNEL39: Parameter TreeHeap Learns A Local Convolution Kernel
 
-Status: planned
+Status: executed
 Claim: S1-KERNEL-LEARN-C01
 Design: `logic/kernel_parameter_learning.md`
+Script: `src/s1_kernel_parameter_learning_probe.py`
+Evidence: `evidence/s1_kernel_parameter_learning_probe/`
 
 ### Question
 
@@ -1521,6 +1523,24 @@ H' = [6,11,16,4,5,6,7]
 - train/test/OOD MSE is low
 - wrong-address baseline fails or is materially worse
 - result updates `Theta`, not only `H`
+
+### Result
+
+```text
+pilot_pass = true
+learned_theta = [0.9999999999999998, 0.9999999999999998, 1.0000000000000004]
+theta_l2_error = 5.43896e-16
+treeheap_test_mse = 8.78177e-31
+treeheap_ood_mse = 8.92978e-30
+wrong_address_test_mse = 5.92848
+flat_global_test_mse = 3.56010
+```
+
+Decision:
+
+```text
+S1-KERNEL-LEARN-C01 -> supported pilot
+```
 
 ### Boundary
 

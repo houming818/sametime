@@ -108,7 +108,7 @@ Purpose: Track SPR S1 claims, evidence, and falsification criteria.
 
 | ID | Claim | Status | Evidence | Falsification |
 |----|-------|--------|----------|---------------|
-| S1-KERNEL-LEARN-C01 | A parameter TreeHeap `Theta` should be able to learn a local subheap convolution rule from scalar loss and gradient, distinct from SPR-038's heap-state relaxation. | planned | `kernel_parameter_learning.md`, SPR-039 design. Minimal target: recover hidden scalar kernel `[1,1,1]` from heaps such as `[1,2,3,4,5,6,7] -> [6,11,16,4,5,6,7]`. | Reject or downgrade if `Theta` cannot recover the hidden kernel on clean scalar heaps, if wrong-address baselines match it, if only `H` moves while `Theta` stays fixed, or if flat baselines win without using address/path/subheap structure. |
+| S1-KERNEL-LEARN-C01 | A parameter TreeHeap `Theta` can learn a local subheap convolution rule from scalar loss and gradient, distinct from SPR-038's heap-state relaxation. | supported pilot | `s1_kernel_parameter_learning_probe.py` on io, 2026-07-01. Hidden scalar kernel `[1,1,1]`; learned theta `[0.9999999999999998,0.9999999999999998,1.0000000000000004]`; theta L2 error `5.44e-16`; TreeHeap test/OOD MSE `8.78e-31/8.93e-30`; wrong-address test MSE `5.9285`; matched-size flat-global test MSE `3.5601`; pilot_pass=true. | Reject or downgrade if `Theta` cannot recover hidden kernels beyond the clean scalar toy, if wrong-address baselines match it, if future proofs only move `H` while `Theta` stays fixed, or if matched flat baselines win without using address/path/subheap structure. |
 
 ## Architecture Position
 

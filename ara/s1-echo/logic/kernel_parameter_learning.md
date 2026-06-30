@@ -1,7 +1,8 @@
 # S1 Kernel Parameter Learning
 
-Status: planned
+Status: supported pilot
 Created: 2026-06-30
+Updated: 2026-07-01
 Owner: nio / Houming818
 Review Engineer: Codex
 
@@ -37,6 +38,8 @@ to be TreeHeap objects. In that framing, the next proof must distinguish:
 A parameter TreeHeap `Theta` can learn a local subheap convolution rule from
 loss/gradient. In the minimal scalar case, training should recover the hidden
 kernel weights used to generate target internal-node states.
+
+Status after execution: `supported pilot`.
 
 ## Predict
 
@@ -89,6 +92,48 @@ and produce low test/OOD MSE on unseen heap values.
    - train/test/OOD MSE
    - whether wrong address fails
 
+## Executed Result
+
+Script:
+
+```text
+ara/s1-echo/src/s1_kernel_parameter_learning_probe.py
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_kernel_parameter_learning_probe/
+```
+
+Host:
+
+```text
+io.grepcode.cn
+```
+
+Summary:
+
+```text
+pilot_pass = true
+learned_theta = [0.9999999999999998, 0.9999999999999998, 1.0000000000000004]
+theta_l2_error = 5.43896e-16
+theta_delta_l2 = 1.15777
+treeheap_test_mse = 8.78177e-31
+treeheap_ood_mse = 8.92978e-30
+wrong_address_test_mse = 5.92848
+flat_global_test_mse = 3.56010
+```
+
+Decision:
+
+```text
+S1-KERNEL-LEARN-C01 is supported as a pilot.
+```
+
+The proof updates `Theta`, not only `H`, and therefore closes the immediate
+gap left by SPR-038.
+
 ## Extension
 
 After the scalar proof passes, test vector kernels:
@@ -118,7 +163,7 @@ Reject or downgrade if:
 
 ## Boundary
 
-This proof would not prove language understanding or translation.
+This proof does not prove language understanding or translation.
 
 It would prove a smaller but necessary point:
 

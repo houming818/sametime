@@ -169,7 +169,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | C6-010 | SPR-037 | Kernel controls over a latent relation field should form a measurable fold-quality control surface. | supported pilot | `ara/s1-echo/evidence/s1_controllable_manifold_probe/`; low-control F1 0.0828, best F1 0.8148, diagonal gain 0.7319 | Sweep is non-controllable, order/random controls match relation controls, or the surface disappears on real relation fields. |
 | C6-011 | SPR-038 | A differentiable energy over current TreeHeap state can relax `arr[i]` while kernel parameters and address rules remain fixed. | supported pilot | `ara/s1-echo/evidence/s1_heap_state_relaxation_probe/`; scalar energy ratio 2.47e-31, vector mean energy ratio 1.24e-13 | State-only updates cannot lower energy, require hidden theta updates, or use target heap labels in the loss. |
 | C6-012 | post SPR-038 | Explicit hard echo encoder/decoder closes the WMT short-BPE interface: ordered leaf write, internal summary compose, path leaf/subheap read, and full sequence decode. | supported pilot | `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`; main and expanded runs reach 1.0 sequence/leaf/subheap/summary metrics | Decoder uses target heap labels, hard interface fails under learned kernels, or non-empty/noisy subheap metrics collapse. |
-| C6-013 | SPR-039 design | A parameter TreeHeap `Theta` should learn local subheap convolution kernels by gradient, distinct from SPR-038 state relaxation. | planned | `ara/s1-echo/logic/kernel_parameter_learning.md`; planned target `[1,2,3,4,5,6,7] -> [6,11,16,4,5,6,7]` with hidden kernel `[1,1,1]` | `Theta` fails to recover hidden kernel, wrong-address baselines match it, or only heap state `H` moves while parameters stay fixed. |
+| C6-013 | SPR-039 | A parameter TreeHeap `Theta` can learn local subheap convolution kernels by gradient, distinct from SPR-038 state relaxation. | supported pilot | `ara/s1-echo/evidence/s1_kernel_parameter_learning_probe/`; hidden `[1,1,1]`, learned theta `[1.0,1.0,1.0]`, theta L2 error `5.44e-16`, test/OOD MSE `8.78e-31/8.93e-30`, wrong-address test MSE `5.9285` | `Theta` fails to recover hidden kernels beyond clean scalar toy, wrong-address baselines match it, or only heap state `H` moves while parameters stay fixed. |
 
 ## SPR Blog Source Map
 
@@ -270,9 +270,9 @@ Highest priority open experiments:
 
 1.5. `Parameter TreeHeap Kernel Learning`
    - Claim: C6-013.
-   - Status: planned.
-   - Next: train `Theta=[theta_root,theta_left,theta_right]` to recover hidden local convolution kernel `[1,1,1]`.
-   - Pass gate: `Theta` moves, recovers the hidden kernel, wrong-address baseline fails, and test/OOD MSE is low.
+   - Status: executed; supported pilot in `ara/s1-echo/evidence/s1_kernel_parameter_learning_probe/`.
+   - Result: `Theta` moved and recovered hidden local convolution kernel `[1,1,1]`; wrong-address and flat-global matched-size baselines failed.
+   - Next: extend from scalar shared kernel to vector/matrix kernels, noisy restore, and multi-kernel tasks.
 
 2. `Real Relation Layout Probe`
    - Claim: C6-009, C6-010.
