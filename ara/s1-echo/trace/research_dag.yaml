@@ -3,12 +3,12 @@
 # Owner: Review Engineer
 # Writer: Codex
 # Created: 2026-06-16
-# Updated: 2026-06-16
+# Updated: 2026-06-30
 # Purpose: ARA trace for SPR Echo: decisions, evidence, dead ends, and next gates.
 
 project: S1
 name: SPR Echo
-root_question: Can recursive semantic prefix routing replace dense output-layer lookup with path-based structure?
+root_question: Can recursive semantic prefix routing become a trainable, addressable TreeHeap encoder/read system rather than only a dense lookup substitute?
 
 nodes:
   - id: root
@@ -45,23 +45,119 @@ nodes:
     verdict: supports_controlled_context_routing_not_real_corpus_semantics
     evidence: ara/s1-echo/evidence/README.md#E-S1-20260616-context-proof
 
+  - id: m0_backoff
+    type: architecture_decision
+    parents: [semantic_gap, polysemy_test]
+    text: Do not go straight to WMT translation. Build M0 algebra, diff, kernel, and gradient tools first.
+    verdict: accepted
+    evidence: ara/m0-treeheap-math/trace/research_dag.yaml
+
+  - id: shallow_treeheap_write
+    type: experiment
+    parents: [m0_backoff]
+    script: ara/s1-echo/src/shallow_treeheap_s1_probe.py
+    result: "soft TreeHeap train/test/OOD exact=1.0/1.0/1.0; BoW/seq OOD exact=0.0"
+    verdict: supports_shallow_real_sentence_write
+    evidence: ara/s1-echo/evidence/shallow_treeheap_s1_probe/
+
+  - id: frozen_world_coordinate
+    type: experiment
+    parents: [m0_backoff]
+    script: ara/s1-echo/src/s1_world_model_compound_probe.py
+    result: "vector_add OOD cosine/top1=0.7198/0.833; TreeHeap=0.3919/0.0"
+    verdict: rejected_frozen_embedding_world_coordinate
+    evidence: ara/s1-echo/evidence/s1_world_model_compound_probe/
+
+  - id: local_corpus_coordinate
+    type: experiment
+    parents: [frozen_world_coordinate]
+    script: ara/s1-echo/src/s1_corpus_embedding_kernel_probe.py
+    result: "local SGNS OOD cosine: vector_add=0.5785; TreeHeap=0.7126; concat_mlp=0.7321"
+    verdict: supports_structured_kernel_on_local_coordinate_cosine_not_top1
+    evidence: ara/s1-echo/evidence/s1_corpus_embedding_kernel_probe/
+
+  - id: wmt_echo_kernel
+    type: experiment
+    parents: [local_corpus_coordinate, shallow_treeheap_write]
+    script: ara/s1-echo/src/s1_wmt_echo_kernel_probe.py
+    result: "TreeHeap OOD token/exact=0.9818/0.9000 with 423104 params; seq MLP exact=0.0533 with 16794112 params"
+    verdict: supports_short_wmt_echo_kernel
+    evidence: ara/s1-echo/evidence/s1_wmt_echo_kernel_probe/
+
+  - id: multikernel_specialization
+    type: experiment
+    parents: [wmt_echo_kernel]
+    script: ara/s1-echo/src/s1_wmt_multikernel_specialization_probe.py
+    result: "all kernels used and ablation drops exist, but OOD mean exact remains low"
+    verdict: mixed_open
+    evidence: ara/s1-echo/evidence/s1_wmt_multikernel_specialization_probe*/
+
+  - id: probabilistic_read_kernel
+    type: experiment
+    parents: [wmt_echo_kernel]
+    script: ara/s1-echo/src/s1_probabilistic_read_kernel_probe.py
+    result: "route_acc=1.0; leaf_acc=0.9989; internal hard acc up to 0.4332"
+    verdict: supports_route_and_leaf_read_not_internal_summary
+    evidence: ara/s1-echo/evidence/s1_probabilistic_read_kernel_probe*/
+
+  - id: algebraic_internal_readout
+    type: experiment
+    parents: [probabilistic_read_kernel]
+    script: ara/s1-echo/src/s1_algebraic_readout_probe.py
+    result: "routed state beats root bottleneck on natural internal targets; residue/checksum remains diagnostic only"
+    verdict: supports_natural_internal_targets
+    evidence: ara/s1-echo/evidence/s1_algebraic_readout_probe*/
+
+  - id: ordered_fold_kernel
+    type: experiment
+    parents: [algebraic_internal_readout]
+    script: ara/s1-echo/src/s1_ordered_fold_kernel_probe.py
+    result: "ordered exact=1.0; bag exact=0.0888; modulo exact=0.0888"
+    verdict: supports_order_preserving_fold_first
+    evidence: ara/s1-echo/evidence/s1_ordered_fold_kernel_probe/
+
+  - id: latent_plane_fold
+    type: theory
+    parents: [ordered_fold_kernel]
+    source: ara/s1-echo/logic/latent_plane_fold.md
+    text: Language fold should be discovered as latent relation placement; TreeHeap is a coordinate/partition system over that field.
+    verdict: open_theory
+
+  - id: controllable_manifold
+    type: experiment
+    parents: [latent_plane_fold]
+    script: ara/s1-echo/src/s1_controllable_manifold_probe.py
+    result: "low-control F1=0.0828; best F1=0.8148; diagonal_gain=0.7319"
+    verdict: supports_toy_control_surface
+    evidence: ara/s1-echo/evidence/s1_controllable_manifold_probe/
+
+  - id: heap_state_relaxation
+    type: experiment
+    parents: [controllable_manifold]
+    script: ara/s1-echo/src/s1_heap_state_relaxation_probe.py
+    result: "theta_updated=false; scalar energy ratio=2.47e-31; vector mean energy ratio=1.24e-13"
+    verdict: supports_state_gradient_relaxation
+    evidence: ara/s1-echo/evidence/s1_heap_state_relaxation_probe/
+
+  - id: explicit_echo_encoder_decoder
+    type: experiment
+    parents: [ordered_fold_kernel, probabilistic_read_kernel]
+    script: ara/s1-echo/src/s1_echo_encoder_decoder_probe.py
+    result: "main and expanded WMT short-BPE runs reach 1.0 sequence/leaf/subheap/summary metrics with zero learned parameters"
+    verdict: supports_hard_interface_closure_not_semantics
+    evidence: ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/
+
   - id: real_corpus_polysemy_test
     type: planned_experiment
     parents: [polysemy_test]
     text: Repeat same-token different-sense routing on corpus examples, not synthetic sense-anchored context vectors.
     required_output: "sense_cluster_auc, path_separation, shuffled_label_delta, random_hash_delta"
 
-  - id: shuffle_test
+  - id: learned_echo_kernel_next
     type: planned_experiment
-    parents: [semantic_gap]
-    text: Preserve token frequency/length distribution but shuffle semantic or syntactic labels.
-    required_output: "metric_real, metric_shuffled, delta, p_value_or_bootstrap_ci"
-
-  - id: baseline_battle
-    type: planned_experiment
-    parents: [semantic_gap]
-    text: Compare SPR path features against nearest-neighbor, token frequency, random hash, and bag-of-words MLP.
-    required_output: "SPR must beat cheap baselines before the semantic claim advances."
+    parents: [explicit_echo_encoder_decoder, heap_state_relaxation]
+    text: Replace hard write/compose/read pieces with learned kernels one at a time.
+    required_output: "non_empty_subheap_metrics, noisy_restore, mask_restore, flat_pointer_baselines"
 
 dead_ends:
   - id: dense_capacity_as_semantics
@@ -76,12 +172,44 @@ dead_ends:
     lesson: Add sign alternation or another non-commutative operation.
     pivot_to: order_collision
 
+  - id: frozen_embedding_world_coordinate
+    hypothesis: Pretrained sentence embeddings can directly serve as TreeHeap world coordinates.
+    failure_mode: Simple vector addition was stronger than the current TreeHeap prob vector plus on OOD compounds.
+    lesson: Do not distill external embedding geometry as proof of TreeHeap; train local coordinate systems or use baselines.
+    pivot_to: local_corpus_coordinate
+
+  - id: root_bottleneck_multikernel
+    hypothesis: A multi-kernel bank alone solves WMT perturbation echo.
+    failure_mode: Kernels specialized, but root-bottleneck reconstruction accuracy remained low.
+    lesson: Fix read routing and internal readout before claiming multi-head-like capability.
+    pivot_to: probabilistic_read_kernel
+
+  - id: arbitrary_checksum_internal_summary
+    hypothesis: Internal node state should decode arbitrary checksum/residue labels first.
+    failure_mode: Internal checksum accuracy was weak while route and leaf read were strong.
+    lesson: Use algebraically natural targets such as length, first, last, and prefix before semantic summaries.
+    pivot_to: algebraic_internal_readout
+
+  - id: early_bag_or_mod_fold
+    hypothesis: A global bag or early modulo fold can replace ordered leaf-path fold.
+    failure_mode: Bag/modulo folds lost natural subheap readout compared with ordered fold.
+    lesson: Preserve order/address first; modulo/cyclic operations belong later, if useful.
+    pivot_to: ordered_fold_kernel
+
+  - id: hard_echo_as_semantics
+    hypothesis: Exact hard echo encoder/decoder proves semantic learning.
+    failure_mode: The hard proof uses deterministic algebra and zero learned parameters.
+    lesson: It closes an interface contract only; learned kernels and semantic losses remain future work.
+    pivot_to: learned_echo_kernel_next
+
 next_decision:
-  gate: "Promote S1 from capacity demo to semantic representation"
+  gate: "Promote S1 from hard/interface pilots to learned TreeHeap read/write kernels"
   pass_if:
-    - "SPR path features beat all cheap baselines on semantic/polysemy tests."
-    - "Shuffle falsification causes a material metric drop."
-    - "Evidence is written to ara/s1-echo/evidence and claims.md is updated."
+    - "Learned kernels reproduce hard echo on non-empty subheaps."
+    - "Noisy or masked WMT short-BPE restore beats copy-capable flat/pointer baselines."
+    - "Real relation-layout probes show stable neighborhoods and TreeHeap partitions improve recovery."
+    - "Evidence is written to ara/s1-echo/evidence and claims.md plus PAPER.md are updated."
   fail_if:
-    - "Performance survives label shuffle."
-    - "Random hash or token frequency matches SPR."
+    - "Performance survives label shuffle or random path hash."
+    - "Flat pointer/MLP baselines match under comparable parameter and sample budgets."
+    - "Internal readout only works for hand-picked algebraic labels and not learned/noisy tasks."

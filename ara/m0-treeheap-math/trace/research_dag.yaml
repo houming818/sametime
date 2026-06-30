@@ -1,86 +1,167 @@
 # M0 TreeHeap Math Research DAG
+#
+# Owner: Review Engineer
+# Writer: Codex
+# Created: 2026-06-22
+# Updated: 2026-06-30
+# Purpose: ARA trace for the TreeHeap mathematical toolbox before S1/S2 language claims.
 
-dag:
-  root:
+project: M0
+name: TreeHeap Math Toolbox
+root_question: Can TreeHeap be established as a mathematical operator space before language tasks?
+reason: Direct WMT/BLEU is too coarse to diagnose missing algebraic tools.
+
+nodes:
+  - id: root
     type: question
-    question: "Can TreeHeap be established as a mathematical operator space before language tasks?"
-    reason: "Direct WMT/BLEU is too coarse to diagnose missing algebraic tools."
+    text: Can TreeHeap operations be closed, addressable, composable, differentiable, and readable enough to support later S1/S2 learning?
 
-  p_math01:
+  - id: p_math01
     type: predict
-    id: P-MATH01
-    title: "Minimal TreeHeap algebra"
-    source: "logic/predicts.md#P-MATH01"
-    claim_if_passes: "TreeHeap has a synthetic operator toolbox worth testing with echo."
-    evidence_gates:
-      - E-MATH01
-      - E-MATH02
-      - E-MATH03
-      - E-MATH04
-      - E-MATH05
-      - E-MATH06
-    status: running
-
-  experiment_treeheap_math_probe:
-    type: experiment
-    source: "src/treeheap_math_probe.py"
-    evidence: "evidence/treeheap_math_probe/"
-    parent: p_math01
+    predict: P-MATH01
+    title: Minimal TreeHeap algebra
+    source: logic/predicts.md#P-MATH01
+    claim_if_passes: TreeHeap has a synthetic operator toolbox worth testing with echo.
     status: executed
-    result: "pilot_pass=true after adding head_v root reference to the TreeHeap object"
-    lesson: "A collapsed whole-vector is insufficient for exact transpose inverse; TreeHeap needs a root/head reference field."
 
-  next_if_pass:
+  - id: treeheap_math_probe
+    type: experiment
+    parents: [p_math01]
+    source: src/treeheap_math_probe.py
+    evidence: evidence/treeheap_math_probe/
+    result: "pilot_pass=true; closure, noncommutativity, transpose inverse, compose/decompose, projection, subheap match, probability normalization pass"
+    lesson: A collapsed whole-vector is insufficient; TreeHeap needs explicit root/head reference and child structure.
+
+  - id: p_math02
+    type: predict
+    predict: P-MATH02
+    title: Semantic primitive and plus operator
+    source: logic/predicts.md#P-MATH02
+    parents: [treeheap_math_probe]
+    claim_if_passes: Addressable TreeHeap can use plus as successor, information gain, and mod-fold operator in synthetic mode.
+    status: executed
+
+  - id: primitive_plus_probe
+    type: experiment
+    parents: [p_math02]
+    source: src/primitive_plus_probe.py
+    evidence: evidence/primitive_plus_probe/
+    result: "pilot_pass=true; plus writes next address, increases information before base is full, folds to arr[0]/arr[1] after base, and exposes cyclic-kernel addressing"
+    lesson: Treat arr/address as primary state and summary as projection. Mod/cycle is a later fold, not a replacement for first ordered write.
+
+  - id: trainability_quiz
+    type: experiment
+    parents: [primitive_plus_probe]
+    source: src/trainability_quiz.py
+    evidence: evidence/trainability_quiz/
+    result: "pilot_pass=true; linear regression R2=1.0, XOR acc=1.0, base-8 modular addition acc=1.0"
+    lesson: The local gradient stack can solve standard toy learning tasks; this is ML capacity evidence, not TreeHeap semantics.
+
+  - id: soft_plus_probe
+    type: experiment
+    parents: [trainability_quiz]
+    source: src/soft_plus_probe.py
+    evidence: evidence/soft_plus_probe/
+    result: "pilot_pass=true; gradients reach route and plus parameters; low-temperature collapse recovers hard address in a synthetic toy"
+    lesson: Soft lifting works as a gradient path, but engineered alignment features made the claim too strong.
+
+  - id: structural_c05_probe
+    type: experiment
+    parents: [soft_plus_probe]
+    source: src/structural_c05_probe.py
+    evidence: evidence/structural_c05_probe/
+    result: "pilot_pass=true; flat/path-only fail on unseen-depth relocation; subheap/path+subheap kernels reach test acc=1.0"
+    lesson: A TreeHeap kernel must expose subheap structure; path/address alone is not the same as structural induction.
+
+  - id: math_foundation_link
+    type: theory
+    parents: [treeheap_math_probe, structural_c05_probe]
+    source: blog SPR-022
+    result: "TreeHeap operations are positioned against rooted-tree Hopf algebra and operad-style many-in/one-out composition."
+    lesson: M0 should cite existing mathematics instead of treating every closure property as newly invented.
+
+  - id: kernel_convolution_ops_probe
+    type: experiment
+    parents: [structural_c05_probe]
+    source: src/kernel_convolution_ops_probe.py
+    evidence: evidence/kernel_convolution_ops_probe/
+    result: "pilot_pass=true; deterministic convolution-style search/write/conjugate mirror pass, score-map equivariance error=0"
+    lesson: Many TreeHeap operations can be expressed as kernels sliding over subheaps; conjugate/mirror is a kernel symmetry operation.
+
+  - id: deductive_inductive_kernel_probe
+    type: experiment
+    parents: [kernel_convolution_ops_probe]
+    source: src/deductive_inductive_kernel_probe.py
+    evidence: evidence/deductive_inductive_kernel_probe/
+    result: "pilot_pass=true; deductive one-hot/conjugate identities pass; inductive probability kernel reaches low KL compared with weak linear/address baselines"
+    lesson: Separate deductive proofs from inductive learning. Algebraic operators can be exact while probability/world-model fitting remains empirical.
+
+  - id: treeheap_diff_algebra_probe
+    type: experiment
+    parents: [deductive_inductive_kernel_probe]
+    source: src/treeheap_diff_algebra_probe.py
+    evidence: evidence/treeheap_diff_algebra_probe/
+    result: "pilot_pass=true; diff->norm distance laws, finite-difference state derivative, theta gradient, and write-probability improvement pass"
+    lesson: TreeHeap distance is vector/tensor-valued at the diff level and scalar only after choosing norm/inner-product/reference.
+
+  - id: algebraic_decoder_probe
+    type: experiment
+    parents: [treeheap_diff_algebra_probe]
+    source: src/algebraic_decoder_probe.py
+    evidence: evidence/algebraic_decoder_probe/
+    result: "pilot_pass=true; finite-field projection, decompose/recompose, mirror involution, mod residue, length decode, ordered token decode, checksum stability all exact"
+    lesson: Some internal states are decodable by algebraic operations before learned semantic decoders are attempted.
+
+  - id: handoff_to_s1
     type: decision
-    condition: "P-MATH01 pilot passes"
-    action: "Build M1/M2 echo tests on TreeHeap objects rather than raw token echo."
+    parents: [algebraic_decoder_probe, treeheap_diff_algebra_probe]
+    action: Build S1 echo/read/fold pilots on top of ordered write, diff/distance, kernel convolution, and algebraic decoder tools.
+    evidence: ara/s1-echo/trace/research_dag.yaml
 
-  next_if_fail:
-    type: decision
-    condition: "P-MATH01 pilot fails"
-    action: "Revise algebra operators before touching echo or S2."
+dead_ends:
+  - id: language_first_wmt_bleu
+    hypothesis: Go directly from early TreeHeap vectors to WMT/BLEU.
+    failure_mode: BLEU and graph UAS were too coarse to diagnose missing operators and over-collapsed representations.
+    lesson: Build M0 before making WMT-scale claims.
+    pivot_to: p_math01
 
-  p_math02:
-    type: predict
-    id: P-MATH02
-    title: "Semantic primitive and plus operator"
-    source: "logic/predicts.md#P-MATH02"
-    parent: p_math01
-    claim_if_passes: "Addressable TreeHeap can use plus as successor, information gain, and mod-fold operator in synthetic mode."
-    evidence_gates:
-      - E-MATH07
-      - E-MATH08
-      - E-MATH09
-      - E-MATH10
-    status: running
+  - id: raw_vector_as_treeheap
+    hypothesis: A single vector is enough to represent a TreeHeap object.
+    failure_mode: Exact inverse/decompose/child operations require root/head reference and addressable structure.
+    lesson: TreeHeap object must include arr/state plus structural references, not only a summary vector.
+    pivot_to: treeheap_math_probe
 
-  experiment_primitive_plus_probe:
-    type: experiment
-    source: "src/primitive_plus_probe.py"
-    evidence: "evidence/primitive_plus_probe/"
-    parent: p_math02
-    status: executed
-    result: "pilot_pass=true; plus writes next address, increases information before base is full, and folds to arr[0]/arr[1] after base."
-    lesson: "P-MATH02 should treat arr/address as primary state and summary as projection; plus can be tested before language."
+  - id: naive_soft_write_as_treeheap
+    hypothesis: Soft slot interpolation proves trainable TreeHeap algebra.
+    failure_mode: It updates memory slots but bypasses the plus/kernel algebra claim.
+    lesson: Soft write must be expressed as a lifted TreeHeap operator or a kernel-guided operation.
+    pivot_to: soft_plus_probe
 
-  p_learn01:
-    type: predict
-    id: P-LEARN01
-    title: "TreeHeap trainability quiz"
-    parent: p_math02
-    source: "logic/predicts.md#P-LEARN01"
-    claim_if_passes: "The local learning stack can solve standard toy tasks before TreeHeap-object echo."
-    evidence_gates:
-      - E-LEARN01
-      - E-LEARN02
-      - E-LEARN03
-    status: running
+  - id: engineered_alignment_overclaim
+    hypothesis: The first soft-plus success proves clean route learning.
+    failure_mode: GLM/DS review showed engineered alignment made the toy too easy.
+    lesson: Downgrade soft-plus evidence and require clean subheap/path ablations.
+    pivot_to: structural_c05_probe
 
-  experiment_trainability_quiz:
-    type: experiment
-    source: "src/trainability_quiz.py"
-    evidence: "evidence/trainability_quiz/"
-    parent: p_learn01
-    status: executed
-    result: "pilot_pass=true; linear regression R2=1.0, XOR accuracy=1.0, base-8 modular addition accuracy=1.0."
-    lesson: "The local NumPy gradient stack passes standard toy learning tasks; next step can build trainable TreeHeap encoder/plus/decoder."
+  - id: path_only_structure
+    hypothesis: Tree path or address alone provides structural induction.
+    failure_mode: C05 showed flat/path-only fail on unseen-depth relocation while subheap kernels pass.
+    lesson: Future kernels must use address, path, and local substructure together.
+    pivot_to: structural_c05_probe
+
+  - id: arbitrary_internal_label_first
+    hypothesis: Decoder should first target arbitrary checksum/residue labels.
+    failure_mode: Later S1 read probes showed natural algebraic targets are easier and more meaningful.
+    lesson: Use algebraic decoders and natural subheap attributes before semantic summaries.
+    pivot_to: algebraic_decoder_probe
+
+next_decision:
+  gate: "M0 closure is sufficient to support S1 learned-kernel experiments, not to claim language intelligence."
+  pass_if:
+    - "S1 learned write/read kernels use M0 diff, kernel convolution, ordered fold, and algebraic decoder tools."
+    - "New S1 claims include baselines, falsification, and evidence pointers."
+    - "PAPER.md and trace DAG are updated when claims move."
+  fail_if:
+    - "Future experiments rely only on chat/blog narrative."
+    - "TreeHeap claims reduce to flat slot memory without plus/kernel/decompose structure."
+    - "WMT or semantic claims are promoted from M0 toy evidence alone."

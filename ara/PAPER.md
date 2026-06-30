@@ -2,6 +2,7 @@
 
 Status: living research artifact
 Created: 2026-06-22
+Updated: 2026-06-30
 Owner: nio / Houming818
 Review Engineer: Codex
 Repository: SameTime
@@ -79,7 +80,8 @@ M0 math toolbox
 |---|---|---|---|---|---|
 | C0-001 | SPR-001, SPR-008 | Every strong claim must have evidence and falsification criteria. | verified | `ara/README.md`, `ara/*/logic/claims.md`, `ara/*/evidence/README.md` | A claim is promoted without evidence pointer or failure condition. |
 | C0-002 | SPR-008 | The correct work loop is `predict -> claim -> experiment -> evidence -> trace`. | supported | Blog SPR-008 and current ARA layout | Research decisions continue to depend on chat memory only. |
-| C0-003 | SPR-019 | Blog narrative is not enough; claims must be preserved in registry artifacts. | open | This `PAPER.md` is the first root manifest | Future SPR claims diverge from registry and are not reconciled. |
+| C0-003 | SPR-019 | Blog narrative is not enough; claims must be preserved in registry artifacts. | verified process debt / repaired 2026-06-30 | DSPro audit found `claims.md` current through SPR-038 while this root manifest stopped at SPR-021. This update reconciles root map and traces. | Future SPR claims diverge from registry and are not reconciled. |
+| C0-004 | DSPro audit 2026-06-30 | ARA has a "storytelling tax": evidence and local claim registries can be healthy while `PAPER.md` and trace DAGs go stale. | verified | `ara/s1-echo/logic/claims.md` was current; `ara/PAPER.md` and `ara/*/trace/research_dag.yaml` were stale before this repair. | Root manifest and trace DAG are updated in the same commit as future claims. |
 
 ### C1: S1 Capacity and Order Claims
 
@@ -148,6 +150,26 @@ M0 math toolbox
 | C5-007 | SPR-019 | Soft collapse should recover legal Hard TreeHeap structure. | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `collapse_accuracy_tau_0.05=1.0` | Collapse legality, route interpretability, or hard-soft gap fails in larger/noisy tests. |
 | C5-008 | SPR-021 | C05 must expose TreeHeap structure: path, subheap, and recursive route/plus; otherwise it degenerates into flat soft memory. | supported pilot | `ara/m0-treeheap-math/evidence/structural_c05_probe/`: flat/path-only test acc 0.0; subheap/path+subheap test acc 1.0 | Flat address or path-only baselines match subheap/path-subheap kernels on unseen-depth relocation. |
 
+### C6: Post-M0 S1 Encoder, Kernel, and Fold Claims
+
+These claims are registered in `ara/s1-echo/logic/claims.md`. They are listed
+here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
+
+| ID | Source | Claim | Status | Evidence / Pointer | Falsification |
+|---|---|---|---|---|---|
+| C6-001 | SPR-026 | A learnable shallow TreeHeap write can encode real short sentences into queryable `root/subject/object` slots, including OOD lexical copy-by-address. | supported pilot | `ara/s1-echo/evidence/shallow_treeheap_s1_probe/`; TreeHeap train/test/OOD exact 1.0/1.0/1.0, flat baselines OOD exact 0.0 | Matched copy-capable flat or sequence baseline matches OOD copy and slot query accuracy. |
+| C6-002 | SPR-028 | Frozen external embeddings are not yet a valid TreeHeap world-coordinate proof. | rejected pilot | `ara/s1-echo/evidence/s1_world_model_compound_probe/`; vector_add OOD cosine/top1 0.7198/0.833 vs TreeHeap 0.3919/0.0 | Reopen only if constrained TreeHeap encoder beats vector_add and copy/concat baselines on held-out compounds. |
+| C6-003 | SPR-029 | When coordinates are trained from local co-occurrence, a structured TreeHeap kernel can beat vector_add on OOD cosine and approach concat MLP. | supported pilot | `ara/s1-echo/evidence/s1_corpus_embedding_kernel_probe/`; OOD cosine vector_add 0.5785, TreeHeap 0.7126, concat MLP 0.7321 | Vector_add or matched simple baselines beat TreeHeap across seeds/corpus variants, or top1/cosine collapses. |
+| C6-004 | SPR-030 | A structured TreeHeap kernel can write/read real WMT SentencePiece short sequences in echo mode with far fewer parameters than flat sequence MLP. | supported pilot | `ara/s1-echo/evidence/s1_wmt_echo_kernel_probe/`; TreeHeap OOD token/exact 0.9818/0.9000 with 423104 params vs seq MLP 0.5986/0.0533 with 16794112 params | Copy-capable or larger matched baselines match OOD exact under similar parameter/sample budgets. |
+| C6-005 | SPR-031 | Structural perturbation can induce multi-kernel differentiation, but current accuracy is too low to claim solved specialization. | open / mixed pilot | `ara/s1-echo/evidence/s1_wmt_multikernel_specialization_probe*/`; all kernels used, max ablation drops up to 0.3050, mean exact remains low | Gate specialization depends only on task labels, accuracy stays low, or matched single/flat/Transformer baselines match. |
+| C6-006 | SPR-032 | Read should be query-conditioned probabilistic collapse over `stop/left/right` from `arr[1]`; internal `stop` is meaningful. | open / mixed pilot | `ara/s1-echo/evidence/s1_probabilistic_read_kernel_probe*/`; route acc 1.0, leaf acc 0.9989, internal hard acc up to 0.4332 | Support requires route, leaf read, and internal subheap read all pass under matched baselines. |
+| C6-007 | SPR-034 | Internal-node readout should target algebraically natural attributes before arbitrary checksum labels. | supported pilot | `ara/s1-echo/evidence/s1_algebraic_readout_probe*/`; routed internal readout beats root bottleneck on length/first/last/prefix targets | Root-only or matched flat/pointer baseline matches routed internal readout under same budget. |
+| C6-008 | SPR-035 | Natural internal readout requires an order-preserving TreeHeap fold before bag/mod/cyclic folding. | supported pilot | `ara/s1-echo/evidence/s1_ordered_fold_kernel_probe/`; ordered fold exact 1.0 vs bag/modulo exact 0.0888 | Non-addressed bag/global summary or early modulo fold preserves the same subheap readout. |
+| C6-009 | SPR-036 | Language fold should first be modeled as latent token/phrase placement and attraction; TreeHeap is a coordinate and partition system over that field. | open theory | `ara/s1-echo/logic/latent_plane_fold.md`; blog SPR-036 | Relation-layout probes show no stable neighborhoods or TreeHeap partitions do not improve over random/linear partitions. |
+| C6-010 | SPR-037 | Kernel controls over a latent relation field should form a measurable fold-quality control surface. | supported pilot | `ara/s1-echo/evidence/s1_controllable_manifold_probe/`; low-control F1 0.0828, best F1 0.8148, diagonal gain 0.7319 | Sweep is non-controllable, order/random controls match relation controls, or the surface disappears on real relation fields. |
+| C6-011 | SPR-038 | A differentiable energy over current TreeHeap state can relax `arr[i]` while kernel parameters and address rules remain fixed. | supported pilot | `ara/s1-echo/evidence/s1_heap_state_relaxation_probe/`; scalar energy ratio 2.47e-31, vector mean energy ratio 1.24e-13 | State-only updates cannot lower energy, require hidden theta updates, or use target heap labels in the loss. |
+| C6-012 | post SPR-038 | Explicit hard echo encoder/decoder closes the WMT short-BPE interface: ordered leaf write, internal summary compose, path leaf/subheap read, and full sequence decode. | supported pilot | `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`; main and expanded runs reach 1.0 sequence/leaf/subheap/summary metrics | Decoder uses target heap labels, hard interface fails under learned kernels, or non-empty/noisy subheap metrics collapse. |
+
 ## SPR Blog Source Map
 
 | SPR | File | Main role in ARA |
@@ -173,6 +195,23 @@ M0 math toolbox
 | 019 | `blogs/.../spr/019-soft-treeheap-gradient.md` | Soft algebra, kernel-guided soft plus, multi-kernel training |
 | 020 | `blogs/.../spr/020-soft-treeheap-audit.md` | GLM audit, ARA scope repair, clean-kernel next proof |
 | 021 | `blogs/.../spr/021-c05-structural-proof.md` | C05 structural proof: path, subheap, recursive plus |
+| 022 | `blogs/.../spr/022-treeheap-math-foundation.md` | Math background: rooted-tree algebra, operad/BCK positioning |
+| 023 | `blogs/.../spr/023-treeheap-kernel-convolution-ops.md` | TreeHeap operations as convolution-kernel combinations |
+| 024 | `blogs/.../spr/024-probabilistic-kernel-kl-world-model.md` | Probabilistic kernels, KL-style world-model fitting |
+| 025 | `blogs/.../spr/025-deductive-inductive-kernel-proof.md` | Split deductive operator proof from inductive probability learning |
+| 026 | `blogs/.../spr/026-s1-shallow-treeheap-write.md` | Shallow real-sentence TreeHeap slot write pilot |
+| 027 | `blogs/.../spr/027-treeheap-diff-algebra.md` | TreeHeap diff/distance and finite-difference learning signal |
+| 028 | `blogs/.../spr/028-s1-world-coordinate-negative.md` | Frozen embedding world-coordinate negative result |
+| 029 | `blogs/.../spr/029-local-corpus-coordinate-kernel.md` | Local corpus coordinate system and structured kernel pilot |
+| 030 | `blogs/.../spr/030-wmt-echo-kernel.md` | Real WMT SentencePiece echo kernel pilot |
+| 031 | `blogs/.../spr/031-multikernel-specialization.md` | Multi-kernel specialization mixed pilot |
+| 032 | `blogs/.../spr/032-probabilistic-read-kernel.md` | `stop/left/right` probabilistic read collapse |
+| 033 | `blogs/.../spr/033-algebraic-decoders.md` | Algebraic decoders for finite-field TreeHeap state |
+| 034 | `blogs/.../spr/034-algebraic-internal-readout.md` | Natural internal-node readout targets |
+| 035 | `blogs/.../spr/035-ordered-fold-kernel.md` | Ordered fold before bag/mod/cyclic fold |
+| 036 | `blogs/.../spr/036-latent-plane-fold.md` | Latent placement / relation-field fold theory |
+| 037 | `blogs/.../spr/037-controllable-fold-manifold.md` | Controllable fold-quality surface pilot |
+| 038 | `blogs/.../spr/038-heap-state-relaxation.md` | Heap-state relaxation and state-gradient pilot |
 
 The canonical local blog source is:
 
@@ -201,45 +240,54 @@ https://www.lostmap.cn/spr/
 | `ara/m0-treeheap-math/evidence/trainability_quiz/` | Linear regression, XOR, modular addition learning checks |
 | `ara/m0-treeheap-math/evidence/soft_plus_probe/` | Soft Plus gradient path, toy collapse, GLM feature-ablation audit |
 | `ara/m0-treeheap-math/evidence/structural_c05_probe/` | C05 structural ablation: flat/path-only vs subheap/path-subheap relocation |
+| `ara/m0-treeheap-math/evidence/kernel_convolution_ops_probe/` | Deterministic TreeHeap convolution operations: search, plus/write, conjugate mirror |
+| `ara/m0-treeheap-math/evidence/deductive_inductive_kernel_probe/` | Deductive hard/soft operator equivalence plus inductive probability learning with KL metrics |
+| `ara/m0-treeheap-math/evidence/treeheap_diff_algebra_probe/` | TreeHeap diff, norm, distance, finite-difference and theta-gradient checks |
+| `ara/m0-treeheap-math/evidence/algebraic_decoder_probe/` | Finite-field algebraic decoders: path, subheap, mirror, residue, ordered leaves |
+| `ara/s1-echo/evidence/shallow_treeheap_s1_probe/` | Shallow real-sentence slot write and OOD copy-by-address |
+| `ara/s1-echo/evidence/s1_world_model_compound_probe/` | Frozen external embedding world-coordinate negative result |
+| `ara/s1-echo/evidence/s1_corpus_embedding_kernel_probe/` | Local corpus co-occurrence coordinate and structured TreeHeap kernel |
+| `ara/s1-echo/evidence/s1_wmt_echo_kernel_probe/` | Real WMT short-BPE echo kernel versus BoW/seq MLP baselines |
+| `ara/s1-echo/evidence/s1_wmt_multikernel_specialization_probe*/` | Multi-kernel specialization and ablation mixed pilots |
+| `ara/s1-echo/evidence/s1_probabilistic_read_kernel_probe*/` | Probabilistic `stop/left/right` read collapse diagnostics |
+| `ara/s1-echo/evidence/s1_algebraic_readout_probe*/` | Algebraic internal readout from routed node state |
+| `ara/s1-echo/evidence/s1_ordered_fold_kernel_probe/` | Ordered fold versus bag/modulo fold controls |
+| `ara/s1-echo/evidence/s1_controllable_manifold_probe/` | Controllable relation/order fold surface |
+| `ara/s1-echo/evidence/s1_heap_state_relaxation_probe/` | Heap-state-only relaxation under fixed kernel/address rules |
+| `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/` | Hard WMT short-BPE echo encoder/decoder closure |
 
 ## Current Open Proof Queue
 
 Highest priority open experiments:
 
-1. `Kernel-guided Soft Plus Autograd`
-   - Claim: C5-004, C5-005
-   - Status: executed pilot in `ara/m0-treeheap-math/evidence/soft_plus_probe/`.
-   - Result: gradients reach `K_write` and plus parameters; low-temperature collapse is correct in the toy.
-   - Boundary: current success depends on engineered alignment features.
-   - Next: compare against naive memory write and encoder soft plus using clean features.
+1. `Learned Echo Encoder/Decoder`
+   - Claim: C6-012.
+   - Status: hard interface is closed exactly in `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`.
+   - Next: replace hard leaf write, internal compose, and readout with learned kernels one at a time.
+   - Pass gate: non-empty subheap metrics, noisy/masked restore, and matched copy-capable baselines.
 
-2. `Write Mechanism Ablation`
-   - Claim: C5-003..C5-005
-   - Compare:
+2. `Real Relation Layout Probe`
+   - Claim: C6-009, C6-010.
+   - Status: latent-plane theory and toy controllable manifold exist.
+   - Next: build real short-sentence relation fields for det-head, aux-verb, quant-head, modifier-head, and predicate-argument neighborhoods.
+   - Pass gate: TreeHeap partition/kernel improves relation recovery over random/linear partitions.
 
-```text
-A: naive soft memory write
-B: encoder soft plus
-C: kernel-guided soft plus
-```
+3. `Probabilistic Internal Read`
+   - Claim: C6-006, C6-007.
+   - Status: route and leaf read pass; arbitrary internal checksum failed; algebraic readout is positive.
+   - Next: evaluate internal read on natural attributes, non-empty subheaps, and longer variable-depth WMT slices.
+   - Pass gate: routed node state continues to beat root/flat/pointer baselines.
 
-2.5. `Structural C05 Probe`
-   - Claim: C5-008 / M0-SOFT-C07
-   - Status: executed pilot in `ara/m0-treeheap-math/evidence/structural_c05_probe/`.
-   - Result: subheap/path-subheap kernels relocate the target at unseen depth; flat address and path-only fail.
-   - Boundary: supports structural necessity, not full C5-005 write-mechanism superiority.
+4. `Multi-Kernel Specialization Retry`
+   - Claim: C6-005.
+   - Status: gates specialize but accuracy is weak.
+   - Next: retry after path-conditioned read and better task heads.
+   - Pass gate: task accuracy rises materially and ablation drops remain task-specific.
 
-3. `Hard/Soft Consistency`
-   - Claim: C5-002, C5-007
-   - Measure hard-soft output gap, collapse legality, route interpretability.
-
-4. `Existence Proof Suite`
-   - Claim: C4-002..C4-004
-   - Measure address extrapolation, subheap relocation, prefix compression.
-
-5. `Real Context S1b`
-   - Claim: C1-005, C1-006
-   - Controlled proof must face BoW, keyword, random-hash, and real-corpus baselines.
+5. `Real Context S1b Baseline Battle`
+   - Claim: C1-005, C1-006.
+   - Status: controlled proof exists; real-corpus baseline battle remains open.
+   - Pass gate: context-conditioned path features beat BoW, keyword, random-hash, nearest-neighbor, and token-frequency baselines.
 
 ## Current Downgraded or Rejected Claims
 
@@ -250,6 +298,10 @@ C: kernel-guided soft plus
 | Historical checkpoint proves TreeHeap syntax | downgraded |
 | Naive soft memory write proves TreeHeap algebra is trainable | rejected as too weak |
 | WMT / Transformer replacement claim | not allowed yet |
+| Frozen pretrained embeddings prove TreeHeap world coordinates | rejected pilot |
+| Multi-kernel specialization is solved | open / mixed only |
+| Probabilistic internal subheap read is solved | open / mixed only |
+| Hard echo encoder/decoder proves semantic learning | not allowed; interface proof only |
 
 ## Reviewer Notes
 
@@ -260,6 +312,9 @@ TreeHeap beats Transformer on WMT.
 TreeHeap has learned syntax from the current historical checkpoint.
 Soft TreeHeap training is already proved.
 Kernel-guided soft plus has learned clean routing from raw TreeHeap geometry.
+Hard exact echo proves language semantics.
+Multi-kernel gates already equal Transformer multi-head capability.
+Heap-state relaxation already solves S1/S2 learning.
 ```
 
 The research is allowed to claim:
@@ -274,6 +329,11 @@ TreeHeap math/toy probes support a narrow algebraic toolbox direction.
 Soft Plus has a working gradient-path toy proof.
 Kernel-guided clean route learning remains open.
 Subheap structure carries unseen-depth relocation in the C05 structural toy.
+TreeHeap kernels can beat flat/BoW baselines on short WMT echo under current pilot constraints.
+Probabilistic read can route and read leaves, while internal subheap read remains open.
+Algebraic internal readout is a better target than arbitrary checksum.
+Ordered fold is necessary before bag/mod/cyclic fold for natural subheap readout.
+Heap-state relaxation is a valid state-gradient pilot, not a translation claim.
 ```
 
 ## Maintenance Rule
