@@ -1264,3 +1264,98 @@ Replace the toy relation field with a relation field estimated from real data:
 co-occurrence, weak dependency pairs, masked-token restoration, or contrastive
 phrase pairs. Rerun the same control-surface analysis.
 ```
+
+---
+
+## E14: Heap-State Relaxation Probe
+
+Question:
+
+```text
+Can gradient information update the current TreeHeap state H itself, rather
+than only updating kernel parameters theta?
+```
+
+Why this follows E13:
+
+```text
+E13 proved a manually controlled fold surface. Houming818 then proposed that
+the gradient on this surface may also act as heap balance adjustment:
+H <- H - eta * grad_H E(H).
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_heap_state_relaxation_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_heap_state_relaxation_probe/
+```
+
+Design:
+
+```text
+theta_updated = false
+heap_state_updated = true
+target_heap_used_in_loss = false
+loss_type = energy over current heap state
+```
+
+Scalar energy:
+
+```text
+E = (left - right)^2 + (root - (left + right) / 2)^2
+```
+
+Vector energy:
+
+```text
+parent-child consistency + relation-anchor consistency
+```
+
+Result:
+
+| Metric | Value |
+|---|---:|
+| scalar energy ratio | 2.47e-31 |
+| scalar left delta | +1.0000 |
+| scalar right delta | -1.0000 |
+| mean vector energy ratio | 1.24e-13 |
+| max vector energy ratio | 3.69e-13 |
+| mean centroid error drop | 3.0393 |
+| pass rate | 1.0000 |
+| pilot pass | true |
+
+Decision:
+
+```text
+S1-RELAX-C01 -> supported pilot
+```
+
+Interpretation:
+
+```text
+TreeHeap has a state-gradient path in addition to parameter-gradient learning.
+The current arr[i] values can be moved by gradients from a differentiable
+energy function while fixed address rules and fixed kernel coefficients remain
+unchanged.
+```
+
+What this does not prove:
+
+```text
+not WMT
+not natural language understanding
+not unsupervised relation-field learning
+not Transformer superiority
+```
