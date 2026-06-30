@@ -1146,3 +1146,121 @@ Next action:
 3. Separately design a modulo/cyclic folding experiment where the target is
    truly periodic, not natural subheap readout.
 ```
+
+---
+
+## E13: Controllable Fold Manifold Probe
+
+Question:
+
+```text
+Can TreeHeap fold quality be controlled by kernel variables, so that output
+structure moves from noisy blocks toward stable product-like blocks along a
+measurable surface?
+```
+
+Why this follows E12:
+
+```text
+E12 proved that order-preserving fold is necessary for natural readout.
+SPR-036 then reframed language fold as latent placement and attraction.
+E13 connects the algebra/product gap: expose kernel controls and measure how
+the generated fold changes.
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_controllable_manifold_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_controllable_manifold_probe/
+```
+
+Dataset:
+
+```text
+pure toy relation field
+sentence cases = 4
+seeds = 64
+weights = {0, 0.25, 0.5, 1, 2, 4}
+```
+
+Example cases:
+
+```text
+the cat is running for a car
+the book that i bought yesterday is expensive
+```
+
+Kernel score:
+
+```text
+score(A, B)
+  = relation_weight * relation(A, B)
+  + order_weight    * order(A, B)
+  - balance_penalty
+  + noise
+```
+
+Predict:
+
+```text
+P-S1-MANIFOLD01:
+If kernel controls can form a product-facing fold manifold, then increasing
+relation/order control should improve block F1 from low-control noisy output
+toward stable target blocks.
+```
+
+Result:
+
+| Metric | Value |
+|---|---:|
+| low-control mean F1 | 0.0828 |
+| best mean F1 | 0.8148 |
+| high-sum-control mean F1 | 0.8148 |
+| diagonal gain | 0.7319 |
+| product cells | 22 |
+| pilot pass | true |
+
+Decision:
+
+```text
+S1-MANIFOLD-C01 -> supported pilot
+```
+
+Interpretation:
+
+```text
+On a transparent toy relation field, fold quality can be treated as a control
+surface over kernel variables. This supports a product-development method:
+debug TreeHeap by exposing controls, structure quality, energies, and
+uncertainty, not only by asking whether final generation is good.
+```
+
+What this does not prove:
+
+```text
+not WMT
+not unsupervised relation discovery
+not natural language understanding
+not Transformer superiority
+not that these two knobs are final
+```
+
+Next action:
+
+```text
+Replace the toy relation field with a relation field estimated from real data:
+co-occurrence, weak dependency pairs, masked-token restoration, or contrastive
+phrase pairs. Rerun the same control-surface analysis.
+```
