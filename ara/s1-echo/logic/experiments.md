@@ -530,6 +530,97 @@ Next falsification:
 
 ---
 
+## E8b: Explicit Echo Encoder / Decoder Interface
+
+Question:
+
+```text
+Can we implement the hard TreeHeap echo encoder and decoder contract directly?
+```
+
+Why this follows the recent S1 work:
+
+```text
+E8 proved a learned TreeHeap echo kernel can approximate short WMT echo.
+SPR-035/034 clarified ordered internal readout.
+SPR-038 clarified state gradients.
+E8b pins down the algebraic encoder/decoder interface before replacing pieces
+with learned kernels.
+```
+
+Script:
+
+```text
+ara/s1-echo/src/s1_echo_encoder_decoder_probe.py
+```
+
+Remote host:
+
+```text
+io.grepcode.cn
+```
+
+Evidence:
+
+```text
+ara/s1-echo/evidence/s1_echo_encoder_decoder_probe/
+```
+
+Dataset:
+
+```text
+source = wmt_sentencepiece
+wmt_path = /mnt/nas/datasets/wmt17/train.zh-en
+spm_model = /mnt/nas/datasets/wmt17/sp_bpe.model
+samples = 2000
+train/test/ood = 1600/200/200
+length = 3..8
+vocab_limit = 1024
+```
+
+Design:
+
+```text
+learned_parameters = 0
+encoder = token sequence -> ordered TreeHeap leaves -> internal NodeState summaries
+decoder = root length + path-addressed leaf/subheap reads -> token sequence
+uses_target_heap_in_decoder = false
+```
+
+Result:
+
+| Split | Sequence exact | Leaf acc | Subheap exact | Summary exact |
+|---|---:|---:|---:|---:|
+| train | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| test | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| ood | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+
+Decision:
+
+```text
+S1-ECHO-ED-C01 -> supported pilot
+```
+
+Interpretation:
+
+```text
+The hard/algebraic echo encoder-decoder interface is closed. This gives the
+next learned experiment a clean target: approximate ordered write, compose,
+path read, and subheap decode without using target heap labels at decode time.
+```
+
+What this does not prove:
+
+```text
+not translation
+not learned semantic encoding
+not compression
+not superiority over neural baselines
+not noisy-channel correction
+```
+
+---
+
 ## E9: WMT Multi-Kernel Specialization Probe
 
 Question:
