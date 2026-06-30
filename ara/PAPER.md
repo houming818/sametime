@@ -169,6 +169,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | C6-010 | SPR-037 | Kernel controls over a latent relation field should form a measurable fold-quality control surface. | supported pilot | `ara/s1-echo/evidence/s1_controllable_manifold_probe/`; low-control F1 0.0828, best F1 0.8148, diagonal gain 0.7319 | Sweep is non-controllable, order/random controls match relation controls, or the surface disappears on real relation fields. |
 | C6-011 | SPR-038 | A differentiable energy over current TreeHeap state can relax `arr[i]` while kernel parameters and address rules remain fixed. | supported pilot | `ara/s1-echo/evidence/s1_heap_state_relaxation_probe/`; scalar energy ratio 2.47e-31, vector mean energy ratio 1.24e-13 | State-only updates cannot lower energy, require hidden theta updates, or use target heap labels in the loss. |
 | C6-012 | post SPR-038 | Explicit hard echo encoder/decoder closes the WMT short-BPE interface: ordered leaf write, internal summary compose, path leaf/subheap read, and full sequence decode. | supported pilot | `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`; main and expanded runs reach 1.0 sequence/leaf/subheap/summary metrics | Decoder uses target heap labels, hard interface fails under learned kernels, or non-empty/noisy subheap metrics collapse. |
+| C6-013 | SPR-039 design | A parameter TreeHeap `Theta` should learn local subheap convolution kernels by gradient, distinct from SPR-038 state relaxation. | planned | `ara/s1-echo/logic/kernel_parameter_learning.md`; planned target `[1,2,3,4,5,6,7] -> [6,11,16,4,5,6,7]` with hidden kernel `[1,1,1]` | `Theta` fails to recover hidden kernel, wrong-address baselines match it, or only heap state `H` moves while parameters stay fixed. |
 
 ## SPR Blog Source Map
 
@@ -212,6 +213,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | 036 | `blogs/.../spr/036-latent-plane-fold.md` | Latent placement / relation-field fold theory |
 | 037 | `blogs/.../spr/037-controllable-fold-manifold.md` | Controllable fold-quality surface pilot |
 | 038 | `blogs/.../spr/038-heap-state-relaxation.md` | Heap-state relaxation and state-gradient pilot |
+| 039 | `blogs/.../spr/039-parameter-treeheap-kernel-learning.md` | Planned parameter TreeHeap / local convolution kernel learning proof |
 
 The canonical local blog source is:
 
@@ -265,6 +267,12 @@ Highest priority open experiments:
    - Status: hard interface is closed exactly in `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`.
    - Next: replace hard leaf write, internal compose, and readout with learned kernels one at a time.
    - Pass gate: non-empty subheap metrics, noisy/masked restore, and matched copy-capable baselines.
+
+1.5. `Parameter TreeHeap Kernel Learning`
+   - Claim: C6-013.
+   - Status: planned.
+   - Next: train `Theta=[theta_root,theta_left,theta_right]` to recover hidden local convolution kernel `[1,1,1]`.
+   - Pass gate: `Theta` moves, recovers the hidden kernel, wrong-address baseline fails, and test/OOD MSE is low.
 
 2. `Real Relation Layout Probe`
    - Claim: C6-009, C6-010.

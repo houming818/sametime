@@ -104,6 +104,12 @@ Purpose: Track SPR S1 claims, evidence, and falsification criteria.
 |----|-------|--------|----------|---------------|
 | S1-RELAX-C01 | A differentiable energy over the current TreeHeap state can generate gradients that relax `arr[i]` toward a lower-energy equilibrium while kernel parameters and address rules remain fixed. | supported pilot | `s1_heap_state_relaxation_probe.py` on io, 2026-06-30. `theta_updated=false`, `heap_state_updated=true`, `target_heap_used_in_loss=false`. Scalar `[2,1,3]` energy ratio `2.47e-31`; vector 7-node TreeHeap mean energy ratio `1.24e-13`, max ratio `3.69e-13`, mean centroid error drop `3.0393`, pass rate `1.0`. | Reject or downgrade if state-only updates cannot lower heap energy across random initial states, if equivalent improvement requires updating kernel parameters, if target heap labels are secretly used in the loss, or if the mechanism fails when connected to real relation fields and probabilistic collapse. |
 
+## Kernel Parameter Learning
+
+| ID | Claim | Status | Evidence | Falsification |
+|----|-------|--------|----------|---------------|
+| S1-KERNEL-LEARN-C01 | A parameter TreeHeap `Theta` should be able to learn a local subheap convolution rule from scalar loss and gradient, distinct from SPR-038's heap-state relaxation. | planned | `kernel_parameter_learning.md`, SPR-039 design. Minimal target: recover hidden scalar kernel `[1,1,1]` from heaps such as `[1,2,3,4,5,6,7] -> [6,11,16,4,5,6,7]`. | Reject or downgrade if `Theta` cannot recover the hidden kernel on clean scalar heaps, if wrong-address baselines match it, if only `H` moves while `Theta` stays fixed, or if flat baselines win without using address/path/subheap structure. |
+
 ## Architecture Position
 
 Current S1 conclusion:

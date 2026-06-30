@@ -1471,3 +1471,57 @@ not natural language understanding
 not unsupervised relation-field learning
 not Transformer superiority
 ```
+## P-S1-KERNEL39: Parameter TreeHeap Learns A Local Convolution Kernel
+
+Status: planned
+Claim: S1-KERNEL-LEARN-C01
+Design: `logic/kernel_parameter_learning.md`
+
+### Question
+
+Can a parameter TreeHeap `Theta` learn the hidden local convolution kernel
+that maps each internal node and its children to a new state?
+
+### Toy Data
+
+Use complete binary heaps:
+
+```text
+        h1
+      /    \
+    h2      h3
+   /  \    /  \
+ h4   h5 h6   h7
+```
+
+Hidden kernel:
+
+```text
+theta* = [1, 1, 1]
+```
+
+Target:
+
+```text
+y1 = h1 + h2 + h3
+y2 = h2 + h4 + h5
+y3 = h3 + h6 + h7
+```
+
+Example:
+
+```text
+H  = [1,2,3,4,5,6,7]
+H' = [6,11,16,4,5,6,7]
+```
+
+### Pass Gate
+
+- learned `Theta` is close to `[1,1,1]`
+- train/test/OOD MSE is low
+- wrong-address baseline fails or is materially worse
+- result updates `Theta`, not only `H`
+
+### Boundary
+
+This is a kernel-learning proof, not a language proof.
