@@ -595,6 +595,27 @@ Result:
 | test | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
 | ood | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
 
+Expanded result:
+
+```text
+out = ara/s1-echo/evidence/s1_echo_encoder_decoder_probe_expanded/
+samples = 20000
+train/test/ood = 16000/2000/2000
+length = 3..16
+vocab_limit = 4096
+sample_nodes = 31
+```
+
+| Split | Sequence exact | Leaf acc | Subheap exact | Summary exact |
+|---|---:|---:|---:|---:|
+| train | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| test | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| ood | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+
+The expanded run includes padded/empty subheap queries because it samples all
+internal nodes; future learned/semantic variants should report non-empty
+subheap metrics separately.
+
 Decision:
 
 ```text
