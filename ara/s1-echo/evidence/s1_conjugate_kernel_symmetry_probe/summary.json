@@ -1,0 +1,255 @@
+{
+  "claim": "S1-KERNEL-CONJ-C01",
+  "predict": "P-S1-KERNEL40",
+  "host": "io.grepcode.cn",
+  "config": {
+    "seed": 4001,
+    "train": 512,
+    "test": 256,
+    "ood": 256,
+    "epochs": 600,
+    "lr": 0.04,
+    "theta": [
+      0.5,
+      1.25,
+      -0.75
+    ],
+    "theta_conj": [
+      0.5,
+      -0.75,
+      1.25
+    ],
+    "mirror_perm": [
+      0,
+      2,
+      1,
+      6,
+      5,
+      4,
+      3
+    ]
+  },
+  "deductive": {
+    "test": {
+      "max_flipped_error": 8.881784197001252e-16,
+      "mean_flipped_error": 1.6349768761081407e-16,
+      "min_unflipped_error": 0.33584859153967783,
+      "mean_unflipped_error": 6.437218965861555
+    },
+    "ood": {
+      "max_flipped_error": 3.552713678800501e-15,
+      "mean_flipped_error": 5.707240235963695e-16,
+      "min_unflipped_error": 4.701151704112746,
+      "mean_unflipped_error": 21.661968766398264
+    }
+  },
+  "learned_conjugate": {
+    "theta_initial": [
+      0.6563733773581726,
+      0.3093104532024955,
+      0.6097207482719511
+    ],
+    "theta_final": [
+      0.5000000000000002,
+      -0.7499999999999998,
+      1.2499999999999996
+    ],
+    "theta_delta_l2": 1.2476172448326879,
+    "theta_conj_l2_error": 5.438959822042073e-16,
+    "train_mse": 9.242083905562348e-31,
+    "trace": [
+      {
+        "epoch": 0,
+        "loss": 4.41602491469995,
+        "theta": [
+          0.6563733773581726,
+          0.3093104532024955,
+          0.6097207482719511
+        ],
+        "theta_conj_l2_error": 1.2476172448326883
+      },
+      {
+        "epoch": 1,
+        "loss": 2.637373157207014,
+        "theta": [
+          0.6304071563242444,
+          0.0688137169341744,
+          0.7572514710786569
+        ],
+        "theta_conj_l2_error": 0.9645014474920616
+      },
+      {
+        "epoch": 2,
+        "loss": 1.5757725994650915,
+        "theta": [
+          0.6081342835914838,
+          -0.11704787096307831,
+          0.8706953266721789
+        ],
+        "theta_conj_l2_error": 0.745783786461291
+      },
+      {
+        "epoch": 5,
+        "loss": 0.3369159062725911,
+        "theta": [
+          0.5600042021398318,
+          -0.45753500308686873,
+          1.0767359754017929
+        ],
+        "theta_conj_l2_error": 0.3451908181192017
+      },
+      {
+        "epoch": 10,
+        "loss": 0.02595726521878591,
+        "theta": [
+          0.5211061243885795,
+          -0.669138104161745,
+          1.2028355583107175
+        ],
+        "theta_conj_l2_error": 0.09596144666023285
+      },
+      {
+        "epoch": 25,
+        "loss": 1.2474030098752386e-05,
+        "theta": [
+          0.5007209818392931,
+          -0.748275514892807,
+          1.249017881896887
+        ],
+        "theta_conj_l2_error": 0.002111449659827003
+      },
+      {
+        "epoch": 50,
+        "loss": 4.1231542047721963e-11,
+        "theta": [
+          0.5000018745613567,
+          -0.749997083664717,
+          1.2499983198210434
+        ],
+        "theta_conj_l2_error": 3.8525307382870445e-06
+      },
+      {
+        "epoch": 100,
+        "loss": 5.40121959690397e-22,
+        "theta": [
+          0.500000000008764,
+          -0.7499999999907673,
+          1.249999999994235
+        ],
+        "theta_conj_l2_error": 1.397445228024866e-11
+      },
+      {
+        "epoch": 250,
+        "loss": 9.242083905562348e-31,
+        "theta": [
+          0.5000000000000002,
+          -0.7499999999999998,
+          1.2499999999999996
+        ],
+        "theta_conj_l2_error": 5.438959822042073e-16
+      },
+      {
+        "epoch": 500,
+        "loss": 9.242083905562348e-31,
+        "theta": [
+          0.5000000000000002,
+          -0.7499999999999998,
+          1.2499999999999996
+        ],
+        "theta_conj_l2_error": 5.438959822042073e-16
+      },
+      {
+        "epoch": 600,
+        "loss": 9.242083905562348e-31,
+        "theta": [
+          0.5000000000000002,
+          -0.7499999999999998,
+          1.2499999999999996
+        ],
+        "theta_conj_l2_error": 5.438959822042073e-16
+      }
+    ],
+    "test": {
+      "mse": 1.009919796245312e-30
+    },
+    "ood": {
+      "mse": 9.76165617020772e-30
+    }
+  },
+  "example": {
+    "heap": [
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0
+    ],
+    "theta": [
+      0.5,
+      1.25,
+      -0.75
+    ],
+    "theta_conj": [
+      0.5,
+      -0.75,
+      1.25
+    ],
+    "conv": [
+      0.75,
+      2.25,
+      3.75,
+      4.0,
+      5.0,
+      6.0,
+      7.0
+    ],
+    "mirror_conv": [
+      0.75,
+      3.75,
+      2.25,
+      7.0,
+      6.0,
+      5.0,
+      4.0
+    ],
+    "conv_mirror_with_conj": [
+      0.75,
+      3.75,
+      2.25,
+      7.0,
+      6.0,
+      5.0,
+      4.0
+    ],
+    "conv_mirror_with_unflipped": [
+      2.75,
+      5.75,
+      4.25,
+      7.0,
+      6.0,
+      5.0,
+      4.0
+    ]
+  },
+  "pass_checks": {
+    "deductive_test_equivariance": true,
+    "deductive_ood_equivariance": true,
+    "unflipped_kernel_fails": true,
+    "learned_conjugate_theta": true,
+    "learned_test_mse_low": true,
+    "learned_ood_mse_low": true
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "If pilot_pass is true, TreeHeap local convolution supports mirror conjugation and the mirrored kernel can be learned from mirrored data.",
+    "not_proved": [
+      "not language understanding",
+      "not WMT translation",
+      "not learned semantic conjugacy",
+      "not arbitrary group equivariance",
+      "not superiority over all flat models"
+    ]
+  }
+}

@@ -1545,3 +1545,67 @@ S1-KERNEL-LEARN-C01 -> supported pilot
 ### Boundary
 
 This is a kernel-learning proof, not a language proof.
+
+## P-S1-KERNEL40: Mirror Conjugate Kernel Symmetry
+
+Status: executed
+Claim: S1-KERNEL-CONJ-C01
+Design: `logic/conjugate_kernel_symmetry.md`
+Script: `src/s1_conjugate_kernel_symmetry_probe.py`
+Evidence: `evidence/s1_conjugate_kernel_symmetry_probe/`
+
+### Question
+
+Does TreeHeap local convolution support conjugate symmetric flipping?
+
+### Definition
+
+Physical mirror:
+
+```text
+M(1)=1
+M(2)=3, M(3)=2
+M(4)=7, M(5)=6, M(6)=5, M(7)=4
+```
+
+Kernel:
+
+```text
+theta = [root,left,right]
+conj(theta) = [root,right,left]
+```
+
+Expected law:
+
+```text
+M(K_theta(H)) = K_conj(theta)(M(H))
+```
+
+### Pass Gate
+
+- flipped-kernel equivariance error near zero
+- unflipped kernel fails on mirrored heaps
+- learned mirrored kernel recovers `[root,right,left]`
+
+### Result
+
+```text
+pilot_pass = true
+test_max_flipped_error = 8.88e-16
+ood_max_flipped_error = 3.55e-15
+test_mean_unflipped_error = 6.4372
+learned_theta = [0.5000000000000002, -0.7499999999999998, 1.2499999999999996]
+theta_conj_l2_error = 5.44e-16
+learned_test_mse = 1.01e-30
+learned_ood_mse = 9.76e-30
+```
+
+Decision:
+
+```text
+S1-KERNEL-CONJ-C01 -> supported pilot
+```
+
+### Boundary
+
+This is a local algebraic/convolution proof, not a language proof.

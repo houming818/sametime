@@ -170,6 +170,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | C6-011 | SPR-038 | A differentiable energy over current TreeHeap state can relax `arr[i]` while kernel parameters and address rules remain fixed. | supported pilot | `ara/s1-echo/evidence/s1_heap_state_relaxation_probe/`; scalar energy ratio 2.47e-31, vector mean energy ratio 1.24e-13 | State-only updates cannot lower energy, require hidden theta updates, or use target heap labels in the loss. |
 | C6-012 | post SPR-038 | Explicit hard echo encoder/decoder closes the WMT short-BPE interface: ordered leaf write, internal summary compose, path leaf/subheap read, and full sequence decode. | supported pilot | `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`; main and expanded runs reach 1.0 sequence/leaf/subheap/summary metrics | Decoder uses target heap labels, hard interface fails under learned kernels, or non-empty/noisy subheap metrics collapse. |
 | C6-013 | SPR-039 | A parameter TreeHeap `Theta` can learn local subheap convolution kernels by gradient, distinct from SPR-038 state relaxation. | supported pilot | `ara/s1-echo/evidence/s1_kernel_parameter_learning_probe/`; hidden `[1,1,1]`, learned theta `[1.0,1.0,1.0]`, theta L2 error `5.44e-16`, test/OOD MSE `8.78e-31/8.93e-30`, wrong-address test MSE `5.9285` | `Theta` fails to recover hidden kernels beyond clean scalar toy, wrong-address baselines match it, or only heap state `H` moves while parameters stay fixed. |
+| C6-014 | SPR-040 | TreeHeap local convolution is equivariant under mirror conjugation; mirrored trees require mirrored kernels. | supported pilot | `ara/s1-echo/evidence/s1_conjugate_kernel_symmetry_probe/`; flipped-kernel test max error `8.88e-16`, unflipped mean error `6.4372`, learned conjugate theta `[0.5,-0.75,1.25]` | Mirror equivariance fails for deeper/vector kernels, unflipped kernels work equally well, or learned mirrored kernels do not recover `[root,right,left]`. |
 
 ## SPR Blog Source Map
 
@@ -214,6 +215,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | 037 | `blogs/.../spr/037-controllable-fold-manifold.md` | Controllable fold-quality surface pilot |
 | 038 | `blogs/.../spr/038-heap-state-relaxation.md` | Heap-state relaxation and state-gradient pilot |
 | 039 | `blogs/.../spr/039-parameter-treeheap-kernel-learning.md` | Planned parameter TreeHeap / local convolution kernel learning proof |
+| 040 | not yet written | Mirror conjugate TreeHeap kernel symmetry proof |
 
 The canonical local blog source is:
 
