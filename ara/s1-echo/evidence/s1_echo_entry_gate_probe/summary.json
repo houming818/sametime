@@ -1,0 +1,233 @@
+{
+  "claim": "S1-ECHO-GATE-C01",
+  "predict": "P-S1-ECHO041",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "config": {
+    "out": "ara/s1-echo/evidence/s1_echo_entry_gate_probe",
+    "seed": 4101,
+    "samples": 8192,
+    "vocab": 64,
+    "dim": 32,
+    "epochs": 80,
+    "batch": 256,
+    "lr": 0.02,
+    "device": "cuda",
+    "host_label": "io.grepcode.cn",
+    "min_token_acc": 0.995,
+    "min_exact": 0.98,
+    "min_route_argmax": 1.0,
+    "min_gate_prob": 0.75,
+    "max_baseline_exact": 0.65
+  },
+  "task": {
+    "input": "four token ids plus task flag",
+    "echo_target": "[t0,t1,t2,t3]",
+    "mirror_target": "[t3,t2,t1,t0]",
+    "treeheap_leaves": "four ordered leaf addresses"
+  },
+  "models": {
+    "treeheap_echo_gate": {
+      "parameters": 4196,
+      "metrics": {
+        "train": {
+          "token_acc": 1.0,
+          "exact": 1.0,
+          "route_alignment": 0.7197688817977905,
+          "route_argmax_ok": 1.0,
+          "gate_echo_identity_prob": 0.9684494137763977,
+          "gate_mirror_mirror_prob": 0.8107268810272217
+        },
+        "test": {
+          "token_acc": 1.0,
+          "exact": 1.0,
+          "route_alignment": 0.7197688817977905,
+          "route_argmax_ok": 1.0,
+          "gate_echo_identity_prob": 0.9684494733810425,
+          "gate_mirror_mirror_prob": 0.8107270002365112
+        },
+        "ood": {
+          "token_acc": 1.0,
+          "exact": 1.0,
+          "route_alignment": 0.7197688817977905,
+          "route_argmax_ok": 1.0,
+          "gate_echo_identity_prob": 0.9684493541717529,
+          "gate_mirror_mirror_prob": 0.8107268810272217
+        }
+      },
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 2.7396287520726523
+        },
+        {
+          "epoch": 1,
+          "loss": 0.7757026764253775
+        },
+        {
+          "epoch": 2,
+          "loss": 0.03716243502761548
+        },
+        {
+          "epoch": 5,
+          "loss": 0.0006989776472134205
+        },
+        {
+          "epoch": 10,
+          "loss": 0.0003805795386142563
+        },
+        {
+          "epoch": 40,
+          "loss": 5.598346539651781e-05
+        },
+        {
+          "epoch": 79,
+          "loss": 1.6409169954082852e-05
+        }
+      ],
+      "route_probabilities": [
+        [
+          [
+            0.6745044589042664,
+            0.06231754273176193,
+            0.061960719525814056,
+            0.20121730864048004
+          ],
+          [
+            0.059038158506155014,
+            0.6737049221992493,
+            0.20453549921512604,
+            0.06272143125534058
+          ],
+          [
+            0.05991361290216446,
+            0.20254039764404297,
+            0.6755965352058411,
+            0.0619494691491127
+          ],
+          [
+            0.20045053958892822,
+            0.06175096333026886,
+            0.06092248111963272,
+            0.6768760681152344
+          ]
+        ],
+        [
+          [
+            0.11802931129932404,
+            0.05847509950399399,
+            0.05969787389039993,
+            0.7637976408004761
+          ],
+          [
+            0.05480611324310303,
+            0.1271016001701355,
+            0.7631334662437439,
+            0.05495881661772728
+          ],
+          [
+            0.054760824888944626,
+            0.7618170976638794,
+            0.1228308454155922,
+            0.060591232031583786
+          ],
+          [
+            0.7687211036682129,
+            0.05305856466293335,
+            0.05760684609413147,
+            0.12061358988285065
+          ]
+        ]
+      ],
+      "task_gate_probabilities": [
+        [
+          0.9684491753578186,
+          0.031550876796245575
+        ],
+        [
+          0.18927322328090668,
+          0.8107268214225769
+        ]
+      ]
+    },
+    "no_task_single_kernel": {
+      "parameters": 4176,
+      "metrics": {
+        "train": {
+          "token_acc": 0.6021321415901184,
+          "exact": 0.1858723908662796,
+          "route_alignment": 0.46633419394493103,
+          "route_argmax_ok": 0.75,
+          "gate_echo_identity_prob": NaN,
+          "gate_mirror_mirror_prob": NaN
+        },
+        "test": {
+          "token_acc": 0.500732421875,
+          "exact": 0.0966796875,
+          "route_alignment": 0.46633419394493103,
+          "route_argmax_ok": 0.75,
+          "gate_echo_identity_prob": NaN,
+          "gate_mirror_mirror_prob": NaN
+        },
+        "ood": {
+          "token_acc": 0.514892578125,
+          "exact": 0.0908203125,
+          "route_alignment": 0.46633419394493103,
+          "route_argmax_ok": 0.75,
+          "gate_echo_identity_prob": NaN,
+          "gate_mirror_mirror_prob": NaN
+        }
+      },
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 2.697295586268107
+        },
+        {
+          "epoch": 1,
+          "loss": 0.9149742076794306
+        },
+        {
+          "epoch": 2,
+          "loss": 0.7622052133083344
+        },
+        {
+          "epoch": 5,
+          "loss": 0.7174468686183294
+        },
+        {
+          "epoch": 10,
+          "loss": 0.7044668247302374
+        },
+        {
+          "epoch": 40,
+          "loss": 0.6908576016624769
+        },
+        {
+          "epoch": 79,
+          "loss": 0.6715986008445421
+        }
+      ]
+    }
+  },
+  "pass_checks": {
+    "treeheap_ood_token_acc_high": true,
+    "treeheap_ood_exact_high": true,
+    "routes_are_structural": true,
+    "gate_selects_identity_for_echo": true,
+    "gate_selects_mirror_for_mirror": true,
+    "no_task_baseline_worse": true
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "Controlled S1 echo can learn token write/read, structural route selection, and token collapse from scalar cross-entropy loss.",
+    "not_proved": [
+      "not WMT translation",
+      "not language semantics",
+      "not unsupervised natural mirror trigger",
+      "not recursive-depth mirror selection",
+      "not superiority over all larger sequence models"
+    ]
+  },
+  "elapsed_sec": 5.623
+}
