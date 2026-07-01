@@ -1,98 +1,132 @@
-# S1 Echo Entry Gate
+# S1 Echo Entry Gate: Corrected Inverse Canonicalization
 
 Created: 2026-07-01
+Corrected: 2026-07-01
 Owner: Codex Review
 Stage: S1 Echo
 
-## Claim
+## Correction Note
 
-`S1-ECHO-GATE-C01`
+The first SPR-041 pilot (`S1-ECHO-GATE-C01`) was misdirected.
 
-A controlled S1 echo loop can be trained end-to-end from scalar cross-entropy
-loss:
+It proved that a model can choose between an identity read kernel and a mirror
+read kernel for different output tasks:
 
 ```text
-token ids
+task=echo   -> read identity
+task=mirror -> read mirror
+```
+
+Houming818 pointed out that this is not the desired TreeHeap direction. The
+desired operation is:
+
+```text
+observed mirror state
+-> inverse gate / mirror inverse
+-> canonical echo state
+-> one shared echo decoder
+```
+
+Therefore the old evidence is retained as a negative design lesson, not as the
+accepted S1 entry claim.
+
+## Accepted Claim
+
+`S1-ECHO-CANON-C01`
+
+A controlled S1 echo loop can learn inverse structural canonicalization before
+token collapse:
+
+```text
+observed token ids
 -> TreeHeap leaf write
--> path-conditioned read kernel
--> task-conditioned structural route selection
--> token collapse decoder
+-> inverse gate over structural kernels
+-> canonical TreeHeap echo state
+-> one shared echo decoder
+-> canonical token ids
 ```
 
-In this proof the structure task is deliberately small:
+In the controlled task:
 
 ```text
-task = echo:   [t0,t1,t2,t3] -> [t0,t1,t2,t3]
-task = mirror: [t0,t1,t2,t3] -> [t3,t2,t1,t0]
+canonical = [t0,t1,t2,t3]
+
+observed identity = [t0,t1,t2,t3]
+observed mirror   = [t3,t2,t1,t0]
+
+target = canonical
 ```
 
-The task flag is given. Therefore this claim is an S1 entry proof, not a
-natural-language trigger proof.
+The transform flag is still given. This does not prove natural-language trigger
+discovery.
 
 ## Predict
 
-`P-S1-ECHO041`
+`P-S1-ECHO041-CORRECTED`
 
-If S1 echo can now begin, a tiny differentiable TreeHeap echo model should
-learn all three pieces together:
+If the corrected S1 entry design is valid:
 
-1. token information is stored in learned leaf embeddings;
-2. structural read routes collapse to identity or mirror leaf addresses;
-3. decoded tokens reconstruct the requested sequence on held-out samples.
-
-A no-task single-kernel baseline should fail because one fixed read kernel
-cannot solve both identity and mirror outputs at the same time.
+1. identity input should use an identity inverse kernel;
+2. mirror input should use a mirror inverse kernel;
+3. both paths should produce the same canonical echo state;
+4. one shared echo decoder should reconstruct canonical tokens;
+5. a no-inverse single-route baseline should fail.
 
 ## Model
 
-The model uses four ordered leaf addresses:
+The model learns:
 
 ```text
-leaf0 leaf1 leaf2 leaf3
+E[token]                        # token leaf write
+inverse_route_logits[op,out,in] # structural inverse kernels
+inverse_gate[transform,op]      # probability container over inverse ops
+echo_decoder(vector)            # one shared canonical decoder
 ```
 
-It learns:
+For observed leaf states:
 
 ```text
-E[token]                  # token write vector
-route_logits[op,out,in]   # two structural read kernels
-task_gate[task,op]        # probability container over operations
-decoder(vector)           # token collapse
+v_i = E[observed_i]
 ```
 
-For each output slot:
+The canonical state is:
 
 ```text
-read_state[out]
-  = sum_op p(op | task)
-      sum_in p(in | op,out) E[token_in]
+h_j =
+sum_k p(k | transform)
+sum_i p(i | k,j) v_i
 ```
 
-Then:
+Then one shared decoder reads:
 
 ```text
-logits[out] = decoder(read_state[out])
-loss = cross_entropy(logits, target_token)
+logits_j = EchoDecoder(h_j)
 ```
 
-This is intentionally close to the TreeHeap kernel story:
+The training loss is:
 
 ```text
-write -> address/path read -> probability container -> collapse
+L =
+  CE(logits, canonical_tokens)
+  + lambda_state * ||h - E[canonical_tokens]||^2
+  + lambda_entropy * entropy(gate/routes)
 ```
+
+The important addition is the canonical-state loss. Without it, token CE alone
+can let the decoder compensate for a soft or non-canonical hidden state.
 
 ## Evidence
 
 Script:
 
 ```text
-ara/s1-echo/src/s1_echo_entry_gate_probe.py
+ara/s1-echo/src/s1_echo_inverse_gate_probe.py
 ```
 
 Evidence:
 
 ```text
-ara/s1-echo/evidence/s1_echo_entry_gate_probe/
+ara/s1-echo/evidence/s1_echo_inverse_gate_probe/
 ```
 
 Host:
@@ -105,12 +139,12 @@ Key metrics:
 
 ```text
 pilot_pass = true
-treeheap_ood_token_acc = 1.000000
-treeheap_ood_exact = 1.000000
-treeheap_ood_route_argmax_ok = 1.000000
-treeheap_ood_gate_echo_identity_prob = 0.968449
-treeheap_ood_gate_mirror_mirror_prob = 0.810727
-no_task_baseline_ood_exact = 0.090820
+canonical_echo_ood_exact = 1.000000
+inverse_route_argmax_ok = 1.000000
+identity_gate_identity_inverse_prob = 0.999794
+mirror_gate_mirror_inverse_prob = 0.999784
+canonical_state_mse = 0.000988962
+no_inverse_baseline_ood_exact = 0.218750
 ```
 
 ## Decision
@@ -118,23 +152,18 @@ no_task_baseline_ood_exact = 0.090820
 Status:
 
 ```text
-supported pilot
+S1-ECHO-GATE-C01  -> downgraded / misdirected pilot
+S1-ECHO-CANON-C01 -> supported pilot
 ```
 
-The gate is good enough to start S1-echo v0 because:
-
-1. token information is learned and decoded exactly in the controlled task;
-2. leaf-address routes collapse to the correct identity/mirror structure;
-3. a baseline without task-conditioned structural routing fails badly.
-
-The mirror gate is a probability container, not a fully hard collapse:
+The corrected proof supports S1-echo v0 because it verifies the intended data
+flow:
 
 ```text
-mirror probability ~= 0.81
+mirror is not read as mirror output;
+mirror is first inverted into canonical echo state;
+then one decoder reads canonical tokens.
 ```
-
-This is acceptable for the entry proof, but it should not be promoted to
-perfect operation selection.
 
 ## What Is Not Proved
 
@@ -149,26 +178,26 @@ Transformer superiority
 long-sequence syntax
 ```
 
-It only proves that the controlled S1 echo loop is trainable.
+The transform flag is still supervised.
 
 ## Next Work
 
-1. Replace the artificial task flag with learned triggers from token/context
-   features.
-2. Move from four leaves to variable-length short WMT BPE sequences.
-3. Add mask/noise restoration so echo is not only copying.
-4. Split operation parameters into a small forest:
+The next proof should replace:
 
 ```text
-Theta_write
-Theta_read
-Theta_mirror
-Phi_trigger
+given transform flag
 ```
 
-5. Ask Runner/DeepSeek to verify:
+with:
 
 ```text
-Can this claim be accepted as the S1-echo v0 entry gate?
-Which baseline should be added before calling it more than controlled pilot?
+learned trigger from token/context features
+```
+
+Then add:
+
+```text
+mask/noise restore
+variable-length short WMT BPE
+stronger flat/sequence baselines
 ```

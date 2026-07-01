@@ -1,0 +1,263 @@
+{
+  "claim": "S1-ECHO-CANON-C01",
+  "predict": "P-S1-ECHO041-CORRECTED",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "config": {
+    "out": "ara/s1-echo/evidence/s1_echo_inverse_gate_probe",
+    "seed": 4102,
+    "samples": 8192,
+    "vocab": 64,
+    "dim": 32,
+    "epochs": 80,
+    "batch": 256,
+    "lr": 0.02,
+    "device": "cuda",
+    "host_label": "io.grepcode.cn",
+    "min_exact": 0.98,
+    "max_state_mse": 0.03,
+    "min_route_argmax": 1.0,
+    "min_route_confidence": 0.95,
+    "min_gate_prob": 0.75,
+    "max_baseline_exact": 0.65,
+    "state_weight": 2.0,
+    "entropy_weight": 0.02
+  },
+  "task": {
+    "canonical": "[t0,t1,t2,t3]",
+    "observed_identity": "[t0,t1,t2,t3]",
+    "observed_mirror": "[t3,t2,t1,t0]",
+    "target": "canonical for both transforms",
+    "meaning": "learn inverse gate to canonical echo state, then use one echo decoder"
+  },
+  "models": {
+    "inverse_gate_canonical_echo": {
+      "parameters": 4196,
+      "metrics": {
+        "train": {
+          "token_acc": 1.0,
+          "exact": 1.0,
+          "route_argmax_ok": 1.0,
+          "identity_op": 1,
+          "mirror_op": 0,
+          "identity_route_confidence": 0.9988013505935669,
+          "mirror_route_confidence": 0.9988161325454712,
+          "identity_gate_identity_inverse_prob": 0.9997938871383667,
+          "mirror_gate_mirror_inverse_prob": 0.9997844696044922,
+          "canonical_state_mse_to_true_leaf_embedding": 0.0009866905165836215
+        },
+        "test": {
+          "token_acc": 1.0,
+          "exact": 1.0,
+          "route_argmax_ok": 1.0,
+          "identity_op": 1,
+          "mirror_op": 0,
+          "identity_route_confidence": 0.9988013505935669,
+          "mirror_route_confidence": 0.9988161325454712,
+          "identity_gate_identity_inverse_prob": 0.9997938871383667,
+          "mirror_gate_mirror_inverse_prob": 0.9997844696044922,
+          "canonical_state_mse_to_true_leaf_embedding": 0.0009818391408771276
+        },
+        "ood": {
+          "token_acc": 1.0,
+          "exact": 1.0,
+          "route_argmax_ok": 1.0,
+          "identity_op": 1,
+          "mirror_op": 0,
+          "identity_route_confidence": 0.9988013505935669,
+          "mirror_route_confidence": 0.9988161325454712,
+          "identity_gate_identity_inverse_prob": 0.9997938871383667,
+          "mirror_gate_mirror_inverse_prob": 0.9997843503952026,
+          "canonical_state_mse_to_true_leaf_embedding": 0.0009889622451737523
+        }
+      },
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 4.221936533848445
+        },
+        {
+          "epoch": 1,
+          "loss": 1.7714448322852452
+        },
+        {
+          "epoch": 2,
+          "loss": 0.8652001296480497
+        },
+        {
+          "epoch": 5,
+          "loss": 0.18435307095448175
+        },
+        {
+          "epoch": 10,
+          "loss": 0.06291941041126847
+        },
+        {
+          "epoch": 40,
+          "loss": 0.007338198309298605
+        },
+        {
+          "epoch": 79,
+          "loss": 0.0022507625884221247
+        }
+      ],
+      "inverse_route_probabilities": [
+        [
+          [
+            0.00047941767843440175,
+            0.0003428011550568044,
+            0.0003442127781454474,
+            0.9988335967063904
+          ],
+          [
+            0.0003413103986531496,
+            0.0004737270064651966,
+            0.998842179775238,
+            0.0003428225754760206
+          ],
+          [
+            0.00034419316216371953,
+            0.9987891316413879,
+            0.0005282561178319156,
+            0.00033841936965472996
+          ],
+          [
+            0.9987996816635132,
+            0.00034823050373233855,
+            0.0003431108489166945,
+            0.0005089337937533855
+          ]
+        ],
+        [
+          [
+            0.9987816214561462,
+            0.00034607655834406614,
+            0.00035471157752908766,
+            0.0005175779806450009
+          ],
+          [
+            0.0003587334940675646,
+            0.9987820982933044,
+            0.0005218625883571804,
+            0.0003372908686287701
+          ],
+          [
+            0.00032935553463175893,
+            0.0005222422769293189,
+            0.9988131523132324,
+            0.00033532243105582893
+          ],
+          [
+            0.0005012956680729985,
+            0.0003331482585053891,
+            0.00033716403413563967,
+            0.9988283514976501
+          ]
+        ]
+      ],
+      "inverse_gate_probabilities": [
+        [
+          0.00020624679746106267,
+          0.9997938275337219
+        ],
+        [
+          0.9997842907905579,
+          0.00021568148804362863
+        ]
+      ]
+    },
+    "no_inverse_single_route": {
+      "parameters": 4176,
+      "metrics": {
+        "train": {
+          "token_acc": 0.516845703125,
+          "exact": 0.21826171875,
+          "route_argmax_ok": 1.0,
+          "identity_op": 0,
+          "mirror_op": 0,
+          "identity_route_confidence": 0.5120775699615479,
+          "mirror_route_confidence": NaN,
+          "identity_gate_identity_inverse_prob": NaN,
+          "mirror_gate_mirror_inverse_prob": NaN,
+          "canonical_state_mse_to_true_leaf_embedding": 18.8006649017334
+        },
+        "test": {
+          "token_acc": 0.505615234375,
+          "exact": 0.2197265625,
+          "route_argmax_ok": 1.0,
+          "identity_op": 0,
+          "mirror_op": 0,
+          "identity_route_confidence": 0.5120775699615479,
+          "mirror_route_confidence": NaN,
+          "identity_gate_identity_inverse_prob": NaN,
+          "mirror_gate_mirror_inverse_prob": NaN,
+          "canonical_state_mse_to_true_leaf_embedding": 18.86791229248047
+        },
+        "ood": {
+          "token_acc": 0.515380859375,
+          "exact": 0.21875,
+          "route_argmax_ok": 1.0,
+          "identity_op": 0,
+          "mirror_op": 0,
+          "identity_route_confidence": 0.5120775699615479,
+          "mirror_route_confidence": NaN,
+          "identity_gate_identity_inverse_prob": NaN,
+          "mirror_gate_mirror_inverse_prob": NaN,
+          "canonical_state_mse_to_true_leaf_embedding": 18.862363815307617
+        }
+      },
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 4.249320735534032
+        },
+        {
+          "epoch": 1,
+          "loss": 2.998338242371877
+        },
+        {
+          "epoch": 2,
+          "loss": 3.271063357591629
+        },
+        {
+          "epoch": 5,
+          "loss": 4.218585769335429
+        },
+        {
+          "epoch": 10,
+          "loss": 5.942197799682617
+        },
+        {
+          "epoch": 40,
+          "loss": 18.41344666481018
+        },
+        {
+          "epoch": 79,
+          "loss": 38.13044786453247
+        }
+      ]
+    }
+  },
+  "pass_checks": {
+    "canonical_echo_ood_exact_high": true,
+    "canonical_state_close": true,
+    "inverse_routes_are_structural": true,
+    "inverse_routes_are_confident": true,
+    "identity_uses_identity_inverse": true,
+    "mirror_uses_mirror_inverse": true,
+    "no_inverse_baseline_worse": true
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "Corrected S1 echo canonicalization can learn inverse structural routing before a shared echo decoder.",
+    "downgraded_prior": "The previous S1-ECHO-GATE-C01 selected output-specific read kernels and is now marked misdirected.",
+    "not_proved": [
+      "not WMT translation",
+      "not language semantics",
+      "not unsupervised natural mirror trigger discovery",
+      "not recursive-depth mirror selection",
+      "not superiority over all sequence models"
+    ]
+  },
+  "elapsed_sec": 9.956
+}

@@ -171,7 +171,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | C6-012 | post SPR-038 | Explicit hard echo encoder/decoder closes the WMT short-BPE interface: ordered leaf write, internal summary compose, path leaf/subheap read, and full sequence decode. | supported pilot | `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`; main and expanded runs reach 1.0 sequence/leaf/subheap/summary metrics | Decoder uses target heap labels, hard interface fails under learned kernels, or non-empty/noisy subheap metrics collapse. |
 | C6-013 | SPR-039 | A parameter TreeHeap `Theta` can learn local subheap convolution kernels by gradient, distinct from SPR-038 state relaxation. | supported pilot | `ara/s1-echo/evidence/s1_kernel_parameter_learning_probe/`; hidden `[1,1,1]`, learned theta `[1.0,1.0,1.0]`, theta L2 error `5.44e-16`, test/OOD MSE `8.78e-31/8.93e-30`, wrong-address test MSE `5.9285` | `Theta` fails to recover hidden kernels beyond clean scalar toy, wrong-address baselines match it, or only heap state `H` moves while parameters stay fixed. |
 | C6-014 | SPR-040 | TreeHeap local convolution is equivariant under mirror / chiral flip; geometric left/right mirror is implemented as algebraic permutation of heap addresses and kernel slots, and scalar loss can learn the mirrored structural slot assignment. | supported pilot / medium reliability | `ara/s1-echo/evidence/s1_mirror_kernel_symmetry_probe/`; flipped-kernel test max error `8.88e-16`, unflipped mean error `6.4372`, learned mirrored theta `[0.5,-0.75,1.25]`, left/right assignment errors `2.22e-16/4.44e-16`; Runner audit: structure-assignment level only | Mirror equivariance fails for deeper/vector kernels, unflipped kernels work equally well, learned mirrored kernels do not recover `[root,right,left]`, or later claims promote this into rotation/full-3D-fold/learned-trigger without new evidence. |
-| C6-015 | SPR-041 | A controlled S1 echo loop can train token leaf write, path-conditioned structural read, task-conditioned identity/mirror route selection, and token collapse decoder from scalar cross-entropy loss. | supported pilot | `ara/s1-echo/evidence/s1_echo_entry_gate_probe/`; TreeHeap OOD token/exact `1.0000/1.0000`, route argmax `1.0000`, echo gate identity prob `0.9684`, mirror gate mirror prob `0.8107`, no-task single-kernel OOD exact `0.0908` | No-task/single-kernel or matched flat baselines solve both identity and mirror, route does not align with addresses, or this controlled proof is promoted into natural-language trigger discovery / translation. |
+| C6-015 | SPR-041 | Corrected S1 entry requires inverse-gate canonicalization: observed identity/mirror token leaves are first mapped into one canonical echo state, then decoded by one shared echo decoder. | supported pilot; prior gate-only version downgraded | `ara/s1-echo/evidence/s1_echo_inverse_gate_probe/`; OOD exact `1.0000`, inverse route argmax `1.0000`, identity inverse gate `0.999794`, mirror inverse gate `0.999784`, canonical state MSE `0.000988962`, no-inverse baseline OOD exact `0.218750`. Prior `s1_echo_entry_gate_probe/` is retained as misdirected evidence. | No-inverse or matched flat baselines solve the same canonicalization task, routes do not align with identity/mirror addresses, canonical-state loss is necessary but unjustified, or this supervised transform-flag proof is promoted into natural-language trigger discovery / translation. |
 
 ## SPR Blog Source Map
 
@@ -261,7 +261,8 @@ https://www.lostmap.cn/spr/
 | `ara/s1-echo/evidence/s1_controllable_manifold_probe/` | Controllable relation/order fold surface |
 | `ara/s1-echo/evidence/s1_heap_state_relaxation_probe/` | Heap-state-only relaxation under fixed kernel/address rules |
 | `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/` | Hard WMT short-BPE echo encoder/decoder closure |
-| `ara/s1-echo/evidence/s1_echo_entry_gate_probe/` | Controlled learned S1 echo entry gate: token write/read, structural route selection, token collapse |
+| `ara/s1-echo/evidence/s1_echo_entry_gate_probe/` | Misdirected first SPR-041 pilot: separate output read kernels, retained as a negative design lesson |
+| `ara/s1-echo/evidence/s1_echo_inverse_gate_probe/` | Corrected SPR-041 pilot: inverse-gate canonicalization before shared echo decoding |
 
 ## Current Open Proof Queue
 
@@ -270,8 +271,8 @@ Highest priority open experiments:
 1. `Learned Echo Encoder/Decoder`
    - Claim: C6-012.
    - Status: hard interface is closed exactly in `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`.
-   - Update: C6-015 now adds a controlled learned entry gate for token write/read, identity/mirror route selection, and token collapse.
-   - Next: replace the artificial task flag with learned triggers from token/context features, then move back to variable-length WMT BPE echo.
+   - Update: C6-015 corrects the entry gate: mirror input must be inverted into canonical echo state before a shared decoder reads it. The older separate-read-kernel pilot is downgraded as misdirected.
+   - Next: replace the artificial transform flag with learned triggers from token/context features, then move back to variable-length WMT BPE echo.
    - Pass gate: non-empty subheap metrics, noisy/masked restore, and matched copy-capable baselines.
 
 1.5. `Parameter TreeHeap Kernel Learning`
