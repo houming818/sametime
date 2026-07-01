@@ -251,6 +251,37 @@ Decision:
 S1-KERNEL-MIRROR-C01 -> supported pilot
 ```
 
+## Runner Audit Update
+
+DeepSeek / Runner reviewed the ARA claim reliability on 2026-07-01 and classed
+this claim as **medium reliability**:
+
+```text
+Evidence is clear and pilot_pass=true.
+The proof is structure-assignment level.
+It is not rotation learning and not full 3D fold.
+```
+
+This is the intended reading.
+
+The proof has two different parts:
+
+```text
+1. Deductive: given a hand-defined mirror permutation, the convolution law holds.
+2. Inductive: given mirrored data, scalar loss learns the mirrored kernel slots.
+```
+
+The proof does **not** yet learn:
+
+```text
+when to trigger mirror
+where in the tree to trigger mirror
+how deep recursive mirror should run
+```
+
+Those require a later learnable mirror-control design, likely a separate
+parameter tree in a multi-parameter TreeHeap forest.
+
 ## Falsification
 
 Reject or downgrade if:
@@ -278,4 +309,6 @@ It also does not prove:
 learned rotation angle
 full 3D fold
 latent plane projection weights
+learned mirror trigger
+learned recursive mirror depth
 ```
