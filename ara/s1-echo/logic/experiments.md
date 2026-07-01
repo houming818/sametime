@@ -1559,6 +1559,9 @@ Evidence: `evidence/s1_mirror_kernel_symmetry_probe/`
 Can a geometric left/right mirror on TreeHeap be implemented as algebraic
 permutation of heap addresses and local kernel slots?
 
+Can scalar loss learn the mirrored root/left/right slot assignment without
+claiming rotation-angle learning or full 3D fold?
+
 ### Definition
 
 Physical mirror:
@@ -1587,6 +1590,8 @@ P_m K_theta(H) = K_{P_lr theta}(P_m H)
 - flipped-kernel equivariance error near zero
 - unflipped kernel fails on mirrored heaps
 - learned mirrored kernel recovers `[root,right,left]`
+- learned left slot matches original right coefficient
+- learned right slot matches original left coefficient
 
 ### Result
 
@@ -1597,6 +1602,8 @@ ood_max_flipped_error = 3.55e-15
 test_mean_unflipped_error = 6.4372
 learned_theta = [0.5000000000000002, -0.7499999999999998, 1.2499999999999996]
 theta_mirror_l2_error = 5.44e-16
+left_slot_learns_original_right_error = 2.22e-16
+right_slot_learns_original_left_error = 4.44e-16
 learned_test_mse = 1.01e-30
 learned_ood_mse = 9.76e-30
 ```
@@ -1609,4 +1616,5 @@ S1-KERNEL-MIRROR-C01 -> supported pilot
 
 ### Boundary
 
-This is a local algebraic/convolution proof, not a language proof.
+This is a local algebraic/convolution proof, not a language proof. It is also
+not a rotation-angle proof or a full 3D fold proof.

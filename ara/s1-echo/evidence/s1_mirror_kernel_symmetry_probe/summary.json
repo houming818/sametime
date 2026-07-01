@@ -193,6 +193,13 @@
       "mse": 9.76165617020772e-30
     }
   },
+  "structure_assignment": {
+    "claim": "kernel slots are structural directions, not anonymous scalar positions",
+    "root_slot_stays_root": 2.220446049250313e-16,
+    "left_slot_learns_original_right": 2.220446049250313e-16,
+    "right_slot_learns_original_left": 4.440892098500626e-16,
+    "no_rotation_or_3d_fold_claim": true
+  },
   "example": {
     "heap": [
       1.0,
@@ -260,11 +267,13 @@
   },
   "pilot_pass": true,
   "interpretation": {
-    "supported": "If pilot_pass is true, TreeHeap local convolution supports mirror/chiral flip equivariance and the mirrored kernel can be learned from mirrored data.",
+    "supported": "If pilot_pass is true, TreeHeap local convolution supports mirror/chiral flip equivariance and the mirrored root/left/right slot assignment can be learned from scalar loss.",
     "not_proved": [
       "not language understanding",
       "not WMT translation",
       "not learned semantic mirror in real corpora",
+      "not learned rotation angle",
+      "not full 3D fold",
       "not arbitrary group equivariance",
       "not superiority over all flat models"
     ]

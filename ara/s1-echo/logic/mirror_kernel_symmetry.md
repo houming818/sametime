@@ -34,6 +34,16 @@ This matters because TreeHeap should not only store values. It should provide a
 structured operator calculus: convolution, write, read, mirror, path move, and
 eventually more complex geometry-aware operations.
 
+After review, this SPR-040 claim is intentionally scoped tighter than a
+rotation or 3D-fold claim:
+
+```text
+We do not claim that the kernel learns a rotation angle.
+We do not claim that full 3D fold is solved.
+We only claim that mirror turns root/left/right into structural directions,
+and scalar loss can learn the mirrored slot assignment.
+```
+
 ## Definitions
 
 Use complete binary heap indices:
@@ -115,6 +125,20 @@ first convolve, then mirror the tree
 first mirror the tree, then convolve with the mirrored kernel
 ```
 
+Additional narrow learning claim:
+
+```text
+When the target data is mirrored, gradient descent can recover the mirrored
+kernel assignment:
+
+root -> root
+left -> original right
+right -> original left
+```
+
+This is the current "structure-aware" result. The kernel slots are not anonymous
+scalar positions; they are local structural directions.
+
 ## Predict
 
 For random heaps and an asymmetric kernel:
@@ -132,6 +156,13 @@ the following should happen:
    should become large.
 3. If we train a local kernel on mirrored data, gradient descent should recover
    `[0.5, -0.75, 1.25]`.
+4. The learned assignment should specifically show:
+
+```text
+learned_root  ~= original_root
+learned_left  ~= original_right
+learned_right ~= original_left
+```
 
 ## Proof Design
 
@@ -176,6 +207,9 @@ with scalar MSE loss. If the data really implies the mirror rule, learned
 P_lr theta = [0.5, -0.75, 1.25]
 ```
 
+This checks that loss can recover the mirror assignment of the structural
+slots. It does not require or imply a continuous rotation parameter.
+
 ## Executed Result
 
 Script:
@@ -205,6 +239,8 @@ ood_max_flipped_error = 3.55e-15
 test_mean_unflipped_error = 6.4372
 learned_theta = [0.5000000000000002, -0.7499999999999998, 1.2499999999999996]
 theta_mirror_l2_error = 5.44e-16
+left_slot_learns_original_right_error = 2.22e-16
+right_slot_learns_original_left_error = 4.44e-16
 learned_test_mse = 1.01e-30
 learned_ood_mse = 9.76e-30
 ```
@@ -233,4 +269,13 @@ TreeHeap convolution kernels:
 
 ```text
 geometric mirror can be implemented as algebraic permutation.
+scalar loss can learn the mirrored structural slot assignment.
+```
+
+It also does not prove:
+
+```text
+learned rotation angle
+full 3D fold
+latent plane projection weights
 ```

@@ -16,6 +16,8 @@ deductive_test_max_flipped_error = 8.88178e-16
 deductive_test_mean_unflipped_error = 6.43722
 learned_theta = [0.5000000000000002, -0.7499999999999998, 1.2499999999999996]
 learned_theta_mirror_l2_error = 5.43896e-16
+left_slot_learns_original_right_error = 2.22045e-16
+right_slot_learns_original_left_error = 4.44089e-16
 learned_test_mse = 1.00992e-30
 learned_ood_mse = 9.76166e-30
 ```
@@ -26,6 +28,16 @@ This proof tests both a deductive mirror identity and an inductive learned
 mirrored kernel. The retired word `conjugate` is intentionally avoided here:
 the operation is a left/right address permutation plus a left/right kernel-slot
 permutation.
+
+The learned part is specifically a slot-assignment proof:
+
+```text
+root stays root
+left learns the original right coefficient
+right learns the original left coefficient
+```
+
+It is not a rotation-angle proof or a full 3D fold proof.
 
 ## Boundary
 

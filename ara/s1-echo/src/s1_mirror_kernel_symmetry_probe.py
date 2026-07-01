@@ -187,6 +187,13 @@ def run(args: argparse.Namespace) -> dict[str, object]:
         "learned_test_mse_low": learned_test["mse"] < args.max_mse,
         "learned_ood_mse_low": learned_ood["mse"] < args.max_mse,
     }
+    structure_assignment = {
+        "claim": "kernel slots are structural directions, not anonymous scalar positions",
+        "root_slot_stays_root": abs(theta_learned[0] - THETA[0]),
+        "left_slot_learns_original_right": abs(theta_learned[1] - THETA[2]),
+        "right_slot_learns_original_left": abs(theta_learned[2] - THETA[1]),
+        "no_rotation_or_3d_fold_claim": True,
+    }
 
     return {
         "claim": "S1-KERNEL-MIRROR-C01",
@@ -219,15 +226,18 @@ def run(args: argparse.Namespace) -> dict[str, object]:
             "test": learned_test,
             "ood": learned_ood,
         },
+        "structure_assignment": structure_assignment,
         "example": example,
         "pass_checks": pass_checks,
         "pilot_pass": all(pass_checks.values()),
         "interpretation": {
-            "supported": "If pilot_pass is true, TreeHeap local convolution supports mirror/chiral flip equivariance and the mirrored kernel can be learned from mirrored data.",
+            "supported": "If pilot_pass is true, TreeHeap local convolution supports mirror/chiral flip equivariance and the mirrored root/left/right slot assignment can be learned from scalar loss.",
             "not_proved": [
                 "not language understanding",
                 "not WMT translation",
                 "not learned semantic mirror in real corpora",
+                "not learned rotation angle",
+                "not full 3D fold",
                 "not arbitrary group equivariance",
                 "not superiority over all flat models",
             ],
@@ -259,6 +269,8 @@ deductive_test_max_flipped_error = {summary['deductive']['test']['max_flipped_er
 deductive_test_mean_unflipped_error = {summary['deductive']['test']['mean_unflipped_error']:.6g}
 learned_theta = {summary['learned_mirror']['theta_final']}
 learned_theta_mirror_l2_error = {summary['learned_mirror']['theta_mirror_l2_error']:.6g}
+left_slot_learns_original_right_error = {summary['structure_assignment']['left_slot_learns_original_right']:.6g}
+right_slot_learns_original_left_error = {summary['structure_assignment']['right_slot_learns_original_left']:.6g}
 learned_test_mse = {summary['learned_mirror']['test']['mse']:.6g}
 learned_ood_mse = {summary['learned_mirror']['ood']['mse']:.6g}
 ```
@@ -269,6 +281,16 @@ This proof tests both a deductive mirror identity and an inductive learned
 mirrored kernel. The retired word `conjugate` is intentionally avoided here:
 the operation is a left/right address permutation plus a left/right kernel-slot
 permutation.
+
+The learned part is specifically a slot-assignment proof:
+
+```text
+root stays root
+left learns the original right coefficient
+right learns the original left coefficient
+```
+
+It is not a rotation-angle proof or a full 3D fold proof.
 
 ## Boundary
 
