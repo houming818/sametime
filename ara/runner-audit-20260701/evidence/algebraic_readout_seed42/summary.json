@@ -1,0 +1,196 @@
+{
+  "claim": "S1-READ-C02",
+  "predict": "P-S1-READ02",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "dataset": {
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "spm_model": "/mnt/nas/datasets/wmt17/sp_bpe.model",
+    "samples": 5000,
+    "train": 4000,
+    "test": 500,
+    "ood": 500,
+    "min_len": 4,
+    "max_len": 8,
+    "vocab_limit_including_pad": 513,
+    "residue_buckets": 64,
+    "examples": [
+      "The tendency is either excessive restraint (Europe) or a diffusion of the effort (the United States).",
+      "For geo-strategists, however, the year that naturally comes to mind, in both politics and economics, is 1989.",
+      "The end of the East-West ideological divide and the end of absolute faith in markets are historical turning points.",
+      "One senses something like the making of an American-Asian dominated universe.",
+      "The consequences of 1989 ended up being less enduring than many observers, including me, would have assumed."
+    ]
+  },
+  "targets": [
+    "length",
+    "first",
+    "last",
+    "residue",
+    "prefix0",
+    "prefix1"
+  ],
+  "models": {
+    "root_query_decoder": {
+      "parameters": 780109,
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 22.305567810058594
+        },
+        {
+          "epoch": 30,
+          "loss": 14.946849166870118
+        },
+        {
+          "epoch": 59,
+          "loss": 11.759638671875
+        }
+      ],
+      "test": {
+        "length_acc": 0.9046613610524606,
+        "first_acc": 0.4370635049537112,
+        "last_acc": 0.24248822478479778,
+        "residue_acc": 0.18775377618970276,
+        "prefix0_acc": 0.4394997563748579,
+        "prefix1_acc": 0.6529153808673055,
+        "internal_length_acc": 0.8092447916666666,
+        "internal_first_acc": 0.5465494791666666,
+        "internal_last_acc": 0.17578125,
+        "internal_residue_acc": 0.07779947916666667,
+        "internal_prefix0_acc": 0.5481770833333334,
+        "internal_prefix1_acc": 0.3043619791666667,
+        "mean_acc": 0.4773970007038059,
+        "internal_mean_acc": 0.4103190104166667,
+        "exact_all": 0.1408153321422771,
+        "internal_exact_all": 0.041015625
+      },
+      "ood": {
+        "length_acc": 0.9058383476988128,
+        "first_acc": 0.42006830378923404,
+        "last_acc": 0.24573101317287363,
+        "residue_acc": 0.18799804846316473,
+        "prefix0_acc": 0.41941779151081476,
+        "prefix1_acc": 0.6536022117417466,
+        "internal_length_acc": 0.8103504749426793,
+        "internal_first_acc": 0.5211267605633803,
+        "internal_last_acc": 0.18735669832951196,
+        "internal_residue_acc": 0.06911234850966262,
+        "internal_prefix0_acc": 0.5191614805109728,
+        "internal_prefix1_acc": 0.3023255813953488,
+        "mean_acc": 0.4721092860627744,
+        "internal_mean_acc": 0.40157222404192594,
+        "exact_all": 0.14018539599934948,
+        "internal_exact_all": 0.034719947592531934
+      }
+    },
+    "routed_state_decoder": {
+      "parameters": 780109,
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 18.756013610839844
+        },
+        {
+          "epoch": 30,
+          "loss": 1.9413810844421386
+        },
+        {
+          "epoch": 59,
+          "loss": 1.3232070932388305
+        }
+      ],
+      "test": {
+        "length_acc": 0.9899301607925938,
+        "first_acc": 0.9637810622056197,
+        "last_acc": 0.9351957121974988,
+        "residue_acc": 0.6702939743381517,
+        "prefix0_acc": 0.9650803962968978,
+        "prefix1_acc": 0.9290238752639273,
+        "internal_length_acc": 0.9798177083333334,
+        "internal_first_acc": 0.9280598958333334,
+        "internal_last_acc": 0.8704427083333334,
+        "internal_residue_acc": 0.3411458333333333,
+        "internal_prefix0_acc": 0.9303385416666666,
+        "internal_prefix1_acc": 0.8577473958333334,
+        "mean_acc": 0.9088841968491148,
+        "internal_mean_acc": 0.8179253472222222,
+        "exact_all": 0.6634724703589411,
+        "internal_exact_all": 0.3277994791666667
+      },
+      "ood": {
+        "length_acc": 0.9923564807285737,
+        "first_acc": 0.9617824036428687,
+        "last_acc": 0.9403154984550334,
+        "residue_acc": 0.6688892502845991,
+        "prefix0_acc": 0.9627581720604976,
+        "prefix1_acc": 0.9305578142787445,
+        "internal_length_acc": 0.9846053062561415,
+        "internal_first_acc": 0.9240091713069112,
+        "internal_last_acc": 0.8804454634785457,
+        "internal_residue_acc": 0.3350802489354733,
+        "internal_prefix0_acc": 0.9259744513593187,
+        "internal_prefix1_acc": 0.8601375696036685,
+        "mean_acc": 0.9094432699083862,
+        "internal_mean_acc": 0.8183753684900097,
+        "exact_all": 0.6622214994308018,
+        "internal_exact_all": 0.3219783819194235
+      }
+    },
+    "algebraic_oracle": {
+      "parameters": 0,
+      "ood": {
+        "length_acc": 1.0,
+        "first_acc": 1.0,
+        "last_acc": 1.0,
+        "residue_acc": 1.0,
+        "prefix0_acc": 1.0,
+        "prefix1_acc": 1.0,
+        "internal_length_acc": 1.0,
+        "internal_first_acc": 1.0,
+        "internal_last_acc": 1.0,
+        "internal_residue_acc": 1.0,
+        "internal_prefix0_acc": 1.0,
+        "internal_prefix1_acc": 1.0,
+        "mean_acc": 1.0,
+        "internal_mean_acc": 1.0,
+        "exact_all": 1.0,
+        "internal_exact_all": 1.0
+      },
+      "meaning": "deterministic TreeHeap span decoder upper bound"
+    }
+  },
+  "derived": {
+    "routed_minus_root_ood": {
+      "length_acc": 0.08651813302976097,
+      "first_acc": 0.5417140998536347,
+      "last_acc": 0.6945844852821598,
+      "residue_acc": 0.4808912018214344,
+      "prefix0_acc": 0.5433403805496828,
+      "prefix1_acc": 0.2769556025369979,
+      "internal_length_acc": 0.1742548313134622,
+      "internal_first_acc": 0.4028824107435309,
+      "internal_last_acc": 0.6930887651490337,
+      "internal_residue_acc": 0.26596790042581064,
+      "internal_prefix0_acc": 0.4068129708483459,
+      "internal_prefix1_acc": 0.5578119882083197,
+      "mean_acc": 0.4373339838456118,
+      "internal_mean_acc": 0.41680314444808375,
+      "exact_all": 0.5220361034314522,
+      "internal_exact_all": 0.2872584343268916
+    },
+    "parameter_ratio_routed_over_root": 1.0
+  },
+  "pilot_pass": false,
+  "interpretation": {
+    "supported": "S1-READ-C02 is supported as a pilot if routed internal algebraic targets beat root bottleneck and key attributes pass gates.",
+    "not_proved": [
+      "not translation",
+      "not semantic phrase meaning",
+      "not unsupervised route discovery",
+      "not long-sequence syntax",
+      "not superiority over Transformer/pointer baselines"
+    ]
+  },
+  "elapsed_sec": 49.831
+}

@@ -1,0 +1,200 @@
+{
+  "claim": "S1-WMT-ECHO-C01",
+  "predict": "P-S1-WMT-ECHO01",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "dataset": {
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "spm_model": "/mnt/nas/datasets/wmt17/sp_bpe.model",
+    "samples": 500,
+    "max_len": 8,
+    "min_len": 3,
+    "vocab_limit_including_pad": 2048,
+    "avg_nonpad_len": 5.918,
+    "examples": [
+      "1929 or 1989?",
+      "PARIS – As the economic crisis deepens and widens, the world has been searching for historical analogies to help us understand what has been happening.",
+      "At the start of the crisis, many people likened it to 1982 or 1973, which was reassuring, because both dates refer to classical cyclical downturns.",
+      "Today, the mood is much grimmer, with references to 1929 and 1931 beginning to abound, even if some governments continue to behave as if the crisis was more classical than exceptional.",
+      "The tendency is either excessive restraint (Europe) or a diffusion of the effort (the United States)."
+    ],
+    "train": 400,
+    "test": 50,
+    "ood": 50
+  },
+  "kernel_design": "fixed position-to-heap-leaf write, shared bottom-up compose kernel, shared leaf decoder",
+  "models": {
+    "bow_linear": {
+      "parameters": 33570816,
+      "train": {
+        "token_acc": 0.8520255863539445,
+        "exact": 0.5125,
+        "by_len_exact": {
+          "3": 0.0,
+          "4": 0.07272727272727272,
+          "5": 0.32857142857142857,
+          "6": 0.6176470588235294,
+          "7": 0.7721518987341772,
+          "8": 0.872093023255814
+        }
+      },
+      "test": {
+        "token_acc": 0.0903010033444816,
+        "exact": 0.0,
+        "by_len_exact": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0,
+          "7": 0.0,
+          "8": 0.0
+        }
+      },
+      "ood": {
+        "token_acc": 0.06666666666666667,
+        "exact": 0.0,
+        "by_len_exact": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0,
+          "7": 0.0,
+          "8": 0.0
+        }
+      }
+    },
+    "seq_mlp": {
+      "parameters": 16794112,
+      "train": {
+        "token_acc": 0.6865671641791045,
+        "exact": 0.2425,
+        "by_len_exact": {
+          "3": 0.023809523809523808,
+          "4": 0.01818181818181818,
+          "5": 0.12857142857142856,
+          "6": 0.14705882352941177,
+          "7": 0.3670886075949367,
+          "8": 0.5465116279069767
+        }
+      },
+      "test": {
+        "token_acc": 0.1806020066889632,
+        "exact": 0.0,
+        "by_len_exact": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0,
+          "7": 0.0,
+          "8": 0.0
+        }
+      },
+      "ood": {
+        "token_acc": 0.2,
+        "exact": 0.0,
+        "by_len_exact": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0,
+          "7": 0.0,
+          "8": 0.0
+        }
+      }
+    },
+    "treeheap_kernel_echo": {
+      "parameters": 423104,
+      "train": {
+        "token_acc": 0.9846481876332622,
+        "exact": 0.93,
+        "by_len_exact": {
+          "3": 0.9761904761904762,
+          "4": 0.9090909090909091,
+          "5": 0.9142857142857143,
+          "6": 0.9705882352941176,
+          "7": 0.9493670886075949,
+          "8": 0.8837209302325582
+        }
+      },
+      "test": {
+        "token_acc": 0.882943143812709,
+        "exact": 0.48,
+        "by_len_exact": {
+          "3": 1.0,
+          "4": 0.16666666666666666,
+          "5": 0.5833333333333334,
+          "6": 0.3333333333333333,
+          "7": 0.4444444444444444,
+          "8": 0.46153846153846156
+        }
+      },
+      "ood": {
+        "token_acc": 0.873015873015873,
+        "exact": 0.44,
+        "by_len_exact": {
+          "3": 0.5,
+          "4": 0.4,
+          "5": 0.5454545454545454,
+          "6": 0.2857142857142857,
+          "7": 0.875,
+          "8": 0.23529411764705882
+        }
+      }
+    }
+  },
+  "traces": {
+    "bow_linear": [
+      {
+        "epoch": 0,
+        "loss": 7.611416168212891
+      },
+      {
+        "epoch": 5,
+        "loss": 6.892822952270508
+      },
+      {
+        "epoch": 9,
+        "loss": 6.357994499206543
+      }
+    ],
+    "seq_mlp": [
+      {
+        "epoch": 0,
+        "loss": 7.605231800079346
+      },
+      {
+        "epoch": 5,
+        "loss": 4.057774448394776
+      },
+      {
+        "epoch": 9,
+        "loss": 2.3852049827575685
+      }
+    ],
+    "treeheap_kernel_echo": [
+      {
+        "epoch": 0,
+        "loss": 7.4547226524353025
+      },
+      {
+        "epoch": 5,
+        "loss": 3.4393779754638674
+      },
+      {
+        "epoch": 9,
+        "loss": 1.4354110050201416
+      }
+    ]
+  },
+  "pilot_pass": false,
+  "interpretation": {
+    "supported": "TreeHeap kernel echo did not meet the WMT echo gate.",
+    "not_proved": [
+      "not translation",
+      "not semantic world model",
+      "not compression",
+      "not long-sequence syntax"
+    ]
+  },
+  "elapsed_sec": 2.26
+}

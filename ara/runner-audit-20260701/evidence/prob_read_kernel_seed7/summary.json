@@ -1,0 +1,121 @@
+{
+  "claim": "S1-READ-C01",
+  "predict": "P-S1-READ01",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "dataset": {
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "spm_model": "/mnt/nas/datasets/wmt17/sp_bpe.model",
+    "samples": 3000,
+    "train": 2400,
+    "test": 300,
+    "ood": 300,
+    "min_len": 4,
+    "max_len": 8,
+    "vocab_limit_including_pad": 513,
+    "checksum_buckets": 128,
+    "labels": 641,
+    "examples": [
+      "The tendency is either excessive restraint (Europe) or a diffusion of the effort (the United States).",
+      "For geo-strategists, however, the year that naturally comes to mind, in both politics and economics, is 1989.",
+      "The end of the East-West ideological divide and the end of absolute faith in markets are historical turning points.",
+      "One senses something like the making of an American-Asian dominated universe.",
+      "The consequences of 1989 ended up being less enduring than many observers, including me, would have assumed."
+    ]
+  },
+  "algorithm": {
+    "hard_read": "tail-recursive while loop from arr[1] over stop/left/right",
+    "soft_read": "frontier dynamic program that accumulates stopped probability mass",
+    "tail_recursive_interpreter_ok": true
+  },
+  "models": {
+    "root_query_decoder": {
+      "parameters": 398209,
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 5.670398508707683
+        },
+        {
+          "epoch": 20,
+          "loss": 4.57216506322225
+        },
+        {
+          "epoch": 39,
+          "loss": 4.32762721379598
+        }
+      ],
+      "test": {
+        "acc": 0.0834909483923264,
+        "internal_acc": 0.02926829268292683,
+        "leaf_acc": 0.13739224137931033
+      },
+      "ood": {
+        "acc": 0.08142629058009579,
+        "internal_acc": 0.027419354838709678,
+        "leaf_acc": 0.13435194942044257
+      }
+    },
+    "probabilistic_read_kernel": {
+      "parameters": 499588,
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 5.1459920946757,
+          "route_loss": 0.2605577475577593
+        },
+        {
+          "epoch": 20,
+          "loss": 1.7533056831359863,
+          "route_loss": 4.187654650498492e-05
+        },
+        {
+          "epoch": 39,
+          "loss": 1.4770673211415608,
+          "route_loss": 2.1290362419676966e-05
+        }
+      ],
+      "test_hard": {
+        "acc": 0.626047014320454,
+        "internal_acc": 0.25094850948509484,
+        "leaf_acc": 0.9989224137931034,
+        "route_acc": 1.0,
+        "internal_stop_route_acc": 1.0,
+        "leaf_stop_route_acc": 1.0
+      },
+      "ood_hard": {
+        "acc": 0.6362426822778073,
+        "internal_acc": 0.2693548387096774,
+        "leaf_acc": 0.9957850368809273,
+        "route_acc": 1.0,
+        "internal_stop_route_acc": 1.0,
+        "leaf_stop_route_acc": 1.0
+      },
+      "test_soft": {
+        "acc": 0.626047014320454,
+        "internal_acc": 0.25094850948509484,
+        "leaf_acc": 0.9989224137931034
+      },
+      "ood_soft": {
+        "acc": 0.6362426822778073,
+        "internal_acc": 0.2693548387096774,
+        "leaf_acc": 0.9957850368809273
+      }
+    }
+  },
+  "derived": {
+    "ood_hard_acc_improvement_over_root": 0.5548163916977116,
+    "read_vs_root_parameter_ratio": 1.25458741515134
+  },
+  "pilot_pass": false,
+  "interpretation": {
+    "supported": "S1-READ-C01 is supported as a pilot if pilot_pass is true.",
+    "not_proved": [
+      "not translation",
+      "not semantic world model",
+      "not unsupervised routing",
+      "not long-sequence syntax"
+    ]
+  },
+  "elapsed_sec": 24.645
+}
