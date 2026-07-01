@@ -1,0 +1,180 @@
+{
+  "claim": "M0-DEC-C01",
+  "predict": "P-MATH-DEC01",
+  "settings": {
+    "samples": 5000,
+    "max_len": 8,
+    "channel_dim": 16,
+    "vocab": 257,
+    "field": "Z_1000003",
+    "seed": 42
+  },
+  "metrics": {
+    "projection_exact": 1.0,
+    "decompose_recompose_exact": 1.0,
+    "mirror_involution_exact": 1.0,
+    "mod_residue_exact": 1.0,
+    "length_decode_exact": 1.0,
+    "ordered_token_decode_exact": 1.0,
+    "checksum_stability_exact": 1.0
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "If pilot_pass is true, finite-field TreeHeap internal state has algebraic decoders for path, subheap, mod residue, mirror, and ordered leaf slots.",
+    "not_proved": [
+      "not language semantics",
+      "not learned decoder superiority",
+      "not WMT translation",
+      "not compression optimality",
+      "not robustness under noisy learned encoders"
+    ]
+  },
+  "trace_examples": [
+    {
+      "tokens": [
+        13,
+        141,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 1,
+      "span": [
+        0,
+        8
+      ],
+      "decoded_tokens": [
+        13,
+        141,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "subheap_length": 2,
+      "subheap_checksum": 885210
+    },
+    {
+      "tokens": [
+        72,
+        53,
+        45,
+        217,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 1,
+      "span": [
+        0,
+        8
+      ],
+      "decoded_tokens": [
+        72,
+        53,
+        45,
+        217,
+        0,
+        0,
+        0,
+        0
+      ],
+      "subheap_length": 4,
+      "subheap_checksum": 99191
+    },
+    {
+      "tokens": [
+        48,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 1,
+      "span": [
+        0,
+        8
+      ],
+      "decoded_tokens": [
+        48,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "subheap_length": 1,
+      "subheap_checksum": 395934
+    },
+    {
+      "tokens": [
+        14,
+        102,
+        215,
+        113,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 5,
+      "span": [
+        2,
+        4
+      ],
+      "decoded_tokens": [
+        14,
+        102,
+        215,
+        113,
+        0,
+        0,
+        0,
+        0
+      ],
+      "subheap_length": 2,
+      "subheap_checksum": 373152
+    },
+    {
+      "tokens": [
+        4,
+        82,
+        217,
+        175,
+        143,
+        0,
+        0,
+        0
+      ],
+      "query_node": 2,
+      "span": [
+        0,
+        4
+      ],
+      "decoded_tokens": [
+        4,
+        82,
+        217,
+        175,
+        143,
+        0,
+        0,
+        0
+      ],
+      "subheap_length": 4,
+      "subheap_checksum": 256721
+    }
+  ],
+  "elapsed_sec": 1.838
+}

@@ -1,0 +1,230 @@
+{
+  "addresses": [
+    "LL",
+    "LR",
+    "RL",
+    "RR"
+  ],
+  "claims_tested": [
+    "P-SOFT01 hard operator probabilistic lifting",
+    "P-SOFT02 soft plus is differentiable TreeHeap plus",
+    "P-SOFT03 kernel-guided soft plus can learn write/merge routes",
+    "P-SOFT04 low-temperature collapse recovers hard plus address"
+  ],
+  "epochs": 1800,
+  "examples": [
+    {
+      "argmax_tau_0_05": "LL",
+      "argmax_tau_0_25": "LL",
+      "gold": "LL",
+      "gold_prob_tau_0_05": 1.0,
+      "gold_prob_tau_0_25": 0.9999889392390301,
+      "key": 2
+    },
+    {
+      "argmax_tau_0_05": "LL",
+      "argmax_tau_0_25": "LL",
+      "gold": "LL",
+      "gold_prob_tau_0_05": 0.9999999999997469,
+      "gold_prob_tau_0_25": 0.9969845356434441,
+      "key": 3
+    },
+    {
+      "argmax_tau_0_05": "LR",
+      "argmax_tau_0_25": "LR",
+      "gold": "LR",
+      "gold_prob_tau_0_05": 0.9999999999983098,
+      "gold_prob_tau_0_25": 0.9955390120036097,
+      "key": 5
+    },
+    {
+      "argmax_tau_0_05": "LR",
+      "argmax_tau_0_25": "LR",
+      "gold": "LR",
+      "gold_prob_tau_0_05": 0.9999999999999918,
+      "gold_prob_tau_0_25": 0.9984654230868223,
+      "key": 6
+    },
+    {
+      "argmax_tau_0_05": "RL",
+      "argmax_tau_0_25": "RL",
+      "gold": "RL",
+      "gold_prob_tau_0_05": 0.9999999999999918,
+      "gold_prob_tau_0_25": 0.9984618985231417,
+      "key": 10
+    },
+    {
+      "argmax_tau_0_05": "RL",
+      "argmax_tau_0_25": "RL",
+      "gold": "RL",
+      "gold_prob_tau_0_05": 0.9999999999983322,
+      "gold_prob_tau_0_25": 0.9955505569539502,
+      "key": 11
+    },
+    {
+      "argmax_tau_0_05": "RR",
+      "argmax_tau_0_25": "RR",
+      "gold": "RR",
+      "gold_prob_tau_0_05": 0.9999999999997435,
+      "gold_prob_tau_0_25": 0.9969764992495371,
+      "key": 13
+    },
+    {
+      "argmax_tau_0_05": "RR",
+      "argmax_tau_0_25": "RR",
+      "gold": "RR",
+      "gold_prob_tau_0_05": 1.0,
+      "gold_prob_tau_0_25": 0.9999889096723829,
+      "key": 14
+    }
+  ],
+  "final_tau_0_05": {
+    "accuracy": 1.0,
+    "hard_soft_gap": 0.024799440743006343,
+    "loss": 3.9247520869550784e-05,
+    "mean_gold_prob": 0.9999999999995145,
+    "mse_loss": 3.924752099819094e-05,
+    "route_loss": -5.145606163377694e-13
+  },
+  "final_tau_0_25": {
+    "accuracy": 1.0,
+    "hard_soft_gap": 0.027880087849728404,
+    "loss": 0.0006136386970094108,
+    "mean_gold_prob": 0.9977444717964898,
+    "mse_loss": 4.877518698063919e-05,
+    "route_loss": 0.0022594540401150863
+  },
+  "first_grad_norms": {
+    "plus_u": 0.291900292038898,
+    "theta": 0.31991300065246825
+  },
+  "initial": {
+    "accuracy": 0.25,
+    "epoch": 0,
+    "grad_plus_norm": 0.291900292038898,
+    "grad_theta_norm": 0.31991300065246825,
+    "hard_soft_gap": 3.4890874387231037,
+    "loss": 1.146068926895939,
+    "mean_gold_prob": 0.25291187590042646,
+    "mse_loss": 0.8021557009483291,
+    "route_loss": 1.3756529037904395,
+    "tau": 2.0
+  },
+  "interpretation": "This proves only a synthetic M0 gradient/collapse path. It does not prove language learning, WMT performance, or superiority to Transformer.",
+  "lr_plus": 0.4,
+  "lr_theta": 1.0,
+  "out_dim": 8,
+  "pilot_pass": true,
+  "route_ce_weight": 0.25,
+  "seed": 7,
+  "trace": [
+    {
+      "accuracy": 0.25,
+      "epoch": 0,
+      "grad_plus_norm": 0.291900292038898,
+      "grad_theta_norm": 0.31991300065246825,
+      "hard_soft_gap": 3.4890874387231037,
+      "loss": 1.146068926895939,
+      "mean_gold_prob": 0.25291187590042646,
+      "mse_loss": 0.8021557009483291,
+      "route_loss": 1.3756529037904395,
+      "tau": 2.0
+    },
+    {
+      "accuracy": 0.5,
+      "epoch": 1,
+      "grad_plus_norm": 0.2540932931840796,
+      "grad_theta_norm": 0.2605645481701113,
+      "hard_soft_gap": 3.2633445512969548,
+      "loss": 1.0219385692239533,
+      "mean_gold_prob": 0.2711652095635928,
+      "mse_loss": 0.6949315657008196,
+      "route_loss": 1.3080280140925349,
+      "tau": 1.994
+    },
+    {
+      "accuracy": 0.5,
+      "epoch": 5,
+      "grad_plus_norm": 0.17316627344491903,
+      "grad_theta_norm": 0.160866591773528,
+      "hard_soft_gap": 2.7535024519796574,
+      "loss": 0.7704238241011543,
+      "mean_gold_prob": 0.3209256483257625,
+      "mse_loss": 0.48186267907037417,
+      "route_loss": 1.1542445801231205,
+      "tau": 1.970179460809514
+    },
+    {
+      "accuracy": 0.875,
+      "epoch": 25,
+      "grad_plus_norm": 0.04855424479497626,
+      "grad_theta_norm": 0.05248134840876089,
+      "hard_soft_gap": 2.0344662734807897,
+      "loss": 0.49020148748575254,
+      "mean_gold_prob": 0.4246079296878901,
+      "mse_loss": 0.271115146281311,
+      "route_loss": 0.8763453648177661,
+      "tau": 1.8552778237349432
+    },
+    {
+      "accuracy": 1.0,
+      "epoch": 100,
+      "grad_plus_norm": 0.036629171342319314,
+      "grad_theta_norm": 0.03608057189019747,
+      "hard_soft_gap": 1.6009247748841902,
+      "loss": 0.32861304407627934,
+      "mean_gold_prob": 0.5671147885727205,
+      "mse_loss": 0.18210626559096785,
+      "route_loss": 0.5860271139412461,
+      "tau": 1.4809685190795652
+    },
+    {
+      "accuracy": 1.0,
+      "epoch": 250,
+      "grad_plus_norm": 0.015138850953087297,
+      "grad_theta_norm": 0.007910214973335054,
+      "hard_soft_gap": 0.49804074469871973,
+      "loss": 0.07474436418370389,
+      "mean_gold_prob": 0.7958103733430487,
+      "mse_loss": 0.015936641631202765,
+      "route_loss": 0.23523089021000448,
+      "tau": 0.9436687503072483
+    },
+    {
+      "accuracy": 1.0,
+      "epoch": 500,
+      "grad_plus_norm": 0.00706752343683278,
+      "grad_theta_norm": 0.0033237572786350197,
+      "hard_soft_gap": 0.14234583543521723,
+      "loss": 0.01063617032164948,
+      "mean_gold_prob": 0.9642857957238372,
+      "mse_loss": 0.0014588413151797263,
+      "route_loss": 0.03670931602587901,
+      "tau": 0.44525535515322184
+    },
+    {
+      "accuracy": 1.0,
+      "epoch": 1000,
+      "grad_plus_norm": 0.00010890002951092187,
+      "grad_theta_norm": 0.000398472961865507,
+      "hard_soft_gap": 0.02987694150118201,
+      "loss": 0.0007163281324606992,
+      "mean_gold_prob": 0.9973652077121671,
+      "mse_loss": 5.621544892361069e-05,
+      "route_loss": 0.002640450734148354,
+      "tau": 0.25
+    },
+    {
+      "accuracy": 1.0,
+      "epoch": 1800,
+      "grad_plus_norm": 9.810473434481214e-05,
+      "grad_theta_norm": 0.00031814991310048335,
+      "hard_soft_gap": 0.027880087849728404,
+      "loss": 0.0006136386970094108,
+      "mean_gold_prob": 0.9977444717964898,
+      "mse_loss": 4.877518698063919e-05,
+      "route_loss": 0.0022594540401150863,
+      "tau": 0.25
+    }
+  ]
+}

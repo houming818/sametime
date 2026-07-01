@@ -1,0 +1,322 @@
+{
+  "claim": "S1-KERNEL-LEARN-C01",
+  "predict": "P-S1-KERNEL39",
+  "host": "local",
+  "config": {
+    "seed": 7,
+    "train": 512,
+    "test": 256,
+    "ood": 256,
+    "epochs": 600,
+    "lr": 0.04,
+    "hidden_theta": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "correct_triples": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        1,
+        3,
+        4
+      ],
+      [
+        2,
+        5,
+        6
+      ]
+    ],
+    "wrong_triples": [
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        1,
+        5,
+        6
+      ],
+      [
+        2,
+        1,
+        2
+      ]
+    ]
+  },
+  "models": {
+    "treeheap_shared_kernel": {
+      "parameters": 3,
+      "theta_initial": [
+        -0.43727062499032193,
+        0.7396720573350126,
+        -0.5978705621586248
+      ],
+      "theta_final": [
+        1.0,
+        0.9999999999999998,
+        0.9999999999999998
+      ],
+      "theta_delta_l2": 2.1648805557363606,
+      "theta_l2_error": 3.1401849173675503e-16,
+      "train": {
+        "mse": 3.054096071458976e-31
+      },
+      "test": {
+        "mse": 2.9896300804689205e-31
+      },
+      "ood": {
+        "mse": 3.394107467622647e-30
+      },
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 14.54023835280506,
+          "theta": [
+            -0.43727062499032193,
+            0.7396720573350126,
+            -0.5978705621586248
+          ],
+          "theta_l2_error": 2.164880555736361
+        },
+        {
+          "epoch": 1,
+          "loss": 8.214046281866855,
+          "theta": [
+            -0.07636931471361108,
+            0.7884554500025514,
+            -0.20246523261786342
+          ],
+          "theta_l2_error": 1.6276500342350637
+        },
+        {
+          "epoch": 2,
+          "loss": 4.642125193931012,
+          "theta": [
+            0.19389985039785462,
+            0.8289739894807974,
+            0.09495940853454937
+          ],
+          "theta_l2_error": 1.2239876713688125
+        },
+        {
+          "epoch": 5,
+          "loss": 0.8399714306556793,
+          "theta": [
+            0.6613917935738883,
+            0.911820725879878,
+            0.613768060273703
+          ],
+          "theta_l2_error": 0.5211585297279493
+        },
+        {
+          "epoch": 10,
+          "loss": 0.04903815800248765,
+          "theta": [
+            0.9202124504717444,
+            0.972422192164562,
+            0.9062811209488948
+          ],
+          "theta_l2_error": 0.12613412240677727
+        },
+        {
+          "epoch": 25,
+          "loss": 1.043679434202236e-05,
+          "theta": [
+            0.998956707636535,
+            0.9993285833003931,
+            0.9986279286490388
+          ],
+          "theta_l2_error": 0.0018498213784860077
+        },
+        {
+          "epoch": 50,
+          "loss": 9.839363176812807e-12,
+          "theta": [
+            0.9999992560110871,
+            0.9999989950878008,
+            0.9999986914340583
+          ],
+          "theta_l2_error": 1.8098930505785311e-06
+        },
+        {
+          "epoch": 100,
+          "loss": 1.4885322354384062e-23,
+          "theta": [
+            0.9999999999997544,
+            0.999999999998418,
+            0.9999999999984286
+          ],
+          "theta_l2_error": 2.2432623158179107e-12
+        },
+        {
+          "epoch": 250,
+          "loss": 3.054096071458976e-31,
+          "theta": [
+            1.0,
+            0.9999999999999998,
+            0.9999999999999998
+          ],
+          "theta_l2_error": 3.1401849173675503e-16
+        },
+        {
+          "epoch": 500,
+          "loss": 3.054096071458976e-31,
+          "theta": [
+            1.0,
+            0.9999999999999998,
+            0.9999999999999998
+          ],
+          "theta_l2_error": 3.1401849173675503e-16
+        },
+        {
+          "epoch": 600,
+          "loss": 3.054096071458976e-31,
+          "theta": [
+            1.0,
+            0.9999999999999998,
+            0.9999999999999998
+          ],
+          "theta_l2_error": 3.1401849173675503e-16
+        }
+      ]
+    },
+    "no_learning": {
+      "parameters": 3,
+      "theta": [
+        -0.43727062499032193,
+        0.7396720573350126,
+        -0.5978705621586248
+      ],
+      "train": {
+        "mse": 14.54023835280506
+      },
+      "test": {
+        "mse": 14.147022319687624
+      },
+      "ood": {
+        "mse": 156.47428909057268
+      }
+    },
+    "wrong_address_shared_kernel": {
+      "parameters": 3,
+      "theta_final": [
+        1.0131786307915422,
+        0.009818981985820515,
+        0.020512469414723556
+      ],
+      "theta_l2_error_to_hidden": 1.3928488601844708,
+      "train": {
+        "mse": 5.893337357724943
+      },
+      "test": {
+        "mse": 6.483358621765119
+      },
+      "ood": {
+        "mse": 62.51166711463211
+      }
+    },
+    "flat_global_matched_size": {
+      "parameters": 3,
+      "theta_final": [
+        0.6822801223394882,
+        2.301329096002987,
+        -0.014735221663101076
+      ],
+      "train": {
+        "mse": 3.8972904234379935
+      },
+      "test": {
+        "mse": 4.120686981966519
+      },
+      "ood": {
+        "mse": 45.091265557427214
+      },
+      "meaning": "matched-size flat baseline with no left/right subheap access"
+    },
+    "index_specific_local_kernel": {
+      "parameters": 9,
+      "weights_final": [
+        [
+          0.9999999999999994,
+          0.9999999999999993,
+          0.9999999999999993
+        ],
+        [
+          0.9999999999999994,
+          0.9999999999999993,
+          0.9999999999999993
+        ],
+        [
+          0.9999999999999992,
+          0.9999999999999993,
+          1.0000000000000013
+        ]
+      ],
+      "train": {
+        "mse": 5.032596004005946e-30
+      },
+      "test": {
+        "mse": 4.961799897570422e-30
+      },
+      "ood": {
+        "mse": 5.679820184303159e-29
+      },
+      "meaning": "stronger baseline using correct local triples but no shared kernel"
+    }
+  },
+  "example": {
+    "heap": [
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0
+    ],
+    "target": [
+      6.0,
+      11.0,
+      16.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0
+    ],
+    "treeheap_internal_pred": [
+      5.999999999999998,
+      10.999999999999998,
+      15.999999999999996
+    ],
+    "wrong_address_internal_pred": [
+      1.1550169058084423,
+      2.2288584394010726,
+      3.1207112645904385
+    ]
+  },
+  "pass_checks": {
+    "theta_updates": true,
+    "theta_recovers_hidden": true,
+    "test_mse_low": true,
+    "ood_mse_low": true,
+    "wrong_address_materially_worse": true,
+    "flat_global_materially_worse": true
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "If pilot_pass is true, parameter TreeHeap Theta learned a local convolution rule distinct from SPR-038 state relaxation.",
+    "not_proved": [
+      "not language understanding",
+      "not WMT translation",
+      "not superiority over every larger flat model",
+      "not multi-kernel specialization",
+      "not learned relation-field semantics"
+    ]
+  }
+}

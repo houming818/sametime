@@ -1,0 +1,733 @@
+{
+  "claim": "S1-C30",
+  "predict": "P-S1-REAL-SHALLOW-01",
+  "seed": 123,
+  "epochs": 800,
+  "dataset": {
+    "kind": "curated real-word short sentences",
+    "train_examples": 63,
+    "test_examples": 17,
+    "ood_examples": 10,
+    "vocab_size": 37,
+    "slots": [
+      "root",
+      "subject",
+      "object"
+    ],
+    "note": "OOD contains lexical items unseen as train outputs; TreeHeap copy-by-address can still place them into slots."
+  },
+  "models": {
+    "bow_linear": {
+      "train": {
+        "exact": 0.873015873015873,
+        "root_acc": 1.0,
+        "subject_acc": 0.9365079365079365,
+        "object_acc": 0.9365079365079365,
+        "verb_object_subheap_acc": 0.9365079365079365,
+        "samples": [
+          {
+            "sentence": "alice moves key",
+            "gold": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "key"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "bob carries door",
+            "gold": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "door"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "door"
+            }
+          },
+          {
+            "sentence": "carol finds map",
+            "gold": {
+              "root": "finds",
+              "subject": "carol",
+              "object": "map"
+            },
+            "pred": {
+              "root": "finds",
+              "subject": "carol",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "carol moves key",
+            "gold": {
+              "root": "moves",
+              "subject": "carol",
+              "object": "key"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "carol",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "dave opens key",
+            "gold": {
+              "root": "opens",
+              "subject": "dave",
+              "object": "key"
+            },
+            "pred": {
+              "root": "opens",
+              "subject": "dave",
+              "object": "key"
+            }
+          }
+        ],
+        "swapped_exact": 0.0
+      },
+      "test": {
+        "exact": 0.7647058823529411,
+        "root_acc": 0.7647058823529411,
+        "subject_acc": 0.8823529411764706,
+        "object_acc": 0.8235294117647058,
+        "verb_object_subheap_acc": 0.7647058823529411,
+        "samples": [
+          {
+            "sentence": "carol sees bob",
+            "gold": {
+              "root": "sees",
+              "subject": "carol",
+              "object": "bob"
+            },
+            "pred": {
+              "root": "calls",
+              "subject": "carol",
+              "object": "dave"
+            }
+          },
+          {
+            "sentence": "bob carries key",
+            "gold": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "key"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "dave carries book",
+            "gold": {
+              "root": "carries",
+              "subject": "dave",
+              "object": "book"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "dave",
+              "object": "book"
+            }
+          },
+          {
+            "sentence": "alice carries map",
+            "gold": {
+              "root": "carries",
+              "subject": "alice",
+              "object": "map"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "alice",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "bob sees carol",
+            "gold": {
+              "root": "sees",
+              "subject": "bob",
+              "object": "carol"
+            },
+            "pred": {
+              "root": "calls",
+              "subject": "carol",
+              "object": "dave"
+            }
+          }
+        ],
+        "swapped_exact": 0.0
+      },
+      "ood": {
+        "exact": 0.0,
+        "root_acc": 0.0,
+        "subject_acc": 0.0,
+        "object_acc": 0.1,
+        "verb_object_subheap_acc": 0.0,
+        "samples": [
+          {
+            "sentence": "erin draws cup",
+            "gold": {
+              "root": "draws",
+              "subject": "erin",
+              "object": "cup"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "teacher holds book",
+            "gold": {
+              "root": "holds",
+              "subject": "teacher",
+              "object": "book"
+            },
+            "pred": {
+              "root": "opens",
+              "subject": "bob",
+              "object": "book"
+            }
+          },
+          {
+            "sentence": "nurse brings water",
+            "gold": {
+              "root": "brings",
+              "subject": "nurse",
+              "object": "water"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "erin draws box",
+            "gold": {
+              "root": "draws",
+              "subject": "erin",
+              "object": "box"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "dave",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "frank draws cup",
+            "gold": {
+              "root": "draws",
+              "subject": "frank",
+              "object": "cup"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "map"
+            }
+          }
+        ]
+      }
+    },
+    "seq_linear": {
+      "train": {
+        "exact": 1.0,
+        "root_acc": 1.0,
+        "subject_acc": 1.0,
+        "object_acc": 1.0,
+        "verb_object_subheap_acc": 1.0,
+        "samples": [
+          {
+            "sentence": "alice moves key",
+            "gold": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "key"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "bob carries door",
+            "gold": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "door"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "door"
+            }
+          },
+          {
+            "sentence": "carol finds map",
+            "gold": {
+              "root": "finds",
+              "subject": "carol",
+              "object": "map"
+            },
+            "pred": {
+              "root": "finds",
+              "subject": "carol",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "carol moves key",
+            "gold": {
+              "root": "moves",
+              "subject": "carol",
+              "object": "key"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "carol",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "dave opens key",
+            "gold": {
+              "root": "opens",
+              "subject": "dave",
+              "object": "key"
+            },
+            "pred": {
+              "root": "opens",
+              "subject": "dave",
+              "object": "key"
+            }
+          }
+        ],
+        "swapped_exact": 1.0
+      },
+      "test": {
+        "exact": 0.7647058823529411,
+        "root_acc": 0.7647058823529411,
+        "subject_acc": 1.0,
+        "object_acc": 1.0,
+        "verb_object_subheap_acc": 0.7647058823529411,
+        "samples": [
+          {
+            "sentence": "carol sees bob",
+            "gold": {
+              "root": "sees",
+              "subject": "carol",
+              "object": "bob"
+            },
+            "pred": {
+              "root": "helps",
+              "subject": "carol",
+              "object": "bob"
+            }
+          },
+          {
+            "sentence": "bob carries key",
+            "gold": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "key"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "dave carries book",
+            "gold": {
+              "root": "carries",
+              "subject": "dave",
+              "object": "book"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "dave",
+              "object": "book"
+            }
+          },
+          {
+            "sentence": "alice carries map",
+            "gold": {
+              "root": "carries",
+              "subject": "alice",
+              "object": "map"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "alice",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "bob sees carol",
+            "gold": {
+              "root": "sees",
+              "subject": "bob",
+              "object": "carol"
+            },
+            "pred": {
+              "root": "calls",
+              "subject": "bob",
+              "object": "carol"
+            }
+          }
+        ],
+        "swapped_exact": 0.0
+      },
+      "ood": {
+        "exact": 0.0,
+        "root_acc": 0.0,
+        "subject_acc": 0.0,
+        "object_acc": 0.1,
+        "verb_object_subheap_acc": 0.0,
+        "samples": [
+          {
+            "sentence": "erin draws cup",
+            "gold": {
+              "root": "draws",
+              "subject": "erin",
+              "object": "cup"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "teacher holds book",
+            "gold": {
+              "root": "holds",
+              "subject": "teacher",
+              "object": "book"
+            },
+            "pred": {
+              "root": "opens",
+              "subject": "bob",
+              "object": "book"
+            }
+          },
+          {
+            "sentence": "nurse brings water",
+            "gold": {
+              "root": "brings",
+              "subject": "nurse",
+              "object": "water"
+            },
+            "pred": {
+              "root": "opens",
+              "subject": "alice",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "erin draws box",
+            "gold": {
+              "root": "draws",
+              "subject": "erin",
+              "object": "box"
+            },
+            "pred": {
+              "root": "opens",
+              "subject": "bob",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "frank draws cup",
+            "gold": {
+              "root": "draws",
+              "subject": "frank",
+              "object": "cup"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "alice",
+              "object": "map"
+            }
+          }
+        ]
+      }
+    },
+    "soft_treeheap": {
+      "train": {
+        "exact": 1.0,
+        "root_acc": 1.0,
+        "subject_acc": 1.0,
+        "object_acc": 1.0,
+        "verb_object_subheap_acc": 1.0,
+        "samples": [
+          {
+            "sentence": "alice moves key",
+            "gold": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "key"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "alice",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "bob carries door",
+            "gold": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "door"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "door"
+            }
+          },
+          {
+            "sentence": "carol finds map",
+            "gold": {
+              "root": "finds",
+              "subject": "carol",
+              "object": "map"
+            },
+            "pred": {
+              "root": "finds",
+              "subject": "carol",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "carol moves key",
+            "gold": {
+              "root": "moves",
+              "subject": "carol",
+              "object": "key"
+            },
+            "pred": {
+              "root": "moves",
+              "subject": "carol",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "dave opens key",
+            "gold": {
+              "root": "opens",
+              "subject": "dave",
+              "object": "key"
+            },
+            "pred": {
+              "root": "opens",
+              "subject": "dave",
+              "object": "key"
+            }
+          }
+        ],
+        "swapped_exact": 1.0
+      },
+      "test": {
+        "exact": 1.0,
+        "root_acc": 1.0,
+        "subject_acc": 1.0,
+        "object_acc": 1.0,
+        "verb_object_subheap_acc": 1.0,
+        "samples": [
+          {
+            "sentence": "carol sees bob",
+            "gold": {
+              "root": "sees",
+              "subject": "carol",
+              "object": "bob"
+            },
+            "pred": {
+              "root": "sees",
+              "subject": "carol",
+              "object": "bob"
+            }
+          },
+          {
+            "sentence": "bob carries key",
+            "gold": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "key"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "bob",
+              "object": "key"
+            }
+          },
+          {
+            "sentence": "dave carries book",
+            "gold": {
+              "root": "carries",
+              "subject": "dave",
+              "object": "book"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "dave",
+              "object": "book"
+            }
+          },
+          {
+            "sentence": "alice carries map",
+            "gold": {
+              "root": "carries",
+              "subject": "alice",
+              "object": "map"
+            },
+            "pred": {
+              "root": "carries",
+              "subject": "alice",
+              "object": "map"
+            }
+          },
+          {
+            "sentence": "bob sees carol",
+            "gold": {
+              "root": "sees",
+              "subject": "bob",
+              "object": "carol"
+            },
+            "pred": {
+              "root": "sees",
+              "subject": "bob",
+              "object": "carol"
+            }
+          }
+        ],
+        "swapped_exact": 1.0
+      },
+      "ood": {
+        "exact": 1.0,
+        "root_acc": 1.0,
+        "subject_acc": 1.0,
+        "object_acc": 1.0,
+        "verb_object_subheap_acc": 1.0,
+        "samples": [
+          {
+            "sentence": "erin draws cup",
+            "gold": {
+              "root": "draws",
+              "subject": "erin",
+              "object": "cup"
+            },
+            "pred": {
+              "root": "draws",
+              "subject": "erin",
+              "object": "cup"
+            }
+          },
+          {
+            "sentence": "teacher holds book",
+            "gold": {
+              "root": "holds",
+              "subject": "teacher",
+              "object": "book"
+            },
+            "pred": {
+              "root": "holds",
+              "subject": "teacher",
+              "object": "book"
+            }
+          },
+          {
+            "sentence": "nurse brings water",
+            "gold": {
+              "root": "brings",
+              "subject": "nurse",
+              "object": "water"
+            },
+            "pred": {
+              "root": "brings",
+              "subject": "nurse",
+              "object": "water"
+            }
+          },
+          {
+            "sentence": "erin draws box",
+            "gold": {
+              "root": "draws",
+              "subject": "erin",
+              "object": "box"
+            },
+            "pred": {
+              "root": "draws",
+              "subject": "erin",
+              "object": "box"
+            }
+          },
+          {
+            "sentence": "frank draws cup",
+            "gold": {
+              "root": "draws",
+              "subject": "frank",
+              "object": "cup"
+            },
+            "pred": {
+              "root": "draws",
+              "subject": "frank",
+              "object": "cup"
+            }
+          }
+        ]
+      },
+      "slot_write_probs_by_position": [
+        [
+          0.0015853242851141438,
+          0.9968367190797063,
+          0.0015779566351796636
+        ],
+        [
+          0.9968367806560665,
+          0.0015807979057522695,
+          0.0015824214381812308
+        ],
+        [
+          0.0015826332375908794,
+          0.0015806597941811658,
+          0.9968367069682279
+        ]
+      ],
+      "slot_write_argmax_by_position": [
+        "subject",
+        "root",
+        "object"
+      ]
+    }
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "A learned shallow TreeHeap write can encode real short sentences into queryable root/subject/object slots.",
+    "not_proved": [
+      "not WMT translation",
+      "not full syntax",
+      "not deep TreeHeap",
+      "not Transformer comparison",
+      "curated short sentences are still a small S1 pilot"
+    ]
+  },
+  "elapsed_sec": 3.79
+}

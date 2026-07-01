@@ -1,0 +1,281 @@
+{
+  "claim": "S1-KERNEL-MIRROR-C01",
+  "predict": "P-S1-KERNEL40",
+  "host": "local",
+  "terminology": {
+    "preferred": [
+      "mirror",
+      "chiral flip",
+      "left/right mirror"
+    ],
+    "retired": [
+      "conjugate"
+    ],
+    "reason": "This proof uses permutation of heap addresses and local kernel slots, not complex conjugation."
+  },
+  "config": {
+    "seed": 123,
+    "train": 512,
+    "test": 256,
+    "ood": 256,
+    "epochs": 600,
+    "lr": 0.04,
+    "theta": [
+      0.5,
+      1.25,
+      -0.75
+    ],
+    "theta_mirror": [
+      0.5,
+      -0.75,
+      1.25
+    ],
+    "mirror_perm": [
+      0,
+      2,
+      1,
+      6,
+      5,
+      4,
+      3
+    ],
+    "kernel_slot_perm": [
+      0,
+      2,
+      1
+    ]
+  },
+  "deductive": {
+    "law": "P_m K_theta(H) = K_{P_lr theta}(P_m H)",
+    "test": {
+      "max_flipped_error": 8.881784197001252e-16,
+      "mean_flipped_error": 1.3617579286417936e-16,
+      "min_unflipped_error": 0.7490308301444628,
+      "mean_unflipped_error": 6.501354847931551
+    },
+    "ood": {
+      "max_flipped_error": 3.552713678800501e-15,
+      "mean_flipped_error": 4.718447854656915e-16,
+      "min_unflipped_error": 4.601944612900734,
+      "mean_unflipped_error": 21.06988058124694
+    }
+  },
+  "learned_mirror": {
+    "theta_initial": [
+      0.7372492108083721,
+      0.07720849520846307,
+      -0.5166728145195908
+    ],
+    "theta_final": [
+      0.4999999999999999,
+      -0.7499999999999998,
+      1.2499999999999996
+    ],
+    "theta_delta_l2": 1.9651193134608431,
+    "theta_mirror_l2_error": 5.087681048627601e-16,
+    "train_mse": 8.25691807686136e-31,
+    "trace": [
+      {
+        "epoch": 0,
+        "loss": 11.771061663691265,
+        "theta": [
+          0.7372492108083721,
+          0.07720849520846307,
+          -0.5166728145195908
+        ],
+        "theta_mirror_l2_error": 1.9651193134608436
+      },
+      {
+        "epoch": 1,
+        "loss": 6.726053521002203,
+        "theta": [
+          0.666056980595811,
+          -0.11571731628985038,
+          -0.08353955059184182
+        ],
+        "theta_mirror_l2_error": 1.4860071253704805
+      },
+      {
+        "epoch": 2,
+        "loss": 3.845090014025816,
+        "theta": [
+          0.615419460812071,
+          -0.2636233953289301,
+          0.24330587599984405
+        ],
+        "theta_mirror_l2_error": 1.1239737153518978
+      },
+      {
+        "epoch": 5,
+        "loss": 0.7204204693289845,
+        "theta": [
+          0.5365842710609033,
+          -0.5306345255113256,
+          0.8166604863683263
+        ],
+        "theta_mirror_l2_error": 0.4870757172773391
+      },
+      {
+        "epoch": 10,
+        "loss": 0.04463640964430223,
+        "theta": [
+          0.5034156321249548,
+          -0.6917606931238203,
+          1.1434401733105624
+        ],
+        "theta_mirror_l2_error": 0.12148448490368573
+      },
+      {
+        "epoch": 25,
+        "loss": 1.1483796331847833e-05,
+        "theta": [
+          0.49977700829872235,
+          -0.7489041906518358,
+          1.2483893838931601
+        ],
+        "theta_mirror_l2_error": 0.0019607671126308833
+      },
+      {
+        "epoch": 50,
+        "loss": 1.523755221039478e-11,
+        "theta": [
+          0.49999928684835016,
+          -0.7499985237839167,
+          1.2499984192523776
+        ],
+        "theta_mirror_l2_error": 2.277402521676264e-06
+      },
+      {
+        "epoch": 100,
+        "loss": 4.359927119376505e-23,
+        "theta": [
+          0.4999999999980332,
+          -0.7499999999972713,
+          1.2499999999980778
+        ],
+        "theta_mirror_l2_error": 3.874171915209864e-12
+      },
+      {
+        "epoch": 250,
+        "loss": 8.25691807686136e-31,
+        "theta": [
+          0.4999999999999999,
+          -0.7499999999999998,
+          1.2499999999999996
+        ],
+        "theta_mirror_l2_error": 5.087681048627601e-16
+      },
+      {
+        "epoch": 500,
+        "loss": 8.25691807686136e-31,
+        "theta": [
+          0.4999999999999999,
+          -0.7499999999999998,
+          1.2499999999999996
+        ],
+        "theta_mirror_l2_error": 5.087681048627601e-16
+      },
+      {
+        "epoch": 600,
+        "loss": 8.25691807686136e-31,
+        "theta": [
+          0.4999999999999999,
+          -0.7499999999999998,
+          1.2499999999999996
+        ],
+        "theta_mirror_l2_error": 5.087681048627601e-16
+      }
+    ],
+    "test": {
+      "mse": 8.240833552560188e-31
+    },
+    "ood": {
+      "mse": 8.16871249158545e-30
+    }
+  },
+  "structure_assignment": {
+    "claim": "kernel slots are structural directions, not anonymous scalar positions",
+    "root_slot_stays_root": 1.1102230246251565e-16,
+    "left_slot_learns_original_right": 2.220446049250313e-16,
+    "right_slot_learns_original_left": 4.440892098500626e-16,
+    "no_rotation_or_3d_fold_claim": true
+  },
+  "example": {
+    "heap": [
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0
+    ],
+    "theta": [
+      0.5,
+      1.25,
+      -0.75
+    ],
+    "theta_mirror": [
+      0.5,
+      -0.75,
+      1.25
+    ],
+    "conv": [
+      0.75,
+      2.25,
+      3.75,
+      4.0,
+      5.0,
+      6.0,
+      7.0
+    ],
+    "mirror_conv": [
+      0.75,
+      3.75,
+      2.25,
+      7.0,
+      6.0,
+      5.0,
+      4.0
+    ],
+    "conv_mirror_with_mirrored_theta": [
+      0.75,
+      3.75,
+      2.25,
+      7.0,
+      6.0,
+      5.0,
+      4.0
+    ],
+    "conv_mirror_with_unflipped_theta": [
+      2.75,
+      5.75,
+      4.25,
+      7.0,
+      6.0,
+      5.0,
+      4.0
+    ]
+  },
+  "pass_checks": {
+    "deductive_test_equivariance": true,
+    "deductive_ood_equivariance": true,
+    "unflipped_kernel_fails": true,
+    "learned_mirrored_theta": true,
+    "learned_test_mse_low": true,
+    "learned_ood_mse_low": true
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "If pilot_pass is true, TreeHeap local convolution supports mirror/chiral flip equivariance and the mirrored root/left/right slot assignment can be learned from scalar loss.",
+    "not_proved": [
+      "not language understanding",
+      "not WMT translation",
+      "not learned semantic mirror in real corpora",
+      "not learned rotation angle",
+      "not full 3D fold",
+      "not arbitrary group equivariance",
+      "not superiority over all flat models"
+    ]
+  }
+}

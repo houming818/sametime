@@ -1,0 +1,55 @@
+{
+  "claim": "M0-DIFF-C01",
+  "predict": "P-DIFF01",
+  "seed": 123,
+  "host_preference": "io.grepcode.cn",
+  "config": {
+    "nodes": 15,
+    "dim": 128,
+    "alpha": 0.72,
+    "eps": 1e-05,
+    "target_node": 3
+  },
+  "metrics": {
+    "norm_zero": 0.0,
+    "norm_a": 6.286941414525374,
+    "dist_aa": 0.0,
+    "dist_ab": 8.805931113203306,
+    "dist_ba": 8.805931113203306,
+    "triangle_gap": 8.64655860070463,
+    "cos_aa": 1.0000000000000002,
+    "cos_ab": -0.006122077830623212,
+    "anti_sym_error": 0.0,
+    "directional_derivative_abs_error": 3.52662343772181e-11,
+    "theta_grad_abs_error": 4.5408532489688014e-10,
+    "theta_grad_rel_error": 1.559474293719699e-10,
+    "initial_loss": 32.109058495643076,
+    "stepped_loss": 1.0260750804724396e-06,
+    "target_prob_before": 0.08105168924213009,
+    "target_prob_after": 0.999835268758187
+  },
+  "pass_checks": {
+    "zero_norm_is_zero": true,
+    "self_distance_is_zero": true,
+    "distance_symmetric": true,
+    "triangle_nonnegative_gap": true,
+    "cosine_self_is_one": true,
+    "diff_closure_shape_ok": true,
+    "diff_antisymmetry": true,
+    "state_directional_derivative_matches_finite_diff": true,
+    "theta_gradient_matches_finite_diff": true,
+    "gradient_step_reduces_loss": true,
+    "gradient_step_increases_target_write_prob": true
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "TreeHeap distance can be derived from diff->norm/inner product, and finite differences provide a learning signal for prob vector plus.",
+    "not_proved": [
+      "not a final S1 encoder",
+      "not semantic world-model alignment",
+      "not WMT",
+      "not superiority over Transformer/MLP"
+    ]
+  },
+  "elapsed_sec": 0.002
+}

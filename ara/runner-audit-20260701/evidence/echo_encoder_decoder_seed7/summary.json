@@ -1,0 +1,455 @@
+{
+  "claim": "S1-ECHO-ED-C01",
+  "design": {
+    "encoder": "token sequence -> ordered TreeHeap leaves -> internal NodeState summaries",
+    "decoder": "root length + path-addressed leaf/subheap reads -> token sequence",
+    "learned_parameters": 0,
+    "uses_target_heap_in_decoder": false,
+    "max_len": 8,
+    "leaf_count": 8
+  },
+  "dataset": {
+    "source": "wmt_sentencepiece",
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "spm_model": "/mnt/nas/datasets/wmt17/sp_bpe.model",
+    "examples": [
+      "Of course, there are obvious differences between 1989 and now.",
+      "In better shape, but not alone.",
+      "One senses something like the making of an American-Asian dominated universe.",
+      "When the rich get less rich, the poor get poorer.",
+      "One Hundred Years of Ineptitude"
+    ],
+    "samples": 2000,
+    "train": 1600,
+    "test": 200,
+    "ood": 200,
+    "min_len": 3,
+    "max_len": 8,
+    "vocab_limit": 1024
+  },
+  "metrics": {
+    "train": {
+      "sequence_exact": 1.0,
+      "leaf_acc": 1.0,
+      "subheap_exact": 1.0,
+      "summary_exact": 1.0,
+      "counts": {
+        "sequences": 1600,
+        "leaf_queries": 9505,
+        "subheap_queries": 11200,
+        "summary_queries": 11200
+      }
+    },
+    "test": {
+      "sequence_exact": 1.0,
+      "leaf_acc": 1.0,
+      "subheap_exact": 1.0,
+      "summary_exact": 1.0,
+      "counts": {
+        "sequences": 200,
+        "leaf_queries": 1212,
+        "subheap_queries": 1400,
+        "summary_queries": 1400
+      }
+    },
+    "ood": {
+      "sequence_exact": 1.0,
+      "leaf_acc": 1.0,
+      "subheap_exact": 1.0,
+      "summary_exact": 1.0,
+      "counts": {
+        "sequences": 200,
+        "leaf_queries": 1194,
+        "subheap_queries": 1400,
+        "summary_queries": 1400
+      }
+    }
+  },
+  "examples": {
+    "train": [
+      {
+        "tokens": [
+          282,
+          10,
+          632,
+          37,
+          198,
+          25,
+          780
+        ],
+        "decoded": [
+          282,
+          10,
+          632,
+          37,
+          198,
+          25,
+          780
+        ],
+        "query_node": 6,
+        "query_span": [
+          4,
+          6
+        ],
+        "decoded_subheap": [
+          198,
+          25
+        ],
+        "root_summary": {
+          "length": 7,
+          "first": 282,
+          "last": 780,
+          "checksum": 15360
+        },
+        "query_summary": {
+          "length": 2,
+          "first": 198,
+          "last": 25,
+          "checksum": 248
+        }
+      },
+      {
+        "tokens": [
+          244,
+          462,
+          447,
+          190,
+          6,
+          261,
+          1011
+        ],
+        "decoded": [
+          244,
+          462,
+          447,
+          190,
+          6,
+          261,
+          1011
+        ],
+        "query_node": 4,
+        "query_span": [
+          0,
+          2
+        ],
+        "decoded_subheap": [
+          244,
+          462
+        ],
+        "root_summary": {
+          "length": 7,
+          "first": 244,
+          "last": 1011,
+          "checksum": 21454
+        },
+        "query_summary": {
+          "length": 2,
+          "first": 244,
+          "last": 462,
+          "checksum": 1168
+        }
+      },
+      {
+        "tokens": [
+          10,
+          114,
+          186,
+          52,
+          261,
+          10
+        ],
+        "decoded": [
+          10,
+          114,
+          186,
+          52,
+          261,
+          10
+        ],
+        "query_node": 3,
+        "query_span": [
+          4,
+          8
+        ],
+        "decoded_subheap": [
+          261,
+          10
+        ],
+        "root_summary": {
+          "length": 6,
+          "first": 10,
+          "last": 10,
+          "checksum": 2513
+        },
+        "query_summary": {
+          "length": 2,
+          "first": 261,
+          "last": 10,
+          "checksum": 281
+        }
+      }
+    ],
+    "test": [
+      {
+        "tokens": [
+          186,
+          261,
+          154,
+          328,
+          10,
+          37,
+          65,
+          827
+        ],
+        "decoded": [
+          186,
+          261,
+          154,
+          328,
+          10,
+          37,
+          65,
+          827
+        ],
+        "query_node": 5,
+        "query_span": [
+          2,
+          4
+        ],
+        "decoded_subheap": [
+          154,
+          328
+        ],
+        "root_summary": {
+          "length": 8,
+          "first": 186,
+          "last": 827,
+          "checksum": 29343
+        },
+        "query_summary": {
+          "length": 2,
+          "first": 154,
+          "last": 328,
+          "checksum": 810
+        }
+      },
+      {
+        "tokens": [
+          557,
+          114,
+          237,
+          64,
+          133,
+          488,
+          32,
+          462
+        ],
+        "decoded": [
+          557,
+          114,
+          237,
+          64,
+          133,
+          488,
+          32,
+          462
+        ],
+        "query_node": 3,
+        "query_span": [
+          4,
+          8
+        ],
+        "decoded_subheap": [
+          133,
+          488,
+          32,
+          462
+        ],
+        "root_summary": {
+          "length": 8,
+          "first": 557,
+          "last": 462,
+          "checksum": 21765
+        },
+        "query_summary": {
+          "length": 4,
+          "first": 133,
+          "last": 462,
+          "checksum": 3977
+        }
+      },
+      {
+        "tokens": [
+          447,
+          163,
+          153,
+          57,
+          65
+        ],
+        "decoded": [
+          447,
+          163,
+          153,
+          57,
+          65
+        ],
+        "query_node": 3,
+        "query_span": [
+          4,
+          8
+        ],
+        "decoded_subheap": [
+          65
+        ],
+        "root_summary": {
+          "length": 5,
+          "first": 447,
+          "last": 65,
+          "checksum": 1899
+        },
+        "query_summary": {
+          "length": 1,
+          "first": 65,
+          "last": 65,
+          "checksum": 65
+        }
+      }
+    ],
+    "ood": [
+      {
+        "tokens": [
+          549,
+          163,
+          32,
+          10,
+          935,
+          32,
+          652,
+          595
+        ],
+        "decoded": [
+          549,
+          163,
+          32,
+          10,
+          935,
+          32,
+          652,
+          595
+        ],
+        "query_node": 2,
+        "query_span": [
+          0,
+          4
+        ],
+        "decoded_subheap": [
+          549,
+          163,
+          32,
+          10
+        ],
+        "root_summary": {
+          "length": 8,
+          "first": 549,
+          "last": 595,
+          "checksum": 33656
+        },
+        "query_summary": {
+          "length": 4,
+          "first": 549,
+          "last": 10,
+          "checksum": 1031
+        }
+      },
+      {
+        "tokens": [
+          1009,
+          286,
+          114,
+          197,
+          10,
+          340,
+          653
+        ],
+        "decoded": [
+          1009,
+          286,
+          114,
+          197,
+          10,
+          340,
+          653
+        ],
+        "query_node": 5,
+        "query_span": [
+          2,
+          4
+        ],
+        "decoded_subheap": [
+          114,
+          197
+        ],
+        "root_summary": {
+          "length": 7,
+          "first": 1009,
+          "last": 653,
+          "checksum": 16350
+        },
+        "query_summary": {
+          "length": 2,
+          "first": 114,
+          "last": 197,
+          "checksum": 508
+        }
+      },
+      {
+        "tokens": [
+          88,
+          61,
+          922,
+          433,
+          482
+        ],
+        "decoded": [
+          88,
+          61,
+          922,
+          433,
+          482
+        ],
+        "query_node": 4,
+        "query_span": [
+          0,
+          2
+        ],
+        "decoded_subheap": [
+          88,
+          61
+        ],
+        "root_summary": {
+          "length": 5,
+          "first": 88,
+          "last": 482,
+          "checksum": 7984
+        },
+        "query_summary": {
+          "length": 2,
+          "first": 88,
+          "last": 61,
+          "checksum": 210
+        }
+      }
+    ]
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "Explicit TreeHeap echo encoder/decoder interface is closed.",
+    "not_proved": [
+      "not translation",
+      "not learned semantic encoding",
+      "not compression",
+      "not superiority over neural baselines",
+      "not noisy channel correction"
+    ]
+  }
+}

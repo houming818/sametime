@@ -1,0 +1,215 @@
+{
+  "claim": "S1-FOLD-C01",
+  "predict": "P-S1-FOLD01",
+  "seed": 42,
+  "samples": 5000,
+  "max_len": 16,
+  "vocab": 257,
+  "mod_base": 4,
+  "models": {
+    "ordered_tree_fold": {
+      "length": 1.0,
+      "first": 1.0,
+      "last": 1.0,
+      "prefix0": 1.0,
+      "prefix1": 1.0,
+      "exact_all": 1.0,
+      "mean_natural": 1.0
+    },
+    "bag_root_fold": {
+      "length": 0.08988148911503285,
+      "first": 0.3248260981579286,
+      "last": 0.32474558804585857,
+      "prefix0": 0.3248260981579286,
+      "prefix1": 0.3244879556872343,
+      "exact_all": 0.08988148911503285,
+      "mean_natural": 0.2777534458327966
+    },
+    "modulo_fold_base4": {
+      "length": 0.08988148911503285,
+      "first": 0.4048853536004122,
+      "last": 0.4048692515779982,
+      "prefix0": 0.4048853536004122,
+      "prefix1": 0.404659925286616,
+      "exact_all": 0.08988148911503285,
+      "mean_natural": 0.3418362746360943
+    }
+  },
+  "derived": {
+    "ordered_minus_bag_mean_natural": 0.7222465541672034,
+    "ordered_minus_mod_mean_natural": 0.6581637253639057
+  },
+  "pilot_pass": true,
+  "examples": [
+    {
+      "seq": [
+        13,
+        141,
+        126,
+        115,
+        72,
+        53,
+        45,
+        217,
+        17,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 1,
+      "span": [
+        0,
+        16
+      ],
+      "target": {
+        "length": 9,
+        "first": 13,
+        "last": 17,
+        "prefix0": 13,
+        "prefix1": 141
+      },
+      "ordered_tree_fold": {
+        "length": 9,
+        "first": 13,
+        "last": 17,
+        "prefix0": 13,
+        "prefix1": 141
+      },
+      "bag_root_fold": {
+        "length": 9,
+        "first": 13,
+        "last": 17,
+        "prefix0": 13,
+        "prefix1": 141
+      },
+      "modulo_fold_base4": {
+        "length": 9,
+        "first": 13,
+        "last": 17,
+        "prefix0": 13,
+        "prefix1": 141
+      }
+    },
+    {
+      "seq": [
+        112,
+        120,
+        14,
+        102,
+        215,
+        113,
+        230,
+        143,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 13,
+      "span": [
+        10,
+        12
+      ],
+      "target": {
+        "length": 0,
+        "first": 0,
+        "last": 0,
+        "prefix0": 0,
+        "prefix1": 0
+      },
+      "ordered_tree_fold": {
+        "length": 0,
+        "first": 0,
+        "last": 0,
+        "prefix0": 0,
+        "prefix1": 0
+      },
+      "bag_root_fold": {
+        "length": 9,
+        "first": 112,
+        "last": 4,
+        "prefix0": 112,
+        "prefix1": 120
+      },
+      "modulo_fold_base4": {
+        "length": 4,
+        "first": 14,
+        "last": 143,
+        "prefix0": 14,
+        "prefix1": 102
+      }
+    },
+    {
+      "seq": [
+        217,
+        175,
+        143,
+        80,
+        111,
+        173,
+        53,
+        48,
+        195,
+        50,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 6,
+      "span": [
+        8,
+        12
+      ],
+      "target": {
+        "length": 2,
+        "first": 195,
+        "last": 50,
+        "prefix0": 195,
+        "prefix1": 50
+      },
+      "ordered_tree_fold": {
+        "length": 2,
+        "first": 195,
+        "last": 50,
+        "prefix0": 195,
+        "prefix1": 50
+      },
+      "bag_root_fold": {
+        "length": 10,
+        "first": 217,
+        "last": 50,
+        "prefix0": 217,
+        "prefix1": 175
+      },
+      "modulo_fold_base4": {
+        "length": 10,
+        "first": 217,
+        "last": 50,
+        "prefix0": 217,
+        "prefix1": 175
+      }
+    }
+  ],
+  "interpretation": {
+    "supported": "Order-preserving TreeHeap fold exactly preserves natural internal readout; bag/root and early modulo fold lose subheap locality.",
+    "not_proved": [
+      "not translation",
+      "not learned semantic routing",
+      "not a neural baseline battle",
+      "not proof that modulo is useless",
+      "not long real syntax"
+    ]
+  },
+  "elapsed_sec": 1.096
+}

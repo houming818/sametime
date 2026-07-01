@@ -1,0 +1,215 @@
+{
+  "claim": "S1-FOLD-C01",
+  "predict": "P-S1-FOLD01",
+  "seed": 123,
+  "samples": 5000,
+  "max_len": 16,
+  "vocab": 257,
+  "mod_base": 4,
+  "models": {
+    "ordered_tree_fold": {
+      "length": 1.0,
+      "first": 1.0,
+      "last": 1.0,
+      "prefix0": 1.0,
+      "prefix1": 1.0,
+      "exact_all": 1.0,
+      "mean_natural": 1.0
+    },
+    "bag_root_fold": {
+      "length": 0.08908331995504896,
+      "first": 0.32390431851019424,
+      "last": 0.32302135174185265,
+      "prefix0": 0.32390431851019424,
+      "prefix1": 0.32302135174185265,
+      "exact_all": 0.08908331995504896,
+      "mean_natural": 0.2765869320918285
+    },
+    "modulo_fold_base4": {
+      "length": 0.08908331995504896,
+      "first": 0.40394926954567345,
+      "last": 0.40330711189597046,
+      "prefix0": 0.40394926954567345,
+      "prefix1": 0.4028415475999358,
+      "exact_all": 0.08908331995504896,
+      "mean_natural": 0.34062610370846047
+    }
+  },
+  "derived": {
+    "ordered_minus_bag_mean_natural": 0.7234130679081715,
+    "ordered_minus_mod_mean_natural": 0.6593738962915395
+  },
+  "pilot_pass": true,
+  "examples": [
+    {
+      "seq": [
+        138,
+        45,
+        209,
+        137,
+        56,
+        20,
+        195,
+        171,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 6,
+      "span": [
+        8,
+        12
+      ],
+      "target": {
+        "length": 0,
+        "first": 0,
+        "last": 0,
+        "prefix0": 0,
+        "prefix1": 0
+      },
+      "ordered_tree_fold": {
+        "length": 0,
+        "first": 0,
+        "last": 0,
+        "prefix0": 0,
+        "prefix1": 0
+      },
+      "bag_root_fold": {
+        "length": 8,
+        "first": 138,
+        "last": 171,
+        "prefix0": 138,
+        "prefix1": 45
+      },
+      "modulo_fold_base4": {
+        "length": 8,
+        "first": 138,
+        "last": 171,
+        "prefix0": 138,
+        "prefix1": 45
+      }
+    },
+    {
+      "seq": [
+        82,
+        70,
+        173,
+        171,
+        126,
+        84,
+        1,
+        224,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 13,
+      "span": [
+        10,
+        12
+      ],
+      "target": {
+        "length": 0,
+        "first": 0,
+        "last": 0,
+        "prefix0": 0,
+        "prefix1": 0
+      },
+      "ordered_tree_fold": {
+        "length": 0,
+        "first": 0,
+        "last": 0,
+        "prefix0": 0,
+        "prefix1": 0
+      },
+      "bag_root_fold": {
+        "length": 8,
+        "first": 82,
+        "last": 224,
+        "prefix0": 82,
+        "prefix1": 70
+      },
+      "modulo_fold_base4": {
+        "length": 4,
+        "first": 173,
+        "last": 224,
+        "prefix0": 173,
+        "prefix1": 171
+      }
+    },
+    {
+      "seq": [
+        194,
+        36,
+        4,
+        162,
+        230,
+        53,
+        23,
+        48,
+        73,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "query_node": 3,
+      "span": [
+        8,
+        16
+      ],
+      "target": {
+        "length": 1,
+        "first": 73,
+        "last": 73,
+        "prefix0": 73,
+        "prefix1": 0
+      },
+      "ordered_tree_fold": {
+        "length": 1,
+        "first": 73,
+        "last": 73,
+        "prefix0": 73,
+        "prefix1": 0
+      },
+      "bag_root_fold": {
+        "length": 9,
+        "first": 194,
+        "last": 73,
+        "prefix0": 194,
+        "prefix1": 36
+      },
+      "modulo_fold_base4": {
+        "length": 9,
+        "first": 194,
+        "last": 73,
+        "prefix0": 194,
+        "prefix1": 36
+      }
+    }
+  ],
+  "interpretation": {
+    "supported": "Order-preserving TreeHeap fold exactly preserves natural internal readout; bag/root and early modulo fold lose subheap locality.",
+    "not_proved": [
+      "not translation",
+      "not learned semantic routing",
+      "not a neural baseline battle",
+      "not proof that modulo is useless",
+      "not long real syntax"
+    ]
+  },
+  "elapsed_sec": 1.082
+}
