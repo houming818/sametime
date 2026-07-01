@@ -133,7 +133,7 @@ M0 math toolbox
 | C4-002 | SPR-017 | Addressable closure / mod-fold tasks should test whether TreeHeap preserves address and overwrite semantics under length extrapolation. | open | `ara/m0-treeheap-math/logic/predicts.md` P-EXIST01 | Flatten baselines equal or beat TreeHeap on extrapolated address tasks. |
 | C4-003 | SPR-017 | Subheap kernel relocation should show local pattern transfer across unseen tree addresses. | open | `ara/m0-treeheap-math/logic/predicts.md` P-EXIST02 | Kernel only works at trained positions or has high false positives. |
 | C4-004 | SPR-017 | Prefix compression and delayed collapse should show reuse of shared prefixes and calibrated candidates. | open | `ara/m0-treeheap-math/logic/predicts.md` P-EXIST03 | Prefix tree gives no compression or probability container calibration. |
-| C4-005 | SPR-018 | Pattern matching alone is the wrong B experiment; real TreeHeap proof requires learned encoder plus conjugate query/decoder kernel. | design | Blog SPR-018 | Hand-designed pattern matching remains the only working mechanism. |
+| C4-005 | SPR-018 | Pattern matching alone is the wrong B experiment; real TreeHeap proof requires learned encoder plus paired query/decoder kernel. | design | Blog SPR-018 | Hand-designed pattern matching remains the only working mechanism. |
 | C4-006 | SPR-018 | Learned ordered TreeHeap search should encode key/value data into a searchable tree and use a query kernel to decode. | open | Blog SPR-018 planned experiment | Learned encoder cannot form searchable structure beyond trivial memorization. |
 | C4-007 | SPR-018 | Learned weighted prefix TreeHeap should resemble Huffman-like compression for skewed symbol distributions. | open | Blog SPR-018 planned experiment | Expected path length fails to beat fixed-length baseline. |
 
@@ -170,7 +170,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | C6-011 | SPR-038 | A differentiable energy over current TreeHeap state can relax `arr[i]` while kernel parameters and address rules remain fixed. | supported pilot | `ara/s1-echo/evidence/s1_heap_state_relaxation_probe/`; scalar energy ratio 2.47e-31, vector mean energy ratio 1.24e-13 | State-only updates cannot lower energy, require hidden theta updates, or use target heap labels in the loss. |
 | C6-012 | post SPR-038 | Explicit hard echo encoder/decoder closes the WMT short-BPE interface: ordered leaf write, internal summary compose, path leaf/subheap read, and full sequence decode. | supported pilot | `ara/s1-echo/evidence/s1_echo_encoder_decoder_probe*/`; main and expanded runs reach 1.0 sequence/leaf/subheap/summary metrics | Decoder uses target heap labels, hard interface fails under learned kernels, or non-empty/noisy subheap metrics collapse. |
 | C6-013 | SPR-039 | A parameter TreeHeap `Theta` can learn local subheap convolution kernels by gradient, distinct from SPR-038 state relaxation. | supported pilot | `ara/s1-echo/evidence/s1_kernel_parameter_learning_probe/`; hidden `[1,1,1]`, learned theta `[1.0,1.0,1.0]`, theta L2 error `5.44e-16`, test/OOD MSE `8.78e-31/8.93e-30`, wrong-address test MSE `5.9285` | `Theta` fails to recover hidden kernels beyond clean scalar toy, wrong-address baselines match it, or only heap state `H` moves while parameters stay fixed. |
-| C6-014 | SPR-040 | TreeHeap local convolution is equivariant under mirror conjugation; mirrored trees require mirrored kernels. | supported pilot | `ara/s1-echo/evidence/s1_conjugate_kernel_symmetry_probe/`; flipped-kernel test max error `8.88e-16`, unflipped mean error `6.4372`, learned conjugate theta `[0.5,-0.75,1.25]` | Mirror equivariance fails for deeper/vector kernels, unflipped kernels work equally well, or learned mirrored kernels do not recover `[root,right,left]`. |
+| C6-014 | SPR-040 | TreeHeap local convolution is equivariant under mirror / chiral flip; geometric left/right mirror is implemented as algebraic permutation of heap addresses and kernel slots. | supported pilot | `ara/s1-echo/evidence/s1_mirror_kernel_symmetry_probe/`; flipped-kernel test max error `8.88e-16`, unflipped mean error `6.4372`, learned mirrored theta `[0.5,-0.75,1.25]` | Mirror equivariance fails for deeper/vector kernels, unflipped kernels work equally well, or learned mirrored kernels do not recover `[root,right,left]`. |
 
 ## SPR Blog Source Map
 
@@ -193,7 +193,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | 015 | `blogs/.../spr/015-primitive-plus-probe.md` | Toy proof for addressable plus / mod fold |
 | 016 | `blogs/.../spr/016-trainability-quiz.md` | ML entrance quiz: linear, XOR, modular addition |
 | 017 | `blogs/.../spr/017-treeheap-existence-proofs.md` | Existence proof claims A/B/C |
-| 018 | `blogs/.../spr/018-treeheap-structural-inductive-bias.md` | Learned encoding and conjugate kernel refinement |
+| 018 | `blogs/.../spr/018-treeheap-structural-inductive-bias.md` | Learned encoding and paired query/decoder kernel refinement |
 | 019 | `blogs/.../spr/019-soft-treeheap-gradient.md` | Soft algebra, kernel-guided soft plus, multi-kernel training |
 | 020 | `blogs/.../spr/020-soft-treeheap-audit.md` | GLM audit, ARA scope repair, clean-kernel next proof |
 | 021 | `blogs/.../spr/021-c05-structural-proof.md` | C05 structural proof: path, subheap, recursive plus |
@@ -215,7 +215,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | 037 | `blogs/.../spr/037-controllable-fold-manifold.md` | Controllable fold-quality surface pilot |
 | 038 | `blogs/.../spr/038-heap-state-relaxation.md` | Heap-state relaxation and state-gradient pilot |
 | 039 | `blogs/.../spr/039-parameter-treeheap-kernel-learning.md` | Planned parameter TreeHeap / local convolution kernel learning proof |
-| 040 | not yet written | Mirror conjugate TreeHeap kernel symmetry proof |
+| 040 | `blogs/.../spr/040-mirror-kernel-symmetry.md` | Mirror / chiral TreeHeap kernel flip proof |
 
 The canonical local blog source is:
 
@@ -244,7 +244,7 @@ https://www.lostmap.cn/spr/
 | `ara/m0-treeheap-math/evidence/trainability_quiz/` | Linear regression, XOR, modular addition learning checks |
 | `ara/m0-treeheap-math/evidence/soft_plus_probe/` | Soft Plus gradient path, toy collapse, GLM feature-ablation audit |
 | `ara/m0-treeheap-math/evidence/structural_c05_probe/` | C05 structural ablation: flat/path-only vs subheap/path-subheap relocation |
-| `ara/m0-treeheap-math/evidence/kernel_convolution_ops_probe/` | Deterministic TreeHeap convolution operations: search, plus/write, conjugate mirror |
+| `ara/m0-treeheap-math/evidence/kernel_convolution_ops_probe/` | Deterministic TreeHeap convolution operations: search, plus/write, mirror flip |
 | `ara/m0-treeheap-math/evidence/deductive_inductive_kernel_probe/` | Deductive hard/soft operator equivalence plus inductive probability learning with KL metrics |
 | `ara/m0-treeheap-math/evidence/treeheap_diff_algebra_probe/` | TreeHeap diff, norm, distance, finite-difference and theta-gradient checks |
 | `ara/m0-treeheap-math/evidence/algebraic_decoder_probe/` | Finite-field algebraic decoders: path, subheap, mirror, residue, ordered leaves |

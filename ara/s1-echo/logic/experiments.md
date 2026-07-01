@@ -1546,17 +1546,18 @@ S1-KERNEL-LEARN-C01 -> supported pilot
 
 This is a kernel-learning proof, not a language proof.
 
-## P-S1-KERNEL40: Mirror Conjugate Kernel Symmetry
+## P-S1-KERNEL40: Mirror / Chiral Kernel Flip
 
 Status: executed
-Claim: S1-KERNEL-CONJ-C01
-Design: `logic/conjugate_kernel_symmetry.md`
-Script: `src/s1_conjugate_kernel_symmetry_probe.py`
-Evidence: `evidence/s1_conjugate_kernel_symmetry_probe/`
+Claim: S1-KERNEL-MIRROR-C01
+Design: `logic/mirror_kernel_symmetry.md`
+Script: `src/s1_mirror_kernel_symmetry_probe.py`
+Evidence: `evidence/s1_mirror_kernel_symmetry_probe/`
 
 ### Question
 
-Does TreeHeap local convolution support conjugate symmetric flipping?
+Can a geometric left/right mirror on TreeHeap be implemented as algebraic
+permutation of heap addresses and local kernel slots?
 
 ### Definition
 
@@ -1572,13 +1573,13 @@ Kernel:
 
 ```text
 theta = [root,left,right]
-conj(theta) = [root,right,left]
+P_lr(theta) = [root,right,left]
 ```
 
 Expected law:
 
 ```text
-M(K_theta(H)) = K_conj(theta)(M(H))
+P_m K_theta(H) = K_{P_lr theta}(P_m H)
 ```
 
 ### Pass Gate
@@ -1595,7 +1596,7 @@ test_max_flipped_error = 8.88e-16
 ood_max_flipped_error = 3.55e-15
 test_mean_unflipped_error = 6.4372
 learned_theta = [0.5000000000000002, -0.7499999999999998, 1.2499999999999996]
-theta_conj_l2_error = 5.44e-16
+theta_mirror_l2_error = 5.44e-16
 learned_test_mse = 1.01e-30
 learned_ood_mse = 9.76e-30
 ```
@@ -1603,7 +1604,7 @@ learned_ood_mse = 9.76e-30
 Decision:
 
 ```text
-S1-KERNEL-CONJ-C01 -> supported pilot
+S1-KERNEL-MIRROR-C01 -> supported pilot
 ```
 
 ### Boundary

@@ -155,13 +155,13 @@ nodes:
     result: "pilot_pass=true; hidden theta=[1,1,1], learned theta=[1.0,1.0,1.0], theta_l2_error=5.44e-16, test/OOD MSE near zero, wrong-address test MSE=5.9285"
     verdict: supports_parameter_treeheap_kernel_learning
 
-  - id: conjugate_kernel_symmetry
+  - id: mirror_kernel_symmetry
     type: experiment
     parents: [parameter_treeheap_kernel_learning]
-    source: ara/s1-echo/src/s1_conjugate_kernel_symmetry_probe.py
-    evidence: ara/s1-echo/evidence/s1_conjugate_kernel_symmetry_probe/
-    result: "pilot_pass=true; M(K_theta(H)) == K_conj(theta)(M(H)) at machine precision; unflipped kernel fails; learned mirrored theta recovers [0.5,-0.75,1.25]"
-    verdict: supports_mirror_conjugate_kernel_symmetry
+    source: ara/s1-echo/src/s1_mirror_kernel_symmetry_probe.py
+    evidence: ara/s1-echo/evidence/s1_mirror_kernel_symmetry_probe/
+    result: "pilot_pass=true; P_m K_theta(H) == K_{P_lr theta}(P_m H) at machine precision; unflipped kernel fails; learned mirrored theta recovers [0.5,-0.75,1.25]"
+    verdict: supports_mirror_kernel_symmetry
 
   - id: real_corpus_polysemy_test
     type: planned_experiment
@@ -171,7 +171,7 @@ nodes:
 
   - id: learned_echo_kernel_next
     type: planned_experiment
-    parents: [explicit_echo_encoder_decoder, conjugate_kernel_symmetry]
+    parents: [explicit_echo_encoder_decoder, mirror_kernel_symmetry]
     text: Replace hard write/compose/read pieces with learned kernels one at a time.
     required_output: "non_empty_subheap_metrics, noisy_restore, mask_restore, flat_pointer_baselines"
 

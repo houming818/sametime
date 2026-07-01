@@ -77,7 +77,7 @@ Was relation attraction too weak?
 Was order preservation too strong?
 Did collapse happen too early?
 Was the subheap partition wrong?
-Was the kernel missing a conjugate or decomposition operation?
+Was the kernel missing a mirror, path, or decomposition operation?
 ```
 
 ## Pilot Experiment
@@ -245,4 +245,3 @@ If the surface remains controllable, S1 can move toward a product debugger:
 sentence -> relation field -> TreeHeap fold -> visible blocks / energies /
 uncertainty containers
 ```
-
