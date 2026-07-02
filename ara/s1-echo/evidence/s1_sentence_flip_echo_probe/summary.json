@@ -1,0 +1,2022 @@
+{
+  "claim": "S1-ECHO-SENT-C01",
+  "predict": "P-S1-ECHO-SENT01",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "config": {
+    "out": "ara/s1-echo/evidence/s1_sentence_flip_echo_probe",
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "scan_lines": 800000,
+    "samples": 20000,
+    "min_len": 3,
+    "max_len": 32,
+    "vocab_size": 8192,
+    "drop_unk": true,
+    "dim": 96,
+    "epochs": 28,
+    "batch": 256,
+    "lr": 0.006,
+    "state_weight": 1.5,
+    "entropy_weight": 0.015,
+    "seed": 4301,
+    "device": "cuda",
+    "host_label": "io.grepcode.cn",
+    "examples": 14,
+    "min_ood_exact": 0.8,
+    "min_ood_token_acc": 0.95,
+    "min_exact_margin": 0.3
+  },
+  "dataset": {
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "scan_lines": 800000,
+    "samples": 20000,
+    "min_len": 3,
+    "max_len": 32,
+    "vocab_size": 8192,
+    "drop_unk": true,
+    "hard_treeheap_closure_exact": 1.0,
+    "hard_treeheap_operator": "Flip(root, full_depth) applied twice on balanced TreeHeap leaves",
+    "dataset_examples": [
+      {
+        "target": "1929 or 1989?",
+        "observed_treeheap_flip": "? 1989 or 1929",
+        "hard_restored": "1929 or 1989?",
+        "length": 4
+      },
+      {
+        "target": "the tendency is either excessive restraint europe or a diffusion of the effort the united states.",
+        "observed_treeheap_flip": ". states united the effort the of diffusion a or europe restraint excessive either is tendency the",
+        "hard_restored": "the tendency is either excessive restraint europe or a diffusion of the effort the united states.",
+        "length": 17
+      },
+      {
+        "target": "of course, the fall of the house of lehman brothers has nothing to do with the fall of the berlin wall.",
+        "observed_treeheap_flip": ". wall berlin the of fall the with do to nothing has brothers lehman of house the of fall the, course of",
+        "hard_restored": "of course, the fall of the house of lehman brothers has nothing to do with the fall of the berlin wall.",
+        "length": 23
+      },
+      {
+        "target": "the end of the east west ideological divide and the end of absolute faith in markets are historical turning points.",
+        "observed_treeheap_flip": ". points turning historical are markets in faith absolute of end the and divide ideological west east the of end the",
+        "hard_restored": "the end of the east west ideological divide and the end of absolute faith in markets are historical turning points.",
+        "length": 21
+      },
+      {
+        "target": "of course, there are obvious differences between 1989 and now.",
+        "observed_treeheap_flip": ". now and 1989 between differences obvious are there, course of",
+        "hard_restored": "of course, there are obvious differences between 1989 and now.",
+        "length": 12
+      },
+      {
+        "target": "everyone seems to be a loser, even if some are more affected than others.",
+        "observed_treeheap_flip": ". others than affected more are some if even, loser a be to seems everyone",
+        "hard_restored": "everyone seems to be a loser, even if some are more affected than others.",
+        "length": 16
+      },
+      {
+        "target": "in better shape, but not alone.",
+        "observed_treeheap_flip": ". alone not but, shape better in",
+        "hard_restored": "in better shape, but not alone.",
+        "length": 8
+      },
+      {
+        "target": "but before this new order appears, the world may be faced with spreading disorder, if not outright chaos.",
+        "observed_treeheap_flip": ". chaos outright not if, disorder spreading with faced be may world the, appears order new this before but",
+        "hard_restored": "but before this new order appears, the world may be faced with spreading disorder, if not outright chaos.",
+        "length": 21
+      },
+      {
+        "target": "when the rich get less rich, the poor get poorer.",
+        "observed_treeheap_flip": ". poorer get poor the, rich less get rich the when",
+        "hard_restored": "when the rich get less rich, the poor get poorer.",
+        "length": 12
+      },
+      {
+        "target": "the consequences of 1989 ended up being less enduring than many observers, including me, would have assumed.",
+        "observed_treeheap_flip": ". assumed have would, me including, observers many than enduring less being up ended 1989 of consequences the",
+        "hard_restored": "the consequences of 1989 ended up being less enduring than many observers, including me, would have assumed.",
+        "length": 20
+      },
+      {
+        "target": "it not only put financial markets and currencies at risk; it also exposed serious regulatory and governance shortcomings that have yet to be fully addressed.",
+        "observed_treeheap_flip": ". addressed fully be to yet have that shortcomings governance and regulatory serious exposed also it; risk at currencies and markets financial put only not it",
+        "hard_restored": "it not only put financial markets and currencies at risk; it also exposed serious regulatory and governance shortcomings that have yet to be fully addressed.",
+        "length": 27
+      },
+      {
+        "target": "in fact, the 2008 crisis will most likely be remembered as a watershed moment, but not because it led to reforms that strengthened economic resilience and removed vulnerabilities.",
+        "observed_treeheap_flip": ". vulnerabilities removed and resilience economic strengthened that reforms to led it because not but, moment watershed a as remembered be likely most will crisis 2008 the, fact in",
+        "hard_restored": "in fact, the 2008 crisis will most likely be remembered as a watershed moment, but not because it led to reforms that strengthened economic resilience and removed vulnerabilities.",
+        "length": 31
+      },
+      {
+        "target": "they will note that analysts and regulators were narrowly focused on fixing the financial system by strengthening national oversight regimes.",
+        "observed_treeheap_flip": ". regimes oversight national strengthening by system financial the fixing on focused narrowly were regulators and analysts that note will they",
+        "hard_restored": "they will note that analysts and regulators were narrowly focused on fixing the financial system by strengthening national oversight regimes.",
+        "length": 21
+      },
+      {
+        "target": "while this was a worthy goal, historians will point out, it was far from the only imperative.",
+        "observed_treeheap_flip": ". imperative only the from far was it, out point will historians, goal worthy a was this while",
+        "hard_restored": "while this was a worthy goal, historians will point out, it was far from the only imperative.",
+        "length": 20
+      }
+    ]
+  },
+  "models": {
+    "learned_inverse_treeheap_flip": {
+      "parameters": 1614848,
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 152.98529943847657
+        },
+        {
+          "epoch": 1,
+          "loss": 183.4550096435547
+        },
+        {
+          "epoch": 2,
+          "loss": 201.48912341308593
+        },
+        {
+          "epoch": 5,
+          "loss": 29.293821426391602
+        },
+        {
+          "epoch": 10,
+          "loss": 6.632815460205078
+        },
+        {
+          "epoch": 14,
+          "loss": 3.599625843048096
+        },
+        {
+          "epoch": 27,
+          "loss": 1.1129494190216065
+        }
+      ],
+      "metrics": {
+        "train": {
+          "exact_match": 1.0,
+          "token_acc": 1.0,
+          "edit_similarity": 1.0,
+          "by_length": {
+            "3": {
+              "samples": 266,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "4": {
+              "samples": 264,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "5": {
+              "samples": 376,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "6": {
+              "samples": 383,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "7": {
+              "samples": 443,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "8": {
+              "samples": 444,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "9": {
+              "samples": 461,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "10": {
+              "samples": 527,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "11": {
+              "samples": 534,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "12": {
+              "samples": 616,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "13": {
+              "samples": 626,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "14": {
+              "samples": 658,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "15": {
+              "samples": 674,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "16": {
+              "samples": 744,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "17": {
+              "samples": 754,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "18": {
+              "samples": 723,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "19": {
+              "samples": 691,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "20": {
+              "samples": 699,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "21": {
+              "samples": 681,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "22": {
+              "samples": 609,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "23": {
+              "samples": 623,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "24": {
+              "samples": 602,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "25": {
+              "samples": 555,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "26": {
+              "samples": 527,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "27": {
+              "samples": 508,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "28": {
+              "samples": 470,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "29": {
+              "samples": 421,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "30": {
+              "samples": 423,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "31": {
+              "samples": 360,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "32": {
+              "samples": 338,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            }
+          },
+          "examples": [
+            {
+              "length": 8,
+              "observed": ". established be to need points essential three",
+              "restored": "three essential points need to be established.",
+              "target": "three essential points need to be established.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 22,
+              "observed": ". reality a vision that make to intended be to seems strategy development and growth s china of focus external new the",
+              "restored": "the new external focus of china s growth and development strategy seems to be intended to make that vision a reality.",
+              "target": "the new external focus of china s growth and development strategy seems to be intended to make that vision a reality.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 31,
+              "observed": ". rise not need ratio export to debt the, commodity underlying the of price world the in decline a of event the in that is bonds such of advantage the",
+              "restored": "the advantage of such bonds is that in the event of a decline in the world price of the underlying commodity, the debt to export ratio need not rise.",
+              "target": "the advantage of such bonds is that in the event of a decline in the world price of the underlying commodity, the debt to export ratio need not rise.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 26,
+              "observed": ". interests their supports that world a want they if heard voices their make must members asean, challenged being governance global of architecture the with",
+              "restored": "with the architecture of global governance being challenged, asean members must make their voices heard if they want a world that supports their interests.",
+              "target": "with the architecture of global governance being challenged, asean members must make their voices heard if they want a world that supports their interests.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 12,
+              "observed": ". countries across and within disparities significant reveals immunization of analysis detailed",
+              "restored": "detailed analysis of immunization reveals significant disparities within and across countries.",
+              "target": "detailed analysis of immunization reveals significant disparities within and across countries.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 24,
+              "observed": ". century half past the for europe with relations in making been have british the that mistake of kind the is it, moreover",
+              "restored": "moreover, it is the kind of mistake that the british have been making in relations with europe for the past half century.",
+              "target": "moreover, it is the kind of mistake that the british have been making in relations with europe for the past half century.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 27,
+              "observed": ". words than louder speak actions, way another put. it fix t don, broken not s it if: here lesson a is there",
+              "restored": "there is a lesson here: if it s not broken, don t fix it. put another way, actions speak louder than words.",
+              "target": "there is a lesson here: if it s not broken, don t fix it. put another way, actions speak louder than words.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 18,
+              "observed": ". more billion 3 of promise a with, 2011 since egypt to billion 5 provided has qatar",
+              "restored": "qatar has provided 5 billion to egypt since 2011, with a promise of 3 billion more.",
+              "target": "qatar has provided 5 billion to egypt since 2011, with a promise of 3 billion more.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 14,
+              "observed": ". policy foreign us of analysis shaped long have clout s aipac about claims",
+              "restored": "claims about aipac s clout have long shaped analysis of us foreign policy.",
+              "target": "claims about aipac s clout have long shaped analysis of us foreign policy.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 17,
+              "observed": ". politics s region the altering decisively are islamists sunni the: clear is thing one but",
+              "restored": "but one thing is clear: the sunni islamists are decisively altering the region s politics.",
+              "target": "but one thing is clear: the sunni islamists are decisively altering the region s politics.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 19,
+              "observed": ". situation the stabilize to helped system financial the support to actions government various the that is view their",
+              "restored": "their view is that the various government actions to support the financial system helped to stabilize the situation.",
+              "target": "their view is that the various government actions to support the financial system helped to stabilize the situation.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 16,
+              "observed": ". abuse domestic horrific from women protect to sufficient not are alone policies and laws but",
+              "restored": "but laws and policies alone are not sufficient to protect women from horrific domestic abuse.",
+              "target": "but laws and policies alone are not sufficient to protect women from horrific domestic abuse.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 11,
+              "observed": ". power from run to almost seemed regimes communist, elsewhere",
+              "restored": "elsewhere, communist regimes seemed almost to run from power.",
+              "target": "elsewhere, communist regimes seemed almost to run from power.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 13,
+              "observed": ". leadership international of promise their fulfill to failed also have brics the",
+              "restored": "the brics have also failed to fulfill their promise of international leadership.",
+              "target": "the brics have also failed to fulfill their promise of international leadership.",
+              "exact": true,
+              "edit_similarity": 1.0
+            }
+          ]
+        },
+        "test": {
+          "exact_match": 0.9595,
+          "token_acc": 0.9975393972905723,
+          "edit_similarity": 0.997447020608523,
+          "by_length": {
+            "3": {
+              "samples": 29,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "4": {
+              "samples": 26,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "5": {
+              "samples": 46,
+              "exact_match": 0.9782608695652174,
+              "token_acc": 0.9956521739130435,
+              "edit_similarity": 0.9956521739130434
+            },
+            "6": {
+              "samples": 40,
+              "exact_match": 0.975,
+              "token_acc": 0.9958333333333333,
+              "edit_similarity": 0.9958333333333332
+            },
+            "7": {
+              "samples": 43,
+              "exact_match": 0.9767441860465116,
+              "token_acc": 0.9966777408637874,
+              "edit_similarity": 0.9966777408637875
+            },
+            "8": {
+              "samples": 44,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "9": {
+              "samples": 72,
+              "exact_match": 0.9444444444444444,
+              "token_acc": 0.9938271604938271,
+              "edit_similarity": 0.993827160493827
+            },
+            "10": {
+              "samples": 76,
+              "exact_match": 0.9736842105263158,
+              "token_acc": 0.9960526315789474,
+              "edit_similarity": 0.9960526315789474
+            },
+            "11": {
+              "samples": 63,
+              "exact_match": 0.9682539682539683,
+              "token_acc": 0.9971139971139971,
+              "edit_similarity": 0.9971139971139971
+            },
+            "12": {
+              "samples": 77,
+              "exact_match": 0.961038961038961,
+              "token_acc": 0.9967532467532467,
+              "edit_similarity": 0.9967532467532467
+            },
+            "13": {
+              "samples": 85,
+              "exact_match": 0.9764705882352941,
+              "token_acc": 0.9981900452488688,
+              "edit_similarity": 0.9981900452488687
+            },
+            "14": {
+              "samples": 76,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "15": {
+              "samples": 88,
+              "exact_match": 0.9545454545454546,
+              "token_acc": 0.9962121212121212,
+              "edit_similarity": 0.996212121212121
+            },
+            "16": {
+              "samples": 85,
+              "exact_match": 0.9764705882352941,
+              "token_acc": 0.9985294117647059,
+              "edit_similarity": 0.9985294117647059
+            },
+            "17": {
+              "samples": 103,
+              "exact_match": 0.970873786407767,
+              "token_acc": 0.9982866933181039,
+              "edit_similarity": 0.9982866933181038
+            },
+            "18": {
+              "samples": 86,
+              "exact_match": 0.9186046511627907,
+              "token_acc": 0.9954780361757106,
+              "edit_similarity": 0.9954780361757105
+            },
+            "19": {
+              "samples": 76,
+              "exact_match": 0.9736842105263158,
+              "token_acc": 0.9986149584487535,
+              "edit_similarity": 0.9986149584487535
+            },
+            "20": {
+              "samples": 83,
+              "exact_match": 0.963855421686747,
+              "token_acc": 0.9981927710843373,
+              "edit_similarity": 0.9981927710843372
+            },
+            "21": {
+              "samples": 110,
+              "exact_match": 0.9363636363636364,
+              "token_acc": 0.996969696969697,
+              "edit_similarity": 0.9969696969696967
+            },
+            "22": {
+              "samples": 60,
+              "exact_match": 0.95,
+              "token_acc": 0.9977272727272727,
+              "edit_similarity": 0.9977272727272727
+            },
+            "23": {
+              "samples": 81,
+              "exact_match": 0.9506172839506173,
+              "token_acc": 0.9978529253891573,
+              "edit_similarity": 0.9978529253891574
+            },
+            "24": {
+              "samples": 89,
+              "exact_match": 0.9325842696629213,
+              "token_acc": 0.9971910112359551,
+              "edit_similarity": 0.9971910112359551
+            },
+            "25": {
+              "samples": 68,
+              "exact_match": 0.9411764705882353,
+              "token_acc": 0.9970588235294118,
+              "edit_similarity": 0.9970588235294119
+            },
+            "26": {
+              "samples": 71,
+              "exact_match": 0.9577464788732394,
+              "token_acc": 0.9978331527627302,
+              "edit_similarity": 0.9978331527627301
+            },
+            "27": {
+              "samples": 71,
+              "exact_match": 0.9154929577464789,
+              "token_acc": 0.9953051643192489,
+              "edit_similarity": 0.9953051643192486
+            },
+            "28": {
+              "samples": 75,
+              "exact_match": 0.96,
+              "token_acc": 0.9980952380952381,
+              "edit_similarity": 0.9980952380952381
+            },
+            "29": {
+              "samples": 43,
+              "exact_match": 0.9534883720930233,
+              "token_acc": 0.9983961507618284,
+              "edit_similarity": 0.9983961507618283
+            },
+            "30": {
+              "samples": 50,
+              "exact_match": 0.94,
+              "token_acc": 0.998,
+              "edit_similarity": 0.998
+            },
+            "31": {
+              "samples": 48,
+              "exact_match": 0.9791666666666666,
+              "token_acc": 0.9993279569892473,
+              "edit_similarity": 0.9993279569892474
+            },
+            "32": {
+              "samples": 36,
+              "exact_match": 0.9444444444444444,
+              "token_acc": 0.9982638888888888,
+              "edit_similarity": 0.9982638888888888
+            }
+          },
+          "examples": [
+            {
+              "length": 24,
+              "observed": ". s 2000 early the in administration s bush. w george by adopted cuts tax temporary the of legacy lasting the is this",
+              "restored": "this is the lasting legacy of the temporary tax cuts adopted by george w. bush s administration in the early 2000 s.",
+              "target": "this is the lasting legacy of the temporary tax cuts adopted by george w. bush s administration in the early 2000 s.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 16,
+              "observed": ". wasted be to likely most is it, resources water s africa like, unfortunately",
+              "restored": "unfortunately, like africa s water resources, it is most likely to be wasted.",
+              "target": "unfortunately, like africa s water resources, it is most likely to be wasted.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 16,
+              "observed": ". control maximum achieve to capital little relatively uses model european continental the in capitalism family",
+              "restored": "family capitalism in the continental european model uses relatively little capital to achieve maximum control.",
+              "target": "family capitalism in the continental european model uses relatively little capital to achieve maximum control.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 21,
+              "observed": ". challenges health biggest s world the address to ways new creative find must we, targets new the achieve to",
+              "restored": "to achieve the new targets, we must find creative new ways to address the world s biggest health challenges.",
+              "target": "to achieve the new targets, we must find creative new ways to address the world s biggest health challenges.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 23,
+              "observed": ". currencies their adjust to fail that countries surplus chronic against sanctions for push will they that indicated not have french the but",
+              "restored": "but the french have not indicated that they will push for sanctions against chronic surplus countries that fail to adjust their currencies.",
+              "target": "but the french have not indicated that they will push for sanctions against chronic surplus countries that fail to adjust their currencies.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 10,
+              "observed": ". failure a been has campaign propaganda their, fortunately",
+              "restored": "fortunately, their propaganda campaign has been a failure.",
+              "target": "fortunately, their propaganda campaign has been a failure.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 15,
+              "observed": ". free for it do to likely not is he, does he if even",
+              "restored": "even if he does, he is not likely to do it for free.",
+              "target": "even if he does, he is not likely to do it for free.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 9,
+              "observed": ". popularity her is program s royal, thus",
+              "restored": "thus, royal s program is her popularity.",
+              "target": "thus, royal s program is her popularity.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 13,
+              "observed": ". competition greater face will businesses, forces market unleash changes policy as",
+              "restored": "as policy changes unleash market forces, businesses will face greater competition.",
+              "target": "as policy changes unleash market forces, businesses will face greater competition.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 21,
+              "observed": ". themselves creditors the and people million 45 with economy struggling a: sides both benefits agreement sustainable a believe we",
+              "restored": "we believe a sustainable agreement benefits both sides: a struggling economy with 45 million people and the creditors themselves.",
+              "target": "we believe a sustainable agreement benefits both sides: a struggling economy with 45 million people and the creditors themselves.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 11,
+              "observed": ". response electoral this encourage may that circumstances particular are there",
+              "restored": "there are particular circumstances that may encourage this electoral response.",
+              "target": "there are particular circumstances that may encourage this electoral response.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 18,
+              "observed": ". retaliation foreign provoke always not do increases tariff, moreover, bad are reasons the when even",
+              "restored": "even when the reasons are bad, moreover, tariff increases do not always provoke foreign retaliation.",
+              "target": "even when the reasons are bad, moreover, tariff increases do not always provoke foreign retaliation.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 13,
+              "observed": ". change this drive alone progress technological letting in dangers obvious are there",
+              "restored": "there are obvious dangers in letting technological progress alone drive this change.",
+              "target": "there are obvious dangers in letting technological progress alone drive this change.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 25,
+              "observed": ". countries developing with associated traditionally issues ignoring while, north global the in problems solving on focused have entrepreneurs technology, long too for",
+              "restored": "for too long, technology entrepreneurs have focused on solving problems in the global north, while ignoring issues traditionally associated with developing countries.",
+              "target": "for too long, technology entrepreneurs have focused on solving problems in the global north, while ignoring issues traditionally associated with developing countries.",
+              "exact": true,
+              "edit_similarity": 1.0
+            }
+          ]
+        },
+        "ood": {
+          "exact_match": 0.9645,
+          "token_acc": 0.9978178766261016,
+          "edit_similarity": 0.9978707981440179,
+          "by_length": {
+            "3": {
+              "samples": 41,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "4": {
+              "samples": 29,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "5": {
+              "samples": 60,
+              "exact_match": 0.9833333333333333,
+              "token_acc": 0.9966666666666667,
+              "edit_similarity": 0.9966666666666666
+            },
+            "6": {
+              "samples": 42,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "7": {
+              "samples": 33,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "8": {
+              "samples": 61,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "9": {
+              "samples": 55,
+              "exact_match": 0.9636363636363636,
+              "token_acc": 0.9959595959595959,
+              "edit_similarity": 0.9959595959595958
+            },
+            "10": {
+              "samples": 64,
+              "exact_match": 0.984375,
+              "token_acc": 0.9984375,
+              "edit_similarity": 0.9984375
+            },
+            "11": {
+              "samples": 82,
+              "exact_match": 0.9512195121951219,
+              "token_acc": 0.9955654101995566,
+              "edit_similarity": 0.9955654101995565
+            },
+            "12": {
+              "samples": 68,
+              "exact_match": 0.9705882352941176,
+              "token_acc": 0.9975490196078431,
+              "edit_similarity": 0.997549019607843
+            },
+            "13": {
+              "samples": 78,
+              "exact_match": 0.9230769230769231,
+              "token_acc": 0.9940828402366864,
+              "edit_similarity": 0.9940828402366864
+            },
+            "14": {
+              "samples": 89,
+              "exact_match": 0.9887640449438202,
+              "token_acc": 0.9991974317817014,
+              "edit_similarity": 0.9991974317817015
+            },
+            "15": {
+              "samples": 78,
+              "exact_match": 0.9743589743589743,
+              "token_acc": 0.9982905982905983,
+              "edit_similarity": 0.9982905982905984
+            },
+            "16": {
+              "samples": 104,
+              "exact_match": 0.9615384615384616,
+              "token_acc": 0.9969951923076923,
+              "edit_similarity": 0.9969951923076923
+            },
+            "17": {
+              "samples": 87,
+              "exact_match": 0.9770114942528736,
+              "token_acc": 0.9986477349560514,
+              "edit_similarity": 0.9986477349560513
+            },
+            "18": {
+              "samples": 92,
+              "exact_match": 0.9782608695652174,
+              "token_acc": 0.998792270531401,
+              "edit_similarity": 0.998792270531401
+            },
+            "19": {
+              "samples": 76,
+              "exact_match": 0.9868421052631579,
+              "token_acc": 0.9993074792243767,
+              "edit_similarity": 0.9993074792243767
+            },
+            "20": {
+              "samples": 83,
+              "exact_match": 0.9759036144578314,
+              "token_acc": 0.9987951807228915,
+              "edit_similarity": 0.9987951807228916
+            },
+            "21": {
+              "samples": 67,
+              "exact_match": 0.9402985074626866,
+              "token_acc": 0.9971570717839374,
+              "edit_similarity": 0.9971570717839374
+            },
+            "22": {
+              "samples": 79,
+              "exact_match": 0.9240506329113924,
+              "token_acc": 0.996547756041427,
+              "edit_similarity": 0.9965477560414269
+            },
+            "23": {
+              "samples": 94,
+              "exact_match": 0.9468085106382979,
+              "token_acc": 0.9976873265494912,
+              "edit_similarity": 0.9976873265494913
+            },
+            "24": {
+              "samples": 84,
+              "exact_match": 0.9404761904761905,
+              "token_acc": 0.996031746031746,
+              "edit_similarity": 0.9960317460317459
+            },
+            "25": {
+              "samples": 69,
+              "exact_match": 0.9565217391304348,
+              "token_acc": 0.9982608695652174,
+              "edit_similarity": 0.9982608695652173
+            },
+            "26": {
+              "samples": 77,
+              "exact_match": 0.987012987012987,
+              "token_acc": 0.9995004995004995,
+              "edit_similarity": 0.9995004995004994
+            },
+            "27": {
+              "samples": 69,
+              "exact_match": 1.0,
+              "token_acc": 1.0,
+              "edit_similarity": 1.0
+            },
+            "28": {
+              "samples": 52,
+              "exact_match": 0.9615384615384616,
+              "token_acc": 0.9986263736263736,
+              "edit_similarity": 0.9986263736263736
+            },
+            "29": {
+              "samples": 57,
+              "exact_match": 0.8771929824561403,
+              "token_acc": 0.9951603145795523,
+              "edit_similarity": 0.9951603145795522
+            },
+            "30": {
+              "samples": 45,
+              "exact_match": 0.9111111111111111,
+              "token_acc": 0.9955555555555555,
+              "edit_similarity": 0.9955555555555555
+            },
+            "31": {
+              "samples": 43,
+              "exact_match": 0.9767441860465116,
+              "token_acc": 0.9992498124531133,
+              "edit_similarity": 0.9992498124531133
+            },
+            "32": {
+              "samples": 42,
+              "exact_match": 0.9285714285714286,
+              "token_acc": 0.9977678571428571,
+              "edit_similarity": 0.9977678571428571
+            }
+          },
+          "examples": [
+            {
+              "length": 10,
+              "observed": ". nato transform would step bold a such, yes",
+              "restored": "yes, such a bold step would transform nato.",
+              "target": "yes, such a bold step would transform nato.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 26,
+              "observed": ". communists russian ethnic, sovereignty pro key and nationalists ukrainian communist non key between emerged convenience of alliance building state informal an, fact in",
+              "restored": "in fact, an informal state building alliance of convenience emerged between key non communist ukrainian nationalists and key pro sovereignty, ethnic russian communists.",
+              "target": "in fact, an informal state building alliance of convenience emerged between key non communist ukrainian nationalists and key pro sovereignty, ethnic russian communists.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 22,
+              "observed": ". israel except country any to aid military american of that exceeds firms us with contracts arms s india of value the",
+              "restored": "the value of india s arms contracts with us firms exceeds that of american military aid to any country except israel.",
+              "target": "the value of india s arms contracts with us firms exceeds that of american military aid to any country except israel.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 32,
+              "observed": ". substantially resistance antibiotic of rise the slowing, 80 nearly by antibiotics of use the reduce would agencies regulatory governmental by enacted be could which of both alone measures two these",
+              "restored": "these two measures alone both of which could be enacted by governmental regulatory agencies would reduce the use of antibiotics by nearly 80, slowing the rise of antibiotic resistance substantially.",
+              "target": "these two measures alone both of which could be enacted by governmental regulatory agencies would reduce the use of antibiotics by nearly 80, slowing the rise of antibiotic resistance substantially.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 29,
+              "observed": ". challenges of set unique a faces countries brics the of each governance poor and institutions weak, example for confront economies developing all almost that problems the beyond",
+              "restored": "beyond the problems that almost all developing economies confront for example, weak institutions and poor governance each of the brics countries faces a unique set of challenges.",
+              "target": "beyond the problems that almost all developing economies confront for example, weak institutions and poor governance each of the brics countries faces a unique set of challenges.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 12,
+              "observed": ". ruling british the of lesson second the to us brings this",
+              "restored": "this brings us to the second lesson of the british ruling.",
+              "target": "this brings us to the second lesson of the british ruling.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 25,
+              "observed": ". dream only can people many which of education of level a reaching child a been has result the, experience s family each whatever",
+              "restored": "whatever each family s experience, the result has been a child reaching a level of education of which many people can only dream.",
+              "target": "whatever each family s experience, the result has been a child reaching a level of education of which many people can only dream.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 16,
+              "observed": ". quickly adopted be can office s prosecutor the reforming legislation condition eu remaining only the",
+              "restored": "the only remaining eu condition legislation reforming the systems s office can be adopted quickly.",
+              "target": "the only remaining eu condition legislation reforming the prosecutor s office can be adopted quickly.",
+              "exact": false,
+              "edit_similarity": 0.9375
+            },
+            {
+              "length": 14,
+              "observed": ". everyone for out run has time until, paralysis policy is result the",
+              "restored": "the result is policy paralysis, until time has run out for everyone.",
+              "target": "the result is policy paralysis, until time has run out for everyone.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 32,
+              "observed": ". change institutional of phase next the navigate they as leaders s country the to invaluable prove could framework theoretical his, development institutional s china on explicitly focused never north though",
+              "restored": "though north never focused explicitly on china s institutional development, his theoretical framework could prove invaluable to the country s leaders as they navigate the next phase of institutional change.",
+              "target": "though north never focused explicitly on china s institutional development, his theoretical framework could prove invaluable to the country s leaders as they navigate the next phase of institutional change.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 8,
+              "observed": ". crucial be will cooperation global, finally",
+              "restored": "finally, global cooperation will be crucial.",
+              "target": "finally, global cooperation will be crucial.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 8,
+              "observed": ". relations eu us for peril holds this",
+              "restored": "this holds peril for us eu relations.",
+              "target": "this holds peril for us eu relations.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 18,
+              "observed": ". future the in invest to chance the it afford world zero g the in advantages s america",
+              "restored": "america s advantages in the g zero world afford it the chance to invest in the future.",
+              "target": "america s advantages in the g zero world afford it the chance to invest in the future.",
+              "exact": true,
+              "edit_similarity": 1.0
+            },
+            {
+              "length": 11,
+              "observed": ". straightforward relatively are up catch economic promote to programs coherent",
+              "restored": "coherent programs to promote economic catch up are relatively straightforward.",
+              "target": "coherent programs to promote economic catch up are relatively straightforward.",
+              "exact": true,
+              "edit_similarity": 1.0
+            }
+          ]
+        }
+      }
+    },
+    "no_inverse_baseline": {
+      "parameters": 1581056,
+      "trace": [
+        {
+          "epoch": 0,
+          "loss": 223.155478515625
+        },
+        {
+          "epoch": 1,
+          "loss": 145.20704522705077
+        },
+        {
+          "epoch": 2,
+          "loss": 98.33183294677734
+        },
+        {
+          "epoch": 5,
+          "loss": 38.075266296386715
+        },
+        {
+          "epoch": 10,
+          "loss": 14.872832008361817
+        },
+        {
+          "epoch": 14,
+          "loss": 10.22675894165039
+        },
+        {
+          "epoch": 27,
+          "loss": 6.964209079742432
+        }
+      ],
+      "metrics": {
+        "train": {
+          "exact_match": 0.0,
+          "token_acc": 0.10145755029266601,
+          "edit_similarity": 0.10950368972410408,
+          "by_length": {
+            "3": {
+              "samples": 266,
+              "exact_match": 0.0,
+              "token_acc": 0.07769423558897243,
+              "edit_similarity": 0.07769423558897243
+            },
+            "4": {
+              "samples": 264,
+              "exact_match": 0.0,
+              "token_acc": 0.09659090909090909,
+              "edit_similarity": 0.09659090909090909
+            },
+            "5": {
+              "samples": 376,
+              "exact_match": 0.0,
+              "token_acc": 0.09521276595744681,
+              "edit_similarity": 0.09574468085106376
+            },
+            "6": {
+              "samples": 383,
+              "exact_match": 0.0,
+              "token_acc": 0.12402088772845953,
+              "edit_similarity": 0.12532637075718003
+            },
+            "7": {
+              "samples": 443,
+              "exact_match": 0.0,
+              "token_acc": 0.13415027410512737,
+              "edit_similarity": 0.1344727507255729
+            },
+            "8": {
+              "samples": 444,
+              "exact_match": 0.0,
+              "token_acc": 0.12443693693693694,
+              "edit_similarity": 0.12612612612612611
+            },
+            "9": {
+              "samples": 461,
+              "exact_match": 0.0,
+              "token_acc": 0.13497228247770546,
+              "edit_similarity": 0.13593637020968968
+            },
+            "10": {
+              "samples": 527,
+              "exact_match": 0.0,
+              "token_acc": 0.12466793168880455,
+              "edit_similarity": 0.12770398481973483
+            },
+            "11": {
+              "samples": 534,
+              "exact_match": 0.0,
+              "token_acc": 0.13040517534899557,
+              "edit_similarity": 0.1321075927817506
+            },
+            "12": {
+              "samples": 616,
+              "exact_match": 0.0,
+              "token_acc": 0.11796536796536797,
+              "edit_similarity": 0.12040043290043302
+            },
+            "13": {
+              "samples": 626,
+              "exact_match": 0.0,
+              "token_acc": 0.1158761366429098,
+              "edit_similarity": 0.11882526419267711
+            },
+            "14": {
+              "samples": 658,
+              "exact_match": 0.0,
+              "token_acc": 0.10855405992184107,
+              "edit_similarity": 0.11202778983933993
+            },
+            "15": {
+              "samples": 674,
+              "exact_match": 0.0,
+              "token_acc": 0.1102868447082097,
+              "edit_similarity": 0.11325420375865561
+            },
+            "16": {
+              "samples": 744,
+              "exact_match": 0.0,
+              "token_acc": 0.10525873655913978,
+              "edit_similarity": 0.10853494623655914
+            },
+            "17": {
+              "samples": 754,
+              "exact_match": 0.0,
+              "token_acc": 0.10188797004212825,
+              "edit_similarity": 0.10508659697300758
+            },
+            "18": {
+              "samples": 723,
+              "exact_match": 0.0,
+              "token_acc": 0.10688489319194713,
+              "edit_similarity": 0.11080374980790027
+            },
+            "19": {
+              "samples": 691,
+              "exact_match": 0.0,
+              "token_acc": 0.10115012567598446,
+              "edit_similarity": 0.10671033589763194
+            },
+            "20": {
+              "samples": 699,
+              "exact_match": 0.0,
+              "token_acc": 0.09992846924177397,
+              "edit_similarity": 0.10464949928469226
+            },
+            "21": {
+              "samples": 681,
+              "exact_match": 0.0,
+              "token_acc": 0.10146143626319838,
+              "edit_similarity": 0.10677574994755688
+            },
+            "22": {
+              "samples": 609,
+              "exact_match": 0.0,
+              "token_acc": 0.09852216748768473,
+              "edit_similarity": 0.1044185699358115
+            },
+            "23": {
+              "samples": 623,
+              "exact_match": 0.0,
+              "token_acc": 0.0960988205736618,
+              "edit_similarity": 0.10182148091283401
+            },
+            "24": {
+              "samples": 602,
+              "exact_match": 0.0,
+              "token_acc": 0.09336932447397564,
+              "edit_similarity": 0.09959856035437437
+            },
+            "25": {
+              "samples": 555,
+              "exact_match": 0.0,
+              "token_acc": 0.094990990990991,
+              "edit_similarity": 0.10133333333333235
+            },
+            "26": {
+              "samples": 527,
+              "exact_match": 0.0,
+              "token_acc": 0.0948036782951394,
+              "edit_similarity": 0.10224784702963112
+            },
+            "27": {
+              "samples": 508,
+              "exact_match": 0.0,
+              "token_acc": 0.08748906386701662,
+              "edit_similarity": 0.09580052493438355
+            },
+            "28": {
+              "samples": 470,
+              "exact_match": 0.0,
+              "token_acc": 0.09551671732522796,
+              "edit_similarity": 0.1028115501519756
+            },
+            "29": {
+              "samples": 421,
+              "exact_match": 0.0,
+              "token_acc": 0.09288229994266525,
+              "edit_similarity": 0.10123679253010107
+            },
+            "30": {
+              "samples": 423,
+              "exact_match": 0.0,
+              "token_acc": 0.08959810874704492,
+              "edit_similarity": 0.09645390070922023
+            },
+            "31": {
+              "samples": 360,
+              "exact_match": 0.0,
+              "token_acc": 0.0967741935483871,
+              "edit_similarity": 0.10232974910394292
+            },
+            "32": {
+              "samples": 338,
+              "exact_match": 0.0,
+              "token_acc": 0.08949704142011834,
+              "edit_similarity": 0.09809541420118344
+            }
+          },
+          "examples": [
+            {
+              "length": 8,
+              "observed": ". established be to need points essential three",
+              "restored": "the,,,,, the,",
+              "target": "three essential points need to be established.",
+              "exact": false,
+              "edit_similarity": 0.0
+            },
+            {
+              "length": 22,
+              "observed": ". reality a vision that make to intended be to seems strategy development and growth s china of focus external new the",
+              "restored": "the.,,. the, the,, the,,,,,. the the,..",
+              "target": "the new external focus of china s growth and development strategy seems to be intended to make that vision a reality.",
+              "exact": false,
+              "edit_similarity": 0.0909
+            },
+            {
+              "length": 31,
+              "observed": ". rise not need ratio export to debt the, commodity underlying the of price world the in decline a of event the in that is bonds such of advantage the",
+              "restored": "the the the,,,, the.,,,. the the,..,, the,...,,. the the.",
+              "target": "the advantage of such bonds is that in the event of a decline in the world price of the underlying commodity, the debt to export ratio need not rise.",
+              "exact": false,
+              "edit_similarity": 0.129
+            },
+            {
+              "length": 26,
+              "observed": ". interests their supports that world a want they if heard voices their make must members asean, challenged being governance global of architecture the with",
+              "restored": "the the, to.,, the.. the the, the, the., the the,, the,..",
+              "target": "with the architecture of global governance being challenged, asean members must make their voices heard if they want a world that supports their interests.",
+              "exact": false,
+              "edit_similarity": 0.0769
+            },
+            {
+              "length": 12,
+              "observed": ". countries across and within disparities significant reveals immunization of analysis detailed",
+              "restored": "the,., the, the the, the the.",
+              "target": "detailed analysis of immunization reveals significant disparities within and across countries.",
+              "exact": false,
+              "edit_similarity": 0.0833
+            },
+            {
+              "length": 24,
+              "observed": ". century half past the for europe with relations in making been have british the that mistake of kind the is it, moreover",
+              "restored": "the, the,.... the. the the, the.. the the,.,.,.",
+              "target": "moreover, it is the kind of mistake that the british have been making in relations with europe for the past half century.",
+              "exact": false,
+              "edit_similarity": 0.0833
+            },
+            {
+              "length": 27,
+              "observed": ". words than louder speak actions, way another put. it fix t don, broken not s it if: here lesson a is there",
+              "restored": "the,, contend,,, the.. the. the the., the the,.. the. the,,.",
+              "target": "there is a lesson here: if it s not broken, don t fix it. put another way, actions speak louder than words.",
+              "exact": false,
+              "edit_similarity": 0.037
+            },
+            {
+              "length": 18,
+              "observed": ". more billion 3 of promise a with, 2011 since egypt to billion 5 provided has qatar",
+              "restored": "the,,, the the,.,,.,,, the,,.",
+              "target": "qatar has provided 5 billion to egypt since 2011, with a promise of 3 billion more.",
+              "exact": false,
+              "edit_similarity": 0.1111
+            },
+            {
+              "length": 14,
+              "observed": ". policy foreign us of analysis shaped long have clout s aipac about claims",
+              "restored": "the,,, the the,,,,, the, the",
+              "target": "claims about aipac s clout have long shaped analysis of us foreign policy.",
+              "exact": false,
+              "edit_similarity": 0.0
+            },
+            {
+              "length": 17,
+              "observed": ". politics s region the altering decisively are islamists sunni the: clear is thing one but",
+              "restored": "the,,,.: the, islamists and. the,, the..",
+              "target": "but one thing is clear: the sunni islamists are decisively altering the region s politics.",
+              "exact": false,
+              "edit_similarity": 0.2353
+            },
+            {
+              "length": 19,
+              "observed": ". situation the stabilize to helped system financial the support to actions government various the that is view their",
+              "restored": "the the. the,,,,.,,, the..., the,",
+              "target": "their view is that the various government actions to support the financial system helped to stabilize the situation.",
+              "exact": false,
+              "edit_similarity": 0.0
+            },
+            {
+              "length": 16,
+              "observed": ". abuse domestic horrific from women protect to sufficient not are alone policies and laws but",
+              "restored": "the,, rates, the,,, the, the,,,.",
+              "target": "but laws and policies alone are not sufficient to protect women from horrific domestic abuse.",
+              "exact": false,
+              "edit_similarity": 0.0625
+            },
+            {
+              "length": 11,
+              "observed": ". power from run to almost seemed regimes communist, elsewhere",
+              "restored": "the,,,,. the, the,.",
+              "target": "elsewhere, communist regimes seemed almost to run from power.",
+              "exact": false,
+              "edit_similarity": 0.1818
+            },
+            {
+              "length": 13,
+              "observed": ". leadership international of promise their fulfill to failed also have brics the",
+              "restored": "the the, the the,,,,,,,.",
+              "target": "the brics have also failed to fulfill their promise of international leadership.",
+              "exact": false,
+              "edit_similarity": 0.1538
+            }
+          ]
+        },
+        "test": {
+          "exact_match": 0.0,
+          "token_acc": 0.08263754492673486,
+          "edit_similarity": 0.09282961094030787,
+          "by_length": {
+            "3": {
+              "samples": 29,
+              "exact_match": 0.0,
+              "token_acc": 0.04597701149425287,
+              "edit_similarity": 0.04597701149425288
+            },
+            "4": {
+              "samples": 26,
+              "exact_match": 0.0,
+              "token_acc": 0.07692307692307693,
+              "edit_similarity": 0.07692307692307693
+            },
+            "5": {
+              "samples": 46,
+              "exact_match": 0.0,
+              "token_acc": 0.06956521739130435,
+              "edit_similarity": 0.06956521739130435
+            },
+            "6": {
+              "samples": 40,
+              "exact_match": 0.0,
+              "token_acc": 0.11666666666666667,
+              "edit_similarity": 0.11666666666666663
+            },
+            "7": {
+              "samples": 43,
+              "exact_match": 0.0,
+              "token_acc": 0.1362126245847176,
+              "edit_similarity": 0.13953488372093026
+            },
+            "8": {
+              "samples": 44,
+              "exact_match": 0.0,
+              "token_acc": 0.11647727272727272,
+              "edit_similarity": 0.11931818181818182
+            },
+            "9": {
+              "samples": 72,
+              "exact_match": 0.0,
+              "token_acc": 0.10030864197530864,
+              "edit_similarity": 0.1049382716049383
+            },
+            "10": {
+              "samples": 76,
+              "exact_match": 0.0,
+              "token_acc": 0.12763157894736843,
+              "edit_similarity": 0.12763157894736835
+            },
+            "11": {
+              "samples": 63,
+              "exact_match": 0.0,
+              "token_acc": 0.1038961038961039,
+              "edit_similarity": 0.10389610389610382
+            },
+            "12": {
+              "samples": 77,
+              "exact_match": 0.0,
+              "token_acc": 0.09956709956709957,
+              "edit_similarity": 0.10497835497835492
+            },
+            "13": {
+              "samples": 85,
+              "exact_match": 0.0,
+              "token_acc": 0.10045248868778281,
+              "edit_similarity": 0.10678733031674204
+            },
+            "14": {
+              "samples": 76,
+              "exact_match": 0.0,
+              "token_acc": 0.09492481203007519,
+              "edit_similarity": 0.0986842105263158
+            },
+            "15": {
+              "samples": 88,
+              "exact_match": 0.0,
+              "token_acc": 0.08712121212121213,
+              "edit_similarity": 0.09242424242424231
+            },
+            "16": {
+              "samples": 85,
+              "exact_match": 0.0,
+              "token_acc": 0.08014705882352942,
+              "edit_similarity": 0.08602941176470588
+            },
+            "17": {
+              "samples": 103,
+              "exact_match": 0.0,
+              "token_acc": 0.08623643632210165,
+              "edit_similarity": 0.09137635636778972
+            },
+            "18": {
+              "samples": 86,
+              "exact_match": 0.0,
+              "token_acc": 0.0872093023255814,
+              "edit_similarity": 0.09302325581395347
+            },
+            "19": {
+              "samples": 76,
+              "exact_match": 0.0,
+              "token_acc": 0.07756232686980609,
+              "edit_similarity": 0.0851800554016621
+            },
+            "20": {
+              "samples": 83,
+              "exact_match": 0.0,
+              "token_acc": 0.08132530120481928,
+              "edit_similarity": 0.08373493975903608
+            },
+            "21": {
+              "samples": 110,
+              "exact_match": 0.0,
+              "token_acc": 0.07316017316017316,
+              "edit_similarity": 0.0796536796536796
+            },
+            "22": {
+              "samples": 60,
+              "exact_match": 0.0,
+              "token_acc": 0.08409090909090909,
+              "edit_similarity": 0.09166666666666662
+            },
+            "23": {
+              "samples": 81,
+              "exact_match": 0.0,
+              "token_acc": 0.07407407407407407,
+              "edit_similarity": 0.08266237251744507
+            },
+            "24": {
+              "samples": 89,
+              "exact_match": 0.0,
+              "token_acc": 0.07162921348314606,
+              "edit_similarity": 0.08005617977528093
+            },
+            "25": {
+              "samples": 68,
+              "exact_match": 0.0,
+              "token_acc": 0.07764705882352942,
+              "edit_similarity": 0.0882352941176471
+            },
+            "26": {
+              "samples": 71,
+              "exact_match": 0.0,
+              "token_acc": 0.07963163596966413,
+              "edit_similarity": 0.08938244853737802
+            },
+            "27": {
+              "samples": 71,
+              "exact_match": 0.0,
+              "token_acc": 0.06885758998435054,
+              "edit_similarity": 0.08033385498174234
+            },
+            "28": {
+              "samples": 75,
+              "exact_match": 0.0,
+              "token_acc": 0.07476190476190477,
+              "edit_similarity": 0.08476190476190469
+            },
+            "29": {
+              "samples": 43,
+              "exact_match": 0.0,
+              "token_acc": 0.07297514033680834,
+              "edit_similarity": 0.08901363271852446
+            },
+            "30": {
+              "samples": 50,
+              "exact_match": 0.0,
+              "token_acc": 0.08466666666666667,
+              "edit_similarity": 0.09333333333333331
+            },
+            "31": {
+              "samples": 48,
+              "exact_match": 0.0,
+              "token_acc": 0.07862903225806452,
+              "edit_similarity": 0.09274193548387093
+            },
+            "32": {
+              "samples": 36,
+              "exact_match": 0.0,
+              "token_acc": 0.07118055555555555,
+              "edit_similarity": 0.0842013888888889
+            }
+          },
+          "examples": [
+            {
+              "length": 24,
+              "observed": ". s 2000 early the in administration s bush. w george by adopted cuts tax temporary the of legacy lasting the is this",
+              "restored": "the,,,..,,. the the., the,,.. the, the.,.",
+              "target": "this is the lasting legacy of the temporary tax cuts adopted by george w. bush s administration in the early 2000 s.",
+              "exact": false,
+              "edit_similarity": 0.0417
+            },
+            {
+              "length": 16,
+              "observed": ". wasted be to likely most is it, resources water s africa like, unfortunately",
+              "restored": "the,,,,.,., the,,,.,.",
+              "target": "unfortunately, like africa s water resources, it is most likely to be wasted.",
+              "exact": false,
+              "edit_similarity": 0.125
+            },
+            {
+              "length": 16,
+              "observed": ". control maximum achieve to capital little relatively uses model european continental the in capitalism family",
+              "restored": "the the maximum the,, the the,, the the... the",
+              "target": "family capitalism in the continental european model uses relatively little capital to achieve maximum control.",
+              "exact": false,
+              "edit_similarity": 0.0625
+            },
+            {
+              "length": 21,
+              "observed": ". challenges health biggest s world the address to ways new creative find must we, targets new the achieve to",
+              "restored": "the,,,,,.,, the.,,,.,,.. the,",
+              "target": "to achieve the new targets, we must find creative new ways to address the world s biggest health challenges.",
+              "exact": false,
+              "edit_similarity": 0.0476
+            },
+            {
+              "length": 23,
+              "observed": ". currencies their adjust to fail that countries surplus chronic against sanctions for push will they that indicated not have french the but",
+              "restored": "the,, the, the.,,,,,. the,.. the the, the..",
+              "target": "but the french have not indicated that they will push for sanctions against chronic surplus countries that fail to adjust their currencies.",
+              "exact": false,
+              "edit_similarity": 0.0435
+            },
+            {
+              "length": 10,
+              "observed": ". failure a been has campaign propaganda their, fortunately",
+              "restored": "the., the,, is,,.",
+              "target": "fortunately, their propaganda campaign has been a failure.",
+              "exact": false,
+              "edit_similarity": 0.1
+            },
+            {
+              "length": 15,
+              "observed": ". free for it do to likely not is he, does he if even",
+              "restored": "the the..,,, the,.,,...",
+              "target": "even if he does, he is not likely to do it for free.",
+              "exact": false,
+              "edit_similarity": 0.1333
+            },
+            {
+              "length": 9,
+              "observed": ". popularity her is program s royal, thus",
+              "restored": "the,.,,, obvious,.",
+              "target": "thus, royal s program is her popularity.",
+              "exact": false,
+              "edit_similarity": 0.2222
+            },
+            {
+              "length": 13,
+              "observed": ". competition greater face will businesses, forces market unleash changes policy as",
+              "restored": "the,,,,.,,, a,,.",
+              "target": "as policy changes unleash market forces, businesses will face greater competition.",
+              "exact": false,
+              "edit_similarity": 0.1538
+            },
+            {
+              "length": 21,
+              "observed": ". themselves creditors the and people million 45 with economy struggling a: sides both benefits agreement sustainable a believe we",
+              "restored": "the,,., the,,., to, the the., the,, the.",
+              "target": "we believe a sustainable agreement benefits both sides: a struggling economy with 45 million people and the creditors themselves.",
+              "exact": false,
+              "edit_similarity": 0.0476
+            },
+            {
+              "length": 11,
+              "observed": ". response electoral this encourage may that circumstances particular are there",
+              "restored": "the the,., the.,,,.",
+              "target": "there are particular circumstances that may encourage this electoral response.",
+              "exact": false,
+              "edit_similarity": 0.0909
+            },
+            {
+              "length": 18,
+              "observed": ". retaliation foreign provoke always not do increases tariff, moreover, bad are reasons the when even",
+              "restored": "the capability, the, the,, to,.,,, the...",
+              "target": "even when the reasons are bad, moreover, tariff increases do not always provoke foreign retaliation.",
+              "exact": false,
+              "edit_similarity": 0.1667
+            },
+            {
+              "length": 13,
+              "observed": ". change this drive alone progress technological letting in dangers obvious are there",
+              "restored": "the,., the the. to. the,,.",
+              "target": "there are obvious dangers in letting technological progress alone drive this change.",
+              "exact": false,
+              "edit_similarity": 0.0769
+            },
+            {
+              "length": 25,
+              "observed": ". countries developing with associated traditionally issues ignoring while, north global the in problems solving on focused have entrepreneurs technology, long too for",
+              "restored": "the,,.,.,,., the,..,,.,,.,,,,.",
+              "target": "for too long, technology entrepreneurs have focused on solving problems in the global north, while ignoring issues traditionally associated with developing countries.",
+              "exact": false,
+              "edit_similarity": 0.08
+            }
+          ]
+        },
+        "ood": {
+          "exact_match": 0.0,
+          "token_acc": 0.08356413484403413,
+          "edit_similarity": 0.09503223006091054,
+          "by_length": {
+            "3": {
+              "samples": 41,
+              "exact_match": 0.0,
+              "token_acc": 0.08943089430894309,
+              "edit_similarity": 0.08943089430894312
+            },
+            "4": {
+              "samples": 29,
+              "exact_match": 0.0,
+              "token_acc": 0.08620689655172414,
+              "edit_similarity": 0.08620689655172414
+            },
+            "5": {
+              "samples": 60,
+              "exact_match": 0.0,
+              "token_acc": 0.11,
+              "edit_similarity": 0.11000000000000006
+            },
+            "6": {
+              "samples": 42,
+              "exact_match": 0.0,
+              "token_acc": 0.03571428571428571,
+              "edit_similarity": 0.035714285714285705
+            },
+            "7": {
+              "samples": 33,
+              "exact_match": 0.0,
+              "token_acc": 0.13852813852813853,
+              "edit_similarity": 0.13852813852813853
+            },
+            "8": {
+              "samples": 61,
+              "exact_match": 0.0,
+              "token_acc": 0.11885245901639344,
+              "edit_similarity": 0.12295081967213115
+            },
+            "9": {
+              "samples": 55,
+              "exact_match": 0.0,
+              "token_acc": 0.11313131313131314,
+              "edit_similarity": 0.11313131313131315
+            },
+            "10": {
+              "samples": 64,
+              "exact_match": 0.0,
+              "token_acc": 0.1140625,
+              "edit_similarity": 0.11874999999999997
+            },
+            "11": {
+              "samples": 82,
+              "exact_match": 0.0,
+              "token_acc": 0.0975609756097561,
+              "edit_similarity": 0.10088691796008864
+            },
+            "12": {
+              "samples": 68,
+              "exact_match": 0.0,
+              "token_acc": 0.10661764705882353,
+              "edit_similarity": 0.11274509803921567
+            },
+            "13": {
+              "samples": 78,
+              "exact_match": 0.0,
+              "token_acc": 0.09960552268244575,
+              "edit_similarity": 0.10355029585798817
+            },
+            "14": {
+              "samples": 89,
+              "exact_match": 0.0,
+              "token_acc": 0.0971107544141252,
+              "edit_similarity": 0.101123595505618
+            },
+            "15": {
+              "samples": 78,
+              "exact_match": 0.0,
+              "token_acc": 0.09230769230769231,
+              "edit_similarity": 0.10256410256410242
+            },
+            "16": {
+              "samples": 104,
+              "exact_match": 0.0,
+              "token_acc": 0.0751201923076923,
+              "edit_similarity": 0.0811298076923077
+            },
+            "17": {
+              "samples": 87,
+              "exact_match": 0.0,
+              "token_acc": 0.08519269776876268,
+              "edit_similarity": 0.0919540229885057
+            },
+            "18": {
+              "samples": 92,
+              "exact_match": 0.0,
+              "token_acc": 0.08393719806763285,
+              "edit_similarity": 0.09299516908212553
+            },
+            "19": {
+              "samples": 76,
+              "exact_match": 0.0,
+              "token_acc": 0.08033240997229917,
+              "edit_similarity": 0.09210526315789475
+            },
+            "20": {
+              "samples": 83,
+              "exact_match": 0.0,
+              "token_acc": 0.08433734939759036,
+              "edit_similarity": 0.09277108433734937
+            },
+            "21": {
+              "samples": 67,
+              "exact_match": 0.0,
+              "token_acc": 0.0824449182658138,
+              "edit_similarity": 0.09381663113006397
+            },
+            "22": {
+              "samples": 79,
+              "exact_match": 0.0,
+              "token_acc": 0.07019562715765247,
+              "edit_similarity": 0.08342922899884923
+            },
+            "23": {
+              "samples": 94,
+              "exact_match": 0.0,
+              "token_acc": 0.0851063829787234,
+              "edit_similarity": 0.0957446808510639
+            },
+            "24": {
+              "samples": 84,
+              "exact_match": 0.0,
+              "token_acc": 0.07837301587301587,
+              "edit_similarity": 0.09077380952380952
+            },
+            "25": {
+              "samples": 69,
+              "exact_match": 0.0,
+              "token_acc": 0.0817391304347826,
+              "edit_similarity": 0.09101449275362325
+            },
+            "26": {
+              "samples": 77,
+              "exact_match": 0.0,
+              "token_acc": 0.07242757242757243,
+              "edit_similarity": 0.08241758241758236
+            },
+            "27": {
+              "samples": 69,
+              "exact_match": 0.0,
+              "token_acc": 0.0794417606011809,
+              "edit_similarity": 0.09017713365539454
+            },
+            "28": {
+              "samples": 52,
+              "exact_match": 0.0,
+              "token_acc": 0.07898351648351648,
+              "edit_similarity": 0.08722527472527465
+            },
+            "29": {
+              "samples": 57,
+              "exact_match": 0.0,
+              "token_acc": 0.06896551724137931,
+              "edit_similarity": 0.08045977011494258
+            },
+            "30": {
+              "samples": 45,
+              "exact_match": 0.0,
+              "token_acc": 0.08592592592592592,
+              "edit_similarity": 0.10074074074074066
+            },
+            "31": {
+              "samples": 43,
+              "exact_match": 0.0,
+              "token_acc": 0.07876969242310577,
+              "edit_similarity": 0.09452363090772689
+            },
+            "32": {
+              "samples": 42,
+              "exact_match": 0.0,
+              "token_acc": 0.06696428571428571,
+              "edit_similarity": 0.0744047619047619
+            }
+          },
+          "examples": [
+            {
+              "length": 10,
+              "observed": ". nato transform would step bold a such, yes",
+              "restored": "the the the,, the,.,.",
+              "target": "yes, such a bold step would transform nato.",
+              "exact": false,
+              "edit_similarity": 0.1
+            },
+            {
+              "length": 26,
+              "observed": ". communists russian ethnic, sovereignty pro key and nationalists ukrainian communist non key between emerged convenience of alliance building state informal an, fact in",
+              "restored": "the,,,, the the,, minority, the,,, the america the the. the,,,,.",
+              "target": "in fact, an informal state building alliance of convenience emerged between key non communist ukrainian nationalists and key pro sovereignty, ethnic russian communists.",
+              "exact": false,
+              "edit_similarity": 0.1154
+            },
+            {
+              "length": 22,
+              "observed": ". israel except country any to aid military american of that exceeds firms us with contracts arms s india of value the",
+              "restored": "the. the,., the,. the.,,,.,.,. the,.",
+              "target": "the value of india s arms contracts with us firms exceeds that of american military aid to any country except israel.",
+              "exact": false,
+              "edit_similarity": 0.0909
+            },
+            {
+              "length": 32,
+              "observed": ". substantially resistance antibiotic of rise the slowing, 80 nearly by antibiotics of use the reduce would agencies regulatory governmental by enacted be could which of both alone measures two these",
+              "restored": "the, the. the the. the, the the, the the,. the, to the,, to, the, the. the,..",
+              "target": "these two measures alone both of which could be enacted by governmental regulatory agencies would reduce the use of antibiotics by nearly 80, slowing the rise of antibiotic resistance substantially.",
+              "exact": false,
+              "edit_similarity": 0.0938
+            },
+            {
+              "length": 29,
+              "observed": ". challenges of set unique a faces countries brics the of each governance poor and institutions weak, example for confront economies developing all almost that problems the beyond",
+              "restored": "the, the,,, the,,. the.,.,,,,,. the,,...,..",
+              "target": "beyond the problems that almost all developing economies confront for example, weak institutions and poor governance each of the brics countries faces a unique set of challenges.",
+              "exact": false,
+              "edit_similarity": 0.1034
+            },
+            {
+              "length": 12,
+              "observed": ". ruling british the of lesson second the to us brings this",
+              "restored": "the the the. the the..,,,.",
+              "target": "this brings us to the second lesson of the british ruling.",
+              "exact": false,
+              "edit_similarity": 0.1667
+            },
+            {
+              "length": 25,
+              "observed": ". dream only can people many which of education of level a reaching child a been has result the, experience s family each whatever",
+              "restored": "the the., the., the, the,,,., the,,., the, the..",
+              "target": "whatever each family s experience, the result has been a child reaching a level of education of which many people can only dream.",
+              "exact": false,
+              "edit_similarity": 0.08
+            },
+            {
+              "length": 16,
+              "observed": ". quickly adopted be can office s prosecutor the reforming legislation condition eu remaining only the",
+              "restored": "the, the,,,, china. the the is, the..",
+              "target": "the only remaining eu condition legislation reforming the prosecutor s office can be adopted quickly.",
+              "exact": false,
+              "edit_similarity": 0.125
+            },
+            {
+              "length": 14,
+              "observed": ". everyone for out run has time until, paralysis policy is result the",
+              "restored": "the..,,,,.,,,,,.",
+              "target": "the result is policy paralysis, until time has run out for everyone.",
+              "exact": false,
+              "edit_similarity": 0.2143
+            },
+            {
+              "length": 32,
+              "observed": ". change institutional of phase next the navigate they as leaders s country the to invaluable prove could framework theoretical his, development institutional s china on explicitly focused never north though",
+              "restored": "the,, the the the.,..,,,., the the the the to.,,,,.. s,. the.",
+              "target": "though north never focused explicitly on china s institutional development, his theoretical framework could prove invaluable to the country s leaders as they navigate the next phase of institutional change.",
+              "exact": false,
+              "edit_similarity": 0.0938
+            },
+            {
+              "length": 8,
+              "observed": ". crucial be will cooperation global, finally",
+              "restored": "the,,,,,,.",
+              "target": "finally, global cooperation will be crucial.",
+              "exact": false,
+              "edit_similarity": 0.25
+            },
+            {
+              "length": 8,
+              "observed": ". relations eu us for peril holds this",
+              "restored": "the the,,. s the.",
+              "target": "this holds peril for us eu relations.",
+              "exact": false,
+              "edit_similarity": 0.125
+            },
+            {
+              "length": 18,
+              "observed": ". future the in invest to chance the it afford world zero g the in advantages s america",
+              "restored": "the the.. the, the..,,,,..,,.",
+              "target": "america s advantages in the g zero world afford it the chance to invest in the future.",
+              "exact": false,
+              "edit_similarity": 0.1111
+            },
+            {
+              "length": 11,
+              "observed": ". straightforward relatively are up catch economic promote to programs coherent",
+              "restored": "the the the,, the,,,, and",
+              "target": "coherent programs to promote economic catch up are relatively straightforward.",
+              "exact": false,
+              "edit_similarity": 0.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "pass_checks": {
+    "hard_treeheap_closure_exact": true,
+    "learned_ood_exact_high": true,
+    "learned_ood_token_high": true,
+    "learned_beats_no_inverse": true,
+    "has_readable_examples": true
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported": "Sentence-level TreeHeap same-algebra flip echo has readable recovery evidence.",
+    "not_proved": [
+      "not translation",
+      "not semantic understanding",
+      "not automatic local node/depth discovery",
+      "not unsupervised natural trigger learning"
+    ]
+  },
+  "elapsed_sec": 27.925
+}
