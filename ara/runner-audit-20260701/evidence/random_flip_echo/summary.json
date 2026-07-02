@@ -1,0 +1,810 @@
+{
+  "experiment": "random_flip_inverse_gate",
+  "claim": "S1-RANDOM-FLIP-C01",
+  "predict": "P-S1-RANDOM-FLIP",
+  "seed": 42,
+  "flip_ratio": 0.5,
+  "device": "cuda",
+  "dataset": {
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "samples": 1771,
+    "n_flipped": 876,
+    "flip_ratio": 0.5,
+    "max_len": 8,
+    "vocab_size": 2006,
+    "examples": [
+      {
+        "target": "the shifts and the shocks martin wolf",
+        "observed": "the shifts and the shocks martin wolf",
+        "flipped": false,
+        "length": 7
+      },
+      {
+        "target": "0 . 1 0 . 01",
+        "observed": "01 . 0 1 . 0",
+        "flipped": true,
+        "length": 6
+      },
+      {
+        "target": "barry eichengreen hall of mirrors",
+        "observed": "mirrors of hall eichengreen barry",
+        "flipped": true,
+        "length": 5
+      },
+      {
+        "target": "trans pacific partnership tpp 11",
+        "observed": "trans pacific partnership tpp 11",
+        "flipped": false,
+        "length": 5
+      },
+      {
+        "target": "tpp transatlantic trade and investment partnership ttip",
+        "observed": "tpp transatlantic trade and investment partnership ttip",
+        "flipped": false,
+        "length": 7
+      },
+      {
+        "target": "4 imf 2015 3 . 5",
+        "observed": "5 . 3 2015 imf 4",
+        "flipped": true,
+        "length": 6
+      },
+      {
+        "target": "10 3 . 1",
+        "observed": "10 3 . 1",
+        "flipped": false,
+        "length": 4
+      },
+      {
+        "target": "2 2003 2007 8",
+        "observed": "8 2007 2003 2",
+        "flipped": true,
+        "length": 4
+      },
+      {
+        "target": "gdp 4 . 5 gdp",
+        "observed": "gdp 5 . 4 gdp",
+        "flipped": true,
+        "length": 5
+      },
+      {
+        "target": "gdp 2 . 7",
+        "observed": "7 . 2 gdp",
+        "flipped": true,
+        "length": 4
+      }
+    ]
+  },
+  "pilot_pass": false,
+  "pass_gates": {
+    "flip_detection_acc_gte_0.75": false,
+    "flipped_recovery_beats_baseline": true,
+    "flip_detection_acc": 0.550561797752809,
+    "flipped_exact": 0.26881720430107525,
+    "baseline_flipped_exact": 0.07526881720430108
+  },
+  "treeheap_random_flip": {
+    "trace": [
+      {
+        "epoch": 0,
+        "loss": 28.08428171664308
+      },
+      {
+        "epoch": 1,
+        "loss": 25.944987970556916
+      },
+      {
+        "epoch": 2,
+        "loss": 24.519932978570797
+      },
+      {
+        "epoch": 5,
+        "loss": 21.483455474767307
+      },
+      {
+        "epoch": 10,
+        "loss": 17.577953322459077
+      },
+      {
+        "epoch": 15,
+        "loss": 15.171131306448899
+      },
+      {
+        "epoch": 29,
+        "loss": 13.809023905608614
+      }
+    ],
+    "results": {
+      "train": {
+        "exact_match": 0.8121468926553672,
+        "token_acc": 0.8610456247399806,
+        "flipped_exact": 0.8126801152737753,
+        "unflipped_exact": 0.8116343490304709,
+        "flipped_token_acc": 0.8608203677510609,
+        "unflipped_token_acc": 0.8612622415669206,
+        "flip_detection_acc": 0.8241525423728814,
+        "n_flipped": 694,
+        "n_unflipped": 722,
+        "examples": [
+          {
+            "length": 6,
+            "flipped": 0,
+            "gate_prob": 0.03743452578783035,
+            "observed": "david geffen avery fisher hall 1",
+            "restored": "david geffen avery fisher hall 1",
+            "target": "david geffen avery fisher hall 1",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.3784389793872833,
+            "observed": "1 , 000 63",
+            "restored": "1 , 000 63",
+            "target": "1 , 000 63",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.6771663427352905,
+            "observed": "5 . 2 2012",
+            "restored": "2012 2 . 5",
+            "target": "2012 2 . 5",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.5926293730735779,
+            "observed": "5 . 4 2008",
+            "restored": "2008 4 . 5",
+            "target": "2008 4 . 5",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.4958493113517761,
+            "observed": "3 . 7 2015",
+            "restored": "3 . 7 2015",
+            "target": "2015 7 . 3",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 0,
+            "gate_prob": 0.17168176174163818,
+            "observed": "2012 gdp 54 2017 74",
+            "restored": "2012 gdp 54 2017 74",
+            "target": "2012 gdp 54 2017 74",
+            "exact": true
+          },
+          {
+            "length": 7,
+            "flipped": 0,
+            "gate_prob": 0.1129380464553833,
+            "observed": "oil change international 1 . 5 15",
+            "restored": "oil change international 1 . 5 15",
+            "target": "oil change international 1 . 5 15",
+            "exact": true
+          },
+          {
+            "length": 5,
+            "flipped": 0,
+            "gate_prob": 0.09985004365444183,
+            "observed": "2013 1 95 198 383",
+            "restored": "2013 1 95 198 383",
+            "target": "2013 1 95 198 383",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.02178489975631237,
+            "observed": "mgi 58 17 25",
+            "restored": "mgi 58 17 25",
+            "target": "mgi 58 17 25",
+            "exact": true
+          },
+          {
+            "length": 7,
+            "flipped": 1,
+            "gate_prob": 0.571020781993866,
+            "observed": "3 . 2 3 . 2 30",
+            "restored": "30 2 . 3 2 . 3",
+            "target": "30 2 . 3 2 . 3",
+            "exact": true
+          }
+        ],
+        "flipped": 694,
+        "unflipped": 722
+      },
+      "test": {
+        "exact_match": 0.24858757062146894,
+        "token_acc": 0.49066959385290887,
+        "flipped_exact": 0.3146067415730337,
+        "unflipped_exact": 0.18181818181818182,
+        "flipped_token_acc": 0.5440528634361234,
+        "unflipped_token_acc": 0.437636761487965,
+        "flip_detection_acc": 0.5254237288135594,
+        "n_flipped": 89,
+        "n_unflipped": 88,
+        "examples": [
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.16862793266773224,
+            "observed": "24 90 gdp 2007",
+            "restored": "24 90 gdp 2007",
+            "target": "2007 gdp 90 24",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.6019721031188965,
+            "observed": "8 . 6 30",
+            "restored": "30 6 . 8",
+            "target": "30 6 . 8",
+            "exact": true
+          },
+          {
+            "length": 7,
+            "flipped": 0,
+            "gate_prob": 0.5135613679885864,
+            "observed": "20 1 . 4 1 . 5",
+            "restored": "20 . . 4 . . 5",
+            "target": "20 1 . 4 1 . 5",
+            "exact": false
+          },
+          {
+            "length": 6,
+            "flipped": 1,
+            "gate_prob": 0.10162269324064255,
+            "observed": "1997 90 20 90 20 15",
+            "restored": "1997 90 20 90 20 15",
+            "target": "15 20 90 20 90 1997",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.647480845451355,
+            "observed": "11 13 . 3",
+            "restored": "3 . 13 11",
+            "target": "11 13 . 3",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.23337602615356445,
+            "observed": "60 90 600 1389",
+            "restored": "60 90 600 74",
+            "target": "60 90 600 1389",
+            "exact": false
+          },
+          {
+            "length": 8,
+            "flipped": 1,
+            "gate_prob": 0.5106112360954285,
+            "observed": "6 . 1 gdp 8 . 1 2050",
+            "restored": "2016 . . gdp 8 . . 2016",
+            "target": "2050 1 . 8 gdp 1 . 6",
+            "exact": false
+          },
+          {
+            "length": 6,
+            "flipped": 0,
+            "gate_prob": 0.7121322751045227,
+            "observed": "gdp 10 14 gdp 20 30",
+            "restored": "30 20 gdp gdp 10 gdp",
+            "target": "gdp 10 14 gdp 20 30",
+            "exact": false
+          },
+          {
+            "length": 8,
+            "flipped": 1,
+            "gate_prob": 0.9952955842018127,
+            "observed": "piketty thomas century first twenty the in capital",
+            "restored": "capital in the twenty first century thomas piketty",
+            "target": "capital in the twenty first century thomas piketty",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.7872850298881531,
+            "observed": "000 , 140 1950",
+            "restored": "1950 140 , 000",
+            "target": "1950 140 , 000",
+            "exact": true
+          }
+        ],
+        "flipped": 89,
+        "unflipped": 88
+      },
+      "ood": {
+        "exact_match": 0.2808988764044944,
+        "token_acc": 0.48214285714285715,
+        "flipped_exact": 0.26881720430107525,
+        "unflipped_exact": 0.29411764705882354,
+        "flipped_token_acc": 0.4773662551440329,
+        "unflipped_token_acc": 0.4878048780487805,
+        "flip_detection_acc": 0.550561797752809,
+        "n_flipped": 93,
+        "n_unflipped": 85,
+        "examples": [
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.8632369637489319,
+            "observed": "john f . kennedy",
+            "restored": "to . f john",
+            "target": "john f . kennedy",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.3364602327346802,
+            "observed": "20 1 2000 500",
+            "restored": "20 1 2000 500",
+            "target": "500 2000 1 20",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.6640412211418152,
+            "observed": "p j a 2007",
+            "restored": "2007 a j p",
+            "target": "p j a 2007",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.3212279975414276,
+            "observed": "500 1190 1100 wto",
+            "restored": "500 3 3 brynjolfsson",
+            "target": "wto 1100 1190 500",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 1,
+            "gate_prob": 0.617457389831543,
+            "observed": "policy water basic free 2011",
+            "restored": "2011 free climate water policy",
+            "target": "2011 free basic water policy",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 0,
+            "gate_prob": 0.6340687274932861,
+            "observed": "imf gdp 1 . 5",
+            "restored": "5 . 1 gdp imf",
+            "target": "imf gdp 1 . 5",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.504634439945221,
+            "observed": "60 30 20 30",
+            "restored": "60 30 20 60",
+            "target": "30 20 30 60",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.7807688117027283,
+            "observed": "5100 2 . 8",
+            "restored": "8 . 2 using",
+            "target": "5100 2 . 8",
+            "exact": false
+          },
+          {
+            "length": 6,
+            "flipped": 1,
+            "gate_prob": 0.41610679030418396,
+            "observed": "change climate on law general 2012",
+            "restored": "change climate on law general 2012",
+            "target": "2012 general law on climate change",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.883698582649231,
+            "observed": "205 133 gdp 2013",
+            "restored": "2013 gdp 133 1990",
+            "target": "2013 gdp 133 205",
+            "exact": false
+          }
+        ],
+        "flipped": 93,
+        "unflipped": 85
+      }
+    }
+  },
+  "no_flip_baseline": {
+    "results": {
+      "train": {
+        "exact_match": 0.4851694915254237,
+        "token_acc": 0.6445707946193315,
+        "flipped_exact": 0.04178674351585014,
+        "unflipped_exact": 0.9113573407202216,
+        "flipped_token_acc": 0.2958981612446959,
+        "unflipped_token_acc": 0.9798694232861807,
+        "flip_detection_acc": 0.0,
+        "n_flipped": 694,
+        "n_unflipped": 722,
+        "examples": [
+          {
+            "length": 6,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "david geffen avery fisher hall 1",
+            "restored": "david geffen avery fisher hall 1",
+            "target": "david geffen avery fisher hall 1",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "1 , 000 63",
+            "restored": "1 , 000 63",
+            "target": "1 , 000 63",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "5 . 2 2012",
+            "restored": "5 . 2 2012",
+            "target": "2012 2 . 5",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "5 . 4 2008",
+            "restored": "5 . 4 2008",
+            "target": "2008 4 . 5",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "3 . 7 2015",
+            "restored": "3 . 7 2015",
+            "target": "2015 7 . 3",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "2012 gdp 54 2017 74",
+            "restored": "2012 gdp 54 2017 74",
+            "target": "2012 gdp 54 2017 74",
+            "exact": true
+          },
+          {
+            "length": 7,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "oil change international 1 . 5 15",
+            "restored": "field change international 1 . 5 15",
+            "target": "oil change international 1 . 5 15",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "2013 1 95 198 383",
+            "restored": "2013 1 95 , 383",
+            "target": "2013 1 95 198 383",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "mgi 58 17 25",
+            "restored": "mgi 58 17 25",
+            "target": "mgi 58 17 25",
+            "exact": true
+          },
+          {
+            "length": 7,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "3 . 2 3 . 2 30",
+            "restored": "3 . 2 3 . 2 30",
+            "target": "30 2 . 3 2 . 3",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "1982 1990 hiss ne habr",
+            "restored": "1982 1990 hiss ne habr",
+            "target": "1982 1990 hiss ne habr",
+            "exact": true
+          },
+          {
+            "length": 5,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "9 . 1 11 8",
+            "restored": "9 . 1 11 8",
+            "target": "8 11 1 . 9",
+            "exact": false
+          }
+        ]
+      },
+      "test": {
+        "exact_match": 0.4632768361581921,
+        "token_acc": 0.6915477497255763,
+        "flipped_exact": 0.07865168539325842,
+        "unflipped_exact": 0.8522727272727273,
+        "flipped_token_acc": 0.4118942731277533,
+        "unflipped_token_acc": 0.9693654266958425,
+        "flip_detection_acc": 0.0,
+        "n_flipped": 89,
+        "n_unflipped": 88,
+        "examples": [
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "24 90 gdp 2007",
+            "restored": "2007 90 gdp 24",
+            "target": "2007 gdp 90 24",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "8 . 6 30",
+            "restored": "8 . 6 30",
+            "target": "30 6 . 8",
+            "exact": false
+          },
+          {
+            "length": 7,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "20 1 . 4 1 . 5",
+            "restored": "20 1 . 4 1 . 5",
+            "target": "20 1 . 4 1 . 5",
+            "exact": true
+          },
+          {
+            "length": 6,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "1997 90 20 90 20 15",
+            "restored": "15 90 20 90 20 1997",
+            "target": "15 20 90 20 90 1997",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "11 13 . 3",
+            "restored": "11 prince . 3",
+            "target": "11 13 . 3",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "60 90 600 1389",
+            "restored": "60 90 600 1389",
+            "target": "60 90 600 1389",
+            "exact": true
+          },
+          {
+            "length": 8,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "6 . 1 gdp 8 . 1 2050",
+            "restored": "6 . 1 gdp 8 . 1 2050",
+            "target": "2050 1 . 8 gdp 1 . 6",
+            "exact": false
+          },
+          {
+            "length": 6,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "gdp 10 14 gdp 20 30",
+            "restored": "gdp 10 14 gdp 20 30",
+            "target": "gdp 10 14 gdp 20 30",
+            "exact": true
+          },
+          {
+            "length": 8,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "piketty thomas century first twenty the in capital",
+            "restored": "capital autor the twenty first century thomas piketty",
+            "target": "capital in the twenty first century thomas piketty",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "000 , 140 1950",
+            "restored": "000 , , 1950",
+            "target": "1950 140 , 000",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "25 . 1 8 3",
+            "restored": "25 . 1 8 3",
+            "target": "3 8 1 . 25",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "joanna bryson patrick lin ai",
+            "restored": "joanna bryson patrick lin ai",
+            "target": "joanna bryson patrick lin ai",
+            "exact": true
+          }
+        ]
+      },
+      "ood": {
+        "exact_match": 0.47752808988764045,
+        "token_acc": 0.6629464285714286,
+        "flipped_exact": 0.07526881720430108,
+        "unflipped_exact": 0.9176470588235294,
+        "flipped_token_acc": 0.39300411522633744,
+        "unflipped_token_acc": 0.9829268292682927,
+        "flip_detection_acc": 0.0,
+        "n_flipped": 93,
+        "n_unflipped": 85,
+        "examples": [
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "john f . kennedy",
+            "restored": "john f . kennedy",
+            "target": "john f . kennedy",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "20 1 2000 500",
+            "restored": "20 1 2000 500",
+            "target": "500 2000 1 20",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "p j a 2007",
+            "restored": "p j a 2007",
+            "target": "p j a 2007",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "500 1190 1100 wto",
+            "restored": "500 1100 1190 500",
+            "target": "wto 1100 1190 500",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "policy water basic free 2011",
+            "restored": "2011 free basic water 950",
+            "target": "2011 free basic water policy",
+            "exact": false
+          },
+          {
+            "length": 5,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "imf gdp 1 . 5",
+            "restored": "imf gdp 1 . 5",
+            "target": "imf gdp 1 . 5",
+            "exact": true
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "60 30 20 30",
+            "restored": "30 30 20 30",
+            "target": "30 20 30 60",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "5100 2 . 8",
+            "restored": "5100 2 . 8",
+            "target": "5100 2 . 8",
+            "exact": true
+          },
+          {
+            "length": 6,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "change climate on law general 2012",
+            "restored": "2012 general on on climate 2012",
+            "target": "2012 general law on climate change",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "205 133 gdp 2013",
+            "restored": "2013 gdp gdp 2013",
+            "target": "2013 gdp 133 205",
+            "exact": false
+          },
+          {
+            "length": 4,
+            "flipped": 0,
+            "gate_prob": 0.0,
+            "observed": "20 70 20 90",
+            "restored": "20 70 20 90",
+            "target": "20 70 20 90",
+            "exact": true
+          },
+          {
+            "length": 7,
+            "flipped": 1,
+            "gate_prob": 0.0,
+            "observed": "2009 2008 4 . 6 2011 1994",
+            "restored": "2009 2008 4 . 6 950 2009",
+            "target": "1994 2011 6 . 4 2008 2009",
+            "exact": false
+          }
+        ]
+      }
+    }
+  },
+  "interpretation": {
+    "supported": "Random flip inverse gate learns detect-unflip-recover from mixed flip/no-flip inputs.",
+    "not_proved": [
+      "not WMT translation",
+      "not natural trigger discovery",
+      "not full syntax"
+    ]
+  }
+}

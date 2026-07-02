@@ -1,0 +1,1 @@
+python3 src/s1_random_flip_echo_probe.py --out /home/houming818/sametime/ara/runner-audit-20260701/evidence/random_flip_echo --wmt_path /mnt/nas/datasets/wmt17/train.zh-en --seed 42 --samples 2000 --scan_lines 50000 --min_len 4 --max_len 8 --dim 64 --epochs 30 --batch 32 --lr 0.003 --state_weight 0.5 --entropy_weight 0.1 --flip_ratio 0.5 --drop_unk True --examples 10
