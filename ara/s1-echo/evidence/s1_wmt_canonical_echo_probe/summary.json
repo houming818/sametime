@@ -1,0 +1,362 @@
+{
+  "claim": "S1-CANON-WMT-C01",
+  "predict": "P-S1-CANON-WMT01",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "config": {
+    "out": "ara/s1-echo/evidence/s1_wmt_canonical_echo_probe",
+    "wmt_path": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "scan_lines": 500000,
+    "samples": 50000,
+    "min_len": 4,
+    "max_len": 48,
+    "en_vocab": 8192,
+    "zh_vocab": 8192,
+    "train_frac": 0.8,
+    "test_frac": 0.1,
+    "dim": 128,
+    "epochs": 5,
+    "batch": 256,
+    "eval_batch": 256,
+    "max_eval": 2000,
+    "lr": 0.002,
+    "weight_decay": 0.0001,
+    "temperature": 0.07,
+    "align_weight": 1.0,
+    "echo_weight": 1.0,
+    "grad_clip": 1.0,
+    "var_weight": 1.0,
+    "target_std": 0.05,
+    "seed": 43,
+    "device": "cuda",
+    "host_label": "io.grepcode.cn",
+    "examples": 8,
+    "min_random_gain": 5.0,
+    "min_prob_gain": 2.0,
+    "min_echo_token_acc": 0.55
+  },
+  "dataset": {
+    "pairs": 50000,
+    "train": 40000,
+    "test": 5000,
+    "ood": 5000,
+    "en_vocab": 8192,
+    "zh_vocab": 6805
+  },
+  "models": {
+    "treeheap": {
+      "trace": [
+        {
+          "loss": 5.79141055984497,
+          "align": 3.716044323348999,
+          "echo": 2.0745774249076843,
+          "n": 40000,
+          "var": 0.0007888011647388339,
+          "epoch": 0
+        },
+        {
+          "loss": 2.044302875328064,
+          "align": 1.8645892564773558,
+          "echo": 0.17971361660957336,
+          "n": 40000,
+          "var": 0.0,
+          "epoch": 1
+        },
+        {
+          "loss": 1.2231641139030456,
+          "align": 1.1772134656906128,
+          "echo": 0.04595064399242401,
+          "n": 40000,
+          "var": 0.0,
+          "epoch": 2
+        },
+        {
+          "loss": 0.613527135014534,
+          "align": 0.6032597972869873,
+          "echo": 0.010267338271439075,
+          "n": 40000,
+          "var": 0.0,
+          "epoch": 4
+        }
+      ],
+      "metrics": {
+        "test": {
+          "positive_distance": 0.34937024116516113,
+          "negative_distance": 0.9929153919219971,
+          "distance_margin_neg_minus_pos": 0.6435451507568359,
+          "retrieval_at_1": 0.6194999814033508,
+          "retrieval_at_5": 0.8134999871253967,
+          "retrieval_at_10": 0.8709999918937683,
+          "alignment_entropy": 4.037072658538818,
+          "uniform_entropy": 7.600902459542082,
+          "positive_pair_probability": 0.22735384106636047,
+          "random_retrieval_at_1": 0.0005,
+          "en_echo_token_acc": 0.9999746257295102,
+          "zh_echo_token_acc": 0.9983476316053009,
+          "en_echo_exact": 0.9995,
+          "zh_echo_exact": 0.9645
+        },
+        "ood": {
+          "positive_distance": 0.3457682430744171,
+          "negative_distance": 0.9929413199424744,
+          "distance_margin_neg_minus_pos": 0.6471730768680573,
+          "retrieval_at_1": 0.6299999952316284,
+          "retrieval_at_5": 0.8195000290870667,
+          "retrieval_at_10": 0.8734999895095825,
+          "alignment_entropy": 4.044313430786133,
+          "uniform_entropy": 7.600902459542082,
+          "positive_pair_probability": 0.2274857610464096,
+          "random_retrieval_at_1": 0.0005,
+          "en_echo_token_acc": 1.0,
+          "zh_echo_token_acc": 0.9981350739309978,
+          "en_echo_exact": 1.0,
+          "zh_echo_exact": 0.961
+        }
+      },
+      "parameters": 4091925
+    },
+    "bow": {
+      "trace": [
+        {
+          "loss": 5.487585953903198,
+          "align": 3.766233027458191,
+          "echo": 1.7213529263496399,
+          "n": 40000,
+          "var": 0.0,
+          "epoch": 0
+        },
+        {
+          "loss": 2.172759072303772,
+          "align": 2.097019050216675,
+          "echo": 0.07574002110660076,
+          "n": 40000,
+          "var": 0.0,
+          "epoch": 1
+        },
+        {
+          "loss": 1.4041370293617248,
+          "align": 1.384718625164032,
+          "echo": 0.01941840407848358,
+          "n": 40000,
+          "var": 0.0,
+          "epoch": 2
+        },
+        {
+          "loss": 0.71590294277668,
+          "align": 0.7112898087978363,
+          "echo": 0.0046131309054791925,
+          "n": 40000,
+          "var": 0.0,
+          "epoch": 4
+        }
+      ],
+      "metrics": {
+        "test": {
+          "positive_distance": 0.4066787660121918,
+          "negative_distance": 0.9905860424041748,
+          "distance_margin_neg_minus_pos": 0.583907276391983,
+          "retrieval_at_1": 0.6315000057220459,
+          "retrieval_at_5": 0.7914999723434448,
+          "retrieval_at_10": 0.8399999737739563,
+          "alignment_entropy": 4.342252254486084,
+          "uniform_entropy": 7.600902459542082,
+          "positive_pair_probability": 0.22179938852787018,
+          "random_retrieval_at_1": 0.0005,
+          "en_echo_token_acc": 0.9999746257295102,
+          "zh_echo_token_acc": 0.998614681042828,
+          "en_echo_exact": 0.9995,
+          "zh_echo_exact": 0.972
+        },
+        "ood": {
+          "positive_distance": 0.40284138917922974,
+          "negative_distance": 0.9967525601387024,
+          "distance_margin_neg_minus_pos": 0.5939111709594727,
+          "retrieval_at_1": 0.6284999847412109,
+          "retrieval_at_5": 0.8084999918937683,
+          "retrieval_at_10": 0.8604999780654907,
+          "alignment_entropy": 4.344241142272949,
+          "uniform_entropy": 7.600902459542082,
+          "positive_pair_probability": 0.21876409649848938,
+          "random_retrieval_at_1": 0.0005,
+          "en_echo_token_acc": 1.0,
+          "zh_echo_token_acc": 0.9985347009457839,
+          "en_echo_exact": 1.0,
+          "zh_echo_exact": 0.969
+        }
+      },
+      "parameters": 3887765
+    },
+    "untrained_treeheap": {
+      "metrics": {
+        "test": {
+          "positive_distance": 0.8153947591781616,
+          "negative_distance": 0.8156032562255859,
+          "distance_margin_neg_minus_pos": 0.0002084970474243164,
+          "retrieval_at_1": 0.0,
+          "retrieval_at_5": 0.003000000026077032,
+          "retrieval_at_10": 0.0044999998062849045,
+          "alignment_entropy": 6.980928897857666,
+          "uniform_entropy": 7.600902459542082,
+          "positive_pair_probability": 0.0004925630055367947,
+          "random_retrieval_at_1": 0.0005,
+          "en_echo_token_acc": 0.00010149708195889369,
+          "zh_echo_token_acc": 0.0001835964882998965,
+          "en_echo_exact": 0.0,
+          "zh_echo_exact": 0.0
+        },
+        "ood": {
+          "positive_distance": 0.8147842288017273,
+          "negative_distance": 0.8177894353866577,
+          "distance_margin_neg_minus_pos": 0.00300520658493042,
+          "retrieval_at_1": 0.0010000000474974513,
+          "retrieval_at_5": 0.0024999999441206455,
+          "retrieval_at_10": 0.003000000026077032,
+          "alignment_entropy": 6.973098278045654,
+          "uniform_entropy": 7.600902459542082,
+          "positive_pair_probability": 0.0005241183680482209,
+          "random_retrieval_at_1": 0.0005,
+          "en_echo_token_acc": 0.0001796115259282067,
+          "zh_echo_token_acc": 6.66045024643666e-05,
+          "en_echo_exact": 0.0,
+          "zh_echo_exact": 0.0
+        }
+      }
+    }
+  },
+  "examples": {
+    "treeheap_ood": [
+      {
+        "en": "He had already begun to expel Jews, including by placing them forcibly on ships and sending them to various destinations in the Mediterranean and across the Atlantic.",
+        "zh": "他已经开始驱逐犹太人，手段包括强行把他们驱赶上船，运往地中海和大西洋的各个目的地。",
+        "en_echo": "he had already begun to <unk> jews, including by placing them forcibly on ships and sending them to various <unk> in the mediterranean and across the atlantic.",
+        "zh_echo": "他已经开始驱逐犹太人，手段包括强行把他们驱赶上船，运往地中海和大西洋的各个目的地。",
+        "paired_cosine": 0.6427960991859436,
+        "top_match_rank1": true,
+        "top_score": 0.6427960991859436,
+        "top_index_in_eval_window": 0
+      },
+      {
+        "en": "Bitcoin is a slow, energy-inefficient dinosaur that will never be able to process transactions as quickly or inexpensively as an Excel spreadsheet.",
+        "zh": "比特币是一只行动迟缓、能源效率低下的恐龙，永远无法像Excel电子表格那样迅速廉价地处理交易。",
+        "en_echo": "bitcoin is a slow, energy - inefficient <unk> that will never be able to process transactions as quickly or <unk> as an <unk> <unk>.",
+        "zh_echo": "比特币是一只行动迟缓、能源效率低下的恐龙，永远无法像策电子表格那样迅速廉价地处理交易。",
+        "paired_cosine": 0.5538073778152466,
+        "top_match_rank1": true,
+        "top_score": 0.5538073778152466,
+        "top_index_in_eval_window": 1
+      },
+      {
+        "en": "Other financial instruments, such as “green” stock indices and “green” bonds, can help reallocate investment to sectors that support environmentally sustainable growth.",
+        "zh": "其他金融工具，比如“绿色”股票指数和“绿色”债券，有助于将投资配置给支持环境可持续增长的部门。",
+        "en_echo": "other financial instruments, such as green stock indices and green bonds, can help <unk> investment to sectors that support environmentally sustainable growth.",
+        "zh_echo": "其他金融工具，比如“绿色”股票指数和“绿色”债券，有助于将投资配置给支持环境可持续增长的部门。",
+        "paired_cosine": 0.6436185836791992,
+        "top_match_rank1": true,
+        "top_score": 0.6436185836791992,
+        "top_index_in_eval_window": 2
+      },
+      {
+        "en": "The tradable sector is expanding and is not dependent on leverage to generate aggregate demand.",
+        "zh": "可贸易部门正在扩张，不需要依赖杠杆就能提振总需求。",
+        "en_echo": "the tradable sector is expanding and is not dependent on leverage to generate aggregate demand.",
+        "zh_echo": "可贸易部门正在扩张，不需要依赖杠杆就能提振总需求。",
+        "paired_cosine": 0.5795313715934753,
+        "top_match_rank1": true,
+        "top_score": 0.5795313715934753,
+        "top_index_in_eval_window": 3
+      },
+      {
+        "en": "As in Nigeria, vaccination delays will be highly detrimental for neighboring countries.",
+        "zh": "与尼日利亚情形一样，接种工作的中止会对邻国造成极大的负面影响。",
+        "en_echo": "as in nigeria, vaccination delays will be highly <unk> for neighboring countries.",
+        "zh_echo": "与尼日利亚情形一样，接种工作的中止会对邻国造成极大的负面影响。",
+        "paired_cosine": 0.42986223101615906,
+        "top_match_rank1": false,
+        "top_score": 0.4949934780597687,
+        "top_index_in_eval_window": 141
+      },
+      {
+        "en": "In the first scene, Rachel uses poker to illustrate a concept to a large class sitting in rapt attention, and she schools a graduate teaching assistant.",
+        "zh": "在第一幕中，瑞秋使用扑克向全班的注视下演示了一个概念，而她还只是一名研究生教学助理。",
+        "en_echo": "in the first scene, <unk> uses <unk> to illustrate a concept to a large class sitting in <unk> attention, and she schools a graduate teaching <unk>.",
+        "zh_echo": "在第一幕中，瑞秋使用扑克向全班的注视下演示了一个概念，而她还只是一名研究生教学助理。",
+        "paired_cosine": 0.5006614923477173,
+        "top_match_rank1": false,
+        "top_score": 0.5049822926521301,
+        "top_index_in_eval_window": 24
+      },
+      {
+        "en": "By 2050, Africa’s youth population is expected to reach 840 million.",
+        "zh": "到2050年，非洲青年人口预计将达到8.4亿。",
+        "en_echo": "by 2050, africa s youth population is expected to reach <unk> million.",
+        "zh_echo": "到2050年，非洲青年人口预计将达到8.4亿。",
+        "paired_cosine": 0.7704893350601196,
+        "top_match_rank1": true,
+        "top_score": 0.7704893350601196,
+        "top_index_in_eval_window": 6
+      },
+      {
+        "en": "Germany is facing a deep political transition, as Chancellor Angela Merkel prepares to retire at the end of her current term.",
+        "zh": "德国面临深刻的政治变局，总理默克尔准备在这个任期末退休。",
+        "en_echo": "germany is facing a deep political transition, as chancellor angela merkel <unk> to <unk> at the end of her current term.",
+        "zh_echo": "德国面临深刻的政治变局，总理默克尔准备在这个任期末退休。",
+        "paired_cosine": 0.6377045512199402,
+        "top_match_rank1": true,
+        "top_score": 0.6377045512199402,
+        "top_index_in_eval_window": 7
+      }
+    ],
+    "bow_ood": [
+      {
+        "en": "He had already begun to expel Jews, including by placing them forcibly on ships and sending them to various destinations in the Mediterranean and across the Atlantic.",
+        "zh": "他已经开始驱逐犹太人，手段包括强行把他们驱赶上船，运往地中海和大西洋的各个目的地。",
+        "en_echo": "he had already begun to <unk> jews, including by placing them forcibly on ships and sending them to various <unk> in the mediterranean and across the atlantic.",
+        "zh_echo": "他已经开始驱逐犹太人，手段包括强行把他们驱赶上船，运往地中海和大西洋的各个目的地。",
+        "paired_cosine": 0.5068167448043823,
+        "top_match_rank1": true,
+        "top_score": 0.5068167448043823,
+        "top_index_in_eval_window": 0
+      },
+      {
+        "en": "Bitcoin is a slow, energy-inefficient dinosaur that will never be able to process transactions as quickly or inexpensively as an Excel spreadsheet.",
+        "zh": "比特币是一只行动迟缓、能源效率低下的恐龙，永远无法像Excel电子表格那样迅速廉价地处理交易。",
+        "en_echo": "bitcoin is a slow, energy - inefficient <unk> that will never be able to process transactions as quickly or <unk> as an <unk> <unk>.",
+        "zh_echo": "比特币是一只行动迟缓、能源效率低下的恐龙，永远无法像如电子表格那样迅速廉价地处理交易。",
+        "paired_cosine": 0.37982839345932007,
+        "top_match_rank1": false,
+        "top_score": 0.4556474983692169,
+        "top_index_in_eval_window": 223
+      },
+      {
+        "en": "Other financial instruments, such as “green” stock indices and “green” bonds, can help reallocate investment to sectors that support environmentally sustainable growth.",
+        "zh": "其他金融工具，比如“绿色”股票指数和“绿色”债券，有助于将投资配置给支持环境可持续增长的部门。",
+        "en_echo": "other financial instruments, such as green stock indices and green bonds, can help <unk> investment to sectors that support environmentally sustainable growth.",
+        "zh_echo": "其他金融工具，比如“绿色”股票指数和“绿色”债券，有助于将投资配置给支持环境可持续增长的部门。",
+        "paired_cosine": 0.7737287282943726,
+        "top_match_rank1": true,
+        "top_score": 0.7737287282943726,
+        "top_index_in_eval_window": 2
+      }
+    ]
+  },
+  "pass_checks": {
+    "positive_distance_below_negative": true,
+    "retrieval_beats_random": true,
+    "positive_probability_beats_random": true,
+    "entropy_below_uniform": true,
+    "echo_nontrivial": true,
+    "treeheap_beats_bow_margin": true
+  },
+  "pilot_pass": true,
+  "interpretation": {
+    "supported_if_pass": "WMT parallel forms can be pulled into a closer canonical TreeHeap state while preserving echo.",
+    "baseline_warning": "If BoW matches or beats TreeHeap, the evidence supports canonicalization but not a TreeHeap-specific advantage.",
+    "not_proved": [
+      "translation BLEU",
+      "semantic understanding",
+      "unsupervised world-model grounding",
+      "final S2 decoder"
+    ]
+  },
+  "elapsed_sec": 36.60689067840576
+}

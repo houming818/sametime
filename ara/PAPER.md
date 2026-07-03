@@ -173,6 +173,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | C6-014 | SPR-040 | TreeHeap local convolution is equivariant under mirror / chiral flip; geometric left/right mirror is implemented as algebraic permutation of heap addresses and kernel slots, and scalar loss can learn the mirrored structural slot assignment. | supported pilot / medium reliability | `ara/s1-echo/evidence/s1_mirror_kernel_symmetry_probe/`; flipped-kernel test max error `8.88e-16`, unflipped mean error `6.4372`, learned mirrored theta `[0.5,-0.75,1.25]`, left/right assignment errors `2.22e-16/4.44e-16`; Runner audit: structure-assignment level only | Mirror equivariance fails for deeper/vector kernels, unflipped kernels work equally well, learned mirrored kernels do not recover `[root,right,left]`, or later claims promote this into rotation/full-3D-fold/learned-trigger without new evidence. |
 | C6-015 | SPR-041 | Corrected S1 entry requires inverse-gate canonicalization: observed identity/mirror token leaves are first mapped into one canonical echo state, then decoded by one shared echo decoder. | supported pilot; prior gate-only version downgraded | `ara/s1-echo/evidence/s1_echo_inverse_gate_probe/`; OOD exact `1.0000`, inverse route argmax `1.0000`, identity inverse gate `0.999794`, mirror inverse gate `0.999784`, canonical state MSE `0.000988962`, no-inverse baseline OOD exact `0.218750`. Prior `s1_echo_entry_gate_probe/` is retained as misdirected evidence. | No-inverse or matched flat baselines solve the same canonicalization task, routes do not align with identity/mirror addresses, canonical-state loss is necessary but unjustified, or this supervised transform-flag proof is promoted into natural-language trigger discovery / translation. |
 | C6-016 | SPR-043 | Real-sentence S1 echo should be evaluated with same-algebra TreeHeap perturbation/recovery and readable examples, not only toy token ids. | supported pilot | Full-root evidence: `ara/s1-echo/evidence/s1_sentence_flip_echo_probe/`; WMT17 English side, whitespace tokens, 20,000 samples, length 3-32, vocab 8192; TreeHeap `Flip(root, full_depth)`; hard closure exact `1.0000`; learned inverse OOD exact/token/edit `0.9645/0.9978/0.9979`; no-inverse OOD exact `0.0000`. Local evidence: `ara/s1-echo/evidence/s1_local_flip_echo_probe/`; WMT17 English side, 20,000 samples, length 8-32, span 2-8; TreeHeap `Flip(span_root, full_depth)`; learned OOD exact/token/edit `1.0000/1.0000/1.0000`; no-inverse OOD exact/token/edit `0.0010/0.7698/0.7376`. | Hard closure fails, perturbation is external array reverse/slicing rather than TreeHeap flip, examples are absent, no-inverse/matched baselines catch up, or future `node, depth` discovery fails when span start/length are not supplied. |
+| C6-017 | SPR-044 | S1 should be evaluated as WMT canonical echo: English and Chinese surface forms for the same meaning should move toward a shared canonical state while both sides remain echo-readable. | supported pilot / small TreeHeap advantage | `ara/s1-echo/evidence/s1_wmt_canonical_echo_probe/`; WMT17 `train.zh-en`, 50,000 pairs, train/test/OOD `40000/5000/5000`, max eval 2,000, max_len 48, dim 128, epochs 5. TreeHeap OOD positive/negative distance `0.3458/0.9929`, margin `0.6472`, retrieval@1/@5 `0.6300/0.8195`, entropy `4.0443`, EN/ZH echo token `1.0000/0.9981`; BoW OOD margin `0.5939`, retrieval@1/@5 `0.6285/0.8085`, entropy `4.3442`; untrained TreeHeap margin `0.0030`, retrieval@1 `0.0010`. | BoW or matched sequence/Transformer baselines match or beat TreeHeap across margin/entropy/retrieval; root canonical state cannot be separated from leaf echo memory; retrieval collapses on larger candidate windows or longer/noisier WMT; or the result is promoted into BLEU/semantic grounding without S2 decoding evidence. |
 
 ## SPR Blog Source Map
 
@@ -220,6 +221,7 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | 040 | `blogs/.../spr/040-mirror-kernel-symmetry.md` | Mirror / chiral TreeHeap kernel flip proof |
 | 041 | `blogs/.../spr/041-s1-echo-entry-gate.md` | Controlled S1 echo entry gate: token write, structural route, token collapse |
 | 043 | `blogs/.../spr/043-s1-sentence-flip-echo.md` | Sentence-level same-algebra TreeHeap flip echo with readable examples |
+| 044 | `blogs/.../spr/044-s1-wmt-canonical-echo.md` | WMT canonical echo: bilingual canonical state plus same-language echo |
 
 The canonical local blog source is:
 
@@ -267,6 +269,7 @@ https://www.lostmap.cn/spr/
 | `ara/s1-echo/evidence/s1_echo_inverse_gate_probe/` | Corrected SPR-041 pilot: inverse-gate canonicalization before shared echo decoding |
 | `ara/s1-echo/evidence/s1_sentence_flip_echo_probe/` | Real-sentence same-algebra TreeHeap flip echo, length metrics, readable examples |
 | `ara/s1-echo/evidence/s1_local_flip_echo_probe/` | Real-sentence local subheap same-algebra TreeHeap flip echo, span-position metrics, readable examples |
+| `ara/s1-echo/evidence/s1_wmt_canonical_echo_probe/` | WMT canonical echo: parallel-pair contrast, entropy, retrieval, and echo metrics |
 
 ## Current Open Proof Queue
 
@@ -278,7 +281,8 @@ Highest priority open experiments:
    - Update: C6-015 corrects the entry gate: mirror input must be inverted into canonical echo state before a shared decoder reads it. The older separate-read-kernel pilot is downgraded as misdirected.
    - Update: C6-016 adds readable sentence-level same-algebra flip echo over 20k real WMT English short sentences.
    - Update: C6-016 now includes local span subheap flip evidence. Given span start/length, local `Flip(span_root, full_depth)` restores OOD exactly; no-inverse baseline does not.
-   - Next: remove the span metadata and learn/discover the `node, depth` trigger from context, then add stronger matched baselines.
+   - Update: C6-017 reframes S1 as WMT canonical echo. The first 50k-pair run supports bilingual canonical alignment plus echo, with a small TreeHeap advantage over BoW.
+   - Next: stronger sequence/Transformer baselines, larger candidate retrieval windows, and separating root canonical meaning from leaf echo memory.
    - Pass gate: non-empty subheap metrics, noisy/masked restore, and matched copy-capable baselines.
 
 1.5. `Parameter TreeHeap Kernel Learning`
