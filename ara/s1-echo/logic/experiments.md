@@ -1618,3 +1618,86 @@ S1-KERNEL-MIRROR-C01 -> supported pilot
 
 This is a local algebraic/convolution proof, not a language proof. It is also
 not a rotation-angle proof or a full 3D fold proof.
+
+## P-S1-RECURSIVE-ROUTE01: Recursive TreeHeap Route
+
+Status: executed
+Claim: S1-RECURSIVE-ROUTE-C01
+Design: `logic/s1_recursive_treeheap_route.md`
+Script: `src/s1_recursive_treeheap_route_probe.py`
+Evidence: `evidence/s1_recursive_treeheap_route_probe/`
+
+### Question
+
+Can S1 mirror recovery be implemented as a real recursive TreeHeap route instead
+of a flat `L x L` route matrix?
+
+### Definition
+
+A flat route matrix is:
+
+```text
+route_logits[length, out_pos, in_pos]
+state = route @ leaf
+```
+
+A TreeHeap route is:
+
+```text
+i = 1
+S_i = [arr[i], arr[2i], arr[2i+1]]
+K_theta(q, S_i, address_i) -> stop/left/right
+if left:  i = 2i
+if right: i = 2i + 1
+if stop:  read arr[i]
+```
+
+### Pass Gate
+
+- hard TreeHeap mirror oracle reaches OOD exact 1.0
+- learned recursive route reaches OOD exact >= 0.99
+- evidence includes actual `stop/left/right` action traces
+- old length-indexed flat route matrix fails on unseen lengths
+
+### Result
+
+```text
+data = /mnt/nas/datasets/wmt_massive/train.massive.zh-en.tsv
+samples = 20,000
+heap max_len = 32
+train lengths = 3..24
+OOD lengths = 25..32
+
+oracle_ood_exact = 1.0000
+recursive_ood_exact = 1.0000
+recursive_ood_token_acc = 1.0000
+flat_length_matrix_ood_exact = 0.0000
+flat_length_matrix_ood_token_acc = 0.0097
+pilot_pass = true
+```
+
+Example route:
+
+```json
+{
+  "pos": 0,
+  "target_leaf": 31,
+  "actions": [2, 2, 2, 2, 2, 0],
+  "node": 63
+}
+```
+
+Here `2` means `right`, and `0` means `stop`.
+
+Decision:
+
+```text
+S1-RECURSIVE-ROUTE-C01 -> supported pilot
+```
+
+### Boundary
+
+This repairs the mechanism boundary for S1 route proofs. It does not prove
+translation, semantic grounding, unsupervised span discovery, or natural
+language trigger learning. The target position is still supervised. The next
+control should compare against flat shared route and pointer baselines.
