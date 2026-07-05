@@ -1701,3 +1701,71 @@ This repairs the mechanism boundary for S1 route proofs. It does not prove
 translation, semantic grounding, unsupervised span discovery, or natural
 language trigger learning. The target position is still supervised. The next
 control should compare against flat shared route and pointer baselines.
+
+## P-S1-CONTENT-ROUTE01: Content-Aware Recursive TreeHeap Route
+
+Status: executed
+Claim: S1-CONTENT-ROUTE-C01
+Script: `src/s1_content_treeheap_route_probe.py`
+Evidence: `evidence/s1_content_treeheap_route_probe_20k_e5/`
+
+### Question
+
+Does recursive routing still work when the kernel reads heap content instead of
+precomputed geometry-answer features?
+
+### Definition
+
+Allowed kernel input:
+
+```text
+query token summary
+arr[i]
+arr[2i]
+arr[2i+1]
+```
+
+Forbidden shortcut:
+
+```text
+target-in-left flag
+target-in-right flag
+precomputed interval answer
+```
+
+### Result
+
+```text
+data = /mnt/nas/datasets/wmt_massive/train.massive.zh-en.tsv
+samples = 20,000
+vocab = 1024
+heap max_len = 32
+train lengths = 3..24
+OOD lengths = 25..32
+
+train_route_steps = 352110
+ood_route_steps = 44130
+dense_feature_memory_mb = 6191.25
+content_epoch_sec ~= 12.8
+
+OOD step_acc = 0.9983
+OOD route_exact = 0.9902
+flat_length_matrix OOD token_acc = 0.0029
+flat_length_matrix OOD exact = 0.0000
+pilot_pass = true
+```
+
+### Boundary
+
+This is still a controlled echo route proof. It uses supervised query tokens,
+bag/count summaries, and unique-token query positions. It is not translation,
+semantic grounding, or unsupervised span discovery.
+
+The complexity profile says the dense proof form is not scalable:
+
+```text
+vocab=1024 => dense feature memory ~= 6.2GB
+```
+
+The next implementation should replace vocab-count summaries with compact
+64D/128D subheap embeddings and generate route examples on the fly.

@@ -1,0 +1,194 @@
+{
+  "claim": "S1-CONTENT-ROUTE-C01",
+  "predict": "P-S1-CONTENT-ROUTE01",
+  "purpose": "content-aware recursive TreeHeap route over arr[i], not geometry-answer routing",
+  "wmt_path": "/mnt/nas/datasets/wmt_massive/train.massive.zh-en.tsv",
+  "samples": 20000,
+  "vocab": 1024,
+  "max_len": 32,
+  "train_max_len": 24,
+  "train_rows": 18158,
+  "ood_rows": 1842,
+  "train_route_examples": 352110,
+  "ood_route_examples": 44130,
+  "metrics": {
+    "train": {
+      "steps": 352110,
+      "routes": 58685,
+      "step_acc": 0.9998466372489929,
+      "route_exact": 0.9991139132657408
+    },
+    "ood": {
+      "steps": 44130,
+      "routes": 7355,
+      "step_acc": 0.9983457922935486,
+      "route_exact": 0.990210740992522
+    },
+    "flat_length_matrix": {
+      "train": {
+        "token_acc": 1.0,
+        "exact": 1.0
+      },
+      "ood": {
+        "token_acc": 0.002882178872823715,
+        "exact": 0.0
+      }
+    },
+    "trace": [
+      {
+        "epoch": 1,
+        "loss": 0.06171910825063492,
+        "step_acc": 0.9748061685268808,
+        "epoch_sec": 12.85201644897461,
+        "eta_sec": 51.408071517944336
+      },
+      {
+        "epoch": 2,
+        "loss": 0.0032445134881176644,
+        "step_acc": 0.9989832722728693,
+        "epoch_sec": 12.946133375167847,
+        "eta_sec": 38.69732987880707
+      },
+      {
+        "epoch": 3,
+        "loss": 0.001996012564008805,
+        "step_acc": 0.9993808752946522,
+        "epoch_sec": 12.77202320098877,
+        "eta_sec": 25.71354087193807
+      },
+      {
+        "epoch": 4,
+        "loss": 0.0016220624815867248,
+        "step_acc": 0.9995115162875238,
+        "epoch_sec": 12.675229549407959,
+        "eta_sec": 12.811405539512634
+      },
+      {
+        "epoch": 5,
+        "loss": 0.0011585159576237194,
+        "step_acc": 0.9996648774530686,
+        "epoch_sec": 12.898380756378174,
+        "eta_sec": 0.0
+      }
+    ]
+  },
+  "complexity_estimate": {
+    "train_route_steps": 352110,
+    "ood_route_steps": 44130,
+    "route_steps_total": 396240,
+    "dense_feature_memory_mb": 6191.25,
+    "batches_per_content_epoch": 688,
+    "mlp_input_dim": 7168,
+    "rough_muladds_per_content_epoch": 669470968320,
+    "rough_muladds_all_content_epochs": 3347354841600
+  },
+  "pass_checks": {
+    "kernel_reads_heap_content": true,
+    "no_geometry_answer_features": true,
+    "ood_route_exact_ge_0_99": true,
+    "ood_step_acc_ge_0_99": true,
+    "flat_length_matrix_fails_unseen_lengths": true
+  },
+  "pilot_pass": true,
+  "examples": {
+    "ood": [
+      {
+        "sentence": 0,
+        "pos": 1,
+        "token": 567,
+        "node": 1,
+        "label": 2,
+        "pred": 2,
+        "left_has_query": 0.0,
+        "right_has_query": 1.0,
+        "current_has_query": 1.0
+      },
+      {
+        "sentence": 0,
+        "pos": 1,
+        "token": 567,
+        "node": 3,
+        "label": 2,
+        "pred": 2,
+        "left_has_query": 0.0,
+        "right_has_query": 1.0,
+        "current_has_query": 1.0
+      },
+      {
+        "sentence": 0,
+        "pos": 1,
+        "token": 567,
+        "node": 7,
+        "label": 2,
+        "pred": 2,
+        "left_has_query": 0.0,
+        "right_has_query": 1.0,
+        "current_has_query": 1.0
+      },
+      {
+        "sentence": 0,
+        "pos": 1,
+        "token": 567,
+        "node": 15,
+        "label": 2,
+        "pred": 2,
+        "left_has_query": 0.0,
+        "right_has_query": 1.0,
+        "current_has_query": 1.0
+      },
+      {
+        "sentence": 0,
+        "pos": 1,
+        "token": 567,
+        "node": 31,
+        "label": 1,
+        "pred": 1,
+        "left_has_query": 1.0,
+        "right_has_query": 0.0,
+        "current_has_query": 1.0
+      },
+      {
+        "sentence": 0,
+        "pos": 1,
+        "token": 567,
+        "node": 62,
+        "label": 0,
+        "pred": 0,
+        "left_has_query": 0.0,
+        "right_has_query": 0.0,
+        "current_has_query": 1.0
+      },
+      {
+        "sentence": 0,
+        "pos": 3,
+        "token": 295,
+        "node": 1,
+        "label": 2,
+        "pred": 2,
+        "left_has_query": 0.0,
+        "right_has_query": 1.0,
+        "current_has_query": 1.0
+      },
+      {
+        "sentence": 0,
+        "pos": 3,
+        "token": 295,
+        "node": 3,
+        "label": 2,
+        "pred": 2,
+        "left_has_query": 0.0,
+        "right_has_query": 1.0,
+        "current_has_query": 1.0
+      }
+    ]
+  },
+  "limits": [
+    "query token is supervised",
+    "uses bag/count summaries, not full semantic vectors",
+    "unique-token query positions only",
+    "not translation",
+    "not unsupervised span discovery",
+    "needs pointer/shared-flat baselines next"
+  ],
+  "elapsed_sec": 84.73004031181335
+}
