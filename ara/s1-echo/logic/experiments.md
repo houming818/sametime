@@ -1769,3 +1769,91 @@ vocab=1024 => dense feature memory ~= 6.2GB
 
 The next implementation should replace vocab-count summaries with compact
 64D/128D subheap embeddings and generate route examples on the fly.
+
+## P-S1-COMPACT-CONTENT-ROUTE01: Compact Content-Aware Route
+
+Status: executed / mixed
+Claim: S1-COMPACT-CONTENT-ROUTE-C01
+Script: `src/s1_compact_content_treeheap_route_probe.py`
+Evidence:
+
+```text
+evidence/s1_compact_content_treeheap_route_probe_20k_e5/
+evidence/s1_compact_content_treeheap_route_probe_20k_d128_e8/
+```
+
+### Question
+
+Can the dense content-aware proof be converted into a compact TreeHeap
+subheap embedding without losing recursive route accuracy?
+
+### Mechanism
+
+The dense proof represented each node with a 1024D vocab-count vector. The
+compact proof instead fixes a random token embedding table and computes:
+
+```text
+leaf token id -> fixed d-dimensional token vector
+arr[i]        -> sum of token vectors under node i
+kernel input  -> query, arr[i], arr[left(i)], arr[right(i)]
+kernel output -> stop / left / right
+```
+
+No target interval flags, target-in-left/right flags, or geometry-answer bits
+are provided. The kernel still has to read heap content.
+
+### Result
+
+64D run:
+
+```text
+samples = 20,000
+vocab = 1024
+heap max_len = 32
+train lengths = 3..24
+OOD lengths = 25..32
+
+train_route_steps = 352110
+ood_route_steps = 44130
+compact_memory_mb = 324.84
+dense_prior_memory_mb = 6191.25
+memory_reduction_x = 19.06
+
+OOD step_acc = 0.9973
+OOD route_exact = 0.9838
+flat_length_matrix OOD token_acc = 0.0029
+flat_length_matrix OOD exact = 0.0000
+pilot_pass = false
+```
+
+128D follow-up:
+
+```text
+compact_memory_mb = 637.59
+memory_reduction_x = 9.71
+OOD step_acc = 0.9973
+OOD route_exact = 0.9837
+pilot_pass = false
+```
+
+### Decision
+
+```text
+S1-COMPACT-CONTENT-ROUTE-C01 -> open / mixed pilot
+```
+
+The useful result is memory reduction: 64D compact embeddings cut the dense
+feature memory estimate from about `6.2GB` to `325MB`.
+
+The blocker is path-level exactness. Step accuracy remains high, but a route is
+a sequence of local decisions; small per-step errors compound over depth.
+Increasing the compact dimension from 64D to 128D did not improve OOD route
+exactness, so this is probably not a simple dimension shortage.
+
+### Boundary
+
+This does not defeat the content-aware route design. It says that naive compact
+sum embeddings are not yet a drop-in replacement for dense vocab-count subheap
+summaries. The next proof should test learned token/subheap embeddings,
+normalization, collision controls, repeated-token cases, and matched pointer
+baselines.

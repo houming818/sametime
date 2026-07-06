@@ -1,0 +1,41 @@
+host=io
+2026-07-06T21:51:38+08:00
+Python 3.10.12
+[2026-07-06 21:51:39] start samples=20000 vocab=1024 dim=128 max_len=32 epochs=8
+[2026-07-06 21:51:40] build_compact_heap sec=0.25
+[2026-07-06 21:51:40] complexity_estimate {"train_route_steps": 352110, "ood_route_steps": 44130, "compact_memory_mb": 637.59228515625, "dense_prior_memory_mb": 6191.25, "memory_reduction_x_vs_dense_prior": 9.710359024314036, "batches_per_epoch": 344}
+[2026-07-06 21:51:42] compact_epoch 1/8 loss=0.077672 step_acc=0.9663 epoch_sec=1.37 eta_min=0.2
+[2026-07-06 21:51:44] compact_epoch 2/8 loss=0.001447 step_acc=0.9996 epoch_sec=1.26 eta_min=0.1
+[2026-07-06 21:51:45] compact_epoch 3/8 loss=0.000914 step_acc=0.9997 epoch_sec=1.23 eta_min=0.1
+[2026-07-06 21:51:46] compact_epoch 4/8 loss=0.000298 step_acc=0.9999 epoch_sec=1.26 eta_min=0.1
+[2026-07-06 21:51:47] compact_epoch 5/8 loss=0.000566 step_acc=0.9998 epoch_sec=1.24 eta_min=0.1
+[2026-07-06 21:51:48] compact_epoch 6/8 loss=0.001298 step_acc=0.9995 epoch_sec=1.24 eta_min=0.0
+[2026-07-06 21:51:50] compact_epoch 7/8 loss=0.000101 step_acc=1.0000 epoch_sec=1.24 eta_min=0.0
+[2026-07-06 21:51:51] compact_epoch 8/8 loss=0.000216 step_acc=0.9999 epoch_sec=1.25 eta_min=0.0
+{
+  "pilot_pass": false,
+  "pass_checks": {
+    "compact_memory_under_512mb": false,
+    "ood_route_exact_ge_0_99": false,
+    "ood_step_acc_ge_0_99": true,
+    "flat_length_matrix_fails_unseen_lengths": true
+  },
+  "complexity": {
+    "train_route_steps": 352110,
+    "ood_route_steps": 44130,
+    "compact_memory_mb": 637.59228515625,
+    "dense_prior_memory_mb": 6191.25,
+    "memory_reduction_x_vs_dense_prior": 9.710359024314036,
+    "batches_per_epoch": 344
+  },
+  "ood": {
+    "steps": 44130,
+    "routes": 7355,
+    "step_acc": 0.9972581267356873,
+    "route_exact": 0.9836845683208701
+  },
+  "flat_ood": {
+    "token_acc": 0.002882178872823715,
+    "exact": 0.0
+  }
+}

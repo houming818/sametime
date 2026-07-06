@@ -271,6 +271,9 @@ https://www.lostmap.cn/spr/
 | `ara/s1-echo/evidence/s1_sentence_flip_echo_probe/` | Real-sentence same-algebra TreeHeap flip echo, length metrics, readable examples |
 | `ara/s1-echo/evidence/s1_local_flip_echo_probe/` | Real-sentence local subheap same-algebra TreeHeap flip echo, span-position metrics, readable examples |
 | `ara/s1-echo/evidence/s1_wmt_canonical_echo_probe/` | WMT canonical echo: parallel-pair contrast, entropy, retrieval, and echo metrics |
+| `ara/s1-echo/evidence/s1_recursive_treeheap_route_probe/` | Recursive `stop/left/right` route proof versus flat length matrix |
+| `ara/s1-echo/evidence/s1_content_treeheap_route_probe_20k_e5/` | Content-aware recursive TreeHeap route using dense subheap vocab-count summaries |
+| `ara/s1-echo/evidence/s1_compact_content_treeheap_route_probe_20k*/` | Compact subheap embedding route attempts; memory reduction positive, OOD route exact still below gate |
 
 ## Current Open Proof Queue
 
@@ -283,6 +286,7 @@ Highest priority open experiments:
    - Update: C6-016 adds readable sentence-level same-algebra flip echo over 20k real WMT English short sentences.
    - Update: C6-016 now includes local span subheap flip evidence. Given span start/length, local `Flip(span_root, full_depth)` restores OOD exactly; no-inverse baseline does not.
    - Update: C6-017 reframes S1 as WMT canonical echo. The first 50k-pair run is a weak positive for bilingual canonical alignment plus echo, with only a small TreeHeap advantage over BoW.
+   - Update: C6-018/C6-019 repair the route mechanism boundary after audit: recursive route and dense content-aware route pass on WMT-massive OOD lengths, but compact subheap embeddings are still mixed because route-level exactness falls below the dense gate.
    - Next: stronger sequence/Transformer baselines, larger candidate retrieval windows, and separating root canonical meaning from leaf echo memory.
    - Pass gate: non-empty subheap metrics, noisy/masked restore, and matched copy-capable baselines.
 
