@@ -1,0 +1,3342 @@
+{
+  "claim": "S1-SEMANTIC-PREFIX-C01",
+  "predict": "P-S1-SEMANTIC-PREFIX01",
+  "purpose": "test whether semantic prefix compression supports deductive transfer to unseen verb-object leaves",
+  "world": {
+    "objects": {
+      "rice": [
+        "entity",
+        "consumable",
+        "food"
+      ],
+      "noodle": [
+        "entity",
+        "consumable",
+        "food"
+      ],
+      "apple": [
+        "entity",
+        "consumable",
+        "food"
+      ],
+      "amoxicillin": [
+        "entity",
+        "consumable",
+        "medicine"
+      ],
+      "ibuprofen": [
+        "entity",
+        "consumable",
+        "medicine"
+      ],
+      "water": [
+        "entity",
+        "drinkable",
+        "beverage"
+      ],
+      "milk": [
+        "entity",
+        "drinkable",
+        "beverage"
+      ],
+      "shirt": [
+        "entity",
+        "wearable",
+        "clothing"
+      ],
+      "hoodie": [
+        "entity",
+        "wearable",
+        "clothing"
+      ],
+      "car": [
+        "entity",
+        "drivable",
+        "vehicle"
+      ],
+      "truck": [
+        "entity",
+        "drivable",
+        "vehicle"
+      ],
+      "paris": [
+        "entity",
+        "visitable",
+        "location"
+      ],
+      "museum": [
+        "entity",
+        "visitable",
+        "location"
+      ]
+    },
+    "verbs": {
+      "eat": [
+        "consumable"
+      ],
+      "take": [
+        "medicine"
+      ],
+      "drink": [
+        "drinkable"
+      ],
+      "wear": [
+        "wearable"
+      ],
+      "drive": [
+        "drivable"
+      ],
+      "visit": [
+        "visitable"
+      ]
+    },
+    "heldout": [
+      [
+        "drink",
+        "milk"
+      ],
+      [
+        "drive",
+        "truck"
+      ],
+      [
+        "eat",
+        "amoxicillin"
+      ],
+      [
+        "eat",
+        "ibuprofen"
+      ],
+      [
+        "visit",
+        "museum"
+      ],
+      [
+        "wear",
+        "hoodie"
+      ]
+    ]
+  },
+  "train_size": 72,
+  "test_size": 10,
+  "metrics": {
+    "pair_memory_test_acc": 0.4,
+    "pair_logistic_test_acc": 0.4,
+    "token_additive_test_acc": 0.6,
+    "semantic_prefix_test_acc": 1.0,
+    "semantic_prefix_train_acc": 1.0
+  },
+  "key_case": {
+    "question": "Can eat + amoxicillin be accepted without that pair in training?",
+    "pair_memory": {
+      "verb": "eat",
+      "object": "amoxicillin",
+      "gold": 1,
+      "pred": 0
+    },
+    "semantic_prefix": {
+      "verb": "eat",
+      "object": "amoxicillin",
+      "path": [
+        "entity",
+        "consumable",
+        "medicine"
+      ],
+      "gold": 1,
+      "prob": 0.7088480844207262,
+      "pred": 1
+    },
+    "deduction": [
+      "amoxicillin -> medicine -> consumable",
+      "eat accepts consumable",
+      "therefore eat + amoxicillin should be accepted"
+    ]
+  },
+  "results": {
+    "pair_memory": {
+      "acc": 0.4,
+      "examples": [
+        {
+          "verb": "eat",
+          "object": "amoxicillin",
+          "gold": 1,
+          "pred": 0
+        },
+        {
+          "verb": "eat",
+          "object": "ibuprofen",
+          "gold": 1,
+          "pred": 0
+        },
+        {
+          "verb": "drink",
+          "object": "milk",
+          "gold": 1,
+          "pred": 0
+        },
+        {
+          "verb": "wear",
+          "object": "hoodie",
+          "gold": 1,
+          "pred": 0
+        },
+        {
+          "verb": "drive",
+          "object": "truck",
+          "gold": 1,
+          "pred": 0
+        },
+        {
+          "verb": "visit",
+          "object": "museum",
+          "gold": 1,
+          "pred": 0
+        },
+        {
+          "verb": "eat",
+          "object": "water",
+          "gold": 0,
+          "pred": 0
+        },
+        {
+          "verb": "drink",
+          "object": "rice",
+          "gold": 0,
+          "pred": 0
+        },
+        {
+          "verb": "wear",
+          "object": "car",
+          "gold": 0,
+          "pred": 0
+        },
+        {
+          "verb": "drive",
+          "object": "shirt",
+          "gold": 0,
+          "pred": 0
+        }
+      ]
+    },
+    "models": {
+      "pair": {
+        "train": {
+          "acc": 1.0,
+          "examples": [
+            {
+              "verb": "eat",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.9847069454021262,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.9846311204410356,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.9845548867499112,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0021690822108014324,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0021782786159949695,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0021873662974043564,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.002196341480108069,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.002205201639420258,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0022139453747614794,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.002222572267693695,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0022310827354443596,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022394778882760162,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022477593963527677,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022559293694916507,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.9846003672565119,
+              "pred": 1
+            },
+            {
+              "verb": "take",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.9845240021753109,
+              "pred": 1
+            },
+            {
+              "verb": "take",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0021676122978473602,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.002176530271426441,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.002185322761327081,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0021939926204370287,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.002202542922035687,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.002210976887029611,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0022192978235318845,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.002227509077580323,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022356139936513925,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022436158836121206,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022515180028159234,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0022593235321572507,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.002267035565030913,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 1,
+              "prob": 0.9845923271481938,
+              "pred": 1
+            },
+            {
+              "verb": "drink",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0022266101914759167,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0022346260020487635,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0022425438304362333,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0022503668098554554,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0022580979630656218,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.002265740200269475,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022732963187683565,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022807690039628545,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022881608313673947,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0022954742693706404,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.002302711682527316,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0023098753352112328,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.002316967395495278,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 1,
+              "prob": 0.9846636399892678,
+              "pred": 1
+            },
+            {
+              "verb": "wear",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0022764606839575886,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0022838666180371864,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0022911949898090276,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0022984480847937604,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.002305628091846963,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0023127371074253425,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.002319777139810553,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.002326750113248975,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.002333657871977455,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0023405021841137485,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.002347284745397546,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0023540071827735857,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.00236067105781236,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 1,
+              "prob": 0.9847372745385293,
+              "pred": 1
+            },
+            {
+              "verb": "drive",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0023202444362747233,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0023272173435446566,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0023341255091618874,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.002340970656544888,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0023477544399932325,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.002354478448108316,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0023611442070438074,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0023677531835895305,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.002374306788093749,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.002380806377229825,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0023872532566134776,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0023936486832775725,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0023999938680110766,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 1,
+              "prob": 0.984812746941062,
+              "pred": 1
+            }
+          ]
+        },
+        "test": {
+          "acc": 0.4,
+          "examples": [
+            {
+              "verb": "eat",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.008691928424929355,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.008691928424929355,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 1,
+              "prob": 0.008691928424929355,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 1,
+              "prob": 0.008691928424929355,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 1,
+              "prob": 0.008691928424929355,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 1,
+              "prob": 0.008691928424929355,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0021690822108014324,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022356139936513925,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0022764606839575886,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0023540071827735857,
+              "pred": 0
+            }
+          ]
+        },
+        "n_features": 72
+      },
+      "token_additive": {
+        "train": {
+          "acc": 0.875,
+          "examples": [
+            {
+              "verb": "eat",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.36546256775833125,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.3589505273893118,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.35195998905720505,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.3458619586124676,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.002863666635060848,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.3588310129965835,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0030807476118971666,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.37121376411975876,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0032873575740133337,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.3830225352233858,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0034820397271256623,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.19109696112605015,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.18677733768536894,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.18218691751305963,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.31596230893134386,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.31259968968174906,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.17822140890198573,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0011765984898044137,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.18669845369262875,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0012659532032419155,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.19494722416942042,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0013510191393921857,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.2029586394837573,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0014311931411857043,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.09790093002674176,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.09543938873269572,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.09283751067724375,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.17504867885202416,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.17280687067986644,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 1,
+              "prob": 0.09060134136784238,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0953945555105938,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0005819561356962074,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.10010583826359468,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0006210893573296423,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.10472673596141814,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0006579754202468575,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.10090977706725286,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0983808342043024,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.09570725069110385,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.1799555679144617,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.1776644520900389,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.09340907569973976,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0005593314674700699,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 1,
+              "prob": 0.09833476943192232,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.10317469967343205,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0006423064105367304,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.10792026785796703,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0006804516814706628,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.10409890684650708,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.10149906254929468,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.09875001973087408,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.18512845881291723,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.18278616382654667,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.09638656789917975,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0005790509984484656,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.10145170201832336,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0006230543205969722,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 1,
+              "prob": 0.10642693648845988,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.11130352767370003,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0007044383608304754,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.10747827869373476,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.10480390854886948,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.10197551483951851,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.1905787387868641,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.18818341039279213,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0995433915706165,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0006000997884351593,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.10475518573081798,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0006457016196665936,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.10987261490116339,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0006891184048660673,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 1,
+              "prob": 0.1148867913689242,
+              "pred": 0
+            }
+          ]
+        },
+        "test": {
+          "acc": 0.6,
+          "examples": [
+            {
+              "verb": "eat",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.529659039561872,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.5257702189996297,
+              "pred": 1
+            },
+            {
+              "verb": "drink",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 1,
+              "prob": 0.0005408538093191459,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 1,
+              "prob": 0.0006018371627343562,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 1,
+              "prob": 0.000664949321368444,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 1,
+              "prob": 0.0007300417140322357,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.3458619586124676,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.09790093002674176,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.10317469967343205,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.10145170201832336,
+              "pred": 0
+            }
+          ]
+        },
+        "n_features": 19
+      },
+      "semantic_prefix": {
+        "train": {
+          "acc": 1.0,
+          "examples": [
+            {
+              "verb": "eat",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.9975334180480357,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.9975334180480357,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 1,
+              "prob": 0.9975334180480357,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0009205782028154388,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0009205782028154388,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0009393706286873996,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0009393706286873996,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0009564300470004081,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0009564300470004081,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0009719225091272837,
+              "pred": 0
+            },
+            {
+              "verb": "eat",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0009719225091272837,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022967676194879604,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022967676194879604,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0022967676194879604,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.9943953689373789,
+              "pred": 1
+            },
+            {
+              "verb": "take",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.9943953689373789,
+              "pred": 1
+            },
+            {
+              "verb": "take",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0006708431451984833,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0006708431451984833,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0006853474439059109,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0006853474439059109,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0006982416953937675,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0006982416953937675,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0007098727630639396,
+              "pred": 0
+            },
+            {
+              "verb": "take",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0007098727630639396,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.00046199347180282956,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.00046199347180282956,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.00046199347180282956,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.000600606247580946,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.000600606247580946,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 1,
+              "prob": 0.9930237913979925,
+              "pred": 1
+            },
+            {
+              "verb": "drink",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.000854749889294133,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.000854749889294133,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0008663046973608848,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0008663046973608848,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0008770372113923313,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0008770372113923313,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004585375752042362,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004585375752042362,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004585375752042362,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0005956236935306147,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0005956236935306147,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0008895427731136071,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0008895427731136071,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 1,
+              "prob": 0.993027110585544,
+              "pred": 1
+            },
+            {
+              "verb": "wear",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0008573599557010729,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0008573599557010729,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0008683629132398298,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0008683629132398298,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004545368654355013,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004545368654355013,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004545368654355013,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0005904952575749576,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0005904952575749576,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0008820560536793237,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0008820560536793237,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0008917090006530662,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0008917090006530662,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 1,
+              "prob": 0.9930304489418136,
+              "pred": 1
+            },
+            {
+              "verb": "drive",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0008595625323994696,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 0,
+              "prob": 0.0008595625323994696,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004501811910329446,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "noodle",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004501811910329446,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "apple",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.0004501811910329446,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0005852288197839414,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 0,
+              "prob": 0.0005852288197839414,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0008742999218075301,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0008742999218075301,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0008841277144983224,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0008841277144983224,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0008935278017988666,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0008935278017988666,
+              "pred": 0
+            },
+            {
+              "verb": "visit",
+              "object": "paris",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 1,
+              "prob": 0.9930338434473088,
+              "pred": 1
+            }
+          ]
+        },
+        "test": {
+          "acc": 1.0,
+          "examples": [
+            {
+              "verb": "eat",
+              "object": "amoxicillin",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.7088480844207262,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "ibuprofen",
+              "path": [
+                "entity",
+                "consumable",
+                "medicine"
+              ],
+              "gold": 1,
+              "prob": 0.7088480844207262,
+              "pred": 1
+            },
+            {
+              "verb": "drink",
+              "object": "milk",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 1,
+              "prob": 0.9930237913979925,
+              "pred": 1
+            },
+            {
+              "verb": "wear",
+              "object": "hoodie",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 1,
+              "prob": 0.993027110585544,
+              "pred": 1
+            },
+            {
+              "verb": "drive",
+              "object": "truck",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 1,
+              "prob": 0.9930304489418136,
+              "pred": 1
+            },
+            {
+              "verb": "visit",
+              "object": "museum",
+              "path": [
+                "entity",
+                "visitable",
+                "location"
+              ],
+              "gold": 1,
+              "prob": 0.9930338434473088,
+              "pred": 1
+            },
+            {
+              "verb": "eat",
+              "object": "water",
+              "path": [
+                "entity",
+                "drinkable",
+                "beverage"
+              ],
+              "gold": 0,
+              "prob": 0.0009205782028154388,
+              "pred": 0
+            },
+            {
+              "verb": "drink",
+              "object": "rice",
+              "path": [
+                "entity",
+                "consumable",
+                "food"
+              ],
+              "gold": 0,
+              "prob": 0.00046199347180282956,
+              "pred": 0
+            },
+            {
+              "verb": "wear",
+              "object": "car",
+              "path": [
+                "entity",
+                "drivable",
+                "vehicle"
+              ],
+              "gold": 0,
+              "prob": 0.0008573599557010729,
+              "pred": 0
+            },
+            {
+              "verb": "drive",
+              "object": "shirt",
+              "path": [
+                "entity",
+                "wearable",
+                "clothing"
+              ],
+              "gold": 0,
+              "prob": 0.0008917090006530662,
+              "pred": 0
+            }
+          ]
+        },
+        "n_features": 78
+      }
+    }
+  },
+  "traces": {
+    "pair": [
+      {
+        "epoch": 1,
+        "loss": 0.43801410901467314,
+        "acc": 0.875
+      },
+      {
+        "epoch": 2,
+        "loss": 0.3664338118668737,
+        "acc": 0.875
+      },
+      {
+        "epoch": 5,
+        "loss": 0.3221202628962518,
+        "acc": 0.875
+      },
+      {
+        "epoch": 10,
+        "loss": 0.2567966378623436,
+        "acc": 0.875
+      },
+      {
+        "epoch": 50,
+        "loss": 0.07198411654947355,
+        "acc": 1.0
+      },
+      {
+        "epoch": 100,
+        "loss": 0.034332685413876275,
+        "acc": 1.0
+      },
+      {
+        "epoch": 800,
+        "loss": 0.003937728245393455,
+        "acc": 1.0
+      }
+    ],
+    "token_additive": [
+      {
+        "epoch": 1,
+        "loss": 0.43312585043438134,
+        "acc": 0.875
+      },
+      {
+        "epoch": 2,
+        "loss": 0.3925573595781217,
+        "acc": 0.875
+      },
+      {
+        "epoch": 5,
+        "loss": 0.37236386496979523,
+        "acc": 0.875
+      },
+      {
+        "epoch": 10,
+        "loss": 0.3543786645305345,
+        "acc": 0.875
+      },
+      {
+        "epoch": 50,
+        "loss": 0.33147151612203785,
+        "acc": 0.875
+      },
+      {
+        "epoch": 100,
+        "loss": 0.32817532597473426,
+        "acc": 0.875
+      },
+      {
+        "epoch": 800,
+        "loss": 0.3255071957612929,
+        "acc": 0.875
+      }
+    ],
+    "semantic_prefix": [
+      {
+        "epoch": 1,
+        "loss": 0.41470175583411817,
+        "acc": 0.875
+      },
+      {
+        "epoch": 2,
+        "loss": 0.3337617719124717,
+        "acc": 0.875
+      },
+      {
+        "epoch": 5,
+        "loss": 0.21129454328747982,
+        "acc": 0.9166666666666666
+      },
+      {
+        "epoch": 10,
+        "loss": 0.12435849284388434,
+        "acc": 0.9444444444444444
+      },
+      {
+        "epoch": 50,
+        "loss": 0.022686605681823603,
+        "acc": 1.0
+      },
+      {
+        "epoch": 100,
+        "loss": 0.010865213477173109,
+        "acc": 1.0
+      },
+      {
+        "epoch": 800,
+        "loss": 0.0013617531564244863,
+        "acc": 1.0
+      }
+    ]
+  },
+  "pass_checks": {
+    "semantic_prefix_solves_all_heldout": true,
+    "pair_memory_fails_unseen_positive": true,
+    "eat_amoxicillin_transfers": true
+  },
+  "pilot_pass": true,
+  "limits": [
+    "toy ontology is provided, not learned from raw corpus",
+    "semantic prefix paths are supervised",
+    "does not prove natural language semantics",
+    "does not prove WMT translation",
+    "next proof must learn or induce prefix nodes from data"
+  ],
+  "elapsed_sec": 0.21425342559814453
+}

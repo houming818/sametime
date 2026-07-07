@@ -1,0 +1,39 @@
+host=io
+2026-07-07T19:27:45+08:00
+Python 3.10.12
+{
+  "pilot_pass": true,
+  "metrics": {
+    "pair_memory_test_acc": 0.4,
+    "pair_logistic_test_acc": 0.4,
+    "token_additive_test_acc": 0.6,
+    "semantic_prefix_test_acc": 1.0,
+    "semantic_prefix_train_acc": 1.0
+  },
+  "key_case": {
+    "question": "Can eat + amoxicillin be accepted without that pair in training?",
+    "pair_memory": {
+      "verb": "eat",
+      "object": "amoxicillin",
+      "gold": 1,
+      "pred": 0
+    },
+    "semantic_prefix": {
+      "verb": "eat",
+      "object": "amoxicillin",
+      "path": [
+        "entity",
+        "consumable",
+        "medicine"
+      ],
+      "gold": 1,
+      "prob": 0.7088480844207262,
+      "pred": 1
+    },
+    "deduction": [
+      "amoxicillin -> medicine -> consumable",
+      "eat accepts consumable",
+      "therefore eat + amoxicillin should be accepted"
+    ]
+  }
+}

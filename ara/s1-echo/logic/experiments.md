@@ -1857,3 +1857,107 @@ sum embeddings are not yet a drop-in replacement for dense vocab-count subheap
 summaries. The next proof should test learned token/subheap embeddings,
 normalization, collision controls, repeated-token cases, and matched pointer
 baselines.
+
+## P-S1-SEMANTIC-PREFIX01: Semantic Prefix Compression
+
+Status: executed / supported toy
+Claim: S1-SEMANTIC-PREFIX-C01
+Script: `src/s1_semantic_prefix_compression_probe.py`
+Evidence: `evidence/s1_semantic_prefix_compression_probe/`
+
+### Question
+
+Can a TreeHeap-like semantic prefix support deductive transfer to an unseen
+leaf pair?
+
+The motivating example:
+
+```text
+amoxicillin -> medicine -> consumable
+eat accepts consumable
+therefore eat + amoxicillin should be accepted
+```
+
+The pair `eat + amoxicillin` is intentionally absent from training.
+
+### Mechanism
+
+The toy world gives each object a semantic prefix path:
+
+```text
+rice        -> entity -> consumable -> food
+noodle      -> entity -> consumable -> food
+apple       -> entity -> consumable -> food
+amoxicillin -> entity -> consumable -> medicine
+ibuprofen   -> entity -> consumable -> medicine
+water       -> entity -> drinkable  -> beverage
+shirt       -> entity -> wearable   -> clothing
+car         -> entity -> drivable   -> vehicle
+```
+
+The semantic-prefix model receives features equivalent to:
+
+```text
+(verb, object prefix class)
+```
+
+So `eat + rice` and `eat + amoxicillin` share the internal node:
+
+```text
+consumable
+```
+
+Baselines:
+
+```text
+pair_memory       = exact seen positive pair lookup
+pair_logistic     = pair-id feature only
+token_additive    = verb-id + object-id, no prefix class
+semantic_prefix   = verb + object semantic prefix
+```
+
+### Result
+
+```text
+train_size = 72
+test_size = 10
+
+pair_memory_test_acc     = 0.4
+pair_logistic_test_acc   = 0.4
+token_additive_test_acc  = 0.6
+semantic_prefix_test_acc = 1.0
+semantic_prefix_train_acc = 1.0
+```
+
+Key held-out case:
+
+```text
+question = Can eat + amoxicillin be accepted without that pair in training?
+
+pair_memory:
+  gold = 1
+  pred = 0
+
+semantic_prefix:
+  path = [entity, consumable, medicine]
+  gold = 1
+  prob = 0.7088
+  pred = 1
+```
+
+### Decision
+
+```text
+S1-SEMANTIC-PREFIX-C01 -> supported toy
+```
+
+This supports the narrow claim that prefix structure can carry a deductive
+transfer signal that pair memorization does not have.
+
+### Boundary
+
+The semantic ontology is supervised and hand-provided. This proof does not show
+that TreeHeap can learn semantic prefixes from raw text, does not prove WMT
+translation, and does not prove natural-language understanding. The next proof
+must learn or induce prefix nodes from data, or connect the prefix state to a
+real corpus co-occurrence signal.
