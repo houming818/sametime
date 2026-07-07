@@ -1986,15 +1986,42 @@ good TreeHeap placement
   + reduces description length
 ```
 
-### Proposed Loss
+### Reviewed Minimal Loss
 
 ```text
-L = L_echo
-  + L_context_prediction
-  + L_InfoNCE
-  + L_replacement_consistency
-  + lambda * L_description_length
+L = L_echo + L_context_prediction
 ```
+
+The first proof intentionally does not include InfoNCE, replacement
+consistency, or description-length pressure.  Those losses are reserved for
+later ablation if the minimal gate works.
+
+The context term is positive-observation learning plus a density constraint:
+
+```text
+observed pair      -> positive
+unobserved pair    -> unknown, not automatically negative
+score density      -> kept near observed pair density
+```
+
+This matters because held-out transfer would be impossible if every missing
+verb-object pair were trained as a negative.
+
+### Learnable TreeHeap Parts
+
+```text
+Theta_place:
+  object leaf -> soft prefix/internal-node slot
+
+Theta_compose:
+  objects assigned to one slot -> prefix state
+
+context read:
+  verb/context -> prefix compatibility -> object probability bucket
+```
+
+This directly addresses SPR-047's compact-state blocker: passive random sums
+are not enough; placement and compose must be learned.
 
 ### Synthetic First Corpus
 
@@ -2028,18 +2055,40 @@ structured corpus -> stable latent prefixes and held-out transfer
 shuffled corpus   -> prefix structure collapses
 ```
 
+More concretely:
+
+```text
+structured cluster purity > shuffled cluster purity
+structured pairwise F1    > shuffled pairwise F1
+structured heldout MRR    > shuffled heldout MRR
+```
+
 ### Planned Metrics
 
 Labels may be used only for audit, not training:
 
 ```text
 echo exact
-context prediction accuracy
-InfoNCE retrieval
-nearest-neighbor class accuracy
 cluster purity / ARI / NMI
 held-out transfer
 structured-vs-shuffled gap
+```
+
+Current implementation reports cluster purity, pairwise F1, heldout top-k/MRR,
+heldout beats-other-category, echo accuracy, and context cell accuracy.
+
+### Execution
+
+Script:
+
+```text
+ara/s1-echo/src/s1_encoder_minimal_observer_probe.py
+```
+
+Evidence target:
+
+```text
+ara/s1-echo/evidence/s1_encoder_minimal_observer_probe_overnight/
 ```
 
 ### Boundary

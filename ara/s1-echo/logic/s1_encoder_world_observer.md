@@ -164,6 +164,48 @@ This is the mathematical reason TreeHeap should discover internal nodes:
 shared prefix = shorter explanation
 ```
 
+## Minimal Gate After Review
+
+DeepSeek and Houming818's review raised a useful constraint:
+
+```text
+Do not start with five losses.
+First prove that one small learning loop can induce structure.
+```
+
+So the first executable proof is deliberately smaller:
+
+```text
+L = L_echo + L_context
+```
+
+It must still keep the important TreeHeap part:
+
+```text
+Theta_place:
+  leaf/object -> soft internal prefix slot
+
+Theta_compose:
+  leaves assigned to a slot -> prefix/internal-node state
+
+Context prediction:
+  observed verb-object pairs are positives
+  unobserved held-out pairs are unknown, not direct negatives
+  a global density constraint prevents all pairs from becoming positive
+  verb/context reads through learned prefix states
+```
+
+This is not allowed to be a passive random-vector sum:
+
+```text
+bad:  H_parent = sum(child vectors)
+good: H_parent = Compose_Theta(assigned child states, slot state)
+```
+
+The reason is SPR-047's compact-route failure: random sums can preserve some
+mass but lose subheap identity.  The encoder must learn placement and compose
+together.
+
 ## Three Reasoning Modes
 
 The encoder should eventually support three reasoning modes by how it structures
@@ -233,7 +275,7 @@ pour milk
 
 Do not provide `food`, `medicine`, or `beverage` labels during training.
 
-Train a TreeHeap encoder with:
+The full future direction may use:
 
 ```text
 L = L_echo
@@ -241,6 +283,12 @@ L = L_echo
   + L_InfoNCE
   + L_replacement_consistency
   + lambda * L_description_length
+```
+
+But the immediate gate uses only:
+
+```text
+L = L_echo + L_context_prediction
 ```
 
 Evaluate after training with labels only as an audit tool:
@@ -258,6 +306,28 @@ Key prediction:
 structured corpus should induce stable prefix clusters;
 shuffled corpus should not.
 ```
+
+The current planned script is:
+
+```text
+ara/s1-echo/src/s1_encoder_minimal_observer_probe.py
+```
+
+It trains on two corpora:
+
+```text
+structured:
+  eat/cook/order    -> rice/noodle/apple
+  take/prescribe/buy -> amoxicillin/ibuprofen/aspirin
+  ...
+
+shuffled control:
+  same verb/object counts, but category law destroyed
+```
+
+Gold labels such as `food` and `medicine` are hidden during training.  They are
+used only after training to compute cluster purity, pairwise F1, and held-out
+transfer.
 
 ## Falsification
 
