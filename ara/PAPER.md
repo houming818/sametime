@@ -275,6 +275,7 @@ https://www.lostmap.cn/spr/
 | `ara/s1-echo/evidence/s1_content_treeheap_route_probe_20k_e5/` | Content-aware recursive TreeHeap route using dense subheap vocab-count summaries |
 | `ara/s1-echo/evidence/s1_compact_content_treeheap_route_probe_20k*/` | Compact subheap embedding route attempts; memory reduction positive, OOD route exact still below gate |
 | `ara/s1-echo/evidence/s1_semantic_prefix_compression_probe/` | Supervised toy semantic-prefix compression proof for deductive transfer to unseen leaves |
+| `ara/s1-echo/logic/s1_encoder_world_observer.md` | Design note for TreeHeap encoder-as-world-observer and compressibility-driven prefix induction |
 
 ## Current Open Proof Queue
 
@@ -289,8 +290,9 @@ Highest priority open experiments:
    - Update: C6-017 reframes S1 as WMT canonical echo. The first 50k-pair run is a weak positive for bilingual canonical alignment plus echo, with only a small TreeHeap advantage over BoW.
    - Update: C6-018/C6-019 repair the route mechanism boundary after audit: recursive route and dense content-aware route pass on WMT-massive OOD lengths, but compact subheap embeddings are still mixed because route-level exactness falls below the dense gate.
    - Update: C6-020 adds a supervised toy semantic-prefix proof: prefix class structure can support deductive transfer (`amoxicillin -> medicine -> consumable`, `eat` accepts `consumable`) where pair memorization fails. This is not natural-language semantic learning.
-   - Next: stronger sequence/Transformer baselines, larger candidate retrieval windows, and separating root canonical meaning from leaf echo memory.
-   - Pass gate: non-empty subheap metrics, noisy/masked restore, and matched copy-capable baselines.
+   - Update: C6-021 reframes the next blocker as encoder induction: `Encode_Theta(raw observations) -> H_tree` must learn placement/fold/prefix structure from compressibility signals, not receive semantic labels.
+   - Next: run structured-vs-shuffled unlabeled corpus proof with echo, context prediction, InfoNCE, replacement consistency, and description-length pressure.
+   - Pass gate: learned prefixes appear in structured data, disappear under shuffled controls, preserve echo, and beat flat/bag/pair baselines on held-out transfer.
 
 1.5. `Parameter TreeHeap Kernel Learning`
    - Claim: C6-013.
@@ -367,6 +369,7 @@ Algebraic internal readout is a better target than arbitrary checksum.
 Ordered fold is necessary before bag/mod/cyclic fold for natural subheap readout.
 Heap-state relaxation is a valid state-gradient pilot, not a translation claim.
 Supervised semantic-prefix structure can support toy deductive transfer where pair memorization fails.
+The next S1 gate is encoder induction: TreeHeap prefixes must be learned from observation statistics, not supplied as labels.
 ```
 
 ## Maintenance Rule

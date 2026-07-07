@@ -1961,3 +1961,89 @@ that TreeHeap can learn semantic prefixes from raw text, does not prove WMT
 translation, and does not prove natural-language understanding. The next proof
 must learn or induce prefix nodes from data, or connect the prefix state to a
 real corpus co-occurrence signal.
+
+## P-S1-ENCODER-OBS01: Encoder as World Observer
+
+Status: planned
+Claim: S1-ENCODER-OBS-C01
+Design: `logic/s1_encoder_world_observer.md`
+
+### Question
+
+Can a TreeHeap encoder infer useful placement, fold, and prefix structure from
+observation statistics rather than receiving food/medicine-style labels?
+
+### Core Hypothesis
+
+TreeHeap ordering should be selected by compressibility:
+
+```text
+good TreeHeap placement
+  = preserves echo
+  + predicts context
+  + aligns positive observations
+  + separates mismatched observations
+  + reduces description length
+```
+
+### Proposed Loss
+
+```text
+L = L_echo
+  + L_context_prediction
+  + L_InfoNCE
+  + L_replacement_consistency
+  + lambda * L_description_length
+```
+
+### Synthetic First Corpus
+
+Training uses only observations, not class labels:
+
+```text
+eat rice
+eat noodle
+eat apple
+cook rice
+cook noodle
+cook apple
+
+take amoxicillin
+take ibuprofen
+prescribe amoxicillin
+prescribe ibuprofen
+
+drink water
+drink milk
+pour water
+pour milk
+```
+
+### Predict
+
+If the hypothesis is right:
+
+```text
+structured corpus -> stable latent prefixes and held-out transfer
+shuffled corpus   -> prefix structure collapses
+```
+
+### Planned Metrics
+
+Labels may be used only for audit, not training:
+
+```text
+echo exact
+context prediction accuracy
+InfoNCE retrieval
+nearest-neighbor class accuracy
+cluster purity / ARI / NMI
+held-out transfer
+structured-vs-shuffled gap
+```
+
+### Boundary
+
+This is not yet an executed proof. It is the next review target before writing
+the experiment. The main risk is that the proposed losses merely recreate a
+flat embedding cluster rather than a TreeHeap-specific prefix state.
