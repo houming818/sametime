@@ -51,29 +51,41 @@ def detok_zh(tokens: list[str]) -> str:
 def read_pairs(args):
     pairs = []
     en_counter, zh_counter = Counter(), Counter()
-    path = Path(args.wmt_path)
-    with path.open("r", encoding="utf-8", errors="ignore") as f:
-        for line_no, line in enumerate(f):
-            if line_no >= args.scan_lines:
-                break
-            line = line.rstrip("\n")
-            if "\t" not in line:
-                continue
-            en, zh = line.split("\t", 1)
-            en_t = tok_en(en)
-            zh_t = tok_zh(zh)
-            if not (args.min_len <= len(en_t) <= args.max_len and args.min_len <= len(zh_t) <= args.max_len):
-                continue
-            pairs.append((en_t, zh_t, en, zh))
-            en_counter.update(en_t)
-            zh_counter.update(zh_t)
-            if len(pairs) >= args.samples * 2:
-                break
-    if len(pairs) < args.samples:
-        raise RuntimeError(f"only collected {len(pairs)} pairs, need {args.samples}")
+    target = None if args.samples <= 0 else args.samples
+    scan_limit = None if args.scan_lines <= 0 else args.scan_lines
+    for raw_path in args.wmt_path.split(","):
+        path = Path(raw_path.strip())
+        if not path:
+            continue
+        with path.open("r", encoding="utf-8", errors="ignore") as f:
+            for line_no, line in enumerate(f):
+                if scan_limit is not None and line_no >= scan_limit:
+                    break
+                line = line.rstrip("\n")
+                if "\t" not in line:
+                    continue
+                a, b = line.split("\t", 1)
+                if sum("\u4e00" <= ch <= "\u9fff" for ch in a) > sum("\u4e00" <= ch <= "\u9fff" for ch in b):
+                    zh, en = a, b
+                else:
+                    en, zh = a, b
+                en_t = tok_en(en)
+                zh_t = tok_zh(zh)
+                if not (args.min_len <= len(en_t) <= args.max_len and args.min_len <= len(zh_t) <= args.max_len):
+                    continue
+                pairs.append((en_t, zh_t, en, zh))
+                en_counter.update(en_t)
+                zh_counter.update(zh_t)
+                if target is not None and len(pairs) >= target * 2:
+                    break
+        if target is not None and len(pairs) >= target * 2:
+            break
+    if target is not None and len(pairs) < target:
+        raise RuntimeError(f"only collected {len(pairs)} pairs, need {target}")
     rng = random.Random(args.seed)
     rng.shuffle(pairs)
-    pairs = pairs[: args.samples]
+    if target is not None:
+        pairs = pairs[:target]
     en_vocab = ["<pad>", "<unk>"] + [w for w, _ in en_counter.most_common(args.en_vocab - 2)]
     zh_vocab = ["<pad>", "<unk>"] + [w for w, _ in zh_counter.most_common(args.zh_vocab - 2)]
     en_stoi = {w: i for i, w in enumerate(en_vocab)}
@@ -199,6 +211,86 @@ class BoWCanonical(nn.Module):
         return en_root, zh_root, self.en_dec(en_leaf), self.zh_dec(zh_leaf)
 
 
+class LSTMCanonical(nn.Module):
+    def __init__(self, en_vocab, zh_vocab, max_len, dim):
+        super().__init__()
+        self.kind = "lstm"
+        self.max_len = max_len
+        self.en_emb = nn.Embedding(en_vocab, dim, padding_idx=PAD)
+        self.zh_emb = nn.Embedding(zh_vocab, dim, padding_idx=PAD)
+        self.en_lstm = nn.LSTM(dim, dim // 2, num_layers=1, batch_first=True, bidirectional=True)
+        self.zh_lstm = nn.LSTM(dim, dim // 2, num_layers=1, batch_first=True, bidirectional=True)
+        self.en_proj = nn.Sequential(nn.Linear(dim, dim), nn.LayerNorm(dim))
+        self.zh_proj = nn.Sequential(nn.Linear(dim, dim), nn.LayerNorm(dim))
+        self.en_dec = nn.Linear(dim, en_vocab)
+        self.zh_dec = nn.Linear(dim, zh_vocab)
+
+    @staticmethod
+    def mean_pool(leaf, ids):
+        mask = (ids != PAD).float().unsqueeze(-1)
+        return (leaf * mask).sum(dim=1) / mask.sum(dim=1).clamp_min(1.0)
+
+    def forward(self, en_ids, zh_ids):
+        en_leaf, _ = self.en_lstm(self.en_emb(en_ids))
+        zh_leaf, _ = self.zh_lstm(self.zh_emb(zh_ids))
+        en_root = F.normalize(self.en_proj(self.mean_pool(en_leaf, en_ids)), dim=-1)
+        zh_root = F.normalize(self.zh_proj(self.mean_pool(zh_leaf, zh_ids)), dim=-1)
+        return en_root, zh_root, self.en_dec(en_leaf), self.zh_dec(zh_leaf)
+
+
+class TransformerCanonical(nn.Module):
+    def __init__(self, en_vocab, zh_vocab, max_len, dim):
+        super().__init__()
+        self.kind = "transformer"
+        self.max_len = max_len
+        self.en_emb = nn.Embedding(en_vocab, dim, padding_idx=PAD)
+        self.zh_emb = nn.Embedding(zh_vocab, dim, padding_idx=PAD)
+        self.pos_emb = nn.Embedding(max_len, dim)
+        enc_layer = nn.TransformerEncoderLayer(
+            d_model=dim,
+            nhead=4,
+            dim_feedforward=dim * 4,
+            dropout=0.1,
+            batch_first=True,
+            activation="gelu",
+        )
+        self.en_tx = nn.TransformerEncoder(enc_layer, num_layers=2)
+        zh_layer = nn.TransformerEncoderLayer(
+            d_model=dim,
+            nhead=4,
+            dim_feedforward=dim * 4,
+            dropout=0.1,
+            batch_first=True,
+            activation="gelu",
+        )
+        self.zh_tx = nn.TransformerEncoder(zh_layer, num_layers=2)
+        self.en_proj = nn.Sequential(nn.Linear(dim, dim), nn.LayerNorm(dim))
+        self.zh_proj = nn.Sequential(nn.Linear(dim, dim), nn.LayerNorm(dim))
+        self.en_dec = nn.Linear(dim, en_vocab)
+        self.zh_dec = nn.Linear(dim, zh_vocab)
+
+    @staticmethod
+    def mean_pool(leaf, ids):
+        mask = (ids != PAD).float().unsqueeze(-1)
+        return (leaf * mask).sum(dim=1) / mask.sum(dim=1).clamp_min(1.0)
+
+    def forward(self, en_ids, zh_ids):
+        pos = torch.arange(self.max_len, device=en_ids.device).unsqueeze(0)
+        en_leaf = self.en_tx(self.en_emb(en_ids) + self.pos_emb(pos), src_key_padding_mask=(en_ids == PAD))
+        zh_leaf = self.zh_tx(self.zh_emb(zh_ids) + self.pos_emb(pos), src_key_padding_mask=(zh_ids == PAD))
+        en_root = F.normalize(self.en_proj(self.mean_pool(en_leaf, en_ids)), dim=-1)
+        zh_root = F.normalize(self.zh_proj(self.mean_pool(zh_leaf, zh_ids)), dim=-1)
+        return en_root, zh_root, self.en_dec(en_leaf), self.zh_dec(zh_leaf)
+
+
+MODEL_CLASSES = {
+    "treeheap": TreeHeapCanonical,
+    "bow": BoWCanonical,
+    "lstm": LSTMCanonical,
+    "transformer": TransformerCanonical,
+}
+
+
 def alignment_loss(en_root, zh_root, temp):
     logits = en_root @ zh_root.t() / temp
     labels = torch.arange(logits.shape[0], device=logits.device)
@@ -228,18 +320,20 @@ def batch_iter(indices, batch, rng):
 def train_one(model, arrays, split, args, device):
     model.to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
-    en = torch.tensor(arrays["en"], dtype=torch.long, device=device)
-    zh = torch.tensor(arrays["zh"], dtype=torch.long, device=device)
-    rng = np.random.default_rng(args.seed + (17 if model.kind == "treeheap" else 31))
+    en = torch.tensor(arrays["en"], dtype=torch.long)
+    zh = torch.tensor(arrays["zh"], dtype=torch.long)
+    rng = np.random.default_rng(args.seed + sum(ord(c) for c in model.kind))
     trace = []
     for epoch in range(args.epochs):
         total = {"loss": 0.0, "align": 0.0, "echo": 0.0, "n": 0}
         for sel_np in batch_iter(split["train"], args.batch, rng):
-            sel = torch.tensor(sel_np, dtype=torch.long, device=device)
+            sel = torch.tensor(sel_np, dtype=torch.long)
+            en_batch = en[sel].to(device, non_blocking=True)
+            zh_batch = zh[sel].to(device, non_blocking=True)
             opt.zero_grad(set_to_none=True)
-            en_root, zh_root, en_logits, zh_logits = model(en[sel], zh[sel])
+            en_root, zh_root, en_logits, zh_logits = model(en_batch, zh_batch)
             l_align = alignment_loss(en_root, zh_root, args.temperature)
-            l_echo = echo_loss(en_logits, zh_logits, en[sel], zh[sel])
+            l_echo = echo_loss(en_logits, zh_logits, en_batch, zh_batch)
             l_var = variance_loss(en_root, zh_root, args.target_std)
             loss = args.align_weight * l_align + args.echo_weight * l_echo + args.var_weight * l_var
             loss.backward()
@@ -261,12 +355,14 @@ def train_one(model, arrays, split, args, device):
 def compute_roots(model, arrays, indices, args, device):
     model.to(device)
     en_all, zh_all, en_pred, zh_pred = [], [], [], []
-    en = torch.tensor(arrays["en"], dtype=torch.long, device=device)
-    zh = torch.tensor(arrays["zh"], dtype=torch.long, device=device)
+    en = torch.tensor(arrays["en"], dtype=torch.long)
+    zh = torch.tensor(arrays["zh"], dtype=torch.long)
     with torch.no_grad():
         for i in range(0, len(indices), args.eval_batch):
-            sel = torch.tensor(indices[i : i + args.eval_batch], dtype=torch.long, device=device)
-            er, zr, elog, zlog = model(en[sel], zh[sel])
+            sel = torch.tensor(indices[i : i + args.eval_batch], dtype=torch.long)
+            en_batch = en[sel].to(device, non_blocking=True)
+            zh_batch = zh[sel].to(device, non_blocking=True)
+            er, zr, elog, zlog = model(en_batch, zh_batch)
             en_all.append(er.cpu())
             zh_all.append(zr.cpu())
             en_pred.append(elog.argmax(-1).cpu())
@@ -355,6 +451,10 @@ def evaluate_untrained(model_cls, arrays, split, args, device):
     return {name: metric_for_split(model, arrays, idx[: args.max_eval], args, device) for name, idx in split.items() if name != "train"}
 
 
+def instantiate_model(name, arrays, args):
+    return MODEL_CLASSES[name](len(arrays["en_vocab"]), len(arrays["zh_vocab"]), args.max_len, args.dim)
+
+
 def run(args):
     started = time.time()
     random.seed(args.seed)
@@ -363,23 +463,29 @@ def run(args):
     arrays, split = build_arrays(args)
     device = torch.device(args.device)
 
-    tree = TreeHeapCanonical(len(arrays["en_vocab"]), len(arrays["zh_vocab"]), args.max_len, args.dim)
-    bow = BoWCanonical(len(arrays["en_vocab"]), len(arrays["zh_vocab"]), args.max_len, args.dim)
+    model_names = [x.strip() for x in args.models.split(",") if x.strip()]
+    unknown = [x for x in model_names if x not in MODEL_CLASSES]
+    if unknown:
+        raise ValueError(f"unknown models: {unknown}; available={sorted(MODEL_CLASSES)}")
     untrained_tree = evaluate_untrained(TreeHeapCanonical, arrays, split, args, device)
-    tree, tree_trace = train_one(tree, arrays, split, args, device)
-    bow, bow_trace = train_one(bow, arrays, split, args, device)
+    metrics = {"untrained_treeheap": untrained_tree}
+    traces = {}
+    params = {}
+    examples = {}
+    for model_name in model_names:
+        model = instantiate_model(model_name, arrays, args)
+        model, trace = train_one(model, arrays, split, args, device)
+        traces[model_name] = trace
+        params[model_name] = sum(p.numel() for p in model.parameters())
+        metrics[model_name] = {name: metric_for_split(model, arrays, idx[: args.max_eval], args, device) for name, idx in split.items() if name != "train"}
+        examples[f"{model_name}_ood"] = readable_examples(model, arrays, split["ood"], args, device, args.examples if model_name == "treeheap" else min(3, args.examples))
 
-    metrics = {
-        "treeheap": {name: metric_for_split(tree, arrays, idx[: args.max_eval], args, device) for name, idx in split.items() if name != "train"},
-        "bow": {name: metric_for_split(bow, arrays, idx[: args.max_eval], args, device) for name, idx in split.items() if name != "train"},
-        "untrained_treeheap": untrained_tree,
-    }
-    examples = {
-        "treeheap_ood": readable_examples(tree, arrays, split["ood"], args, device, args.examples),
-        "bow_ood": readable_examples(bow, arrays, split["ood"], args, device, min(3, args.examples)),
-    }
-    ood = metrics["treeheap"]["ood"]
-    bow_ood = metrics["bow"]["ood"]
+    primary = args.primary_model
+    baseline = args.baseline_model
+    if primary not in metrics or baseline not in metrics:
+        raise ValueError(f"primary/baseline missing from trained models: primary={primary}, baseline={baseline}, models={model_names}")
+    ood = metrics[primary]["ood"]
+    bow_ood = metrics[baseline]["ood"]
     raw_ood = metrics["untrained_treeheap"]["ood"]
     pass_checks = {
         "positive_distance_below_negative": ood["positive_distance"] < ood["negative_distance"],
@@ -387,8 +493,13 @@ def run(args):
         "positive_probability_beats_random": ood["positive_pair_probability"] > ood["random_retrieval_at_1"] * args.min_prob_gain,
         "entropy_below_uniform": ood["alignment_entropy"] < ood["uniform_entropy"],
         "echo_nontrivial": min(ood["en_echo_token_acc"], ood["zh_echo_token_acc"]) >= args.min_echo_token_acc,
-        "treeheap_beats_bow_margin": ood["distance_margin_neg_minus_pos"] > bow_ood["distance_margin_neg_minus_pos"],
+        "primary_beats_baseline_margin": ood["distance_margin_neg_minus_pos"] > bow_ood["distance_margin_neg_minus_pos"],
     }
+    model_summaries = {
+        name: {"trace": traces[name], "metrics": metrics[name], "parameters": params[name]}
+        for name in model_names
+    }
+    model_summaries["untrained_treeheap"] = {"metrics": metrics["untrained_treeheap"]}
     return {
         "claim": "S1-CANON-WMT-C01",
         "predict": "P-S1-CANON-WMT01",
@@ -403,11 +514,7 @@ def run(args):
             "en_vocab": int(len(arrays["en_vocab"])),
             "zh_vocab": int(len(arrays["zh_vocab"])),
         },
-        "models": {
-            "treeheap": {"trace": tree_trace, "metrics": metrics["treeheap"], "parameters": sum(p.numel() for p in tree.parameters())},
-            "bow": {"trace": bow_trace, "metrics": metrics["bow"], "parameters": sum(p.numel() for p in bow.parameters())},
-            "untrained_treeheap": {"metrics": metrics["untrained_treeheap"]},
-        },
+        "models": model_summaries,
         "examples": examples,
         "pass_checks": pass_checks,
         "pilot_pass": all(pass_checks.values()),
@@ -424,14 +531,27 @@ def write_outputs(summary, out_dir: Path):
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
     with (out_dir / "trace.jsonl").open("w", encoding="utf-8") as f:
-        for model_name in ["treeheap", "bow"]:
-            for row in summary["models"][model_name]["trace"]:
+        for model_name, model_row in summary["models"].items():
+            for row in model_row.get("trace", []):
                 f.write(json.dumps({"model": model_name, **row}, ensure_ascii=False) + "\n")
-    t = summary["models"]["treeheap"]["metrics"]["ood"]
-    b = summary["models"]["bow"]["metrics"]["ood"]
+    primary = summary["config"]["primary_model"]
+    baseline = summary["config"]["baseline_model"]
+    t = summary["models"][primary]["metrics"]["ood"]
+    b = summary["models"][baseline]["metrics"]["ood"]
     u = summary["models"]["untrained_treeheap"]["metrics"]["ood"]
+    model_lines = []
+    for name, model_row in summary["models"].items():
+        if "metrics" not in model_row or "ood" not in model_row["metrics"]:
+            continue
+        row = model_row["metrics"]["ood"]
+        model_lines.append(
+            f"{name:20s} margin={row['distance_margin_neg_minus_pos']:.6f} "
+            f"ret@1={row['retrieval_at_1']:.6f} ret@5={row['retrieval_at_5']:.6f} "
+            f"entropy={row['alignment_entropy']:.6f} en_echo={row['en_echo_token_acc']:.6f} "
+            f"zh_echo={row['zh_echo_token_acc']:.6f}"
+        )
     ex_lines = []
-    for ex in summary["examples"]["treeheap_ood"]:
+    for ex in summary["examples"].get(f"{primary}_ood", []):
         ex_lines.append(
             f"- paired_cos={ex['paired_cosine']:.4f}, top1={ex['top_match_rank1']}\n"
             f"  - EN: {ex['en']}\n"
@@ -450,21 +570,27 @@ Host: `{summary['host']}`
 pilot_pass: `{summary['pilot_pass']}`
 
 ```text
-treeheap_ood_positive_distance = {t['positive_distance']:.6f}
-treeheap_ood_negative_distance = {t['negative_distance']:.6f}
-treeheap_ood_margin            = {t['distance_margin_neg_minus_pos']:.6f}
-treeheap_ood_retrieval@1       = {t['retrieval_at_1']:.6f}
-treeheap_ood_retrieval@5       = {t['retrieval_at_5']:.6f}
-treeheap_ood_entropy           = {t['alignment_entropy']:.6f}
-treeheap_ood_en_echo_token     = {t['en_echo_token_acc']:.6f}
-treeheap_ood_zh_echo_token     = {t['zh_echo_token_acc']:.6f}
+{primary}_ood_positive_distance = {t['positive_distance']:.6f}
+{primary}_ood_negative_distance = {t['negative_distance']:.6f}
+{primary}_ood_margin            = {t['distance_margin_neg_minus_pos']:.6f}
+{primary}_ood_retrieval@1       = {t['retrieval_at_1']:.6f}
+{primary}_ood_retrieval@5       = {t['retrieval_at_5']:.6f}
+{primary}_ood_entropy           = {t['alignment_entropy']:.6f}
+{primary}_ood_en_echo_token     = {t['en_echo_token_acc']:.6f}
+{primary}_ood_zh_echo_token     = {t['zh_echo_token_acc']:.6f}
 
-bow_ood_margin                 = {b['distance_margin_neg_minus_pos']:.6f}
-bow_ood_retrieval@1            = {b['retrieval_at_1']:.6f}
+{baseline}_ood_margin           = {b['distance_margin_neg_minus_pos']:.6f}
+{baseline}_ood_retrieval@1      = {b['retrieval_at_1']:.6f}
 untrained_treeheap_entropy     = {u['alignment_entropy']:.6f}
 ```
 
-## Readable TreeHeap OOD Examples
+## OOD Model Table
+
+```text
+{chr(10).join(model_lines)}
+```
+
+## Readable {primary} OOD Examples
 
 {chr(10).join(ex_lines)}
 """
@@ -477,6 +603,9 @@ def main():
     parser.add_argument("--wmt-path", default="/mnt/nas/datasets/wmt17/train.zh-en")
     parser.add_argument("--scan-lines", type=int, default=500000)
     parser.add_argument("--samples", type=int, default=50000)
+    parser.add_argument("--models", default="treeheap,bow")
+    parser.add_argument("--primary-model", default="treeheap")
+    parser.add_argument("--baseline-model", default="bow")
     parser.add_argument("--min-len", type=int, default=4)
     parser.add_argument("--max-len", type=int, default=48)
     parser.add_argument("--en-vocab", type=int, default=8192)

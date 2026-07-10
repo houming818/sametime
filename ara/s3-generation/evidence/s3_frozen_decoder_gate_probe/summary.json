@@ -1,0 +1,163 @@
+{
+  "claim": "S3-FROZEN-DECODER-C01",
+  "experiment": "P-S3-FROZEN-DECODER01",
+  "source_s1_evidence": "ara/s1-echo/evidence/s1_encoder_minimal_observer_probe_026",
+  "method": "leave-one-object-out prefix probability bucket decoder over frozen S1 assignments",
+  "surface_target": "category surface label",
+  "summary": {
+    "shuffled": {
+      "decoder_top1": {
+        "mean": 0.09027777777777778,
+        "std": 0.08457789771502365,
+        "n": 24
+      },
+      "decoder_mrr": {
+        "mean": 0.3297453703703704,
+        "std": 0.06950887571699593,
+        "n": 24
+      },
+      "decoder_entropy_bits": {
+        "mean": 2.239356745314726,
+        "std": 0.08924009255084042,
+        "n": 24
+      }
+    },
+    "structured": {
+      "decoder_top1": {
+        "mean": 0.4398148148148148,
+        "std": 0.2034404865066651,
+        "n": 24
+      },
+      "decoder_mrr": {
+        "mean": 0.6736496913580247,
+        "std": 0.10963883739858865,
+        "n": 24
+      },
+      "decoder_entropy_bits": {
+        "mean": 1.937810864273802,
+        "std": 0.09590794476262307,
+        "n": 24
+      }
+    },
+    "structured_minus_shuffled": {
+      "decoder_top1": 0.34953703703703703,
+      "decoder_mrr": 0.3439043209876543,
+      "decoder_entropy_bits": -0.30154588104092395
+    }
+  },
+  "decision_hint": {
+    "support_if": "structured frozen encoder decoder beats shuffled decoder on top1 and mrr",
+    "not_proved": "exact sentence generation, WMT translation, or advantage over strong lexical semantic models"
+  },
+  "best_structured_examples": {
+    "mode": "structured",
+    "seed": 5,
+    "k": 6,
+    "decoder_top1": 0.8888888888888888,
+    "decoder_mrr": 0.9185185185185185,
+    "examples": [
+      {
+        "object_index": 0,
+        "prefix": 1,
+        "gold": "food",
+        "pred": "food",
+        "top1": 1.0,
+        "mrr": 1.0,
+        "entropy_bits": 1.7695459925589747,
+        "bucket": {
+          "food": 0.642857,
+          "medicine": 0.071429,
+          "beverage": 0.071429,
+          "clothing": 0.071429,
+          "vehicle": 0.071429,
+          "place": 0.071429
+        }
+      },
+      {
+        "object_index": 1,
+        "prefix": 1,
+        "gold": "food",
+        "pred": "food",
+        "top1": 1.0,
+        "mrr": 1.0,
+        "entropy_bits": 1.7695459925589747,
+        "bucket": {
+          "food": 0.642857,
+          "medicine": 0.071429,
+          "beverage": 0.071429,
+          "clothing": 0.071429,
+          "vehicle": 0.071429,
+          "place": 0.071429
+        }
+      },
+      {
+        "object_index": 2,
+        "prefix": 1,
+        "gold": "food",
+        "pred": "food",
+        "top1": 1.0,
+        "mrr": 1.0,
+        "entropy_bits": 1.7695459925589747,
+        "bucket": {
+          "food": 0.642857,
+          "medicine": 0.071429,
+          "beverage": 0.071429,
+          "clothing": 0.071429,
+          "vehicle": 0.071429,
+          "place": 0.071429
+        }
+      },
+      {
+        "object_index": 3,
+        "prefix": 0,
+        "gold": "medicine",
+        "pred": "medicine",
+        "top1": 1.0,
+        "mrr": 1.0,
+        "entropy_bits": 1.9399824743635556,
+        "bucket": {
+          "food": 0.055556,
+          "medicine": 0.5,
+          "beverage": 0.277778,
+          "clothing": 0.055556,
+          "vehicle": 0.055556,
+          "place": 0.055556
+        }
+      },
+      {
+        "object_index": 4,
+        "prefix": 0,
+        "gold": "medicine",
+        "pred": "medicine",
+        "top1": 1.0,
+        "mrr": 1.0,
+        "entropy_bits": 1.9399824743635556,
+        "bucket": {
+          "food": 0.055556,
+          "medicine": 0.5,
+          "beverage": 0.277778,
+          "clothing": 0.055556,
+          "vehicle": 0.055556,
+          "place": 0.055556
+        }
+      },
+      {
+        "object_index": 5,
+        "prefix": 0,
+        "gold": "medicine",
+        "pred": "medicine",
+        "top1": 1.0,
+        "mrr": 1.0,
+        "entropy_bits": 1.9399824743635556,
+        "bucket": {
+          "food": 0.055556,
+          "medicine": 0.5,
+          "beverage": 0.277778,
+          "clothing": 0.055556,
+          "vehicle": 0.055556,
+          "place": 0.055556
+        }
+      }
+    ]
+  }
+}

@@ -2096,3 +2096,189 @@ ara/s1-echo/evidence/s1_encoder_minimal_observer_probe_overnight/
 This is not yet an executed proof. It is the next review target before writing
 the experiment. The main risk is that the proposed losses merely recreate a
 flat embedding cluster rather than a TreeHeap-specific prefix state.
+
+## P-S1-PRIVATE-CODEC01: Private Codec Forest
+
+Status: executed
+Claim: S1-PRIVATE-CODEC-C01
+Design: `logic/s1_private_codec_forest.md`
+Script: `src/s1_private_codec_forest_probe.py`
+Evidence: `evidence/s1_private_codec_forest_probe/`
+
+### Question
+
+Can scalar loss write information into a parameter TreeHeap forest, and can two
+separate heads compose serially on a held-out intermediate state?
+
+### Setup
+
+Use a finite toy vocabulary:
+
+```text
+rice, noodle, apple, mango, amoxicillin, ibuprofen, stone, car
+```
+
+Train:
+
+```text
+Theta_food          -> rice / noodle / apple / mango
+Theta_rice_apple    -> rice / apple / stone
+Theta_noodle_mango  -> noodle / mango / car
+Theta_fruit_filter  -> reusable fruit filter
+```
+
+Held-out compositions:
+
+```text
+fruit_filter(food()) -> apple / mango
+fruit_filter(rice_apple()) -> apple
+fruit_filter(noodle_mango()) -> mango
+```
+
+The direct held-out composition loss is not used during training. The
+multi-source setup is important because a single `food -> apple/mango` target
+can be faked by a constant output.
+
+### Predict
+
+If TreeHeap can serve as a private parameter codec:
+
+```text
+food head loss falls
+filter head loss falls
+held-out serial composition recovers apple/mango
+constant-output and untrained baselines are worse
+parameter TreeHeap arr[i] actually moves under gradient
+```
+
+### Result
+
+```text
+pilot_pass = true
+heldout_serial_mean_ce = 0.2312
+constant_baseline_mean_ce = 0.7140
+untrained_composition_mean_ce = 2.0131
+heldout_support_correct = true
+source_food_ce = 1.3864
+```
+
+All pass checks are true:
+
+```text
+source_ce_low
+heldout_composition_ce_low
+heldout_support_correct
+constant_baseline_worse
+untrained_worse
+theta_moved
+```
+
+Decision:
+
+```text
+S1-PRIVATE-CODEC-C01 -> supported pilot
+```
+
+### Boundary
+
+This is a toy learning-mechanism proof, not natural-language semantics, WMT
+translation, or unsupervised ontology discovery.
+
+## P-S1-MASK-KERNEL01: Mask Kernel Structure Extraction
+
+Status: executed / weak positive
+Claim: S1-MASK-KERNEL-C01
+Design: `logic/s1_mask_kernel_structure_extraction.md`
+Script: `src/s1_mask_kernel_structure_extraction_probe.py`
+Evidence: `evidence/s1_mask_kernel_structure_extraction_probe/`
+
+### Question
+
+Can a TreeHeap mask kernel convolve over a masked sentence state and output a
+probability bucket of plausible fillers, rather than only echoing or memorizing
+an observed token?
+
+### Controlled Corpus
+
+Examples:
+
+```text
+I ate rice
+I ate noodles
+I cooked rice
+```
+
+Held-out:
+
+```text
+I cooked [MASK] -> noodles
+```
+
+Gold classes such as `food`, `drink`, and `place` are hidden during training
+and used only for top-k bucket-purity audit.
+
+### Baselines
+
+```text
+pair memory
+BoW MLP
+flat sequence MLP
+shuffled TreeHeap
+```
+
+### Predict
+
+```text
+TreeHeap held-out MRR > pair memory
+TreeHeap held-out MRR > shuffled TreeHeap
+TreeHeap bucket purity > shuffled TreeHeap
+TreeHeap output has useful entropy, not a pure single-token collapse
+```
+
+If BoW/flat baselines match or beat TreeHeap, the result is only weak or mixed,
+not a strong TreeHeap advantage.
+
+### Result
+
+```text
+decision = weak positive / baseline-contested
+pilot_pass = true
+
+treeheap heldout MRR/top5/purity/entropy = 0.2833 / 1.0000 / 0.8667 / 0.6998
+pair     heldout MRR/top5/purity         = 0.1200 / 0.0000 / 0.4000
+bow      heldout MRR/top5/purity         = 0.2833 / 1.0000 / 0.8667
+flat     heldout MRR/top5/purity         = 0.1976 / 0.5000 / 0.6000
+shuffled heldout MRR/top5/purity         = 0.2532 / 0.6667 / 0.4667
+```
+
+Decision:
+
+```text
+S1-MASK-KERNEL-C01 -> weak positive / baseline-contested
+```
+
+Interpretation:
+
+TreeHeap does produce useful probability buckets and beats pair memory and the
+shuffled control. However, BoW MLP matches TreeHeap on this toy corpus, so the
+result does not yet establish a TreeHeap-specific structural advantage. The
+next dataset must require substructure/path/local-span information beyond a
+single verb-context cue.
+
+## P-S1-SEM-HUFF01: Semantic Huffman Tree Loss
+
+Status: moved / superseded by S3
+Former claim: S1-SEM-HUFF-C01
+Replacement claim: `S3-SEM-HUFF-GEN-C01`
+Replacement design: `../s3-generation/logic/semantic_huffman_generation.md`
+
+### Reason
+
+This hypothesis is not a good S1 echo task. Echo is only a regularizer for
+preserving information. The semantic Huffman objective needs generation:
+
+```text
+TreeHeap code -> internal probability bucket -> route/collapse -> surface text
+```
+
+Future proofs should be registered under S3, not S1.

@@ -1,0 +1,50 @@
+# S3 Frozen Decoder Gate Probe
+
+This evidence reads frozen S1 encoder assignments and tests whether
+internal TreeHeap prefix buckets can decode surface category labels.
+
+It is a minimal S3 gate, not a WMT proof.
+
+```json
+{
+  "shuffled": {
+    "decoder_top1": {
+      "mean": 0.09027777777777778,
+      "std": 0.08457789771502365,
+      "n": 24
+    },
+    "decoder_mrr": {
+      "mean": 0.3297453703703704,
+      "std": 0.06950887571699593,
+      "n": 24
+    },
+    "decoder_entropy_bits": {
+      "mean": 2.239356745314726,
+      "std": 0.08924009255084042,
+      "n": 24
+    }
+  },
+  "structured": {
+    "decoder_top1": {
+      "mean": 0.4398148148148148,
+      "std": 0.2034404865066651,
+      "n": 24
+    },
+    "decoder_mrr": {
+      "mean": 0.6736496913580247,
+      "std": 0.10963883739858865,
+      "n": 24
+    },
+    "decoder_entropy_bits": {
+      "mean": 1.937810864273802,
+      "std": 0.09590794476262307,
+      "n": 24
+    }
+  },
+  "structured_minus_shuffled": {
+    "decoder_top1": 0.34953703703703703,
+    "decoder_mrr": 0.3439043209876543,
+    "decoder_entropy_bits": -0.30154588104092395
+  }
+}
+```

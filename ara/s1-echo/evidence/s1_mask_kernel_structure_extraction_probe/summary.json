@@ -1,0 +1,3086 @@
+{
+  "claim": "S1-MASK-KERNEL-C01",
+  "predict": "P-S1-MASK-KERNEL01",
+  "host": "io.grepcode.cn",
+  "device": "cuda",
+  "config": {
+    "seed": 4901,
+    "epochs": 800,
+    "lr": 0.03,
+    "dim": 48,
+    "hidden": 96,
+    "input_tokens": [
+      "I",
+      "ate",
+      "cooked",
+      "drank",
+      "poured",
+      "visited",
+      "toured",
+      "[MASK]",
+      "[PAD]"
+    ],
+    "objects": [
+      "rice",
+      "noodles",
+      "apple",
+      "bread",
+      "fish",
+      "water",
+      "milk",
+      "juice",
+      "Paris",
+      "Beijing",
+      "museum",
+      "park",
+      "medicine",
+      "book",
+      "shirt",
+      "car"
+    ],
+    "object_class": {
+      "rice": "food",
+      "noodles": "food",
+      "apple": "food",
+      "bread": "food",
+      "fish": "food",
+      "water": "drink",
+      "milk": "drink",
+      "juice": "drink",
+      "Paris": "place",
+      "Beijing": "place",
+      "museum": "place",
+      "park": "place",
+      "medicine": "buyable",
+      "book": "buyable",
+      "shirt": "buyable",
+      "car": "buyable"
+    },
+    "context_class": {
+      "ate": "food",
+      "cooked": "food",
+      "drank": "drink",
+      "poured": "drink",
+      "visited": "place",
+      "toured": "place"
+    },
+    "train_examples": [
+      {
+        "verb": "ate",
+        "obj": "rice",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "ate",
+        "obj": "noodles",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "ate",
+        "obj": "apple",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "ate",
+        "obj": "bread",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "ate",
+        "obj": "fish",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "cooked",
+        "obj": "rice",
+        "split": "train",
+        "note": "bridge"
+      },
+      {
+        "verb": "cooked",
+        "obj": "fish",
+        "split": "train",
+        "note": "bridge"
+      },
+      {
+        "verb": "drank",
+        "obj": "water",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "drank",
+        "obj": "milk",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "drank",
+        "obj": "juice",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "poured",
+        "obj": "water",
+        "split": "train",
+        "note": "bridge"
+      },
+      {
+        "verb": "poured",
+        "obj": "juice",
+        "split": "train",
+        "note": "bridge"
+      },
+      {
+        "verb": "visited",
+        "obj": "Paris",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "visited",
+        "obj": "museum",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "visited",
+        "obj": "park",
+        "split": "train",
+        "note": "seen"
+      },
+      {
+        "verb": "toured",
+        "obj": "Beijing",
+        "split": "train",
+        "note": "bridge"
+      },
+      {
+        "verb": "toured",
+        "obj": "park",
+        "split": "train",
+        "note": "bridge"
+      }
+    ],
+    "heldout_examples": [
+      {
+        "verb": "cooked",
+        "obj": "noodles",
+        "split": "heldout",
+        "note": "transfer_food"
+      },
+      {
+        "verb": "cooked",
+        "obj": "apple",
+        "split": "heldout",
+        "note": "transfer_food"
+      },
+      {
+        "verb": "cooked",
+        "obj": "bread",
+        "split": "heldout",
+        "note": "transfer_food"
+      },
+      {
+        "verb": "poured",
+        "obj": "milk",
+        "split": "heldout",
+        "note": "transfer_drink"
+      },
+      {
+        "verb": "toured",
+        "obj": "Paris",
+        "split": "heldout",
+        "note": "transfer_place"
+      },
+      {
+        "verb": "toured",
+        "obj": "museum",
+        "split": "heldout",
+        "note": "transfer_place"
+      }
+    ],
+    "gold_classes_used_for_training": false
+  },
+  "models": {
+    "pair_memory": {
+      "parameters": 0,
+      "train": {
+        "name": "pair_memory_train",
+        "n": 17,
+        "top1": 0.35294117647058826,
+        "top5": 1.0,
+        "mrr": 0.6147058823529411,
+        "mean_rank": 2.1176470588235294,
+        "entropy": 2.089261531829834,
+        "bucket_purity_top5": 0.6470588235294118,
+        "examples": [
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "rice",
+              "fish",
+              "noodles",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.17293234169483185,
+              0.17293234169483185,
+              0.16541354358196259,
+              0.16541354358196259,
+              0.16541354358196259
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 3,
+            "top5": [
+              "rice",
+              "fish",
+              "noodles",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.17293234169483185,
+              0.17293234169483185,
+              0.16541354358196259,
+              0.16541354358196259,
+              0.16541354358196259
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 4,
+            "top5": [
+              "rice",
+              "fish",
+              "noodles",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.17293234169483185,
+              0.17293234169483185,
+              0.16541354358196259,
+              0.16541354358196259,
+              0.16541354358196259
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 5,
+            "top5": [
+              "rice",
+              "fish",
+              "noodles",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.17293234169483185,
+              0.17293234169483185,
+              0.16541354358196259,
+              0.16541354358196259,
+              0.16541354358196259
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "rice",
+              "fish",
+              "noodles",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.17293234169483185,
+              0.17293234169483185,
+              0.16541354358196259,
+              0.16541354358196259,
+              0.16541354358196259
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "rice",
+              "fish",
+              "water",
+              "juice",
+              "park"
+            ],
+            "top5_probs": [
+              0.31506848335266113,
+              0.31506848335266113,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "rice",
+              "fish",
+              "water",
+              "juice",
+              "park"
+            ],
+            "top5_probs": [
+              0.31506848335266113,
+              0.31506848335266113,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 1,
+            "top5": [
+              "water",
+              "juice",
+              "milk",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.24731184542179108,
+              0.24731184542179108,
+              0.2365591675043106,
+              0.03225806728005409,
+              0.03225806728005409
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 3,
+            "top5": [
+              "water",
+              "juice",
+              "milk",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.24731184542179108,
+              0.24731184542179108,
+              0.2365591675043106,
+              0.03225806728005409,
+              0.03225806728005409
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "water",
+              "juice",
+              "milk",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.24731184542179108,
+              0.24731184542179108,
+              0.2365591675043106,
+              0.03225806728005409,
+              0.03225806728005409
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 1,
+            "top5": [
+              "water",
+              "juice",
+              "rice",
+              "fish",
+              "park"
+            ],
+            "top5_probs": [
+              0.31506848335266113,
+              0.31506848335266113,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "water",
+              "juice",
+              "rice",
+              "fish",
+              "park"
+            ],
+            "top5_probs": [
+              0.31506848335266113,
+              0.31506848335266113,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "park",
+              "Paris",
+              "museum",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.24731184542179108,
+              0.2365591675043106,
+              0.2365591675043106,
+              0.03225806728005409,
+              0.03225806728005409
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 3,
+            "top5": [
+              "park",
+              "Paris",
+              "museum",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.24731184542179108,
+              0.2365591675043106,
+              0.2365591675043106,
+              0.03225806728005409,
+              0.03225806728005409
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 1,
+            "top5": [
+              "park",
+              "Paris",
+              "museum",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.24731184542179108,
+              0.2365591675043106,
+              0.2365591675043106,
+              0.03225806728005409,
+              0.03225806728005409
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Beijing",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "park",
+              "Beijing",
+              "rice",
+              "fish",
+              "water"
+            ],
+            "top5_probs": [
+              0.31506845355033875,
+              0.301369845867157,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 1,
+            "top5": [
+              "park",
+              "Beijing",
+              "rice",
+              "fish",
+              "water"
+            ],
+            "top5_probs": [
+              0.31506845355033875,
+              0.301369845867157,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          }
+        ]
+      },
+      "heldout": {
+        "name": "pair_memory_heldout",
+        "n": 6,
+        "top1": 0.0,
+        "top5": 0.0,
+        "mrr": 0.1199795574795575,
+        "mean_rank": 8.833333333333334,
+        "entropy": 2.056354522705078,
+        "bucket_purity_top5": 0.39999999999999997,
+        "examples": [
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 6,
+            "top5": [
+              "rice",
+              "fish",
+              "water",
+              "juice",
+              "park"
+            ],
+            "top5_probs": [
+              0.31506848335266113,
+              0.31506848335266113,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 7,
+            "top5": [
+              "rice",
+              "fish",
+              "water",
+              "juice",
+              "park"
+            ],
+            "top5_probs": [
+              0.31506848335266113,
+              0.31506848335266113,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 8,
+            "top5": [
+              "rice",
+              "fish",
+              "water",
+              "juice",
+              "park"
+            ],
+            "top5_probs": [
+              0.31506848335266113,
+              0.31506848335266113,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 9,
+            "top5": [
+              "water",
+              "juice",
+              "rice",
+              "fish",
+              "park"
+            ],
+            "top5_probs": [
+              0.31506848335266113,
+              0.31506848335266113,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 11,
+            "top5": [
+              "park",
+              "Beijing",
+              "rice",
+              "fish",
+              "water"
+            ],
+            "top5_probs": [
+              0.31506845355033875,
+              0.301369845867157,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 12,
+            "top5": [
+              "park",
+              "Beijing",
+              "rice",
+              "fish",
+              "water"
+            ],
+            "top5_probs": [
+              0.31506845355033875,
+              0.301369845867157,
+              0.04109589010477066,
+              0.04109589010477066,
+              0.04109589010477066
+            ],
+            "top5_bucket_purity": 0.4
+          }
+        ]
+      }
+    },
+    "treeheap_mask_kernel": {
+      "parameters": 38704,
+      "train": {
+        "name": "treeheap_train",
+        "n": 17,
+        "top1": 0.35294117647058826,
+        "top5": 1.0,
+        "mrr": 0.6147058823529412,
+        "mean_rank": 2.1176470588235294,
+        "entropy": 1.1081233024597168,
+        "bucket_purity_top5": 0.823529411764706,
+        "examples": [
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "rice",
+              "fish",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.20162294805049896,
+              0.20156161487102509,
+              0.19904634356498718,
+              0.19896605610847473,
+              0.198772594332695
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 5,
+            "top5": [
+              "rice",
+              "fish",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.20162294805049896,
+              0.20156161487102509,
+              0.19904634356498718,
+              0.19896605610847473,
+              0.198772594332695
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 4,
+            "top5": [
+              "rice",
+              "fish",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.20162294805049896,
+              0.20156161487102509,
+              0.19904634356498718,
+              0.19896605610847473,
+              0.198772594332695
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 3,
+            "top5": [
+              "rice",
+              "fish",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.20162294805049896,
+              0.20156161487102509,
+              0.19904634356498718,
+              0.19896605610847473,
+              0.198772594332695
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "rice",
+              "fish",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.20162294805049896,
+              0.20156161487102509,
+              0.19904634356498718,
+              0.19896605610847473,
+              0.198772594332695
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5002064108848572,
+              0.4985314905643463,
+              0.00040698147495277226,
+              0.00040028509101830423,
+              0.00039161654422059655
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5002064108848572,
+              0.4985314905643463,
+              0.00040698147495277226,
+              0.00040028509101830423,
+              0.00039161654422059655
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 3,
+            "top5": [
+              "milk",
+              "juice",
+              "water",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.3387227952480316,
+              0.3322543203830719,
+              0.3289642333984375,
+              1.970088851521723e-05,
+              1.908758349600248e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 1,
+            "top5": [
+              "milk",
+              "juice",
+              "water",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.3387227952480316,
+              0.3322543203830719,
+              0.3289642333984375,
+              1.970088851521723e-05,
+              1.908758349600248e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "milk",
+              "juice",
+              "water",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.3387227952480316,
+              0.3322543203830719,
+              0.3289642333984375,
+              1.970088851521723e-05,
+              1.908758349600248e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "juice",
+              "water",
+              "milk",
+              "Paris",
+              "museum"
+            ],
+            "top5_probs": [
+              0.502861499786377,
+              0.4964766800403595,
+              0.0006515139830298722,
+              2.953950570372399e-06,
+              2.9120390081516234e-06
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 1,
+            "top5": [
+              "juice",
+              "water",
+              "milk",
+              "Paris",
+              "museum"
+            ],
+            "top5_probs": [
+              0.502861499786377,
+              0.4964766800403595,
+              0.0006515139830298722,
+              2.953950570372399e-06,
+              2.9120390081516234e-06
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 1,
+            "top5": [
+              "Paris",
+              "museum",
+              "park",
+              "Beijing",
+              "medicine"
+            ],
+            "top5_probs": [
+              0.33552858233451843,
+              0.33485856652259827,
+              0.3295234143733978,
+              8.778955088928342e-05,
+              5.125355642121576e-07
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "Paris",
+              "museum",
+              "park",
+              "Beijing",
+              "medicine"
+            ],
+            "top5_probs": [
+              0.33552858233451843,
+              0.33485856652259827,
+              0.3295234143733978,
+              8.778955088928342e-05,
+              5.125355642121576e-07
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 3,
+            "top5": [
+              "Paris",
+              "museum",
+              "park",
+              "Beijing",
+              "medicine"
+            ],
+            "top5_probs": [
+              0.33552858233451843,
+              0.33485856652259827,
+              0.3295234143733978,
+              8.778955088928342e-05,
+              5.125355642121576e-07
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Beijing",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "park",
+              "Beijing",
+              "museum",
+              "Paris",
+              "fish"
+            ],
+            "top5_probs": [
+              0.5082138776779175,
+              0.49159693717956543,
+              7.246737368404865e-05,
+              6.278764340095222e-05,
+              3.766904410440475e-05
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 1,
+            "top5": [
+              "park",
+              "Beijing",
+              "museum",
+              "Paris",
+              "fish"
+            ],
+            "top5_probs": [
+              0.5082138776779175,
+              0.49159693717956543,
+              7.246737368404865e-05,
+              6.278764340095222e-05,
+              3.766904410440475e-05
+            ],
+            "top5_bucket_purity": 0.8
+          }
+        ]
+      },
+      "heldout": {
+        "name": "treeheap_heldout",
+        "n": 6,
+        "top1": 0.0,
+        "top5": 1.0,
+        "mrr": 0.2833333333333333,
+        "mean_rank": 3.6666666666666665,
+        "entropy": 0.699813187122345,
+        "bucket_purity_top5": 0.8666666666666667,
+        "examples": [
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 5,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5002064108848572,
+              0.4985314905643463,
+              0.00040698147495277226,
+              0.00040028509101830423,
+              0.00039161654422059655
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 4,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5002064108848572,
+              0.4985314905643463,
+              0.00040698147495277226,
+              0.00040028509101830423,
+              0.00039161654422059655
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 3,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5002064108848572,
+              0.4985314905643463,
+              0.00040698147495277226,
+              0.00040028509101830423,
+              0.00039161654422059655
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 3,
+            "top5": [
+              "juice",
+              "water",
+              "milk",
+              "Paris",
+              "museum"
+            ],
+            "top5_probs": [
+              0.502861499786377,
+              0.4964766800403595,
+              0.0006515139830298722,
+              2.953950570372399e-06,
+              2.9120390081516234e-06
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 4,
+            "top5": [
+              "park",
+              "Beijing",
+              "museum",
+              "Paris",
+              "fish"
+            ],
+            "top5_probs": [
+              0.5082133412361145,
+              0.49159735441207886,
+              7.246743189170957e-05,
+              6.278781074797735e-05,
+              3.766918234759942e-05
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 3,
+            "top5": [
+              "park",
+              "Beijing",
+              "museum",
+              "Paris",
+              "fish"
+            ],
+            "top5_probs": [
+              0.5082133412361145,
+              0.49159735441207886,
+              7.246743189170957e-05,
+              6.278781074797735e-05,
+              3.766918234759942e-05
+            ],
+            "top5_bucket_purity": 0.8
+          }
+        ]
+      }
+    },
+    "bow_mlp": {
+      "parameters": 6688,
+      "train": {
+        "name": "bow_train",
+        "n": 17,
+        "top1": 0.35294117647058826,
+        "top5": 1.0,
+        "mrr": 0.6147058823529412,
+        "mean_rank": 2.1176470588235294,
+        "entropy": 1.1051775217056274,
+        "bucket_purity_top5": 0.823529411764706,
+        "examples": [
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 5,
+            "top5": [
+              "noodles",
+              "bread",
+              "apple",
+              "fish",
+              "rice"
+            ],
+            "top5_probs": [
+              0.209090918302536,
+              0.20697267353534698,
+              0.2049306184053421,
+              0.19056345522403717,
+              0.18844158947467804
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "noodles",
+              "bread",
+              "apple",
+              "fish",
+              "rice"
+            ],
+            "top5_probs": [
+              0.209090918302536,
+              0.20697267353534698,
+              0.2049306184053421,
+              0.19056345522403717,
+              0.18844158947467804
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 3,
+            "top5": [
+              "noodles",
+              "bread",
+              "apple",
+              "fish",
+              "rice"
+            ],
+            "top5_probs": [
+              0.209090918302536,
+              0.20697267353534698,
+              0.2049306184053421,
+              0.19056345522403717,
+              0.18844158947467804
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "noodles",
+              "bread",
+              "apple",
+              "fish",
+              "rice"
+            ],
+            "top5_probs": [
+              0.209090918302536,
+              0.20697267353534698,
+              0.2049306184053421,
+              0.19056345522403717,
+              0.18844158947467804
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 4,
+            "top5": [
+              "noodles",
+              "bread",
+              "apple",
+              "fish",
+              "rice"
+            ],
+            "top5_probs": [
+              0.209090918302536,
+              0.20697267353534698,
+              0.2049306184053421,
+              0.19056345522403717,
+              0.18844158947467804
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5032293200492859,
+              0.4966929852962494,
+              2.2567142877960578e-05,
+              2.0242141545168124e-05,
+              1.3632026821142063e-05
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5032293200492859,
+              0.4966929852962494,
+              2.2567142877960578e-05,
+              2.0242141545168124e-05,
+              1.3632026821142063e-05
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 1,
+            "top5": [
+              "water",
+              "milk",
+              "juice",
+              "museum",
+              "Paris"
+            ],
+            "top5_probs": [
+              0.34277603030204773,
+              0.3384612500667572,
+              0.3187619149684906,
+              4.28627743076504e-07,
+              3.59650471182249e-07
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "water",
+              "milk",
+              "juice",
+              "museum",
+              "Paris"
+            ],
+            "top5_probs": [
+              0.34277603030204773,
+              0.3384612500667572,
+              0.3187619149684906,
+              4.28627743076504e-07,
+              3.59650471182249e-07
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 3,
+            "top5": [
+              "water",
+              "milk",
+              "juice",
+              "museum",
+              "Paris"
+            ],
+            "top5_probs": [
+              0.34277603030204773,
+              0.3384612500667572,
+              0.3187619149684906,
+              4.28627743076504e-07,
+              3.59650471182249e-07
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 1,
+            "top5": [
+              "water",
+              "juice",
+              "milk",
+              "park",
+              "Beijing"
+            ],
+            "top5_probs": [
+              0.5266561508178711,
+              0.47329965233802795,
+              4.111478483537212e-05,
+              2.257934283989016e-06,
+              2.8446777378121624e-07
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "water",
+              "juice",
+              "milk",
+              "park",
+              "Beijing"
+            ],
+            "top5_probs": [
+              0.5266561508178711,
+              0.47329965233802795,
+              4.111478483537212e-05,
+              2.257934283989016e-06,
+              2.8446777378121624e-07
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 1,
+            "top5": [
+              "Paris",
+              "museum",
+              "park",
+              "Beijing",
+              "car"
+            ],
+            "top5_probs": [
+              0.34960058331489563,
+              0.3398444950580597,
+              0.31052660942077637,
+              2.761914765869733e-05,
+              1.3976359980460984e-07
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "Paris",
+              "museum",
+              "park",
+              "Beijing",
+              "car"
+            ],
+            "top5_probs": [
+              0.34960058331489563,
+              0.3398444950580597,
+              0.31052660942077637,
+              2.761914765869733e-05,
+              1.3976359980460984e-07
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 3,
+            "top5": [
+              "Paris",
+              "museum",
+              "park",
+              "Beijing",
+              "car"
+            ],
+            "top5_probs": [
+              0.34960058331489563,
+              0.3398444950580597,
+              0.31052660942077637,
+              2.761914765869733e-05,
+              1.3976359980460984e-07
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Beijing",
+            "bucket": "place",
+            "rank": 1,
+            "top5": [
+              "Beijing",
+              "park",
+              "museum",
+              "Paris",
+              "rice"
+            ],
+            "top5_probs": [
+              0.5189390778541565,
+              0.48102205991744995,
+              2.0451332602533512e-05,
+              1.724391768220812e-05,
+              4.3919470726905274e-07
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "Beijing",
+              "park",
+              "museum",
+              "Paris",
+              "rice"
+            ],
+            "top5_probs": [
+              0.5189390778541565,
+              0.48102205991744995,
+              2.0451332602533512e-05,
+              1.724391768220812e-05,
+              4.3919470726905274e-07
+            ],
+            "top5_bucket_purity": 0.8
+          }
+        ]
+      },
+      "heldout": {
+        "name": "bow_heldout",
+        "n": 6,
+        "top1": 0.0,
+        "top5": 1.0,
+        "mrr": 0.2833333333333333,
+        "mean_rank": 3.6666666666666665,
+        "entropy": 0.6933310627937317,
+        "bucket_purity_top5": 0.8666666666666667,
+        "examples": [
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 5,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5032293200492859,
+              0.4966929852962494,
+              2.2567142877960578e-05,
+              2.0242141545168124e-05,
+              1.3632026821142063e-05
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 4,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5032293200492859,
+              0.4966929852962494,
+              2.2567142877960578e-05,
+              2.0242141545168124e-05,
+              1.3632026821142063e-05
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 3,
+            "top5": [
+              "fish",
+              "rice",
+              "bread",
+              "apple",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5032293200492859,
+              0.4966929852962494,
+              2.2567142877960578e-05,
+              2.0242141545168124e-05,
+              1.3632026821142063e-05
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 3,
+            "top5": [
+              "water",
+              "juice",
+              "milk",
+              "park",
+              "Beijing"
+            ],
+            "top5_probs": [
+              0.5266561508178711,
+              0.47329965233802795,
+              4.111478483537212e-05,
+              2.257934283989016e-06,
+              2.8446777378121624e-07
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 4,
+            "top5": [
+              "Beijing",
+              "park",
+              "museum",
+              "Paris",
+              "rice"
+            ],
+            "top5_probs": [
+              0.5189381241798401,
+              0.48102301359176636,
+              2.0451272575883195e-05,
+              1.7243868569494225e-05,
+              4.3919348513554723e-07
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 3,
+            "top5": [
+              "Beijing",
+              "park",
+              "museum",
+              "Paris",
+              "rice"
+            ],
+            "top5_probs": [
+              0.5189381241798401,
+              0.48102301359176636,
+              2.0451272575883195e-05,
+              1.7243868569494225e-05,
+              4.3919348513554723e-07
+            ],
+            "top5_bucket_purity": 0.8
+          }
+        ]
+      }
+    },
+    "flat_seq_mlp": {
+      "parameters": 20512,
+      "train": {
+        "name": "flat_train",
+        "n": 17,
+        "top1": 0.35294117647058826,
+        "top5": 1.0,
+        "mrr": 0.6147058823529411,
+        "mean_rank": 2.1176470588235294,
+        "entropy": 1.1051087379455566,
+        "bucket_purity_top5": 0.7529411764705882,
+        "examples": [
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "rice",
+              "noodles",
+              "apple",
+              "bread",
+              "fish"
+            ],
+            "top5_probs": [
+              0.20879237353801727,
+              0.20366978645324707,
+              0.20097969472408295,
+              0.19763898849487305,
+              0.18888922035694122
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "rice",
+              "noodles",
+              "apple",
+              "bread",
+              "fish"
+            ],
+            "top5_probs": [
+              0.20879237353801727,
+              0.20366978645324707,
+              0.20097969472408295,
+              0.19763898849487305,
+              0.18888922035694122
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 3,
+            "top5": [
+              "rice",
+              "noodles",
+              "apple",
+              "bread",
+              "fish"
+            ],
+            "top5_probs": [
+              0.20879237353801727,
+              0.20366978645324707,
+              0.20097969472408295,
+              0.19763898849487305,
+              0.18888922035694122
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 4,
+            "top5": [
+              "rice",
+              "noodles",
+              "apple",
+              "bread",
+              "fish"
+            ],
+            "top5_probs": [
+              0.20879237353801727,
+              0.20366978645324707,
+              0.20097969472408295,
+              0.19763898849487305,
+              0.18888922035694122
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 5,
+            "top5": [
+              "rice",
+              "noodles",
+              "apple",
+              "bread",
+              "fish"
+            ],
+            "top5_probs": [
+              0.20879237353801727,
+              0.20366978645324707,
+              0.20097969472408295,
+              0.19763898849487305,
+              0.18888922035694122
+            ],
+            "top5_bucket_purity": 1.0
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "rice",
+              "fish",
+              "park",
+              "Beijing",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5245071649551392,
+              0.4754021167755127,
+              2.1068373825983144e-05,
+              1.7848979041446e-05,
+              1.4624399227614049e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "rice",
+              "fish",
+              "park",
+              "Beijing",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5245071649551392,
+              0.4754021167755127,
+              2.1068373825983144e-05,
+              1.7848979041446e-05,
+              1.4624399227614049e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 3,
+            "top5": [
+              "milk",
+              "juice",
+              "water",
+              "park",
+              "Beijing"
+            ],
+            "top5_probs": [
+              0.3478260338306427,
+              0.327435165643692,
+              0.3246838450431824,
+              1.8046283003059216e-05,
+              1.0395486242487095e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 1,
+            "top5": [
+              "milk",
+              "juice",
+              "water",
+              "park",
+              "Beijing"
+            ],
+            "top5_probs": [
+              0.3478260338306427,
+              0.327435165643692,
+              0.3246838450431824,
+              1.8046283003059216e-05,
+              1.0395486242487095e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "milk",
+              "juice",
+              "water",
+              "park",
+              "Beijing"
+            ],
+            "top5_probs": [
+              0.3478260338306427,
+              0.327435165643692,
+              0.3246838450431824,
+              1.8046283003059216e-05,
+              1.0395486242487095e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "juice",
+              "water",
+              "milk",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.5018520951271057,
+              0.49807441234588623,
+              3.312364060548134e-05,
+              1.9394045011722483e-05,
+              1.1058701602451038e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 1,
+            "top5": [
+              "juice",
+              "water",
+              "milk",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.5018520951271057,
+              0.49807441234588623,
+              3.312364060548134e-05,
+              1.9394045011722483e-05,
+              1.1058701602451038e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 3,
+            "top5": [
+              "park",
+              "museum",
+              "Paris",
+              "Beijing",
+              "juice"
+            ],
+            "top5_probs": [
+              0.35765841603279114,
+              0.333954393863678,
+              0.3083549439907074,
+              1.2062679161317647e-05,
+              1.0371512871643063e-05
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "park",
+              "museum",
+              "Paris",
+              "Beijing",
+              "juice"
+            ],
+            "top5_probs": [
+              0.35765841603279114,
+              0.333954393863678,
+              0.3083549439907074,
+              1.2062679161317647e-05,
+              1.0371512871643063e-05
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 1,
+            "top5": [
+              "park",
+              "museum",
+              "Paris",
+              "Beijing",
+              "juice"
+            ],
+            "top5_probs": [
+              0.35765841603279114,
+              0.333954393863678,
+              0.3083549439907074,
+              1.2062679161317647e-05,
+              1.0371512871643063e-05
+            ],
+            "top5_bucket_purity": 0.8
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Beijing",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "park",
+              "Beijing",
+              "water",
+              "juice",
+              "museum"
+            ],
+            "top5_probs": [
+              0.5480867624282837,
+              0.45182478427886963,
+              2.064396903733723e-05,
+              1.7151149222627282e-05,
+              1.106023137253942e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 1,
+            "top5": [
+              "park",
+              "Beijing",
+              "water",
+              "juice",
+              "museum"
+            ],
+            "top5_probs": [
+              0.5480867624282837,
+              0.45182478427886963,
+              2.064396903733723e-05,
+              1.7151149222627282e-05,
+              1.106023137253942e-05
+            ],
+            "top5_bucket_purity": 0.6
+          }
+        ]
+      },
+      "heldout": {
+        "name": "flat_heldout",
+        "n": 6,
+        "top1": 0.0,
+        "top5": 0.5,
+        "mrr": 0.19761904761904758,
+        "mean_rank": 5.5,
+        "entropy": 0.691994845867157,
+        "bucket_purity_top5": 0.6,
+        "examples": [
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 5,
+            "top5": [
+              "rice",
+              "fish",
+              "park",
+              "Beijing",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5245071649551392,
+              0.4754021167755127,
+              2.1068373825983144e-05,
+              1.7848979041446e-05,
+              1.4624399227614049e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 7,
+            "top5": [
+              "rice",
+              "fish",
+              "park",
+              "Beijing",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5245071649551392,
+              0.4754021167755127,
+              2.1068373825983144e-05,
+              1.7848979041446e-05,
+              1.4624399227614049e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 6,
+            "top5": [
+              "rice",
+              "fish",
+              "park",
+              "Beijing",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.5245071649551392,
+              0.4754021167755127,
+              2.1068373825983144e-05,
+              1.7848979041446e-05,
+              1.4624399227614049e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 3,
+            "top5": [
+              "juice",
+              "water",
+              "milk",
+              "rice",
+              "fish"
+            ],
+            "top5_probs": [
+              0.5018520951271057,
+              0.49807441234588623,
+              3.312364060548134e-05,
+              1.9394045011722483e-05,
+              1.1058701602451038e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 7,
+            "top5": [
+              "park",
+              "Beijing",
+              "water",
+              "juice",
+              "museum"
+            ],
+            "top5_probs": [
+              0.5480867624282837,
+              0.45182478427886963,
+              2.0643890820792876e-05,
+              1.7151098290923983e-05,
+              1.1060210454161279e-05
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 5,
+            "top5": [
+              "park",
+              "Beijing",
+              "water",
+              "juice",
+              "museum"
+            ],
+            "top5_probs": [
+              0.5480867624282837,
+              0.45182478427886963,
+              2.0643890820792876e-05,
+              1.7151098290923983e-05,
+              1.1060210454161279e-05
+            ],
+            "top5_bucket_purity": 0.6
+          }
+        ]
+      }
+    },
+    "shuffled_treeheap": {
+      "parameters": 38704,
+      "train_on_shuffled": {
+        "name": "shuffled_train",
+        "n": 17,
+        "top1": 0.058823529411764705,
+        "top5": 0.4117647058823529,
+        "mrr": 0.25038939818351585,
+        "mean_rank": 6.882352941176471,
+        "entropy": 1.4727520942687988,
+        "bucket_purity_top5": 0.411764705882353,
+        "examples": [
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 4,
+            "top5": [
+              "park",
+              "apple",
+              "bread",
+              "rice",
+              "juice"
+            ],
+            "top5_probs": [
+              0.20144669711589813,
+              0.20107021927833557,
+              0.20093871653079987,
+              0.19815614819526672,
+              0.19761952757835388
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 10,
+            "top5": [
+              "park",
+              "apple",
+              "bread",
+              "rice",
+              "juice"
+            ],
+            "top5_probs": [
+              0.20144669711589813,
+              0.20107021927833557,
+              0.20093871653079987,
+              0.19815614819526672,
+              0.19761952757835388
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 2,
+            "top5": [
+              "park",
+              "apple",
+              "bread",
+              "rice",
+              "juice"
+            ],
+            "top5_probs": [
+              0.20144669711589813,
+              0.20107021927833557,
+              0.20093871653079987,
+              0.19815614819526672,
+              0.19761952757835388
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 3,
+            "top5": [
+              "park",
+              "apple",
+              "bread",
+              "rice",
+              "juice"
+            ],
+            "top5_probs": [
+              0.20144669711589813,
+              0.20107021927833557,
+              0.20093871653079987,
+              0.19815614819526672,
+              0.19761952757835388
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "ate",
+            "masked": "I ate [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 9,
+            "top5": [
+              "park",
+              "apple",
+              "bread",
+              "rice",
+              "juice"
+            ],
+            "top5_probs": [
+              0.20144669711589813,
+              0.20107021927833557,
+              0.20093871653079987,
+              0.19815614819526672,
+              0.19761952757835388
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "rice",
+            "bucket": "food",
+            "rank": 11,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468284010887146,
+              0.14671030640602112,
+              0.1428801268339157,
+              0.14275749027729034,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "fish",
+            "bucket": "food",
+            "rank": 1,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468284010887146,
+              0.14671030640602112,
+              0.1428801268339157,
+              0.14275749027729034,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 6,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468257188796997,
+              0.14671047031879425,
+              0.1428799331188202,
+              0.1427573561668396,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.0
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 16,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468257188796997,
+              0.14671047031879425,
+              0.1428799331188202,
+              0.1427573561668396,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.0
+          },
+          {
+            "verb": "drank",
+            "masked": "I drank [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 7,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468257188796997,
+              0.14671047031879425,
+              0.1428799331188202,
+              0.1427573561668396,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.0
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "water",
+            "bucket": "drink",
+            "rank": 8,
+            "top5": [
+              "rice",
+              "milk",
+              "juice",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.5094245076179504,
+              0.4905034005641937,
+              2.9516506401705556e-05,
+              2.0812602087971754e-05,
+              1.6117048289743252e-05
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "juice",
+            "bucket": "drink",
+            "rank": 3,
+            "top5": [
+              "rice",
+              "milk",
+              "juice",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.5094245076179504,
+              0.4905034005641937,
+              2.9516506401705556e-05,
+              2.0812602087971754e-05,
+              1.6117048289743252e-05
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 11,
+            "top5": [
+              "juice",
+              "water",
+              "Beijing",
+              "park",
+              "rice"
+            ],
+            "top5_probs": [
+              0.3420044183731079,
+              0.33034974336624146,
+              0.3264378309249878,
+              0.0006087390938773751,
+              0.00023351606796495616
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 10,
+            "top5": [
+              "juice",
+              "water",
+              "Beijing",
+              "park",
+              "rice"
+            ],
+            "top5_probs": [
+              0.3420044183731079,
+              0.33034974336624146,
+              0.3264378309249878,
+              0.0006087390938773751,
+              0.00023351606796495616
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "visited",
+            "masked": "I visited [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 4,
+            "top5": [
+              "juice",
+              "water",
+              "Beijing",
+              "park",
+              "rice"
+            ],
+            "top5_probs": [
+              0.3420044183731079,
+              0.33034974336624146,
+              0.3264378309249878,
+              0.0006087390938773751,
+              0.00023351606796495616
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Beijing",
+            "bucket": "place",
+            "rank": 10,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468257188796997,
+              0.14671047031879425,
+              0.1428799331188202,
+              0.1427573561668396,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "park",
+            "bucket": "place",
+            "rank": 2,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468257188796997,
+              0.14671047031879425,
+              0.1428799331188202,
+              0.1427573561668396,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.6
+          }
+        ]
+      },
+      "heldout": {
+        "name": "shuffled_heldout",
+        "n": 6,
+        "top1": 0.0,
+        "top5": 0.6666666666666666,
+        "mrr": 0.2532407407407407,
+        "mean_rank": 5.166666666666667,
+        "entropy": 1.5737253427505493,
+        "bucket_purity_top5": 0.46666666666666673,
+        "examples": [
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "noodles",
+            "bucket": "food",
+            "rank": 5,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468284010887146,
+              0.14671030640602112,
+              0.1428801268339157,
+              0.14275749027729034,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "apple",
+            "bucket": "food",
+            "rank": 8,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468284010887146,
+              0.14671030640602112,
+              0.1428801268339157,
+              0.14275749027729034,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "cooked",
+            "masked": "I cooked [MASK]",
+            "gold": "bread",
+            "bucket": "food",
+            "rank": 9,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468284010887146,
+              0.14671030640602112,
+              0.1428801268339157,
+              0.14275749027729034,
+              0.14204810559749603
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "poured",
+            "masked": "I poured [MASK]",
+            "gold": "milk",
+            "bucket": "drink",
+            "rank": 2,
+            "top5": [
+              "rice",
+              "milk",
+              "juice",
+              "apple",
+              "bread"
+            ],
+            "top5_probs": [
+              0.5094245076179504,
+              0.4905034005641937,
+              2.9516506401705556e-05,
+              2.0812602087971754e-05,
+              1.6117048289743252e-05
+            ],
+            "top5_bucket_purity": 0.4
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "Paris",
+            "bucket": "place",
+            "rank": 4,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468263149261475,
+              0.14671042561531067,
+              0.14288002252578735,
+              0.14275744557380676,
+              0.14204800128936768
+            ],
+            "top5_bucket_purity": 0.6
+          },
+          {
+            "verb": "toured",
+            "masked": "I toured [MASK]",
+            "gold": "museum",
+            "bucket": "place",
+            "rank": 3,
+            "top5": [
+              "fish",
+              "park",
+              "museum",
+              "Paris",
+              "noodles"
+            ],
+            "top5_probs": [
+              0.28468263149261475,
+              0.14671042561531067,
+              0.14288002252578735,
+              0.14275744557380676,
+              0.14204800128936768
+            ],
+            "top5_bucket_purity": 0.6
+          }
+        ]
+      }
+    }
+  },
+  "traces": {
+    "treeheap_mask_kernel": [
+      {
+        "epoch": 0,
+        "loss": 2.7816014289855957
+      },
+      {
+        "epoch": 1,
+        "loss": 2.582984447479248
+      },
+      {
+        "epoch": 2,
+        "loss": 2.4379775524139404
+      },
+      {
+        "epoch": 5,
+        "loss": 2.6204960346221924
+      },
+      {
+        "epoch": 10,
+        "loss": 1.4842671155929565
+      },
+      {
+        "epoch": 25,
+        "loss": 1.2290306091308594
+      },
+      {
+        "epoch": 50,
+        "loss": 1.2176629304885864
+      },
+      {
+        "epoch": 100,
+        "loss": 1.209560513496399
+      },
+      {
+        "epoch": 250,
+        "loss": 1.10997474193573
+      },
+      {
+        "epoch": 500,
+        "loss": 1.107038140296936
+      },
+      {
+        "epoch": 800,
+        "loss": 1.1060775518417358
+      }
+    ],
+    "bow_mlp": [
+      {
+        "epoch": 0,
+        "loss": 2.7813496589660645
+      },
+      {
+        "epoch": 1,
+        "loss": 2.208814859390259
+      },
+      {
+        "epoch": 2,
+        "loss": 1.7845592498779297
+      },
+      {
+        "epoch": 5,
+        "loss": 1.1583938598632812
+      },
+      {
+        "epoch": 10,
+        "loss": 1.1229026317596436
+      },
+      {
+        "epoch": 25,
+        "loss": 1.108923316001892
+      },
+      {
+        "epoch": 50,
+        "loss": 1.109360694885254
+      },
+      {
+        "epoch": 100,
+        "loss": 1.1133594512939453
+      },
+      {
+        "epoch": 250,
+        "loss": 1.1068252325057983
+      },
+      {
+        "epoch": 500,
+        "loss": 1.106456995010376
+      },
+      {
+        "epoch": 800,
+        "loss": 1.106621503829956
+      }
+    ],
+    "flat_seq_mlp": [
+      {
+        "epoch": 0,
+        "loss": 2.802173376083374
+      },
+      {
+        "epoch": 1,
+        "loss": 2.840611696243286
+      },
+      {
+        "epoch": 2,
+        "loss": 2.599100112915039
+      },
+      {
+        "epoch": 5,
+        "loss": 2.106736660003662
+      },
+      {
+        "epoch": 10,
+        "loss": 1.405139446258545
+      },
+      {
+        "epoch": 25,
+        "loss": 1.1230138540267944
+      },
+      {
+        "epoch": 50,
+        "loss": 1.1075224876403809
+      },
+      {
+        "epoch": 100,
+        "loss": 1.1065707206726074
+      },
+      {
+        "epoch": 250,
+        "loss": 1.107297420501709
+      },
+      {
+        "epoch": 500,
+        "loss": 1.1075315475463867
+      },
+      {
+        "epoch": 800,
+        "loss": 1.1070653200149536
+      }
+    ],
+    "shuffled_treeheap": [
+      {
+        "epoch": 0,
+        "loss": 2.7842299938201904
+      },
+      {
+        "epoch": 1,
+        "loss": 2.5951240062713623
+      },
+      {
+        "epoch": 2,
+        "loss": 4.472599029541016
+      },
+      {
+        "epoch": 5,
+        "loss": 2.781808376312256
+      },
+      {
+        "epoch": 10,
+        "loss": 2.474832057952881
+      },
+      {
+        "epoch": 25,
+        "loss": 2.0821406841278076
+      },
+      {
+        "epoch": 50,
+        "loss": 1.7297621965408325
+      },
+      {
+        "epoch": 100,
+        "loss": 1.5245157480239868
+      },
+      {
+        "epoch": 250,
+        "loss": 1.469636082649231
+      },
+      {
+        "epoch": 500,
+        "loss": 1.4687587022781372
+      },
+      {
+        "epoch": 800,
+        "loss": 1.4690877199172974
+      }
+    ]
+  },
+  "pass_checks": {
+    "treeheap_mrr_beats_pair_memory": true,
+    "treeheap_mrr_beats_shuffled": true,
+    "treeheap_bucket_purity_beats_shuffled": true,
+    "treeheap_top5_nontrivial": true,
+    "treeheap_entropy_bucket_not_delta": true
+  },
+  "baseline_warnings": {
+    "bow_mrr_beats_or_matches_treeheap": true,
+    "flat_mrr_beats_or_matches_treeheap": false
+  },
+  "pilot_pass": true,
+  "decision": "weak positive / baseline-contested",
+  "interpretation": {
+    "supported_if": "TreeHeap mask kernel beats pair memory and shuffled control on held-out MRR and top-k bucket purity.",
+    "not_proved": [
+      "not WMT translation",
+      "not natural-language understanding",
+      "not proof over Transformer",
+      "not unsupervised ontology discovery"
+    ]
+  }
+}

@@ -1,0 +1,766 @@
+{
+  "claim": "S1-PRIVATE-CODEC-C01",
+  "predict": "P-S1-PRIVATE-CODEC01",
+  "host": "io.grepcode.cn",
+  "config": {
+    "seed": 4801,
+    "epochs": 900,
+    "lr": 0.08,
+    "vocab": [
+      "rice",
+      "noodle",
+      "apple",
+      "mango",
+      "amoxicillin",
+      "ibuprofen",
+      "stone",
+      "car"
+    ],
+    "food_target": [
+      "rice",
+      "noodle",
+      "apple",
+      "mango"
+    ],
+    "fruit_target": [
+      "apple",
+      "mango"
+    ],
+    "filter_train_examples": [
+      {
+        "label": "apple_noise",
+        "input_support": [
+          "apple",
+          "stone",
+          "car"
+        ],
+        "target_support": [
+          "apple"
+        ]
+      },
+      {
+        "label": "mango_noise",
+        "input_support": [
+          "mango",
+          "ibuprofen",
+          "stone"
+        ],
+        "target_support": [
+          "mango"
+        ]
+      },
+      {
+        "label": "fruits_noise",
+        "input_support": [
+          "apple",
+          "mango",
+          "stone",
+          "car"
+        ],
+        "target_support": [
+          "apple",
+          "mango"
+        ]
+      },
+      {
+        "label": "rice_apple_drug",
+        "input_support": [
+          "rice",
+          "apple",
+          "ibuprofen"
+        ],
+        "target_support": [
+          "apple"
+        ]
+      },
+      {
+        "label": "noodle_mango_drug",
+        "input_support": [
+          "noodle",
+          "mango",
+          "amoxicillin"
+        ],
+        "target_support": [
+          "mango"
+        ]
+      },
+      {
+        "label": "fruit_drugs",
+        "input_support": [
+          "apple",
+          "mango",
+          "amoxicillin",
+          "ibuprofen"
+        ],
+        "target_support": [
+          "apple",
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_0",
+        "input_support": [
+          "rice",
+          "mango",
+          "amoxicillin",
+          "ibuprofen",
+          "car"
+        ],
+        "target_support": [
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_1",
+        "input_support": [
+          "rice",
+          "mango",
+          "amoxicillin",
+          "ibuprofen"
+        ],
+        "target_support": [
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_2",
+        "input_support": [
+          "noodle",
+          "apple",
+          "mango",
+          "stone"
+        ],
+        "target_support": [
+          "apple",
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_3",
+        "input_support": [
+          "rice",
+          "noodle",
+          "apple",
+          "mango",
+          "amoxicillin",
+          "car"
+        ],
+        "target_support": [
+          "apple",
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_5",
+        "input_support": [
+          "noodle",
+          "mango",
+          "ibuprofen",
+          "car"
+        ],
+        "target_support": [
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_6",
+        "input_support": [
+          "apple",
+          "mango",
+          "car"
+        ],
+        "target_support": [
+          "apple",
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_7",
+        "input_support": [
+          "rice",
+          "noodle",
+          "apple",
+          "amoxicillin",
+          "ibuprofen",
+          "stone"
+        ],
+        "target_support": [
+          "apple"
+        ]
+      },
+      {
+        "label": "smooth_8",
+        "input_support": [
+          "rice",
+          "mango",
+          "ibuprofen",
+          "stone"
+        ],
+        "target_support": [
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_9",
+        "input_support": [
+          "rice",
+          "mango",
+          "amoxicillin",
+          "ibuprofen"
+        ],
+        "target_support": [
+          "mango"
+        ]
+      },
+      {
+        "label": "smooth_10",
+        "input_support": [
+          "rice",
+          "noodle",
+          "apple",
+          "stone"
+        ],
+        "target_support": [
+          "apple"
+        ]
+      },
+      {
+        "label": "smooth_11",
+        "input_support": [
+          "rice",
+          "mango",
+          "amoxicillin",
+          "stone",
+          "car"
+        ],
+        "target_support": [
+          "mango"
+        ]
+      }
+    ],
+    "heldout_compositions": {
+      "food": "fruit_filter(food_distribution)",
+      "rice_apple": "fruit_filter(rice_apple_distribution)",
+      "noodle_mango": "fruit_filter(noodle_mango_distribution)"
+    },
+    "direct_heldout_loss_used": false
+  },
+  "metrics": {
+    "sources": {
+      "food": {
+        "cross_entropy": 1.386365294456482,
+        "l1": 0.00014179592835716903,
+        "top2": [
+          "rice",
+          "noodle"
+        ],
+        "pred_support_gt_0_12": [
+          "rice",
+          "noodle",
+          "apple",
+          "mango"
+        ],
+        "target_support": [
+          "rice",
+          "noodle",
+          "apple",
+          "mango"
+        ],
+        "probabilities": {
+          "rice": 0.24998438358306885,
+          "noodle": 0.24998271465301514,
+          "apple": 0.24998140335083008,
+          "mango": 0.24998056888580322,
+          "amoxicillin": 1.7817797925090417e-05,
+          "ibuprofen": 1.8479579011909664e-05,
+          "stone": 1.7471986211603507e-05,
+          "car": 1.7097028830903582e-05
+        }
+      },
+      "rice_apple": {
+        "cross_entropy": 1.0987026691436768,
+        "l1": 0.00018053624080494046,
+        "top2": [
+          "apple",
+          "rice"
+        ],
+        "pred_support_gt_0_12": [
+          "rice",
+          "apple",
+          "stone"
+        ],
+        "target_support": [
+          "rice",
+          "apple",
+          "stone"
+        ],
+        "probabilities": {
+          "rice": 0.33330318331718445,
+          "noodle": 1.7223681425093673e-05,
+          "apple": 0.33330413699150085,
+          "mango": 1.7852022210718133e-05,
+          "amoxicillin": 1.8854918380384333e-05,
+          "ibuprofen": 1.8060147340293042e-05,
+          "stone": 0.33330237865448,
+          "car": 1.821462865336798e-05
+        }
+      },
+      "noodle_mango": {
+        "cross_entropy": 1.0987011194229126,
+        "l1": 0.00017762149218469858,
+        "top2": [
+          "noodle",
+          "car"
+        ],
+        "pred_support_gt_0_12": [
+          "noodle",
+          "mango",
+          "car"
+        ],
+        "target_support": [
+          "noodle",
+          "mango",
+          "car"
+        ],
+        "probabilities": {
+          "rice": 1.705372051219456e-05,
+          "noodle": 0.3333055377006531,
+          "apple": 2.00735084945336e-05,
+          "mango": 0.3333020508289337,
+          "amoxicillin": 1.8292221284355037e-05,
+          "ibuprofen": 1.7171927538583986e-05,
+          "stone": 1.621918272576295e-05,
+          "car": 0.33330363035202026
+        }
+      }
+    },
+    "heldout_serial_compositions": {
+      "by_source": {
+        "food": {
+          "cross_entropy": 0.6931895613670349,
+          "l1": 0.0011168655473738909,
+          "top2": [
+            "mango",
+            "apple"
+          ],
+          "pred_support_gt_0_12": [
+            "apple",
+            "mango"
+          ],
+          "target_support": [
+            "apple",
+            "mango"
+          ],
+          "probabilities": {
+            "rice": 1.6139827494043857e-05,
+            "noodle": 2.5719895347720012e-05,
+            "apple": 0.49944159388542175,
+            "mango": 0.5005165934562683,
+            "amoxicillin": 9.138413359366382e-10,
+            "ibuprofen": 1.1517674591843274e-09,
+            "stone": 2.306727919787477e-09,
+            "car": 1.9011594520890185e-09
+          }
+        },
+        "rice_apple": {
+          "cross_entropy": 0.0001520630030427128,
+          "l1": 0.00030410935869440436,
+          "top2": [
+            "apple",
+            "stone"
+          ],
+          "pred_support_gt_0_12": [
+            "apple"
+          ],
+          "target_support": [
+            "apple"
+          ],
+          "probabilities": {
+            "rice": 3.2310352253261954e-05,
+            "noodle": 2.660734077508664e-09,
+            "apple": 0.999847948551178,
+            "mango": 5.366805999074131e-05,
+            "amoxicillin": 1.4519700997084328e-09,
+            "ibuprofen": 1.690091622208456e-09,
+            "stone": 6.607067916775122e-05,
+            "car": 3.0411264617669076e-09
+          }
+        },
+        "noodle_mango": {
+          "cross_entropy": 0.00016708577459212393,
+          "l1": 0.00033407285809516907,
+          "top2": [
+            "mango",
+            "apple"
+          ],
+          "pred_support_gt_0_12": [
+            "mango"
+          ],
+          "target_support": [
+            "mango"
+          ],
+          "probabilities": {
+            "rice": 1.6496142229982524e-09,
+            "noodle": 5.137821426615119e-05,
+            "apple": 6.00865860178601e-05,
+            "mango": 0.9998329281806946,
+            "amoxicillin": 1.4055958619252351e-09,
+            "ibuprofen": 1.6035003325143293e-09,
+            "stone": 3.2081919343340815e-09,
+            "car": 5.552840229938738e-05
+          }
+        }
+      },
+      "mean_ce": 0.23116957004822325,
+      "all_support_correct": true,
+      "all_top2_correct": true
+    },
+    "constant_baseline_compositions": {
+      "by_source": {
+        "food": {
+          "cross_entropy": 0.7139713764190674,
+          "l1": 0.20149774849414825,
+          "top2": [
+            "mango",
+            "apple"
+          ],
+          "pred_support_gt_0_12": [
+            "apple",
+            "mango"
+          ],
+          "target_support": [
+            "apple",
+            "mango"
+          ],
+          "probabilities": {
+            "rice": 2.0610634237527847e-05,
+            "noodle": 1.996959872485604e-05,
+            "apple": 0.39925113320350647,
+            "mango": 0.6006289124488831,
+            "amoxicillin": 2.0919380403938703e-05,
+            "ibuprofen": 1.722409979265649e-05,
+            "stone": 2.0483874322962947e-05,
+            "car": 2.0747202142956667e-05
+          }
+        },
+        "rice_apple": {
+          "cross_entropy": 0.9181646704673767,
+          "l1": 1.2014976739883423,
+          "top2": [
+            "mango",
+            "apple"
+          ],
+          "pred_support_gt_0_12": [
+            "apple",
+            "mango"
+          ],
+          "target_support": [
+            "apple"
+          ],
+          "probabilities": {
+            "rice": 2.0610634237527847e-05,
+            "noodle": 1.996959872485604e-05,
+            "apple": 0.39925113320350647,
+            "mango": 0.6006289124488831,
+            "amoxicillin": 2.0919380403938703e-05,
+            "ibuprofen": 1.722409979265649e-05,
+            "stone": 2.0483874322962947e-05,
+            "car": 2.0747202142956667e-05
+          }
+        },
+        "noodle_mango": {
+          "cross_entropy": 0.5097780227661133,
+          "l1": 0.7987421751022339,
+          "top2": [
+            "mango",
+            "apple"
+          ],
+          "pred_support_gt_0_12": [
+            "apple",
+            "mango"
+          ],
+          "target_support": [
+            "mango"
+          ],
+          "probabilities": {
+            "rice": 2.0610634237527847e-05,
+            "noodle": 1.996959872485604e-05,
+            "apple": 0.39925113320350647,
+            "mango": 0.6006289124488831,
+            "amoxicillin": 2.0919380403938703e-05,
+            "ibuprofen": 1.722409979265649e-05,
+            "stone": 2.0483874322962947e-05,
+            "car": 2.0747202142956667e-05
+          }
+        }
+      },
+      "mean_ce": 0.7139713565508524,
+      "all_support_correct": false,
+      "all_top2_correct": false
+    },
+    "untrained_forest_compositions": {
+      "by_source": {
+        "food": {
+          "cross_entropy": 2.0054843425750732,
+          "l1": 1.4614672660827637,
+          "top2": [
+            "apple",
+            "noodle"
+          ],
+          "pred_support_gt_0_12": [
+            "noodle",
+            "apple",
+            "mango",
+            "amoxicillin",
+            "stone"
+          ],
+          "target_support": [
+            "apple",
+            "mango"
+          ],
+          "probabilities": {
+            "rice": 0.1154920905828476,
+            "noodle": 0.13673804700374603,
+            "apple": 0.13783639669418335,
+            "mango": 0.131429985165596,
+            "amoxicillin": 0.12372123450040817,
+            "ibuprofen": 0.10715198516845703,
+            "stone": 0.13273724913597107,
+            "car": 0.11489301919937134
+          }
+        },
+        "rice_apple": {
+          "cross_entropy": 1.962241530418396,
+          "l1": 1.7189139127731323,
+          "top2": [
+            "apple",
+            "rice"
+          ],
+          "pred_support_gt_0_12": [
+            "rice",
+            "noodle",
+            "apple",
+            "mango",
+            "amoxicillin"
+          ],
+          "target_support": [
+            "apple"
+          ],
+          "probabilities": {
+            "rice": 0.13526442646980286,
+            "noodle": 0.13439719378948212,
+            "apple": 0.14054302871227264,
+            "mango": 0.13299348950386047,
+            "amoxicillin": 0.1228235736489296,
+            "ibuprofen": 0.10836788266897202,
+            "stone": 0.11109734326601028,
+            "car": 0.11451301723718643
+          }
+        },
+        "noodle_mango": {
+          "cross_entropy": 2.071714162826538,
+          "l1": 1.748060703277588,
+          "top2": [
+            "noodle",
+            "apple"
+          ],
+          "pred_support_gt_0_12": [
+            "noodle",
+            "apple",
+            "mango",
+            "amoxicillin",
+            "car"
+          ],
+          "target_support": [
+            "mango"
+          ],
+          "probabilities": {
+            "rice": 0.11533863842487335,
+            "noodle": 0.1436583548784256,
+            "apple": 0.1436447948217392,
+            "mango": 0.12596966326236725,
+            "amoxicillin": 0.1258450150489807,
+            "ibuprofen": 0.10677865892648697,
+            "stone": 0.11655933409929276,
+            "car": 0.12220560759305954
+          }
+        }
+      },
+      "mean_ce": 2.013146678606669,
+      "all_support_correct": false,
+      "all_top2_correct": false
+    }
+  },
+  "theta_movement": {
+    "source_arr_delta_l2": {
+      "food": 11.585385471582413,
+      "rice_apple": 11.89178466796875,
+      "noodle_mango": 11.918235957622528
+    },
+    "filter_arr_delta_l2": 22.095461279153824,
+    "constant_arr_delta_l2": 12.331960201263428
+  },
+  "pass_checks": {
+    "source_ce_low": true,
+    "heldout_composition_ce_low": true,
+    "heldout_support_correct": true,
+    "constant_baseline_worse": true,
+    "untrained_worse": true,
+    "theta_moved": true
+  },
+  "pilot_pass": true,
+  "trace": [
+    {
+      "epoch": 0,
+      "loss": 5.8410325050354,
+      "source_loss": 2.095215082168579,
+      "filter_loss": 1.6449640989303589,
+      "constant_loss": 2.100853443145752,
+      "heldout_mean_ce": 2.124680678049723,
+      "heldout_all_top2_correct": false,
+      "food_top2": [
+        "ibuprofen",
+        "amoxicillin"
+      ]
+    },
+    {
+      "epoch": 1,
+      "loss": 5.085736274719238,
+      "source_loss": 1.8398704528808594,
+      "filter_loss": 1.484547734260559,
+      "constant_loss": 1.7613184452056885,
+      "heldout_mean_ce": 1.702692945798238,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "rice",
+        "noodle"
+      ]
+    },
+    {
+      "epoch": 2,
+      "loss": 4.453241348266602,
+      "source_loss": 1.6428738832473755,
+      "filter_loss": 1.3353772163391113,
+      "constant_loss": 1.4749903678894043,
+      "heldout_mean_ce": 1.3653552134831746,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "rice",
+        "noodle"
+      ]
+    },
+    {
+      "epoch": 5,
+      "loss": 3.246721029281616,
+      "source_loss": 1.334703803062439,
+      "filter_loss": 0.9575003385543823,
+      "constant_loss": 0.9545168280601501,
+      "heldout_mean_ce": 0.7617954810460409,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "rice",
+        "noodle"
+      ]
+    },
+    {
+      "epoch": 10,
+      "loss": 2.4879376888275146,
+      "source_loss": 1.2213740348815918,
+      "filter_loss": 0.5439063906669617,
+      "constant_loss": 0.7226572632789612,
+      "heldout_mean_ce": 0.39806704719861347,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "mango",
+        "apple"
+      ]
+    },
+    {
+      "epoch": 25,
+      "loss": 2.095701217651367,
+      "source_loss": 1.1971101760864258,
+      "filter_loss": 0.22067441046237946,
+      "constant_loss": 0.6779165863990784,
+      "heldout_mean_ce": 0.2442640271037817,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "apple",
+        "mango"
+      ]
+    },
+    {
+      "epoch": 50,
+      "loss": 2.062469720840454,
+      "source_loss": 1.1956231594085693,
+      "filter_loss": 0.19248633086681366,
+      "constant_loss": 0.6743602156639099,
+      "heldout_mean_ce": 0.2344084281163911,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "noodle",
+        "rice"
+      ]
+    },
+    {
+      "epoch": 100,
+      "loss": 2.0576648712158203,
+      "source_loss": 1.1953283548355103,
+      "filter_loss": 0.18846240639686584,
+      "constant_loss": 0.6738741397857666,
+      "heldout_mean_ce": 0.2328883270577838,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "apple",
+        "rice"
+      ]
+    },
+    {
+      "epoch": 250,
+      "loss": 2.0541019439697266,
+      "source_loss": 1.194933295249939,
+      "filter_loss": 0.18583889305591583,
+      "constant_loss": 0.6733297109603882,
+      "heldout_mean_ce": 0.23177029805568358,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "rice",
+        "noodle"
+      ]
+    },
+    {
+      "epoch": 500,
+      "loss": 2.052638053894043,
+      "source_loss": 1.1946982145309448,
+      "filter_loss": 0.18494188785552979,
+      "constant_loss": 0.6729980707168579,
+      "heldout_mean_ce": 0.231338867781839,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "rice",
+        "noodle"
+      ]
+    },
+    {
+      "epoch": 900,
+      "loss": 2.05204439163208,
+      "source_loss": 1.194589614868164,
+      "filter_loss": 0.18461203575134277,
+      "constant_loss": 0.6728426814079285,
+      "heldout_mean_ce": 0.23116957004822325,
+      "heldout_all_top2_correct": true,
+      "food_top2": [
+        "rice",
+        "noodle"
+      ]
+    }
+  ],
+  "interpretation": {
+    "supported_if_pass": "Scalar loss wrote information into a parameter TreeHeap forest, and two heads composed serially on a held-out intermediate bucket.",
+    "not_proved": [
+      "not natural language semantics",
+      "not unsupervised ontology discovery",
+      "not WMT translation",
+      "not Transformer superiority"
+    ]
+  }
+}
