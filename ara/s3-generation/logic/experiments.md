@@ -123,6 +123,208 @@ shuffled frozen decoder:
 This supports frozen internal bucket readability.  It does not yet satisfy the
 stronger BoW/flat same-bag different-tree generation gate.
 
+## P-S3-SAMEBAG-GEN01: Same-Bag Different-Tree Generation
+
+Status: queued proof
+Claim: `S3-SAMEBAG-GEN-C01`
+Script: `src/s3_same_bag_tree_generation_probe.py`
+Evidence target: `evidence/s3_same_bag_tree_generation_probe/`
+
+### Question
+
+Can TreeHeap generate from structure when token statistics alone are
+insufficient?
+
+### Dataset
+
+Each symbolic triple creates two examples with the same leaf sequence:
+
+```text
+leaves = [a, b, c]
+```
+
+Tree shape 0:
+
+```text
+((a b) c) -> PAIR a b
+```
+
+Tree shape 1:
+
+```text
+(a (b c)) -> PAIR b c
+```
+
+Therefore, without tree structure, the input is contradictory:
+
+```text
+[a,b,c] -> PAIR a b
+[a,b,c] -> PAIR b c
+```
+
+This is the point of the proof.  BoW and ordinary flat sequence models receive
+the same `[a,b,c]` for both rows, so they should not be able to solve both.
+
+### Models
+
+```text
+treeheap:
+  embeds leaves
+  composes `ab = plus(a,b)` and `bc = plus(b,c)`
+  stops at the internal subheap selected by tree shape
+  decodes PAIR arg1 arg2
+
+bow:
+  receives only the bag/mean of [a,b,c]
+
+flat_seq:
+  receives only ordered [a,b,c], no tree shape
+
+shape_oracle:
+  receives [a,b,c] plus the shape bit
+  upper-bound control showing the task is solvable when structure is visible
+```
+
+### Predict
+
+If TreeHeap generation is using substructure:
+
+```text
+treeheap OOD exact >> bow OOD exact
+treeheap OOD exact >> flat_seq OOD exact
+shape_oracle should be high and acts as a visible-structure upper bound
+```
+
+### Falsification
+
+Reject or downgrade if:
+
+```text
+BoW or flat_seq match TreeHeap without tree structure.
+TreeHeap fails OOD triples while shape_oracle succeeds.
+The same leaf sequence is not actually contradictory without tree structure.
+The proof is described as WMT or natural sentence generation.
+```
+
+### Suggested DS Command
+
+```bash
+python3 ara/s3-generation/src/s3_same_bag_tree_generation_probe.py \
+  --evidence-dir ara/s3-generation/evidence/s3_same_bag_tree_generation_probe \
+  --vocab-size 64 \
+  --train-triples 2400 \
+  --test-triples 400 \
+  --ood-triples 400 \
+  --epochs 40 \
+  --batch-size 256 \
+  --models treeheap,bow,flat_seq,shape_oracle
+```
+
+## P-S3-TREEHEAP-EMERGENCE01: Task-Loss Structural Emergence
+
+Status: queued proof
+Claim: `S3-TREEHEAP-EMERGENCE-C01`
+Design: `logic/treeheap_task_loss_emergence.md`
+Script: `src/s3_treeheap_emergence_probe.py`
+Evidence target: `evidence/s3_treeheap_emergence_probe/`
+
+### Question
+
+Can a TreeHeap become functionally necessary for a generation task without
+being told which route to take, where to stop, how deep to encode, which nodes
+to merge, or what semantic category any token belongs to?
+
+This is deliberately not a compression objective.  The only optimized term is
+surface token cross-entropy.  Depth, route, and subheap use are observer
+metrics measured after or during training.
+
+### Controlled Task
+
+For each previously unseen symbolic triple `[a,b,c]`, create both tree shapes:
+
+```text
+((a b) c)  -> generate [a,b]
+(a (b c))  -> generate [b,c]
+```
+
+The leaf sequence and token bag are identical.  Any model which does not see
+the TreeHeap bracket structure receives contradictory supervision:
+
+```text
+[a,b,c] -> [a,b]
+[a,b,c] -> [b,c]
+```
+
+The target is a surface pair, not a route label.  The expected internal child
+is derived only for post-training audit:
+
+```text
+shape 0 -> left child is the internal pair (a,b)
+shape 1 -> right child is the internal pair (b,c)
+```
+
+### TreeHeap Model
+
+```text
+leaves -> non-commutative Compose(left,right) -> internal states
+root, left child, right child, query -> softmax(stop,left,right)
+selected state -> two-token decoder -> output cross-entropy
+```
+
+There is no route CE, no merge CE, no category label, no code-length penalty,
+and no shape bit given directly to the TreeHeap decoder.  The tree shape enters
+only through recursive compose.
+
+### Baselines
+
+| Model | Receives tree shape? | Purpose |
+|---|---:|---|
+| `bow` | no | Same token bag, no order/structure. |
+| `flat_seq` | no | Same ordered leaves, but no bracketing. |
+| `shape_oracle` | yes, explicit bit | Shows that the task itself is solvable once a visible structural signal exists. |
+| `treeheap` | only through recursive compose | Candidate model. |
+
+### Causal Audits
+
+After ordinary CE training, do not retrain.  Evaluate the same OOD triples
+under these interventions:
+
+| Intervention | What it tests |
+|---|---|
+| `root_only` | Whether root state alone is sufficient. |
+| `zero_internal` | Whether the selected internal child carries necessary information. |
+| `mirror` | Whether a left/right tree flip changes output consistently. |
+| `route_internal_acc` | Whether the unsupervised route prefers the actual internal child. |
+
+### Predict
+
+```text
+P-S3-TREEHEAP-EMERGENCE01:
+If task loss can induce a functional TreeHeap computation, then OOD generation
+will improve together with internal-child route use.  Root-only and targeted
+internal-subheap ablations will reduce OOD exact generation, while BoW and
+flat sequence models remain capped by the contradictory no-tree inputs.
+```
+
+### Pass Gate
+
+```text
+treeheap OOD exact >= 0.90
+treeheap OOD exact - max(bow, flat_seq) >= 0.30
+treeheap route_internal_acc >= 0.90          # audit only, never trained
+treeheap root_only OOD exact drop >= 0.25
+treeheap zero_internal OOD exact drop >= 0.25
+treeheap mirror OOD exact >= 0.85
+shape_oracle OOD exact >= 0.90
+```
+
+### Interpretation Boundary
+
+A pass means only that a local TreeHeap compose/read/decode computation can
+emerge from output loss on a deliberately controlled structural generation
+task.  It does not show a universal loss threshold, semantic Huffman coding,
+unsupervised natural-language parsing, or WMT translation.
+
 ## P-S3-SEM-HUFF-GEN01: Semantic Huffman Generation Code
 
 Status: roadmap / blocked
