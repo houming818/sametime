@@ -150,6 +150,12 @@ M0 math toolbox
 | C5-007 | SPR-019 | Soft collapse 应恢复 legal Hard TreeHeap structure。 | supported pilot | `ara/m0-treeheap-math/evidence/soft_plus_probe/`: `collapse_accuracy_tau_0.05=1.0` | 更大或 noisy tests 中 collapse legality、route interpretability、hard-soft gap 失败。 |
 | C5-008 | SPR-021 | C05 必须暴露 TreeHeap structure：path、subheap、recursive route/plus；否则退化成 flat soft memory。 | supported pilot | `ara/m0-treeheap-math/evidence/structural_c05_probe/`: flat/path-only test acc 0.0; subheap/path+subheap test acc 1.0 | unseen-depth relocation 中 flat address 或 path-only baselines 追平 subheap/path-subheap kernels。 |
 
+### C7：S3 真实文本生成主张
+
+| ID | 来源 | 主张 | 状态 | Evidence / Pointer | 证伪条件 |
+|---|---|---|---|---|---|
+| C7-001 | SPR-052 | 在相同的 `K=4` decoder memory 带宽下，learned TreeHeap frontier 应在 WMT 上优于 fixed/random tree frontier 和 flat 四向量压缩；替换 learned route 应导致翻译指标下降。 | 主主张未支持 / 保留弱 route 信号 | `ara/s3-generation/evidence/s3_wmt_frontier_smoke/`；learned/fixed/random/flat NLL 为 `6.5988/6.6012/6.7020/6.5080`；同 checkpoint 替换 fixed/random route 的 NLL 增量为 `+0.0097/+0.0285`，低于预注册 `0.05` 门槛 | 只有 value-preserving compose 重设计在预注册多 seed 下同时击败 flat `K=4`、fixed 和 random controls，才重新开放。 |
+
 ## SPR Blog Source Map
 
 | SPR | File | Main role in ARA |

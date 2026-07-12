@@ -36,3 +36,33 @@ Purpose: Track TreeHeap generation-layer claims.
 | ID | Claim | Status | Evidence | Falsification |
 |----|-------|--------|----------|---------------|
 | S3-TREEHEAP-EMERGENCE-C01 | With only surface generation cross-entropy and no route, depth, merge, category, or compression supervision, a TreeHeap encoder-decoder can learn a non-trivial `stop/left/right` read policy whose held-out generation depends causally on the relevant internal subheap. | queued proof | Script: `s3_treeheap_emergence_probe.py`; design `treeheap_task_loss_emergence.md`; evidence target `evidence/s3_treeheap_emergence_probe/`. The controlled task keeps the same ordered leaves `[a,b,c]` but changes bracketing and the required generated pair. | Reject if TreeHeap does not beat structure-blind BoW/flat sequence controls on OOD triples, if root-only read or zeroing the selected internal subheap does not materially reduce its OOD generation, if its learned route does not prefer the actual internal child, or if the effect survives address/subheap destruction equally well. This does not claim natural-language emergence or a universal loss threshold. |
+
+## Real WMT Seq2Seq Generation
+
+| ID | Claim | Status | Evidence | Falsification |
+|----|-------|--------|----------|---------------|
+| S3-WMT-SEQ2SEQ-C01 | A recursively composed TreeHeap encoder can be trained end-to-end from real WMT English text to generate Chinese SentencePiece sequences with only teacher-forced translation cross-entropy; its held-out generation, internal-node ablations, and comparison against BoW/flat-sequence encoders are measurable in one run. | queued feasibility proof | Script: `s3_wmt_treeheap_seq2seq.py`; design `wmt_treeheap_seq2seq.md`; evidence target `evidence/s3_wmt_treeheap_seq2seq/`. The encoder is trained from scratch on WMT17, not initialized from historical collapsed checkpoints. | Reject this feasibility claim if real WMT data cannot be loaded/tokenized, training does not lower held-out NLL versus initialization, greedy decoding is empty/degenerate, or the TreeHeap encoder cannot produce a reproducible comparison with BoW and flat-sequence controls. A lower score than the flat baseline is a valid result, not a reason to hide the run. |
+
+## P0 World-Observation Pretraining
+
+| ID | Claim | Status | Evidence | Falsification |
+|---|---|---|---|---|
+| S3-P0-WORLD-OBS-C01 | A TreeHeap encoder-decoder can be pretrained from scratch on real unlabeled Chinese text by predicting a held-out continuation span from a preceding TreeHeap context; gradients update shared global parameters, while each document creates only transient TreeHeap state. | running smoke | Script: `s3_treeheap_p0_pretrain.py`; design `p0_world_observation_pretrain.md`; evidence target `evidence/s3_p0_world_observation_smoke/`. P0 reads news, Wikipedia, and web text only, excluding QA/instruction/translation data. | Reject or keep open if the stream cannot be reproduced from manifest data, held-out continuation NLL does not decrease, generated continuations are degenerate, or a TreeHeap full/leaf/root audit gives no evidence that the recursive states are used. This is not a claim of complete world knowledge or QA ability. |
+
+## Conditional Denoising Seq2Seq
+
+| ID | Claim | Status | Evidence | Falsification |
+|---|---|---|---|---|
+| S3-DENOISE-SEQ2SEQ-C01 | Raw Chinese text can provide a strongly conditioned seq2seq objective by reconstructing a clean block or missing short span from a damaged block; this should reproduce the stable short generation seen on WMT. | rejected at 1K-step smoke / diagnostic retained | `s3_conditional_denoising_seq2seq.py`; `evidence/s3_conditional_denoising_smoke/`; `evidence/s3_conditional_gap_denoising_smoke/`. Full reconstruction: TreeHeap/Flat/BoW NLL `6.6111/5.7053/6.5707`. Short gap: `7.2434/7.1996/7.2371`. Exact was zero; TreeHeap full and leaf-only were tied in both runs. | Reopen only if a controlled scale-up produces readable held-out recovery and a causal internal-node gain over leaf-only plus matched flat/BoW controls. Current evidence does not support learned topology, persistent memory, world knowledge, or consciousness. |
+
+## WMT Translation-Loss Learned Fold
+
+| ID | Claim | Status | Evidence | Falsification |
+|---|---|---|---|---|
+| S3-WMT-LEARNED-FOLD-C01 | Real aligned translation loss can train a hard-forward, soft-backward adjacent-fold kernel so that source TreeHeap topology becomes data-selected rather than fixed by array indices, while retaining measurable Chinese sequence generation. | rejected at smoke / route non-causal | `s3_wmt_learned_fold_seq2seq.py`; `evidence/s3_wmt_learned_fold_smoke/`. Learned/fixed/flat/BoW NLL: `6.0448/6.0205/5.8792/5.8761`. Learned full and leaf-only were tied (`6.0448/6.0434`). Route audit: 490 unique routes in 500 samples and 100% changed after token shuffle, but the decoder did not use internal nodes. | Reopen only after removing the leaf-attention bypass and showing a full-vs-leaf causal gain, superiority to fixed/random routes, and route utility beyond input-dependent diversity. |
+
+## WMT Fixed-Bandwidth Frontier
+
+| ID | Claim | Status | Evidence | Falsification |
+|---|---|---|---|---|
+| S3-WMT-FRONTIER-C01 | Under the same decoder and fixed `K=4` source-memory budget, a translation-loss learned TreeHeap frontier should beat fixed-tree, random-tree, and flat four-vector frontiers; perturbing learned subheaps should measurably damage held-out translation. | main claim not supported / weak causal route signal | `s3_wmt_frontier_bottleneck.py`; `s3_wmt_frontier_intervention.py`; evidence `evidence/s3_wmt_frontier_smoke/`. Learned/fixed/random/flat NLL `6.5988/6.6012/6.7020/6.5080`. Same-checkpoint fixed/random route replacement increased NLL by `0.0097/0.0285`, below the `0.05` gate. | Reopen only after compose-state information preservation is redesigned and learned frontier beats flat `K=4` plus fixed/random controls across preregistered seeds. Current evidence does not establish a TreeHeap WMT advantage. |

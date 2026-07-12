@@ -176,6 +176,12 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | C6-017 | SPR-044 | S1 WMT canonical echo has weak positive TreeHeap-style compose evidence, but it is not recursive path-route evidence. | weak positive / small TreeHeap-style advantage | `ara/s1-echo/evidence/s1_wmt_canonical_echo_probe/`; TreeHeap-style compose OOD margin `0.6472`, retrieval@1/@5 `0.6300/0.8195`, entropy `4.0443`; BoW margin `0.5939`, retrieval@1/@5 `0.6285/0.8085`, entropy `4.3442`. Full streaming queue is stability evidence only; TreeHeap-style last loss `0.6209` trails LSTM `0.5158`. | BoW or matched sequence/Transformer baselines match or beat TreeHeap-style compose; result is promoted into BLEU, semantic grounding, path-route learning, or S2 decoding evidence. |
 | C6-018 | SPR-045 | S1 mirror recovery can be implemented as recursive TreeHeap routing with actual `stop/left/right` action traces, distinct from a flat `L x L` route matrix. | supported pilot | `ara/s1-echo/evidence/s1_recursive_treeheap_route_probe/`; WMT-massive English side, 20,000 samples, heap max_len 32, train lengths 3..24, OOD lengths 25..32. Hard TreeHeap oracle OOD exact `1.0000`; learned recursive route OOD exact/token `1.0000/1.0000`; old length-indexed flat matrix OOD exact/token `0.0000/0.0097`; pilot_pass=true. | Flat shared route or matched pointer baseline solves the same unseen-length route task, action traces are absent, route kernel stops using heap addresses, or target-position supervision is promoted into natural-language trigger discovery / translation. |
 
+### C7: S3 Real-Text Generation Claims
+
+| ID | Source | Claim | Status | Evidence / Pointer | Falsification |
+|---|---|---|---|---|---|
+| C7-001 | SPR-052 | Under a matched `K=4` decoder-memory budget, a learned TreeHeap frontier should beat fixed/random tree frontiers and flat four-vector compression on WMT; route replacement should causally damage translation. | main claim not supported / weak route signal | `ara/s3-generation/evidence/s3_wmt_frontier_smoke/`; learned/fixed/random/flat NLL `6.5988/6.6012/6.7020/6.5080`; same-checkpoint fixed/random route replacement delta `+0.0097/+0.0285`, below registered `0.05` gate | Reopen only after value-preserving compose redesign beats flat `K=4`, fixed, and random controls across preregistered seeds. |
+
 ## SPR Blog Source Map
 
 | SPR | File | Main role in ARA |

@@ -325,6 +325,57 @@ emerge from output loss on a deliberately controlled structural generation
 task.  It does not show a universal loss threshold, semantic Huffman coding,
 unsupervised natural-language parsing, or WMT translation.
 
+## P-S3-WMT-SEQ2SEQ01: Real WMT TreeHeap Seq2Seq
+
+Status: queued feasibility proof
+Claim: `S3-WMT-SEQ2SEQ-C01`
+Design: `logic/wmt_treeheap_seq2seq.md`
+Script: `src/s3_wmt_treeheap_seq2seq.py`
+Evidence target: `evidence/s3_wmt_treeheap_seq2seq/`
+
+### Goal
+
+Train a real English-to-Chinese generation model on WMT17.  This is the first
+end-to-end S3 run; it does not use a toy label task, a frozen old TreeHeap
+checkpoint, or a five-loss system.
+
+### Models
+
+```text
+treeheap:  BPE leaves -> recursive ordered Compose -> leaf + internal-node memory
+           -> autoregressive GRU decoder with a probability read over tree nodes
+
+bow:       mean source embedding -> same autoregressive decoder
+
+flat_seq:  ordered GRU source encoder -> same autoregressive decoder with
+           attention over flat token states
+```
+
+All use teacher forcing and the same translation cross-entropy.  Evaluation
+uses held-out NLL/perplexity, greedy token BLEU, exact rate, parameter count,
+and readable EN/ZH/hypothesis examples.  The TreeHeap run also evaluates
+leaf-only and root-only read ablations without retraining.
+
+### Data And Scope
+
+```text
+data:  /mnt/nas/datasets/wmt17/train.zh-en
+order: English<TAB>Chinese
+spm:   /mnt/nas/datasets/wmt17/sp_bpe.model
+split: deterministic short BPE sentence subset
+```
+
+This is a minimum viable real-data run, not a WMT leaderboard claim.  The
+initial target is stable nontrivial Chinese generation and an honest baseline
+battle, not a promised TreeHeap win.
+
+### Required Evidence
+
+```text
+command.sh, stdout.log, trace.jsonl, summary.json, README.md
+examples.json, checkpoint_best.pt
+```
+
 ## P-S3-SEM-HUFF-GEN01: Semantic Huffman Generation Code
 
 Status: roadmap / blocked

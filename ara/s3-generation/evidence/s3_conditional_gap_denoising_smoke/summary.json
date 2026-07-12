@@ -1,0 +1,445 @@
+{
+  "claim": "S3-DENOISE-SEQ2SEQ-C01",
+  "host": "io",
+  "config": {
+    "root": "/home/nio/datasets/pretrain",
+    "spm_model": "ara/s3-generation/evidence/s3_p0_world_observation_tokenizer/p0_zh_16000.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_conditional_gap_denoising_smoke",
+    "model": "all",
+    "seed": 23,
+    "length": 64,
+    "target_mode": "gap",
+    "target_length": 16,
+    "mask_rate": 0.3,
+    "max_span": 3,
+    "batch": 32,
+    "steps": 1000,
+    "valid_every": 250,
+    "valid_batches": 16,
+    "test_batches": 32,
+    "dim": 192,
+    "hidden": 192,
+    "lr": 0.002,
+    "device": "cuda"
+  },
+  "models": {
+    "treeheap": {
+      "parameters": 12785921,
+      "seconds": 31.55428647994995,
+      "trace": [
+        {
+          "step": 1,
+          "train_nll": 9.683748245239258,
+          "nll": 9.644567131996155,
+          "ppl": 15437.688934942273,
+          "masked_teacher_accuracy": 0.003173828125,
+          "greedy_token_accuracy": 0.00146484375,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.10782180059523847
+        },
+        {
+          "step": 250,
+          "train_nll": 8.136720657348633,
+          "nll": 7.985935658216476,
+          "ppl": 2939.3262229967295,
+          "masked_teacher_accuracy": 0.0706787109375,
+          "greedy_token_accuracy": 0.01611328125,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.22447916666666717
+        },
+        {
+          "step": 500,
+          "train_nll": 7.904359817504883,
+          "nll": 7.601433962583542,
+          "ppl": 2001.0632886284577,
+          "masked_teacher_accuracy": 0.0814208984375,
+          "greedy_token_accuracy": 0.0150146484375,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.25768229166666695
+        },
+        {
+          "step": 750,
+          "train_nll": 7.559033393859863,
+          "nll": 7.4069637060165405,
+          "ppl": 1647.4167039124573,
+          "masked_teacher_accuracy": 0.0828857421875,
+          "greedy_token_accuracy": 0.01611328125,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.13723958333333378
+        },
+        {
+          "step": 1000,
+          "train_nll": 7.519776344299316,
+          "nll": 7.252039462327957,
+          "ppl": 1410.9795554285433,
+          "masked_teacher_accuracy": 0.0892333984375,
+          "greedy_token_accuracy": 0.0142822265625,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.0848958333333334
+        }
+      ],
+      "test": {
+        "nll": 7.243378907442093,
+        "ppl": 1398.8124525267451,
+        "masked_teacher_accuracy": 0.081298828125,
+        "greedy_token_accuracy": 0.0107421875,
+        "greedy_exact": 0.0,
+        "adjacent_repeat_fraction": 0.06816406250000025,
+        "examples": [
+          {
+            "damaged": "千元手机遍地走,但敢卖千元的电脑也只有神舟了 自从小米手机兴起以来,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]销、人人用得起......几年前,无论在大街上,还是报纸、电视、网络上,总能看到",
+            "reference": "国产手机就陷入了价格战的竞争。性价比高、薄利多",
+            "generated": ",但没有没有的,因此,因此没有的,因此,你你"
+          },
+          {
+            "damaged": "[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]千元机”风靡一时。 进入2016年手机市场日趋饱和,增速明显放缓,或是为了追求品牌溢价,或是为了走出价格战的泥潭,几乎所有的一线手机品牌都在发力中高端市场",
+            "reference": "那些抓眼球的智能手机销售广告,国产手机商一窝蜂推出的“",
+            "generated": ",但如果没有没有的“”的“”的“”的“"
+          },
+          {
+            "damaged": ",一时间成为国产手机发展的主旋律。 虽然手机已经[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]著名电脑厂商神舟正式迈入千元的电脑行列。旗下MiniPC2,售价999元! 不到千元的价格,MiniPC2采用英",
+            "reference": "过去了千元机时代,但其影响已经波及到了PC。现在,国产",
+            "generated": ",但如果可以的,因此,你你去,你你去,"
+          },
+          {
+            "damaged": "特尔四核处理器、4GDDR3L内存、128GB SSD硬[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]来说,上网,看看电影,也是最好的选择,可以给接液晶电视做网络电视盒子,也可以上网当成台式机,",
+            "reference": "盘,这样的配置加这样的价格,性价比上确实很不错。对于家庭",
+            "generated": ",但没有没有的,因此没有的,因此,因此没有的,"
+          },
+          {
+            "damaged": "重要的是还不占家庭空间。 MiniPC2为白色UV高光亚克力材质,三围尺寸153.4*153.4**38mm,重量仅为433g,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]999元了,根本不用等到",
+            "reference": "可轻松携带,不占用空间。现在这款产品在京东上的价格已经是",
+            "generated": ",但在2002年10月1日,国务院批准,三峡峡"
+          },
+          {
+            "damaged": "为什么说指针是C语言的精髓? 在开发中,data structure 越复杂,算法就越简单[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]DOM 两种吧?其中 SAX 就是 event-d",
+            "reference": "。听说过 XML 的 parser 分为 SAX 和",
+            "generated": ",但如果可以的核的核,因此能能能能的,"
+          },
+          {
+            "damaged": "riv[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]。听说过 one-pass compiler 和 multi-pass compiler 吧?前者几乎不用生成语法树,可是实现超级晦涩。有人问过",
+            "reference": "en,没有 data structure,所以非常难用",
+            "generated": ",因此在1900年10月1日,三峡三峡峡"
+          },
+          {
+            "damaged": "大学当班长的优与劣? 一件小事。有一次补课借教室,时间是在周六,某些环节出了问题迟迟不能上课,作为班长的我东奔西跑忙了半个小时,解决了这个问题[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]",
+            "reference": ",并没有刻意装积极表现给老师看,但老师都看在",
+            "generated": ",但没有没有的,但没有没有的,而没有的,而"
+          }
+        ]
+      },
+      "test_leaf_only": {
+        "nll": 7.241865649819374,
+        "ppl": 1396.6972897169621,
+        "masked_teacher_accuracy": 0.08203125,
+        "greedy_token_accuracy": 0.01129150390625,
+        "greedy_exact": 0.0,
+        "adjacent_repeat_fraction": 0.09016927083333355,
+        "examples": [
+          {
+            "damaged": "千元手机遍地走,但敢卖千元的电脑也只有神舟了 自从小米手机兴起以来,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]销、人人用得起......几年前,无论在大街上,还是报纸、电视、网络上,总能看到",
+            "reference": "国产手机就陷入了价格战的竞争。性价比高、薄利多",
+            "generated": ",但没有没有没有的。 郑国君在2002年,郑"
+          },
+          {
+            "damaged": "[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]千元机”风靡一时。 进入2016年手机市场日趋饱和,增速明显放缓,或是为了追求品牌溢价,或是为了走出价格战的泥潭,几乎所有的一线手机品牌都在发力中高端市场",
+            "reference": "那些抓眼球的智能手机销售广告,国产手机商一窝蜂推出的“",
+            "generated": ",但如果没有没有的“”的“”的“”的“"
+          },
+          {
+            "damaged": ",一时间成为国产手机发展的主旋律。 虽然手机已经[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]著名电脑厂商神舟正式迈入千元的电脑行列。旗下MiniPC2,售价999元! 不到千元的价格,MiniPC2采用英",
+            "reference": "过去了千元机时代,但其影响已经波及到了PC。现在,国产",
+            "generated": ",但如果可以没有?          "
+          },
+          {
+            "damaged": "特尔四核处理器、4GDDR3L内存、128GB SSD硬[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]来说,上网,看看电影,也是最好的选择,可以给接液晶电视做网络电视盒子,也可以上网当成台式机,",
+            "reference": "盘,这样的配置加这样的价格,性价比上确实很不错。对于家庭",
+            "generated": ",但没有没有没有的途径,因此可以能的途径,因此可以"
+          },
+          {
+            "damaged": "重要的是还不占家庭空间。 MiniPC2为白色UV高光亚克力材质,三围尺寸153.4*153.4**38mm,重量仅为433g,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]999元了,根本不用等到",
+            "reference": "可轻松携带,不占用空间。现在这款产品在京东上的价格已经是",
+            "generated": ",但没有没有为“三峡”的“”的“”的"
+          },
+          {
+            "damaged": "为什么说指针是C语言的精髓? 在开发中,data structure 越复杂,算法就越简单[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]DOM 两种吧?其中 SAX 就是 event-d",
+            "reference": "。听说过 XML 的 parser 分为 SAX 和",
+            "generated": ",但如果可以能的,它能能能能能能的。"
+          },
+          {
+            "damaged": "riv[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]。听说过 one-pass compiler 和 multi-pass compiler 吧?前者几乎不用生成语法树,可是实现超级晦涩。有人问过",
+            "reference": "en,没有 data structure,所以非常难用",
+            "generated": ",因此在1900年10月1日,国务院批准了,在"
+          },
+          {
+            "damaged": "大学当班长的优与劣? 一件小事。有一次补课借教室,时间是在周六,某些环节出了问题迟迟不能上课,作为班长的我东奔西跑忙了半个小时,解决了这个问题[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]",
+            "reference": ",并没有刻意装积极表现给老师看,但老师都看在",
+            "generated": ",但没有没有没有的,但没有没有没有的,但没有没有"
+          }
+        ]
+      },
+      "test_root_only": {
+        "nll": 9.124785542488098,
+        "ppl": 9180.028080502247,
+        "masked_teacher_accuracy": 0.04803466796875,
+        "greedy_token_accuracy": 0.01824951171875,
+        "greedy_exact": 0.0,
+        "adjacent_repeat_fraction": 0.1321614583333358,
+        "examples": [
+          {
+            "damaged": "千元手机遍地走,但敢卖千元的电脑也只有神舟了 自从小米手机兴起以来,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]销、人人用得起......几年前,无论在大街上,还是报纸、电视、网络上,总能看到",
+            "reference": "国产手机就陷入了价格战的竞争。性价比高、薄利多",
+            "generated": "直升机,我我,我我水,我水,水,水,"
+          },
+          {
+            "damaged": "[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]千元机”风靡一时。 进入2016年手机市场日趋饱和,增速明显放缓,或是为了追求品牌溢价,或是为了走出价格战的泥潭,几乎所有的一线手机品牌都在发力中高端市场",
+            "reference": "那些抓眼球的智能手机销售广告,国产手机商一窝蜂推出的“",
+            "generated": "直升机,我我,我我水,我水,水,水,"
+          },
+          {
+            "damaged": ",一时间成为国产手机发展的主旋律。 虽然手机已经[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]著名电脑厂商神舟正式迈入千元的电脑行列。旗下MiniPC2,售价999元! 不到千元的价格,MiniPC2采用英",
+            "reference": "过去了千元机时代,但其影响已经波及到了PC。现在,国产",
+            "generated": "直升机,我我,我我水,我水,水,水,"
+          },
+          {
+            "damaged": "特尔四核处理器、4GDDR3L内存、128GB SSD硬[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]来说,上网,看看电影,也是最好的选择,可以给接液晶电视做网络电视盒子,也可以上网当成台式机,",
+            "reference": "盘,这样的配置加这样的价格,性价比上确实很不错。对于家庭",
+            "generated": "直升机,我我,我我水,我水,水,水,"
+          },
+          {
+            "damaged": "重要的是还不占家庭空间。 MiniPC2为白色UV高光亚克力材质,三围尺寸153.4*153.4**38mm,重量仅为433g,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]999元了,根本不用等到",
+            "reference": "可轻松携带,不占用空间。现在这款产品在京东上的价格已经是",
+            "generated": "直升机,我我,我我水,我水,水,水,"
+          },
+          {
+            "damaged": "为什么说指针是C语言的精髓? 在开发中,data structure 越复杂,算法就越简单[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]DOM 两种吧?其中 SAX 就是 event-d",
+            "reference": "。听说过 XML 的 parser 分为 SAX 和",
+            "generated": "直升机,我我,我我水,我水,水,水,"
+          },
+          {
+            "damaged": "riv[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]。听说过 one-pass compiler 和 multi-pass compiler 吧?前者几乎不用生成语法树,可是实现超级晦涩。有人问过",
+            "reference": "en,没有 data structure,所以非常难用",
+            "generated": "直升机,我我,我我水,我水,水,水,"
+          },
+          {
+            "damaged": "大学当班长的优与劣? 一件小事。有一次补课借教室,时间是在周六,某些环节出了问题迟迟不能上课,作为班长的我东奔西跑忙了半个小时,解决了这个问题[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]",
+            "reference": ",并没有刻意装积极表现给老师看,但老师都看在",
+            "generated": "直升机,我我,我我水,我水,水,水,"
+          }
+        ]
+      }
+    },
+    "flat_seq": {
+      "parameters": 12896897,
+      "seconds": 30.904448747634888,
+      "trace": [
+        {
+          "step": 1,
+          "train_nll": 9.69701099395752,
+          "nll": 9.639844417572021,
+          "ppl": 15364.953029381055,
+          "masked_teacher_accuracy": 0.012939453125,
+          "greedy_token_accuracy": 0.01416015625,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.16497395833333414
+        },
+        {
+          "step": 250,
+          "train_nll": 8.134308815002441,
+          "nll": 7.966398477554321,
+          "ppl": 2882.4574125621234,
+          "masked_teacher_accuracy": 0.0721435546875,
+          "greedy_token_accuracy": 0.0142822265625,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.22708333333333533
+        },
+        {
+          "step": 500,
+          "train_nll": 7.915498733520508,
+          "nll": 7.552376985549927,
+          "ppl": 1905.2661432586901,
+          "masked_teacher_accuracy": 0.08154296875,
+          "greedy_token_accuracy": 0.014892578125,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.18606770833333358
+        },
+        {
+          "step": 750,
+          "train_nll": 7.5435357093811035,
+          "nll": 7.3199862241744995,
+          "ppl": 1510.1831656002025,
+          "masked_teacher_accuracy": 0.086669921875,
+          "greedy_token_accuracy": 0.017578125,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.18411458333333355
+        },
+        {
+          "step": 1000,
+          "train_nll": 7.427667617797852,
+          "nll": 7.199718326330185,
+          "ppl": 1339.0535351458152,
+          "masked_teacher_accuracy": 0.087646484375,
+          "greedy_token_accuracy": 0.015869140625,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.11966145833333366
+        }
+      ],
+      "test": {
+        "nll": 7.1995847672224045,
+        "ppl": 1338.8747042929012,
+        "masked_teacher_accuracy": 0.08197021484375,
+        "greedy_token_accuracy": 0.01361083984375,
+        "greedy_exact": 0.0,
+        "adjacent_repeat_fraction": 0.09531250000000022,
+        "examples": [
+          {
+            "damaged": "千元手机遍地走,但敢卖千元的电脑也只有神舟了 自从小米手机兴起以来,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]销、人人用得起......几年前,无论在大街上,还是报纸、电视、网络上,总能看到",
+            "reference": "国产手机就陷入了价格战的竞争。性价比高、薄利多",
+            "generated": ",但如果可以用“”的“”的“”的“”"
+          },
+          {
+            "damaged": "[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]千元机”风靡一时。 进入2016年手机市场日趋饱和,增速明显放缓,或是为了追求品牌溢价,或是为了走出价格战的泥潭,几乎所有的一线手机品牌都在发力中高端市场",
+            "reference": "那些抓眼球的智能手机销售广告,国产手机商一窝蜂推出的“",
+            "generated": ",但没有过,因此“”的“”的““”的"
+          },
+          {
+            "damaged": ",一时间成为国产手机发展的主旋律。 虽然手机已经[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]著名电脑厂商神舟正式迈入千元的电脑行列。旗下MiniPC2,售价999元! 不到千元的价格,MiniPC2采用英",
+            "reference": "过去了千元机时代,但其影响已经波及到了PC。现在,国产",
+            "generated": ",但如果可可,但没有从“”的“”的“"
+          },
+          {
+            "damaged": "特尔四核处理器、4GDDR3L内存、128GB SSD硬[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]来说,上网,看看电影,也是最好的选择,可以给接液晶电视做网络电视盒子,也可以上网当成台式机,",
+            "reference": "盘,这样的配置加这样的价格,性价比上确实很不错。对于家庭",
+            "generated": ",但如果可以利用酶。 2010年10月,国务院批准,"
+          },
+          {
+            "damaged": "重要的是还不占家庭空间。 MiniPC2为白色UV高光亚克力材质,三围尺寸153.4*153.4**38mm,重量仅为433g,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]999元了,根本不用等到",
+            "reference": "可轻松携带,不占用空间。现在这款产品在京东上的价格已经是",
+            "generated": ",其中为长江水水流流,其中江水水,水水"
+          },
+          {
+            "damaged": "为什么说指针是C语言的精髓? 在开发中,data structure 越复杂,算法就越简单[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]DOM 两种吧?其中 SAX 就是 event-d",
+            "reference": "。听说过 XML 的 parser 分为 SAX 和",
+            "generated": ",但如果可以使用,因此用你。如果可以利用你  "
+          },
+          {
+            "damaged": "riv[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]。听说过 one-pass compiler 和 multi-pass compiler 吧?前者几乎不用生成语法树,可是实现超级晦涩。有人问过",
+            "reference": "en,没有 data structure,所以非常难用",
+            "generated": ",但如果,因此在微软的程序,因此可用于,但在"
+          },
+          {
+            "damaged": "大学当班长的优与劣? 一件小事。有一次补课借教室,时间是在周六,某些环节出了问题迟迟不能上课,作为班长的我东奔西跑忙了半个小时,解决了这个问题[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]",
+            "reference": ",并没有刻意装积极表现给老师看,但老师都看在",
+            "generated": ",但没有用好,因此用了,但如果没有,因此用"
+          }
+        ]
+      }
+    },
+    "bow": {
+      "parameters": 12674561,
+      "seconds": 26.359195709228516,
+      "trace": [
+        {
+          "step": 1,
+          "train_nll": 9.668769836425781,
+          "nll": 9.616333723068237,
+          "ppl": 15007.92573793178,
+          "masked_teacher_accuracy": 0.0045166015625,
+          "greedy_token_accuracy": 0.0028076171875,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.30911458333333397
+        },
+        {
+          "step": 250,
+          "train_nll": 8.085029602050781,
+          "nll": 7.969060391187668,
+          "ppl": 2890.1404865491427,
+          "masked_teacher_accuracy": 0.071044921875,
+          "greedy_token_accuracy": 0.0101318359375,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.36692708333333574
+        },
+        {
+          "step": 500,
+          "train_nll": 7.936267852783203,
+          "nll": 7.598821312189102,
+          "ppl": 1995.842033465303,
+          "masked_teacher_accuracy": 0.0771484375,
+          "greedy_token_accuracy": 0.0216064453125,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.15234374999999997
+        },
+        {
+          "step": 750,
+          "train_nll": 7.5371479988098145,
+          "nll": 7.386706858873367,
+          "ppl": 1614.3809651642,
+          "masked_teacher_accuracy": 0.083984375,
+          "greedy_token_accuracy": 0.0179443359375,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.1678385416666672
+        },
+        {
+          "step": 1000,
+          "train_nll": 7.483518123626709,
+          "nll": 7.228896886110306,
+          "ppl": 1378.7008009321771,
+          "masked_teacher_accuracy": 0.08544921875,
+          "greedy_token_accuracy": 0.0142822265625,
+          "greedy_exact": 0.0,
+          "adjacent_repeat_fraction": 0.06888020833333326
+        }
+      ],
+      "test": {
+        "nll": 7.237147226929665,
+        "ppl": 1390.1226045256783,
+        "masked_teacher_accuracy": 0.07891845703125,
+        "greedy_token_accuracy": 0.01318359375,
+        "greedy_exact": 0.0,
+        "adjacent_repeat_fraction": 0.04029947916666677,
+        "examples": [
+          {
+            "damaged": "千元手机遍地走,但敢卖千元的电脑也只有神舟了 自从小米手机兴起以来,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]销、人人用得起......几年前,无论在大街上,还是报纸、电视、网络上,总能看到",
+            "reference": "国产手机就陷入了价格战的竞争。性价比高、薄利多",
+            "generated": ",因此是“水”的“水”的“水”的“"
+          },
+          {
+            "damaged": "[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]千元机”风靡一时。 进入2016年手机市场日趋饱和,增速明显放缓,或是为了追求品牌溢价,或是为了走出价格战的泥潭,几乎所有的一线手机品牌都在发力中高端市场",
+            "reference": "那些抓眼球的智能手机销售广告,国产手机商一窝蜂推出的“",
+            "generated": ",但实际上,因此在当地中,包括碳、碳、硫、"
+          },
+          {
+            "damaged": ",一时间成为国产手机发展的主旋律。 虽然手机已经[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]著名电脑厂商神舟正式迈入千元的电脑行列。旗下MiniPC2,售价999元! 不到千元的价格,MiniPC2采用英",
+            "reference": "过去了千元机时代,但其影响已经波及到了PC。现在,国产",
+            "generated": ",但如果用水水水水,但如果用水水水水"
+          },
+          {
+            "damaged": "特尔四核处理器、4GDDR3L内存、128GB SSD硬[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]来说,上网,看看电影,也是最好的选择,可以给接液晶电视做网络电视盒子,也可以上网当成台式机,",
+            "reference": "盘,这样的配置加这样的价格,性价比上确实很不错。对于家庭",
+            "generated": ",但如果用小平的,因此可以能能,你你敢"
+          },
+          {
+            "damaged": "重要的是还不占家庭空间。 MiniPC2为白色UV高光亚克力材质,三围尺寸153.4*153.4**38mm,重量仅为433g,[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]999元了,根本不用等到",
+            "reference": "可轻松携带,不占用空间。现在这款产品在京东上的价格已经是",
+            "generated": ",但实际上,其中为9米,其中为9米,其中为"
+          },
+          {
+            "damaged": "为什么说指针是C语言的精髓? 在开发中,data structure 越复杂,算法就越简单[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]DOM 两种吧?其中 SAX 就是 event-d",
+            "reference": "。听说过 XML 的 parser 分为 SAX 和",
+            "generated": ",但如果 代谢反应: 磷 磷 磷酸,在"
+          },
+          {
+            "damaged": "riv[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]。听说过 one-pass compiler 和 multi-pass compiler 吧?前者几乎不用生成语法树,可是实现超级晦涩。有人问过",
+            "reference": "en,没有 data structure,所以非常难用",
+            "generated": ",但如果 碳酸盐,但这些反应反应反应反应: "
+          },
+          {
+            "damaged": "大学当班长的优与劣? 一件小事。有一次补课借教室,时间是在周六,某些环节出了问题迟迟不能上课,作为班长的我东奔西跑忙了半个小时,解决了这个问题[MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK][MASK]",
+            "reference": ",并没有刻意装积极表现给老师看,但老师都看在",
+            "generated": ",但没有用,因此不不不不不不不不? "
+          }
+        ]
+      }
+    }
+  }
+}
