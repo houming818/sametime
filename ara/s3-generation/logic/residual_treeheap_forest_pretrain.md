@@ -1,7 +1,7 @@
 # Residual TreeHeap Forest Pretraining
 
 Date: 2026-07-13
-Status: designed / proof queued
+Status: rejected as written / structural side-result supported
 Claim: `S3-RESIDUAL-FOREST-C01`
 Predict: `P-S3-RESIDUAL-FOREST-01`
 
@@ -207,3 +207,66 @@ superiority, automatic semantic categories, or dynamic parameter growth. It
 would establish a smaller architectural fact: a preallocated TreeHeap parameter
 forest plus a native residual state stream is trainable on real text and uses
 its recursive addresses measurably.
+
+## Result (2026-07-14)
+
+The complete run consumed all `38,251,247` prepared blocks from `7,564,966`
+documents in one source pass:
+
+```text
+news blocks   28,052,019
+wiki blocks    4,375,165
+web blocks     5,824,063
+elapsed        28,581 seconds (7.94 hours)
+```
+
+The main residual claim failed:
+
+| model | parameters | valid NLL | top-1 | top-5 | address-destroy delta NLL |
+|---|---:|---:|---:|---:|---:|
+| four-head residual | 6,310,341 | NaN | 0.0010 | 0.0036 | NaN |
+| four-head no residual | 6,310,341 | 6.2365 | 0.1196 | 0.2329 | +2.6252 |
+| one-head residual | 6,197,874 | 6.4350 | 0.1038 | 0.2109 | +1.9113 |
+
+The four-head residual trace first records a non-finite loss at step `62,400`.
+Its final checkpoint has non-finite values in all eleven parameter tensors,
+including `residual_scale`. Because only the latest checkpoint was retained,
+the evidence cannot identify which tensor became non-finite first. The
+one-head residual model remained finite and learned `residual_scale=0.004142`,
+almost closing its residual branch. Therefore the supported conclusion is:
+
+> An unconstrained learned global residual scale combined with the current
+> four-head delta is not stable over a full corpus. This implementation is
+> rejected; TreeHeap residual learning in general is not disproved.
+
+The no-residual result is a separate structural positive:
+
+```text
+root variance                       0.05843
+mean head gate                     [0.123, 0.152, 0.268, 0.457]
+head gate entropy                   1.255 nats (max ln(4)=1.386)
+mean pairwise head cosine           0.428
+head-ablation delta NLL             +1.185, +2.467, +1.157, +3.485
+left/right address destruction      +2.625 NLL
+```
+
+This supports `S3-TREEHEAP-ROOT-COMPRESS-C01`: the finite no-residual model
+uses recursive address pairing and all four kernel heads. It does not establish
+that the heads represent human-readable features, nor that the model beats a
+matched Transformer/MLP.
+
+## Next Residual Gate
+
+Do not rerun the same residual equation unchanged. A valid repair experiment
+must isolate numerical stability using:
+
+```text
+bounded alpha = alpha_max * sigmoid(a)
+FP32 residual accumulation under mixed-precision training
+per-head delta normalization before gated summation
+non-finite detection that stops and preserves the last finite checkpoint
+periodic immutable checkpoints around the first divergence region
+```
+
+The repaired residual variant must beat the already finite no-residual model;
+merely avoiding NaN is not enough.
