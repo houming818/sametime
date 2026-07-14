@@ -1,7 +1,7 @@
 # Multiscale Subheap Mask and Upward Information Extraction
 
 Date: 2026-07-14
-Status: ARA and implementation ready / awaiting DS queue
+Status: partial support / upward signal found / positive-depth trend rejected
 Claim: `S3-TREEHEAP-MASK-C01`
 Predict: `P-S3-TREEHEAP-MASK-01`
 
@@ -134,7 +134,25 @@ A positive result proves task-induced upward information extraction in this
 codec. It does not prove semantic categories, world knowledge, inference from
 unseen content, useful bit compression, or superiority to Transformers.
 
-## Follow-up If Positive
+## Smoke Result
+
+The `io` smoke completed on 100,000 real Chinese blocks per matched model.
+Ordinary echo reached `0.9950` token top-1 with intact details but collapsed
+under subheap removal. Multiscale masking obtained masked token top-1
+`0.1426/0.0869/0.0750/0.0642/0.0636` for spans `2/4/8/16/32`.
+
+Root-zero NLL deltas were `0.843/0.499/0.330/0.287/0.273`; wrong-root deltas
+were `0.335/0.347/0.353/0.350/0.361`. Root state is therefore causal and
+sample-specific, but its contribution strictly decreased with mask depth.
+Depth Spearman was `-1.0`, rejecting P3. P1, P2, P4, P5, and P6 passed.
+
+The result is partial support: masking moved some information above local
+details and made root interventions meaningful, but did not produce increasing
+root reliance or high-quality deep-subheap recovery. Repeated-token outputs at
+span 32 indicate a coarse-frequency collapse rather than structured subtree
+reconstruction. Evidence: `evidence/s3_treeheap_multiscale_mask/smoke/`.
+
+## Follow-up
 
 The next experiment corrupts the input before encoding and predicts the missing
 subheap from real context. That inference-style mask tests whether the extracted
