@@ -56,6 +56,12 @@ Purpose: Track SPR S1 claims, evidence, and falsification criteria.
 |----|-------|--------|----------|---------------|
 | S1-WMT-ECHO-C01 | A structured TreeHeap kernel can write and read real WMT SentencePiece short sequences in an echo setting, using tree addresses and shared compose/read kernels rather than only a flat memorization map. | supported pilot | `s1_wmt_echo_kernel_probe.py` on io, 2026-06-25: WMT17 English side, 3000 samples, length 3-8, vocab limit 2048; `treeheap_kernel_echo` OOD token/exact `0.9818/0.9000` with `423104` params; `seq_mlp` OOD `0.5986/0.0533` with `16794112` params; `bow_linear` OOD `0.1659/0.0033`. | If matched copy-capable baselines or larger flat/sequence models match TreeHeap OOD exact under similar parameter and sample budgets, or if longer/noisy/variable-depth WMT echo collapses, this remains only a short-sequence structure pilot. |
 
+## Multiresolution Internal-State Echo
+
+| ID | Claim | Status | Evidence | Falsification |
+|----|-------|--------|----------|---------------|
+| S1-INTERNAL-ECHO-C01 | Shared TreeHeap FOLD kernels can write recoverable information into a multiresolution internal `H_state`; with leaves and residual string bypasses unavailable, held-out echo should remain possible and parent/root/address interventions should cause measurable loss. | partial support / one-level parent codec supported / multiresolution rejected | `multiresolution_internal_echo.md`; `s1_multiresolution_internal_echo.py`; `evidence/s1_multiresolution_internal_echo/main/`, io, seed 71501, 100K real-Chinese train blocks and 8,192 held-out blocks. Equal-parameter mean/single/multichannel NLL `0.616107/0.004979/0.002010`; multichannel token top-1/block exact `0.999428/0.991211`; closest-parent removal `+74.4254` NLL; address destruction `+54.3687`; root zero/shuffle approximately `0`. READ mass was `99.9786%` on the closest parent level. | The no-leaf internal codec and parent/address causality are supported. The multiresolution interpretation is rejected because all levels above the closest parent were causally neutral. P2 also failed: multichannel improved over single learned by only `0.002969`, below `0.02`. Reopen only with a task that cannot be solved by disjoint pair codes and a separate preregistered higher-level causal gate. This is not semantic or world-model evidence. |
+
 ## Explicit Echo Encoder / Decoder
 
 | ID | Claim | Status | Evidence | Falsification |
