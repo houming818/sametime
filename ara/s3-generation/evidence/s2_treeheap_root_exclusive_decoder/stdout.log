@@ -1,0 +1,32 @@
+[full_tree] epoch=1 train=7.0323 valid=6.6297 bleu=0.359
+[full_tree] epoch=2 train=5.9291 valid=6.4450 bleu=0.803
+[full_tree] epoch=3 train=4.6809 valid=6.4816 bleu=0.762
+[full_tree] epoch=4 train=3.4063 valid=6.6940 bleu=0.770
+[full_tree] epoch=5 train=2.3938 valid=6.9656 bleu=0.871
+[exclusive_tree] epoch=1 train=7.0892 valid=6.6996 bleu=0.191
+[exclusive_tree] epoch=2 train=6.2155 valid=6.5461 bleu=0.290
+[exclusive_tree] epoch=3 train=5.4130 valid=6.5394 bleu=0.287
+[exclusive_tree] epoch=4 train=4.5676 valid=6.5943 bleu=0.279
+[exclusive_tree] epoch=5 train=3.7822 valid=6.7353 bleu=0.327
+[exclusive_flat] epoch=1 train=7.0819 valid=6.6538 bleu=0.314
+[exclusive_flat] epoch=2 train=6.0656 valid=6.4969 bleu=0.584
+[exclusive_flat] epoch=3 train=5.0699 valid=6.5017 bleu=0.556
+[exclusive_flat] epoch=4 train=3.9849 valid=6.6134 bleu=0.645
+[exclusive_flat] epoch=5 train=3.1657 valid=6.7812 bleu=0.878
+{
+  "derived": {
+    "clean_nll_gain_over_full_tree": -0.10345336094798618,
+    "recursive_nll_gain_over_flat_span": -0.0301951754595029,
+    "exclusive_tree_compressed_root_damage": 0.10032195579431047,
+    "full_tree_forced_frontier_root_damage": 0.01877416083549388,
+    "exclusive_training_root_causal_gain": 0.08154779495881659
+  },
+  "gates": {
+    "P1_clean_s2_gain": false,
+    "P2_recursive_over_flat": false,
+    "P3_compressed_roots_causal": true,
+    "P4_exclusive_training_causal_gain": true,
+    "P5_finite_and_nonempty": true
+  },
+  "decision": "partial"
+}
