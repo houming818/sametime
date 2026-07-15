@@ -1,0 +1,116 @@
+[learned_frontier] auditing held-out TreeHeap exchanges
+{
+  "checkpoint": "ara/s3-generation/evidence/s3_wmt_frontier_smoke/checkpoint_best_learned_frontier.pt",
+  "test_examples": 500,
+  "groups_per_address": 8,
+  "baseline_nll": 6.567046642303467,
+  "interventions": {
+    "same": {
+      "nll": 6.578164577484131,
+      "nll_delta": 0.011117689311504364,
+      "mean_kl": 0.016387389972805977,
+      "argmax_flip_rate": 0.08713545650243759,
+      "cosine_distance": 0.506683886051178
+    },
+    "different": {
+      "nll": 6.582846641540527,
+      "nll_delta": 0.015800127759575844,
+      "mean_kl": 0.01764751225709915,
+      "argmax_flip_rate": 0.1002989187836647,
+      "cosine_distance": 0.5466173887252808
+    },
+    "random": {
+      "nll": 6.594170570373535,
+      "nll_delta": 0.02712320163846016,
+      "mean_kl": 0.03304753825068474,
+      "argmax_flip_rate": 0.1398175060749054,
+      "cosine_distance": 0.8361877799034119
+    }
+  },
+  "different_minus_same_nll_delta": 0.004682439379394054,
+  "different_minus_same_bootstrap_95": [
+    -0.001226050102710724,
+    0.010617268061637875
+  ],
+  "distance_match_error": 0.03993350267410278
+}
+[fixed_frontier] auditing held-out TreeHeap exchanges
+{
+  "checkpoint": "ara/s3-generation/evidence/s3_wmt_frontier_smoke/checkpoint_best_fixed_frontier.pt",
+  "test_examples": 500,
+  "groups_per_address": 8,
+  "baseline_nll": 6.564168930053711,
+  "interventions": {
+    "same": {
+      "nll": 6.569294452667236,
+      "nll_delta": 0.005126153118908405,
+      "mean_kl": 0.008110212162137032,
+      "argmax_flip_rate": 0.0734405666589737,
+      "cosine_distance": 0.2780446410179138
+    },
+    "different": {
+      "nll": 6.571163177490234,
+      "nll_delta": 0.006994308438152075,
+      "mean_kl": 0.009730389341711998,
+      "argmax_flip_rate": 0.07160929590463638,
+      "cosine_distance": 0.3391495943069458
+    },
+    "random": {
+      "nll": 6.585999011993408,
+      "nll_delta": 0.021830549463629723,
+      "mean_kl": 0.031985703855752945,
+      "argmax_flip_rate": 0.1342024952173233,
+      "cosine_distance": 0.7705051302909851
+    }
+  },
+  "different_minus_same_nll_delta": 0.0018681554356589913,
+  "different_minus_same_bootstrap_95": [
+    -0.002425957489013672,
+    0.006161401462554925
+  ],
+  "distance_match_error": 0.06110495328903198
+}
+[random_frontier] auditing held-out TreeHeap exchanges
+{
+  "checkpoint": "ara/s3-generation/evidence/s3_wmt_frontier_smoke/checkpoint_best_random_frontier.pt",
+  "test_examples": 500,
+  "groups_per_address": 8,
+  "baseline_nll": 6.660860061645508,
+  "interventions": {
+    "same": {
+      "nll": 6.67115592956543,
+      "nll_delta": 0.010295203886926174,
+      "mean_kl": 0.021892445161938667,
+      "argmax_flip_rate": 0.0871376022696495,
+      "cosine_distance": 0.4973938465118408
+    },
+    "different": {
+      "nll": 6.667801856994629,
+      "nll_delta": 0.006941750645637512,
+      "mean_kl": 0.022032739594578743,
+      "argmax_flip_rate": 0.10755656659603119,
+      "cosine_distance": 0.593669056892395
+    },
+    "random": {
+      "nll": 6.6729936599731445,
+      "nll_delta": 0.012133704498410225,
+      "mean_kl": 0.03274286165833473,
+      "argmax_flip_rate": 0.13758374750614166,
+      "cosine_distance": 0.8405434489250183
+    }
+  },
+  "different_minus_same_nll_delta": -0.0033534537069499493,
+  "different_minus_same_bootstrap_95": [
+    -0.008722716259956359,
+    0.0024691845655441273
+  ],
+  "distance_match_error": 0.0962752103805542
+}
+{
+  "gates": {
+    "P1_distance_matched": false,
+    "P2_learned_functional_gap": false,
+    "P3_stronger_than_tree_controls": false
+  },
+  "decision": "not_supported"
+}
