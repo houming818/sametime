@@ -1,0 +1,164 @@
+{
+  "claim": "S3-TREEHEAP-GEOMETRY-C01",
+  "predict": "P-S3-TREEHEAP-GEOMETRY-01",
+  "host": "io",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "seed": 71501,
+  "config": {
+    "base_script": "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_residual_treeheap_forest_pretrain.py",
+    "block_dir": "/home/nio/datasets/derived/s3_residual_treeheap_forest/full_blocks64",
+    "output": "ara/s3-generation/evidence/s3_treeheap_multiscale_geometry_smoke",
+    "seed": 71501,
+    "dim": 64,
+    "sketch_dim": 64,
+    "depths": 6,
+    "batch": 64,
+    "eval_batch": 64,
+    "train_blocks": 200000,
+    "valid_blocks": 512,
+    "query_samples": 1024,
+    "lr": 0.0003,
+    "log_every": 100,
+    "device": "cuda"
+  },
+  "parameter_count": 1065856,
+  "elapsed_sec": 19.582566261291504,
+  "metrics": {
+    "depths": {
+      "1": {
+        "receptive_tokens": 2,
+        "bag_read_cosine": 0.2671915888786316,
+        "adjacency_read_cosine": 0.009935864247381687,
+        "bag_query": {
+          "nearest_target_cosine": 0.19735760986804962,
+          "random_target_cosine": 0.012917730957269669,
+          "gain": 0.18443988263607025
+        },
+        "adjacency_query": {
+          "nearest_target_cosine": 0.014084728434681892,
+          "random_target_cosine": 0.00039729493437334895,
+          "gain": 0.013687432743608952
+        },
+        "query_samples": 1024
+      },
+      "2": {
+        "receptive_tokens": 4,
+        "bag_read_cosine": 0.2861294150352478,
+        "adjacency_read_cosine": 0.012131680734455585,
+        "bag_query": {
+          "nearest_target_cosine": 0.1360250562429428,
+          "random_target_cosine": 0.014372754842042923,
+          "gain": 0.12165230512619019
+        },
+        "adjacency_query": {
+          "nearest_target_cosine": 0.002608988434076309,
+          "random_target_cosine": 0.0025382032617926598,
+          "gain": 7.07858707755804e-05
+        },
+        "query_samples": 1024
+      },
+      "3": {
+        "receptive_tokens": 8,
+        "bag_read_cosine": 0.30640339851379395,
+        "adjacency_read_cosine": 0.015422997996211052,
+        "bag_query": {
+          "nearest_target_cosine": 0.12703195214271545,
+          "random_target_cosine": 0.032020606100559235,
+          "gain": 0.09501133859157562
+        },
+        "adjacency_query": {
+          "nearest_target_cosine": 0.010149164125323296,
+          "random_target_cosine": 0.00426214374601841,
+          "gain": 0.005887018516659737
+        },
+        "query_samples": 1024
+      },
+      "4": {
+        "receptive_tokens": 16,
+        "bag_read_cosine": 0.33374980092048645,
+        "adjacency_read_cosine": 0.01700366474688053,
+        "bag_query": {
+          "nearest_target_cosine": 0.14080020785331726,
+          "random_target_cosine": 0.05473698675632477,
+          "gain": 0.08606322109699249
+        },
+        "adjacency_query": {
+          "nearest_target_cosine": 0.004161828197538853,
+          "random_target_cosine": 0.00038527583819814026,
+          "gain": 0.003776550991460681
+        },
+        "query_samples": 1024
+      },
+      "5": {
+        "receptive_tokens": 32,
+        "bag_read_cosine": 0.3772770166397095,
+        "adjacency_read_cosine": 0.020771725103259087,
+        "bag_query": {
+          "nearest_target_cosine": 0.17001831531524658,
+          "random_target_cosine": 0.09903649240732193,
+          "gain": 0.07098181545734406
+        },
+        "adjacency_query": {
+          "nearest_target_cosine": 0.0120583176612854,
+          "random_target_cosine": -0.0010889230761677027,
+          "gain": 0.01314724050462246
+        },
+        "query_samples": 1024
+      },
+      "6": {
+        "receptive_tokens": 64,
+        "bag_read_cosine": 0.43582484126091003,
+        "adjacency_read_cosine": 0.02695060893893242,
+        "bag_query": {
+          "nearest_target_cosine": 0.23799191415309906,
+          "random_target_cosine": 0.16061007976531982,
+          "gain": 0.07738181203603745
+        },
+        "adjacency_query": {
+          "nearest_target_cosine": 0.0028752239886671305,
+          "random_target_cosine": 0.001018832204863429,
+          "gain": 0.0018563917838037014
+        },
+        "query_samples": 512
+      }
+    },
+    "root_shuffle": {
+      "bag_prediction_invariance": 0.9759098291397095,
+      "adjacency_prediction_invariance": 0.9662967920303345,
+      "invariance_gap": 0.009613037109375
+    },
+    "algebra": {
+      "bag_max_abs_error": 4.76837158203125e-07,
+      "adjacency_max_abs_error": 4.76837158203125e-07
+    }
+  },
+  "gradients": {
+    "bag": {
+      "write": 0.010851098224520683,
+      "fold": 2.219278573989868,
+      "depth": 0.026096196845173836,
+      "read": 0.31027090549468994
+    },
+    "adjacency": {
+      "write": 0.012598471716046333,
+      "fold": 1.5989820957183838,
+      "depth": 0.02045372687280178,
+      "read": 0.3691072463989258
+    }
+  },
+  "decision": {
+    "gates": {
+      "P1": true,
+      "P2": false,
+      "P3": false,
+      "P4": false,
+      "P5": true,
+      "P6": true
+    },
+    "passed": 3,
+    "total": 6,
+    "status": "not_supported_by_this_probe"
+  },
+  "boundary": "Bag and directed-adjacency multiscale geometry only; not token reconstruction, semantics, or world knowledge."
+}
