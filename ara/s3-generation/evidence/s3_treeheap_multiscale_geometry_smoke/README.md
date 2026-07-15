@@ -20,3 +20,8 @@ adjacency remained near zero. The full claim is not supported by this probe.
 Machine-readable metrics and the preregistered gate decision are in
 `summary.json`. Training checkpoints are evidence artifacts, not endorsed
 language-model checkpoints.
+
+`layer_observation.json` is a human-readable microscope over one held-out
+64-token block. It contains one nested node at every depth, all four nodes at
+depth 4, their state coordinates and cosine matrix, and same-depth nearest
+neighbour text retrieved from 511 other validation blocks.
