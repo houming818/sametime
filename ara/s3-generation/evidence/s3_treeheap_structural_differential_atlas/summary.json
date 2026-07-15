@@ -1,0 +1,208 @@
+{
+  "claim": "S3-TREEHEAP-DIFF-ATLAS-C01",
+  "host": "io",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "checkpoint": "ara/s3-generation/evidence/s3_treeheap_multiscale_geometry_smoke/checkpoint.pt",
+  "checkpoint_train_blocks": 200000,
+  "validation_available": 67036,
+  "validation_used": 32768,
+  "operators": [
+    "write_one",
+    "write_two",
+    "mirror_8",
+    "swap_children_8",
+    "swap_subheaps_4",
+    "shuffle_8"
+  ],
+  "signature_dimensions": 30,
+  "inverse_state_max_abs_error": 0.0,
+  "scale_curve": [
+    {
+      "blocks": 512,
+      "multiclass_accuracy": 0.4817708333333333,
+      "multiclass_bootstrap_95": [
+        0.46841634114583336,
+        0.49545084635416664
+      ],
+      "mirror_vs_child_swap": 0.7724609375,
+      "write_one_vs_two": 0.6025390625
+    },
+    {
+      "blocks": 2048,
+      "multiclass_accuracy": 0.480712890625,
+      "multiclass_bootstrap_95": [
+        0.4728759765625,
+        0.4886942545572917
+      ],
+      "mirror_vs_child_swap": 0.784912109375,
+      "write_one_vs_two": 0.609619140625
+    },
+    {
+      "blocks": 8192,
+      "multiclass_accuracy": 0.4795735677083333,
+      "multiclass_bootstrap_95": [
+        0.47554117838541665,
+        0.4831670125325521
+      ],
+      "mirror_vs_child_swap": 0.77911376953125,
+      "write_one_vs_two": 0.6082763671875
+    },
+    {
+      "blocks": 32768,
+      "multiclass_accuracy": 0.4776051839192708,
+      "multiclass_bootstrap_95": [
+        0.47564722696940104,
+        0.479593022664388
+      ],
+      "mirror_vs_child_swap": 0.7769012451171875,
+      "write_one_vs_two": 0.6070404052734375
+    }
+  ],
+  "classification": {
+    "labels": [
+      "write_one",
+      "write_two",
+      "mirror_8",
+      "swap_children_8",
+      "swap_subheaps_4",
+      "shuffle_8"
+    ],
+    "per_operator_accuracy": {
+      "write_one": 0.82806396484375,
+      "write_two": 0.168731689453125,
+      "mirror_8": 0.57891845703125,
+      "swap_children_8": 0.16522216796875,
+      "swap_subheaps_4": 0.695098876953125,
+      "shuffle_8": 0.429595947265625
+    },
+    "row_normalized_confusion": [
+      [
+        0.8281,
+        0.1101,
+        0.0002,
+        0.0,
+        0.0614,
+        0.0002
+      ],
+      [
+        0.6682,
+        0.1687,
+        0.001,
+        0.0007,
+        0.1607,
+        0.0007
+      ],
+      [
+        0.1148,
+        0.004,
+        0.5789,
+        0.0939,
+        0.0069,
+        0.2014
+      ],
+      [
+        0.1071,
+        0.0,
+        0.5043,
+        0.1652,
+        0.0,
+        0.2234
+      ],
+      [
+        0.1918,
+        0.013,
+        0.0088,
+        0.0028,
+        0.6951,
+        0.0886
+      ],
+      [
+        0.2154,
+        0.0087,
+        0.2929,
+        0.0437,
+        0.0096,
+        0.4296
+      ]
+    ]
+  },
+  "operator_depth_mean_state_mse": {
+    "write_one": [
+      0.02213575877249241,
+      0.02685527689754963,
+      0.029117856174707413,
+      0.026314128190279007,
+      0.0210244283080101,
+      0.013436651788651943
+    ],
+    "write_two": [
+      0.043503355234861374,
+      0.05251287668943405,
+      0.05684981495141983,
+      0.05139120668172836,
+      0.040913671255111694,
+      0.027343159541487694
+    ],
+    "mirror_8": [
+      0.16400541365146637,
+      0.18809321522712708,
+      0.017444748431444168,
+      0.010554607957601547,
+      0.007604035548865795,
+      0.004813662730157375
+    ],
+    "swap_children_8": [
+      0.16307860612869263,
+      0.18807217478752136,
+      0.007279747165739536,
+      0.0019227312877774239,
+      0.001148789539001882,
+      0.0007077824557200074
+    ],
+    "swap_subheaps_4": [
+      0.16024449467658997,
+      0.17576640844345093,
+      0.19028663635253906,
+      0.1723354011774063,
+      0.13259586691856384,
+      0.016966350376605988
+    ],
+    "shuffle_8": [
+      0.14587143063545227,
+      0.1073070541024208,
+      0.016144555062055588,
+      0.01139119639992714,
+      0.008680672384798527,
+      0.0055531468242406845
+    ]
+  },
+  "order_readout_changes": {
+    "mirror_8": {
+      "bag_read_mse": 0.02948075346648693,
+      "adjacency_read_mse": 0.023632964119315147,
+      "bag_lt_adjacency": false
+    },
+    "swap_children_8": {
+      "bag_read_mse": 0.027272924780845642,
+      "adjacency_read_mse": 0.021657338365912437,
+      "bag_lt_adjacency": false
+    },
+    "shuffle_8": {
+      "bag_read_mse": 0.02168496698141098,
+      "adjacency_read_mse": 0.017785971984267235,
+      "bag_lt_adjacency": false
+    }
+  },
+  "gates": {
+    "P1_inverse": true,
+    "P2_multiclass": true,
+    "P3_mirror_vs_child": true,
+    "P4_write_extent": false,
+    "P5_scale_stable": true,
+    "P6_order_readout": false
+  },
+  "status": "partial_operator_signatures",
+  "elapsed_sec": 14.092771768569946,
+  "boundary": "Frozen-checkpoint operator response only; no semantic or decoder claim."
+}
