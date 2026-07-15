@@ -1,0 +1,31 @@
+[plain] epoch=1 train=7.0466 valid=6.6214 bleu=0.405
+[plain] epoch=2 train=5.9469 valid=6.4474 bleu=0.687
+[plain] epoch=3 train=4.7274 valid=6.4650 bleu=0.422
+[plain] epoch=4 train=3.4589 valid=6.6538 bleu=0.743
+[plain] epoch=5 train=2.4333 valid=6.9526 bleu=0.727
+[structured_mask] epoch=1 train=7.0598 valid=6.6313 bleu=0.196
+[structured_mask] epoch=2 train=6.0386 valid=6.4742 bleu=0.711
+[structured_mask] epoch=3 train=4.9699 valid=6.4645 bleu=0.298
+[structured_mask] epoch=4 train=3.8710 valid=6.6060 bleu=0.291
+[structured_mask] epoch=5 train=2.9566 valid=6.8028 bleu=0.420
+[random_mask] epoch=1 train=7.0570 valid=6.6286 bleu=0.329
+[random_mask] epoch=2 train=6.0171 valid=6.4734 bleu=0.336
+[random_mask] epoch=3 train=4.9497 valid=6.4549 bleu=0.512
+[random_mask] epoch=4 train=3.8479 valid=6.5948 bleu=0.329
+[random_mask] epoch=5 train=2.9452 valid=6.7991 bleu=0.558
+{
+  "derived": {
+    "clean_nll_gain_over_plain": 0.018955650120118683,
+    "cut_nll_gain_over_plain": 0.09419231310059484,
+    "cut_nll_gain_over_random_mask": 0.015405407498856327,
+    "root_contribution_gain_over_plain": -0.0007299491877672537
+  },
+  "gates": {
+    "P1_clean_s2_gain": false,
+    "P2_structured_cut_gain": false,
+    "P3_upper_state_causal_gain": false,
+    "P4_beats_equal_random_mask": false,
+    "P5_finite_and_nonempty": true
+  },
+  "decision": "not_supported"
+}

@@ -1,0 +1,816 @@
+{
+  "claim": "S2-TREEHEAP-EMERGENT-MASK-C01",
+  "host": "io",
+  "seconds": 181.4216923713684,
+  "config": {
+    "data": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "spm_model": "/mnt/nas/datasets/wmt17/sp_bpe.model",
+    "evidence_dir": "ara/s3-generation/evidence/s2_treeheap_emergent_mask_translation",
+    "seed": 71511,
+    "train_samples": 5000,
+    "valid_samples": 500,
+    "test_samples": 500,
+    "max_scan": 100000,
+    "min_len": 9,
+    "max_len": 24,
+    "dim": 192,
+    "hidden": 192,
+    "rank": 32,
+    "heads": 4,
+    "batch_size": 24,
+    "epochs": 5,
+    "lr": 0.002,
+    "mask_probability": 0.5,
+    "mask_cuts": 2,
+    "max_mask_depth": 3,
+    "precision": "fp32",
+    "device": "cuda",
+    "num_workers": 0
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "rows": 6000,
+    "vocab": 16001
+  },
+  "results": {
+    "plain": {
+      "parameters": 12775685,
+      "checkpoint": "checkpoint_plain.pt",
+      "seconds": 52.44713759422302,
+      "finite_gradients": true,
+      "trace": [
+        {
+          "epoch": 1,
+          "train_nll": 7.04663742101934,
+          "nll": 6.621424471330577,
+          "ppl": 751.0141336273924,
+          "exact": 0.0,
+          "token_bleu4": 0.4048346426750885
+        },
+        {
+          "epoch": 2,
+          "train_nll": 5.94685883042915,
+          "nll": 6.447368806904548,
+          "ppl": 631.0397191432991,
+          "exact": 0.0,
+          "token_bleu4": 0.6867550261601839
+        },
+        {
+          "epoch": 3,
+          "train_nll": 4.727359958812951,
+          "nll": 6.464996674913141,
+          "ppl": 642.2622278647939,
+          "exact": 0.0,
+          "token_bleu4": 0.42212120755675403
+        },
+        {
+          "epoch": 4,
+          "train_nll": 3.45893357473127,
+          "nll": 6.653787963427922,
+          "ppl": 775.7171555174555,
+          "exact": 0.0,
+          "token_bleu4": 0.7430712659189291
+        },
+        {
+          "epoch": 5,
+          "train_nll": 2.433253534672933,
+          "nll": 6.952614361660876,
+          "ppl": 1045.8804668500957,
+          "exact": 0.0,
+          "token_bleu4": 0.726673758175798
+        }
+      ],
+      "evaluation": {
+        "full": {
+          "nll": 6.525111390091138,
+          "ppl": 682.0557436709116,
+          "exact": 0.0,
+          "token_bleu4": 0.40713554792718787,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "政治权力尔顿的权力,但这两个的 ⁇ 。"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约和决策者决策者美国政治精英,并俄罗斯在 ⁇ 。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "政治权力尔顿的权力,但对策。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "国际机构国际机构需要采取的产量和组织。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "政治和就业率在美国在 ⁇ 。"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "伊朗的权力,但美国将面临 。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "艾滋病的权力,但也不能被 ⁇ 。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": "伊朗的权力,这些这些技术的国家和可持续性。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约和决策者在此,并必须必须和杀戮的。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "两大和决策者在这个问题上,欧洲 — —  ⁇ 庸置疑。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "布什社会社会的权力,但也已经发生了。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": "政治的权力是 ⁇ 的。"
+            }
+          ]
+        },
+        "cut": {
+          "nll": 6.698870786302623,
+          "ppl": 811.4889631459381,
+          "exact": 0.0,
+          "token_bleu4": 0.2700323115739682,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "政治权力尔顿,美国在 ⁇ 庸置疑,因此在 ⁇ 。"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约的俄罗斯美国美国在 ⁇ 庸置疑,但美国也存在。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "政治权力的权力尔顿的权力。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "政治和组织的权力和产量生产和组织。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "政治的核核。"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "事实的权力,而欧洲 ” 。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "艾滋病的例子,但不是不可能。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": "政治和组织的 ⁇ 。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约的权力,但必须必须更加支持。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "剑桥—美国的—美国的权力 — —  ⁇ 庸置疑。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "布什政府已经证明了已经取得了的。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": " ⁇ 庸置疑,但对策也存在。"
+            }
+          ]
+        },
+        "cut_root_zero": {
+          "nll": 6.702996032975519,
+          "ppl": 814.8434696174248,
+          "exact": 0.0,
+          "token_bleu4": 0.2673237149683551,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "政治权力尔顿,美国在 ⁇ 庸置疑,因此在 ⁇ 。"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约的俄罗斯美国美国在 ⁇ 庸置疑,但美国也存在。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "政治权力的权力尔顿的权力。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "政治和组织的权力和产量生产和组织。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "政治的核核。"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "事实的权力,而欧洲 ” 。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "艾滋病的例子,但不是不可能。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": "政治和组织的 ⁇ 。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约的权力,但必须必须更加支持。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "剑桥—美国的—美国的权力 — —  ⁇ 庸置疑。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "布什政府已经证明了已经取得了的。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": " ⁇ 庸置疑,但对策也存在。"
+            }
+          ]
+        }
+      },
+      "root_contribution": 0.004125246672895599
+    },
+    "structured_mask": {
+      "parameters": 12775685,
+      "checkpoint": "checkpoint_structured_mask.pt",
+      "seconds": 57.854204177856445,
+      "finite_gradients": true,
+      "trace": [
+        {
+          "epoch": 1,
+          "train_nll": 7.05975363699443,
+          "nll": 6.631257834069441,
+          "ppl": 758.4355569982572,
+          "exact": 0.0,
+          "token_bleu4": 0.19621312352111533
+        },
+        {
+          "epoch": 2,
+          "train_nll": 6.038634450812089,
+          "nll": 6.474180227947791,
+          "ppl": 648.1876436369645,
+          "exact": 0.0,
+          "token_bleu4": 0.7114131751231085
+        },
+        {
+          "epoch": 3,
+          "train_nll": 4.969871792496677,
+          "nll": 6.464502016742733,
+          "ppl": 641.9446061697961,
+          "exact": 0.0,
+          "token_bleu4": 0.29771497469983516
+        },
+        {
+          "epoch": 4,
+          "train_nll": 3.8709603804720647,
+          "nll": 6.606029101053558,
+          "ppl": 739.5405396897097,
+          "exact": 0.0,
+          "token_bleu4": 0.2910709862838736
+        },
+        {
+          "epoch": 5,
+          "train_nll": 2.9566005736446836,
+          "nll": 6.802829347187539,
+          "ppl": 900.3912104776289,
+          "exact": 0.0,
+          "token_bleu4": 0.4203398485219189
+        }
+      ],
+      "evaluation": {
+        "full": {
+          "nll": 6.506155739971019,
+          "ppl": 669.2487000303581,
+          "exact": 0.0,
+          "token_bleu4": 0.4798626404944811,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "每一个国家都需要 ⁇ ,但对伊朗的 ⁇ 核。"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约和财的核协议的核武,但美国的储蓄短缺的。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "每一个将导致的反应,但对伊朗的 ⁇ 色。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "共和党和决策者必须得税,我们将生产生产和600。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "共和党和就业率的 ⁇ 色,但对伊朗的 ⁇ 核。"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "另一个让美国政治精英,而是在“安全”的。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "埃克斯潘的原因是,但对其他国家的有什么。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": "至于想想想,他对伊朗的全国。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约和财的原因是、塞内加尔、更重要。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "剑桥—世界其他地区,美国正在向全世界的讨论。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "埃—2008年,美国将导致社会的收入。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": "事实是,他们将确保赋予的 ⁇ 子。"
+            }
+          ]
+        },
+        "cut": {
+          "nll": 6.6046784732020285,
+          "ppl": 738.5423698691878,
+          "exact": 0.0,
+          "token_bleu4": 0.4431138456073106,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "每一个人自然,在西班牙,在西班牙,在西班牙,在西班牙,在西班牙的,我们并没有的"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约的俄罗斯,美国将面临美国政治精英。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "阿尔及利亚的命运的反应,但对欧盟的的 ⁇ 局。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "社会和组织的生产和600生产和600生产和600。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "每核核核核核核核核核核核核核核核核核核核核核核核"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "诚然,他将过去的合,而是在“ ⁇  ” 。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "埃克斯本来就被用来,但对政府的 ⁇ ,但对政府的总统。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": " ⁇ 饿,各国国家需要全国能够保证,全国民众保证。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约的阿拉伯之春必须更加严重,但对全球金融的阿拉伯之春。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "剑桥—世界其他地区,美国正在向全世界的讨论。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "埃克一直是“美国的 ⁇ 子。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": "事实是,他们将面临比以前更深的。"
+            }
+          ]
+        },
+        "cut_root_zero": {
+          "nll": 6.608073770687157,
+          "ppl": 741.0542027170982,
+          "exact": 0.0,
+          "token_bleu4": 0.4392752251972507,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "每一个人自然,在西班牙,在西班牙,在西班牙,在西班牙,在西班牙的,我们并没有的"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约的俄罗斯,美国将面临美国政治精英。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "阿尔及利亚的命运的反应,但对欧盟的的 ⁇ 局。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "社会和组织的生产和600生产和600生产和600。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "每核核核核核核核核核核核核核核核核核核核核核核核"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "诚然,他将过去的合,而是在“ ⁇  ” 。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "埃克斯本来就被用来,但对政府的 ⁇ ,但对政府的总统。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": "试图和保证,国家机关对全国国家安全进行评估。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约的阿拉伯之春必须更加严重,但对全球金融的阿拉伯之春。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "剑桥—世界其他地区,美国正在向全世界的讨论。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "埃克一直是“美国的 ⁇ 子。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": "事实是,他们将面临比以前更深。"
+            }
+          ]
+        }
+      },
+      "root_contribution": 0.0033952974851283457
+    },
+    "random_mask": {
+      "parameters": 12775685,
+      "checkpoint": "checkpoint_random_mask.pt",
+      "seconds": 70.25397229194641,
+      "finite_gradients": true,
+      "trace": [
+        {
+          "epoch": 1,
+          "train_nll": 7.057007931065901,
+          "nll": 6.628647204648917,
+          "ppl": 756.4581450875104,
+          "exact": 0.0,
+          "token_bleu4": 0.32877074423352376
+        },
+        {
+          "epoch": 2,
+          "train_nll": 6.017125095476945,
+          "nll": 6.473380977158689,
+          "ppl": 647.6697861278801,
+          "exact": 0.0,
+          "token_bleu4": 0.3361863849060979
+        },
+        {
+          "epoch": 3,
+          "train_nll": 4.949722566102681,
+          "nll": 6.454853221165777,
+          "ppl": 635.7804002978185,
+          "exact": 0.0,
+          "token_bleu4": 0.5121767481730751
+        },
+        {
+          "epoch": 4,
+          "train_nll": 3.8479103300560036,
+          "nll": 6.5948042367229185,
+          "ppl": 731.2857137889142,
+          "exact": 0.0,
+          "token_bleu4": 0.32876782549537104
+        },
+        {
+          "epoch": 5,
+          "train_nll": 2.945223088469802,
+          "nll": 6.799073780332935,
+          "ppl": 897.016072835901,
+          "exact": 0.0,
+          "token_bleu4": 0.557569512014215
+        }
+      ],
+      "evaluation": {
+        "full": {
+          "nll": 6.503347273728264,
+          "ppl": 667.3717745229633,
+          "exact": 0.0,
+          "token_bleu4": 0.7721907108514564,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "共和党人安全安全,这两大安全安全。"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约的俄罗斯,美国的经常账户赤字、塞内加尔和组织的自由主义。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "共和党人是向还是于2010年,在此中,对对伊朗的 ⁇ 症。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "共和党人是改善核和清洁。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "共和党和就业率在美国在西班牙,因为在此中,对伊朗的知识能力。"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "另一个让美国将过去的合,而是在合“人力”的。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "阿拉伯之春年,美国在此,但对比的战争,而不是不像那样。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": "诚然,安全安全是向安全安全。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约的俄罗斯,我们所有人都必须更加透明。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "没人 — — 如何,他将深远的。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "共和党社会的权力,但对其他社会的。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": "预计将在未来数十年,而且是他们的硬是显而易见的。"
+            }
+          ]
+        },
+        "cut": {
+          "nll": 6.620083880700885,
+          "ppl": 750.0080056706234,
+          "exact": 0.0,
+          "token_bleu4": 0.7051291866995186,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "共和党人知道,他没有证据显示,在此,在此,在此,在此,在此,"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约俄罗斯,美国在西班牙,美国的经常账户赤字的数字,但俄罗斯有一点总量。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "阿尔及利亚的命运是向是显而易见的的预测。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "如何和组织和决策者必须更加努力,我们致力于对伊朗的和组织。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "皮涅核计划核和核计划核。"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "另一个让合年,我们将“人力”的。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "埃,他没有理由的理由是,但对伊朗的例子。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": "安全安全安全,在全国安全安全,全球全国安全安全。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约的科学家,我们所有人都必须能够解决。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "没人 — — 个人电脑 — —  ⁇ 汽了。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "共和党人一直是没有迫在眉睫的。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": "就业率的是,美国当前的更为政策,而不是不像更深。"
+            }
+          ]
+        },
+        "cut_root_zero": {
+          "nll": 6.624805372702486,
+          "ppl": 753.5575354146976,
+          "exact": 0.0,
+          "token_bleu4": 0.7146628232545108,
+          "examples": [
+            {
+              "en": "· ensuring the highest possible standards of security for nuclear weapons and materials;",
+              "reference_zh": "· 确保对核武器及材料执行最高的安全标准;",
+              "hypothesis_zh": "共和党人知道,他没有证据显示,在此,在此,在此,在此,在此,"
+            },
+            {
+              "en": "· beginning a dialogue on tactical nuclear weapons involving Russia, the US, and NATO;",
+              "reference_zh": "· 启动俄罗斯、美国和北约参与的战术核武器对话;",
+              "hypothesis_zh": "北约俄罗斯,美国在西班牙,但俄罗斯有一点总量,俄罗斯美国的经常账户赤字。"
+            },
+            {
+              "en": "· adopting a process to bring the Comprehensive Test Ban Treaty into effect;",
+              "reference_zh": "· 启动促成《全面禁止核试验条约》生效的程序;",
+              "hypothesis_zh": "阿尔及利亚的命运是向是显而易见的的预测。"
+            },
+            {
+              "en": "· developing international and multilateral approaches to manage the risks of fuel production for civilian nuclear power; and",
+              "reference_zh": "· 制定管理民用核燃料生产风险的国际和多边计划;",
+              "hypothesis_zh": "如何和组织和决策者必须更加努力,我们致力于对伊朗的和组织。"
+            },
+            {
+              "en": "· further reductions in US and Russian nuclear forces.",
+              "reference_zh": "· 推进美国和俄罗斯的核裁军进程。",
+              "hypothesis_zh": "皮涅核计划核和核计划核。"
+            },
+            {
+              "en": "Without the actions, the vision will not be perceived as realistic or possible.”",
+              "reference_zh": "而相关措施如果无法到位,无核化设想就不具备现实性及可行性 。 ”",
+              "hypothesis_zh": "另一个让合年,我们将“人力”的。"
+            },
+            {
+              "en": "The timing could not be better, as the Euro-Atlantic family has entered a critical period.",
+              "reference_zh": "上述变化来得正是时候,因为欧洲大西洋这个家庭已经进入了至关重要的时期。",
+              "hypothesis_zh": "埃,他没有理由的理由是,但对伊朗的例子。"
+            },
+            {
+              "en": "Such actions are crucial to these states’ national security and global efforts to mitigate threats.",
+              "reference_zh": "上述举措对保护国家安全和缓和核威胁的全球努力都具有至关重要的意义。",
+              "hypothesis_zh": "安全安全安全,在全国安全安全,全球全国安全安全。"
+            },
+            {
+              "en": "NATO, OSCE, and other key regional institutions must give this concept and process their essential support.",
+              "reference_zh": "上述理念和程序必须在今后几个月内得到北约、欧安组织和其他重要地区性机构实质性的支持。",
+              "hypothesis_zh": "北约的科学家们都被 ⁇ ,其他人也支持了。"
+            },
+            {
+              "en": "This all happened when the Iron Curtain divided Europe – and the world – into opposing camps.",
+              "reference_zh": "这些都发生在欧洲和世界被铁幕隔绝,划分为两大对立阵营的那个年代。",
+              "hypothesis_zh": "没人 — — 个人 — — 个人电脑 — —  ⁇ 汽了。"
+            },
+            {
+              "en": "The shortsightedness of socialist Prime Minister José Zapatero of Spain has prevailed.",
+              "reference_zh": "西班牙社会党首相萨帕特罗的短视行为如今却风行一时。",
+              "hypothesis_zh": "共和党人一直是没有迫在眉睫的。"
+            },
+            {
+              "en": "It is hard to imagine a more shameful deal.",
+              "reference_zh": "没有什么比这更为可耻的交易了。",
+              "hypothesis_zh": "就业率的是,美国当前的更为政策,而不是不像更深。"
+            }
+          ]
+        }
+      },
+      "root_contribution": 0.004721492001601213
+    }
+  },
+  "derived": {
+    "clean_nll_gain_over_plain": 0.018955650120118683,
+    "cut_nll_gain_over_plain": 0.09419231310059484,
+    "cut_nll_gain_over_random_mask": 0.015405407498856327,
+    "root_contribution_gain_over_plain": -0.0007299491877672537
+  },
+  "gates": {
+    "P1_clean_s2_gain": false,
+    "P2_structured_cut_gain": false,
+    "P3_upper_state_causal_gain": false,
+    "P4_beats_equal_random_mask": false,
+    "P5_finite_and_nonempty": true
+  },
+  "decision": "not_supported"
+}
