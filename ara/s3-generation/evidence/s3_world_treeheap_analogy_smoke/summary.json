@@ -1,0 +1,154 @@
+{
+  "claim": "S3-WORLD-ANALOGY-C01",
+  "host": "io",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "config": {
+    "output": "ara/s3-generation/evidence/s3_world_treeheap_analogy_smoke",
+    "seed": 71503,
+    "dim": 64,
+    "steps": 6000,
+    "batch": 256,
+    "valid_examples": 4096,
+    "lr": 0.0005,
+    "log_every": 200,
+    "device": "cuda"
+  },
+  "tree_parameters": 238314,
+  "flat_parameters": 73574,
+  "metrics": {
+    "tree": {
+      "token_accuracy": 1.0,
+      "sequence_exact": 1.0
+    },
+    "flat": {
+      "token_accuracy": 1.0,
+      "sequence_exact": 1.0
+    },
+    "lexical": {
+      "token_accuracy": 0.91241455078125,
+      "sequence_exact": 0.546630859375
+    },
+    "interventions": {
+      "zero_world_token_accuracy": 0.9984130859375,
+      "shuffle_world_token_accuracy": 0.9866943359375,
+      "wrong_B_token_accuracy": 0.828369140625
+    },
+    "non_target_preservation": 1.0,
+    "relations": {
+      "food_replace": {
+        "token_accuracy": 1.0,
+        "sequence_exact": 1.0,
+        "count": 1064
+      },
+      "number_shift": {
+        "token_accuracy": 1.0,
+        "sequence_exact": 1.0,
+        "count": 999
+      },
+      "person_transport": {
+        "token_accuracy": 1.0,
+        "sequence_exact": 1.0,
+        "count": 1020
+      },
+      "role_swap": {
+        "token_accuracy": 1.0,
+        "sequence_exact": 1.0,
+        "count": 1013
+      }
+    },
+    "samples": [
+      {
+        "relation": "person_transport",
+        "A": "P10 LIKE P2",
+        "B": "P8 LIKE P2",
+        "C": "P3 LIKE P10",
+        "gold_D": "P3 LIKE P8",
+        "tree_D": "P3 LIKE P8",
+        "flat_D": "P3 LIKE P8",
+        "lexical_D": "P3 LIKE P8"
+      },
+      {
+        "relation": "number_shift",
+        "A": "P4 BUY FOOD6 N2",
+        "B": "P4 BUY FOOD6 N3",
+        "C": "FOOD3 COST N0 UNIT",
+        "gold_D": "FOOD3 COST N1 UNIT",
+        "tree_D": "FOOD3 COST N1 UNIT",
+        "flat_D": "FOOD3 COST N1 UNIT",
+        "lexical_D": "FOOD3 COST N0 UNIT"
+      },
+      {
+        "relation": "role_swap",
+        "A": "P3 LIKE P7",
+        "B": "P7 LIKE P3",
+        "C": "P4 LIKE P11",
+        "gold_D": "P11 LIKE P4",
+        "tree_D": "P11 LIKE P4",
+        "flat_D": "P11 LIKE P4",
+        "lexical_D": "P4 LIKE P11"
+      },
+      {
+        "relation": "food_replace",
+        "A": "P8 EAT FOOD0",
+        "B": "P8 EAT FOOD6",
+        "C": "FOOD0 COST N5 UNIT",
+        "gold_D": "FOOD6 COST N5 UNIT",
+        "tree_D": "FOOD6 COST N5 UNIT",
+        "flat_D": "FOOD6 COST N5 UNIT",
+        "lexical_D": "FOOD6 COST N5 UNIT"
+      },
+      {
+        "relation": "food_replace",
+        "A": "P7 EAT FOOD7",
+        "B": "P7 EAT FOOD3",
+        "C": "P6 BUY FOOD7 N3",
+        "gold_D": "P6 BUY FOOD3 N3",
+        "tree_D": "P6 BUY FOOD3 N3",
+        "flat_D": "P6 BUY FOOD3 N3",
+        "lexical_D": "P6 BUY FOOD3 N3"
+      },
+      {
+        "relation": "number_shift",
+        "A": "FOOD7 COST N5 UNIT",
+        "B": "FOOD7 COST N6 UNIT",
+        "C": "P7 BUY FOOD1 N1",
+        "gold_D": "P7 BUY FOOD1 N2",
+        "tree_D": "P7 BUY FOOD1 N2",
+        "flat_D": "P7 BUY FOOD1 N2",
+        "lexical_D": "P7 BUY FOOD1 N1"
+      },
+      {
+        "relation": "food_replace",
+        "A": "FOOD7 COST N7 UNIT",
+        "B": "FOOD1 COST N7 UNIT",
+        "C": "P3 BUY FOOD7 N0",
+        "gold_D": "P3 BUY FOOD1 N0",
+        "tree_D": "P3 BUY FOOD1 N0",
+        "flat_D": "P3 BUY FOOD1 N0",
+        "lexical_D": "P3 BUY FOOD1 N0"
+      },
+      {
+        "relation": "food_replace",
+        "A": "FOOD10 COST N2 UNIT",
+        "B": "FOOD6 COST N2 UNIT",
+        "C": "P10 BUY FOOD10 N5",
+        "gold_D": "P10 BUY FOOD6 N5",
+        "tree_D": "P10 BUY FOOD6 N5",
+        "flat_D": "P10 BUY FOOD6 N5",
+        "lexical_D": "P10 BUY FOOD6 N5"
+      }
+    ]
+  },
+  "gates": {
+    "P1_full_and_noncopy": true,
+    "P2_lexical_margin": true,
+    "P3_world_causal": false,
+    "P4_wrong_relation": false,
+    "P5_selective": true,
+    "P6_flat_reported": true
+  },
+  "status": "partial_analogy_no_world",
+  "elapsed_sec": 224.21398663520813,
+  "boundary": "Finite symbolic world only; no natural-language semantic or architecture-superiority claim."
+}
