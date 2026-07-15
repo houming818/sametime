@@ -155,6 +155,8 @@ M0 math toolbox
 | ID | 来源 | 主张 | 状态 | Evidence / Pointer | 证伪条件 |
 |---|---|---|---|---|---|
 | C7-001 | SPR-052 | 在相同的 `K=4` decoder memory 带宽下，learned TreeHeap frontier 应在 WMT 上优于 fixed/random tree frontier 和 flat 四向量压缩；替换 learned route 应导致翻译指标下降。 | 主主张未支持 / 保留弱 route 信号 | `ara/s3-generation/evidence/s3_wmt_frontier_smoke/`；learned/fixed/random/flat NLL 为 `6.5988/6.6012/6.7020/6.5080`；同 checkpoint 替换 fixed/random route 的 NLL 增量为 `+0.0097/+0.0285`，低于预注册 `0.05` 门槛 | 只有 value-preserving compose 重设计在预注册多 seed 下同时击败 flat `K=4`、fixed 和 random controls，才重新开放。 |
+| C7-002 | SPR-054 | 冻结的 TreeHeap root compressor 加上每个内部地址一个有界 detail code，可以形成渐进恢复的多分辨率 codec，同时不改变原 root predictor。 | 机制支持 / 三 seed、每 seed 100万 block | `ara/s3-generation/evidence/s3_multiresolution_treeheap_pyramid/main_v2/`；MSE `1.9334 -> 0.5526`，k=64 token top-1 `0.9964`，整段 exact `0.8268`，地址错位 MSE `3.3147`，root NLL 增量 `0`，flat/Haar k=64 MSE `1.6042/1.2881` | 在 random-pair 训练、逐层消融、量化和更强同码率 baseline 完成前，结论必须保持有界。 |
+| C7-003 | SPR-055 待写 | 只用 raw-token echo loss，可以联合训练共享递归的 WRITE/FOLD/DETAIL/UNFOLD/READ kernel，形成地址敏感的连续编码协议；但 echo 本身不会强迫模型形成有用的全局 root，也不能证明有限比特压缩。 | 部分支持 / 单 seed 机制结果 | `ara/s3-generation/evidence/s3_treeheap_native_codec/`；连续 v1/v2 top-1 `0.9955/0.9915`，detail 地址错位后 `0.0024/0.0014`，root 清零后仍为 `0.9956/0.9889`；632-bit v3 top-1 `0.2073` | root 消融无影响时必须拒绝 root-plus 解释。只有显式量化 rate-distortion 成立才能重新开放有限编码主张；root 的价值应改用缺失信息预测测试。 |
 
 ## SPR Blog Source Map
 
@@ -182,6 +184,9 @@ M0 math toolbox
 | 020 | `blogs/.../spr/020-soft-treeheap-audit.md` | GLM audit、ARA scope repair、clean-kernel next proof |
 | 021 | `blogs/.../spr/021-c05-structural-proof.md` | C05 structural proof：path、subheap、recursive plus |
 | 022-033 | `blogs/.../spr/022-*.md` 到 `033-*.md` | 后续数学底座、kernel、S1、decoder 进展；以各层 registry 为准 |
+| 052 | `blogs/.../spr/052-treeheap-frontier-bottleneck.md` | 固定带宽 WMT frontier 结果；主要优势 Claim 未支持 |
+| 053 | `blogs/.../spr/053-treeheap-algebraic-operator-codec.md` | 学习短算子程序并交给固定 TreeHeap executor；未见地址阳性、未见深度失败 |
+| 054 | `blogs/.../spr/054-treeheap-multiresolution-pyramid.md` | 冻结 root、带地址 detail codec 与三 seed 率失真 Evidence |
 
 Canonical local blog source：
 

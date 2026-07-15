@@ -1,0 +1,20 @@
+{
+  "claim": "S3-P0-WORLD-OBS-C01",
+  "kind": "post_training_direct_qa_probe",
+  "checkpoint": "checkpoint.pt",
+  "decoder": {
+    "strategy": "greedy_argmax",
+    "max_new_bpe_tokens": 32
+  },
+  "prompts": [
+    {
+      "input": "地球为什么是圆的？",
+      "continuation": "圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆圆"
+    },
+    {
+      "input": "问：地球为什么是圆的？答：",
+      "continuation": ":圆圆::圆圆::圆圆::圆圆:圆圆圆:圆圆圆:圆圆圆:圆圆圆圆"
+    }
+  ],
+  "interpretation": "The P0 checkpoint enters greedy repetition collapse on direct question inputs. This is a negative generation result, not evidence of world knowledge or question answering."
+}

@@ -181,6 +181,8 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | ID | Source | Claim | Status | Evidence / Pointer | Falsification |
 |---|---|---|---|---|---|
 | C7-001 | SPR-052 | Under a matched `K=4` decoder-memory budget, a learned TreeHeap frontier should beat fixed/random tree frontiers and flat four-vector compression on WMT; route replacement should causally damage translation. | main claim not supported / weak route signal | `ara/s3-generation/evidence/s3_wmt_frontier_smoke/`; learned/fixed/random/flat NLL `6.5988/6.6012/6.7020/6.5080`; same-checkpoint fixed/random route replacement delta `+0.0097/+0.0285`, below registered `0.05` gate | Reopen only after value-preserving compose redesign beats flat `K=4`, fixed, and random controls across preregistered seeds. |
+| C7-002 | SPR-054 | A frozen TreeHeap root compressor plus one bounded addressed detail code per internal node forms a progressive multiresolution codec without changing the root predictor. | supported mechanism / three-seed 1M-block proof | `ara/s3-generation/evidence/s3_multiresolution_treeheap_pyramid/main_v2/`; MSE `1.9334 -> 0.5526`, k=64 token top-1 `0.9964`, sequence exact `0.8268`, address-shift MSE `3.3147`, root NLL delta `0`, flat/Haar k=64 MSE `1.6042/1.2881` | Keep bounded until random-pair training, per-level ablation, quantization, and stronger equal-rate baselines are tested. |
+| C7-003 | SPR-055 pending | Raw-token echo loss can jointly train shared recursive WRITE/FOLD/DETAIL/UNFOLD/READ kernels into an address-sensitive continuous protocol, but does not by itself force a useful global root or finite compression. | partial support / one-seed mechanism result | `ara/s3-generation/evidence/s3_treeheap_native_codec/`; continuous v1/v2 top-1 `0.9955/0.9915`, detail-shift `0.0024/0.0014`, root-zero `0.9956/0.9889`; 632-bit v3 top-1 `0.2073` | Reject root-plus interpretation when root ablation is neutral. Reopen finite-code compression only with explicit quantized rate-distortion; test root utility on prediction of missing information. |
 
 ## SPR Blog Source Map
 
@@ -229,6 +231,9 @@ here because SPR-026..SPR-038 moved S1 beyond the original hash/capacity stage.
 | 041 | `blogs/.../spr/041-s1-echo-entry-gate.md` | Controlled S1 echo entry gate: token write, structural route, token collapse |
 | 043 | `blogs/.../spr/043-s1-sentence-flip-echo.md` | Sentence-level same-algebra TreeHeap flip echo with readable examples |
 | 044 | `blogs/.../spr/044-s1-wmt-canonical-echo.md` | WMT canonical echo: bilingual canonical state plus same-language echo |
+| 052 | `blogs/.../spr/052-treeheap-frontier-bottleneck.md` | Fixed-bandwidth WMT frontier result; main advantage claim not supported |
+| 053 | `blogs/.../spr/053-treeheap-algebraic-operator-codec.md` | Learned short operator program plus fixed TreeHeap executor; address OOD positive and depth OOD failure |
+| 054 | `blogs/.../spr/054-treeheap-multiresolution-pyramid.md` | Frozen-root addressed-detail codec and three-seed rate-distortion evidence |
 
 The canonical local blog source is:
 

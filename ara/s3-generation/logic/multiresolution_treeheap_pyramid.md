@@ -1,7 +1,7 @@
 # Multiresolution TreeHeap Pyramid
 
 Date: 2026-07-14
-Status: designed / experiment pending
+Status: supported mechanism / three-seed 1M-block proof
 Claim: `S3-TREEHEAP-PYRAMID-C01`
 Predict: `P-S3-TREEHEAP-PYRAMID-01`
 
@@ -146,3 +146,41 @@ the TreeHeap-specific formulation: a recursively addressed root-plus-detail
 codec built on the measured TreeHeap fold checkpoint, together with the claim,
 controls, rate budgets, and falsification protocol above. This document does
 not assert universal novelty or patent novelty.
+
+## Result
+
+The preregistered run completed on `io` with seeds `71401/71402/71403`. Each
+seed trained on one million real-text blocks and was evaluated on 8,192 held-out
+blocks. The frozen checkpoint fingerprint was identical before and after the
+experiment, and audit-subset next-token NLL was exactly unchanged at
+`6.2997973263`.
+
+| `k` | TreeHeap floats | Flat floats | TreeHeap MSE | Flat MSE | Haar MSE | Token top-1 | Sequence exact |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0 | 192 | 192 | 1.9334 | **1.9104** | 1.9110 | 6.50% | 0.00% |
+| 8 | 696 | 768 | **0.8803** | 1.8416 | 1.8232 | 51.05% | 0.00% |
+| 16 | 1,200 | 1,344 | **0.7622** | 1.7459 | 1.7471 | 76.84% | 0.00% |
+| 32 | 2,208 | 2,304 | **0.6516** | 1.7047 | 1.5979 | 95.01% | 5.99% |
+| 64 | 4,224 | 4,224 | **0.5526** | 1.6042 | 1.2881 | 99.64% | 82.68% |
+
+Address-shifting the learned `k=64` detail codes raised MSE from `0.5526` to
+`3.3147`. All three seeds had a strictly monotonic MSE curve and Spearman
+correlation approximately `1.0`. The `k=64` MSE was 28.6% of root-only MSE,
+passing the preregistered 50% reduction gate.
+
+The matched-or-higher-rate flat attention codec had a failure tail at `k=64`
+(`1.5245/1.3767/1.9113`), whereas TreeHeap was stable
+(`0.5526/0.5499/0.5554`). The result therefore supports an advantage over the
+implemented flat and fixed-Haar controls, but it is not a universal comparison
+against all flat autoencoders or Transformers.
+
+## Decision
+
+`P1` through `P5` pass across all three seeds, so the multiresolution mechanism
+claim is supported. `P6` passes for the implemented equal-rate controls and is
+recorded as bounded positive evidence. Random-pairing training and per-level
+detail ablations were not implemented in this run; therefore scale
+specialization, optimal compression, and universal TreeHeap superiority remain
+open.
+
+Evidence: `../evidence/s3_multiresolution_treeheap_pyramid/main_v2/`.

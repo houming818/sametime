@@ -1,0 +1,304 @@
+{
+  "claim": "M0-RECUR-C01",
+  "host": "io",
+  "seconds": 28.87946891784668,
+  "config": {
+    "out": "ara/m0-treeheap-math/evidence/recursive_operator_locator_probe",
+    "train_samples": 12000,
+    "test_samples": 2000,
+    "epochs": 24,
+    "batch": 128,
+    "hidden": 192,
+    "lr": 0.002,
+    "seed": 59,
+    "device": "cuda"
+  },
+  "parameters": {
+    "recursive": 93897,
+    "one_shot_structural": 40513,
+    "flat_address": 233983
+  },
+  "gates": {
+    "ood_route_gate": false,
+    "beats_baselines": false,
+    "strong_restore_gate": false
+  },
+  "results": {
+    "iid_levels_0_2": {
+      "teacher_forced_action_accuracy": 1.0,
+      "autonomous_route_exact": 1.0,
+      "exact_restore": 1.0,
+      "one_shot_structural_address_accuracy": 1.0,
+      "flat_address_accuracy": 0.336,
+      "stopped_fraction": 1.0,
+      "mean_executed_steps": 1.982,
+      "p_power_mean_steps": 1.0,
+      "action_confusion_gold_rows": [
+        [
+          2000,
+          0,
+          0
+        ],
+        [
+          0,
+          1006,
+          0
+        ],
+        [
+          0,
+          0,
+          958
+        ]
+      ],
+      "examples": [
+        {
+          "gold_address": 3,
+          "pred_address": 3,
+          "gold_level": 1,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 2,
+          "pred_address": 2,
+          "gold_level": 1,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 1,
+          "pred_address": 1,
+          "gold_level": 0,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 4,
+          "pred_address": 4,
+          "gold_level": 2,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 5,
+          "pred_address": 5,
+          "gold_level": 2,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        }
+      ]
+    },
+    "ood_level_3": {
+      "teacher_forced_action_accuracy": 1.0,
+      "autonomous_route_exact": 1.0,
+      "exact_restore": 0.882,
+      "one_shot_structural_address_accuracy": 1.0,
+      "flat_address_accuracy": 0.0,
+      "stopped_fraction": 1.0,
+      "mean_executed_steps": 4.0,
+      "p_power_mean_steps": 1.0,
+      "action_confusion_gold_rows": [
+        [
+          2000,
+          0,
+          0
+        ],
+        [
+          0,
+          2964,
+          0
+        ],
+        [
+          0,
+          0,
+          3036
+        ]
+      ],
+      "examples": [
+        {
+          "gold_address": 13,
+          "pred_address": 13,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 9,
+          "pred_address": 9,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 9,
+          "pred_address": 9,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": false
+        },
+        {
+          "gold_address": 14,
+          "pred_address": 14,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 10,
+          "pred_address": 10,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        }
+      ]
+    },
+    "ood_level_4": {
+      "teacher_forced_action_accuracy": 0.9809,
+      "autonomous_route_exact": 0.9045,
+      "exact_restore": 0.7385,
+      "one_shot_structural_address_accuracy": 0.9335,
+      "flat_address_accuracy": 0.0,
+      "stopped_fraction": 0.9045,
+      "mean_executed_steps": 5.0955,
+      "p_power_mean_steps": 0.9064082188139791,
+      "action_confusion_gold_rows": [
+        [
+          1809,
+          57,
+          134
+        ],
+        [
+          0,
+          3977,
+          0
+        ],
+        [
+          0,
+          0,
+          4023
+        ]
+      ],
+      "examples": [
+        {
+          "gold_address": 30,
+          "pred_address": 30,
+          "gold_level": 4,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 16,
+          "pred_address": 16,
+          "gold_level": 4,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 31,
+          "pred_address": 31,
+          "gold_level": 4,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 26,
+          "pred_address": 105,
+          "gold_level": 4,
+          "stopped": false,
+          "route_exact": false,
+          "restore_exact": false
+        },
+        {
+          "gold_address": 27,
+          "pred_address": 27,
+          "gold_level": 4,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        }
+      ]
+    },
+    "ood_level_5": {
+      "teacher_forced_action_accuracy": 0.94325,
+      "autonomous_route_exact": 0.6735,
+      "exact_restore": 0.469,
+      "one_shot_structural_address_accuracy": 0.881,
+      "flat_address_accuracy": 0.0,
+      "stopped_fraction": 0.8315,
+      "mean_executed_steps": 6.402,
+      "p_power_mean_steps": 0.6879563163639397,
+      "action_confusion_gold_rows": [
+        [
+          1828,
+          57,
+          115
+        ],
+        [
+          6,
+          4957,
+          0
+        ],
+        [
+          12,
+          491,
+          4534
+        ]
+      ],
+      "examples": [
+        {
+          "gold_address": 48,
+          "pred_address": 48,
+          "gold_level": 5,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 44,
+          "pred_address": 179,
+          "gold_level": 5,
+          "stopped": false,
+          "route_exact": false,
+          "restore_exact": false
+        },
+        {
+          "gold_address": 40,
+          "pred_address": 40,
+          "gold_level": 5,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 42,
+          "pred_address": 42,
+          "gold_level": 5,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 45,
+          "pred_address": 45,
+          "gold_level": 5,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        }
+      ]
+    }
+  }
+}

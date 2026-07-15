@@ -1,0 +1,70 @@
+S1 WMT streaming full queue finished at 2026-07-04T18:02:46+08:00
+evidence: /home/nio/log/holds/SameTime/ara/s1-echo/evidence/s1_wmt_streaming_full_queue
+
+--- queue_summary.json ---
+[
+  {
+    "model": "bow",
+    "steps": 60000,
+    "batch": 256,
+    "pilot_pass": true,
+    "last_loss": 0.6075426936149597,
+    "last_align": 0.6075426340103149,
+    "last_echo": 8.821917418799785e-08,
+    "accepted_pairs": 15360000,
+    "seen_lines": 18150978,
+    "elapsed_sec": 1341.848972082138,
+    "cuda_memory_allocated": 890713600,
+    "cuda_memory_reserved": 2885681152
+  },
+  {
+    "model": "lstm",
+    "steps": 60000,
+    "batch": 256,
+    "pilot_pass": true,
+    "last_loss": 0.5158177018165588,
+    "last_align": 0.5158088207244873,
+    "last_echo": 8.864682058629114e-06,
+    "accepted_pairs": 15360000,
+    "seen_lines": 18150978,
+    "elapsed_sec": 1603.5062136650085,
+    "cuda_memory_allocated": 893892096,
+    "cuda_memory_reserved": 2738880512
+  },
+  {
+    "model": "transformer",
+    "steps": 60000,
+    "batch": 256,
+    "pilot_pass": true,
+    "last_loss": 0.602557897567749,
+    "last_align": 0.6004770994186401,
+    "last_echo": 0.00208080792799592,
+    "accepted_pairs": 15360000,
+    "seen_lines": 18150978,
+    "elapsed_sec": 2199.168422460556,
+    "cuda_memory_allocated": 903501312,
+    "cuda_memory_reserved": 3378511872
+  },
+  {
+    "model": "treeheap",
+    "steps": 60000,
+    "batch": 256,
+    "pilot_pass": true,
+    "last_loss": 0.6209449768066406,
+    "last_align": 0.6209444999694824,
+    "last_echo": 4.5558823558167205e-07,
+    "accepted_pairs": 15360000,
+    "seen_lines": 18150978,
+    "elapsed_sec": 1678.6729755401611,
+    "cuda_memory_allocated": 893980160,
+    "cuda_memory_reserved": 3042967552
+  }
+]
+--- queue stdout tail ---
+queue_started_at=2026-07-04T16:05:32+08:00
+data=/mnt/nas/datasets/wmt_massive/train.massive.zh-en.tsv
+models=treeheap,bow,lstm,transformer
+steps=60000 batch=256 dim=128 max_len=48
+queue_finished_at=2026-07-04T17:59:24+08:00
+
+--- queue stderr tail ---

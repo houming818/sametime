@@ -1,0 +1,99 @@
+{
+  "claim": "M0-DETSEQ-C01",
+  "host": "io",
+  "seconds": 0.9604742527008057,
+  "config": {
+    "out": "ara/m0-treeheap-math/evidence/deterministic_executor_probabilistic_seq2seq",
+    "operator_trials": 10000,
+    "sample_trials": 10000,
+    "decode_repeats": 1000,
+    "seed": 67
+  },
+  "gates": {
+    "deterministic_executor": true,
+    "inverse_executor": true,
+    "conditional_after_probability_collapse": true,
+    "greedy_fixed_state": true,
+    "sampling_diversity": true,
+    "deterministic_state_dependence": true
+  },
+  "all_gates_pass": true,
+  "metrics": {
+    "executor_repeat_exact": 1.0,
+    "inverse_restore_exact": 1.0,
+    "executor_by_recursive_depth": {
+      "1": {
+        "count": 1970,
+        "repeat_exact": 1.0,
+        "inverse_exact": 1.0
+      },
+      "2": {
+        "count": 2008,
+        "repeat_exact": 1.0,
+        "inverse_exact": 1.0
+      },
+      "3": {
+        "count": 2034,
+        "repeat_exact": 1.0,
+        "inverse_exact": 1.0
+      },
+      "4": {
+        "count": 2041,
+        "repeat_exact": 1.0,
+        "inverse_exact": 1.0
+      },
+      "5": {
+        "count": 1947,
+        "repeat_exact": 1.0,
+        "inverse_exact": 1.0
+      }
+    },
+    "program_selector_declared_probs": [
+      0.5607700054791181,
+      0.25197020566994077,
+      0.1251247011289915,
+      0.062135087721949554
+    ],
+    "sampled_program_unique": 4,
+    "sampled_program_conditional_exact": 1.0,
+    "fixed_state_greedy_unique": 1,
+    "fixed_state_greedy_output": [
+      "earth",
+      "is",
+      "round"
+    ],
+    "sampled_unique_sequences": 3,
+    "sampled_sequence_counts": {
+      "earth is round": 5908,
+      "weather is clear": 3096,
+      "memory has changed": 996
+    },
+    "declared_first_token_probs": {
+      "earth": 0.5833929526797967,
+      "weather": 0.3201728408459242,
+      "memory": 0.09643420647427904
+    },
+    "empirical_first_token_probs": {
+      "earth": 0.5908,
+      "weather": 0.3096,
+      "memory": 0.0996
+    },
+    "sampled_first_token_kl": 0.00027475237879482023,
+    "state_a_root": 1.0,
+    "state_b_root": 2.0,
+    "state_a_greedy_unique": 1,
+    "state_b_greedy_unique": 1,
+    "state_a_greedy_output": [
+      "earth",
+      "is",
+      "round"
+    ],
+    "state_b_greedy_output": [
+      "memory",
+      "has",
+      "changed"
+    ],
+    "state_outputs_differ": true
+  },
+  "scope": "Execution-boundary proof; not a learned language codec."
+}

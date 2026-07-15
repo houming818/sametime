@@ -1,0 +1,312 @@
+{
+  "claim": "S3-TREEHEAP-CODEC-C01",
+  "predict": "P-S3-TREEHEAP-CODEC-01",
+  "host": "io",
+  "config": {
+    "base_source": "ara/s3-generation/src/s3_residual_treeheap_forest_pretrain.py",
+    "block_dir": "/home/nio/datasets/derived/s3_residual_treeheap_forest/full_blocks64",
+    "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_native_codec/smoke_v2",
+    "seeds": "71411",
+    "dim": 128,
+    "detail_width": 32,
+    "hidden": 256,
+    "batch": 16,
+    "eval_batch": 16,
+    "max_train_blocks": 20000,
+    "max_valid_blocks": 512,
+    "lr": 0.002,
+    "weight_decay": 0.0001,
+    "log_every": 50,
+    "device": "cuda"
+  },
+  "aggregate": {
+    "valid64": {
+      "normal": {
+        "nll": {
+          "mean": 0.029628904507262632,
+          "std": 0.0,
+          "values": [
+            0.029628904507262632
+          ]
+        },
+        "token_top1": {
+          "mean": 0.99151611328125,
+          "std": 0.0,
+          "values": [
+            0.99151611328125
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.591796875,
+          "std": 0.0,
+          "values": [
+            0.591796875
+          ]
+        }
+      },
+      "detail_shift": {
+        "nll": {
+          "mean": 33.54889905452728,
+          "std": 0.0,
+          "values": [
+            33.54889905452728
+          ]
+        },
+        "token_top1": {
+          "mean": 0.001434326171875,
+          "std": 0.0,
+          "values": [
+            0.001434326171875
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.0,
+          "std": 0.0,
+          "values": [
+            0.0
+          ]
+        }
+      },
+      "detail_zero": {
+        "nll": {
+          "mean": 32.75583374500275,
+          "std": 0.0,
+          "values": [
+            32.75583374500275
+          ]
+        },
+        "token_top1": {
+          "mean": 0.03485107421875,
+          "std": 0.0,
+          "values": [
+            0.03485107421875
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.0,
+          "std": 0.0,
+          "values": [
+            0.0
+          ]
+        }
+      },
+      "detail_wrong_sample": {
+        "nll": {
+          "mean": 43.87985038757324,
+          "std": 0.0,
+          "values": [
+            43.87985038757324
+          ]
+        },
+        "token_top1": {
+          "mean": 0.004852294921875,
+          "std": 0.0,
+          "values": [
+            0.004852294921875
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.0,
+          "std": 0.0,
+          "values": [
+            0.0
+          ]
+        }
+      },
+      "root_zero": {
+        "nll": {
+          "mean": 0.03886160172987729,
+          "std": 0.0,
+          "values": [
+            0.03886160172987729
+          ]
+        },
+        "token_top1": {
+          "mean": 0.988861083984375,
+          "std": 0.0,
+          "values": [
+            0.988861083984375
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.521484375,
+          "std": 0.0,
+          "values": [
+            0.521484375
+          ]
+        }
+      }
+    },
+    "valid32_ood": {
+      "normal": {
+        "nll": {
+          "mean": 0.04070663431775756,
+          "std": 0.0,
+          "values": [
+            0.04070663431775756
+          ]
+        },
+        "token_top1": {
+          "mean": 0.98858642578125,
+          "std": 0.0,
+          "values": [
+            0.98858642578125
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.705078125,
+          "std": 0.0,
+          "values": [
+            0.705078125
+          ]
+        }
+      },
+      "detail_shift": {
+        "nll": {
+          "mean": 32.86187827587128,
+          "std": 0.0,
+          "values": [
+            32.86187827587128
+          ]
+        },
+        "token_top1": {
+          "mean": 0.00225830078125,
+          "std": 0.0,
+          "values": [
+            0.00225830078125
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.0,
+          "std": 0.0,
+          "values": [
+            0.0
+          ]
+        }
+      },
+      "detail_zero": {
+        "nll": {
+          "mean": 33.82405471801758,
+          "std": 0.0,
+          "values": [
+            33.82405471801758
+          ]
+        },
+        "token_top1": {
+          "mean": 0.044189453125,
+          "std": 0.0,
+          "values": [
+            0.044189453125
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.0,
+          "std": 0.0,
+          "values": [
+            0.0
+          ]
+        }
+      },
+      "detail_wrong_sample": {
+        "nll": {
+          "mean": 43.02164852619171,
+          "std": 0.0,
+          "values": [
+            43.02164852619171
+          ]
+        },
+        "token_top1": {
+          "mean": 0.00457763671875,
+          "std": 0.0,
+          "values": [
+            0.00457763671875
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.0,
+          "std": 0.0,
+          "values": [
+            0.0
+          ]
+        }
+      },
+      "root_zero": {
+        "nll": {
+          "mean": 0.03903923335019499,
+          "std": 0.0,
+          "values": [
+            0.03903923335019499
+          ]
+        },
+        "token_top1": {
+          "mean": 0.98883056640625,
+          "std": 0.0,
+          "values": [
+            0.98883056640625
+          ]
+        },
+        "sequence_exact": {
+          "mean": 0.728515625,
+          "std": 0.0,
+          "values": [
+            0.728515625
+          ]
+        }
+      }
+    }
+  },
+  "gradient_audit": {
+    "write_grad_norm": {
+      "mean": 0.021465811878442764,
+      "values": [
+        0.021465811878442764
+      ]
+    },
+    "fold_grad_norm": {
+      "mean": 0.062450800091028214,
+      "values": [
+        0.062450800091028214
+      ]
+    },
+    "detail_grad_norm": {
+      "mean": 0.10072246193885803,
+      "values": [
+        0.10072246193885803
+      ]
+    },
+    "unfold_grad_norm": {
+      "mean": 0.129059836268425,
+      "values": [
+        0.129059836268425
+      ]
+    },
+    "read_grad_norm": {
+      "mean": 0.12422811985015869,
+      "values": [
+        0.12422811985015869
+      ]
+    }
+  },
+  "gates_per_seed": [
+    {
+      "P1_echo": true,
+      "P2_address_shift": true,
+      "P3_detail_zero": true,
+      "P4_wrong_sample": true,
+      "P5_length32": true,
+      "P6_all_gradients": true,
+      "P7_root_causal": false
+    }
+  ],
+  "gates": {
+    "P1_echo": true,
+    "P2_address_shift": true,
+    "P3_detail_zero": true,
+    "P4_wrong_sample": true,
+    "P5_length32": true,
+    "P6_all_gradients": true,
+    "P7_root_causal": false
+  },
+  "claim_supported": false,
+  "boundary": "Native raw-token echo codec only; not semantics, world knowledge, reasoning, entropy-coded compression, or architecture superiority."
+}

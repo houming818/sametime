@@ -1,0 +1,328 @@
+{"epoch": 1, "recursive_loss": 0.7094390327680579, "one_shot_loss": 0.9035445781464272, "flat_loss": 2.0307324300421046}
+{"epoch": 2, "recursive_loss": 0.0014304336800705642, "one_shot_loss": 0.006780796840370811, "flat_loss": 1.8039912467307233}
+{"epoch": 3, "recursive_loss": 0.0006389767792264119, "one_shot_loss": 0.0022429275119607833, "flat_loss": 1.799545078835589}
+{"epoch": 4, "recursive_loss": 0.000380054926512109, "one_shot_loss": 0.0010814285834636935, "flat_loss": 1.797776053560541}
+{"epoch": 5, "recursive_loss": 0.0002564511118218937, "one_shot_loss": 0.0006230600370822396, "flat_loss": 1.7946555627153276}
+{"epoch": 6, "recursive_loss": 0.00018704104753696619, "one_shot_loss": 0.0003985003055818874, "flat_loss": 1.7942125670453335}
+{"epoch": 7, "recursive_loss": 0.00014363297343655351, "one_shot_loss": 0.00027468272712715764, "flat_loss": 1.791314755348449}
+{"epoch": 8, "recursive_loss": 0.00011447415245322888, "one_shot_loss": 0.00019997000770749862, "flat_loss": 1.7953873530347297}
+{"epoch": 9, "recursive_loss": 9.397258017610937e-05, "one_shot_loss": 0.0001516306967576074, "flat_loss": 1.7920095616198601}
+{"epoch": 10, "recursive_loss": 7.878042096637457e-05, "one_shot_loss": 0.00011873761638738909, "flat_loss": 1.7929827329960275}
+{"epoch": 11, "recursive_loss": 6.720821906167251e-05, "one_shot_loss": 9.536325109985093e-05, "flat_loss": 1.7926106262714305}
+{"epoch": 12, "recursive_loss": 5.820250787129477e-05, "one_shot_loss": 7.808831949350473e-05, "flat_loss": 1.7921517504022477}
+{"epoch": 13, "recursive_loss": 5.09503614476342e-05, "one_shot_loss": 6.51117263763073e-05, "flat_loss": 1.7913512600229142}
+{"epoch": 14, "recursive_loss": 4.5127610877550086e-05, "one_shot_loss": 5.5083816752154774e-05, "flat_loss": 1.7897908484682123}
+{"epoch": 15, "recursive_loss": 4.023558211245356e-05, "one_shot_loss": 4.7175368173215095e-05, "flat_loss": 1.7908751533386555}
+{"epoch": 16, "recursive_loss": 3.620118355258378e-05, "one_shot_loss": 4.086878989449147e-05, "flat_loss": 1.7900471535134823}
+{"epoch": 17, "recursive_loss": 3.271715439118549e-05, "one_shot_loss": 3.564618842535717e-05, "flat_loss": 1.7902277200780017}
+{"epoch": 18, "recursive_loss": 2.974911948261619e-05, "one_shot_loss": 3.1373198095373465e-05, "flat_loss": 1.7888500500232616}
+{"epoch": 19, "recursive_loss": 2.7168047884689704e-05, "one_shot_loss": 2.7792535179964653e-05, "flat_loss": 1.789131669287986}
+{"epoch": 20, "recursive_loss": 2.493280055901739e-05, "one_shot_loss": 2.479820577331764e-05, "flat_loss": 1.7907200087892248}
+{"epoch": 21, "recursive_loss": 2.2962991390662128e-05, "one_shot_loss": 2.2209835760998216e-05, "flat_loss": 1.7909145393270127}
+{"epoch": 22, "recursive_loss": 2.1201118641406635e-05, "one_shot_loss": 2.001537196771638e-05, "flat_loss": 1.7899204188204827}
+{"epoch": 23, "recursive_loss": 1.9647103456125167e-05, "one_shot_loss": 1.811269162607595e-05, "flat_loss": 1.7892048815463453}
+{"epoch": 24, "recursive_loss": 1.8264681233283248e-05, "one_shot_loss": 1.644349076547982e-05, "flat_loss": 1.7882018558522488}
+{
+  "claim": "M0-RECUR-C01",
+  "host": "io",
+  "seconds": 28.841163396835327,
+  "config": {
+    "out": "ara/m0-treeheap-math/evidence/recursive_operator_locator_probe/seed60",
+    "train_samples": 12000,
+    "test_samples": 2000,
+    "epochs": 24,
+    "batch": 128,
+    "hidden": 192,
+    "lr": 0.002,
+    "seed": 60,
+    "device": "cuda"
+  },
+  "parameters": {
+    "recursive": 93897,
+    "one_shot_structural": 40513,
+    "flat_address": 233983
+  },
+  "gates": {
+    "ood_route_gate": true,
+    "beats_baselines": false,
+    "strong_restore_gate": false
+  },
+  "results": {
+    "iid_levels_0_2": {
+      "teacher_forced_action_accuracy": 1.0,
+      "autonomous_route_exact": 1.0,
+      "exact_restore": 1.0,
+      "one_shot_structural_address_accuracy": 1.0,
+      "flat_address_accuracy": 0.33,
+      "stopped_fraction": 1.0,
+      "mean_executed_steps": 2.0085,
+      "p_power_mean_steps": 1.0,
+      "action_confusion_gold_rows": [
+        [
+          2000,
+          0,
+          0
+        ],
+        [
+          0,
+          1011,
+          0
+        ],
+        [
+          0,
+          0,
+          1006
+        ]
+      ],
+      "examples": [
+        {
+          "gold_address": 3,
+          "pred_address": 3,
+          "gold_level": 1,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 2,
+          "pred_address": 2,
+          "gold_level": 1,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 1,
+          "pred_address": 1,
+          "gold_level": 0,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 3,
+          "pred_address": 3,
+          "gold_level": 1,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 2,
+          "pred_address": 2,
+          "gold_level": 1,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        }
+      ]
+    },
+    "ood_level_3": {
+      "teacher_forced_action_accuracy": 1.0,
+      "autonomous_route_exact": 1.0,
+      "exact_restore": 0.881,
+      "one_shot_structural_address_accuracy": 1.0,
+      "flat_address_accuracy": 0.0,
+      "stopped_fraction": 1.0,
+      "mean_executed_steps": 4.0,
+      "p_power_mean_steps": 1.0,
+      "action_confusion_gold_rows": [
+        [
+          2000,
+          0,
+          0
+        ],
+        [
+          0,
+          2998,
+          0
+        ],
+        [
+          0,
+          0,
+          3002
+        ]
+      ],
+      "examples": [
+        {
+          "gold_address": 15,
+          "pred_address": 15,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 8,
+          "pred_address": 8,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 15,
+          "pred_address": 15,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 13,
+          "pred_address": 13,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 13,
+          "pred_address": 13,
+          "gold_level": 3,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        }
+      ]
+    },
+    "ood_level_4": {
+      "teacher_forced_action_accuracy": 0.9787,
+      "autonomous_route_exact": 0.8965,
+      "exact_restore": 0.7105,
+      "one_shot_structural_address_accuracy": 0.91,
+      "flat_address_accuracy": 0.0,
+      "stopped_fraction": 0.8995,
+      "mean_executed_steps": 5.0975,
+      "p_power_mean_steps": 0.896058319578164,
+      "action_confusion_gold_rows": [
+        [
+          1793,
+          145,
+          62
+        ],
+        [
+          0,
+          3957,
+          0
+        ],
+        [
+          6,
+          0,
+          4037
+        ]
+      ],
+      "examples": [
+        {
+          "gold_address": 24,
+          "pred_address": 24,
+          "gold_level": 4,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 22,
+          "pred_address": 90,
+          "gold_level": 4,
+          "stopped": false,
+          "route_exact": false,
+          "restore_exact": false
+        },
+        {
+          "gold_address": 26,
+          "pred_address": 26,
+          "gold_level": 4,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 29,
+          "pred_address": 29,
+          "gold_level": 4,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 17,
+          "pred_address": 68,
+          "gold_level": 4,
+          "stopped": false,
+          "route_exact": false,
+          "restore_exact": false
+        }
+      ]
+    },
+    "ood_level_5": {
+      "teacher_forced_action_accuracy": 0.9856666666666667,
+      "autonomous_route_exact": 0.916,
+      "exact_restore": 0.6525,
+      "one_shot_structural_address_accuracy": 0.886,
+      "flat_address_accuracy": 0.0,
+      "stopped_fraction": 0.9245,
+      "mean_executed_steps": 6.067,
+      "p_power_mean_steps": 0.9161368105279,
+      "action_confusion_gold_rows": [
+        [
+          1845,
+          99,
+          56
+        ],
+        [
+          2,
+          5019,
+          0
+        ],
+        [
+          15,
+          0,
+          4964
+        ]
+      ],
+      "examples": [
+        {
+          "gold_address": 57,
+          "pred_address": 57,
+          "gold_level": 5,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 58,
+          "pred_address": 232,
+          "gold_level": 5,
+          "stopped": false,
+          "route_exact": false,
+          "restore_exact": false
+        },
+        {
+          "gold_address": 36,
+          "pred_address": 36,
+          "gold_level": 5,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": false
+        },
+        {
+          "gold_address": 44,
+          "pred_address": 44,
+          "gold_level": 5,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": true
+        },
+        {
+          "gold_address": 50,
+          "pred_address": 50,
+          "gold_level": 5,
+          "stopped": true,
+          "route_exact": true,
+          "restore_exact": false
+        }
+      ]
+    }
+  }
+}
