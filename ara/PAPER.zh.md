@@ -303,6 +303,20 @@ token BLEU-4 为 `3.169`，仍优于 TreeHeap 的 `2.528`。当前实现还会�
 `s3-generation/logic/s2_lifting_pump_wmt.md` 与
 `s3-generation/evidence/s2_lifting_pump_wmt_full/`。
 
+## 2026-07：Adaptive Lifting 结果
+
+`S2-ADAPTIVE-LIFT-WMT-C01` 的结论是部分支持。30K 归因实验中，可学习
+update 核让旧 pump 的 NLL 改善 `0.0892`，左右交替却退化 `0.1251`；组合
+核只改善 `0.0394`，没有通过“不相互干扰”门。按照预注册 winner 规则，
+200K 扩容只保留 learned update，不再使用 alternation。
+
+在 `200K/5K/5K` WMT-massive 实验中，learned update 将旧 pump 的 NLL
+从 `4.6743` 改善到 `4.6335`，token BLEU-4 从 `9.609` 改善到 `9.909`。
+它距离预注册的 `0.05` NLL 门还差 `0.0092`，但关闭了旧 pump 到 flat
+差距的 `30.8%`。闭包 MSE 为 `2.35e-14`；source、root、全部 detail 深度
+和六个配对深度中的五个都具有强因果性。flat sequence 仍以 NLL
+`4.5419`、BLEU-4 `10.572` 领先，因此质量优越性仍被否决。
+
 ## 维护规则
 
 当新的 SPR blog 改变 claim 时，必须在同一个 commit 中更新本文，或在长实验前补 follow-up commit。

@@ -407,6 +407,21 @@ materializes all resolutions before probabilistic READ. See
 `s3-generation/logic/s2_lifting_pump_wmt.md` and
 `s3-generation/evidence/s2_lifting_pump_wmt_full/`.
 
+## 2026-07 Adaptive Lifting Result
+
+`S2-ADAPTIVE-LIFT-WMT-C01` is partial. A 30K attribution experiment showed
+that learned update improved old-pump NLL by `0.0892`, while alternating
+orientation degraded it by `0.1251`; the combined kernel improved only
+`0.0394` and failed its non-antagonism gate. The preregistered winner rule
+therefore advanced learned update without alternation.
+
+On a `200K/5K/5K` WMT-massive run, learned update improved old-pump NLL from
+`4.6743` to `4.6335` and token BLEU-4 from `9.609` to `9.909`. It missed the
+registered `0.05` gain gate by `0.0092`, but closed `30.8%` of the flat gap.
+Closure MSE was `2.35e-14`; source, root, every detail depth, and five of six
+pair depths were strongly causal. Flat sequence still led at NLL `4.5419` and
+BLEU-4 `10.572`, so quality superiority remains rejected.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add

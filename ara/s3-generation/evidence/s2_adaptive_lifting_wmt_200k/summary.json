@@ -1,0 +1,699 @@
+{
+  "claim": "S2-ADAPTIVE-LIFT-WMT-C01",
+  "predict": "P-S2-ADAPTIVE-LIFT-WMT-01",
+  "stage": "scale",
+  "host": "io",
+  "seconds": 7592.611210346222,
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s2_adaptive_lifting_wmt_200k",
+    "stage": "scale",
+    "seed": 71659,
+    "source_col": 1,
+    "target_col": 0,
+    "train_samples": 200000,
+    "valid_samples": 5000,
+    "test_samples": 5000,
+    "max_scan": 2000000,
+    "min_len": 8,
+    "max_len": 32,
+    "heap_width": 64,
+    "dim": 256,
+    "hidden": 256,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 0.002,
+    "device": "cuda",
+    "num_workers": 2,
+    "audit_variant": "learned_update",
+    "candidate_variant": "learned_update",
+    "variants": [
+      "flat_seq",
+      "old_recursive",
+      "learned_update"
+    ]
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "rows": 210000,
+    "vocab": 32001,
+    "scanned": 2000000,
+    "eligible": 1156240,
+    "selected": 210000,
+    "sampling": "deterministic_reservoir_then_shuffle"
+  },
+  "models": {
+    "flat_seq": {
+      "parameters": 33852673,
+      "finite_gradients": true,
+      "seconds": 934.5688390731812,
+      "trace": [
+        {
+          "model": "flat_seq",
+          "epoch": 1,
+          "train_nll": 5.609844412841797,
+          "valid_nll": 4.8525711291697755,
+          "elapsed_sec": 183.54175519943237
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 2,
+          "train_nll": 4.202047115631103,
+          "valid_nll": 4.5834133349555275,
+          "elapsed_sec": 366.82527780532837
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 3,
+          "train_nll": 3.6384188669586184,
+          "valid_nll": 4.546351135813048,
+          "elapsed_sec": 554.9095449447632
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 4,
+          "train_nll": 3.295616713485718,
+          "valid_nll": 4.581647406829449,
+          "elapsed_sec": 744.1123208999634
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 5,
+          "train_nll": 3.050126679611206,
+          "valid_nll": 4.622303364813493,
+          "elapsed_sec": 934.4493496417999
+        }
+      ],
+      "test": {
+        "nll": 4.541877288156864,
+        "ppl": 93.86684994536891,
+        "tokens": 84195,
+        "exact": 0.0058,
+        "nonempty": 1.0,
+        "token_bleu4": 10.57153887732263,
+        "examples": [
+          {
+            "en": "Disobedience shuts the door of the prayer closet.",
+            "reference_zh": "传教士的孩子和传道士的孩子。",
+            "hypothesis_zh": "似乎是高声关门,请离弃的。"
+          },
+          {
+            "en": "We treat retinal disease in Peru, especially retinopathy of prematurity",
+            "reference_zh": "我们在秘鲁治疗视网膜疾病,尤其是早产婴儿视网膜病变",
+            "hypothesis_zh": "秘鲁 退休的秘鲁  ⁇ 视的秘鲁,  ⁇ 视的目光充满了熟练的肉类。"
+          },
+          {
+            "en": "I did not look on Caderousse as a bad man, and I thought him incapable of committing a crime, or even a theft.\"",
+            "reference_zh": "我并不把卡德鲁斯看作是一个坏人,我以为他是不敢犯罪的,即使连偷东西的事也是不敢做的 。 \"",
+            "hypothesis_zh": "惜媛说,我没办法,我只怕你,我可没办法,我可没想过,我甚至还不想过。"
+          },
+          {
+            "en": "Natural gas, consumption by chemical industry (terajoules) - for all countries Overview",
+            "reference_zh": "天然气, 化学工业消费 (兆焦耳 ) - 为所有国家 概览",
+            "hypothesis_zh": "烟气, 烟气泡烟草药 (占用)"
+          },
+          {
+            "en": "The Rolling Cube Your Mastery Level:",
+            "reference_zh": "back 滚滚立方 你的掌握度:",
+            "hypothesis_zh": " ⁇ 尾花和y  ⁇ 尾的消息:"
+          },
+          {
+            "en": "Simultaneous start/stop times all pixels.",
+            "reference_zh": "同时提供所有像素的积分开始/停止时间。",
+            "hypothesis_zh": "启动/s 启动/s 乘客。"
+          },
+          {
+            "en": "The whole purpose of Celestial Being was to fight against aliens?",
+            "reference_zh": "整个天人的目的是打击外星人?",
+            "hypothesis_zh": " ⁇ 子是文龙的威胁,他从水 ⁇ 灭绝的?"
+          },
+          {
+            "en": ".NET Bitcoin Pengaturcaraan C++ Pengekodan Bahasa Inggeris (AS) $100 (Avg Bid)",
+            "reference_zh": ".NET Bitcoin C++编程 编程 英语(美国) $785 (Avg Bid)",
+            "hypothesis_zh": "C .NET Bitcoin by Cake Cage++编程 (RAS) 创意工坊"
+          },
+          {
+            "en": "Modern human-machine interaction has long been more than just moving a lever or pressing a button.",
+            "reference_zh": "现代的人机交互一直以来并不仅仅是移动操纵杆或按下按钮。",
+            "hypothesis_zh": "缺点 超过50个长期以来,多长时间或一个漫员的。"
+          },
+          {
+            "en": "For example designs I like: [login to view URL] [login to view URL] Graphic Design Photoshop Photoshop Design T-Shirts",
+            "reference_zh": "For example designs I like : [ 登录来查看链接 ] [ 登录来查看链接] 平面设计 Photoshop Photoshop 设计 T恤",
+            "hypothesis_zh": "示例示例: 我希望我想要访问[name:我想登录来查看链接"
+          },
+          {
+            "en": "The Prince of Wales paid a large sum of money to have it suppressed and its plate destroyed.[4]",
+            "reference_zh": "威尔士亲王花了大量的金钱来禁止它,其版被毁。 [1]",
+            "hypothesis_zh": "潘沁风地为它的大纲领受的,其列出了金和永久。"
+          },
+          {
+            "en": "A wide range of restaurants and cafes can be found within 5 minutes' walk of the apartments.",
+            "reference_zh": "公寓5分钟步行范围内坐落着各式各样的餐厅和咖啡馆。",
+            "hypothesis_zh": "步行街店即可到达公寓,即可到达米兰。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_flat_seq.pt",
+      "closure": {},
+      "update": {
+        "delta_rms": 0.0,
+        "delta_to_detail_rms": 0.0
+      }
+    },
+    "old_recursive": {
+      "parameters": 33919746,
+      "finite_gradients": true,
+      "seconds": 3239.508275747299,
+      "trace": [
+        {
+          "model": "old_recursive",
+          "epoch": 1,
+          "train_nll": 5.667646986236572,
+          "valid_nll": 4.994362885659763,
+          "elapsed_sec": 645.3228235244751
+        },
+        {
+          "model": "old_recursive",
+          "epoch": 2,
+          "train_nll": 4.330214936523437,
+          "valid_nll": 4.755638900103716,
+          "elapsed_sec": 1294.6691901683807
+        },
+        {
+          "model": "old_recursive",
+          "epoch": 3,
+          "train_nll": 3.798301765213013,
+          "valid_nll": 4.698280053538469,
+          "elapsed_sec": 1941.145298242569
+        },
+        {
+          "model": "old_recursive",
+          "epoch": 4,
+          "train_nll": 3.45201442489624,
+          "valid_nll": 4.690842143603956,
+          "elapsed_sec": 2585.403534889221
+        },
+        {
+          "model": "old_recursive",
+          "epoch": 5,
+          "train_nll": 3.1904587865448,
+          "valid_nll": 4.723566161931962,
+          "elapsed_sec": 3239.405065059662
+        }
+      ],
+      "test": {
+        "nll": 4.674293990083938,
+        "ppl": 107.15688655510107,
+        "tokens": 84195,
+        "route_depth_mass": [
+          0.014129998162388802,
+          0.1521012932062149,
+          0.006805066950619221,
+          0.027732882648706436,
+          0.01893732137978077,
+          0.01429654099047184,
+          0.765997052192688
+        ],
+        "exact": 0.0034,
+        "nonempty": 1.0,
+        "token_bleu4": 9.608589139741499,
+        "examples": [
+          {
+            "en": "Disobedience shuts the door of the prayer closet.",
+            "reference_zh": "传教士的孩子和传道士的孩子。",
+            "hypothesis_zh": "服从在墙上,下方的区域。"
+          },
+          {
+            "en": "We treat retinal disease in Peru, especially retinopathy of prematurity",
+            "reference_zh": "我们在秘鲁治疗视网膜疾病,尤其是早产婴儿视网膜病变",
+            "hypothesis_zh": "我们对于对于产品而言,我们会在合理化服的时刻"
+          },
+          {
+            "en": "I did not look on Caderousse as a bad man, and I thought him incapable of committing a crime, or even a theft.\"",
+            "reference_zh": "我并不把卡德鲁斯看作是一个坏人,我以为他是不敢犯罪的,即使连偷东西的事也是不敢做的 。 \"",
+            "hypothesis_zh": " ⁇ 然,我心里有一种捡着,我还是要找寻一个讨人。"
+          },
+          {
+            "en": "Natural gas, consumption by chemical industry (terajoules) - for all countries Overview",
+            "reference_zh": "天然气, 化学工业消费 (兆焦耳 ) - 为所有国家 概览",
+            "hypothesis_zh": "气体 Natural 气体制造量(S) 气体输送量, 能源"
+          },
+          {
+            "en": "The Rolling Cube Your Mastery Level:",
+            "reference_zh": "back 滚滚立方 你的掌握度:",
+            "hypothesis_zh": "掌握你的双面子宫"
+          },
+          {
+            "en": "Simultaneous start/stop times all pixels.",
+            "reference_zh": "同时提供所有像素的积分开始/停止时间。",
+            "hypothesis_zh": "燃烧/60秒/停止和/关上。"
+          },
+          {
+            "en": "The whole purpose of Celestial Being was to fight against aliens?",
+            "reference_zh": "整个天人的目的是打击外星人?",
+            "hypothesis_zh": " ⁇ 的目的是反叛逆袭的,怎是反对的反对呢?"
+          },
+          {
+            "en": ".NET Bitcoin Pengaturcaraan C++ Pengekodan Bahasa Inggeris (AS) $100 (Avg Bid)",
+            "reference_zh": ".NET Bitcoin C++编程 编程 英语(美国) $785 (Avg Bid)",
+            "hypothesis_zh": "Bitcoin C++编程 , CSS . . ."
+          },
+          {
+            "en": "Modern human-machine interaction has long been more than just moving a lever or pressing a button.",
+            "reference_zh": "现代的人机交互一直以来并不仅仅是移动操纵杆或按下按钮。",
+            "hypothesis_zh": "现代长期超过20多个或海上局限于超联赛."
+          },
+          {
+            "en": "For example designs I like: [login to view URL] [login to view URL] Graphic Design Photoshop Photoshop Design T-Shirts",
+            "reference_zh": "For example designs I like : [ 登录来查看链接 ] [ 登录来查看链接] 平面设计 Photoshop Photoshop 设计 T恤",
+            "hypothesis_zh": "例如, [登录来查看链接] 创意写作登录来查看链接 [登录来查看链接]"
+          },
+          {
+            "en": "The Prince of Wales paid a large sum of money to have it suppressed and its plate destroyed.[4]",
+            "reference_zh": "威尔士亲王花了大量的金钱来禁止它,其版被毁。 [1]",
+            "hypothesis_zh": "蔚历号的1个货币的,其支出在货币为其核心。"
+          },
+          {
+            "en": "A wide range of restaurants and cafes can be found within 5 minutes' walk of the apartments.",
+            "reference_zh": "公寓5分钟步行范围内坐落着各式各样的餐厅和咖啡馆。",
+            "hypothesis_zh": "酒店还设有地下餐厅和酒吧和餐馆,可找到通往公共场所。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_old_recursive.pt",
+      "closure": {
+        "state_mse": 4.3793365201577616e-14,
+        "state_max_abs": 1.0311603546142578e-05
+      },
+      "update": {
+        "delta_rms": 0.0,
+        "delta_to_detail_rms": 0.0
+      }
+    },
+    "learned_update": {
+      "parameters": 34182658,
+      "finite_gradients": true,
+      "seconds": 3296.0122826099396,
+      "trace": [
+        {
+          "model": "learned_update",
+          "epoch": 1,
+          "train_nll": 5.672833694152832,
+          "valid_nll": 4.997980397482332,
+          "elapsed_sec": 658.7654297351837
+        },
+        {
+          "model": "learned_update",
+          "epoch": 2,
+          "train_nll": 4.368824349822998,
+          "valid_nll": 4.750945285463424,
+          "elapsed_sec": 1315.734265089035
+        },
+        {
+          "model": "learned_update",
+          "epoch": 3,
+          "train_nll": 3.825749169769287,
+          "valid_nll": 4.665886791908134,
+          "elapsed_sec": 1972.7621703147888
+        },
+        {
+          "model": "learned_update",
+          "epoch": 4,
+          "train_nll": 3.476391552352905,
+          "valid_nll": 4.65243905858179,
+          "elapsed_sec": 2636.793226480484
+        },
+        {
+          "model": "learned_update",
+          "epoch": 5,
+          "train_nll": 3.210691525726318,
+          "valid_nll": 4.66681450985062,
+          "elapsed_sec": 3295.9065318107605
+        }
+      ],
+      "test": {
+        "nll": 4.63349340717373,
+        "ppl": 102.8728137418881,
+        "tokens": 84195,
+        "route_depth_mass": [
+          0.006872615311294794,
+          0.12255740165710449,
+          0.013825621455907822,
+          0.02649359405040741,
+          0.015762148424983025,
+          9.645659883972257e-05,
+          0.8143922686576843
+        ],
+        "exact": 0.0034,
+        "nonempty": 1.0,
+        "token_bleu4": 9.909146185051828,
+        "examples": [
+          {
+            "en": "Disobedience shuts the door of the prayer closet.",
+            "reference_zh": "传教士的孩子和传道士的孩子。",
+            "hypothesis_zh": "潘沁风也罢了。"
+          },
+          {
+            "en": "We treat retinal disease in Peru, especially retinopathy of prematurity",
+            "reference_zh": "我们在秘鲁治疗视网膜疾病,尤其是早产婴儿视网膜病变",
+            "hypothesis_zh": " ⁇ 性疾病的防范, 陀螺仪 在 森林中"
+          },
+          {
+            "en": "I did not look on Caderousse as a bad man, and I thought him incapable of committing a crime, or even a theft.\"",
+            "reference_zh": "我并不把卡德鲁斯看作是一个坏人,我以为他是不敢犯罪的,即使连偷东西的事也是不敢做的 。 \"",
+            "hypothesis_zh": "嘿,不是开玩笑,我是不是嫉妒,甚至不知道我是不是开玩笑的 。 ”"
+          },
+          {
+            "en": "Natural gas, consumption by chemical industry (terajoules) - for all countries Overview",
+            "reference_zh": "天然气, 化学工业消费 (兆焦耳 ) - 为所有国家 概览",
+            "hypothesis_zh": "气体燃烧化石油行业行业标准, 化学气, 石油和天然气"
+          },
+          {
+            "en": "The Rolling Cube Your Mastery Level:",
+            "reference_zh": "back 滚滚立方 你的掌握度:",
+            "hypothesis_zh": "剧情介绍: 暂置"
+          },
+          {
+            "en": "Simultaneous start/stop times all pixels.",
+            "reference_zh": "同时提供所有像素的积分开始/停止时间。",
+            "hypothesis_zh": "站/时间/时间/修改时间。"
+          },
+          {
+            "en": "The whole purpose of Celestial Being was to fight against aliens?",
+            "reference_zh": "整个天人的目的是打击外星人?",
+            "hypothesis_zh": "整个黑星的森林很大程度上为恐怖的伟大性质。"
+          },
+          {
+            "en": ".NET Bitcoin Pengaturcaraan C++ Pengekodan Bahasa Inggeris (AS) $100 (Avg Bid)",
+            "reference_zh": ".NET Bitcoin C++编程 编程 英语(美国) $785 (Avg Bid)",
+            "hypothesis_zh": "C++ McCaseara Cadderan (乌兹别克斯坦) 珀塔尔图 $69 (Avg Bid)"
+          },
+          {
+            "en": "Modern human-machine interaction has long been more than just moving a lever or pressing a button.",
+            "reference_zh": "现代的人机交互一直以来并不仅仅是移动操纵杆或按下按钮。",
+            "hypothesis_zh": "现代人类的交互作用,并保持长期更长,或更长久。"
+          },
+          {
+            "en": "For example designs I like: [login to view URL] [login to view URL] Graphic Design Photoshop Photoshop Design T-Shirts",
+            "reference_zh": "For example designs I like : [ 登录来查看链接 ] [ 登录来查看链接] 平面设计 Photoshop Photoshop 设计 T恤",
+            "hypothesis_zh": "例如:Windows [ example] 类型: 附键 登录来查看链接] 类型: 键"
+          },
+          {
+            "en": "The Prince of Wales paid a large sum of money to have it suppressed and its plate destroyed.[4]",
+            "reference_zh": "威尔士亲王花了大量的金钱来禁止它,其版被毁。 [1]",
+            "hypothesis_zh": "资金都有一大大人心爱的资金,其灭绝其毁坏。"
+          },
+          {
+            "en": "A wide range of restaurants and cafes can be found within 5 minutes' walk of the apartments.",
+            "reference_zh": "公寓5分钟步行范围内坐落着各式各样的餐厅和咖啡馆。",
+            "hypothesis_zh": "各种各样的范围可在餐厅内抵达的客人也能在酒店得到满意。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_learned_update.pt",
+      "closure": {
+        "state_mse": 2.350858968754553e-14,
+        "state_max_abs": 7.18235969543457e-06
+      },
+      "update": {
+        "delta_rms": 0.3509038713209457,
+        "detail_rms": 0.7652275418034168,
+        "delta_to_detail_rms": 0.4585614763603101
+      },
+      "interventions": {
+        "source_shuffle": {
+          "nll": 7.6877711484732245,
+          "ppl": 2181.5068846275694,
+          "tokens": 84195,
+          "route_depth_mass": [
+            0.0071196467615664005,
+            0.12640324234962463,
+            0.013879498466849327,
+            0.026443632319569588,
+            0.0166897214949131,
+            8.11115896794945e-05,
+            0.8093832731246948
+          ]
+        },
+        "root_shuffle": {
+          "nll": 14.546541046825821,
+          "ppl": 2077220.0572773109,
+          "tokens": 84195,
+          "route_depth_mass": [
+            0.010833489708602428,
+            0.1447092443704605,
+            0.013939967378973961,
+            0.019153514876961708,
+            0.011148577556014061,
+            5.414848419604823e-05,
+            0.8001611232757568
+          ]
+        },
+        "force_root": {
+          "nll": 13.809976071058072,
+          "ppl": 994480.8001514465,
+          "tokens": 84195,
+          "route_depth_mass": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "force_leaf": {
+          "nll": 5.129498840872102,
+          "ppl": 168.93243479507217,
+          "tokens": 84195,
+          "route_depth_mass": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "detail_shuffle": [
+          {
+            "nll": 5.078966349276605,
+            "ppl": 160.60795756802762,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.00669656228274107,
+              0.12415450066328049,
+              0.01474831998348236,
+              0.027694759890437126,
+              0.015046980232000351,
+              9.613514703232795e-05,
+              0.8115626573562622
+            ]
+          },
+          {
+            "nll": 5.624092026386616,
+            "ppl": 277.0206428643454,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.0071719069965183735,
+              0.12245956808328629,
+              0.014586293138563633,
+              0.024959340691566467,
+              0.015860535204410553,
+              0.0002131960791302845,
+              0.8147492408752441
+            ]
+          },
+          {
+            "nll": 7.355490736284861,
+            "ppl": 1564.7646938226496,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.009266105480492115,
+              0.13735000789165497,
+              0.017295625060796738,
+              0.023692436516284943,
+              0.016452474519610405,
+              0.00023484636039938778,
+              0.7957085371017456
+            ]
+          },
+          {
+            "nll": 9.139895158862053,
+            "ppl": 9319.787983431694,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.01167903933674097,
+              0.14747150242328644,
+              0.01915152743458748,
+              0.02733006328344345,
+              0.016780348494648933,
+              0.00017590782954357564,
+              0.7774116396903992
+            ]
+          },
+          {
+            "nll": 12.274896319613788,
+            "ppl": 214249.46076637204,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.010474453680217266,
+              0.13573913276195526,
+              0.018692323938012123,
+              0.023156870156526566,
+              0.011773956939578056,
+              9.654054156271741e-05,
+              0.8000667691230774
+            ]
+          },
+          {
+            "nll": 9.912942213643737,
+            "ppl": 20189.989952183572,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.012233261950314045,
+              0.14207983016967773,
+              0.015636559575796127,
+              0.01941763237118721,
+              0.011729584075510502,
+              4.370244641904719e-05,
+              0.7988593578338623
+            ]
+          }
+        ],
+        "pair_break": [
+          {
+            "nll": 5.556003957168812,
+            "ppl": 258.78664485208907,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.008430990390479565,
+              0.132502481341362,
+              0.017024802044034004,
+              0.031799573451280594,
+              0.016917254775762558,
+              8.712350972928107e-05,
+              0.6556628942489624
+            ]
+          },
+          {
+            "nll": 5.631579484004534,
+            "ppl": 279.1026077724988,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.008841121569275856,
+              0.13248424232006073,
+              0.016298875212669373,
+              0.029069427400827408,
+              0.016679449006915092,
+              8.831392915453762e-05,
+              0.6792706847190857
+            ]
+          },
+          {
+            "nll": 5.74488410489832,
+            "ppl": 312.58739838236784,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.009688407182693481,
+              0.13186468183994293,
+              0.016431400552392006,
+              0.028692981228232384,
+              0.015167097561061382,
+              0.00012556457659229636,
+              0.7309166193008423
+            ]
+          },
+          {
+            "nll": 6.274343604753799,
+            "ppl": 530.7778673200264,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.010510370135307312,
+              0.1371745467185974,
+              0.01706935279071331,
+              0.026024742051959038,
+              0.016211746260523796,
+              0.00013108833809383214,
+              0.7692339420318604
+            ]
+          },
+          {
+            "nll": 6.167258586257163,
+            "ppl": 476.8769953533439,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.011861790902912617,
+              0.13526761531829834,
+              0.017248880118131638,
+              0.028000855818390846,
+              0.01547088474035263,
+              0.00010178158117923886,
+              0.7920482754707336
+            ]
+          },
+          {
+            "nll": 4.752726439958486,
+            "ppl": 115.89984812622066,
+            "tokens": 84195,
+            "route_depth_mass": [
+              0.006829544901847839,
+              0.12346483767032623,
+              0.014037479646503925,
+              0.026365777477622032,
+              0.015640541911125183,
+              9.314166527474299e-05,
+              0.8135685920715332
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "derived": {
+    "old_nll": 4.674293990083938,
+    "candidate_variant": "learned_update",
+    "candidate_nll": 4.63349340717373,
+    "candidate_gain_over_old": 0.04080058291020805,
+    "candidate_update_delta_rms": 0.3509038713209457,
+    "flat_nll": 4.541877288156864,
+    "old_gap_to_flat": 0.1324167019270739,
+    "candidate_gap_to_flat": 0.09161611901686584,
+    "flat_gap_fraction_closed": 0.30812263344754076,
+    "source_shuffle_damage": 3.0542777412994946,
+    "root_shuffle_damage": 9.913047639652092,
+    "detail_shuffle_damage": [
+      0.44547294210287536,
+      0.9905986192128857,
+      2.7219973291111312,
+      4.5064017516883235,
+      7.641402912440058,
+      5.279448806470007
+    ],
+    "pair_break_damage": [
+      0.9225105499950823,
+      0.9980860768308037,
+      1.1113906977245902,
+      1.6408501975800691,
+      1.5337651790834332,
+      0.11923303278475572
+    ],
+    "force_root_damage": 9.176482663884343,
+    "force_leaf_damage": 0.4960054336983717
+  },
+  "gates": {
+    "P5_candidate_beats_old": false,
+    "P6_closes_flat_gap": true,
+    "P7_source_causal": true,
+    "P8_root_and_details_causal": true,
+    "P9_pairs_causal": true,
+    "P10_multiresolution": true,
+    "P11_closed_finite_nonempty": true
+  },
+  "decision": "partial",
+  "boundary": "Comparative WMT mechanism proof. No full-corpus convergence, production BLEU, compression, sparse compute, world knowledge, or consciousness claim."
+}

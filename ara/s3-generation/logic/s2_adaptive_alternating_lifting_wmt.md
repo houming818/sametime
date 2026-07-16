@@ -180,3 +180,54 @@ is `learned_update`: learned \(A_\phi\) with the original left anchor. This
 selection cannot rescue the combined adaptive-alternating claim; it tests the
 surviving narrower mechanism without spending the larger run on the losing
 ablation.
+
+## 200K Scale Result
+
+The scale run sampled `210K` usable pairs by deterministic reservoir from the
+first two million raw WMT-massive rows (`1,156,240` passed the length filter),
+then split them `200K/5K/5K`. It ran for 7,592.61 seconds on `io`'s RTX 3090.
+
+| Model | Parameters | Test NLL | PPL | Token BLEU-4 |
+|---|---:|---:|---:|---:|
+| flat sequence | 33.85M | **4.5419** | **93.87** | **10.572** |
+| old fixed pump | 33.92M | 4.6743 | 107.16 | 9.609 |
+| learned update pump | 34.18M | **4.6335** | **102.87** | **9.909** |
+
+Learned update improved over the old pump by `0.0408` test NLL and `0.301`
+token BLEU-4. It missed registered P5 (`0.05` NLL) by `0.0092`; therefore the
+main scale quality gate failed. However, it reduced the old pump's flat gap
+from `0.1324` to `0.0916`, closing `30.8%` and passing P6. The update delta RMS
+was `0.3509`, equal to `45.9%` of detail RMS, so the learned kernel materially
+departed from fixed half-detail upload.
+
+The surviving pump remained strongly structural:
+
+- complete source shuffle: `+3.0543` NLL;
+- root-only shuffle: `+9.9130`;
+- six detail-depth shuffles: `[+0.4455, +0.9906, +2.7220, +4.5064, +7.6414, +5.2794]`;
+- six recursive pair breaks: `[+0.9225, +0.9981, +1.1114, +1.6409, +1.5338, +0.1192]`;
+- force root / force leaves: `+9.1765 / +0.4960`;
+- closure MSE: `2.35e-14`;
+- update delta RMS: `0.3509`;
+- stop mass by depth: `[0.0069, 0.1226, 0.0138, 0.0265, 0.0158, 0.0001, 0.8144]`.
+
+P6 through P11 passed; P5 failed. The 200K decision is `partial`.
+
+## Final Decision
+
+`S2-ADAPTIVE-LIFT-WMT-C01` is partially supported and must be split:
+
+1. **alternating orientation:** rejected in the 30K attribution experiment;
+2. **learned update kernel:** supported as a modest, causal improvement over
+   fixed half-detail upload at both 30K and 200K;
+3. **registered 0.05 scale gain:** not supported (`0.0408` observed);
+4. **TreeHeap translation superiority:** still rejected because flat sequence
+   remains better by `0.0916` NLL and `0.662` token BLEU-4.
+
+The larger corpus also contains visibly noisy or mismatched pairs; generated
+examples and references must therefore be inspected alongside aggregate
+metrics. This experiment does not distinguish architecture error from corpus
+alignment noise.
+
+Evidence is in `evidence/s2_adaptive_lifting_wmt_200k/`; exact checkpoints are
+archived at `/mnt/nas/ara/s3-generation/evidence/s2_adaptive_lifting_wmt_200k/`.
