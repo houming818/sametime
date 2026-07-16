@@ -1,0 +1,856 @@
+{
+  "claim": "S3-ANNEAL-TOY-C01",
+  "host": "io",
+  "seconds": 55.227498292922974,
+  "config": {
+    "evidence_dir": "ara/s3-generation/evidence/s3_annealed_contraction_toy",
+    "seeds": [
+      72001,
+      72002,
+      72003
+    ],
+    "train_samples": 24000,
+    "test_samples": 4000,
+    "dim": 64,
+    "batch": 256,
+    "steps": 3000,
+    "log_every": 500,
+    "lr": 0.002,
+    "device": "cuda"
+  },
+  "results": {
+    "72001": {
+      "tree": {
+        "parameters": 36248,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.103633165359497,
+            "root": {
+              "nll": 2.0973902180989583,
+              "token_accuracy": 0.12208333333333334,
+              "exact": 0.0
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 0.3026571273803711,
+            "root": {
+              "nll": 0.8504219156901042,
+              "token_accuracy": 0.707,
+              "exact": 0.3635
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.011760192923247814,
+            "root": {
+              "nll": 0.28496995544433595,
+              "token_accuracy": 0.9075833333333333,
+              "exact": 0.7775
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.0019404249032959342,
+            "root": {
+              "nll": 0.1932920290629069,
+              "token_accuracy": 0.93775,
+              "exact": 0.85075
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.0016609941376373172,
+            "root": {
+              "nll": 0.18715531794230142,
+              "token_accuracy": 0.9448333333333333,
+              "exact": 0.8675
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.0011041966499760747,
+            "root": {
+              "nll": 0.1762938181559245,
+              "token_accuracy": 0.9475833333333333,
+              "exact": 0.8785
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.00026593232178129256,
+            "root": {
+              "nll": 0.14714750544230143,
+              "token_accuracy": 0.95725,
+              "exact": 0.89975
+            }
+          }
+        ],
+        "root": {
+          "nll": 0.14714750544230143,
+          "token_accuracy": 0.95725,
+          "exact": 0.89975
+        },
+        "frontiers": [
+          {
+            "nll": 0.04203662872314453,
+            "token_accuracy": 0.9888333333333333,
+            "exact": 0.96925
+          },
+          {
+            "nll": 0.08878762181599935,
+            "token_accuracy": 0.9716666666666667,
+            "exact": 0.93475
+          },
+          {
+            "nll": 0.10323841158548991,
+            "token_accuracy": 0.9704166666666667,
+            "exact": 0.934
+          },
+          {
+            "nll": 0.12734687360127767,
+            "token_accuracy": 0.9665833333333333,
+            "exact": 0.925
+          },
+          {
+            "nll": 0.14714750544230143,
+            "token_accuracy": 0.95725,
+            "exact": 0.89975
+          }
+        ],
+        "interventions": {
+          "core_shuffle": {
+            "nll": 16.52871240234375,
+            "token_accuracy": 0.12558333333333332,
+            "exact": 0.01475,
+            "damage": 16.38156489690145
+          },
+          "nuisance_shuffle": {
+            "nll": 0.14683809280395507,
+            "token_accuracy": 0.9558333333333333,
+            "exact": 0.896,
+            "damage": -0.0003094126383463569
+          }
+        },
+        "probe": {
+          "core_accuracy": 0.9916666746139526,
+          "nuisance_accuracy": 0.04975000023841858
+        }
+      },
+      "mean": {
+        "parameters": 11032,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.095585584640503,
+            "root": {
+              "nll": 2.103292317708333,
+              "token_accuracy": 0.11966666666666667,
+              "exact": 0.00125
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 0.020418165251612663,
+            "root": {
+              "nll": 0.2854081776936849,
+              "token_accuracy": 0.9118333333333334,
+              "exact": 0.783
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.002755202353000641,
+            "root": {
+              "nll": 0.17101460647583008,
+              "token_accuracy": 0.9365833333333333,
+              "exact": 0.833
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.0010372240794822574,
+            "root": {
+              "nll": 0.13883647028605142,
+              "token_accuracy": 0.94225,
+              "exact": 0.845
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.0006166484672576189,
+            "root": {
+              "nll": 0.11948025385538737,
+              "token_accuracy": 0.9510833333333333,
+              "exact": 0.868
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.0004000738263130188,
+            "root": {
+              "nll": 0.10527143732706706,
+              "token_accuracy": 0.9568333333333333,
+              "exact": 0.884
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.00024396397930104285,
+            "root": {
+              "nll": 0.09461907450358073,
+              "token_accuracy": 0.9641666666666666,
+              "exact": 0.90375
+            }
+          }
+        ],
+        "root": {
+          "nll": 0.09461907450358073,
+          "token_accuracy": 0.9641666666666666,
+          "exact": 0.90375
+        }
+      },
+      "flat": {
+        "parameters": 76760,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.1055548191070557,
+            "root": {
+              "nll": 2.097710734049479,
+              "token_accuracy": 0.12608333333333333,
+              "exact": 0.00275
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 1.5458911657333374,
+            "root": {
+              "nll": 2.0964637044270833,
+              "token_accuracy": 0.19583333333333333,
+              "exact": 0.004
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.05399042367935181,
+            "root": {
+              "nll": 1.359844492594401,
+              "token_accuracy": 0.55725,
+              "exact": 0.1805
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.004169553983956575,
+            "root": {
+              "nll": 1.3874015502929689,
+              "token_accuracy": 0.6326666666666667,
+              "exact": 0.26975
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.0015846580499783158,
+            "root": {
+              "nll": 1.4009301045735678,
+              "token_accuracy": 0.6484166666666666,
+              "exact": 0.2855
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.000901685853023082,
+            "root": {
+              "nll": 1.4006314697265625,
+              "token_accuracy": 0.6614166666666667,
+              "exact": 0.2995
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.0005808177520520985,
+            "root": {
+              "nll": 1.388754191080729,
+              "token_accuracy": 0.6713333333333333,
+              "exact": 0.31275
+            }
+          }
+        ],
+        "root": {
+          "nll": 1.388754191080729,
+          "token_accuracy": 0.6713333333333333,
+          "exact": 0.31275
+        }
+      },
+      "derived": {
+        "core_over_nuisance_damage": 16.381874309539796,
+        "core_probe_margin": 0.9419166743755341,
+        "tree_exact_gain_over_best_control": -0.0040000000000000036
+      },
+      "gates": {
+        "T1_root_exact": false,
+        "T2_core_causal": true,
+        "T3_core_probe": true,
+        "T4_beats_controls": false
+      }
+    },
+    "72002": {
+      "tree": {
+        "parameters": 36248,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.116276502609253,
+            "root": {
+              "nll": 2.108570556640625,
+              "token_accuracy": 0.13191666666666665,
+              "exact": 0.0
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 1.276255488395691,
+            "root": {
+              "nll": 1.742566874186198,
+              "token_accuracy": 0.27175,
+              "exact": 0.01825
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.010614745318889618,
+            "root": {
+              "nll": 0.040860044797261554,
+              "token_accuracy": 0.9964166666666666,
+              "exact": 0.98925
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.002012720564380288,
+            "root": {
+              "nll": 0.010443421840667724,
+              "token_accuracy": 0.9991666666666666,
+              "exact": 0.9975
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.004900627303868532,
+            "root": {
+              "nll": 0.006102192600568135,
+              "token_accuracy": 0.99925,
+              "exact": 0.99775
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.0015748512232676148,
+            "root": {
+              "nll": 0.0037975621422131857,
+              "token_accuracy": 0.9994166666666666,
+              "exact": 0.99825
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.0007805211935192347,
+            "root": {
+              "nll": 0.0037615672747294106,
+              "token_accuracy": 0.9993333333333333,
+              "exact": 0.998
+            }
+          }
+        ],
+        "root": {
+          "nll": 0.0037615672747294106,
+          "token_accuracy": 0.9993333333333333,
+          "exact": 0.998
+        },
+        "frontiers": [
+          {
+            "nll": 0.004297197143236796,
+            "token_accuracy": 1.0,
+            "exact": 1.0
+          },
+          {
+            "nll": 0.0013229202330112457,
+            "token_accuracy": 1.0,
+            "exact": 1.0
+          },
+          {
+            "nll": 0.0015753994882106782,
+            "token_accuracy": 1.0,
+            "exact": 1.0
+          },
+          {
+            "nll": 0.002196525494257609,
+            "token_accuracy": 1.0,
+            "exact": 1.0
+          },
+          {
+            "nll": 0.0037615672747294106,
+            "token_accuracy": 0.9993333333333333,
+            "exact": 0.998
+          }
+        ],
+        "interventions": {
+          "core_shuffle": {
+            "nll": 28.161100260416667,
+            "token_accuracy": 0.13216666666666665,
+            "exact": 0.0145,
+            "damage": 28.157338693141938
+          },
+          "nuisance_shuffle": {
+            "nll": 0.0035585214893023172,
+            "token_accuracy": 0.9994166666666666,
+            "exact": 0.99825,
+            "damage": -0.00020304578542709338
+          }
+        },
+        "probe": {
+          "core_accuracy": 1.0,
+          "nuisance_accuracy": 0.03824999928474426
+        }
+      },
+      "mean": {
+        "parameters": 11032,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.1002089977264404,
+            "root": {
+              "nll": 2.1026798095703123,
+              "token_accuracy": 0.12558333333333332,
+              "exact": 0.002
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 0.021778201684355736,
+            "root": {
+              "nll": 0.24220087178548177,
+              "token_accuracy": 0.9193333333333333,
+              "exact": 0.78375
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.002659078687429428,
+            "root": {
+              "nll": 0.09681417083740235,
+              "token_accuracy": 0.9680833333333333,
+              "exact": 0.9055
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.001223060884512961,
+            "root": {
+              "nll": 0.06314219538370769,
+              "token_accuracy": 0.986,
+              "exact": 0.958
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.0006259004585444927,
+            "root": {
+              "nll": 0.046830854415893554,
+              "token_accuracy": 0.9913333333333333,
+              "exact": 0.974
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.00034775733365677297,
+            "root": {
+              "nll": 0.0367107400894165,
+              "token_accuracy": 0.9935,
+              "exact": 0.9805
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.00023919301747810096,
+            "root": {
+              "nll": 0.02969081179300944,
+              "token_accuracy": 0.99425,
+              "exact": 0.98275
+            }
+          }
+        ],
+        "root": {
+          "nll": 0.02969081179300944,
+          "token_accuracy": 0.99425,
+          "exact": 0.98275
+        }
+      },
+      "flat": {
+        "parameters": 76760,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.1101393699645996,
+            "root": {
+              "nll": 2.099680887858073,
+              "token_accuracy": 0.12633333333333333,
+              "exact": 0.00175
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 1.347775936126709,
+            "root": {
+              "nll": 2.1508026123046875,
+              "token_accuracy": 0.19541666666666666,
+              "exact": 0.002
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.017183832824230194,
+            "root": {
+              "nll": 0.34859112548828125,
+              "token_accuracy": 0.8641666666666666,
+              "exact": 0.6535
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.0038549769669771194,
+            "root": {
+              "nll": 0.2773670883178711,
+              "token_accuracy": 0.8931666666666667,
+              "exact": 0.72325
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.0016327988123521209,
+            "root": {
+              "nll": 0.2523165130615234,
+              "token_accuracy": 0.9023333333333333,
+              "exact": 0.74625
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.0008976712706498802,
+            "root": {
+              "nll": 0.236764892578125,
+              "token_accuracy": 0.9099166666666667,
+              "exact": 0.76325
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.0006220056675374508,
+            "root": {
+              "nll": 0.22570126597086587,
+              "token_accuracy": 0.9144166666666667,
+              "exact": 0.77425
+            }
+          }
+        ],
+        "root": {
+          "nll": 0.22570126597086587,
+          "token_accuracy": 0.9144166666666667,
+          "exact": 0.77425
+        }
+      },
+      "derived": {
+        "core_over_nuisance_damage": 28.157541738927364,
+        "core_probe_margin": 0.9617500007152557,
+        "tree_exact_gain_over_best_control": 0.015249999999999986
+      },
+      "gates": {
+        "T1_root_exact": true,
+        "T2_core_causal": true,
+        "T3_core_probe": true,
+        "T4_beats_controls": false
+      }
+    },
+    "72003": {
+      "tree": {
+        "parameters": 36248,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.094024419784546,
+            "root": {
+              "nll": 2.0952012329101564,
+              "token_accuracy": 0.11791666666666667,
+              "exact": 0.0065
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 1.0201420783996582,
+            "root": {
+              "nll": 0.6860477396647136,
+              "token_accuracy": 0.7145,
+              "exact": 0.37325
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.01076436322182417,
+            "root": {
+              "nll": 0.0380961971282959,
+              "token_accuracy": 0.9973333333333333,
+              "exact": 0.992
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.00310327485203743,
+            "root": {
+              "nll": 0.015110298156738282,
+              "token_accuracy": 0.998,
+              "exact": 0.994
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.005662018433213234,
+            "root": {
+              "nll": 0.00808473817507426,
+              "token_accuracy": 0.9994166666666666,
+              "exact": 0.99825
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.00047113990876823664,
+            "root": {
+              "nll": 0.006022961020469665,
+              "token_accuracy": 0.9993333333333333,
+              "exact": 0.998
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.0009248955175280571,
+            "root": {
+              "nll": 0.004603229602177938,
+              "token_accuracy": 0.9995833333333334,
+              "exact": 0.99875
+            }
+          }
+        ],
+        "root": {
+          "nll": 0.004603229602177938,
+          "token_accuracy": 0.9995833333333334,
+          "exact": 0.99875
+        },
+        "frontiers": [
+          {
+            "nll": 0.0054727643728256226,
+            "token_accuracy": 1.0,
+            "exact": 1.0
+          },
+          {
+            "nll": 0.002050823489824931,
+            "token_accuracy": 1.0,
+            "exact": 1.0
+          },
+          {
+            "nll": 0.00274616273244222,
+            "token_accuracy": 0.9999166666666667,
+            "exact": 0.99975
+          },
+          {
+            "nll": 0.005260997215906779,
+            "token_accuracy": 0.99925,
+            "exact": 0.99775
+          },
+          {
+            "nll": 0.004603229602177938,
+            "token_accuracy": 0.9995833333333334,
+            "exact": 0.99875
+          }
+        ],
+        "interventions": {
+          "core_shuffle": {
+            "nll": 28.961166666666667,
+            "token_accuracy": 0.128,
+            "exact": 0.01275,
+            "damage": 28.95656343706449
+          },
+          "nuisance_shuffle": {
+            "nll": 0.004456639806429545,
+            "token_accuracy": 0.9994166666666666,
+            "exact": 0.99825,
+            "damage": -0.00014658979574839331
+          }
+        },
+        "probe": {
+          "core_accuracy": 1.0,
+          "nuisance_accuracy": 0.04075000062584877
+        }
+      },
+      "mean": {
+        "parameters": 11032,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.1080381870269775,
+            "root": {
+              "nll": 2.094581298828125,
+              "token_accuracy": 0.1255,
+              "exact": 0.0005
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 0.021968742832541466,
+            "root": {
+              "nll": 0.21650372823079428,
+              "token_accuracy": 0.9424166666666667,
+              "exact": 0.8395
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.002751232823356986,
+            "root": {
+              "nll": 0.10355420811971029,
+              "token_accuracy": 0.9695,
+              "exact": 0.91025
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.0010825683129951358,
+            "root": {
+              "nll": 0.0744757703145345,
+              "token_accuracy": 0.9786666666666667,
+              "exact": 0.93675
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.0005825647967867553,
+            "root": {
+              "nll": 0.05878799565633138,
+              "token_accuracy": 0.98175,
+              "exact": 0.94525
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.0003732867771759629,
+            "root": {
+              "nll": 0.04850963751475016,
+              "token_accuracy": 0.9831666666666666,
+              "exact": 0.9495
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.00026399685884825885,
+            "root": {
+              "nll": 0.04087621339162191,
+              "token_accuracy": 0.9845,
+              "exact": 0.9535
+            }
+          }
+        ],
+        "root": {
+          "nll": 0.04087621339162191,
+          "token_accuracy": 0.9845,
+          "exact": 0.9535
+        }
+      },
+      "flat": {
+        "parameters": 76760,
+        "trace": [
+          {
+            "step": 1,
+            "train_nll": 2.0898821353912354,
+            "root": {
+              "nll": 2.0975189819335935,
+              "token_accuracy": 0.12441666666666666,
+              "exact": 0.00175
+            }
+          },
+          {
+            "step": 500,
+            "train_nll": 1.7015248537063599,
+            "root": {
+              "nll": 2.3726071166992186,
+              "token_accuracy": 0.13491666666666666,
+              "exact": 0.0005
+            }
+          },
+          {
+            "step": 1000,
+            "train_nll": 0.0522451251745224,
+            "root": {
+              "nll": 1.423741943359375,
+              "token_accuracy": 0.5791666666666667,
+              "exact": 0.183
+            }
+          },
+          {
+            "step": 1500,
+            "train_nll": 0.004467892926186323,
+            "root": {
+              "nll": 1.425024922688802,
+              "token_accuracy": 0.63525,
+              "exact": 0.24925
+            }
+          },
+          {
+            "step": 2000,
+            "train_nll": 0.0017970652552321553,
+            "root": {
+              "nll": 1.4445254516601562,
+              "token_accuracy": 0.6535833333333333,
+              "exact": 0.2755
+            }
+          },
+          {
+            "step": 2500,
+            "train_nll": 0.0010052138241007924,
+            "root": {
+              "nll": 1.451893035888672,
+              "token_accuracy": 0.6635833333333333,
+              "exact": 0.293
+            }
+          },
+          {
+            "step": 3000,
+            "train_nll": 0.0006778906099498272,
+            "root": {
+              "nll": 1.4544813842773439,
+              "token_accuracy": 0.6715833333333333,
+              "exact": 0.30575
+            }
+          }
+        ],
+        "root": {
+          "nll": 1.4544813842773439,
+          "token_accuracy": 0.6715833333333333,
+          "exact": 0.30575
+        }
+      },
+      "derived": {
+        "core_over_nuisance_damage": 28.956710026860236,
+        "core_probe_margin": 0.9592499993741512,
+        "tree_exact_gain_over_best_control": 0.04525000000000001
+      },
+      "gates": {
+        "T1_root_exact": true,
+        "T2_core_causal": true,
+        "T3_core_probe": true,
+        "T4_beats_controls": false
+      }
+    }
+  },
+  "cross_seed_gate_T5": true,
+  "decision": "supported"
+}

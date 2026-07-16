@@ -1,6 +1,6 @@
 # Annealed Contraction Protocol
 
-Status: preregistered overnight proof
+Status: completed; toy mechanism supported, real protocol partially supported
 
 Claim IDs:
 
@@ -130,3 +130,51 @@ This experiment does not establish consciousness, human-readable summaries,
 unique semantics, WMT superiority, or computational compression. It tests
 whether the proposed training pressure can make useful information survive a
 TreeHeap contraction.
+
+## Results (io, 2026-07-16)
+
+### Proof A
+
+The complete-input toy passed the cross-seed predictive-core gate. Two of
+three seeds exceeded `0.99` root exact accuracy; the remaining seed reached
+`0.89975`, just below the preregistered `0.90` threshold. In every seed,
+shuffling the three predictive core tokens damaged NLL by more than `16`,
+while shuffling matched nuisance tokens had approximately zero cost. Root
+linear probes separated core identity from nuisance identity by more than
+`0.94`.
+
+This is evidence that future-only loss can make a narrow root retain the
+data-defined predictive factor without receiving a core label. It is not yet
+a TreeHeap-specific advantage: `T4` failed in all seeds. Mean pooling matched
+or slightly beat TreeHeap in seed 72001, and TreeHeap's gains in the other two
+seeds (`0.01525`, `0.04525` exact) remained below the preregistered `0.05`
+margin.
+
+### Proof B
+
+All three real-corpus runs completed 20,000 updates. Leaf-only training made
+the leaf useful (`5.3615` NLL) while allowing root NLL to deteriorate to
+`35.8732`. Uniform depth training produced root NLL `5.7158`. The annealed
+curriculum produced root NLL `5.6240`, a `0.0918` improvement over uniform,
+while its root-to-leaf gap was only `0.0603`. Its seven-frontier NLL profile
+had Spearman correlation `-0.75` with depth. `R1`, `R2`, `R3`, `R6`, `R7`,
+and `R8` passed.
+
+The structural part did not pass. Source shuffling damaged root NLL by only
+`0.0852`, below the `0.20` gate, and swapping adjacent left/right siblings
+before FOLD changed NLL by `-0.0011`. Therefore `R4` and `R5` failed. The
+current root carries useful coarse predictive statistics and supports an
+ordered multi-resolution readout, but it has not shown causal use of sample
+identity or TreeHeap address order.
+
+Evidence:
+
+- `evidence/s3_annealed_contraction_toy/`
+- `evidence/s3_annealed_frontier_pretrain/`
+- checkpoints and SHA-256 pointers under
+  `/mnt/nas/ara/s3-generation/evidence/s3_annealed_*`
+
+The next experiment must target content- and address-sensitive composition,
+not merely extend this curriculum. A valid successor should preserve the
+annealed root gain while making source shuffle and pre-FOLD sibling swap
+causal across multiple seeds.

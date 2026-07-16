@@ -452,6 +452,25 @@ nuisance details without core labels in training. The second predicts the next
 frontier anneals from 64 leaves toward one root. See
 `s3-generation/logic/annealed_contraction_protocol.md`.
 
+## 2026-07 Annealed Contraction Result
+
+The overnight proof completed on io. The controlled toy supports the narrow
+claim that future-only loss can select a predictive core into a root: two of
+three seeds exceeded `0.99` exact, core shuffle cost more than `16` NLL, and
+nuisance shuffle cost approximately zero. It did not establish a
+TreeHeap-specific advantage because the registered mean/flat margin failed in
+all seeds.
+
+On real Chinese text, the annealed frontier curriculum improved root NLL over
+uniform depth training by `0.0918`, kept root within `0.0603` NLL of leaves,
+and produced an ordered seven-depth profile (Spearman `-0.75`). However,
+source shuffle cost only `0.0852` and a pre-FOLD sibling swap had no cost.
+The retained result is therefore multi-resolution predictive contraction, not
+causal sample/address organization. Full records are in
+`s3-generation/evidence/s3_annealed_contraction_toy/` and
+`s3-generation/evidence/s3_annealed_frontier_pretrain/`; checkpoints are on
+NAS with committed SHA-256 pointers.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
