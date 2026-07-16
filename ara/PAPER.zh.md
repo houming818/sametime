@@ -288,6 +288,21 @@ Subheap structure carries unseen-depth relocation in the C05 structural toy.
 Finite-field/path-addressed TreeHeap has algebraic decoders in M0 toy.
 ```
 
+## 2026-07：S2 Lifting Pump 结果
+
+`S2-LIFT-WMT-C01` 的机制主张在 `27K/2K/2K` 英中 WMT 实验上获得支持。
+模型只使用翻译交叉熵，就学会了从 root 开始、在多个 TreeHeap 分辨率
+之间分配概率的递归 READ。递归模型测试 NLL 为 `5.0903`，优于只读 root
+的 `5.4337`，也略优于完全 UNFOLD 的 `5.1342`。打乱完整源状态、root、
+任一 detail 深度或任一递归配对深度，都会造成明确损失；FOLD/UNFOLD
+闭包 MSE 为 `1.73e-14`。
+
+但翻译质量优势没有成立。flat sequence baseline 的 NLL 为 `4.8103`，
+token BLEU-4 为 `3.169`，仍优于 TreeHeap 的 `2.528`。当前实现还会先
+物化全部层级，因此也不能声称压缩或计算优势。详见
+`s3-generation/logic/s2_lifting_pump_wmt.md` 与
+`s3-generation/evidence/s2_lifting_pump_wmt_full/`。
+
 ## 维护规则
 
 当新的 SPR blog 改变 claim 时，必须在同一个 commit 中更新本文，或在长实验前补 follow-up commit。

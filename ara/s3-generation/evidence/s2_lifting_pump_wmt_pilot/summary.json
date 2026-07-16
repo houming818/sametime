@@ -1,0 +1,841 @@
+{
+  "claim": "S2-LIFT-WMT-C01",
+  "predict": "P-S2-LIFT-WMT-01",
+  "host": "io",
+  "seconds": 321.0735251903534,
+  "config": {
+    "data": "/mnt/nas/datasets/wmt17/train.zh-en",
+    "spm_model": "/mnt/nas/datasets/wmt17/sp_bpe.model",
+    "evidence_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s2_lifting_pump_wmt_pilot",
+    "seed": 71521,
+    "train_samples": 5000,
+    "valid_samples": 500,
+    "test_samples": 500,
+    "max_scan": 100000,
+    "min_len": 8,
+    "max_len": 24,
+    "heap_width": 32,
+    "dim": 192,
+    "hidden": 192,
+    "batch_size": 24,
+    "epochs": 5,
+    "lr": 0.002,
+    "device": "cuda",
+    "num_workers": 0,
+    "variants": [
+      "target_only",
+      "flat_seq",
+      "lifting_root",
+      "lifting_full",
+      "lifting_recursive"
+    ]
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "rows": 6000,
+    "vocab": 16001
+  },
+  "models": {
+    "target_only": {
+      "parameters": 9602561,
+      "finite_gradients": true,
+      "seconds": 34.6534960269928,
+      "trace": [
+        {
+          "model": "target_only",
+          "epoch": 1,
+          "train_nll": 7.127008444954904,
+          "valid_nll": 6.723254883180135,
+          "elapsed_sec": 7.272746562957764
+        },
+        {
+          "model": "target_only",
+          "epoch": 2,
+          "train_nll": 6.263554032339433,
+          "valid_nll": 6.609781972526352,
+          "elapsed_sec": 13.772294998168945
+        },
+        {
+          "model": "target_only",
+          "epoch": 3,
+          "train_nll": 5.554681305679979,
+          "valid_nll": 6.582829080362185,
+          "elapsed_sec": 20.7597713470459
+        },
+        {
+          "model": "target_only",
+          "epoch": 4,
+          "train_nll": 4.776019162538519,
+          "valid_nll": 6.674215857933869,
+          "elapsed_sec": 27.92584466934204
+        },
+        {
+          "model": "target_only",
+          "epoch": 5,
+          "train_nll": 4.032641100541256,
+          "valid_nll": 6.845036264793653,
+          "elapsed_sec": 34.62638854980469
+        }
+      ],
+      "test": {
+        "nll": 6.641718953836575,
+        "ppl": 766.4112869938066,
+        "tokens": 7905,
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.08334941835843816,
+        "examples": [
+          {
+            "en": "The course of the electoral struggle so far indicates that the Liberal Democrats will do very well.",
+            "reference_zh": "到目前为止的竞选趋势表明,自由民主党成绩异常出色。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "Moreover, Labour and the Conservatives are in a political trap.",
+            "reference_zh": "此外,工党和保守党都陷入了一个政治陷阱。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "Another Roller Coaster Ride for Exchange Rates in 2009?",
+            "reference_zh": "2009年的汇率将又会大起大落吗?",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "CAMBRIDGE – 2008 has been an exceptionally tumultuous year for exchange rates.",
+            "reference_zh": "坎布里奇-2008年是汇率非常动荡的一年。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "Indeed, the currency of any country that is significantly dependent on commodity exports has suffered.",
+            "reference_zh": "实际上,每个在很大程度上依赖于商品出口国家的货币,都受到影响。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "So, what will the New Year bring for exchange rates?",
+            "reference_zh": "那么,明年的汇率将会是怎样?",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "Normally, short-run and long-run exchange-rate trends point in the same direction.",
+            "reference_zh": "通常情况下,短期和长期汇率趋势的方向是一致的。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "The continuing financial crisis is putting steady upward pressure on the dollar thanks to its safe haven status.",
+            "reference_zh": "由于美元其避风港的地位,持续的财政危机正对美元造成稳步上升的压力。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "Commodity prices are plumbing new depths.",
+            "reference_zh": "商品价格还在探底。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "Yet the financial crisis will eventually end, as will the global recession.",
+            "reference_zh": "然而,金融危机终将结束,全球经济衰退也将结束。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "But investors will still worry about what happens when the bills come due.",
+            "reference_zh": "但投资者仍担心钱真的投进去时会发生什么情况。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          },
+          {
+            "en": "Thus perhaps no region will be as expansionary as the US.",
+            "reference_zh": "因此,也许没有一个地区将和美国一样具有扩张性。",
+            "hypothesis_zh": "墨西哥的应对也同样重要。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_target_only.pt"
+    },
+    "flat_seq": {
+      "parameters": 12896897,
+      "finite_gradients": true,
+      "seconds": 40.5127227306366,
+      "trace": [
+        {
+          "model": "flat_seq",
+          "epoch": 1,
+          "train_nll": 7.03573106236435,
+          "valid_nll": 6.636294498603966,
+          "elapsed_sec": 8.106786966323853
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 2,
+          "train_nll": 5.8471173966330205,
+          "valid_nll": 6.386242508813449,
+          "elapsed_sec": 16.065593957901
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 3,
+          "train_nll": 4.49274999445135,
+          "valid_nll": 6.377070063733295,
+          "elapsed_sec": 24.410876274108887
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 4,
+          "train_nll": 3.0897539996644525,
+          "valid_nll": 6.535423766117141,
+          "elapsed_sec": 32.70204973220825
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 5,
+          "train_nll": 2.006582836785385,
+          "valid_nll": 6.771348380491984,
+          "elapsed_sec": 40.477664947509766
+        }
+      ],
+      "test": {
+        "nll": 6.353359875326139,
+        "ppl": 574.4194481301479,
+        "tokens": 7905,
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.9505410820197557,
+        "examples": [
+          {
+            "en": "The course of the electoral struggle so far indicates that the Liberal Democrats will do very well.",
+            "reference_zh": "到目前为止的竞选趋势表明,自由民主党成绩异常出色。",
+            "hypothesis_zh": "共和党人民主党人民主党人共和党的民主党。"
+          },
+          {
+            "en": "Moreover, Labour and the Conservatives are in a political trap.",
+            "reference_zh": "此外,工党和保守党都陷入了一个政治陷阱。",
+            "hypothesis_zh": "此外,自和未来尔街的专家们,也已经的政治的政治的政治的政治。"
+          },
+          {
+            "en": "Another Roller Coaster Ride for Exchange Rates in 2009?",
+            "reference_zh": "2009年的汇率将又会大起大落吗?",
+            "hypothesis_zh": "波兰在2006年9月11日的日的?"
+          },
+          {
+            "en": "CAMBRIDGE – 2008 has been an exceptionally tumultuous year for exchange rates.",
+            "reference_zh": "坎布里奇-2008年是汇率非常动荡的一年。",
+            "hypothesis_zh": "剑桥—去年夏天的困扰,美国 — —  ⁇ 梦的 ⁇ 拥抱。"
+          },
+          {
+            "en": "Indeed, the currency of any country that is significantly dependent on commodity exports has suffered.",
+            "reference_zh": "实际上,每个在很大程度上依赖于商品出口国家的货币,都受到影响。",
+            "hypothesis_zh": "事实上,直到2013年,美国在2.总统大选了。"
+          },
+          {
+            "en": "So, what will the New Year bring for exchange rates?",
+            "reference_zh": "那么,明年的汇率将会是怎样?",
+            "hypothesis_zh": "那么,如何将如何?"
+          },
+          {
+            "en": "Normally, short-run and long-run exchange-rate trends point in the same direction.",
+            "reference_zh": "通常情况下,短期和长期汇率趋势的方向是一致的。",
+            "hypothesis_zh": "通常在长期以来,美国和其他和腐败和长期以来,美国和其他和腐败的困扰。"
+          },
+          {
+            "en": "The continuing financial crisis is putting steady upward pressure on the dollar thanks to its safe haven status.",
+            "reference_zh": "由于美元其避风港的地位,持续的财政危机正对美元造成稳步上升的压力。",
+            "hypothesis_zh": "波兰是2008年,美国内战危机。"
+          },
+          {
+            "en": "Commodity prices are plumbing new depths.",
+            "reference_zh": "商品价格还在探底。",
+            "hypothesis_zh": "考虑到价格新一轮价格价格新一轮的总统大选。"
+          },
+          {
+            "en": "Yet the financial crisis will eventually end, as will the global recession.",
+            "reference_zh": "然而,金融危机终将结束,全球经济衰退也将结束。",
+            "hypothesis_zh": "但金融危机将要全球全球,如将带来全球全球衰退。"
+          },
+          {
+            "en": "But investors will still worry about what happens when the bills come due.",
+            "reference_zh": "但投资者仍担心钱真的投进去时会发生什么情况。",
+            "hypothesis_zh": "但投资者不那么尔街,它也提醒了。"
+          },
+          {
+            "en": "Thus perhaps no region will be as expansionary as the US.",
+            "reference_zh": "因此,也许没有一个地区将和美国一样具有扩张性。",
+            "hypothesis_zh": "以色列将很快下,美国将与国际痛苦美国。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_flat_seq.pt"
+    },
+    "lifting_root": {
+      "parameters": 12822593,
+      "finite_gradients": true,
+      "seconds": 43.90743589401245,
+      "trace": [
+        {
+          "model": "lifting_root",
+          "epoch": 1,
+          "train_nll": 7.081485704942183,
+          "valid_nll": 6.647370162161579,
+          "elapsed_sec": 9.092308521270752
+        },
+        {
+          "model": "lifting_root",
+          "epoch": 2,
+          "train_nll": 4.907460500178725,
+          "valid_nll": 6.780306310243208,
+          "elapsed_sec": 17.871073246002197
+        },
+        {
+          "model": "lifting_root",
+          "epoch": 3,
+          "train_nll": 3.457347915503397,
+          "valid_nll": 7.084456388378012,
+          "elapsed_sec": 26.310706615447998
+        },
+        {
+          "model": "lifting_root",
+          "epoch": 4,
+          "train_nll": 2.7481183971514542,
+          "valid_nll": 7.301367107845636,
+          "elapsed_sec": 34.76537322998047
+        },
+        {
+          "model": "lifting_root",
+          "epoch": 5,
+          "train_nll": 2.2046532060541035,
+          "valid_nll": 7.480633236261215,
+          "elapsed_sec": 43.87267327308655
+        }
+      ],
+      "test": {
+        "nll": 6.676006180572027,
+        "ppl": 793.1450997104224,
+        "tokens": 7905,
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.6753386009626692,
+        "examples": [
+          {
+            "en": "The course of the electoral struggle so far indicates that the Liberal Democrats will do very well.",
+            "reference_zh": "到目前为止的竞选趋势表明,自由民主党成绩异常出色。",
+            "hypothesis_zh": "共和党的 ⁇ ,它是的 ⁇ 。"
+          },
+          {
+            "en": "Moreover, Labour and the Conservatives are in a political trap.",
+            "reference_zh": "此外,工党和保守党都陷入了一个政治陷阱。",
+            "hypothesis_zh": "此外,我们我们将将将将将将。"
+          },
+          {
+            "en": "Another Roller Coaster Ride for Exchange Rates in 2009?",
+            "reference_zh": "2009年的汇率将又会大起大落吗?",
+            "hypothesis_zh": "另,非洲将另一个年,而另一个年,而将另一个的 ⁇ 。"
+          },
+          {
+            "en": "CAMBRIDGE – 2008 has been an exceptionally tumultuous year for exchange rates.",
+            "reference_zh": "坎布里奇-2008年是汇率非常动荡的一年。",
+            "hypothesis_zh": "剑桥,他们必须被被被。"
+          },
+          {
+            "en": "Indeed, the currency of any country that is significantly dependent on commodity exports has suffered.",
+            "reference_zh": "实际上,每个在很大程度上依赖于商品出口国家的货币,都受到影响。",
+            "hypothesis_zh": "事实上,这些是的,这些的。"
+          },
+          {
+            "en": "So, what will the New Year bring for exchange rates?",
+            "reference_zh": "那么,明年的汇率将会是怎样?",
+            "hypothesis_zh": "因此,我们我们我们我们我们我们我们我们我们我们?"
+          },
+          {
+            "en": "Normally, short-run and long-run exchange-rate trends point in the same direction.",
+            "reference_zh": "通常情况下,短期和长期汇率趋势的方向是一致的。",
+            "hypothesis_zh": "在在在在在在在在在在在在在。"
+          },
+          {
+            "en": "The continuing financial crisis is putting steady upward pressure on the dollar thanks to its safe haven status.",
+            "reference_zh": "由于美元其避风港的地位,持续的财政危机正对美元造成稳步上升的压力。",
+            "hypothesis_zh": "需要是是的是是的。"
+          },
+          {
+            "en": "Commodity prices are plumbing new depths.",
+            "reference_zh": "商品价格还在探底。",
+            "hypothesis_zh": "巴西,它新正在新正在新。"
+          },
+          {
+            "en": "Yet the financial crisis will eventually end, as will the global recession.",
+            "reference_zh": "然而,金融危机终将结束,全球经济衰退也将结束。",
+            "hypothesis_zh": "但美联储,它会会会。"
+          },
+          {
+            "en": "But investors will still worry about what happens when the bills come due.",
+            "reference_zh": "但投资者仍担心钱真的投进去时会发生什么情况。",
+            "hypothesis_zh": "但投资者投资者投资者的 ⁇ ?"
+          },
+          {
+            "en": "Thus perhaps no region will be as expansionary as the US.",
+            "reference_zh": "因此,也许没有一个地区将和美国一样具有扩张性。",
+            "hypothesis_zh": "需要的,但将将将是。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_lifting_root.pt"
+    },
+    "lifting_full": {
+      "parameters": 12822593,
+      "finite_gradients": true,
+      "seconds": 45.72174119949341,
+      "trace": [
+        {
+          "model": "lifting_full",
+          "epoch": 1,
+          "train_nll": 7.087453680175344,
+          "valid_nll": 6.665215251825433,
+          "elapsed_sec": 9.489259958267212
+        },
+        {
+          "model": "lifting_full",
+          "epoch": 2,
+          "train_nll": 5.996765494916998,
+          "valid_nll": 6.50768517556312,
+          "elapsed_sec": 18.607844591140747
+        },
+        {
+          "model": "lifting_full",
+          "epoch": 3,
+          "train_nll": 4.875398895957253,
+          "valid_nll": 6.503960445603667,
+          "elapsed_sec": 28.067690134048462
+        },
+        {
+          "model": "lifting_full",
+          "epoch": 4,
+          "train_nll": 3.625209012100001,
+          "valid_nll": 6.704975983596593,
+          "elapsed_sec": 37.00123715400696
+        },
+        {
+          "model": "lifting_full",
+          "epoch": 5,
+          "train_nll": 2.5682403984252344,
+          "valid_nll": 6.9675764767673956,
+          "elapsed_sec": 45.686975717544556
+        }
+      ],
+      "test": {
+        "nll": 6.501948893846853,
+        "ppl": 666.4391874675072,
+        "tokens": 7905,
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.6277411078374125,
+        "examples": [
+          {
+            "en": "The course of the electoral struggle so far indicates that the Liberal Democrats will do very well.",
+            "reference_zh": "到目前为止的竞选趋势表明,自由民主党成绩异常出色。",
+            "hypothesis_zh": "民主党人民主党人还必须民主党民主党人民主党人。"
+          },
+          {
+            "en": "Moreover, Labour and the Conservatives are in a political trap.",
+            "reference_zh": "此外,工党和保守党都陷入了一个政治陷阱。",
+            "hypothesis_zh": "政治、排斥和消费者政治利益,但必政治和财富。"
+          },
+          {
+            "en": "Another Roller Coaster Ride for Exchange Rates in 2009?",
+            "reference_zh": "2009年的汇率将又会大起大落吗?",
+            "hypothesis_zh": "自由民主尔·W在这两个方面,它们吗?"
+          },
+          {
+            "en": "CAMBRIDGE – 2008 has been an exceptionally tumultuous year for exchange rates.",
+            "reference_zh": "坎布里奇-2008年是汇率非常动荡的一年。",
+            "hypothesis_zh": "没人的 ⁇ 拥,但特朗普一直都了。"
+          },
+          {
+            "en": "Indeed, the currency of any country that is significantly dependent on commodity exports has suffered.",
+            "reference_zh": "实际上,每个在很大程度上依赖于商品出口国家的货币,都受到影响。",
+            "hypothesis_zh": "至于运动,但这两个是“国家”的 ⁇ 。"
+          },
+          {
+            "en": "So, what will the New Year bring for exchange rates?",
+            "reference_zh": "那么,明年的汇率将会是怎样?",
+            "hypothesis_zh": "那么,在伊拉克利率,美国利率在等待年?"
+          },
+          {
+            "en": "Normally, short-run and long-run exchange-rate trends point in the same direction.",
+            "reference_zh": "通常情况下,短期和长期汇率趋势的方向是一致的。",
+            "hypothesis_zh": "诚然,美国长期经济 ⁇ 的 ⁇ 局。"
+          },
+          {
+            "en": "The continuing financial crisis is putting steady upward pressure on the dollar thanks to its safe haven status.",
+            "reference_zh": "由于美元其避风港的地位,持续的财政危机正对美元造成稳步上升的压力。",
+            "hypothesis_zh": "鉴于的大部分比现在的 ⁇ 要比美国来说,而不是的 ⁇ 见的 ⁇ 。"
+          },
+          {
+            "en": "Commodity prices are plumbing new depths.",
+            "reference_zh": "商品价格还在探底。",
+            "hypothesis_zh": "艾滋病运动的 ⁇ 折了。"
+          },
+          {
+            "en": "Yet the financial crisis will eventually end, as will the global recession.",
+            "reference_zh": "然而,金融危机终将结束,全球经济衰退也将结束。",
+            "hypothesis_zh": "鉴于 ⁇ 庸置疑,全球基金将带来金融 ⁇ 。"
+          },
+          {
+            "en": "But investors will still worry about what happens when the bills come due.",
+            "reference_zh": "但投资者仍担心钱真的投进去时会发生什么情况。",
+            "hypothesis_zh": "但那种仍仍是无法什么。"
+          },
+          {
+            "en": "Thus perhaps no region will be as expansionary as the US.",
+            "reference_zh": "因此,也许没有一个地区将和美国一样具有扩张性。",
+            "hypothesis_zh": "没人然,但就只能就就无法获得了。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_lifting_full.pt"
+    },
+    "lifting_recursive": {
+      "parameters": 12934722,
+      "finite_gradients": true,
+      "seconds": 139.14902138710022,
+      "trace": [
+        {
+          "model": "lifting_recursive",
+          "epoch": 1,
+          "train_nll": 7.004712606731214,
+          "valid_nll": 6.627627889370137,
+          "elapsed_sec": 27.615647792816162
+        },
+        {
+          "model": "lifting_recursive",
+          "epoch": 2,
+          "train_nll": 5.539057777258768,
+          "valid_nll": 6.489398892632781,
+          "elapsed_sec": 55.58386564254761
+        },
+        {
+          "model": "lifting_recursive",
+          "epoch": 3,
+          "train_nll": 3.61976451052433,
+          "valid_nll": 6.73374067553763,
+          "elapsed_sec": 83.4112057685852
+        },
+        {
+          "model": "lifting_recursive",
+          "epoch": 4,
+          "train_nll": 2.480773626902457,
+          "valid_nll": 7.08876535245953,
+          "elapsed_sec": 111.16662287712097
+        },
+        {
+          "model": "lifting_recursive",
+          "epoch": 5,
+          "train_nll": 1.7938153555518703,
+          "valid_nll": 7.325321258303661,
+          "elapsed_sec": 139.11245918273926
+        }
+      ],
+      "test": {
+        "nll": 6.547321340330487,
+        "ppl": 697.3736430244936,
+        "tokens": 7905,
+        "route_depth_mass": [
+          0.37727636098861694,
+          0.028931688517332077,
+          0.08669742941856384,
+          0.13118736445903778,
+          0.1169670969247818,
+          0.25894004106521606
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.7243990003111369,
+        "examples": [
+          {
+            "en": "The course of the electoral struggle so far indicates that the Liberal Democrats will do very well.",
+            "reference_zh": "到目前为止的竞选趋势表明,自由民主党成绩异常出色。",
+            "hypothesis_zh": "民主党是不会的预算都已经将的。"
+          },
+          {
+            "en": "Moreover, Labour and the Conservatives are in a political trap.",
+            "reference_zh": "此外,工党和保守党都陷入了一个政治陷阱。",
+            "hypothesis_zh": "而在,美国官员的官员和机构也很了。"
+          },
+          {
+            "en": "Another Roller Coaster Ride for Exchange Rates in 2009?",
+            "reference_zh": "2009年的汇率将又会大起大落吗?",
+            "hypothesis_zh": "另 另,只有不起不起的言论数字家。"
+          },
+          {
+            "en": "CAMBRIDGE – 2008 has been an exceptionally tumultuous year for exchange rates.",
+            "reference_zh": "坎布里奇-2008年是汇率非常动荡的一年。",
+            "hypothesis_zh": "剑桥 — — 剑桥 — — 剑桥 — — 艾滋病。"
+          },
+          {
+            "en": "Indeed, the currency of any country that is significantly dependent on commodity exports has suffered.",
+            "reference_zh": "实际上,每个在很大程度上依赖于商品出口国家的货币,都受到影响。",
+            "hypothesis_zh": "事实上,美国也许从正在出现,但某些美国也许是显而易见的。"
+          },
+          {
+            "en": "So, what will the New Year bring for exchange rates?",
+            "reference_zh": "那么,明年的汇率将会是怎样?",
+            "hypothesis_zh": "那么,美国如何会发生什么呢?"
+          },
+          {
+            "en": "Normally, short-run and long-run exchange-rate trends point in the same direction.",
+            "reference_zh": "通常情况下,短期和长期汇率趋势的方向是一致的。",
+            "hypothesis_zh": "通常在长期长期的,一些在长期长期的。"
+          },
+          {
+            "en": "The continuing financial crisis is putting steady upward pressure on the dollar thanks to its safe haven status.",
+            "reference_zh": "由于美元其避风港的地位,持续的财政危机正对美元造成稳步上升的压力。",
+            "hypothesis_zh": "法国是方面的其其其其其其其其其其其其其其其其其"
+          },
+          {
+            "en": "Commodity prices are plumbing new depths.",
+            "reference_zh": "商品价格还在探底。",
+            "hypothesis_zh": "双方新新新新新新新新新鲜新新新鲜。"
+          },
+          {
+            "en": "Yet the financial crisis will eventually end, as will the global recession.",
+            "reference_zh": "然而,金融危机终将结束,全球经济衰退也将结束。",
+            "hypothesis_zh": "但上述金融金融金融金融动荡,他们最终将最终全球全球。"
+          },
+          {
+            "en": "But investors will still worry about what happens when the bills come due.",
+            "reference_zh": "但投资者仍担心钱真的投进去时会发生什么情况。",
+            "hypothesis_zh": "但投资者并没有投资者并没有的局势。"
+          },
+          {
+            "en": "Thus perhaps no region will be as expansionary as the US.",
+            "reference_zh": "因此,也许没有一个地区将和美国一样具有扩张性。",
+            "hypothesis_zh": "因此,世界银行将将将将导致对策。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_lifting_recursive.pt",
+      "closure": {
+        "state_mse": 9.152267228047968e-15,
+        "state_max_abs": 1.7583370208740234e-06
+      },
+      "interventions": {
+        "source_shuffle": {
+          "nll": 7.128092293495019,
+          "ppl": 1246.496747301642,
+          "tokens": 7905,
+          "route_depth_mass": [
+            0.37855684757232666,
+            0.028671108186244965,
+            0.08584713935852051,
+            0.13140317797660828,
+            0.11678288131952286,
+            0.2587388753890991
+          ]
+        },
+        "root_shuffle": {
+          "nll": 7.2455159968473275,
+          "ppl": 1401.8050363695977,
+          "tokens": 7905,
+          "route_depth_mass": [
+            0.40870311856269836,
+            0.03145069628953934,
+            0.08538082987070084,
+            0.14807400107383728,
+            0.14574037492275238,
+            0.1806509792804718
+          ]
+        },
+        "force_root": {
+          "nll": 7.167647707394449,
+          "ppl": 1296.7905813407683,
+          "tokens": 7905,
+          "route_depth_mass": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "force_leaf": {
+          "nll": 6.689813514241382,
+          "ppl": 804.1722714836806,
+          "tokens": 7905,
+          "route_depth_mass": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "detail_shuffle": [
+          {
+            "nll": 6.556909102476676,
+            "ppl": 704.0920514258795,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.37810492515563965,
+              0.02900201454758644,
+              0.08651014417409897,
+              0.1313927322626114,
+              0.117123082280159,
+              0.25786709785461426
+            ]
+          },
+          {
+            "nll": 6.573014724412951,
+            "ppl": 715.5237016280274,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.3792317509651184,
+              0.029057232663035393,
+              0.08718175441026688,
+              0.13169194757938385,
+              0.12292744219303131,
+              0.24990995228290558
+            ]
+          },
+          {
+            "nll": 6.608774114484503,
+            "ppl": 741.5733772105662,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.3816155791282654,
+              0.0291905514895916,
+              0.08748780190944672,
+              0.13431918621063232,
+              0.13126805424690247,
+              0.2361188381910324
+            ]
+          },
+          {
+            "nll": 6.710322870957859,
+            "ppl": 820.8356206540445,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.39355215430259705,
+              0.029955245554447174,
+              0.08555908501148224,
+              0.14198076725006104,
+              0.1400584876537323,
+              0.2088942974805832
+            ]
+          },
+          {
+            "nll": 6.67905007832266,
+            "ppl": 795.5630303953361,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.393087238073349,
+              0.030682163313031197,
+              0.08353663235902786,
+              0.13777631521224976,
+              0.13104107975959778,
+              0.22387664020061493
+            ]
+          }
+        ],
+        "pair_break": [
+          {
+            "nll": 6.718001950654253,
+            "ppl": 827.1631464967282,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.3787781298160553,
+              0.029568487778306007,
+              0.09169436991214752,
+              0.13217762112617493,
+              0.11811467260122299,
+              0.22506588697433472
+            ]
+          },
+          {
+            "nll": 6.701449803081515,
+            "ppl": 813.584507858752,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.3780748248100281,
+              0.02947390452027321,
+              0.08993810415267944,
+              0.1343012899160385,
+              0.10740002244710922,
+              0.2311585545539856
+            ]
+          },
+          {
+            "nll": 6.709040275636465,
+            "ppl": 819.7834955969307,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.3788469731807709,
+              0.028881177306175232,
+              0.08741649985313416,
+              0.12784983217716217,
+              0.11443796753883362,
+              0.2427123785018921
+            ]
+          },
+          {
+            "nll": 6.751192227773165,
+            "ppl": 855.0776023266216,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.380631685256958,
+              0.029088707640767097,
+              0.0868089348077774,
+              0.13255617022514343,
+              0.12493995577096939,
+              0.24474723637104034
+            ]
+          },
+          {
+            "nll": 6.6185682766049965,
+            "ppl": 748.8721514353723,
+            "tokens": 7905,
+            "route_depth_mass": [
+              0.380824476480484,
+              0.02950664423406124,
+              0.08620376139879227,
+              0.13186015188694,
+              0.11792735755443573,
+              0.2536776661872864
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "derived": {
+    "recursive_nll": 6.547321340330487,
+    "recursive_gain_over_root": 0.12868484024154014,
+    "recursive_gap_to_full": 0.04537244648363359,
+    "recursive_gap_to_flat": 0.19396146500434774,
+    "source_shuffle_damage": 0.5807709531645324,
+    "root_shuffle_damage": 0.6981946565168409,
+    "detail_shuffle_damage": [
+      0.009587762146189505,
+      0.02569338408246402,
+      0.06145277415401651,
+      0.16300153062737266,
+      0.131728737992173
+    ],
+    "pair_break_damage": [
+      0.17068061032376658,
+      0.15412846275102865,
+      0.16171893530597803,
+      0.20387088744267867,
+      0.07124693627450984
+    ],
+    "force_root_damage": 0.6203263670639627,
+    "force_leaf_damage": 0.1424921739108953
+  },
+  "gates": {
+    "P1_historical_root_exclusive_gain": true,
+    "P2_recursive_over_root": true,
+    "P3_near_full_expand": true,
+    "P4_source_causal": true,
+    "P5_root_and_detail_causal": true,
+    "P6_recursive_pairs_causal": true,
+    "P7_multiresolution_route": true,
+    "P8_closure_finite_nonempty": true
+  },
+  "decision": "supported_pilot",
+  "boundary": "Real WMT S2 mechanism proof; not production translation, compression, semantic labels, world knowledge, or consciousness."
+}

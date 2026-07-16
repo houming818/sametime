@@ -391,6 +391,22 @@ Supervised semantic-prefix structure can support toy deductive transfer where pa
 The next S1 gate is encoder induction: TreeHeap prefixes must be learned from observation statistics, not supplied as labels.
 ```
 
+## 2026-07 S2 Lifting-Pump Result
+
+`S2-LIFT-WMT-C01` is supported as a mechanism claim on a `27K/2K/2K`
+English-to-Chinese WMT run. Translation-only loss learned a root-first
+probabilistic READ that used several TreeHeap resolutions. Recursive READ
+reached test NLL `5.0903`, versus root-only `5.4337` and full UNFOLD `5.1342`.
+Source, root, every detail depth, and every recursive pair depth were causal
+under registered interventions; FOLD/UNFOLD closure MSE was `1.73e-14`.
+
+The quality claim is not supported. Flat sequence attention remained better
+at NLL `4.8103` and token BLEU-4 `3.169`, versus TreeHeap `2.528`. No
+compression or compute advantage follows because the current implementation
+materializes all resolutions before probabilistic READ. See
+`s3-generation/logic/s2_lifting_pump_wmt.md` and
+`s3-generation/evidence/s2_lifting_pump_wmt_full/`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
