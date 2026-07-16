@@ -440,6 +440,18 @@ root/address organization or WMT transfer. See
 `s3-generation/logic/lifting_subheap_pretraining.md` and
 `s3-generation/evidence/s3_lifting_subheap_pretrain_5k/`.
 
+## 2026-07 Annealed Contraction Proposal
+
+`S3-ANNEAL-TOY-C01` and `S3-ANNEAL-REAL-C01` are preregistered. Houming818
+proposed that TreeHeap should not learn by masking information before FOLD;
+complete input should enter the tree, then progressively narrower frontiers
+should retain the information that removes the most future-generation loss.
+The first proof separates a data-defined predictive event core from independent
+nuisance details without core labels in training. The second predicts the next
+16 real-text tokens from a complete 64-token history while the readable
+frontier anneals from 64 leaves toward one root. See
+`s3-generation/logic/annealed_contraction_protocol.md`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
