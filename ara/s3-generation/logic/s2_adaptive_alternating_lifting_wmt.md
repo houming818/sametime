@@ -231,3 +231,10 @@ alignment noise.
 
 Evidence is in `evidence/s2_adaptive_lifting_wmt_200k/`; exact checkpoints are
 archived at `/mnt/nas/ara/s3-generation/evidence/s2_adaptive_lifting_wmt_200k/`.
+
+The reusable CLI `s2_adaptive_lifting_translate.py` was also run against all
+three archived checkpoints on six hand-written sentences. The raw comparison
+is recorded in `evidence/s2_adaptive_lifting_wmt_200k/cli_examples.md`. It is a
+qualitative spot check, not an additional pass gate: learned update retained
+more useful subject matter on some sentences, old pump won others, and all
+three models still showed repetition, omission, and semantic errors.
