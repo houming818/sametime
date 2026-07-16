@@ -422,6 +422,24 @@ Closure MSE was `2.35e-14`; source, root, every detail depth, and five of six
 pair depths were strongly causal. Flat sequence still led at NLL `4.5419` and
 BLEU-4 `10.572`, so quality superiority remains rejected.
 
+## 2026-07 Lifting Subheap Pretraining Result
+
+`S3-LIFT-SUBHEAP-PRETRAIN-C01` is partial. On real unlabeled Chinese
+news/wiki/web text, three identical 34.18M-parameter learned-update lifting
+models received 5,000 updates of token-only, matched arbitrary-span, or
+address-aligned subheap masking. The aligned model beat the matched span model
+by `0.0364/0.0540` NLL on common width-4/8 held-out recovery. Width-8 free
+generation was non-empty, had `0.8262` unique outputs, and used sample-specific
+source state: source shuffle cost `0.1345` NLL. Every detail depth was causal.
+
+The complete TreeHeap protocol claim failed. Root zero cost only `0.0042` NLL
+and a pre-FOLD adjacent left/right swap cost only `0.0022`; exact width-8
+recovery was zero. The evidence therefore supports a small aligned-curriculum
+gain and a source/detail-dependent seq2seq pretraining mechanism, not causal
+root/address organization or WMT transfer. See
+`s3-generation/logic/lifting_subheap_pretraining.md` and
+`s3-generation/evidence/s3_lifting_subheap_pretrain_5k/`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add

@@ -68,6 +68,12 @@ Purpose: Track TreeHeap generation-layer claims.
 |---|---|---|---|---|
 | S3-DENOISE-SEQ2SEQ-C01 | Raw Chinese text can provide a strongly conditioned seq2seq objective by reconstructing a clean block or missing short span from a damaged block; this should reproduce the stable short generation seen on WMT. | rejected at 1K-step smoke / diagnostic retained | `s3_conditional_denoising_seq2seq.py`; `evidence/s3_conditional_denoising_smoke/`; `evidence/s3_conditional_gap_denoising_smoke/`. Full reconstruction: TreeHeap/Flat/BoW NLL `6.6111/5.7053/6.5707`. Short gap: `7.2434/7.1996/7.2371`. Exact was zero; TreeHeap full and leaf-only were tied in both runs. | Reopen only if a controlled scale-up produces readable held-out recovery and a causal internal-node gain over leaf-only plus matched flat/BoW controls. Current evidence does not support learned topology, persistent memory, world knowledge, or consciousness. |
 
+## Lifting Subheap Pretraining
+
+| ID | Claim | Status | Evidence | Falsification |
+|----|-------|--------|----------|---------------|
+| S3-LIFT-SUBHEAP-PRETRAIN-C01 | Under the same real-text missing-span generation loss and optimizer updates, training the reversible learned-update lifting TreeHeap on complete address-aligned subheap masks of widths 1/2/4/8 should improve held-out width-4/8 generation over a target-length-matched arbitrary-span curriculum, while generation remains causally dependent on source, root, multiple depths, and left/right addresses. | partial support / generation and aligned curriculum positive / root-address protocol rejected | Design/result: `lifting_subheap_pretraining.md`; code `s3_lifting_subheap_pretrain.py`; evidence `evidence/s3_lifting_subheap_pretrain_5k/`, io, 5K updates per curriculum. Aligned subheap beat matched random span by `0.0364/0.0540` NLL at width 4/8; source shuffle cost `0.1345`; every detail depth was causal; width-8 generation was non-empty with `0.8262` unique-output fraction. But root zero cost only `0.0042`, adjacent left/right swap only `0.0022`, and exact recovery was zero. P1/P2/P3/P4/P7 passed; P5/P6 failed. | The full root/address claim is rejected at this scale. Retain only the narrower source/detail-dependent seq2seq and small aligned-curriculum result. Reopen a complete TreeHeap protocol only when root and pre-FOLD left/right interventions are causal across seeds, then run a separate WMT transfer comparison against identical from-scratch initialization. |
+
 ## WMT Translation-Loss Learned Fold
 
 | ID | Claim | Status | Evidence | Falsification |
