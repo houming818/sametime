@@ -157,3 +157,26 @@ checkpoint rule, batch policy, and evaluation code.
 
 - `evidence/s2_adaptive_lifting_wmt_ablation/`
 - `evidence/s2_adaptive_lifting_wmt_200k/`
+
+## Attribution Result and Scale Selection
+
+The registered 30K ablation completed before the scale run:
+
+| Pump | Test NLL | Gain over old |
+|---|---:|---:|
+| old recursive | 6.1488 | - |
+| learned update, fixed left anchor | **6.0596** | **+0.0892** |
+| alternating orientation, fixed update | 6.2740 | -0.1251 |
+| learned update + alternation | 6.1094 | +0.0394 |
+
+All recursive variants preserved closure and finite gradients. The learned
+update moved away from its fixed-half initialization with delta RMS `0.1477`.
+P1, P2, and P4 passed; P3 failed because the combined kernel was `0.0498` NLL
+worse than learned update alone, exceeding the registered `0.03` tolerance.
+
+Therefore the alternating-orientation hypothesis is rejected at this stage.
+Following the preregistered "winning new pump" scale rule, the 200K candidate
+is `learned_update`: learned \(A_\phi\) with the original left anchor. This
+selection cannot rescue the combined adaptive-alternating claim; it tests the
+surviving narrower mechanism without spending the larger run on the losing
+ablation.

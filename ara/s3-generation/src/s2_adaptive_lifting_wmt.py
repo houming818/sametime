@@ -395,20 +395,28 @@ def train_variant(
 
 def build_gates(args, results: Dict[str, dict]) -> Tuple[dict, dict]:
     old_nll = results["old_recursive"]["test"]["nll"]
-    adaptive_nll = results["adaptive_alternate"]["test"]["nll"]
-    learned_nll = results.get("learned_update", {"test": {"nll": float("nan")}})["test"]["nll"]
-    alternate_nll = results.get("alternate_fixed", {"test": {"nll": float("nan")}})["test"]["nll"]
+    candidate = results[args.candidate_variant]
+    candidate_nll = candidate["test"]["nll"]
     recursive = [result for name, result in results.items() if name != "flat_seq"]
     derived = {
         "old_nll": old_nll,
-        "adaptive_nll": adaptive_nll,
-        "adaptive_gain_over_old": old_nll - adaptive_nll,
-        "learned_update_gain_over_old": old_nll - learned_nll,
-        "alternate_fixed_gain_over_old": old_nll - alternate_nll,
-        "adaptive_update_delta_rms": results["adaptive_alternate"]["update"]["delta_rms"],
+        "candidate_variant": args.candidate_variant,
+        "candidate_nll": candidate_nll,
+        "candidate_gain_over_old": old_nll - candidate_nll,
+        "candidate_update_delta_rms": candidate["update"]["delta_rms"],
     }
     if args.stage == "ablation":
+        adaptive_nll = results["adaptive_alternate"]["test"]["nll"]
+        learned_nll = results["learned_update"]["test"]["nll"]
+        alternate_nll = results["alternate_fixed"]["test"]["nll"]
         better_single = min(learned_nll, alternate_nll)
+        derived.update({
+            "adaptive_nll": adaptive_nll,
+            "adaptive_gain_over_old": old_nll - adaptive_nll,
+            "learned_update_gain_over_old": old_nll - learned_nll,
+            "alternate_fixed_gain_over_old": old_nll - alternate_nll,
+            "adaptive_update_delta_rms": results["adaptive_alternate"]["update"]["delta_rms"],
+        })
         gates = {
             "P1_all_closed_finite": all(
                 result["closure"].get("state_mse", 0.0) < 1e-10
@@ -425,27 +433,27 @@ def build_gates(args, results: Dict[str, dict]) -> Tuple[dict, dict]:
         return derived, gates
 
     flat_nll = results["flat_seq"]["test"]["nll"]
-    intervention = results["adaptive_alternate"]["interventions"]
-    detail_damage = [row["nll"] - adaptive_nll for row in intervention["detail_shuffle"]]
-    pair_damage = [row["nll"] - adaptive_nll for row in intervention["pair_break"]]
-    route_mass = results["adaptive_alternate"]["test"].get("route_depth_mass", [])
+    intervention = candidate["interventions"]
+    detail_damage = [row["nll"] - candidate_nll for row in intervention["detail_shuffle"]]
+    pair_damage = [row["nll"] - candidate_nll for row in intervention["pair_break"]]
+    route_mass = candidate["test"].get("route_depth_mass", [])
     old_gap = old_nll - flat_nll
-    new_gap = adaptive_nll - flat_nll
+    new_gap = candidate_nll - flat_nll
     gap_closed = (old_gap - new_gap) / max(1e-12, old_gap)
     derived.update({
         "flat_nll": flat_nll,
         "old_gap_to_flat": old_gap,
-        "adaptive_gap_to_flat": new_gap,
+        "candidate_gap_to_flat": new_gap,
         "flat_gap_fraction_closed": gap_closed,
-        "source_shuffle_damage": intervention["source_shuffle"]["nll"] - adaptive_nll,
-        "root_shuffle_damage": intervention["root_shuffle"]["nll"] - adaptive_nll,
+        "source_shuffle_damage": intervention["source_shuffle"]["nll"] - candidate_nll,
+        "root_shuffle_damage": intervention["root_shuffle"]["nll"] - candidate_nll,
         "detail_shuffle_damage": detail_damage,
         "pair_break_damage": pair_damage,
-        "force_root_damage": intervention["force_root"]["nll"] - adaptive_nll,
-        "force_leaf_damage": intervention["force_leaf"]["nll"] - adaptive_nll,
+        "force_root_damage": intervention["force_root"]["nll"] - candidate_nll,
+        "force_leaf_damage": intervention["force_leaf"]["nll"] - candidate_nll,
     })
     gates = {
-        "P5_adaptive_beats_old": derived["adaptive_gain_over_old"] >= 0.05,
+        "P5_candidate_beats_old": derived["candidate_gain_over_old"] >= 0.05,
         "P6_closes_flat_gap": gap_closed >= 0.25,
         "P7_source_causal": derived["source_shuffle_damage"] >= 0.50,
         "P8_root_and_details_causal": (
@@ -458,9 +466,9 @@ def build_gates(args, results: Dict[str, dict]) -> Tuple[dict, dict]:
             and (route_mass[-1] if route_mass else 1.0) <= 0.90
         ),
         "P11_closed_finite_nonempty": (
-            results["adaptive_alternate"]["closure"].get("state_mse", 1.0) < 1e-10
-            and results["adaptive_alternate"]["finite_gradients"]
-            and results["adaptive_alternate"]["test"].get("nonempty", 0.0) > 0.0
+            candidate["closure"].get("state_mse", 1.0) < 1e-10
+            and candidate["finite_gradients"]
+            and candidate["test"].get("nonempty", 0.0) > 0.0
         ),
     }
     return derived, gates
@@ -490,17 +498,22 @@ def main():
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--num-workers", type=int, default=2)
     parser.add_argument("--audit-variant", choices=VARIANTS, default="adaptive_alternate")
+    parser.add_argument("--candidate-variant", choices=VARIANTS, default="adaptive_alternate")
     parser.add_argument("--variants", nargs="+", choices=VARIANTS, default=list(VARIANTS))
     args = parser.parse_args()
     if args.max_len + 1 > args.heap_width:
         raise ValueError("heap width must hold source plus EOS")
     required = {"old_recursive", "adaptive_alternate"}
     if args.stage == "scale":
+        required.remove("adaptive_alternate")
         required.add("flat_seq")
+        required.add(args.candidate_variant)
     if not required.issubset(args.variants):
         raise ValueError(f"{args.stage} requires variants {sorted(required)}")
     if args.audit_variant not in args.variants:
         raise ValueError("audit variant must be trained")
+    if args.stage == "scale" and args.audit_variant != args.candidate_variant:
+        raise ValueError("scale audit variant must equal candidate variant")
 
     random.seed(args.seed)
     torch.manual_seed(args.seed)

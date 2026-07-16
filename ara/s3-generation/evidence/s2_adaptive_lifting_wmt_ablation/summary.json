@@ -1,0 +1,935 @@
+{
+  "claim": "S2-ADAPTIVE-LIFT-WMT-C01",
+  "predict": "P-S2-ADAPTIVE-LIFT-WMT-01",
+  "stage": "ablation",
+  "host": "io",
+  "seconds": 2189.0515003204346,
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s2_adaptive_lifting_wmt_ablation",
+    "stage": "ablation",
+    "seed": 71659,
+    "source_col": 1,
+    "target_col": 0,
+    "train_samples": 30000,
+    "valid_samples": 2000,
+    "test_samples": 2000,
+    "max_scan": 300000,
+    "min_len": 8,
+    "max_len": 32,
+    "heap_width": 64,
+    "dim": 256,
+    "hidden": 256,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 0.002,
+    "device": "cuda",
+    "num_workers": 2,
+    "audit_variant": "adaptive_alternate",
+    "variants": [
+      "flat_seq",
+      "old_recursive",
+      "learned_update",
+      "alternate_fixed",
+      "adaptive_alternate"
+    ]
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "rows": 34000,
+    "vocab": 32001,
+    "scanned": 300000,
+    "eligible": 173313,
+    "selected": 34000,
+    "sampling": "deterministic_reservoir_then_shuffle"
+  },
+  "models": {
+    "flat_seq": {
+      "parameters": 33852673,
+      "finite_gradients": true,
+      "seconds": 139.1560468673706,
+      "trace": [
+        {
+          "model": "flat_seq",
+          "epoch": 1,
+          "train_nll": 7.094167106441343,
+          "valid_nll": 6.365033462757372,
+          "elapsed_sec": 27.94015669822693
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 2,
+          "train_nll": 5.393726803346484,
+          "valid_nll": 5.935273206870974,
+          "elapsed_sec": 56.181081771850586
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 3,
+          "train_nll": 3.9984643438985863,
+          "valid_nll": 5.9416948711599105,
+          "elapsed_sec": 84.16541481018066
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 4,
+          "train_nll": 2.93035474769088,
+          "valid_nll": 6.141978656972638,
+          "elapsed_sec": 111.39414644241333
+        },
+        {
+          "model": "flat_seq",
+          "epoch": 5,
+          "train_nll": 2.201498097448207,
+          "valid_nll": 6.380316264756763,
+          "elapsed_sec": 139.04106831550598
+        }
+      ],
+      "test": {
+        "nll": 5.942468222869449,
+        "ppl": 380.8738518782574,
+        "tokens": 33621,
+        "exact": 0.001,
+        "nonempty": 1.0,
+        "token_bleu4": 5.6233055185129475,
+        "examples": [
+          {
+            "en": "Visit our Airport Transfers page to also learn more about this particular service. Home Rooms",
+            "reference_zh": "请访问我们的机场接送服务页面以更多地了解这些特别服务。 主页",
+            "hypothesis_zh": "请联系我们,请通过电子邮件更多的信息。"
+          },
+          {
+            "en": "Michael Ableson, Vice President, Strategy and Global Portfolio Planning, General Motors Company, USA.",
+            "reference_zh": "嘉宾云集,群贤毕至,其中包括 Michael Ableson, 通用汽车战略与全球业务规划副总裁。",
+            "hypothesis_zh": " ⁇ 江 ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ "
+          },
+          {
+            "en": "Simpatie Personals Men Women romanian.datingstore.info",
+            "reference_zh": "Simpatie Personals 男士 女士 romanian.datingstore.info",
+            "hypothesis_zh": "汤姆·普斯·斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯斯"
+          },
+          {
+            "en": "Why is it September 10th in China?",
+            "reference_zh": "那么为什么中国的教师节是在9月10日呢?",
+            "hypothesis_zh": "驾色在越南中国大陆?"
+          },
+          {
+            "en": "Additional charges may incur if you call a toll-free number outside of its respective country or region. Â",
+            "reference_zh": "如果您在电话号码所属国家或地区以外的地方拨打免费电话号码,可能会产生额外费用。",
+            "hypothesis_zh": "可能会收到或地区,其可能会收到或永久的通知。"
+          },
+          {
+            "en": "Many were with schools, mainly years 8 to 10, but in recent years I have also assisted in a 10 week program for 30 boys from years 4 and 5.",
+            "reference_zh": "很多人与学校,主要是 9 年: 52 上午,但近年来我还帮助 10 周程序 30 男孩从 4 和 5 年。",
+            "hypothesis_zh": " ⁇ 的,我从法国,从3年10月3日,从10月10日,从20年10月20日,从"
+          },
+          {
+            "en": "She was commissioned by New Zealand Railways to service the communities around Lake Wakatipu.",
+            "reference_zh": "她最初授命于新西兰铁路,在瓦卡蒂普湖上为周为社区提供服务。",
+            "hypothesis_zh": " ⁇  ⁇ 的 ⁇ 子,是美国的 ⁇ 子,在北北北大厅的。"
+          },
+          {
+            "en": "vlog editor - I need someone to edit my daily vlogs ($2-8 USD / hour)",
+            "reference_zh": "Crypto News Writer ($2-8 USD/小时)",
+            "hypothesis_zh": " ⁇ 子 ⁇  - 维基百科,自由的百科全书"
+          },
+          {
+            "en": "With one touch of a button the control unit's display becomes the microscope control, and real-time video monitor .",
+            "reference_zh": "只需轻轻一按,控制单元的显示便成为了显微镜控制器和实时视频监控器。",
+            "hypothesis_zh": "各种控制,可以控制控制控制功能。"
+          },
+          {
+            "en": "How to realize automatic operation of program on X86 platform when power on ?",
+            "reference_zh": "X86平台设备如何实现应用程序开机自动运行?",
+            "hypothesis_zh": "如何如何如何在 英特尔电源 的驱动器"
+          },
+          {
+            "en": "Featured amenities include complimentary newspapers in the lobby and a 24-hour front desk. Read more Value for money",
+            "reference_zh": "特色服务/设施包括大堂免费报纸和24 小时前台服务。 参阅更多 性价比",
+            "hypothesis_zh": "特色服务/设施包括免费高速有线上网、免费报纸和干洗/洗衣服务。"
+          },
+          {
+            "en": "He's got some sneakers he's merchandising in the middle.'",
+            "reference_zh": "他还在中间加了些正在推销的运动鞋(植入广告 ) 。",
+            "hypothesis_zh": " ⁇  ⁇  ⁇ 的表情是 ⁇ 的 ⁇ 的表情,他却是 ⁇ 的 ⁇ 的 ⁇ 。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_flat_seq.pt",
+      "closure": {},
+      "update": {
+        "delta_rms": 0.0,
+        "delta_to_detail_rms": 0.0
+      }
+    },
+    "old_recursive": {
+      "parameters": 33919746,
+      "finite_gradients": true,
+      "seconds": 493.2611744403839,
+      "trace": [
+        {
+          "model": "old_recursive",
+          "epoch": 1,
+          "train_nll": 7.059111545335001,
+          "valid_nll": 6.337947969218247,
+          "elapsed_sec": 97.76890778541565
+        },
+        {
+          "model": "old_recursive",
+          "epoch": 2,
+          "train_nll": 5.035594063781217,
+          "valid_nll": 6.181599613364416,
+          "elapsed_sec": 198.6125407218933
+        },
+        {
+          "model": "old_recursive",
+          "epoch": 3,
+          "train_nll": 3.609113082194379,
+          "valid_nll": 6.379171775497553,
+          "elapsed_sec": 296.7301890850067
+        },
+        {
+          "model": "old_recursive",
+          "epoch": 4,
+          "train_nll": 2.90135275732988,
+          "valid_nll": 6.520760048436754,
+          "elapsed_sec": 395.4631521701813
+        },
+        {
+          "model": "old_recursive",
+          "epoch": 5,
+          "train_nll": 2.3648917758896917,
+          "valid_nll": 6.7441092520269725,
+          "elapsed_sec": 493.14183259010315
+        }
+      ],
+      "test": {
+        "nll": 6.148827953627383,
+        "ppl": 468.1683500805441,
+        "tokens": 33621,
+        "route_depth_mass": [
+          0.18783725798130035,
+          0.215074360370636,
+          0.013480079360306263,
+          0.06905265152454376,
+          0.0868673175573349,
+          0.00584165845066309,
+          0.4218467175960541
+        ],
+        "exact": 0.001,
+        "nonempty": 1.0,
+        "token_bleu4": 4.248883222868938,
+        "examples": [
+          {
+            "en": "Visit our Airport Transfers page to also learn more about this particular service. Home Rooms",
+            "reference_zh": "请访问我们的机场接送服务页面以更多地了解这些特别服务。 主页",
+            "hypothesis_zh": "Visit了解了解有关我们的网站,了解了解有关有关有关有关有关有关。"
+          },
+          {
+            "en": "Michael Ableson, Vice President, Strategy and Global Portfolio Planning, General Motors Company, USA.",
+            "reference_zh": "嘉宾云集,群贤毕至,其中包括 Michael Ableson, 通用汽车战略与全球业务规划副总裁。",
+            "hypothesis_zh": "御,他, 无障碍,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,"
+          },
+          {
+            "en": "Simpatie Personals Men Women romanian.datingstore.info",
+            "reference_zh": "Simpatie Personals 男士 女士 romanian.datingstore.info",
+            "hypothesis_zh": "Simie.com."
+          },
+          {
+            "en": "Why is it September 10th in China?",
+            "reference_zh": "那么为什么中国的教师节是在9月10日呢?",
+            "hypothesis_zh": "为什么TV在过去的里呢?"
+          },
+          {
+            "en": "Additional charges may incur if you call a toll-free number outside of its respective country or region. Â",
+            "reference_zh": "如果您在电话号码所属国家或地区以外的地方拨打免费电话号码,可能会产生额外费用。",
+            "hypothesis_zh": "可能会向您付在每个向的信号,如果可能会在每个向上。"
+          },
+          {
+            "en": "Many were with schools, mainly years 8 to 10, but in recent years I have also assisted in a 10 week program for 30 boys from years 4 and 5.",
+            "reference_zh": "很多人与学校,主要是 9 年: 52 上午,但近年来我还帮助 10 周程序 30 男孩从 4 和 5 年。",
+            "hypothesis_zh": "婚礼,还还在19年,我有一个的,还还还在19年,我等一个心。"
+          },
+          {
+            "en": "She was commissioned by New Zealand Railways to service the communities around Lake Wakatipu.",
+            "reference_zh": "她最初授命于新西兰铁路,在瓦卡蒂普湖上为周为社区提供服务。",
+            "hypothesis_zh": " ⁇  ⁇ 是她,她已经 ⁇ ,她已经 ⁇ 了。"
+          },
+          {
+            "en": "vlog editor - I need someone to edit my daily vlogs ($2-8 USD / hour)",
+            "reference_zh": "Crypto News Writer ($2-8 USD/小时)",
+            "hypothesis_zh": " ⁇ 的 ⁇ 子,我有一个的双人床, / / hr/小时)"
+          },
+          {
+            "en": "With one touch of a button the control unit's display becomes the microscope control, and real-time video monitor .",
+            "reference_zh": "只需轻轻一按,控制单元的显示便成为了显微镜控制器和实时视频监控器。",
+            "hypothesis_zh": "通过控制控制控制控制,控制控制控制控制,控制控制控制控制,控制控制控制控制,控制控制控制控制,并控制控制控制控制"
+          },
+          {
+            "en": "How to realize automatic operation of program on X86 platform when power on ?",
+            "reference_zh": "X86平台设备如何实现应用程序开机自动运行?",
+            "hypothesis_zh": "如何此操作,查看在基督上接受的程度。"
+          },
+          {
+            "en": "Featured amenities include complimentary newspapers in the lobby and a 24-hour front desk. Read more Value for money",
+            "reference_zh": "特色服务/设施包括大堂免费报纸和24 小时前台服务。 参阅更多 性价比",
+            "hypothesis_zh": "特色服务/设施包括免费高速洗衣设施。"
+          },
+          {
+            "en": "He's got some sneakers he's merchandising in the middle.'",
+            "reference_zh": "他还在中间加了些正在推销的运动鞋(植入广告 ) 。",
+            "hypothesis_zh": "“我没了,他这么这么了 。 ”"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_old_recursive.pt",
+      "closure": {
+        "state_mse": 6.6397299137500084e-15,
+        "state_max_abs": 2.384185791015625e-06
+      },
+      "update": {
+        "delta_rms": 0.0,
+        "delta_to_detail_rms": 0.0
+      }
+    },
+    "learned_update": {
+      "parameters": 34182658,
+      "finite_gradients": true,
+      "seconds": 500.6842441558838,
+      "trace": [
+        {
+          "model": "learned_update",
+          "epoch": 1,
+          "train_nll": 7.020443748563592,
+          "valid_nll": 6.321077303122018,
+          "elapsed_sec": 99.7709093093872
+        },
+        {
+          "model": "learned_update",
+          "epoch": 2,
+          "train_nll": 5.009932817934927,
+          "valid_nll": 6.083722143682815,
+          "elapsed_sec": 199.31757307052612
+        },
+        {
+          "model": "learned_update",
+          "epoch": 3,
+          "train_nll": 3.6015423040654357,
+          "valid_nll": 6.279338723830595,
+          "elapsed_sec": 299.9102077484131
+        },
+        {
+          "model": "learned_update",
+          "epoch": 4,
+          "train_nll": 2.895059427472828,
+          "valid_nll": 6.462114144827574,
+          "elapsed_sec": 399.8045184612274
+        },
+        {
+          "model": "learned_update",
+          "epoch": 5,
+          "train_nll": 2.3964435088354894,
+          "valid_nll": 6.591844303917338,
+          "elapsed_sec": 500.5826621055603
+        }
+      ],
+      "test": {
+        "nll": 6.05959172681555,
+        "ppl": 428.20057835298877,
+        "tokens": 33621,
+        "route_depth_mass": [
+          0.13434554636478424,
+          0.14161765575408936,
+          0.07802384346723557,
+          0.05278512462973595,
+          0.04869604855775833,
+          0.002576586091890931,
+          0.5419552326202393
+        ],
+        "exact": 0.001,
+        "nonempty": 1.0,
+        "token_bleu4": 5.256866941007291,
+        "examples": [
+          {
+            "en": "Visit our Airport Transfers page to also learn more about this particular service. Home Rooms",
+            "reference_zh": "请访问我们的机场接送服务页面以更多地了解这些特别服务。 主页",
+            "hypothesis_zh": "Visit Dickson,请访问机场。"
+          },
+          {
+            "en": "Michael Ableson, Vice President, Strategy and Global Portfolio Planning, General Motors Company, USA.",
+            "reference_zh": "嘉宾云集,群贤毕至,其中包括 Michael Ableson, 通用汽车战略与全球业务规划副总裁。",
+            "hypothesis_zh": "Michael、交通、交通、交通、交通、交通、交通、交通、交通、交通、交通、交通、交通、交通、交通、交通"
+          },
+          {
+            "en": "Simpatie Personals Men Women romanian.datingstore.info",
+            "reference_zh": "Simpatie Personals 男士 女士 romanian.datingstore.info",
+            "hypothesis_zh": " ⁇  ⁇ 首府  ⁇ 海姆 ⁇ 的 ⁇ 子,欢迎 ⁇ 首府"
+          },
+          {
+            "en": "Why is it September 10th in China?",
+            "reference_zh": "那么为什么中国的教师节是在9月10日呢?",
+            "hypothesis_zh": " ⁇ 在香港:  ⁇ 东?"
+          },
+          {
+            "en": "Additional charges may incur if you call a toll-free number outside of its respective country or region. Â",
+            "reference_zh": "如果您在电话号码所属国家或地区以外的地方拨打免费电话号码,可能会产生额外费用。",
+            "hypothesis_zh": "附加的需要需要需要需要需要需要需要有关用户。"
+          },
+          {
+            "en": "Many were with schools, mainly years 8 to 10, but in recent years I have also assisted in a 10 week program for 30 boys from years 4 and 5.",
+            "reference_zh": "很多人与学校,主要是 9 年: 52 上午,但近年来我还帮助 10 周程序 30 男孩从 4 和 5 年。",
+            "hypothesis_zh": "许多,我们从每周来自美国的受害者,但为客人来自世界各地的年4月日,开始在Booking的古朴的治疗。"
+          },
+          {
+            "en": "She was commissioned by New Zealand Railways to service the communities around Lake Wakatipu.",
+            "reference_zh": "她最初授命于新西兰铁路,在瓦卡蒂普湖上为周为社区提供服务。",
+            "hypothesis_zh": "她 ⁇ 的 ⁇ 子,她已经到了她逃 ⁇ 。"
+          },
+          {
+            "en": "vlog editor - I need someone to edit my daily vlogs ($2-8 USD / hour)",
+            "reference_zh": "Crypto News Writer ($2-8 USD/小时)",
+            "hypothesis_zh": " ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  -  ⁇ 护 ⁇ 水龙完成,  ⁇ 气"
+          },
+          {
+            "en": "With one touch of a button the control unit's display becomes the microscope control, and real-time video monitor .",
+            "reference_zh": "只需轻轻一按,控制单元的显示便成为了显微镜控制器和实时视频监控器。",
+            "hypothesis_zh": "通过控制控制控制控制控制控制控制控制控制,以及一个控制控制控制控制控制控制控制控制控制控制,以及控制控制控制控制控制控制"
+          },
+          {
+            "en": "How to realize automatic operation of program on X86 platform when power on ?",
+            "reference_zh": "X86平台设备如何实现应用程序开机自动运行?",
+            "hypothesis_zh": "如何配置平台平台平台平台平台平台平台平台平台平台平台平台平台平台平台平台"
+          },
+          {
+            "en": "Featured amenities include complimentary newspapers in the lobby and a 24-hour front desk. Read more Value for money",
+            "reference_zh": "特色服务/设施包括大堂免费报纸和24 小时前台服务。 参阅更多 性价比",
+            "hypothesis_zh": "特色服务/设施包括免费报纸、大堂大堂大堂免费报纸和24 小时"
+          },
+          {
+            "en": "He's got some sneakers he's merchandising in the middle.'",
+            "reference_zh": "他还在中间加了些正在推销的运动鞋(植入广告 ) 。",
+            "hypothesis_zh": " ⁇ 玲,他也没事,他也没事 ? ”"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_learned_update.pt",
+      "closure": {
+        "state_mse": 5.90519352980292e-15,
+        "state_max_abs": 1.5497207641601562e-06
+      },
+      "update": {
+        "delta_rms": 0.17580434993897587,
+        "detail_rms": 0.7065318154397395,
+        "delta_to_detail_rms": 0.24882722348399372
+      }
+    },
+    "alternate_fixed": {
+      "parameters": 33919746,
+      "finite_gradients": true,
+      "seconds": 491.2010338306427,
+      "trace": [
+        {
+          "model": "alternate_fixed",
+          "epoch": 1,
+          "train_nll": 7.108664055114616,
+          "valid_nll": 6.426482222462428,
+          "elapsed_sec": 97.65420746803284
+        },
+        {
+          "model": "alternate_fixed",
+          "epoch": 2,
+          "train_nll": 5.0956163467374695,
+          "valid_nll": 6.289280225302427,
+          "elapsed_sec": 195.68636798858643
+        },
+        {
+          "model": "alternate_fixed",
+          "epoch": 3,
+          "train_nll": 3.6715991375034553,
+          "valid_nll": 6.458498445175986,
+          "elapsed_sec": 294.44236850738525
+        },
+        {
+          "model": "alternate_fixed",
+          "epoch": 4,
+          "train_nll": 2.9102779644638743,
+          "valid_nll": 6.656171019750697,
+          "elapsed_sec": 393.1799819469452
+        },
+        {
+          "model": "alternate_fixed",
+          "epoch": 5,
+          "train_nll": 2.3041669986903797,
+          "valid_nll": 6.886059735567515,
+          "elapsed_sec": 491.1024236679077
+        }
+      ],
+      "test": {
+        "nll": 6.273958803155719,
+        "ppl": 530.5736624401582,
+        "tokens": 33621,
+        "route_depth_mass": [
+          0.08497773110866547,
+          0.48777657747268677,
+          0.0024726982228457928,
+          0.19738632440567017,
+          0.021489309147000313,
+          0.05027680844068527,
+          0.1556205153465271
+        ],
+        "exact": 0.0015,
+        "nonempty": 1.0,
+        "token_bleu4": 4.450853541414697,
+        "examples": [
+          {
+            "en": "Visit our Airport Transfers page to also learn more about this particular service. Home Rooms",
+            "reference_zh": "请访问我们的机场接送服务页面以更多地了解这些特别服务。 主页",
+            "hypothesis_zh": " ⁇  ⁇  ⁇ ,了解更多关于,请访问,请访问,请访问,请访问 . ."
+          },
+          {
+            "en": "Michael Ableson, Vice President, Strategy and Global Portfolio Planning, General Motors Company, USA.",
+            "reference_zh": "嘉宾云集,群贤毕至,其中包括 Michael Ableson, 通用汽车战略与全球业务规划副总裁。",
+            "hypothesis_zh": "碳在 全球和四,在四,在四,在四,在四和着,在四,在四和着,在其他"
+          },
+          {
+            "en": "Simpatie Personals Men Women romanian.datingstore.info",
+            "reference_zh": "Simpatie Personals 男士 女士 romanian.datingstore.info",
+            "hypothesis_zh": "营业:  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇  ⁇ "
+          },
+          {
+            "en": "Why is it September 10th in China?",
+            "reference_zh": "那么为什么中国的教师节是在9月10日呢?",
+            "hypothesis_zh": "为什么它,它叫了,我喜欢了。"
+          },
+          {
+            "en": "Additional charges may incur if you call a toll-free number outside of its respective country or region. Â",
+            "reference_zh": "如果您在电话号码所属国家或地区以外的地方拨打免费电话号码,可能会产生额外费用。",
+            "hypothesis_zh": "可能会使用这些信息,您有权或用户使用这些信息。"
+          },
+          {
+            "en": "Many were with schools, mainly years 8 to 10, but in recent years I have also assisted in a 10 week program for 30 boys from years 4 and 5.",
+            "reference_zh": "很多人与学校,主要是 9 年: 52 上午,但近年来我还帮助 10 周程序 30 男孩从 4 和 5 年。",
+            "hypothesis_zh": "孩子们,但有很大的,但他们,但他们,而有很大的,但他们有很大的,但他们有很大的,但他们有很大的"
+          },
+          {
+            "en": "She was commissioned by New Zealand Railways to service the communities around Lake Wakatipu.",
+            "reference_zh": "她最初授命于新西兰铁路,在瓦卡蒂普湖上为周为社区提供服务。",
+            "hypothesis_zh": "收到的服务,使由由服务。"
+          },
+          {
+            "en": "vlog editor - I need someone to edit my daily vlogs ($2-8 USD / hour)",
+            "reference_zh": "Crypto News Writer ($2-8 USD/小时)",
+            "hypothesis_zh": " ⁇ 生生 ⁇ 海姆器"
+          },
+          {
+            "en": "With one touch of a button the control unit's display becomes the microscope control, and real-time video monitor .",
+            "reference_zh": "只需轻轻一按,控制单元的显示便成为了显微镜控制器和实时视频监控器。",
+            "hypothesis_zh": "灵活的的左引度,然后选择和显示的组合。"
+          },
+          {
+            "en": "How to realize automatic operation of program on X86 platform when power on ?",
+            "reference_zh": "X86平台设备如何实现应用程序开机自动运行?",
+            "hypothesis_zh": "顾问平台:首页的Outlook如何或平台:"
+          },
+          {
+            "en": "Featured amenities include complimentary newspapers in the lobby and a 24-hour front desk. Read more Value for money",
+            "reference_zh": "特色服务/设施包括大堂免费报纸和24 小时前台服务。 参阅更多 性价比",
+            "hypothesis_zh": "特色服务/设施包括干洗/设施包括干洗/洗衣服务和洗衣设施,设有24小时前台。"
+          },
+          {
+            "en": "He's got some sneakers he's merchandising in the middle.'",
+            "reference_zh": "他还在中间加了些正在推销的运动鞋(植入广告 ) 。",
+            "hypothesis_zh": "他虽然在妈妈的上,他没了。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_alternate_fixed.pt",
+      "closure": {
+        "state_mse": 1.1676903984480982e-14,
+        "state_max_abs": 3.814697265625e-06
+      },
+      "update": {
+        "delta_rms": 0.0,
+        "delta_to_detail_rms": 0.0
+      }
+    },
+    "adaptive_alternate": {
+      "parameters": 34182658,
+      "finite_gradients": true,
+      "seconds": 501.36071133613586,
+      "trace": [
+        {
+          "model": "adaptive_alternate",
+          "epoch": 1,
+          "train_nll": 7.05113606463109,
+          "valid_nll": 6.363797610042659,
+          "elapsed_sec": 99.52053356170654
+        },
+        {
+          "model": "adaptive_alternate",
+          "epoch": 2,
+          "train_nll": 5.103865522819795,
+          "valid_nll": 6.120320851566228,
+          "elapsed_sec": 200.84877038002014
+        },
+        {
+          "model": "adaptive_alternate",
+          "epoch": 3,
+          "train_nll": 3.6493675596932613,
+          "valid_nll": 6.316550014583209,
+          "elapsed_sec": 301.16854786872864
+        },
+        {
+          "model": "adaptive_alternate",
+          "epoch": 4,
+          "train_nll": 2.8258392678649185,
+          "valid_nll": 6.464025490156567,
+          "elapsed_sec": 401.23466205596924
+        },
+        {
+          "model": "adaptive_alternate",
+          "epoch": 5,
+          "train_nll": 2.2675410880208777,
+          "valid_nll": 6.71442888711245,
+          "elapsed_sec": 501.2625436782837
+        }
+      ],
+      "test": {
+        "nll": 6.109429207482395,
+        "ppl": 450.08173854575887,
+        "tokens": 33621,
+        "route_depth_mass": [
+          0.003275115741416812,
+          0.39091697335243225,
+          0.00037979945773258805,
+          0.1449444591999054,
+          0.012026626616716385,
+          0.036713194102048874,
+          0.4117439091205597
+        ],
+        "exact": 0.002,
+        "nonempty": 1.0,
+        "token_bleu4": 5.02303283789218,
+        "examples": [
+          {
+            "en": "Visit our Airport Transfers page to also learn more about this particular service. Home Rooms",
+            "reference_zh": "请访问我们的机场接送服务页面以更多地了解这些特别服务。 主页",
+            "hypothesis_zh": "参阅了解服务,了解我们的了解服务。"
+          },
+          {
+            "en": "Michael Ableson, Vice President, Strategy and Global Portfolio Planning, General Motors Company, USA.",
+            "reference_zh": "嘉宾云集,群贤毕至,其中包括 Michael Ableson, 通用汽车战略与全球业务规划副总裁。",
+            "hypothesis_zh": "婴儿性, 婴儿和安宁,在安中,我们,在安尼,在安里,我们在安里,我们在"
+          },
+          {
+            "en": "Simpatie Personals Men Women romanian.datingstore.info",
+            "reference_zh": "Simpatie Personals 男士 女士 romanian.datingstore.info",
+            "hypothesis_zh": "探头色ie.com.com.com."
+          },
+          {
+            "en": "Why is it September 10th in China?",
+            "reference_zh": "那么为什么中国的教师节是在9月10日呢?",
+            "hypothesis_zh": "石油是那中国海姆的意义?"
+          },
+          {
+            "en": "Additional charges may incur if you call a toll-free number outside of its respective country or region. Â",
+            "reference_zh": "如果您在电话号码所属国家或地区以外的地方拨打免费电话号码,可能会产生额外费用。",
+            "hypothesis_zh": "可能会可能会可能会对您或更高的或更高的。"
+          },
+          {
+            "en": "Many were with schools, mainly years 8 to 10, but in recent years I have also assisted in a 10 week program for 30 boys from years 4 and 5.",
+            "reference_zh": "很多人与学校,主要是 9 年: 52 上午,但近年来我还帮助 10 周程序 30 男孩从 4 和 5 年。",
+            "hypothesis_zh": "表演在世界各地里,在世界各地里里,在世界各地里里,在世界各地里里,在世界各地里里,在世界各地里里,"
+          },
+          {
+            "en": "She was commissioned by New Zealand Railways to service the communities around Lake Wakatipu.",
+            "reference_zh": "她最初授命于新西兰铁路,在瓦卡蒂普湖上为周为社区提供服务。",
+            "hypothesis_zh": "徐,连连连连连连连连连连连,连连连连连连连连连连络,从不幸。"
+          },
+          {
+            "en": "vlog editor - I need someone to edit my daily vlogs ($2-8 USD / hour)",
+            "reference_zh": "Crypto News Writer ($2-8 USD/小时)",
+            "hypothesis_zh": "技能, 婴儿护治疗, 顾问/小时"
+          },
+          {
+            "en": "With one touch of a button the control unit's display becomes the microscope control, and real-time video monitor .",
+            "reference_zh": "只需轻轻一按,控制单元的显示便成为了显微镜控制器和实时视频监控器。",
+            "hypothesis_zh": "探头控制控制机, 升级控制控制,并实现控制控制。"
+          },
+          {
+            "en": "How to realize automatic operation of program on X86 platform when power on ?",
+            "reference_zh": "X86平台设备如何实现应用程序开机自动运行?",
+            "hypothesis_zh": "专门疾病时,华为会对疾病的疾病时,可以提高有效时节省高达 30%的费用?"
+          },
+          {
+            "en": "Featured amenities include complimentary newspapers in the lobby and a 24-hour front desk. Read more Value for money",
+            "reference_zh": "特色服务/设施包括大堂免费报纸和24 小时前台服务。 参阅更多 性价比",
+            "hypothesis_zh": "特色服务/设施包括24 小时前台服务,包括24小时服务的前台。"
+          },
+          {
+            "en": "He's got some sneakers he's merchandising in the middle.'",
+            "reference_zh": "他还在中间加了些正在推销的运动鞋(植入广告 ) 。",
+            "hypothesis_zh": "冯媛,他现在已经从他。"
+          }
+        ]
+      },
+      "checkpoint": "checkpoint_adaptive_alternate.pt",
+      "closure": {
+        "state_mse": 7.562701482308025e-15,
+        "state_max_abs": 3.129243850708008e-06
+      },
+      "update": {
+        "delta_rms": 0.14769962585466626,
+        "detail_rms": 0.7134729272046997,
+        "delta_to_detail_rms": 0.20701503900552395
+      },
+      "interventions": {
+        "source_shuffle": {
+          "nll": 8.032132990146597,
+          "ppl": 3078.3006606350295,
+          "tokens": 33621,
+          "route_depth_mass": [
+            0.0033172983676195145,
+            0.3926028609275818,
+            0.00037148213596083224,
+            0.14602838456630707,
+            0.012305437587201595,
+            0.0366976223886013,
+            0.4086768925189972
+          ]
+        },
+        "root_shuffle": {
+          "nll": 11.425594511940082,
+          "ppl": 91637.37687669278,
+          "tokens": 33621,
+          "route_depth_mass": [
+            0.4211461842060089,
+            0.24895991384983063,
+            0.0002651649701874703,
+            0.15371154248714447,
+            0.0038010254502296448,
+            0.005233379080891609,
+            0.16688284277915955
+          ]
+        },
+        "force_root": {
+          "nll": 6.518582107118691,
+          "ppl": 677.6169156690403,
+          "tokens": 33621,
+          "route_depth_mass": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "force_leaf": {
+          "nll": 6.838753558741189,
+          "ppl": 933.3250745328099,
+          "tokens": 33621,
+          "route_depth_mass": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "detail_shuffle": [
+          {
+            "nll": 6.155367053422712,
+            "ppl": 471.2397808945592,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.003309844993054867,
+              0.3901478946208954,
+              0.0003678940702229738,
+              0.14416944980621338,
+              0.011696231551468372,
+              0.03514644503593445,
+              0.41516223549842834
+            ]
+          },
+          {
+            "nll": 6.201970304378681,
+            "ppl": 493.72086376535344,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.0055763088166713715,
+              0.3925890326499939,
+              0.0005964026204310358,
+              0.14811013638973236,
+              0.01656251586973667,
+              0.041398536413908005,
+              0.3951670825481415
+            ]
+          },
+          {
+            "nll": 6.281614181333839,
+            "ppl": 534.6509913121508,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.004747696686536074,
+              0.3955267071723938,
+              0.0008467320585623384,
+              0.1475583165884018,
+              0.019779469817876816,
+              0.03777134791016579,
+              0.3937697410583496
+            ]
+          },
+          {
+            "nll": 6.749549431618027,
+            "ppl": 853.6740373304232,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.0261751227080822,
+              0.391277551651001,
+              0.0015589314280077815,
+              0.15430687367916107,
+              0.02403479628264904,
+              0.03598756343126297,
+              0.3666592538356781
+            ]
+          },
+          {
+            "nll": 6.707741418850245,
+            "ppl": 818.7194054403999,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.03578051179647446,
+              0.3887564241886139,
+              0.0012914353283122182,
+              0.1488759070634842,
+              0.01935005933046341,
+              0.03169502317905426,
+              0.3742506504058838
+            ]
+          },
+          {
+            "nll": 11.239259976442366,
+            "ppl": 76058.64576072253,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.44968393445014954,
+              0.23367901146411896,
+              0.00025253574131056666,
+              0.15114548802375793,
+              0.0015556764556095004,
+              0.0014730609254911542,
+              0.16221022605895996
+            ]
+          }
+        ],
+        "pair_break": [
+          {
+            "nll": 6.624973785798868,
+            "ppl": 753.6844550597042,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.0034198893699795008,
+              0.410276859998703,
+              0.00039283372461795807,
+              0.15439055860042572,
+              0.012943074107170105,
+              0.036409299820661545,
+              0.28679025173187256
+            ]
+          },
+          {
+            "nll": 6.726143065520341,
+            "ppl": 833.9246624796973,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.0032218736596405506,
+              0.4095504581928253,
+              0.0004899332416243851,
+              0.15279318392276764,
+              0.014429767616093159,
+              0.030257008969783783,
+              0.30009782314300537
+            ]
+          },
+          {
+            "nll": 6.5598751124959565,
+            "ppl": 706.1834955938426,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.0034633800387382507,
+              0.4060368537902832,
+              0.0005633315886370838,
+              0.1512351632118225,
+              0.013269436545670033,
+              0.03246447816491127,
+              0.3423214852809906
+            ]
+          },
+          {
+            "nll": 7.066324797176151,
+            "ppl": 1171.833385134279,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.003382164053618908,
+              0.40913212299346924,
+              0.0007033573347143829,
+              0.12444370239973068,
+              0.014542191289365292,
+              0.032225895673036575,
+              0.3227999806404114
+            ]
+          },
+          {
+            "nll": 6.493668878302902,
+            "ppl": 660.9438428018886,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.01704842410981655,
+              0.3969345986843109,
+              0.0007102254312485456,
+              0.14868652820587158,
+              0.015580127015709877,
+              0.03344346955418587,
+              0.38759663701057434
+            ]
+          },
+          {
+            "nll": 9.044975378111895,
+            "ppl": 8475.842845599049,
+            "tokens": 33621,
+            "route_depth_mass": [
+              0.04155753180384636,
+              0.3837893009185791,
+              0.0015290500596165657,
+              0.14715495705604553,
+              0.019804034382104874,
+              0.02931387536227703,
+              0.37685129046440125
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "derived": {
+    "old_nll": 6.148827953627383,
+    "adaptive_nll": 6.109429207482395,
+    "adaptive_gain_over_old": 0.03939874614498784,
+    "learned_update_gain_over_old": 0.08923622681183296,
+    "alternate_fixed_gain_over_old": -0.12513084952833609,
+    "adaptive_update_delta_rms": 0.14769962585466626
+  },
+  "gates": {
+    "P1_all_closed_finite": true,
+    "P2_one_change_improves": true,
+    "P3_combination_not_antagonistic": false,
+    "P4_update_actually_learned": true
+  },
+  "decision": "partial",
+  "boundary": "Comparative WMT mechanism proof. No full-corpus convergence, production BLEU, compression, sparse compute, world knowledge, or consciousness claim."
+}
