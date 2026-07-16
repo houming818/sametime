@@ -439,7 +439,7 @@ def build_gates(args, results: Dict[str, dict]) -> Tuple[dict, dict]:
     route_mass = candidate["test"].get("route_depth_mass", [])
     old_gap = old_nll - flat_nll
     new_gap = candidate_nll - flat_nll
-    gap_closed = (old_gap - new_gap) / max(1e-12, old_gap)
+    gap_closed = (old_gap - new_gap) / old_gap if old_gap > 0.0 else 0.0
     derived.update({
         "flat_nll": flat_nll,
         "old_gap_to_flat": old_gap,
