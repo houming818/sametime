@@ -483,6 +483,20 @@ TreeHeap-specific address/context use and records latent, token-retrieval, and
 future-generation recovery curves. See
 `s3-generation/logic/multiresolution_damage_repair.md`.
 
+## 2026-07 Post-FOLD Damage Repair Result
+
+The frozen real-text proof found a stable but narrower repair mechanism.
+Erasing addressed details reduced affected token retrieval from `1.0000` to
+`0.5573`. A depth-shared parent-only kernel restored `0.9095`, recovered
+`72.38%` of leaf-state error, and reduced future NLL from `15.5926` to `6.2226`
+against clean `5.6895`. This supports learnable redundancy between lifting
+parent `U` and residual `D` after complete-input FOLD. Adding root, neighbors,
+and path underperformed parent-only (`69.94%` repair), and wrong addresses were
+cheap, so address-conditioned repair is rejected. Evidence is under
+`s3-generation/evidence/s3_multiresolution_damage_repair/`; the next gate must
+erase both detail and its direct-parent information to test genuinely recursive
+grandparent/sibling/path repair.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
