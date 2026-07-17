@@ -497,6 +497,18 @@ cheap, so address-conditioned repair is rejected. Evidence is under
 erase both detail and its direct-parent information to test genuinely recursive
 grandparent/sibling/path repair.
 
+## 2026-07 Full-Corpus Repair-Aware Seq2Seq Proposal
+
+`S3-FULL-REPAIR-SEQ2SEQ-C01` is preregistered as the first product-pressure
+run built on the stable parent-detail repair result. It streams the complete
+verified local io files for Chinese continuation, Web/百科 QA, BELLE instruction
+following, and English-Chinese translation. The 34M annealed TreeHeap and
+repair kernel are jointly trained on clean leaf, random-resolution, and
+post-FOLD repair generation tasks. Training uses `/home/nio/datasets` only;
+NAS is excluded from the hot path. The run records per-source coverage,
+conditional-generation audits, repair tolerance, free examples, and exact
+resume. See `s3-generation/logic/full_corpus_repair_seq2seq.md`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
