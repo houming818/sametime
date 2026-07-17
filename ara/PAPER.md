@@ -471,6 +471,18 @@ causal sample/address organization. Full records are in
 `s3-generation/evidence/s3_annealed_frontier_pretrain/`; checkpoints are on
 NAS with committed SHA-256 pointers.
 
+## 2026-07 Post-FOLD Damage Repair Proposal
+
+`S3-MULTIRES-REPAIR-C01` is preregistered. It changes the evaluation target
+from one-shot ablation sensitivity to damage followed by repair. Complete real
+text is encoded first; only then are addressed residuals erased. A frozen
+annealed encoder/decoder evaluates zero fill, parent-only latent regression,
+and a shared cross-scale repair kernel using parent, root, surviving sibling
+details, depth, and path. The proof separates generic latent repair from
+TreeHeap-specific address/context use and records latent, token-retrieval, and
+future-generation recovery curves. See
+`s3-generation/logic/multiresolution_damage_repair.md`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
