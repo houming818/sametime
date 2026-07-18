@@ -102,3 +102,56 @@ quality, semantic correctness, TreeHeap superiority, consciousness, or world
 knowledge. Teacher forcing is deliberately held constant to isolate source
 memory causality; free-generation quality remains a separate gate.
 
+## Result: step 160K frozen checkpoint
+
+Host: `io`, CPU only, six threads. The pilot used 8 held-out samples and the
+confirmation used 64. The confirmation completed in 255.9 seconds while the
+300K GPU training process continued at approximately 21K target tokens/second.
+
+### Confirmation metrics
+
+| Frontier | Native NLL | Zero damage | Wrong-sample damage | Sibling-swap damage | Half-swap damage |
+|---|---:|---:|---:|---:|---:|
+| root, depth 0 | 5.2319 | +0.3154 | +0.7669 | +0.00834 | +0.00381 |
+| middle, depth 3 | 5.1910 | +0.3563 | +0.7448 | +0.00642 | +0.00681 |
+| leaf, depth 6 | 5.1321 | +0.4152 | +0.8084 | approximately 0 | approximately 0 |
+
+`P1` passed. Replacing the state with another sample increased NLL by about
+`0.75-0.81`, and zeroing it cost `0.32-0.42`. The decoder is not merely using
+the gold target prefix; source content is strongly causal.
+
+`P2` missed its preregistered `1e-5` maximum-logit tolerance. Reversing nodes
+changed NLL by no more than `3.3e-7`, but different floating-point reduction
+orders produced maximum individual-logit differences up to `3.62e-4`. The
+real-arithmetic permutation-invariance derivation still applies, and the NLL
+result confirms functional invariance at measured precision. The numeric gate
+remains marked failed rather than being relaxed after seeing the result.
+
+`P3` failed. The largest 64-sample root/middle structural damage was only
+`0.00834`, below the registered `0.02` margin. The 8-sample pilot had appeared
+close to the gate (`0.01978`), but the larger audit reduced rather than
+strengthened that signal.
+
+### Decision
+
+Status: **partial support / source conditioning supported / current topology
+use not supported**.
+
+The word "decoder shortcut" must now be used precisely:
+
+- a decoder-only or target-prefix-only shortcut is rejected;
+- a content-memory shortcut is supported;
+- meaningful use of the current FOLD topology in the normal full-corpus path is
+  not supported by this checkpoint.
+
+The clean-leaf path is an unordered memory set by construction. Coarse FOLD
+states differ numerically after source regrouping, but the decoder's measured
+benefit from that difference is too small to pass the causal gate. The next
+architecture change should constrain normal READ to selected root/subheap
+frontiers or add an address-sensitive READ kernel. More data alone does not
+repair this decoder protocol.
+
+Evidence:
+
+- `evidence/s3_full_decoder_causal_audit/` (8-sample pilot)
+- `evidence/s3_full_decoder_causal_audit_64/` (64-sample confirmation)

@@ -1,0 +1,171 @@
+{
+  "claim_id": "S3-FULL-DECODER-CAUSAL-C01",
+  "status": "completed_single_checkpoint_cpu_audit",
+  "conclusion": "content_only_or_flat",
+  "host": "io",
+  "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.35",
+  "git_head": null,
+  "checkpoint": "ara/s3-generation/evidence/s3_full_repair_seq2seq/checkpoint_160000.pt",
+  "checkpoint_step": 160000,
+  "checkpoint_sha256": "13f5318efb53fc03f541fd0ab01aa7599d2ebf89a10a78666a4de1b65bcca295",
+  "checkpoint_model_digest": "3c1c7f505ce40a71f7477e84ea6d0c18e988d0623c5fc074fe42d4b793f3739b",
+  "config": {
+    "checkpoint": "ara/s3-generation/evidence/s3_full_repair_seq2seq/checkpoint_160000.pt",
+    "base_checkpoint": "/home/nio/datasets/treeheap_checkpoints/checkpoint_annealed.pt",
+    "data_root": "/home/nio/datasets",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_full_decoder_causal_audit",
+    "eval_batches": 2,
+    "eval_batch": 4,
+    "threads": 6,
+    "seed": 72051
+  },
+  "model_depths": 6,
+  "tested_structural_depths": [
+    0,
+    3,
+    6
+  ],
+  "metrics_root_to_leaf": {
+    "0": {
+      "native_nll": 5.113038427628915,
+      "native_ppl": 166.17449777026738,
+      "zero": {
+        "nll": 5.486665070700594,
+        "delta_nll": 0.37362664307167925
+      },
+      "sample_swap": {
+        "nll": 6.055378265051296,
+        "delta_nll": 0.9423398374223808
+      },
+      "source_sibling_swap": {
+        "nll": 5.125938596787257,
+        "delta_nll": 0.01290016915834169
+      },
+      "source_half_swap": {
+        "nll": 5.115971015287527,
+        "delta_nll": 0.0029325876586119293
+      },
+      "node_reverse": {
+        "nll": 5.113038427628915,
+        "delta_nll": 0.0
+      },
+      "node_reverse_max_abs_logit": 0.0
+    },
+    "1": {
+      "native_nll": 5.085815166036717,
+      "native_ppl": 161.7117074154563,
+      "zero": {
+        "nll": 5.486665070700594,
+        "delta_nll": 0.40084990466387715
+      },
+      "node_reverse": {
+        "nll": 5.085815166036717,
+        "delta_nll": 0.0
+      },
+      "node_reverse_max_abs_logit": 0.0
+    },
+    "2": {
+      "native_nll": 5.067231740601377,
+      "native_ppl": 158.73430085035,
+      "zero": {
+        "nll": 5.486665070700594,
+        "delta_nll": 0.419433330099217
+      },
+      "node_reverse": {
+        "nll": 5.067231740601377,
+        "delta_nll": 0.0
+      },
+      "node_reverse_max_abs_logit": 8.20159912109375e-05
+    },
+    "3": {
+      "native_nll": 5.07353483986906,
+      "native_ppl": 159.73797872350025,
+      "zero": {
+        "nll": 5.486665070700594,
+        "delta_nll": 0.4131302308315341
+      },
+      "sample_swap": {
+        "nll": 5.975957685103942,
+        "delta_nll": 0.9024228452348817
+      },
+      "source_sibling_swap": {
+        "nll": 5.093311021446409,
+        "delta_nll": 0.01977618157734895
+      },
+      "source_half_swap": {
+        "nll": 5.088419508470572,
+        "delta_nll": 0.014884668601512274
+      },
+      "node_reverse": {
+        "nll": 5.07353483986906,
+        "delta_nll": 0.0
+      },
+      "node_reverse_max_abs_logit": 0.0001010894775390625
+    },
+    "4": {
+      "native_nll": 5.059589295356371,
+      "native_ppl": 157.52580645575225,
+      "zero": {
+        "nll": 5.486665070700594,
+        "delta_nll": 0.4270757753442229
+      },
+      "node_reverse": {
+        "nll": 5.059589295356371,
+        "delta_nll": 0.0
+      },
+      "node_reverse_max_abs_logit": 9.632110595703125e-05
+    },
+    "5": {
+      "native_nll": 5.056452378340983,
+      "native_ppl": 157.0324353098641,
+      "zero": {
+        "nll": 5.486665070700594,
+        "delta_nll": 0.43021269235961146
+      },
+      "node_reverse": {
+        "nll": 5.056452378340983,
+        "delta_nll": 0.0
+      },
+      "node_reverse_max_abs_logit": 0.0001964569091796875
+    },
+    "6": {
+      "native_nll": 5.059797579474892,
+      "native_ppl": 157.5586199966452,
+      "zero": {
+        "nll": 5.486665070700594,
+        "delta_nll": 0.42686749122570244
+      },
+      "sample_swap": {
+        "nll": 5.970236990415767,
+        "delta_nll": 0.9104394109408753
+      },
+      "source_sibling_swap": {
+        "nll": 5.059797579474892,
+        "delta_nll": 0.0
+      },
+      "source_half_swap": {
+        "nll": 5.059797315824109,
+        "delta_nll": -2.636507829834045e-07
+      },
+      "node_reverse": {
+        "nll": 5.059797579474892,
+        "delta_nll": 0.0
+      },
+      "node_reverse_max_abs_logit": 0.00025844573974609375
+    }
+  },
+  "gates": {
+    "P1_state_causality": true,
+    "P2_permutation_invariance": false,
+    "P3_fold_structure_sensitivity": false
+  },
+  "examples": [
+    "请问深入骨髓地喜欢一个人怎么办我不能确定对方是不是喜欢我,我却想 我不能确定对方是不是喜欢我,我却想分分秒秒跟他在一起,有谁能告诉我如何能想他少一点",
+    "为什么现在上海的儿童很少说上海方言? 即使父母都是上海人和他们用上海话交流他们还是用普通话回复。这种情况在长三角的其他发达地区我都没有发现类似的,比如杭州南京无锡苏州等。为什么会出现这种现象?难道沪语是面临消失的方言",
+    "想绕远路回家 想绕远路回家 《想绕远路回家》(是日本女子偶像组合乃木 ⁇ 46的第22张单曲,由秋元康作词,渡 ⁇ 俊 ⁇ 作曲。2018年11月14日由N46Div.发售。同",
+    "对以下代码进行调试。 def add(a,b): return a + b print(add(2,3))"
+  ],
+  "elapsed_sec": 26.824219942092896,
+  "boundary": "Frozen teacher-forced mechanism audit only; no quality, superiority, semantic, world-model, or consciousness claim."
+}
