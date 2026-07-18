@@ -1,6 +1,6 @@
 # Full-Corpus Repair-Aware Seq2Seq
 
-Status: preregistered long run
+Status: running / 60K interim audit recorded
 
 Claim ID: `S3-FULL-REPAIR-SEQ2SEQ-C01`
 
@@ -102,3 +102,32 @@ model, repair kernel, scaler, RNG, trace, and counters restored. The iterable
 corpus cursor itself restarts, so this is a state-exact checkpoint resume but
 not a byte-exact continuation of corpus order; the interruption is retained in
 evidence and must be disclosed in the final result.
+
+## Interim Audit at Step 60,000
+
+| Metric | 10K | 60K | Direction |
+|---|---:|---:|---|
+| clean held-out NLL | 5.4325 | 5.0249 | improves monotonically |
+| source-shuffle NLL damage | +0.5431 | +0.7924 | conditioning strengthens monotonically |
+| damaged NLL | 6.1766 | 5.3098 | improves |
+| repaired NLL | 5.4361 | 5.0297 | remains near clean |
+| repair fraction | 0.995 | 0.983 | high and stable |
+
+At 60K the stream had processed 143,542,378 non-padding target tokens, with
+all eight sources contributing more than 143K examples. The result is positive
+interim evidence for source-conditioned probability prediction and matched
+parent-detail repair. It is not yet a usable generator: some instruction and
+translation examples are relevant, but many QA/continuation samples repeat
+phrases or answer with a generic prior.
+
+The registered adjacent-token repetition metric is insufficient because it
+does not detect repeated multi-token phrases such as repeated place names or
+short clauses. P5 therefore cannot pass on the numeric gate alone. Final
+adjudication must add 2-8-gram repetition/longest-cycle audits and retain human
+examples.
+
+Resume evaluates `initial` at the restored 60K state. That value may measure
+60K-to-final improvement, but it cannot replace the claim's original warm-start
+baseline. Final P3 must be recomputed post hoc by evaluating the frozen original
+warm checkpoint on the identical held-out stream; both comparisons must be
+reported.
