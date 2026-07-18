@@ -12,7 +12,7 @@ import random
 import socket
 import sys
 import time
-from collections import Counter
+from collections import Counter, deque
 from pathlib import Path
 from typing import Dict, Iterator, List, Sequence, Tuple
 
@@ -33,6 +33,8 @@ SOURCE_NAMES = (
     "baike_qa", "translation", "wmt",
 )
 SOURCE_WEIGHTS = (0.20, 0.15, 0.15, 0.15, 0.10, 0.10, 0.05, 0.10)
+RAW_CHUNK_CHARS = 4096
+ENCODE_CHARS_PER_TOKEN = 12
 
 
 def json_rows(paths: Sequence[Path], partition: str | None = None) -> Iterator[dict]:
@@ -60,7 +62,10 @@ def raw_records(paths: Sequence[Path], kind: str) -> Iterator[Tuple[str, str]]:
         else:
             text = (str(row.get("title", "")) + "\n" + str(row.get("content", ""))).strip()
         if len(text) >= 64 and text.count("�") <= 2:
-            yield text, ""
+            for start in range(0, len(text), RAW_CHUNK_CHARS):
+                chunk = text[start : start + RAW_CHUNK_CHARS]
+                if len(chunk) >= 64:
+                    yield chunk, ""
 
 
 def pair_records(paths: Sequence[Path], kind: str, partition: str | None = None) -> Iterator[Tuple[str, str]]:
@@ -149,25 +154,27 @@ class FullCorpusPairs(IterableDataset):
         worker_id = worker.id if worker is not None else 0
         rng = random.Random(self.seed + worker_id * 100_003)
         streams = source_streams(self.root, self.split)
-        raw_buffers: Dict[str, List[int]] = {"news_cont": [], "wiki_cont": []}
+        raw_buffers = {"news_cont": deque(), "wiki_cont": deque()}
         while True:
             name = rng.choices(SOURCE_NAMES, weights=SOURCE_WEIGHTS)[0]
-            source_text, target_text = next(streams[name])
             if name.endswith("_cont"):
                 buffer = raw_buffers[name]
-                buffer.extend(sp.encode(source_text, out_type=int)); buffer.append(eos)
                 total = self.source_width + self.target_width
-                if len(buffer) < total:
-                    continue
-                block = buffer[:total]
-                del buffer[:total]
+                while len(buffer) < total:
+                    source_text, _ = next(streams[name])
+                    buffer.extend(sp.encode(source_text, out_type=int))
+                    buffer.append(eos)
+                block = [buffer.popleft() for _ in range(total)]
                 source_ids, target_ids = block[: self.source_width], block[self.source_width :]
                 source = torch.tensor(source_ids, dtype=torch.long)
                 target = torch.tensor(target_ids, dtype=torch.long)
                 length = self.source_width
             else:
-                source_ids = sp.encode(source_text, out_type=int)
-                target_ids = sp.encode(target_text, out_type=int)
+                source_text, target_text = next(streams[name])
+                source_chars = max(256, self.source_width * ENCODE_CHARS_PER_TOKEN)
+                target_chars = max(256, self.target_width * ENCODE_CHARS_PER_TOKEN)
+                source_ids = sp.encode(source_text[:source_chars], out_type=int)
+                target_ids = sp.encode(target_text[:target_chars], out_type=int)
                 source, length = fixed(source_ids, self.source_width, eos, pad)
                 target, _ = fixed(target_ids, self.target_width, eos, pad)
             yield source, torch.tensor(length), target, torch.tensor(SOURCE_NAMES.index(name))

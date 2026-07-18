@@ -83,3 +83,22 @@ If continuation improves but QA/translation examples remain unrelated to the
 source, retain only language continuation. If repair remains good but source
 shuffle is cheap, do not call it conditional seq2seq. All failed runs and
 partial checkpoints remain evidence.
+
+## Runtime Incident: 60K Pause
+
+The first launch was deliberately stopped after log step 64,900, retaining the
+atomic step-60,000 checkpoint. Validation learning was healthy, but throughput
+fell from roughly 23K to 1K valid target tokens per second. The cause was in
+the input implementation rather than the model: continuation streams appended
+a newly tokenized full document before draining the old buffer, then deleted
+from the front of an ever-growing Python list. This created progressive
+near-quadratic copying and unbounded unused token accumulation.
+
+The registered repair replaces the list with a FIFO deque, drains buffered
+tokens before reading another document, chunks very large raw documents before
+SentencePiece encoding, and bounds pair-text encoding to a prefix safely wider
+than the 64-token model input. Training resumes from step 60,000 with optimizer,
+model, repair kernel, scaler, RNG, trace, and counters restored. The iterable
+corpus cursor itself restarts, so this is a state-exact checkpoint resume but
+not a byte-exact continuation of corpus order; the interruption is retained in
+evidence and must be disclosed in the final result.
