@@ -2,7 +2,7 @@
 
 Claim ID: `S3-DECODER-DEPTH-GROWTH-C01`
 
-Status: **open / preregistered overnight pilot**
+Status: **rejected by one-seed pilot for the current FOLD/READ mechanism**
 
 ## Question
 
@@ -80,3 +80,38 @@ This experiment does not prove semantic coarse/fine specialization, TreeHeap
 superiority over Transformer, world knowledge, consciousness, or a universal
 optimal branching factor.
 
+## Pilot result (2026-07-19)
+
+The run completed on `io` with exit code zero. Each variant had exactly
+25,499,266 parameters and trained for 6,000 steps. The three runs took about
+34 minutes in total. Source contexts decoded to 147--208 Chinese characters in
+the recorded sample, so the long-context requirement was met.
+
+| Gate | Result | Observation |
+|---|---:|---|
+| P1 depth growth | fail | Tree root-only was already best; deeper compressed frontiers did not reduce NLL. |
+| P2 structural advantage | fail | Mean compressed NLL: tree 6.2366, random 6.2361, flat 5.9311. |
+| P3 link causality | fail | Link shuffling changed mean NLL by only 0.00000021. |
+| P4 unseen arity | fail | Tree lost to flat by about 0.302--0.308 NLL for every unseen arity. |
+| P5 long context | pass | Recorded contexts contained 147--208 decoded characters. |
+| P6 finite | pass | Training, checkpoints, and evaluation completed with finite values. |
+
+For seen arities, the tree's root-only NLL was about 6.2266. Reading deeper
+frontiers raised it rather than improving it. The flat control showed a small
+multiresolution effect: NLL fell from 5.9422 at root-only to about 5.922 at its
+best compressed frontier. Thus this experiment does not reject the general
+idea that additional resolution can help; it rejects the prediction that the
+current recursive FOLD/READ implementation makes that information useful.
+
+The tree/random compressed perplexity was about 511, versus about 377 for the
+flat control. This is a 1.36x perplexity ratio against the tree, not a small tie.
+Because shuffled links were neutral, there is no evidence here that the decoder
+used the proposed TreeHeap topology.
+
+One important control was missing from the preregistration: source-null or
+source-permutation evaluation. Teacher forcing lets the target-side GRU learn a
+language model, so this pilot does not quantify how much any variant used the
+source context at all. The next experiment must establish source causality
+before testing depth semantics.
+
+Evidence: `evidence/s3_decoder_depth_growth_pilot/summary.json`.
