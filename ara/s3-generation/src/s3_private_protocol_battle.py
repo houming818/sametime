@@ -444,6 +444,10 @@ def summarize(results, interventions, cross_pairs):
     for row in cross_pairs:
         row["damage_vs_decoder_own"] = row["nll"] - own_h4[row["decoder_seed"]]
     cross_damage = [row["damage_vs_decoder_own"] for row in cross_pairs]
+    private_pair_gate = (
+        median(cross_damage) >= 0.10
+        or max(abs(value) for value in cross_damage) <= 0.02
+    ) if cross_damage else False
     gates = {
         "P1_trainable_all_heads": all(
             row["finite_gradients"]
@@ -458,10 +462,7 @@ def summarize(results, interventions, cross_pairs):
             sum(value >= 0.02 for value in damage["detail_shuffle"]) >= 3
             and sum(value >= 0.02 for value in damage["pair_break"]) >= 3
         ),
-        "P4_seed_private_or_shared": (
-            median(cross_damage) >= 0.10
-            or max(abs(value) for value in cross_damage) <= 0.02
-        ),
+        "P4_seed_private_or_shared": private_pair_gate,
         "P5_h4_beats_flat": aggregate["flat"]["nll_mean"] - aggregate["h4"]["nll_mean"] >= 0.02,
     }
     structural = [
