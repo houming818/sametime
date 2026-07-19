@@ -2,7 +2,7 @@
 
 Claim ID: `S3-TREE-LIFT-RECURSIVE-C01`
 
-Status: **contract phase supported / language depth audit open**
+Status: **contract and frozen WMT depth subclaim supported / broader causal audit open**
 
 ## Correction inherited from S3-DECODER-DEPTH-GROWTH-C01
 
@@ -47,9 +47,9 @@ coarse_state, addressed_detail_residual
 
 ## Main question
 
-After one model is trained on real Chinese text with unrestricted recursive
-READ, does freezing it and increasing a hard recursive depth cap reveal a
-source-causal, address-causal rate-distortion curve?
+After one model is trained on real text with unrestricted recursive READ, does
+freezing it and increasing a hard recursive depth cap reveal a source-causal,
+address-causal rate-distortion curve?
 
 A depth cap is not a list prefix. At a capped node the route kernel is forced to
 STOP. At an uncapped node its expand mass is distributed only to registered
@@ -67,7 +67,7 @@ $$
 
 up to floating-point error.
 
-## Data and training
+## Intended data and training
 
 - source: 128 BPE tokens from `/home/nio/datasets/pretrain`;
 - target: the following 32 BPE tokens plus EOS;
@@ -82,6 +82,11 @@ up to floating-point error.
 
 Training does not randomly assign the same complete target to independent
 depth arrays. Depth is an evaluation intervention on a frozen recursive model.
+
+The first frozen depth audit below deliberately reuses the existing 200k-pair
+English-to-Chinese WMT checkpoint. It therefore tests the recursive READ
+mechanism without spending another training run, but does not yet instantiate
+the planned Chinese future-text setup.
 
 ## Deterministic contract proof
 
@@ -156,6 +161,46 @@ match.
 
 No threshold is registered for beating flat in the pilot. That comparison is
 reported, not hidden.
+
+## Frozen WMT depth result (2026-07-19)
+
+The audit froze `checkpoint_learned_update.pt`, trained on 200,000 WMT pairs,
+and evaluated the same 5,000 held-out English-to-Chinese pairs at every cap.
+No parameter was retrained between rows. Each cap only changes where unresolved
+recursive route mass is forced to STOP.
+
+| Maximum READ depth | NLL | Perplexity | Forced-stop mass at cap |
+|---:|---:|---:|---:|
+| 0 | 13.8100 | 994,481 | 1.0000 |
+| 1 | 13.9301 | 1,121,454 | 0.9949 |
+| 2 | 11.4878 | 97,514 | 0.8576 |
+| 3 | 8.2396 | 3,788 | 0.8375 |
+| 4 | 6.5393 | 692 | 0.8083 |
+| 5 | 5.7286 | 308 | 0.7923 |
+| 6, unrestricted | 4.6335 | 103 | 0.8145 leaf mass |
+
+Results:
+
+- full READ improves NLL over root-only by `9.1765`;
+- five of six adjacent depth increments improve NLL, and four improve it by
+  more than `0.80`;
+- depth 1 is worse than root-only by `0.1202`, so the curve is not assumed to
+  be mathematically monotone;
+- maximum probability-mass error is `4.1723e-7`, below the `1e-6` contract;
+- all 84,195 target tokens and 79 batches are identical between depth rows;
+- wall time was `101.45s` on `io`.
+
+This supports `P2 recursive growth` and `P6 route conservation` for the frozen
+WMT checkpoint. It is a positive intervention: progressively opening registered
+parent-to-child routes restores information used by the same decoder. It is not
+a comparison among separately trained flat arrays.
+
+The broader claim remains partial. This run does not establish P1 source-causal
+root, P3 residual-address causality, P4 sibling-pair causality, P5 closure after
+training, or P7 fair-stream model controls. It also does not show that a root is
+a human-readable summary. Because training used unrestricted READ, capped modes
+are distribution-shift interventions; their poor absolute generation quality
+must not be presented as a product benchmark.
 
 ## Interpretation
 

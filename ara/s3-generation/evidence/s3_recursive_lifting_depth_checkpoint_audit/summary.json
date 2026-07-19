@@ -1,0 +1,249 @@
+{
+  "claim": "S3-TREE-LIFT-RECURSIVE-C01",
+  "predict": "P-S3-TREE-LIFT-DEPTH-01",
+  "decision": "partial",
+  "depth_subclaim_decision": "supported",
+  "claim_decision": "partial",
+  "host": "io",
+  "seconds": 101.44877433776855,
+  "checkpoint": "ara/s3-generation/evidence/s2_adaptive_lifting_wmt_200k/checkpoint_learned_update.pt",
+  "checkpoint_name": "learned_update",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s2_adaptive_lifting_wmt_200k",
+    "stage": "scale",
+    "seed": 71659,
+    "source_col": 1,
+    "target_col": 0,
+    "train_samples": 200000,
+    "valid_samples": 5000,
+    "test_samples": 5000,
+    "max_scan": 2000000,
+    "min_len": 8,
+    "max_len": 32,
+    "heap_width": 64,
+    "dim": 256,
+    "hidden": 256,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 0.002,
+    "device": "cuda",
+    "num_workers": 2,
+    "audit_variant": "learned_update",
+    "candidate_variant": "learned_update",
+    "variants": [
+      "flat_seq",
+      "old_recursive",
+      "learned_update"
+    ]
+  },
+  "sampling": {
+    "scanned": 2000000,
+    "eligible": 1156240,
+    "selected": 210000,
+    "sampling": "deterministic_reservoir_then_shuffle"
+  },
+  "audit": {
+    "max_batches": 0,
+    "test_rows": 5000
+  },
+  "depth_results": [
+    {
+      "max_depth": 0,
+      "nll": 13.809976071058072,
+      "ppl": 994480.8001514465,
+      "tokens": 84195,
+      "batches": 79,
+      "route_depth_mass": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_route_mass_error": 0.0
+    },
+    {
+      "max_depth": 1,
+      "nll": 13.930136745427282,
+      "ppl": 1121454.1455892376,
+      "tokens": 84195,
+      "batches": 79,
+      "route_depth_mass": [
+        0.0051015076480994985,
+        0.9948984920772939,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_route_mass_error": 1.1920928955078125e-07
+    },
+    {
+      "max_depth": 2,
+      "nll": 11.487755100058365,
+      "ppl": 97514.37675941233,
+      "tokens": 84195,
+      "batches": 79,
+      "route_depth_mass": [
+        0.005252232295477542,
+        0.1371497911340341,
+        0.8575979761604005,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_route_mass_error": 2.384185791015625e-07
+    },
+    {
+      "max_depth": 3,
+      "nll": 8.239619704327566,
+      "ppl": 3788.099436386909,
+      "tokens": 84195,
+      "batches": 79,
+      "route_depth_mass": [
+        0.004777509558646498,
+        0.14093643076940723,
+        0.016797239948477413,
+        0.8374888195084634,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_route_mass_error": 3.5762786865234375e-07
+    },
+    {
+      "max_depth": 4,
+      "nll": 6.539286516675389,
+      "ppl": 691.792819272479,
+      "tokens": 84195,
+      "batches": 79,
+      "route_depth_mass": [
+        0.004492477517781592,
+        0.14709456436209836,
+        0.017708318428229095,
+        0.022429321031842548,
+        0.8082753180573715,
+        0.0,
+        0.0
+      ],
+      "max_route_mass_error": 2.980232238769531e-07
+    },
+    {
+      "max_depth": 5,
+      "nll": 5.728578232521045,
+      "ppl": 307.53171880769463,
+      "tokens": 84195,
+      "batches": 79,
+      "route_depth_mass": [
+        0.004550501089431861,
+        0.1493620155250192,
+        0.01787737487477133,
+        0.02564128724299937,
+        0.010271122926472177,
+        0.7922976981173925,
+        0.0
+      ],
+      "max_route_mass_error": 3.5762786865234375e-07
+    },
+    {
+      "max_depth": 6,
+      "nll": 4.63349340717373,
+      "ppl": 102.8728137418881,
+      "tokens": 84195,
+      "batches": 79,
+      "route_depth_mass": [
+        0.006841468024131593,
+        0.12243789728689297,
+        0.013770129682950463,
+        0.026540869307808176,
+        0.015788588324396086,
+        9.706519980113589e-05,
+        0.8145239812205971
+      ],
+      "max_route_mass_error": 4.172325134277344e-07
+    }
+  ],
+  "derived": {
+    "root_to_full_nll_gain": 9.176482663884343,
+    "adjacent_nll_improvements": [
+      -0.12016067436920963,
+      2.4423816453689167,
+      3.248135395730799,
+      1.700333187652177,
+      0.8107082841543445,
+      1.0950848253473149
+    ],
+    "best_depth": 6
+  },
+  "gates": {
+    "P1_probability_mass_conserved": true,
+    "P2_full_tree_beats_root_only": true,
+    "P3_depth_has_multiple_positive_steps": true,
+    "P4_recursive_cap_obeyed": true
+  },
+  "examples": [
+    {
+      "source": "Disobedience shuts the door of the prayer closet.",
+      "target": "传教士的孩子和传道士的孩子。",
+      "depth_0": "Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis",
+      "depth_3": "Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis Dis",
+      "depth_6": "潘沁风也罢了。"
+    },
+    {
+      "source": "We treat retinal disease in Peru, especially retinopathy of prematurity",
+      "target": "我们在秘鲁治疗视网膜疾病,尤其是早产婴儿视网膜病变",
+      "depth_0": "出灭",
+      "depth_3": "出旱押病",
+      "depth_6": " ⁇ 性疾病的防范, 陀螺仪 在 森林中"
+    },
+    {
+      "source": "I did not look on Caderousse as a bad man, and I thought him incapable of committing a crime, or even a theft.\"",
+      "target": "我并不把卡德鲁斯看作是一个坏人,我以为他是不敢犯罪的,即使连偷东西的事也是不敢做的 。 \"",
+      "depth_0": "我不是不是不是不是暴牧师不是不是没有好暴不是暴牧师",
+      "depth_3": "没有过我,我,作为,他看,他 ⁇ ,他,像 ⁇ 的危险,像是个糟糕的,他, ⁇  ⁇ 把他把他 ⁇ 的危险,像,把他",
+      "depth_6": "嘿,不是开玩笑,我是不是嫉妒,甚至不知道我是不是开玩笑的 。 ”"
+    },
+    {
+      "source": "Natural gas, consumption by chemical industry (terajoules) - for all countries Overview",
+      "target": "天然气, 化学工业消费 (兆焦耳 ) - 为所有国家 概览",
+      "depth_0": "天石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油石油",
+      "depth_3": "石油、天然气行业气体、石油、天然气行业气体、石油、天然气行业气体、石油、天然气行业气体、石油、天然气行业气体、石油、天然气行业气体、石油、天然气",
+      "depth_6": "气体燃烧化石油行业行业标准, 化学气, 石油和天然气"
+    },
+    {
+      "source": "The Rolling Cube Your Mastery Level:",
+      "target": "back 滚滚立方 你的掌握度:",
+      "depth_0": "您的剧剧剧剧剧剧剧剧剧剧剧剧剧剧剧剧",
+      "depth_3": "剧剧 您的 你的监狱风音 Your",
+      "depth_6": "剧情介绍: 暂置"
+    },
+    {
+      "source": "Simultaneous start/stop times all pixels.",
+      "target": "同时提供所有像素的积分开始/停止时间。",
+      "depth_0": "Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim Sim",
+      "depth_3": "站//站//站/站/像素站.站.",
+      "depth_6": "站/时间/时间/修改时间。"
+    },
+    {
+      "source": "The whole purpose of Celestial Being was to fight against aliens?",
+      "target": "整个天人的目的是打击外星人?",
+      "depth_0": "整个利利利利利利利利利利利利利利利利利利利利利",
+      "depth_3": "太平洋的全全是全社会的全是捆绑",
+      "depth_6": "整个黑星的森林很大程度上为恐怖的伟大性质。"
+    },
+    {
+      "source": ".NET Bitcoin Pengaturcaraan C++ Pengekodan Bahasa Inggeris (AS) $100 (Avg Bid)",
+      "target": ".NET Bitcoin C++编程 编程 英语(美国) $785 (Avg Bid)",
+      "depth_0": "C . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+      "depth_3": "C C . C . C . C . C . C . C . C . C . C . C . C . C . C . C . C . C . C . C . C",
+      "depth_6": "C++ McCaseara Cadderan (乌兹别克斯坦) 珀塔尔图 $69 (Avg Bid)"
+    }
+  ],
+  "interpretation": "This frozen en-to-zh audit supports only probability conservation and the recursive-depth subclaim. Source, address, pairing, and outline-semantics predictions remain outside this run. It does not train independent models at different array lengths."
+}
