@@ -1,0 +1,357 @@
+{
+  "address_swap": {
+    "affected_span_mse": 1.401904821395874,
+    "detail_depth": 0,
+    "expected_leaf_span": [
+      0,
+      4
+    ],
+    "outside_span_mse": 2.7198132645129018e-15,
+    "swapped_detail_addresses": [
+      0,
+      1
+    ]
+  },
+  "boundary": "Deterministic algebra and address contract only; no language or semantic claim.",
+  "claim_id": "S3-TREE-LIFT-RECURSIVE-C01",
+  "closure": {
+    "max_abs": 3.5762786865234375e-07,
+    "mse": 3.2340878361306925e-15
+  },
+  "config": {
+    "batch": 4,
+    "device": "cpu",
+    "dim": 32,
+    "output": "/tmp/s3_recursive_lifting_contract_probe",
+    "seed": 72064,
+    "vocab": 257,
+    "width": 8
+  },
+  "gates": {
+    "C1_full_residual_roundtrip": true,
+    "C2_topology_complete": true,
+    "C3_route_mass_conserved": true,
+    "C4_address_swap_is_local": true,
+    "C5_finite": true
+  },
+  "host": "io",
+  "phase": "deterministic_contract",
+  "route_conservation": {
+    "caps": [
+      {
+        "context_norm": 8.220257759094238,
+        "max_depth": 0,
+        "maximum_error": 0.0,
+        "stop_mass_by_depth": [
+          1.0
+        ],
+        "total_stop_mass": 1.0,
+        "trace": [
+          {
+            "active_nodes": 1,
+            "depth": 0,
+            "expanded_mass": 0.0,
+            "incoming_mass": 1.0,
+            "max_conservation_error": 0.0,
+            "stop_mass": 1.0
+          }
+        ]
+      },
+      {
+        "context_norm": 6.671782970428467,
+        "max_depth": 1,
+        "maximum_error": 5.960464477539063e-08,
+        "stop_mass_by_depth": [
+          0.47706353664398193,
+          0.5229364633560181
+        ],
+        "total_stop_mass": 1.0,
+        "trace": [
+          {
+            "active_nodes": 1,
+            "depth": 0,
+            "expanded_mass": 0.5229364633560181,
+            "incoming_mass": 1.0,
+            "max_conservation_error": 5.960464477539063e-08,
+            "stop_mass": 0.47706353664398193
+          },
+          {
+            "active_nodes": 2,
+            "depth": 1,
+            "expanded_mass": 0.0,
+            "incoming_mass": 0.5229364633560181,
+            "max_conservation_error": 0.0,
+            "stop_mass": 0.5229364633560181
+          }
+        ]
+      },
+      {
+        "context_norm": 6.122769355773926,
+        "max_depth": 2,
+        "maximum_error": 5.960464477539063e-08,
+        "stop_mass_by_depth": [
+          0.47706353664398193,
+          0.2612454891204834,
+          0.26169097423553467
+        ],
+        "total_stop_mass": 1.0,
+        "trace": [
+          {
+            "active_nodes": 1,
+            "depth": 0,
+            "expanded_mass": 0.5229364633560181,
+            "incoming_mass": 1.0,
+            "max_conservation_error": 5.960464477539063e-08,
+            "stop_mass": 0.47706353664398193
+          },
+          {
+            "active_nodes": 2,
+            "depth": 1,
+            "expanded_mass": 0.26169097423553467,
+            "incoming_mass": 0.5229364633560181,
+            "max_conservation_error": 1.4901161193847656e-08,
+            "stop_mass": 0.2612454891204834
+          },
+          {
+            "active_nodes": 4,
+            "depth": 2,
+            "expanded_mass": 0.0,
+            "incoming_mass": 0.26169097423553467,
+            "max_conservation_error": 0.0,
+            "stop_mass": 0.26169097423553467
+          }
+        ]
+      },
+      {
+        "context_norm": 5.936681747436523,
+        "max_depth": 3,
+        "maximum_error": 5.960464477539063e-08,
+        "stop_mass_by_depth": [
+          0.47706353664398193,
+          0.2612454891204834,
+          0.13455358147621155,
+          0.12713740766048431
+        ],
+        "total_stop_mass": 1.0000000149011612,
+        "trace": [
+          {
+            "active_nodes": 1,
+            "depth": 0,
+            "expanded_mass": 0.5229364633560181,
+            "incoming_mass": 1.0,
+            "max_conservation_error": 5.960464477539063e-08,
+            "stop_mass": 0.47706353664398193
+          },
+          {
+            "active_nodes": 2,
+            "depth": 1,
+            "expanded_mass": 0.26169097423553467,
+            "incoming_mass": 0.5229364633560181,
+            "max_conservation_error": 1.4901161193847656e-08,
+            "stop_mass": 0.2612454891204834
+          },
+          {
+            "active_nodes": 4,
+            "depth": 2,
+            "expanded_mass": 0.12713740766048431,
+            "incoming_mass": 0.26169097423553467,
+            "max_conservation_error": 7.450580596923828e-09,
+            "stop_mass": 0.13455358147621155
+          },
+          {
+            "active_nodes": 8,
+            "depth": 3,
+            "expanded_mass": 0.0,
+            "incoming_mass": 0.12713740766048431,
+            "max_conservation_error": 0.0,
+            "stop_mass": 0.12713740766048431
+          }
+        ]
+      }
+    ],
+    "maximum_cap_error": 5.960464477539063e-08,
+    "maximum_stop_mass_error": 1.4901161193847656e-08
+  },
+  "status": "pass",
+  "topology": {
+    "gates": {
+      "children_match_heap_rule": true,
+      "complete_heap_addresses": true,
+      "each_depth_partitions_leaf_span": true,
+      "unique_parent": true
+    },
+    "nodes": [
+      {
+        "address": 1,
+        "children": [
+          2,
+          3
+        ],
+        "depth": 0,
+        "parent": null,
+        "span": [
+          0,
+          8
+        ]
+      },
+      {
+        "address": 2,
+        "children": [
+          4,
+          5
+        ],
+        "depth": 1,
+        "parent": 1,
+        "span": [
+          0,
+          4
+        ]
+      },
+      {
+        "address": 3,
+        "children": [
+          6,
+          7
+        ],
+        "depth": 1,
+        "parent": 1,
+        "span": [
+          4,
+          8
+        ]
+      },
+      {
+        "address": 4,
+        "children": [
+          8,
+          9
+        ],
+        "depth": 2,
+        "parent": 2,
+        "span": [
+          0,
+          2
+        ]
+      },
+      {
+        "address": 5,
+        "children": [
+          10,
+          11
+        ],
+        "depth": 2,
+        "parent": 2,
+        "span": [
+          2,
+          4
+        ]
+      },
+      {
+        "address": 6,
+        "children": [
+          12,
+          13
+        ],
+        "depth": 2,
+        "parent": 3,
+        "span": [
+          4,
+          6
+        ]
+      },
+      {
+        "address": 7,
+        "children": [
+          14,
+          15
+        ],
+        "depth": 2,
+        "parent": 3,
+        "span": [
+          6,
+          8
+        ]
+      },
+      {
+        "address": 8,
+        "children": [],
+        "depth": 3,
+        "parent": 4,
+        "span": [
+          0,
+          1
+        ]
+      },
+      {
+        "address": 9,
+        "children": [],
+        "depth": 3,
+        "parent": 4,
+        "span": [
+          1,
+          2
+        ]
+      },
+      {
+        "address": 10,
+        "children": [],
+        "depth": 3,
+        "parent": 5,
+        "span": [
+          2,
+          3
+        ]
+      },
+      {
+        "address": 11,
+        "children": [],
+        "depth": 3,
+        "parent": 5,
+        "span": [
+          3,
+          4
+        ]
+      },
+      {
+        "address": 12,
+        "children": [],
+        "depth": 3,
+        "parent": 6,
+        "span": [
+          4,
+          5
+        ]
+      },
+      {
+        "address": 13,
+        "children": [],
+        "depth": 3,
+        "parent": 6,
+        "span": [
+          5,
+          6
+        ]
+      },
+      {
+        "address": 14,
+        "children": [],
+        "depth": 3,
+        "parent": 7,
+        "span": [
+          6,
+          7
+        ]
+      },
+      {
+        "address": 15,
+        "children": [],
+        "depth": 3,
+        "parent": 7,
+        "span": [
+          7,
+          8
+        ]
+      }
+    ]
+  }
+}

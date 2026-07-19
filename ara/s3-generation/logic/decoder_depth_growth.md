@@ -2,7 +2,7 @@
 
 Claim ID: `S3-DECODER-DEPTH-GROWTH-C01`
 
-Status: **rejected by one-seed pilot for the current FOLD/READ mechanism**
+Status: **invalid as a TreeHeap-depth test / completed multiresolution flat-READ pilot**
 
 ## Question
 
@@ -80,7 +80,7 @@ This experiment does not prove semantic coarse/fine specialization, TreeHeap
 superiority over Transformer, world knowledge, consciousness, or a universal
 optimal branching factor.
 
-## Pilot result (2026-07-19)
+## Pilot result and mechanism correction (2026-07-19)
 
 The run completed on `io` with exit code zero. Each variant had exactly
 25,499,266 parameters and trained for 6,000 steps. The three runs took about
@@ -104,9 +104,18 @@ idea that additional resolution can help; it rejects the prediction that the
 current recursive FOLD/READ implementation makes that information useful.
 
 The tree/random compressed perplexity was about 511, versus about 377 for the
-flat control. This is a 1.36x perplexity ratio against the tree, not a small tie.
-Because shuffled links were neutral, there is no evidence here that the decoder
-used the proposed TreeHeap topology.
+flat control. This is a 1.36x perplexity ratio against the learned recursive
+pooling variant, not a small tie.
+
+Post-run code review found that `tree_levels` discarded parent-child edges and
+`read` applied set attention independently to each complete level tensor. Dose
+therefore selected a prefix of arrays with widths 1, 2, 4, 8, and so on. The
+`shuffled_links` intervention rebuilt pooled values but could not shuffle edges
+inside READ because READ had no edges.
+
+Consequently, these numbers reject the tested multiresolution pooling/flat READ
+mechanism. They do not reject TreeHeap recursive depth, because that mechanism
+was absent from the decoder.
 
 One important control was missing from the preregistration: source-null or
 source-permutation evaluation. Teacher forcing lets the target-side GRU learn a
