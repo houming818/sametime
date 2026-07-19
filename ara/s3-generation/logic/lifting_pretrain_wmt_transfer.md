@@ -2,7 +2,7 @@
 
 Claim ID: `S2-LIFT-PRETRAIN-TRANSFER-C01`
 
-Status: **preregistered / formal single-seed run pending**
+Status: **partial / matched transfer positive / pretraining structure and historical progress failed**
 
 ## Question
 
@@ -122,3 +122,56 @@ The run does not establish production translation, standard WMT SacreBLEU,
 world knowledge, human-readable root summaries, compression efficiency,
 Transformer superiority, or consciousness. WMT Massive contains noisy pairs;
 all sample outputs and the matched flat reference remain visible.
+
+## Formal result (2026-07-19)
+
+The registered run completed on `io` in `9,004.34s` (2h30m). GPU execution,
+checkpoint reload, finite gradients, fair-stream hashing, and post-training
+lifting closure all passed. Complete checkpoints and text evidence were copied
+to `/mnt/nas/ara/s3-generation/evidence/s2_lifting_pretrain_transfer_full/`.
+
+### Pretraining
+
+The four-cap mean validation NLL improved from `11.9429` initially to a best
+`7.2938` at step 2,500, a gain of `3.6540`. It then degraded for most of the
+remaining 47,500 updates and ended at `8.1587`; checkpoint selection correctly
+retained step 2,500 rather than the final state.
+
+The pretraining structural gate failed:
+
+- source shuffle damage: `+0.0554`, below the registered `+0.10`;
+- root zero damage: approximately `0.000005`;
+- sibling swap damage: `+0.0078`.
+
+Thus pretraining learned the missing-span task but did not establish a strong
+root/address protocol. `P1` failed.
+
+### Matched WMT transfer
+
+| Initialization | Test NLL | token-BLEU4 | Exact sentence |
+|---|---:|---:|---:|
+| scratch | 4.8014 | 7.9869 | 0.26% |
+| pretrained | **4.7688** | **8.3257** | **0.30%** |
+
+Pretraining improved matched scratch by `0.03254` NLL and `0.33881`
+token-BLEU4, passing the registered transfer gate `P2`. Both models consumed
+the same first-1,024-batch SHA-256 stream.
+
+After WMT fine-tuning, the pretrained model used all resolutions: route mass
+was `[0.0720, 0.1616, 0.1559, 0.0994, 0.1481, 0.1549, 0.2082]`. Full READ NLL
+was `4.7688` versus root-only `5.3341`; five of six depth openings improved
+NLL. Root shuffle cost `+2.2129`; all six detail shuffles and five of six
+pre-FOLD pair breaks crossed `+0.05`. P4--P7 passed.
+
+However, the formal model did not beat the historical TreeHeap checkpoint:
+
+```text
+formal pretrained  8.3257 token-BLEU4
+historical TreeHeap 9.9091
+historical flat    10.5715
+```
+
+`P3` failed by `1.5834` BLEU. The hard depth curriculum itself reduced absolute
+translation quality even though pretraining helped within that curriculum.
+The claim is therefore partial: ordinary matched transfer is supported, while
+complete structural pretraining and historical translation progress are not.
