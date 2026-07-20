@@ -316,12 +316,17 @@ def main():
     parser.add_argument("--standard-lr", type=float, default=5e-4)
     parser.add_argument("--warmup-fraction", type=float, default=0.10)
     parser.add_argument("--label-smoothing", type=float, default=0.10)
+    parser.add_argument(
+        "--smoke", action="store_true",
+        help="allow a reduced split for code-path validation; never use for formal evidence",
+    )
     args = parser.parse_args()
     if set(args.recipes) - {"same_recipe", "standard_recipe"}:
         raise ValueError("unknown recipe")
 
     baseline = json.loads(Path(args.baseline_summary).read_text(encoding="utf-8"))
-    verify_frozen_contract(args, baseline)
+    if not args.smoke:
+        verify_frozen_contract(args, baseline)
     random_seed = 71900
     import random
     random.seed(random_seed)
@@ -330,7 +335,7 @@ def main():
     sampling_args = copy.copy(args)
     sampling_args.seed = random_seed
     rows, sampling = adaptive.load_rows(sampling_args, sp)
-    if sampling != baseline["data"]["sampling"]:
+    if not args.smoke and sampling != baseline["data"]["sampling"]:
         raise ValueError("deterministic sampling no longer matches Stage A")
     pieces = sp.get_piece_size()
     pad, bos, eos, vocab = pieces, sp.bos_id(), sp.eos_id(), pieces + 1
@@ -378,6 +383,7 @@ def main():
         "claim": "S3-PRIVATE-PROTOCOL-TF-C02",
         "predict": "P-S3-PRIVATE-PROTOCOL-TF-02",
         "status": decision,
+        "smoke": args.smoke,
         "host": socket.gethostname(),
         "seconds": time.time() - started,
         "config": vars(args),
