@@ -455,6 +455,7 @@ def main():
     parser.add_argument("--baseline-max-scan", type=int, default=300000)
     parser.add_argument("--pool-max-scan", type=int, default=3000000)
     parser.add_argument("--source-rows", type=int, default=14170275)
+    parser.add_argument("--code-commit", default="")
     parser.add_argument("--source-col", type=int, default=1)
     parser.add_argument("--target-col", type=int, default=0)
     parser.add_argument("--min-len", type=int, default=8)
@@ -532,7 +533,7 @@ def main():
         "status": status,
         "host": socket.gethostname(),
         "device_name": torch.cuda.get_device_name(0) if args.device.startswith("cuda") else "cpu",
-        "git_commit": git_revision(),
+        "git_commit": args.code_commit or git_revision(),
         "seconds": time.time() - started,
         "config": vars(args),
         "curves": curves,
