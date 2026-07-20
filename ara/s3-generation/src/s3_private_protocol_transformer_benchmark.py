@@ -378,7 +378,11 @@ def main():
     tree_nll = baseline["aggregate"]["h1"]["nll_mean"]
     standard_nll = scores.get("standard_recipe", scores[args.recipes[-1]])["nll_mean"]
     tree_gap = tree_nll - standard_nll
-    decision = "competitive" if tree_gap <= 0.02 else "weak_parity" if tree_gap <= 0.10 else "behind"
+    decision = (
+        "smoke_only" if args.smoke else
+        "competitive" if tree_gap <= 0.02 else
+        "weak_parity" if tree_gap <= 0.10 else "behind"
+    )
     summary = {
         "claim": "S3-PRIVATE-PROTOCOL-TF-C02",
         "predict": "P-S3-PRIVATE-PROTOCOL-TF-02",
