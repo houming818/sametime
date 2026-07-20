@@ -1,0 +1,157 @@
+{
+  "claim": "S3-PRIVATE-PROTOCOL-BATTLE-C01",
+  "predict": "P-S3-PRIVATE-PROTOCOL-BATTLE-01",
+  "status": "partial",
+  "host": "io",
+  "seconds": 8762.90710568428,
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_private_protocol_battle_full",
+    "seeds": [
+      71901,
+      71902,
+      71903
+    ],
+    "variants": [
+      "flat",
+      "h1",
+      "h2",
+      "h4"
+    ],
+    "source_col": 1,
+    "target_col": 0,
+    "train_samples": 30000,
+    "valid_samples": 2000,
+    "test_samples": 2000,
+    "max_scan": 300000,
+    "min_len": 8,
+    "max_len": 32,
+    "heap_width": 64,
+    "dim": 192,
+    "hidden": 256,
+    "batch_size": 64,
+    "epochs": 4,
+    "lr": 0.002,
+    "device": "cuda",
+    "num_workers": 2
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "sampling": {
+      "scanned": 300000,
+      "eligible": 173313,
+      "selected": 34000,
+      "sampling": "deterministic_reservoir_then_shuffle"
+    },
+    "vocab": 32001
+  },
+  "aggregate": {
+    "flat": {
+      "nll_mean": 6.040144935437881,
+      "nll_min": 6.0319869227017495,
+      "nll_max": 6.045468151886887,
+      "bleu4_mean": 5.352978997251923,
+      "parameters": 27421377,
+      "seconds_mean": 111.60624853769939
+    },
+    "h1": {
+      "nll_mean": 6.1231115792555455,
+      "nll_min": 6.117974015821166,
+      "nll_max": 6.130276967287991,
+      "bleu4_mean": 4.97188773471109,
+      "parameters": 27619714,
+      "seconds_mean": 405.4004827340444
+    },
+    "h2": {
+      "nll_mean": 6.134092140087395,
+      "nll_min": 6.125751353112188,
+      "nll_max": 6.1407046960515705,
+      "bleu4_mean": 5.289227101774938,
+      "parameters": 27435395,
+      "seconds_mean": 775.635891755422
+    },
+    "h4": {
+      "nll_mean": 6.193396942777385,
+      "nll_min": 6.178971576285389,
+      "nll_max": 6.2058246484912765,
+      "bleu4_mean": 5.0853287877723705,
+      "parameters": 27343237,
+      "seconds_mean": 1552.2178662618
+    }
+  },
+  "intervention_damage_nll": {
+    "source_shuffle": 1.9532312881927298,
+    "root_shuffle": 2.111321826765166,
+    "detail_shuffle": [
+      0.020621557013667413,
+      0.04417532593584461,
+      0.10029096529757364,
+      0.2331515203909662,
+      0.25766269407331155,
+      0.018702367224442185
+    ],
+    "pair_break": [
+      0.5219997708085495,
+      0.48107638353076165,
+      0.4278312779460425,
+      0.5057577812572482,
+      0.21182493736252006,
+      -6.637258147801361e-05
+    ],
+    "head_ablate": [
+      0.06380271534877746,
+      0.08744848453071707,
+      0.05543180230404943,
+      0.07001432753439829
+    ]
+  },
+  "cross_pairs": [
+    {
+      "encoder_seed": 71901,
+      "decoder_seed": 71902,
+      "nll": 10.481179164585765,
+      "damage_vs_decoder_own": 4.275354516094488
+    },
+    {
+      "encoder_seed": 71901,
+      "decoder_seed": 71903,
+      "nll": 8.848358305907515,
+      "damage_vs_decoder_own": 2.6693867296221265
+    },
+    {
+      "encoder_seed": 71902,
+      "decoder_seed": 71901,
+      "nll": 10.491165724649473,
+      "damage_vs_decoder_own": 4.295771121093984
+    },
+    {
+      "encoder_seed": 71902,
+      "decoder_seed": 71903,
+      "nll": 9.388084714385718,
+      "damage_vs_decoder_own": 3.209113138100329
+    },
+    {
+      "encoder_seed": 71903,
+      "decoder_seed": 71901,
+      "nll": 8.446092998888004,
+      "damage_vs_decoder_own": 2.250698395332514
+    },
+    {
+      "encoder_seed": 71903,
+      "decoder_seed": 71902,
+      "nll": 9.514302107649488,
+      "damage_vs_decoder_own": 3.308477459158212
+    }
+  ],
+  "gates": {
+    "P1_trainable_all_heads": true,
+    "P2_h4_beats_h1": false,
+    "P2_all_heads_help": true,
+    "P3_source_root_causal": true,
+    "P3_details_pairs_causal": true,
+    "P4_seed_private_or_shared": true,
+    "P5_h4_beats_flat": false
+  },
+  "boundary": "Stage A tests private pairing, multi-head composition, and TreeHeap causality. It does not prove semantic heads or Transformer superiority."
+}

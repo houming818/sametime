@@ -1,7 +1,8 @@
 # TreeHeap Private Protocol Battle
 
 Date: 2026-07-19
-Status: registered / overnight proof queued
+Result date: 2026-07-20
+Status: partial
 Claim: `S3-PRIVATE-PROTOCOL-BATTLE-C01`
 Predict: `P-S3-PRIVATE-PROTOCOL-BATTLE-01`
 
@@ -138,10 +139,45 @@ Stage A does not settle comparison with a parameter/FLOP-matched Transformer.
 That is Stage B and should use the winner from this gate; adding it to the first
 overnight matrix would mix architecture selection with final benchmarking.
 
+## Registered Run Result
+
+The formal run completed on `io` in `8762.91` seconds using three seeds,
+30,000 training pairs, 2,000 validation pairs, and 2,000 test pairs.  All four
+variants used about 27.3--27.6 million parameters.  Mean test results were:
+
+| Variant | NLL (lower is better) | BLEU-4 (higher is better) | Mean train time |
+|---|---:|---:|---:|
+| flat | 6.0401 | 5.3530 | 111.6 s |
+| TreeHeap h1 | 6.1231 | 4.9719 | 405.4 s |
+| TreeHeap h2 | 6.1341 | 5.2892 | 775.6 s |
+| TreeHeap h4 | 6.1934 | 5.0853 | 1552.2 s |
+
+The registered gates resolved as follows:
+
+| Gate | Result | Evidence |
+|---|---|---|
+| P1 trainability | pass | all runs were finite and every TreeHeap head received gradient |
+| P2 four heads beat one head | fail | h4 NLL `6.1934` was worse than h1 NLL `6.1231` |
+| P2 every h4 head helps | pass | individual ablation damage was `0.0554`--`0.0874` NLL |
+| P3 structural causality | pass | source/root shuffle damage was `+1.9532/+2.1113`; registered detail and pair counts passed |
+| P4 private pairing | pass | cross-seed encoder/decoder damage was `+2.2507`--`+4.2958` NLL |
+| P5 h4 beats flat | fail | h4 was `+0.1533` NLL worse than flat |
+
+This is a `partial` result.  It supports the existence of a learned,
+structurally causal, seed-private TreeHeap encoder/decoder protocol.  It rejects
+the registered prediction that splitting the fixed protocol width into four
+heads improves this task, and it provides no competitive advantage over the
+matched flat baseline.  The next experiment must explain or remove the
+multi-head bottleneck before a Transformer battle is justified.
+
+Evidence is stored in
+`ara/s3-generation/evidence/s3_private_protocol_battle_full/`; the three
+checkpoints are archived on `io` under
+`/mnt/nas/ara/s3-generation/evidence/s3_private_protocol_battle_full/`.
+
 ## Falsification Boundary
 
 Do not infer semantic heads, human-readable roots, world knowledge,
 consciousness, finite-bit compression, or universal TreeHeap superiority from
 this run.  Do not add auxiliary head losses after seeing the result.  A lower
 score than flat is a valid result and must remain in evidence.
-

@@ -509,6 +509,22 @@ NAS is excluded from the hot path. The run records per-source coverage,
 conditional-generation audits, repair tolerance, free examples, and exact
 resume. See `s3-generation/logic/full_corpus_repair_seq2seq.md`.
 
+## 2026-07 Private Protocol Battle Result
+
+`S3-PRIVATE-PROTOCOL-BATTLE-C01` is partially supported.  On the registered
+three-seed `30K/2K/2K` WMT run, all recursive heads trained, every four-head
+ablation caused damage, source/root shuffle increased NLL by
+`1.9532/2.1113`, and crossing independently trained encoders and decoders
+increased NLL by `2.2507`--`4.2958`.  This is evidence for a structurally
+causal, seed-private TreeHeap encoder/decoder protocol.
+
+The competitive predictions failed.  Mean flat/h1/h2/h4 NLL was
+`6.0401/6.1231/6.1341/6.1934`; four heads were worse than one head and the
+matched flat baseline.  The result therefore does not support multi-head or
+TreeHeap quality superiority.  Evidence is under
+`s3-generation/evidence/s3_private_protocol_battle_full/`; see
+`s3-generation/logic/private_protocol_battle.md`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
