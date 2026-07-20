@@ -1,0 +1,118 @@
+{
+  "experiment_id": "s3_private_protocol_data_dose_full",
+  "claim": "S3-PRIVATE-PROTOCOL-DATA-DOSE-C03",
+  "predict": "P-S3-PRIVATE-PROTOCOL-DATA-DOSE-03",
+  "status": "supported_pilot_single_seed",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "7bbb89c",
+  "seconds": 19134.186819553375,
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_private_protocol_data_dose_full",
+    "models": [
+      "h1",
+      "flat",
+      "transformer"
+    ],
+    "doses": [
+      30000,
+      100000,
+      300000,
+      1000000
+    ],
+    "base_train_samples": 30000,
+    "valid_samples": 2000,
+    "test_samples": 2000,
+    "baseline_max_scan": 300000,
+    "pool_max_scan": 3000000,
+    "source_rows": 14170275,
+    "code_commit": "7bbb89c",
+    "source_col": 1,
+    "target_col": 0,
+    "min_len": 8,
+    "max_len": 32,
+    "data_seed": 71900,
+    "pool_seed": 72003,
+    "model_seed": 71901,
+    "batch_size": 64,
+    "fixed_steps": 15625,
+    "eval_interval": 500,
+    "lr": 0.002,
+    "grad_clip": 1.0,
+    "num_workers": 2,
+    "device": "cuda",
+    "heap_width": 64,
+    "dim": 192,
+    "hidden": 256,
+    "tf_dim": 256,
+    "tf_heads": 4,
+    "tf_encoder_layers": 2,
+    "tf_decoder_layers": 2,
+    "tf_feedforward": 512,
+    "tf_dropout": 0.0,
+    "max_positions": 128,
+    "smoke": false
+  },
+  "curves": {
+    "h1": {
+      "doses": [
+        30000,
+        100000,
+        300000,
+        1000000
+      ],
+      "test_nll": [
+        6.26710072318349,
+        5.14543889724367,
+        4.255821958224378,
+        4.019758249489361
+      ],
+      "spearman_log_dose_vs_nll": -1.0,
+      "nll_improvement_first_to_last": 2.247342473694129,
+      "adjacent_improvements": 3
+    },
+    "flat": {
+      "doses": [
+        30000,
+        100000,
+        300000,
+        1000000
+      ],
+      "test_nll": [
+        6.031940800187375,
+        5.053230043158837,
+        4.202527606580746,
+        3.9365029901563995
+      ],
+      "spearman_log_dose_vs_nll": -1.0,
+      "nll_improvement_first_to_last": 2.095437810030975,
+      "adjacent_improvements": 3
+    },
+    "transformer": {
+      "doses": [
+        30000,
+        100000,
+        300000,
+        1000000
+      ],
+      "test_nll": [
+        6.537277812595862,
+        5.337504335699014,
+        4.176113218852175,
+        3.9200728865052823
+      ],
+      "spearman_log_dose_vs_nll": -1.0,
+      "nll_improvement_first_to_last": 2.61720492609058,
+      "adjacent_improvements": 3
+    }
+  },
+  "gates": {
+    "P1_h1_improves_at_least_0_10": true,
+    "P2_h1_spearman_at_most_minus_0_80": true,
+    "P3_two_of_three_adjacent_doses_improve": true,
+    "P4_all_gradients_finite": true
+  },
+  "boundary": "This fixed-update, single-seed curve tests data diversity under one training recipe. It does not establish a universal scaling law, dataset optimum, semantic heads, or TreeHeap superiority. A common gain across models is a corpus effect."
+}

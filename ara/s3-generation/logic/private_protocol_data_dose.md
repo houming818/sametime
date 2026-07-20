@@ -74,3 +74,37 @@ Before execution:
 The implementation must save split hashes, source/tokenizer identity, all
 controlled variables, per-evaluation traces, elapsed time, peak GPU memory,
 examples, and decision gates using `ara/EXPERIMENT_REPORT_TEMPLATE.md`.
+
+## Result
+
+Status: `supported pilot / single seed`.
+
+The formal run completed on `io` in 5.32 hours. Every arm used 15,625 AdamW
+updates and the same 2K validation / 2K test rows.
+
+| Model | 30K NLL | 100K NLL | 300K NLL | 1M NLL | 30K to 1M gain |
+|---|---:|---:|---:|---:|---:|
+| TreeHeap h1 | 6.2671 | 5.1454 | 4.2558 | 4.0198 | 2.2473 |
+| Flat GRU | 6.0319 | 5.0532 | 4.2025 | 3.9365 | 2.0954 |
+| Small Transformer | 6.5373 | 5.3375 | 4.1761 | 3.9201 | 2.6172 |
+
+All four registered gates passed for h1: the 30K-to-1M gain was `2.2473`
+against the preregistered `0.10` threshold, dose/NLL Spearman was `-1.0`, all
+three adjacent doses improved, and every gradient remained finite.
+
+The strongest explanation is a general data-diversity effect rather than a
+TreeHeap-only effect, because all three architectures improved monotonically.
+At 1M, h1 remained behind Flat by `0.0833` NLL and Transformer by `0.0997` NLL.
+Its gap to the best control nevertheless narrowed from `0.2352` at 30K to
+about `0.08-0.10` at 300K-1M.
+
+The best-step trace rejects the idea that 30K represented the corpus optimum.
+All 30K models peaked at step 1,000 and then overfit badly; h1 final validation
+NLL rose from `6.2998` to `10.7979`. The 1M h1 and Transformer arms were still
+best at the final step, so the one-pass 1M result is not a convergence claim.
+
+The examples also expose noisy and sometimes mojibake/misaligned web pairs.
+This proof is valid as a controlled NLL data-dose test, but the corpus quality
+limits product-level translation conclusions.
+
+Evidence: `../evidence/s3_private_protocol_data_dose_full/`.

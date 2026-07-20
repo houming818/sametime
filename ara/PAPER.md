@@ -540,6 +540,25 @@ and its validation loss was still improving at the final epoch.  See
 `s3-generation/logic/private_protocol_transformer_benchmark.md` and evidence
 under `s3-generation/evidence/s3_private_protocol_transformer_benchmark_full/`.
 
+## 2026-07 Controlled Data-Dose Result
+
+`S3-PRIVATE-PROTOCOL-DATA-DOSE-C03` is supported as a single-seed pilot.  With
+validation/test identity, initialization, optimizer, batch size, and 15,625
+updates frozen, increasing unique training pairs from 30K through 100K and
+300K to 1M reduced TreeHeap h1 test NLL monotonically from `6.2671` to
+`5.1454`, `4.2558`, and `4.0198`.  The 30K-to-1M gain was `2.2473` and
+Spearman dose/NLL correlation was `-1.0`, passing every preregistered gate.
+
+This resolves the narrow question: SPR-064's 30K result was strongly limited
+by training-data diversity.  It does not establish TreeHeap superiority.  Flat
+GRU and small Transformer also improved monotonically and reached `3.9365`
+and `3.9201` at 1M versus h1 `4.0198`.  The 30K arms peaked at step 1,000 and
+then severely overfit, while the 1M h1 and Transformer arms were still best at
+the final step.  The endpoint is therefore not a convergence or dataset-optimum
+claim.  Noisy and sometimes mojibake/misaligned web pairs further limit product
+interpretation.  See `s3-generation/logic/private_protocol_data_dose.md` and
+`s3-generation/evidence/s3_private_protocol_data_dose_full/`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add

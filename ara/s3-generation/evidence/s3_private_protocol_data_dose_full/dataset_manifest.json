@@ -1,0 +1,60 @@
+{
+  "source": {
+    "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "bytes": 2520995022,
+    "declared_rows": 14170275
+  },
+  "tokenizer": {
+    "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "bytes": 756882,
+    "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+    "vocabulary_pieces": 32000
+  },
+  "language_direction": "en_to_zh",
+  "filter": {
+    "min_tokens": 8,
+    "max_tokens": 32
+  },
+  "sampling": {
+    "historical_30k_contract": {
+      "scanned": 300000,
+      "eligible": 173313,
+      "selected": 34000,
+      "sampling": "deterministic_reservoir_then_shuffle"
+    },
+    "large_pool": {
+      "scanned": 3000000,
+      "eligible": 1734343,
+      "selected": 1034000,
+      "sampling": "deterministic_reservoir_then_shuffle"
+    },
+    "data_seed": 71900,
+    "pool_seed": 72003,
+    "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+  },
+  "splits": {
+    "train_doses": [
+      30000,
+      100000,
+      300000,
+      1000000
+    ],
+    "train_sha256": {
+      "30000": "50e7a7213af49b8e0c1f7e705aa80a7caa561e2dd36b3c42b67f68cf904120be",
+      "100000": "871417858c7b8f4f1be53a4b0ddb345df6177aa902a4b92afeacc2095a97d06c",
+      "300000": "be1a37b5a64081cca144886f2c8a0211f1ca50f8b39a723963cf3c21adb884b4",
+      "1000000": "a4a254f3a965a20751b5b3322434876751ee3c93eae9fd89518179fd279a8fdf"
+    },
+    "validation_rows": 2000,
+    "validation_sha256": "86ac3b0fe60302b397416a6fabb8921f6890565ebb373cd04768fa72bddf6f76",
+    "test_rows": 2000,
+    "test_sha256": "b893d33aa433214f87a6c16ee357178beffb12adcde53576a5d178e2813660c0"
+  },
+  "leakage_control": {
+    "train_rows_unique": 1000000,
+    "historical_train_eval_overlap_removed": 0,
+    "historical_train_duplicates_removed": 0,
+    "validation_test_content_overlap": 0,
+    "new_train_rows_matching_frozen_eval": 0
+  }
+}
