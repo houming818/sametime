@@ -1,7 +1,8 @@
 # Small Transformer Benchmark for the TreeHeap Private Protocol
 
 Date: 2026-07-20
-Status: registered
+Result date: 2026-07-20
+Status: supported for the registered small-Transformer comparison / top-model claim open
 Claim: `S3-PRIVATE-PROTOCOL-TF-C02`
 Predict: `P-S3-PRIVATE-PROTOCOL-TF-02`
 
@@ -97,3 +98,33 @@ entropy.  This run provides trained upper bounds only.  Industry-level claims
 still require a standard public benchmark, a strong published checkpoint, and
 scaling curves.
 
+## Result
+
+The formal `io` run completed successfully in about eight minutes.  The
+Transformer had `27,278,337` parameters, a `1.236%` gap from TreeHeap h1.  Mean
+three-seed test results were:
+
+| Model | NLL | token BLEU-4 | Mean train time |
+|---|---:|---:|---:|
+| flat GRU | 6.0401 | 5.3530 | 111.6 s |
+| TreeHeap h1 | 6.1231 | 4.9719 | 405.4 s |
+| Transformer same recipe | 6.4423 +/- 0.0062 | 2.9422 +/- 0.1529 | 52.2 s |
+| Transformer standard recipe | 6.5330 +/- 0.0043 | 2.8941 +/- 0.1916 | 100.8 s |
+
+TreeHeap h1 beat the same-recipe and standard-recipe Transformers by `0.3192`
+and `0.4099` NLL respectively, so the registered small-Transformer competitive
+gate passed.  It also beat both by about two BLEU-4 points.  This rejects the
+narrow hypothesis that the current TreeHeap is simply worse than any small
+Transformer at this data scale.
+
+The result does not establish a top-model standard.  Flat GRU remained the best
+model, TreeHeap h1 was `3.63x` slower than flat and `7.77x` slower than the
+same-recipe Transformer, and the nominal standard Transformer recipe was worse
+than the identical old recipe.  Its validation NLL was still decreasing at
+epoch 8, so the run is not evidence that the Transformer class reached its own
+optimum.  A public strong checkpoint or a tuned scaling curve remains required.
+
+Evidence is stored in
+`ara/s3-generation/evidence/s3_private_protocol_transformer_benchmark_full/`.
+All six checkpoints are archived on `io` at
+`/mnt/nas/ara/s3-generation/evidence/s3_private_protocol_transformer_benchmark_full/`.

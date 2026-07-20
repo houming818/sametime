@@ -525,6 +525,21 @@ TreeHeap quality superiority.  Evidence is under
 `s3-generation/evidence/s3_private_protocol_battle_full/`; see
 `s3-generation/logic/private_protocol_battle.md`.
 
+## 2026-07 Small Transformer Reality Check
+
+`S3-PRIVATE-PROTOCOL-TF-C02` passed its narrow registered comparison.  On the
+same frozen `30K/2K/2K` WMT split, a `27.28M` 2+2-layer Transformer reached
+mean NLL `6.4423` with the identical old recipe and `6.5330` with a warmup,
+dropout, and label-smoothing recipe.  TreeHeap h1 at `6.1231` beat both, while
+the flat GRU remained best at `6.0401`.
+
+This shows that TreeHeap is not merely worse than the tested small Transformer
+at this data scale.  It does not establish a top-model result: TreeHeap was
+substantially slower, the nominal standard Transformer recipe underperformed,
+and its validation loss was still improving at the final epoch.  See
+`s3-generation/logic/private_protocol_transformer_benchmark.md` and evidence
+under `s3-generation/evidence/s3_private_protocol_transformer_benchmark_full/`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
