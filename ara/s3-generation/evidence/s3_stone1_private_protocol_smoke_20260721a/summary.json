@@ -1,0 +1,200 @@
+{
+  "experiment_id": "s3_stone1_private_protocol_smoke",
+  "claim": "S3-STONE1-PRIVATE-PROTOCOL-C01",
+  "predict": "P-S3-STONE1-PRIVATE-PROTOCOL-01",
+  "status": "smoke_only",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "4c3d275",
+  "seconds": 76.09193801879883,
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_stone1_private_protocol_smoke_20260721a",
+    "checkpoint_dir": "ara/s3-generation/evidence/s3_stone1_private_protocol_smoke_20260721a/checkpoints",
+    "variants": [
+      "identity",
+      "learned_structural",
+      "frozen_random"
+    ],
+    "seeds": [
+      71901
+    ],
+    "train_samples": 4096,
+    "valid_samples": 128,
+    "test_samples": 128,
+    "baseline_max_scan": 100000,
+    "pool_max_scan": 200000,
+    "source_rows": 14170275,
+    "source_col": 1,
+    "target_col": 0,
+    "min_len": 8,
+    "max_len": 32,
+    "data_seed": 71900,
+    "pool_seed": 72003,
+    "model_seed": 71901,
+    "batch_size": 64,
+    "fixed_steps": 100,
+    "eval_interval": 50,
+    "lr": 0.002,
+    "grad_clip": 1.0,
+    "num_workers": 2,
+    "device": "cuda",
+    "heap_width": 64,
+    "leaf_cut": 1,
+    "dim": 192,
+    "hidden": 256,
+    "cli_max_new_tokens": 64,
+    "latency_repeats": 5,
+    "code_commit": "4c3d275",
+    "smoke": true,
+    "base_train_samples": 4096,
+    "doses": [
+      4096
+    ]
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 100000,
+        "eligible": 57887,
+        "selected": 4352,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 200000,
+        "eligible": 115513,
+        "selected": 8448,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        4096
+      ],
+      "train_sha256": {
+        "4096": "b46c78744916390438a3eccdb0893337dc7dfac18c3cd5071aedfd1f39ae0d5c"
+      },
+      "validation_rows": 128,
+      "validation_sha256": "df4ba5413def0e343f08dadab01ca0f3026ba4d4c403a28eec8aaf4a024c5e17",
+      "test_rows": 128,
+      "test_sha256": "69c6ab15ca2c0b452d02311970c271f927cd3baae470ff40dbba490abae39a10"
+    },
+    "leakage_control": {
+      "train_rows_unique": 4096,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "aggregate": {
+    "identity": {
+      "nll_mean": 7.793958773343708,
+      "nll_std": 0.0,
+      "bleu4_mean": 1.7706230759831822,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.515625,
+      "seconds_mean": 20.275712728500366,
+      "parameters": 27769097,
+      "peak_vram_max": 1777566720
+    },
+    "learned_structural": {
+      "nll_mean": 7.737167907959093,
+      "nll_std": 0.0,
+      "bleu4_mean": 2.106564681529249,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.40625,
+      "seconds_mean": 20.9535710811615,
+      "parameters": 27769097,
+      "peak_vram_max": 1819386880
+    },
+    "frozen_random": {
+      "nll_mean": 7.773934682775678,
+      "nll_std": 0.0,
+      "bleu4_mean": 2.2001812117819566,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.4296875,
+      "seconds_mean": 20.15516185760498,
+      "parameters": 27769097,
+      "peak_vram_max": 1777763840
+    }
+  },
+  "intervention": {
+    "seed": 71901,
+    "normal": {
+      "nll": 7.737167907959093,
+      "ppl": 2291.972106814998,
+      "tokens": 2249
+    },
+    "force_identity": {
+      "nll": 7.7654018105269005,
+      "ppl": 2357.6056089808844,
+      "tokens": 2249
+    },
+    "force_random": {
+      "nll": 7.746693843096932,
+      "ppl": 2313.909606150034,
+      "tokens": 2249
+    },
+    "address_swap": {
+      "nll": 7.754503303551578,
+      "ppl": 2332.050735733251,
+      "tokens": 2249
+    },
+    "damage_nll": {
+      "force_identity": 0.028233902567807334,
+      "force_random": 0.00952593513783917,
+      "address_swap": 0.017335395592485092
+    },
+    "latency": {
+      "samples": 5,
+      "p50_ms": 19.494237145408988,
+      "min_ms": 19.44804796949029,
+      "max_ms": 19.54899006523192
+    }
+  },
+  "gates": {
+    "Q1_nll_at_most_3_90": false,
+    "Q2_bleu4_at_least_13_5": false,
+    "Q3_nll_std_at_most_0_05": true,
+    "Q4_nonempty_is_one": true,
+    "Q5_repetition_at_most_0_10": false,
+    "S1_learned_beats_identity_0_05": true,
+    "S2_learned_beats_random_0_10": false,
+    "S3_force_identity_damage_0_10": false,
+    "S4_force_random_damage_0_10": false,
+    "S5_address_damage_0_10": false,
+    "S6_closure_below_1e_5": true,
+    "E1_latency_p50_at_most_1000ms": true,
+    "E2_vram_at_most_4gib": true,
+    "E3_checkpoint_at_most_300mib": true,
+    "E4_finite": true,
+    "E5_checkpoint_created": true
+  },
+  "demo_checkpoint": {
+    "path": "ara/s3-generation/evidence/s3_stone1_private_protocol_smoke_20260721a/checkpoints/stone1_learned_structural_seed71901.pt",
+    "bytes": 111087481,
+    "sha256": "d1eb0b76d567ed56ce2b359ebea2f516c93636ffcee4b63be2cf36a78ae124f7"
+  },
+  "boundary": "This test can support a fixed-capacity TreeHeap translation PoC. It cannot establish dialogue, world knowledge, semantic rotation, or superiority over industry-scale Transformers."
+}

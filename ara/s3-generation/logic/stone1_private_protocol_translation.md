@@ -1,8 +1,8 @@
 # STONE-1: Learned TreeHeap Private-Protocol Translation PoC
 
-Date: 2026-07-21  
-Status: preregistered  
-Claim: `S3-STONE1-PRIVATE-PROTOCOL-C01`  
+Date: 2026-07-21
+Status: preregistered
+Claim: `S3-STONE1-PRIVATE-PROTOCOL-C01`
 Predict: `P-S3-STONE1-PRIVATE-PROTOCOL-01`
 
 ## Engineering Objective
@@ -145,10 +145,25 @@ does not invent new TreeHeap algebra in this experiment.
 
 ## Evidence Contract
 
-Code: `../src/s3_stone1_private_protocol.py`  
-CLI: `../src/treeheap_cli.py`  
+Code: `../src/s3_stone1_private_protocol.py`
+CLI: `../src/treeheap_cli.py`
 Evidence: `../evidence/s3_stone1_private_protocol/`
 
 The formal directory must contain the standard ARA report files plus checkpoint
 SHA-256, inference latency, structure-intervention results, gate statistics,
 generation examples, and a CLI smoke transcript.
+
+## Pre-Formal Smoke
+
+The 4,096/128/128, one-seed, 100-update smoke completed on `io` in 76.1
+seconds. All three arms trained, exact FOLD/UNFOLD closure stayed below
+`1.2e-6`, the learned checkpoint was 106 MiB, peak VRAM stayed below 1.70 GiB,
+and batch-1 greedy P50 was 19.5 ms. The CLI loaded the checkpoint and generated
+without teacher forcing.
+
+As expected, quality gates failed after only 100 updates: the sample “The earth
+is round.” produced a repetitive Chinese string, and severe repetition was
+`0.406`. This is retained as proof that the repetition gate catches a bad
+generator, not interpreted as a model result. Learned NLL was `7.7372` versus
+identity `7.7940` and frozen-random `7.7739`; this early direction is diagnostic
+only. Evidence: `../evidence/s3_stone1_private_protocol_smoke_20260721a/`.
