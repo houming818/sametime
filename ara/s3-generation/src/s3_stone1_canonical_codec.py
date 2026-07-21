@@ -100,6 +100,15 @@ class CanonicalCodec(nn.Module):
         total = sum(parameter.detach().square().sum() for parameter in parameters)
         return float(total.sqrt())
 
+    def learned_output_parameter_rms(self) -> float:
+        parameters = (
+            self.predict_net[-1].weight, self.predict_net[-1].bias,
+            self.update_net[-1].weight, self.update_net[-1].bias,
+        )
+        total = sum(parameter.detach().square().sum() for parameter in parameters)
+        count = sum(parameter.numel() for parameter in parameters)
+        return float((total / count).sqrt())
+
 
 class CanonicalLiftingEncoder(nn.Module):
     def __init__(self, vocab: int, dim: int, heap_width: int, pad: int, variant: str):
@@ -293,6 +302,8 @@ def evaluate(
 ):
     model.eval()
     loss_sum = tokens = exact = nonempty = repeated = count = 0
+    route_sum = None
+    route_batches = 0
     hypotheses: List[List[int]] = []
     references: List[List[int]] = []
     examples = []
@@ -300,7 +311,7 @@ def evaluate(
         source = source.to(args.device, non_blocking=True)
         length = length.to(args.device, non_blocking=True)
         target = target.to(args.device, non_blocking=True)
-        logits, _ = model.teacher(
+        logits, route = model.teacher(
             source, length, target, bos, intervention=intervention,
             codec_override=codec_override, max_visible_levels=max_visible_levels,
         )
@@ -310,6 +321,10 @@ def evaluate(
             ignore_index=pad, reduction="sum",
         ))
         tokens += int(valid.sum())
+        if route is not None:
+            route_cpu = route.detach().float().cpu()
+            route_sum = route_cpu if route_sum is None else route_sum + route_cpu
+            route_batches += 1
         if not generate:
             continue
         predicted, _ = model.greedy(
@@ -337,6 +352,10 @@ def evaluate(
                 })
     nll = loss_sum / max(1, tokens)
     result = {"nll": nll, "ppl": math.exp(min(20.0, nll)), "tokens": tokens}
+    if route_sum is not None:
+        result["route_mass_by_level"] = (
+            route_sum / max(1, route_batches)
+        ).tolist()
     if generate:
         result.update({
             "exact": exact / max(1, count),
@@ -355,19 +374,49 @@ def structure_audit(model: CanonicalTreeHeap, loader, args) -> dict:
     state = model.states(source, length)
     closure = state[3][-1] - state[0]
     detail_rows = []
+    node = state[0]
+    node_mask = state[5][0]
     for depth, detail in enumerate(state[2]):
         valid = state[5][depth + 1]
         selected = detail[valid]
+        left, right = node[:, 0::2], node[:, 1::2]
+        right_mask = node_mask[:, 1::2]
+        paired = right_mask[:, :, None]
+        predict_delta = model.encoder.codec.predict_delta(left)
+        update_delta = model.encoder.codec.update_delta(detail)
+        predict_selected = predict_delta[paired.expand_as(predict_delta)]
+        update_selected = update_delta[paired.expand_as(update_delta)]
+        base_update = (BASE_RIGHT_WEIGHT * detail)[paired.expand_as(detail)]
+        parent = left + model.encoder.codec.update(detail)
+        parent = torch.where(paired, parent, left)
+        node_mask = state[5][depth + 1]
+        parent = parent * node_mask[:, :, None]
         detail_rows.append({
             "depth": depth,
             "detail_rms": float(selected.square().mean().sqrt()),
             "detail_abs_mean": float(selected.abs().mean()),
+            "predict_delta_rms": (
+                float(predict_selected.square().mean().sqrt())
+                if predict_selected.numel() else 0.0
+            ),
+            "update_delta_rms": (
+                float(update_selected.square().mean().sqrt())
+                if update_selected.numel() else 0.0
+            ),
+            "base_update_rms": (
+                float(base_update.square().mean().sqrt())
+                if base_update.numel() else 0.0
+            ),
         })
+        node = parent
     return {
         "closure_mse": float(closure.square().mean()),
         "closure_max_abs": float(closure.abs().max()),
         "learned_output_parameter_norm": (
             model.encoder.codec.learned_output_parameter_norm()
+        ),
+        "learned_output_parameter_rms": (
+            model.encoder.codec.learned_output_parameter_rms()
         ),
         "depths": detail_rows,
     }
@@ -557,6 +606,9 @@ def audit_learned(
         ),
         "learned_output_parameter_norm": (
             model.encoder.codec.learned_output_parameter_norm()
+        ),
+        "learned_output_parameter_rms": (
+            model.encoder.codec.learned_output_parameter_rms()
         ),
         "latency": latency,
     }
