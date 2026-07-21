@@ -813,6 +813,35 @@ the next experiment is fixed-capacity `M0-ROT-C02`.
 
 ---
 
+## fixed_capacity_rotation_protocol_probe.py
+
+### Status
+
+Preregistered. Evidence is not yet available.
+
+### Question
+
+Can two different nested mirror programs serve as private fixed-capacity
+encoder protocols, while decoders learn the exact reverse program using only
+echo reconstruction loss?
+
+### Registered Run
+
+```bash
+python3 ara/m0-treeheap-math/src/fixed_capacity_rotation_protocol_probe.py \
+  --out ara/m0-treeheap-math/evidence/fixed_capacity_rotation_protocol_probe \
+  --capacity 127 \
+  --state-dim 4 \
+  --train-samples 8192 \
+  --test-samples 2048 \
+  --epochs 1500 \
+  --seed 42
+```
+
+See `logic/fixed_capacity_rotation_protocol_probe.md` for gates and boundaries.
+
+---
+
 ## algebraic_decoder_probe.py
 
 ### Question

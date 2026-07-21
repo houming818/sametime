@@ -813,6 +813,16 @@ kernel should transfer across registered addresses/orientations after
 rotate-to-canonical and rotate-back, while repeated rounds expand receptive
 field without changing capacity. Exceeding the fixed round budget must stop.
 
+### P-ROT02-A: private protocol carrier
+
+Preregistered in `logic/fixed_capacity_rotation_protocol_probe.md`.
+
+Two different fixed encoder rotation programs should be learnable from echo
+loss by paired inverse decoders. Correct paired/reverse execution should echo
+exactly; identity, wrong-order, one-bit, and cross-protocol interventions should
+fail while node capacity remains fixed. This tests protocol carriage, not
+natural protocol emergence.
+
 ## P-DIFF01: TreeHeap diff algebra before distance and learning
 
 ### Predict
