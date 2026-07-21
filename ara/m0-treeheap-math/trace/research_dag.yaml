@@ -128,6 +128,16 @@ nodes:
     next_predict: P-ROT02
     boundary: No dynamic TreeHeap allocation; over-budget reasoning returns UNRESOLVED.
 
+  - id: fixed_capacity_rotation_protocol_probe
+    type: experiment
+    parents: [fixed_capacity_rotation_pivot]
+    source: src/fixed_capacity_rotation_protocol_probe.py
+    evidence: evidence/fixed_capacity_rotation_protocol_probe/
+    result: "partial pass; paired decoders learned both six-bit programs exactly; paired echo MSE=0; cross MSE=2.012999; capacity fixed at 127; wrong order damages A by 0.440443 MSE but leaves B exact"
+    supports: "Fixed-capacity nested rotations can carry a private protocol and a decoder can learn the inverse from echo loss."
+    rejects: "Recursive execution order is always informative. It matters only for actually selected noncommutative compositions."
+    next_predict: "Learn the encoder rotation program from task loss and test whether noncommutative programs emerge without registration."
+
   - id: handoff_to_s1
     type: decision
     parents: [algebraic_decoder_probe, treeheap_diff_algebra_probe]

@@ -817,7 +817,7 @@ the next experiment is fixed-capacity `M0-ROT-C02`.
 
 ### Status
 
-Preregistered. Evidence is not yet available.
+Executed on `io.grepcode.cn`; eight of nine protocol gates passed.
 
 ### Question
 
@@ -839,6 +839,20 @@ python3 ara/m0-treeheap-math/src/fixed_capacity_rotation_protocol_probe.py \
 ```
 
 See `logic/fixed_capacity_rotation_protocol_probe.md` for gates and boundaries.
+
+### Result
+
+Both decoders learned all six private program bits exactly. Paired hard echo
+MSE was zero; cross-protocol MSE was `2.012999`; identity and one-bit controls
+were damaged; the state shape remained `[2048,127,4]`.
+
+The registered wrong-order gate failed for protocol B: its active operator
+composition is order-equivalent, so forward and reverse execution both decode
+exactly. Protocol A was order-sensitive (`0.440443` wrong-order MSE). The run
+therefore supports fixed-capacity private protocol carriage but rejects the
+universal statement that every recursive rotation program encodes order.
+
+Evidence: `evidence/fixed_capacity_rotation_protocol_probe/`.
 
 ---
 

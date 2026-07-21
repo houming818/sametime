@@ -1,6 +1,6 @@
 # Fixed-Capacity Rotation Protocol Probe
 
-Status: preregistered
+Status: partially supported pilot
 Parent claim: `M0-ROT-C02`
 Predict: `P-ROT02-A`
 Date: 2026-07-21
@@ -90,3 +90,41 @@ Passing shows that fixed-capacity nested rotations can carry a seed/private
 protocol and that recursion order is causally readable by a decoder. It does
 not show that an unsupervised language model will discover this protocol, that
 rotation improves WMT, or that this hand-registered operator bank is optimal.
+
+## Result
+
+Executed on `io.grepcode.cn` with the registered configuration.
+
+```text
+device                         = NVIDIA GeForce RTX 3090
+capacity before/after          = 127 / 127
+noncommuting operator pairs    = 8
+
+protocol A expected/learned    = [1,1,0,1,0,1] / [1,1,0,1,0,1]
+protocol B expected/learned    = [0,1,1,0,1,1] / [0,1,1,0,1,1]
+paired hard echo MSE A/B       = 0 / 0
+cross-protocol MSE A/B         = 2.012999 / 2.012999
+identity MSE A/B               = 2.012362 / 0.693724
+one-bit error MSE A/B          = 2.012695 / 0.471290
+wrong-order MSE A/B            = 0.440443 / 0
+```
+
+Eight of nine registered protocol gates passed. The universal wrong-order gate
+failed because protocol B's enabled operator composition is order-equivalent,
+even though the complete registered bank contains eight noncommuting pairs.
+
+Decision:
+
+```text
+private rotation carrier       -> supported pilot
+learned inverse from echo loss -> supported pilot
+fixed-capacity conservation    -> supported pilot
+all recursive order matters    -> rejected
+```
+
+The corrected statement is conditional: recursive order carries additional
+protocol information only when the actually selected rotation composition is
+noncommutative. Protocol A demonstrates that case; protocol B is the commuting
+control discovered by the run.
+
+Evidence: `evidence/fixed_capacity_rotation_protocol_probe/`.

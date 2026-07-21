@@ -1,0 +1,487 @@
+{
+  "batch_size": 256,
+  "boundary": "Fixed encoder programs; proves private protocol carriage and learned inverse decoding, not natural protocol emergence or language value.",
+  "capacity": 127,
+  "decoder_parameter_count_each": 6,
+  "device": "cuda",
+  "environment": {
+    "cuda_available": true,
+    "cuda_device": "NVIDIA GeForce RTX 3090",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]",
+    "torch": "2.12.0+cu130"
+  },
+  "epochs": 1500,
+  "gates": {
+    "P1_true_inverse_exact": true,
+    "P2_decoder_bits_exact": true,
+    "P3_paired_hard_exact": true,
+    "P4_identity_damaged": true,
+    "P5_cross_protocol_damaged": true,
+    "P6_one_bit_damaged": true,
+    "P7_wrong_order_damaged": false,
+    "P8_partial_then_complete": true,
+    "P9_capacity_constant": true,
+    "mirror_involution_exact": true,
+    "nested_operations_noncommute": true
+  },
+  "noncommuting_operation_pairs": 8,
+  "operation_specs": [
+    {
+      "depth": 6,
+      "root_path": ""
+    },
+    {
+      "depth": 4,
+      "root_path": "L"
+    },
+    {
+      "depth": 3,
+      "root_path": "LR"
+    },
+    {
+      "depth": 4,
+      "root_path": "R"
+    },
+    {
+      "depth": 3,
+      "root_path": "RL"
+    },
+    {
+      "depth": 3,
+      "root_path": "LL"
+    }
+  ],
+  "parent_claim": "M0-ROT-C02",
+  "pilot_pass": false,
+  "predict": "P-ROT02-A",
+  "protocol_a": {
+    "bit_accuracy": 1.0,
+    "cross_protocol": {
+      "exact_fraction": 0.0,
+      "max_abs_error": 6.767199516296387,
+      "mse": 2.0129990577697754
+    },
+    "decoder_probabilities": [
+      0.9946550130844116,
+      0.9969131946563721,
+      0.0029884809628129005,
+      0.9962984919548035,
+      0.0028998730704188347,
+      0.997008740901947
+    ],
+    "encoder_program": [
+      1,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "identity_decoder": {
+      "exact_fraction": 0.0,
+      "max_abs_error": 6.767199516296387,
+      "mse": 2.012362241744995
+    },
+    "learned_decoder_program": [
+      1,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "name": "A",
+    "one_bit_flip": {
+      "exact_fraction": 0.0,
+      "flipped_index": 0,
+      "max_abs_error": 6.623617172241211,
+      "mse": 2.0126945972442627
+    },
+    "other_encoder_program": [
+      0,
+      1,
+      1,
+      0,
+      1,
+      1
+    ],
+    "paired_hard": {
+      "exact_fraction": 1.0,
+      "max_abs_error": 0.0,
+      "mse": 0.0
+    },
+    "paired_soft": {
+      "exact_fraction": 0.0,
+      "max_abs_error": 0.06738424301147461,
+      "mse": 0.00010753913375083357
+    },
+    "partial_inverse_curve": [
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 0,
+        "mse": 2.012362241744995
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 1,
+        "mse": 2.0118372440338135
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 2,
+        "mse": 2.0118372440338135
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 3,
+        "mse": 2.012265920639038
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 4,
+        "mse": 2.012265920639038
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 5,
+        "mse": 2.0126945972442627
+      },
+      {
+        "exact_fraction": 1.0,
+        "inverse_steps": 6,
+        "mse": 0.0
+      }
+    ],
+    "true_inverse": {
+      "exact_fraction": 1.0,
+      "max_abs_error": 0.0,
+      "mse": 0.0
+    },
+    "wrong_inverse_order": {
+      "exact_fraction": 0.0,
+      "max_abs_error": 6.055549621582031,
+      "mse": 0.4404433071613312
+    }
+  },
+  "protocol_b": {
+    "bit_accuracy": 1.0,
+    "cross_protocol": {
+      "exact_fraction": 0.0,
+      "max_abs_error": 6.767199516296387,
+      "mse": 2.0129990577697754
+    },
+    "decoder_probabilities": [
+      0.0053421687334775925,
+      0.9969184398651123,
+      0.9970312118530273,
+      0.00371122476644814,
+      0.9970948696136475,
+      0.9970099925994873
+    ],
+    "encoder_program": [
+      0,
+      1,
+      1,
+      0,
+      1,
+      1
+    ],
+    "identity_decoder": {
+      "exact_fraction": 0.0,
+      "max_abs_error": 6.083378791809082,
+      "mse": 0.6937243938446045
+    },
+    "learned_decoder_program": [
+      0,
+      1,
+      1,
+      0,
+      1,
+      1
+    ],
+    "name": "B",
+    "one_bit_flip": {
+      "exact_fraction": 0.0,
+      "flipped_index": 1,
+      "max_abs_error": 6.050215244293213,
+      "mse": 0.4712895154953003
+    },
+    "other_encoder_program": [
+      1,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "paired_hard": {
+      "exact_fraction": 1.0,
+      "max_abs_error": 0.0,
+      "mse": 0.0
+    },
+    "paired_soft": {
+      "exact_fraction": 0.0,
+      "max_abs_error": 0.06269979476928711,
+      "mse": 0.0001075035470421426
+    },
+    "partial_inverse_curve": [
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 0,
+        "mse": 0.6937243938446045
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 1,
+        "mse": 0.6920894980430603
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 2,
+        "mse": 0.4729244112968445
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 3,
+        "mse": 0.4729244112968445
+      },
+      {
+        "exact_fraction": 0.0,
+        "inverse_steps": 4,
+        "mse": 0.4712895154953003
+      },
+      {
+        "exact_fraction": 1.0,
+        "inverse_steps": 5,
+        "mse": 0.0
+      },
+      {
+        "exact_fraction": 1.0,
+        "inverse_steps": 6,
+        "mse": 0.0
+      }
+    ],
+    "true_inverse": {
+      "exact_fraction": 1.0,
+      "max_abs_error": 0.0,
+      "mse": 0.0
+    },
+    "wrong_inverse_order": {
+      "exact_fraction": 1.0,
+      "max_abs_error": 0.0,
+      "mse": 0.0
+    }
+  },
+  "seed": 42,
+  "state_dim": 4,
+  "status_before_run": "design",
+  "test_samples": 2048,
+  "train_samples": 8192,
+  "training_trace_a": [
+    {
+      "epoch": 1,
+      "loss": 0.6591880917549133,
+      "probabilities": [
+        0.5199893712997437,
+        0.5199893116950989,
+        0.4800106883049011,
+        0.5199893116950989,
+        0.4800106883049011,
+        0.5199893116950989
+      ]
+    },
+    {
+      "epoch": 10,
+      "loss": 0.36336398124694824,
+      "probabilities": [
+        0.6874803900718689,
+        0.6908350586891174,
+        0.3089250922203064,
+        0.6899572610855103,
+        0.30890005826950073,
+        0.6909537315368652
+      ]
+    },
+    {
+      "epoch": 50,
+      "loss": 0.018878936767578125,
+      "probabilities": [
+        0.9317590594291687,
+        0.9534578323364258,
+        0.045424044132232666,
+        0.9466485977172852,
+        0.04528876766562462,
+        0.9545448422431946
+      ]
+    },
+    {
+      "epoch": 100,
+      "loss": 0.006597699131816626,
+      "probabilities": [
+        0.9585011005401611,
+        0.9742226004600525,
+        0.025056563317775726,
+        0.9695455431938171,
+        0.024738239124417305,
+        0.9749436378479004
+      ]
+    },
+    {
+      "epoch": 250,
+      "loss": 0.0018723639659583569,
+      "probabilities": [
+        0.9778458476066589,
+        0.9867821931838989,
+        0.012827577069401741,
+        0.9842483401298523,
+        0.01255052164196968,
+        0.9871729612350464
+      ]
+    },
+    {
+      "epoch": 500,
+      "loss": 0.0006558613968081772,
+      "probabilities": [
+        0.9868261218070984,
+        0.9922776222229004,
+        0.007487052120268345,
+        0.9907626509666443,
+        0.007293881382793188,
+        0.9925140738487244
+      ]
+    },
+    {
+      "epoch": 1000,
+      "loss": 0.00021741318050771952,
+      "probabilities": [
+        0.992434024810791,
+        0.9956119060516357,
+        0.004251767881214619,
+        0.9947415590286255,
+        0.0041294158436357975,
+        0.9957473874092102
+      ]
+    },
+    {
+      "epoch": 1500,
+      "loss": 0.00010808063962031156,
+      "probabilities": [
+        0.9946550130844116,
+        0.9969131946563721,
+        0.0029884809628129005,
+        0.9962984919548035,
+        0.0028998730704188347,
+        0.997008740901947
+      ]
+    }
+  ],
+  "training_trace_b": [
+    {
+      "epoch": 1,
+      "loss": 0.6612960696220398,
+      "probabilities": [
+        0.48001062870025635,
+        0.5199893116950989,
+        0.5199893116950989,
+        0.4800106883049011,
+        0.5199893116950989,
+        0.5199893116950989
+      ]
+    },
+    {
+      "epoch": 10,
+      "loss": 0.3600364029407501,
+      "probabilities": [
+        0.3125123381614685,
+        0.6910574436187744,
+        0.6912317872047424,
+        0.31014761328697205,
+        0.6911271214485168,
+        0.6911426782608032
+      ]
+    },
+    {
+      "epoch": 50,
+      "loss": 0.019178858026862144,
+      "probabilities": [
+        0.06823737174272537,
+        0.953549325466156,
+        0.9546482563018799,
+        0.05355503037571907,
+        0.9545902609825134,
+        0.9546059966087341
+      ]
+    },
+    {
+      "epoch": 100,
+      "loss": 0.0066061862744390965,
+      "probabilities": [
+        0.04146936163306236,
+        0.9742643237113953,
+        0.9750476479530334,
+        0.030538981780409813,
+        0.9751948118209839,
+        0.9749677777290344
+      ]
+    },
+    {
+      "epoch": 250,
+      "loss": 0.0018510150257498026,
+      "probabilities": [
+        0.022136835381388664,
+        0.9868096113204956,
+        0.9872549772262573,
+        0.015799473971128464,
+        0.9874260425567627,
+        0.9871745109558105
+      ]
+    },
+    {
+      "epoch": 500,
+      "loss": 0.0006614254089072347,
+      "probabilities": [
+        0.013166235759854317,
+        0.9922905564308167,
+        0.9925649166107178,
+        0.009259352460503578,
+        0.9926965236663818,
+        0.9925090670585632
+      ]
+    },
+    {
+      "epoch": 1000,
+      "loss": 0.00021440187992993742,
+      "probabilities": [
+        0.0075607579201459885,
+        0.9956194758415222,
+        0.9957789182662964,
+        0.005270037800073624,
+        0.9958666563034058,
+        0.9957472681999207
+      ]
+    },
+    {
+      "epoch": 1500,
+      "loss": 0.00010746114276116714,
+      "probabilities": [
+        0.0053421687334775925,
+        0.9969184398651123,
+        0.9970312118530273,
+        0.00371122476644814,
+        0.9970948696136475,
+        0.9970099925994873
+      ]
+    }
+  ],
+  "treeheap_state_shape_after_encode": [
+    2048,
+    127,
+    4
+  ],
+  "treeheap_state_shape_before": [
+    2048,
+    127,
+    4
+  ]
+}

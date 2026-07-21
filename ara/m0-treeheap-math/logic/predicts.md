@@ -823,6 +823,13 @@ exactly; identity, wrong-order, one-bit, and cross-protocol interventions should
 fail while node capacity remains fixed. This tests protocol carriage, not
 natural protocol emergence.
 
+Result: partially supported. Both six-logit decoders recovered their paired
+hard programs exactly; paired echo MSE was zero, cross-protocol MSE was
+`2.012999`, and capacity remained 127. Wrong inverse order damaged protocol A
+(`0.440443` MSE) but not protocol B (`0.0`), rejecting the universal order
+prediction. Order carries protocol information only for the selected
+noncommutative composition.
+
 ## P-DIFF01: TreeHeap diff algebra before distance and learning
 
 ### Predict

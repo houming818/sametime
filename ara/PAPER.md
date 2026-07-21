@@ -588,6 +588,24 @@ only as a reversible transformation of an existing subheap. Shared kernels may
 grow their receptive field through a bounded number of full-tree passes, but
 capacity and node count cannot change; exhaustion returns `UNRESOLVED`.
 
+### Fixed-Capacity Private Protocol Carrier Pilot
+
+The first `M0-ROT-C02` component probe used two hard six-operation encoder
+programs over overlapping subheap mirrors in a fixed 127-node state. A decoder
+with only six trainable logits learned each inverse program from echo MSE:
+paired hard reconstruction was exact, cross-protocol MSE was `2.012999`, and
+identity/one-bit interventions were damaged. State shape remained
+`[batch,127,4]` throughout.
+
+The preregistered universal order gate failed. Protocol A was genuinely
+order-sensitive (`0.440443` wrong-order MSE), while protocol B decoded exactly
+in forward or reverse order because its selected operator composition was
+order-equivalent. The result supports rotation as a fixed-capacity private
+protocol carrier, but corrects the recursion claim: order itself carries extra
+information only for a noncommutative selected program. The encoder programs
+were fixed, so natural emergence remains untested. See
+`m0-treeheap-math/logic/fixed_capacity_rotation_protocol_probe.md`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add
