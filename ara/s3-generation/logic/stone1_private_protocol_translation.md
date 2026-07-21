@@ -1,7 +1,7 @@
 # STONE-1: Learned TreeHeap Private-Protocol Translation PoC
 
 Date: 2026-07-21
-Status: preregistered
+Status: not supported under the registered recipe (formal result)
 Claim: `S3-STONE1-PRIVATE-PROTOCOL-C01`
 Predict: `P-S3-STONE1-PRIVATE-PROTOCOL-01`
 
@@ -167,3 +167,53 @@ is round.” produced a repetitive Chinese string, and severe repetition was
 generator, not interpreted as a model result. Learned NLL was `7.7372` versus
 identity `7.7940` and frozen-random `7.7739`; this early direction is diagnostic
 only. Evidence: `../evidence/s3_stone1_private_protocol_smoke_20260721a/`.
+
+## Formal Result
+
+The registered 1M-pair, three-seed run completed on `io` in 7.57 hours with no
+runtime error. All nine training arms reached their final evaluation, the CLI
+checkpoint was produced, and the GPU returned idle. The formal decision is
+`not_supported_under_recipe`.
+
+| Arm | Test NLL, mean (lower is better) | NLL std | BLEU-4 (higher is better) |
+|---|---:|---:|---:|
+| identity | **4.0719** | **0.0058** | **11.1735** |
+| learned structural | 4.2269 | 0.1125 | 9.7875 |
+| frozen random | 4.1210 | 0.0106 | 10.7198 |
+
+The learned arm was worse than identity by `0.1550` NLL and worse than the
+frozen-random arm by `0.1059`. The direction was not caused only by the weak
+seed `71901`: learned-minus-identity NLL was `+0.3059`, `+0.0847`, and `+0.0746`
+for the three seeds. More training might improve every arm because most best
+checkpoints occurred near the final update, but this run gives no evidence that
+the learned gate will overtake the controls.
+
+The intervention result separates two different statements:
+
+```text
+force identity on learned checkpoint: NLL changes by -0.0118 (slightly better)
+force random on learned checkpoint:   NLL changes by +0.0034 (negligible)
+swap left/right addresses:            NLL changes by +1.4948 (large damage)
+```
+
+Therefore the model did use TreeHeap address/order structure, but did not use
+the learned direction choices as a beneficial private protocol. The learned
+gate mostly approached identity at deep levels while retaining high-entropy or
+seed-sensitive choices near shallower levels. A stable canonical orientation
+was easier to optimize than the changing content-conditioned orientation.
+
+Only Q4/Q5, S5, and all five engineering gates passed. The learned mean missed
+the registered product targets (`NLL <= 3.90`, `BLEU-4 >= 13.5`) and was less
+stable than either control. FOLD/UNFOLD MSE stayed near `1e-13`, but two learned
+seeds exceeded the strict `1e-5` maximum-absolute closure threshold
+(`2.15e-5`, `2.86e-5`), so S6 remains a registered failure rather than being
+rewritten after seeing the data.
+
+The result falsifies the current hard straight-through local-direction recipe,
+not TreeHeap as a data structure and not every possible private protocol. The
+next justified experiment must change an identified mechanism, such as making
+orientation a stable learned coordinate system rather than a moving hard gate;
+simply adding more data or rerunning the same recipe is not supported by this
+evidence.
+
+Formal evidence: `../evidence/s3_stone1_private_protocol/`.

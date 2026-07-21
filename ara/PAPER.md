@@ -575,6 +575,19 @@ training. See `s3-generation/logic/stone1_private_protocol_translation.md`,
 code `s3-generation/src/s3_stone1_private_protocol.py`, and CLI
 `s3-generation/src/treeheap_cli.py`.
 
+The formal 1M-pair, three-seed run completed in 7.57 hours and did not support
+the registered STONE-1 recipe. Learned/identity/frozen-random mean NLL was
+`4.2269/4.0719/4.1210`, and BLEU-4 was `9.7875/11.1735/10.7198`. Forcing the
+learned checkpoint to identity slightly improved NLL (`-0.0118`), and forcing a
+random orientation changed it by only `+0.0034`; the learned local direction
+therefore did not become a useful private protocol. In contrast, swapping
+left/right addresses caused `+1.4948` NLL damage, giving strong positive
+evidence that the decoder uses TreeHeap address/order structure. All engineering
+gates passed, while only 2/5 product-quality and 1/6 structural gates passed.
+This rejects the hard straight-through direction-gate recipe, not TreeHeap as a
+whole. Formal evidence is in
+`s3-generation/evidence/s3_stone1_private_protocol/`.
+
 ## 2026-07 Bounded Rotation Search Result
 
 `M0-ROT-C01` is supported as a synthetic pilot. The registered construction

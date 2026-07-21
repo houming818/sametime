@@ -1,0 +1,205 @@
+{
+  "experiment_id": "s3_stone1_private_protocol",
+  "claim": "S3-STONE1-PRIVATE-PROTOCOL-C01",
+  "predict": "P-S3-STONE1-PRIVATE-PROTOCOL-01",
+  "status": "not_supported_under_recipe",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "4c3d275",
+  "seconds": 27268.440192461014,
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_stone1_private_protocol",
+    "checkpoint_dir": "ara/s3-generation/evidence/s3_stone1_private_protocol/checkpoints",
+    "variants": [
+      "identity",
+      "learned_structural",
+      "frozen_random"
+    ],
+    "seeds": [
+      71901,
+      71902,
+      71903
+    ],
+    "train_samples": 1000000,
+    "valid_samples": 2000,
+    "test_samples": 2000,
+    "baseline_max_scan": 300000,
+    "pool_max_scan": 3000000,
+    "source_rows": 14170275,
+    "source_col": 1,
+    "target_col": 0,
+    "min_len": 8,
+    "max_len": 32,
+    "data_seed": 71900,
+    "pool_seed": 72003,
+    "model_seed": 71901,
+    "batch_size": 64,
+    "fixed_steps": 15625,
+    "eval_interval": 500,
+    "lr": 0.002,
+    "grad_clip": 1.0,
+    "num_workers": 2,
+    "device": "cuda",
+    "heap_width": 64,
+    "leaf_cut": 1,
+    "dim": 192,
+    "hidden": 256,
+    "cli_max_new_tokens": 64,
+    "latency_repeats": 20,
+    "code_commit": "4c3d275",
+    "smoke": false,
+    "base_train_samples": 30000,
+    "doses": [
+      30000,
+      1000000
+    ]
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 300000,
+        "eligible": 173313,
+        "selected": 34000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 3000000,
+        "eligible": 1734343,
+        "selected": 1034000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        30000,
+        1000000
+      ],
+      "train_sha256": {
+        "30000": "50e7a7213af49b8e0c1f7e705aa80a7caa561e2dd36b3c42b67f68cf904120be",
+        "1000000": "a4a254f3a965a20751b5b3322434876751ee3c93eae9fd89518179fd279a8fdf"
+      },
+      "validation_rows": 2000,
+      "validation_sha256": "86ac3b0fe60302b397416a6fabb8921f6890565ebb373cd04768fa72bddf6f76",
+      "test_rows": 2000,
+      "test_sha256": "b893d33aa433214f87a6c16ee357178beffb12adcde53576a5d178e2813660c0"
+    },
+    "leakage_control": {
+      "train_rows_unique": 1000000,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "aggregate": {
+    "identity": {
+      "nll_mean": 4.071877074325834,
+      "nll_std": 0.005801094242744635,
+      "bleu4_mean": 11.173549989485323,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.03966666666666667,
+      "seconds_mean": 2979.6748099327087,
+      "parameters": 27769097,
+      "peak_vram_max": 1778750976
+    },
+    "learned_structural": {
+      "nll_mean": 4.2269050024429164,
+      "nll_std": 0.11247114016312774,
+      "bleu4_mean": 9.787451935577256,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.05583333333333333,
+      "seconds_mean": 3061.3424132665,
+      "parameters": 27769097,
+      "peak_vram_max": 1819453440
+    },
+    "frozen_random": {
+      "nll_mean": 4.1209664445537895,
+      "nll_std": 0.010646156396396569,
+      "bleu4_mean": 10.719838203021604,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.043000000000000003,
+      "seconds_mean": 2992.3747523625693,
+      "parameters": 27769097,
+      "peak_vram_max": 1778750976
+    }
+  },
+  "intervention": {
+    "seed": 71903,
+    "normal": {
+      "nll": 4.141139266948594,
+      "ppl": 62.8744114002465,
+      "tokens": 33414
+    },
+    "force_identity": {
+      "nll": 4.129340210801189,
+      "ppl": 62.136912143530225,
+      "tokens": 33414
+    },
+    "force_random": {
+      "nll": 4.1445807737073155,
+      "ppl": 63.091166880819735,
+      "tokens": 33414
+    },
+    "address_swap": {
+      "nll": 5.635948209921833,
+      "ppl": 280.32459789506896,
+      "tokens": 33414
+    },
+    "damage_nll": {
+      "force_identity": -0.01179905614740484,
+      "force_random": 0.0034415067587216797,
+      "address_swap": 1.494808942973239
+    },
+    "latency": {
+      "samples": 20,
+      "p50_ms": 27.419887948781252,
+      "min_ms": 27.350300922989845,
+      "max_ms": 27.591509046033025
+    }
+  },
+  "gates": {
+    "Q1_nll_at_most_3_90": false,
+    "Q2_bleu4_at_least_13_5": false,
+    "Q3_nll_std_at_most_0_05": false,
+    "Q4_nonempty_is_one": true,
+    "Q5_repetition_at_most_0_10": true,
+    "S1_learned_beats_identity_0_05": false,
+    "S2_learned_beats_random_0_10": false,
+    "S3_force_identity_damage_0_10": false,
+    "S4_force_random_damage_0_10": false,
+    "S5_address_damage_0_10": true,
+    "S6_closure_below_1e_5": false,
+    "E1_latency_p50_at_most_1000ms": true,
+    "E2_vram_at_most_4gib": true,
+    "E3_checkpoint_at_most_300mib": true,
+    "E4_finite": true,
+    "E5_checkpoint_created": true
+  },
+  "demo_checkpoint": {
+    "path": "ara/s3-generation/evidence/s3_stone1_private_protocol/checkpoints/stone1_learned_structural_seed71903.pt",
+    "bytes": 111087481,
+    "sha256": "732b9b367a1c473d790a46dfca8698d41608453ab965c747c33639d889c76d56"
+  },
+  "boundary": "This test can support a fixed-capacity TreeHeap translation PoC. It cannot establish dialogue, world knowledge, semantic rotation, or superiority over industry-scale Transformers."
+}
