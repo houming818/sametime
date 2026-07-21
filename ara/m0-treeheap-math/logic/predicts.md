@@ -830,6 +830,17 @@ hard programs exactly; paired echo MSE was zero, cross-protocol MSE was
 prediction. Order carries protocol information only for the selected
 noncommutative composition.
 
+### P-ROT02-B: order as a selected outcome
+
+Preregistered in `logic/rotation_selection_evolution_probe.md`.
+
+A fixed population of exact tree automorphisms, corrupted automorphisms, and
+random depth-preserving permutations competes using masked local prediction
+loss only. If relational order is selected rather than assumed, structured
+branching data should concentrate gate mass on exact automorphisms and show a
+negative edge-preservation/loss correlation. IID data should remove that
+preference, while exact paired echo should leave all bijections tied.
+
 ## P-DIFF01: TreeHeap diff algebra before distance and learning
 
 ### Predict

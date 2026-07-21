@@ -856,6 +856,35 @@ Evidence: `evidence/fixed_capacity_rotation_protocol_probe/`.
 
 ---
 
+## rotation_selection_evolution_probe.py
+
+### Status
+
+Preregistered. Evidence is not yet available.
+
+### Question
+
+Does a fixed population of unknown rotations evolve toward tree-relation
+preservation under local prediction pressure, without an order label?
+
+### Registered Run
+
+```bash
+python3 ara/m0-treeheap-math/src/rotation_selection_evolution_probe.py \
+  --out ara/m0-treeheap-math/evidence/rotation_selection_evolution_probe \
+  --capacity 127 \
+  --state-dim 4 \
+  --candidates 24 \
+  --steps 1500 \
+  --batch-size 128 \
+  --seed 42
+```
+
+Worlds: structured branching (`rho=0.92`), IID (`rho=0`), and exact paired
+echo. See `logic/rotation_selection_evolution_probe.md`.
+
+---
+
 ## algebraic_decoder_probe.py
 
 ### Question
