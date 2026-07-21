@@ -1,0 +1,251 @@
+{
+  "experiment_id": "s3_stone1_canonical_codec_smoke",
+  "claim": "S3-STONE1-PRIVATE-PROTOCOL-C02",
+  "predict": "P-S3-STONE1-PRIVATE-PROTOCOL-02",
+  "milestone": "STONE-1",
+  "status": "smoke_only",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "22b5ef7",
+  "seconds": 74.9152626991272,
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_canonical_codec_smoke_20260722a",
+    "checkpoint_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_canonical_codec_smoke_20260722a/checkpoints",
+    "variants": [
+      "canonical_algebraic",
+      "canonical_learned",
+      "canonical_frozen"
+    ],
+    "seeds": [
+      71901
+    ],
+    "train_samples": 4096,
+    "valid_samples": 128,
+    "test_samples": 128,
+    "baseline_max_scan": 100000,
+    "pool_max_scan": 200000,
+    "source_rows": 14170275,
+    "source_col": 1,
+    "target_col": 0,
+    "min_len": 8,
+    "max_len": 32,
+    "data_seed": 71900,
+    "pool_seed": 72003,
+    "model_seed": 71901,
+    "batch_size": 64,
+    "fixed_steps": 100,
+    "eval_interval": 50,
+    "lr": 0.002,
+    "grad_clip": 1.0,
+    "num_workers": 2,
+    "device": "cuda",
+    "heap_width": 64,
+    "leaf_cut": 1,
+    "dim": 192,
+    "hidden": 256,
+    "cli_max_new_tokens": 64,
+    "latency_repeats": 5,
+    "code_commit": "22b5ef7",
+    "smoke": true,
+    "base_train_samples": 4096,
+    "doses": [
+      4096
+    ],
+    "canonical_codec": {
+      "detail": "R-L",
+      "parent": "0.4L+0.6R",
+      "base_right_weight": 0.6,
+      "residual_scale": 0.25
+    }
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 100000,
+        "eligible": 57887,
+        "selected": 4352,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 200000,
+        "eligible": 115513,
+        "selected": 8448,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        4096
+      ],
+      "train_sha256": {
+        "4096": "b46c78744916390438a3eccdb0893337dc7dfac18c3cd5071aedfd1f39ae0d5c"
+      },
+      "validation_rows": 128,
+      "validation_sha256": "df4ba5413def0e343f08dadab01ca0f3026ba4d4c403a28eec8aaf4a024c5e17",
+      "test_rows": 128,
+      "test_sha256": "69c6ab15ca2c0b452d02311970c271f927cd3baae470ff40dbba490abae39a10"
+    },
+    "leakage_control": {
+      "train_rows_unique": 4096,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "aggregate": {
+    "canonical_algebraic": {
+      "nll_mean": 7.77960907972988,
+      "nll_std": 0.0,
+      "bleu4_mean": 0.6655291601684714,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.40625,
+      "seconds_mean": 19.149812698364258,
+      "parameters": 27620482,
+      "trainable_parameters": 27323650,
+      "peak_vram_max": 1678806528
+    },
+    "canonical_learned": {
+      "nll_mean": 7.746874913155847,
+      "nll_std": 0.0,
+      "bleu4_mean": 1.5856689419541738,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.4140625,
+      "seconds_mean": 20.20519995689392,
+      "parameters": 27620482,
+      "trainable_parameters": 27620482,
+      "peak_vram_max": 1751405568
+    },
+    "canonical_frozen": {
+      "nll_mean": 7.781513572004224,
+      "nll_std": 0.0,
+      "bleu4_mean": 0.661399176442175,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.3046875,
+      "seconds_mean": 20.075624704360962,
+      "parameters": 27620482,
+      "trainable_parameters": 27323650,
+      "peak_vram_max": 1720199680
+    }
+  },
+  "intervention": {
+    "seed": 71901,
+    "normal": {
+      "nll": 7.746874913155847,
+      "ppl": 2314.3286238333762,
+      "tokens": 2249
+    },
+    "force_algebraic": {
+      "nll": 7.8853765736160515,
+      "ppl": 2658.1258176610486,
+      "tokens": 2249
+    },
+    "address_swap": {
+      "nll": 7.746874913155847,
+      "ppl": 2314.3286238333762,
+      "tokens": 2249
+    },
+    "damage_nll": {
+      "force_algebraic": 0.1385016604602045,
+      "address_swap": 0.0
+    },
+    "depth_growth": [
+      {
+        "visible_levels": 1,
+        "nll": 7.746874478935082,
+        "ppl": 2314.327618904049,
+        "tokens": 2249
+      },
+      {
+        "visible_levels": 2,
+        "nll": 7.746875347376612,
+        "ppl": 2314.3296287631406,
+        "tokens": 2249
+      },
+      {
+        "visible_levels": 3,
+        "nll": 7.746875347376612,
+        "ppl": 2314.3296287631406,
+        "tokens": 2249
+      },
+      {
+        "visible_levels": 4,
+        "nll": 7.746875347376612,
+        "ppl": 2314.3296287631406,
+        "tokens": 2249
+      },
+      {
+        "visible_levels": 5,
+        "nll": 7.746875347376612,
+        "ppl": 2314.3296287631406,
+        "tokens": 2249
+      },
+      {
+        "visible_levels": 6,
+        "nll": 7.746874913155847,
+        "ppl": 2314.3286238333762,
+        "tokens": 2249
+      }
+    ],
+    "root_to_full_gain_nll": -4.3422076512200647e-07,
+    "improving_depth_transitions": 1,
+    "learned_output_parameter_norm": 7.879814624786377,
+    "latency": {
+      "samples": 5,
+      "p50_ms": 19.482083152979612,
+      "min_ms": 19.472103798761964,
+      "max_ms": 19.489557947963476
+    }
+  },
+  "gates": {
+    "Q1_nll_at_most_3_90": false,
+    "Q2_bleu4_at_least_13_5": false,
+    "Q3_nll_std_at_most_0_05": true,
+    "Q4_nonempty_is_one": true,
+    "Q5_repetition_at_most_0_10": false,
+    "S1_learned_beats_algebraic_0_05": false,
+    "S2_learned_beats_frozen_0_10": false,
+    "S3_force_algebraic_damage_0_10": true,
+    "S4_address_damage_0_10": false,
+    "S5_root_to_full_gain_0_50": false,
+    "S6_four_of_five_depths_improve": false,
+    "S7_closure_below_1e_5": true,
+    "E1_latency_p50_at_most_1000ms": true,
+    "E2_vram_at_most_4gib": true,
+    "E3_checkpoint_at_most_300mib": true,
+    "E4_finite": true,
+    "E5_checkpoint_created": true
+  },
+  "demo_checkpoint": {
+    "path": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_canonical_codec_smoke_20260722a/checkpoints/stone1_c02_canonical_learned_seed71901.pt",
+    "bytes": 110492433,
+    "sha256": "1f48a9db886389f31a3356a252225a82a83cffbf3e56c4f947e91907d6c51424"
+  },
+  "historical_c01_identity": {
+    "nll_mean": 4.071877074325834,
+    "bleu4_mean": 11.173549989485323,
+    "note": "context only; not rerun inside C02"
+  },
+  "boundary": "C02 can support or reject one canonical codec recipe inside the unfinished STONE-1 milestone. It cannot establish dialogue, world knowledge, human-readable depth semantics, or industry superiority."
+}

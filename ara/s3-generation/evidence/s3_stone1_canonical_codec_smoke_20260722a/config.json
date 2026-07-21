@@ -1,0 +1,52 @@
+{
+  "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+  "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+  "evidence_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_canonical_codec_smoke_20260722a",
+  "checkpoint_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_canonical_codec_smoke_20260722a/checkpoints",
+  "variants": [
+    "canonical_algebraic",
+    "canonical_learned",
+    "canonical_frozen"
+  ],
+  "seeds": [
+    71901
+  ],
+  "train_samples": 4096,
+  "valid_samples": 128,
+  "test_samples": 128,
+  "baseline_max_scan": 100000,
+  "pool_max_scan": 200000,
+  "source_rows": 14170275,
+  "source_col": 1,
+  "target_col": 0,
+  "min_len": 8,
+  "max_len": 32,
+  "data_seed": 71900,
+  "pool_seed": 72003,
+  "model_seed": 71901,
+  "batch_size": 64,
+  "fixed_steps": 100,
+  "eval_interval": 50,
+  "lr": 0.002,
+  "grad_clip": 1.0,
+  "num_workers": 2,
+  "device": "cuda",
+  "heap_width": 64,
+  "leaf_cut": 1,
+  "dim": 192,
+  "hidden": 256,
+  "cli_max_new_tokens": 64,
+  "latency_repeats": 5,
+  "code_commit": "22b5ef7",
+  "smoke": true,
+  "base_train_samples": 4096,
+  "doses": [
+    4096
+  ],
+  "canonical_codec": {
+    "detail": "R-L",
+    "parent": "0.4L+0.6R",
+    "base_right_weight": 0.6,
+    "residual_scale": 0.25
+  }
+}
