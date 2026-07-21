@@ -1,6 +1,6 @@
 # Rotation Selection Without an Order Label
 
-Status: preregistered
+Status: partially supported; single-seed control failure
 Parent claim: `M0-ROT-C02`
 Predict: `P-ROT02-B`
 Date: 2026-07-21
@@ -100,3 +100,29 @@ Passing would show selection of tree-relational order in a controlled world,
 not language semantics or universal evolution. Failing would show that the
 current task pressure is insufficient; it would not disprove fixed-capacity
 rotation as a protocol carrier.
+
+## Single-Seed Result
+
+```text
+structured exact gate mass       = 0.999713
+structured exact/random MSE      = 0.264948 / 0.678812
+structured edge/loss Pearson     = -0.997420
+
+IID exact gate mass              = 0.905888
+IID exact/random MSE             = 0.999190 / 1.000591
+IID edge/loss Pearson            = -0.268907
+
+exact echo inverse error         = 0
+exact echo loss variance         = 0
+```
+
+Seven of eight gates passed. `P4` failed because the IID gate eventually put
+`90.59%` mass on the exact group even though group validation losses were tied
+within `0.0014` and structure/loss correlation was weak. The IID training trace
+first moved exact mass down to `0.0616`, then up to `0.9059`, consistent with
+neutral drift amplified by gate/decoder co-adaptation.
+
+Decision: structured selection is a strong positive in this seed, exact echo
+correctly shows no selection pressure, but one IID trajectory is insufficient
+to distinguish structural selection from stochastic winner lock-in. The
+registered follow-up is `P-ROT02-C`, an eight-seed drift audit.

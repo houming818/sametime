@@ -841,6 +841,18 @@ branching data should concentrate gate mass on exact automorphisms and show a
 negative edge-preservation/loss correlation. IID data should remove that
 preference, while exact paired echo should leave all bijections tied.
 
+Single-seed result: seven of eight gates passed. Structured exact mass was
+`0.999713` with edge/loss Pearson `-0.997420`; exact echo tied all candidates.
+The IID exact mass unexpectedly reached `0.905888` despite a `0.0014` group
+loss gap, so the control gate failed and a drift audit is required.
+
+### P-ROT02-C: multi-seed neutral-drift audit
+
+Preregistered in `logic/rotation_selection_multiseed.md`. Eight frozen seeds
+repeat `P-ROT02-B`. Structured worlds should select exact automorphisms in at
+least seven seeds, while IID exact winners should not exceed four and mean IID
+exact mass should remain at or below `0.50`.
+
 ## P-DIFF01: TreeHeap diff algebra before distance and learning
 
 ### Predict

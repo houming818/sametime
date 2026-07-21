@@ -883,6 +883,32 @@ python3 ara/m0-treeheap-math/src/rotation_selection_evolution_probe.py \
 Worlds: structured branching (`rho=0.92`), IID (`rho=0`), and exact paired
 echo. See `logic/rotation_selection_evolution_probe.md`.
 
+### Single-Seed Result
+
+Seven of eight gates passed. Structured exact mass was `0.999713`, exact versus
+random MSE was `0.264948/0.678812`, and edge/loss Pearson was `-0.997420`.
+Exact echo tied every bijection. The IID no-concentration gate failed: exact
+mass reached `0.905888` despite nearly tied validation losses. Decision:
+partial support; run the preregistered eight-seed drift audit.
+
+---
+
+## rotation_selection_multiseed_probe.py
+
+### Status
+
+Preregistered follow-up. Seeds: `1,7,19,42,73,99,314,2026`.
+
+### Registered Run
+
+```bash
+python3 ara/m0-treeheap-math/src/rotation_selection_multiseed_probe.py \
+  --out ara/m0-treeheap-math/evidence/rotation_selection_multiseed_probe \
+  --seeds 1,7,19,42,73,99,314,2026
+```
+
+See `logic/rotation_selection_multiseed.md`.
+
 ---
 
 ## algebraic_decoder_probe.py
