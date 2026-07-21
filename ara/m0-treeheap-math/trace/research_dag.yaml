@@ -112,6 +112,22 @@ nodes:
     result: "pilot_pass=true; finite-field projection, decompose/recompose, mirror involution, mod residue, length decode, ordered token decode, checksum stability all exact"
     lesson: Some internal states are decodable by algebraic operations before learned semantic decoders are attempted.
 
+  - id: bounded_rotation_search_probe
+    type: experiment
+    parents: [kernel_convolution_ops_probe, algebraic_decoder_probe]
+    source: src/bounded_rotation_search_probe.py
+    evidence: evidence/bounded_rotation_search_probe/
+    result: "pilot_pass=true; 52,898 queries; deterministic/learned-OOD/inverse exact=1.0; depth-16 orbit=2,031,616; explicit/lazy storage=32,247.87x; broken-order one-path exact=0.036; budget enforced"
+    lesson: A supplied invertible order-isomorphism can be reused lazily with a fixed comparator. The gain is compact regular-orbit storage; it is not free candidate generation, arbitrary search, or better comparison complexity than a materialized sorted array.
+
+  - id: fixed_capacity_rotation_pivot
+    type: pivot
+    parents: [bounded_rotation_search_probe]
+    source: logic/fixed_capacity_subheap_rotation.md
+    action: Reject recursive orbit expansion as runtime architecture; restrict rotation to reversible subheap transformations inside one fixed node pool and expand context only through bounded kernel iterations.
+    next_predict: P-ROT02
+    boundary: No dynamic TreeHeap allocation; over-budget reasoning returns UNRESOLVED.
+
   - id: handoff_to_s1
     type: decision
     parents: [algebraic_decoder_probe, treeheap_diff_algebra_probe]
@@ -119,6 +135,12 @@ nodes:
     evidence: ara/s1-echo/trace/research_dag.yaml
 
 dead_ends:
+  - id: exponential_rotation_orbit_runtime
+    hypothesis: Recursive CAT with rotated copies should be the runtime reasoning mechanism.
+    failure_mode: Logical state count doubles each level and creates an unsafe attraction toward unbounded materialization, even though a regular orbit can be represented lazily.
+    lesson: Keep the proof as a mathematical boundary; use rotation only as a fixed-capacity subheap self-map.
+    pivot_to: fixed_capacity_rotation_pivot
+
   - id: language_first_wmt_bleu
     hypothesis: Go directly from early TreeHeap vectors to WMT/BLEU.
     failure_mode: BLEU and graph UAS were too coarse to diagnose missing operators and over-collapsed representations.

@@ -559,6 +559,35 @@ claim.  Noisy and sometimes mojibake/misaligned web pairs further limit product
 interpretation.  See `s3-generation/logic/private_protocol_data_dose.md` and
 `s3-generation/evidence/s3_private_protocol_data_dose_full/`.
 
+## 2026-07 Bounded Rotation Search Result
+
+`M0-ROT-C01` is supported as a synthetic pilot. The registered construction
+recursively applied `H_(n+1) = CAT(H_n, R_n(H_n))`, where every supplied
+rotation was invertible and order preserving. Across 52,898 sampled or
+exhaustive queries, deterministic retrieval, inverse recovery, and a shared
+two-parameter route kernel all reached exact `1.0`; the learned kernel trained
+at depths 1--4 and transferred through depth 16.
+
+At depth 16 the lazy TreeHeap represented 2,031,616 logical values. Retrieval
+used 20.1682 comparisons on average, versus 1,014,613.8684 for the unordered
+equality-scan control. Explicit payload storage was 32,247.873 times the lazy
+base-plus-descriptor storage. Permuting payload positions inside rotated slices
+reduced the unchanged one-path kernel to `0.036` exact, showing that searchable
+order, rather than copying alone, carried the result. Over-budget growth and
+query requests returned `BUDGET_EXHAUSTED`.
+
+The boundary is decisive: the rotation law was supplied, not learned; a fully
+materialized sorted array has the same logarithmic comparison complexity; and
+the proof says nothing about semantic, arbitrary-space, or cryptographic
+search. See `m0-treeheap-math/logic/bounded_rotation_search.md` and
+`m0-treeheap-math/evidence/bounded_rotation_search_probe/`.
+
+The recursive orbit is explicitly rejected as the runtime architecture. The
+active follow-up, `M0-ROT-C02`, fixes one node pool `H_C` and allows rotation
+only as a reversible transformation of an existing subheap. Shared kernels may
+grow their receptive field through a bounded number of full-tree passes, but
+capacity and node count cannot change; exhaustion returns `UNRESOLVED`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add

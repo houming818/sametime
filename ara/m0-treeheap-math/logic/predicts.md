@@ -795,6 +795,24 @@ count, and destroying order should break the same one-path search.
 Exceeding the configured rotation depth must return `BUDGET_EXHAUSTED` rather
 than silently expanding the state.
 
+Status: all registered gates passed in `evidence/bounded_rotation_search_probe/`.
+The predict supports a synthetic pilot only; the rotation law was supplied,
+not discovered from data.
+
+Architecture disposition: the exponentially growing logical orbit is retained
+as boundary evidence, but rejected as the runtime growth strategy. Product
+work moves to fixed-capacity `P-ROT02`.
+
+## P-ROT02: fixed-capacity subheap rotation
+
+Preregistered in `logic/fixed_capacity_subheap_rotation.md`.
+
+If structural rotation is useful without unsafe space growth, it must be a
+bijection or reversible edge rewrite over one fixed node pool. The same local
+kernel should transfer across registered addresses/orientations after
+rotate-to-canonical and rotate-back, while repeated rounds expand receptive
+field without changing capacity. Exceeding the fixed round budget must stop.
+
 ## P-DIFF01: TreeHeap diff algebra before distance and learning
 
 ### Predict

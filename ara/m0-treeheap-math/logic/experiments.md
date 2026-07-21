@@ -766,7 +766,7 @@ encoder, WMT, or superiority over MLP/Transformer.
 
 ### Status
 
-Preregistered. Evidence is not yet available.
+Executed on `io.grepcode.cn`; all registered gates passed.
 
 ### Question
 
@@ -788,6 +788,28 @@ python3 ara/m0-treeheap-math/src/bounded_rotation_search_probe.py \
 
 See `logic/bounded_rotation_search.md` for predictions, controls, and
 falsification conditions.
+
+### Result
+
+```text
+tested_queries                     = 52,898
+deterministic_exact                = 1.0
+learned_ood_min_exact              = 1.0
+inverse_exact                      = 1.0
+deepest_logical_candidates         = 2,031,616
+deepest_mean_comparisons           = 20.1682
+deepest_unordered_scan_comparisons = 1,014,613.8684
+explicit_to_lazy_storage_ratio     = 32,247.873x
+broken_rotation_one_path_exact     = 0.036
+budget_status                      = BUDGET_EXHAUSTED
+```
+
+Decision: `M0-ROT-C01 -> supported pilot`.
+
+Boundary: the proof covers a supplied regular order-isomorphism. It does not
+cover learned semantic rotations, arbitrary spaces, or cryptographic search.
+The recursive logical-orbit expansion is rejected as the runtime architecture;
+the next experiment is fixed-capacity `M0-ROT-C02`.
 
 ---
 

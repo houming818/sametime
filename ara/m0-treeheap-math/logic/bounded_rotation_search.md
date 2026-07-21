@@ -1,9 +1,13 @@
 # Bounded Rotation Search
 
-Status: preregistered design
+Status: supported pilot
 Claim: `M0-ROT-C01`
 Predict: `P-ROT01`
 Date: 2026-07-21
+
+Architecture disposition: retained as mathematical boundary evidence; rejected
+as a runtime growth strategy. The active direction is fixed-capacity
+`M0-ROT-C02` in `logic/fixed_capacity_subheap_rotation.md`.
 
 ## Question
 
@@ -97,3 +101,36 @@ This experiment does not claim semantic learning, generation of independent
 information, search over arbitrary unstructured spaces, cryptographic key
 recovery, or superiority over a fully materialized sorted array. The narrow
 claim is compact reuse of a regular, order-isomorphic orbit.
+
+## Result
+
+Executed on `io.grepcode.cn` with the registered seed and configuration.
+
+```text
+tested queries                       = 52,898
+deterministic exact                  = 1.000000
+learned OOD minimum exact            = 1.000000
+inverse exact                        = 1.000000
+depth-16 logical candidates          = 2,031,616
+depth-16 mean TreeHeap comparisons   = 20.1682
+depth-16 mean unordered scan         = 1,014,613.8684
+depth-16 explicit/lazy storage       = 32,247.873x
+depth-16 broken one-path exact       = 0.036000
+over-budget request                  = BUDGET_EXHAUSTED
+```
+
+All registered gates passed. This supports `M0-ROT-C01` as a synthetic pilot.
+The evidence is under `evidence/bounded_rotation_search_probe/`.
+
+The result does not show that TreeHeap discovers the transform. The exact
+rotation law and interval metadata were supplied. The learned component only
+learned the shared left/right comparison and transferred it from depths 1--4
+to depths 5--16. A fully materialized sorted array has the same asymptotic
+comparison count; TreeHeap's measured benefit here is lazy structural reuse.
+
+The route feature is `query - right_min`, not a precomputed left/right answer
+flag. Even so, `right_min` is exact structural metadata maintained by the
+construction. This is therefore not a content-aware or semantic route proof.
+The next inductive gate is to learn the rotation descriptor and interval
+summary from observed slice pairs, then rerun unseen-depth search without
+handing those summaries to the model.

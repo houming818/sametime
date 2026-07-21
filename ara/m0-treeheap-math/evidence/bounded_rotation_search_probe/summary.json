@@ -1,0 +1,124 @@
+{
+  "aggregate": {
+    "deepest_broken_one_path_exact": 0.036,
+    "deepest_explicit_bytes": 16252928,
+    "deepest_lazy_bytes": 504,
+    "deepest_logical_candidates": 2031616,
+    "deepest_mean_treeheap_comparisons": 20.1682,
+    "deepest_mean_unordered_scan_comparisons": 1014613.8684,
+    "deepest_storage_ratio": 32247.873015873014,
+    "deterministic_exact": 1.0,
+    "inverse_exact": 1.0,
+    "learned_exact": 1.0,
+    "learned_ood_min_exact": 1.0,
+    "max_seen_steps": 21,
+    "tested_queries": 52898
+  },
+  "base_size": 31,
+  "base_values": [
+    103,
+    112,
+    120,
+    126,
+    132,
+    142,
+    144,
+    152,
+    156,
+    158,
+    165,
+    176,
+    185,
+    194,
+    203,
+    212,
+    219,
+    222,
+    232,
+    238,
+    245,
+    250,
+    253,
+    264,
+    273,
+    281,
+    287,
+    297,
+    304,
+    310,
+    316
+  ],
+  "boundary": "Regular order-isomorphic orbit only; no semantic, arbitrary-space, cryptographic, or sorted-array comparison advantage claim.",
+  "budget": {
+    "growth_status": "BUDGET_EXHAUSTED",
+    "hard_max_rotation_depth": 16,
+    "query_status": "BUDGET_EXHAUSTED",
+    "query_step_budget": 20,
+    "requested_rotation_depth": 17
+  },
+  "claim": "M0-ROT-C01",
+  "environment": {
+    "numpy": "2.2.6",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "gates": {
+    "P1_deterministic_exact": true,
+    "P2_learned_ood_exact": true,
+    "P3_inverse_exact": true,
+    "P4_step_bound": true,
+    "P5_storage_ratio": true,
+    "P6_broken_order_fails": true,
+    "P7_budget_enforced": true,
+    "cat_order_exact": true,
+    "explicit_sorted_exact": true
+  },
+  "max_depth": 16,
+  "pilot_pass": true,
+  "predict": "P-ROT01",
+  "route_kernel": {
+    "kind": "shared_two_parameter_logistic_comparator",
+    "parameter_count": 2,
+    "theta": [
+      7.142247294234108,
+      3.410030984980904
+    ],
+    "training_examples": 3038,
+    "training_trace": [
+      {
+        "accuracy": 0.5,
+        "epoch": 1,
+        "loss": 0.6931471805579453
+      },
+      {
+        "accuracy": 1.0,
+        "epoch": 10,
+        "loss": 0.3754065490001072
+      },
+      {
+        "accuracy": 1.0,
+        "epoch": 100,
+        "loss": 0.08006192024326383
+      },
+      {
+        "accuracy": 1.0,
+        "epoch": 500,
+        "loss": 0.020907488812232183
+      },
+      {
+        "accuracy": 1.0,
+        "epoch": 1000,
+        "loss": 0.01136941347398969
+      },
+      {
+        "accuracy": 1.0,
+        "epoch": 2500,
+        "loss": 0.00496474457151439
+      }
+    ]
+  },
+  "samples_per_depth": 5000,
+  "seed": 42,
+  "status_before_run": "design",
+  "train_depth": 4
+}
