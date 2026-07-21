@@ -588,6 +588,17 @@ This rejects the hard straight-through direction-gate recipe, not TreeHeap as a
 whole. Formal evidence is in
 `s3-generation/evidence/s3_stone1_private_protocol/`.
 
+STONE-1 remains incomplete. Its preregistered C02 iteration fixes handedness as
+algebra rather than learning it. The canonical transform is
+`detail=R-L`, `parent=0.4L+0.6R`, with exact inverse
+`L=parent-0.6detail`, `R=parent+0.4detail`. A learned arm starts exactly at this
+codec and may learn only continuous residuals in `P/U`; fixed algebraic and
+frozen-random residual codecs are controls. The original product gates remain
+unchanged, and new causal gates require learned `P/U` to beat both controls,
+suffer damage when forced back to the algebraic codec, retain address
+causality, and show positive held-out improvement as finer TreeHeap depths are
+exposed. See `s3-generation/logic/stone1_canonical_codec.md`.
+
 ## 2026-07 Bounded Rotation Search Result
 
 `M0-ROT-C01` is supported as a synthetic pilot. The registered construction
