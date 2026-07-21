@@ -3,7 +3,7 @@ set -uo pipefail
 
 ROOT=/home/nio/log/holds/SameTime
 EVIDENCE="$ROOT/ara/s3-generation/evidence/s3_stone1_canonical_codec"
-CODE_COMMIT=22b5ef7
+CODE_COMMIT=decc78e
 
 mkdir -p "$EVIDENCE/checkpoints"
 if [[ -e "$EVIDENCE/summary.json" ]]; then
