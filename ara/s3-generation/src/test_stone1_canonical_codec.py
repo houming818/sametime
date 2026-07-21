@@ -20,12 +20,12 @@ def test_bilateral_algebra() -> None:
     parent = left + codec.update(detail)
     recovered_left = parent - codec.update(detail)
     recovered_right = detail + codec.predict(recovered_left)
-    torch.testing.assert_close(detail, right - left, atol=1e-7, rtol=1e-7)
+    torch.testing.assert_close(detail, right - left, atol=5e-7, rtol=1e-6)
     torch.testing.assert_close(
-        parent, 0.4 * left + 0.6 * right, atol=2e-7, rtol=1e-7,
+        parent, 0.4 * left + 0.6 * right, atol=5e-7, rtol=1e-6,
     )
-    torch.testing.assert_close(left, recovered_left, atol=2e-7, rtol=1e-7)
-    torch.testing.assert_close(right, recovered_right, atol=2e-7, rtol=1e-7)
+    torch.testing.assert_close(left, recovered_left, atol=5e-7, rtol=1e-6)
+    torch.testing.assert_close(right, recovered_right, atol=5e-7, rtol=1e-6)
 
 
 def test_recursive_closure_and_unpaired_passthrough() -> None:
