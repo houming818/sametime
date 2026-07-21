@@ -559,6 +559,22 @@ claim.  Noisy and sometimes mojibake/misaligned web pairs further limit product
 interpretation.  See `s3-generation/logic/private_protocol_data_dose.md` and
 `s3-generation/evidence/s3_private_protocol_data_dose_full/`.
 
+## 2026-07 STONE-1 Translation Engineering Milestone
+
+`S3-STONE1-PRIVATE-PROTOCOL-C01` is preregistered as the engineering extension
+of the controlled data-dose result. It fixes the one-million-pair evaluation
+platform and requires a non-teacher-forced English-to-Chinese CLI, mean NLL at
+most `3.90`, BLEU-4 at least `13.5`, and three-seed stability. Product quality
+alone is insufficient: a learned local TreeHeap direction kernel must beat
+identity and frozen-random controls, and gate/address interventions must each
+cause registered held-out damage while FOLD/UNFOLD remains closed.
+
+The decoder cannot read the finest leaf level. Rotation is not supervised or
+required; local mirror-like choices are audited only after final seq2seq
+training. See `s3-generation/logic/stone1_private_protocol_translation.md`,
+code `s3-generation/src/s3_stone1_private_protocol.py`, and CLI
+`s3-generation/src/treeheap_cli.py`.
+
 ## 2026-07 Bounded Rotation Search Result
 
 `M0-ROT-C01` is supported as a synthetic pilot. The registered construction
