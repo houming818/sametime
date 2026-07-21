@@ -782,6 +782,19 @@ It does not support a TreeHeap structural advantage yet, because the world
 distribution is content-distance based and `mlp_raw` generalizes best.
 ```
 
+## P-ROT01: bounded order-preserving rotation search
+
+Preregistered in `logic/bounded_rotation_search.md`.
+
+If recursive `CAT(H, R(H))` is a genuine searchable TreeHeap construction,
+then a fixed shared comparison kernel should retrieve every member of the
+regular orbit without materializing every rotated copy. Query work should grow
+linearly with rotation depth, lazy storage should grow linearly with descriptor
+count, and destroying order should break the same one-path search.
+
+Exceeding the configured rotation depth must return `BUDGET_EXHAUSTED` rather
+than silently expanding the state.
+
 ## P-DIFF01: TreeHeap diff algebra before distance and learning
 
 ### Predict

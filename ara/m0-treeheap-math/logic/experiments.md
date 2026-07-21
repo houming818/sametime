@@ -762,6 +762,35 @@ encoder, WMT, or superiority over MLP/Transformer.
 
 ---
 
+## bounded_rotation_search_probe.py
+
+### Status
+
+Preregistered. Evidence is not yet available.
+
+### Question
+
+Can bounded, recursive `CAT(H, R(H))` expansion preserve exact ordered search
+with one fixed-size kernel, while a lazy representation avoids materializing
+the exponentially growing regular orbit?
+
+### Registered Run
+
+```bash
+python3 ara/m0-treeheap-math/src/bounded_rotation_search_probe.py \
+  --out ara/m0-treeheap-math/evidence/bounded_rotation_search_probe \
+  --base-size 31 \
+  --train-depth 4 \
+  --max-depth 16 \
+  --samples-per-depth 5000 \
+  --seed 42
+```
+
+See `logic/bounded_rotation_search.md` for predictions, controls, and
+falsification conditions.
+
+---
+
 ## algebraic_decoder_probe.py
 
 ### Question
