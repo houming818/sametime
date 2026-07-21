@@ -1,0 +1,535 @@
+{
+  "batch_size": 128,
+  "boundary": "Controlled Gaussian tree world; tests selected relational order, not language semantics or universal evolution.",
+  "candidate_population": 24,
+  "capacity_per_candidate": 127,
+  "device": "cuda",
+  "environment": {
+    "cuda_available": true,
+    "cuda_device": "NVIDIA GeForce RTX 3090",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]",
+    "torch": "2.12.0+cu130"
+  },
+  "exact_echo": {
+    "all_candidates_tied": true,
+    "candidate_count": 24,
+    "candidate_mse_variance": 0.0,
+    "max_candidate_mse": 0.0,
+    "max_inverse_error": 0.0
+  },
+  "gates": {
+    "P1_structured_exact_mass": true,
+    "P2_structured_loss_margin": true,
+    "P3_structure_loss_correlation": true,
+    "P4_iid_no_exact_concentration": false,
+    "P5_iid_loss_tie": true,
+    "P6_echo_inverse_exact": true,
+    "P7_echo_candidates_tied": true,
+    "P8_capacity_constant": true
+  },
+  "iid": {
+    "candidates": [
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.00027077976847067475,
+        "kind": "exact",
+        "name": "exact_0",
+        "validation_mse": 0.9990513324737549
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.0005959947593510151,
+        "kind": "exact",
+        "name": "exact_1",
+        "validation_mse": 0.9971986413002014
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.0010835918365046382,
+        "kind": "exact",
+        "name": "exact_2",
+        "validation_mse": 1.0019199848175049
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.9376426935195923,
+        "kind": "exact",
+        "name": "exact_3",
+        "validation_mse": 0.9999629855155945
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.0023632002994418144,
+        "kind": "exact",
+        "name": "exact_4",
+        "validation_mse": 0.9987729787826538
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.0007028953987173736,
+        "kind": "exact",
+        "name": "exact_5",
+        "validation_mse": 0.9998135566711426
+      },
+      {
+        "edge_preservation": 0.9523809523809523,
+        "gate_probability": 0.0002847544674295932,
+        "kind": "mild",
+        "name": "mild_1",
+        "validation_mse": 0.9989660382270813
+      },
+      {
+        "edge_preservation": 0.9523809523809523,
+        "gate_probability": 0.0007090246654115617,
+        "kind": "mild",
+        "name": "mild_2",
+        "validation_mse": 0.9977694749832153
+      },
+      {
+        "edge_preservation": 0.8809523809523809,
+        "gate_probability": 0.001009431085549295,
+        "kind": "mild",
+        "name": "mild_4",
+        "validation_mse": 1.002282977104187
+      },
+      {
+        "edge_preservation": 0.8095238095238095,
+        "gate_probability": 0.019500086084008217,
+        "kind": "mild",
+        "name": "mild_8",
+        "validation_mse": 1.0003708600997925
+      },
+      {
+        "edge_preservation": 0.7380952380952381,
+        "gate_probability": 0.004236649256199598,
+        "kind": "mild",
+        "name": "mild_12",
+        "validation_mse": 0.9995661973953247
+      },
+      {
+        "edge_preservation": 0.5714285714285714,
+        "gate_probability": 0.00039989029755815864,
+        "kind": "mild",
+        "name": "mild_16",
+        "validation_mse": 1.0004438161849976
+      },
+      {
+        "edge_preservation": 0.11904761904761904,
+        "gate_probability": 0.002024981426075101,
+        "kind": "random",
+        "name": "random_0",
+        "validation_mse": 0.9964883923530579
+      },
+      {
+        "edge_preservation": 0.12698412698412698,
+        "gate_probability": 0.0015708503779023886,
+        "kind": "random",
+        "name": "random_1",
+        "validation_mse": 0.9965111017227173
+      },
+      {
+        "edge_preservation": 0.07936507936507936,
+        "gate_probability": 0.021580897271633148,
+        "kind": "random",
+        "name": "random_2",
+        "validation_mse": 0.9984878897666931
+      },
+      {
+        "edge_preservation": 0.12698412698412698,
+        "gate_probability": 0.0007100988877937198,
+        "kind": "random",
+        "name": "random_3",
+        "validation_mse": 1.0010346174240112
+      },
+      {
+        "edge_preservation": 0.06349206349206349,
+        "gate_probability": 0.0008247887599281967,
+        "kind": "random",
+        "name": "random_4",
+        "validation_mse": 1.002187967300415
+      },
+      {
+        "edge_preservation": 0.0873015873015873,
+        "gate_probability": 0.0005213090917095542,
+        "kind": "random",
+        "name": "random_5",
+        "validation_mse": 0.9949814081192017
+      },
+      {
+        "edge_preservation": 0.07142857142857142,
+        "gate_probability": 0.00046214970643632114,
+        "kind": "random",
+        "name": "random_6",
+        "validation_mse": 1.0030492544174194
+      },
+      {
+        "edge_preservation": 0.031746031746031744,
+        "gate_probability": 0.0003091708931606263,
+        "kind": "random",
+        "name": "random_7",
+        "validation_mse": 0.9962086081504822
+      },
+      {
+        "edge_preservation": 0.09523809523809523,
+        "gate_probability": 0.0012633218429982662,
+        "kind": "random",
+        "name": "random_8",
+        "validation_mse": 1.0013575553894043
+      },
+      {
+        "edge_preservation": 0.10317460317460317,
+        "gate_probability": 0.0011364936362951994,
+        "kind": "random",
+        "name": "random_9",
+        "validation_mse": 0.9993925094604492
+      },
+      {
+        "edge_preservation": 0.1111111111111111,
+        "gate_probability": 0.0005611259257420897,
+        "kind": "random",
+        "name": "random_10",
+        "validation_mse": 1.0005171298980713
+      },
+      {
+        "edge_preservation": 0.07936507936507936,
+        "gate_probability": 0.00023583238362334669,
+        "kind": "random",
+        "name": "random_11",
+        "validation_mse": 0.9941743016242981
+      }
+    ],
+    "edge_preservation_loss_pearson": 0.18115845322608948,
+    "gate_entropy": 0.36008429527282715,
+    "groups": {
+      "exact": {
+        "count": 6,
+        "mean_edge_preservation": 1.0,
+        "mean_validation_mse": 0.9994532465934753,
+        "probability_mass": 0.9426591992378235
+      },
+      "mild": {
+        "count": 6,
+        "mean_edge_preservation": 0.8174603174603173,
+        "mean_validation_mse": 0.9998999834060669,
+        "probability_mass": 0.026139836758375168
+      },
+      "random": {
+        "count": 12,
+        "mean_edge_preservation": 0.09126984126984126,
+        "mean_validation_mse": 0.9986991882324219,
+        "probability_mass": 0.031201019883155823
+      }
+    },
+    "name": "iid",
+    "rho": 0.0,
+    "training_trace": [
+      {
+        "exact_probability_mass": 0.2500000074505806,
+        "gate_entropy": 3.178053855895996,
+        "loss": 1.3929882049560547,
+        "step": 1
+      },
+      {
+        "exact_probability_mass": 0.2500000074505806,
+        "gate_entropy": 3.178053855895996,
+        "loss": 1.0456514358520508,
+        "step": 50
+      },
+      {
+        "exact_probability_mass": 0.2500000074505806,
+        "gate_entropy": 3.178053855895996,
+        "loss": 1.0006744861602783,
+        "step": 150
+      },
+      {
+        "exact_probability_mass": 0.3158488320186734,
+        "gate_entropy": 2.7398204803466797,
+        "loss": 0.9954494833946228,
+        "step": 300
+      },
+      {
+        "exact_probability_mass": 0.10564414504915476,
+        "gate_entropy": 2.025724411010742,
+        "loss": 1.0069842338562012,
+        "step": 600
+      },
+      {
+        "exact_probability_mass": 0.08076270902529359,
+        "gate_entropy": 1.3733453750610352,
+        "loss": 0.9866670966148376,
+        "step": 1000
+      },
+      {
+        "exact_probability_mass": 0.9426591555820778,
+        "gate_entropy": 0.36008429527282715,
+        "loss": 1.019593596458435,
+        "step": 1500
+      }
+    ],
+    "winner": {
+      "edge_preservation": 1.0,
+      "gate_probability": 0.9376426935195923,
+      "kind": "exact",
+      "name": "exact_3",
+      "validation_mse": 0.9999629855155945
+    }
+  },
+  "mask_rate": 0.25,
+  "order_signal_in_loss": false,
+  "parent_claim": "M0-ROT-C02",
+  "pilot_pass": false,
+  "predict": "P-ROT02-B",
+  "rho": 0.92,
+  "seed": 314,
+  "state_dim": 4,
+  "status_before_run": "design",
+  "steps": 1500,
+  "structured": {
+    "candidates": [
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.9200350046157837,
+        "kind": "exact",
+        "name": "exact_0",
+        "validation_mse": 0.26278093457221985
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.01917812041938305,
+        "kind": "exact",
+        "name": "exact_1",
+        "validation_mse": 0.26499253511428833
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.03310709819197655,
+        "kind": "exact",
+        "name": "exact_2",
+        "validation_mse": 0.26324039697647095
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.010669865645468235,
+        "kind": "exact",
+        "name": "exact_3",
+        "validation_mse": 0.26254984736442566
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.006683761719614267,
+        "kind": "exact",
+        "name": "exact_4",
+        "validation_mse": 0.2645759880542755
+      },
+      {
+        "edge_preservation": 1.0,
+        "gate_probability": 0.009926920756697655,
+        "kind": "exact",
+        "name": "exact_5",
+        "validation_mse": 0.26338425278663635
+      },
+      {
+        "edge_preservation": 0.9523809523809523,
+        "gate_probability": 0.00013138695794623345,
+        "kind": "mild",
+        "name": "mild_1",
+        "validation_mse": 0.27653172612190247
+      },
+      {
+        "edge_preservation": 0.9523809523809523,
+        "gate_probability": 0.00012653366138692945,
+        "kind": "mild",
+        "name": "mild_2",
+        "validation_mse": 0.27906128764152527
+      },
+      {
+        "edge_preservation": 0.8809523809523809,
+        "gate_probability": 6.847402983112261e-05,
+        "kind": "mild",
+        "name": "mild_4",
+        "validation_mse": 0.2862861156463623
+      },
+      {
+        "edge_preservation": 0.8095238095238095,
+        "gate_probability": 2.4704684619791806e-05,
+        "kind": "mild",
+        "name": "mild_8",
+        "validation_mse": 0.3119627833366394
+      },
+      {
+        "edge_preservation": 0.7380952380952381,
+        "gate_probability": 9.823012987908442e-06,
+        "kind": "mild",
+        "name": "mild_12",
+        "validation_mse": 0.35377880930900574
+      },
+      {
+        "edge_preservation": 0.5714285714285714,
+        "gate_probability": 3.4005713587248465e-06,
+        "kind": "mild",
+        "name": "mild_16",
+        "validation_mse": 0.4284849762916565
+      },
+      {
+        "edge_preservation": 0.11904761904761904,
+        "gate_probability": 2.9070490654703462e-06,
+        "kind": "random",
+        "name": "random_0",
+        "validation_mse": 0.670130729675293
+      },
+      {
+        "edge_preservation": 0.12698412698412698,
+        "gate_probability": 2.876292683140491e-06,
+        "kind": "random",
+        "name": "random_1",
+        "validation_mse": 0.6614007353782654
+      },
+      {
+        "edge_preservation": 0.07936507936507936,
+        "gate_probability": 2.9634497877850663e-06,
+        "kind": "random",
+        "name": "random_2",
+        "validation_mse": 0.6699884533882141
+      },
+      {
+        "edge_preservation": 0.12698412698412698,
+        "gate_probability": 2.884203468056512e-06,
+        "kind": "random",
+        "name": "random_3",
+        "validation_mse": 0.6755412220954895
+      },
+      {
+        "edge_preservation": 0.06349206349206349,
+        "gate_probability": 2.947077973658452e-06,
+        "kind": "random",
+        "name": "random_4",
+        "validation_mse": 0.6817137002944946
+      },
+      {
+        "edge_preservation": 0.0873015873015873,
+        "gate_probability": 2.8511669825093122e-06,
+        "kind": "random",
+        "name": "random_5",
+        "validation_mse": 0.6630275249481201
+      },
+      {
+        "edge_preservation": 0.07142857142857142,
+        "gate_probability": 2.886886477426742e-06,
+        "kind": "random",
+        "name": "random_6",
+        "validation_mse": 0.6668994426727295
+      },
+      {
+        "edge_preservation": 0.031746031746031744,
+        "gate_probability": 3.010022510352428e-06,
+        "kind": "random",
+        "name": "random_7",
+        "validation_mse": 0.677753746509552
+      },
+      {
+        "edge_preservation": 0.09523809523809523,
+        "gate_probability": 2.8104511784476927e-06,
+        "kind": "random",
+        "name": "random_8",
+        "validation_mse": 0.6510521173477173
+      },
+      {
+        "edge_preservation": 0.10317460317460317,
+        "gate_probability": 2.862710744011565e-06,
+        "kind": "random",
+        "name": "random_9",
+        "validation_mse": 0.666924774646759
+      },
+      {
+        "edge_preservation": 0.1111111111111111,
+        "gate_probability": 2.896577370847808e-06,
+        "kind": "random",
+        "name": "random_10",
+        "validation_mse": 0.6608031392097473
+      },
+      {
+        "edge_preservation": 0.07936507936507936,
+        "gate_probability": 2.9578141038655303e-06,
+        "kind": "random",
+        "name": "random_11",
+        "validation_mse": 0.6877868175506592
+      }
+    ],
+    "edge_preservation_loss_pearson": -0.9974448680877686,
+    "gate_entropy": 0.39687272906303406,
+    "groups": {
+      "exact": {
+        "count": 6,
+        "mean_edge_preservation": 1.0,
+        "mean_validation_mse": 0.2635873556137085,
+        "probability_mass": 0.9996007680892944
+      },
+      "mild": {
+        "count": 6,
+        "mean_edge_preservation": 0.8174603174603173,
+        "mean_validation_mse": 0.32268428802490234,
+        "probability_mass": 0.00036432291381061077
+      },
+      "random": {
+        "count": 12,
+        "mean_edge_preservation": 0.09126984126984126,
+        "mean_validation_mse": 0.6694185137748718,
+        "probability_mass": 3.485369961708784e-05
+      }
+    },
+    "name": "structured",
+    "rho": 0.92,
+    "training_trace": [
+      {
+        "exact_probability_mass": 0.2500000074505806,
+        "gate_entropy": 3.178053855895996,
+        "loss": 1.798363447189331,
+        "step": 1
+      },
+      {
+        "exact_probability_mass": 0.2500000074505806,
+        "gate_entropy": 3.178053855895996,
+        "loss": 0.9790782928466797,
+        "step": 50
+      },
+      {
+        "exact_probability_mass": 0.2500000074505806,
+        "gate_entropy": 3.178053855895996,
+        "loss": 0.5192698240280151,
+        "step": 150
+      },
+      {
+        "exact_probability_mass": 0.9574625492095947,
+        "gate_entropy": 1.9573125839233398,
+        "loss": 0.2813769280910492,
+        "step": 300
+      },
+      {
+        "exact_probability_mass": 0.9953639023005962,
+        "gate_entropy": 1.52809739112854,
+        "loss": 0.2704145908355713,
+        "step": 600
+      },
+      {
+        "exact_probability_mass": 0.999219405464828,
+        "gate_entropy": 0.572681725025177,
+        "loss": 0.2741740942001343,
+        "step": 1000
+      },
+      {
+        "exact_probability_mass": 0.9996007713489234,
+        "gate_entropy": 0.39687272906303406,
+        "loss": 0.269296795129776,
+        "step": 1500
+      }
+    ],
+    "winner": {
+      "edge_preservation": 1.0,
+      "gate_probability": 0.9200350046157837,
+      "kind": "exact",
+      "name": "exact_0",
+      "validation_mse": 0.26278093457221985
+    }
+  }
+}

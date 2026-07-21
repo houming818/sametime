@@ -606,6 +606,31 @@ information only for a noncommutative selected program. The encoder programs
 were fixed, so natural emergence remains untested. See
 `m0-treeheap-math/logic/fixed_capacity_rotation_protocol_probe.md`.
 
+### Rotation Selection Without an Order Label
+
+The next `M0-ROT-C02` probe removed order from the objective. A fixed
+24-member population contained six exact tree automorphisms, six corrupted
+automorphisms, and twelve random within-depth permutations. A shared local
+decoder and global gate received only masked-state prediction MSE. Tree-edge
+preservation was measured after training.
+
+The first seed strongly selected exact operators but its IID control also
+locked onto one exact candidate, exposing neutral gate/decoder co-adaptation.
+An eight-seed preregistered audit resolved the confound. Structured branching
+worlds selected exact operators in `8/8` runs; exact-group mass mean/min was
+`0.999657/0.999215`, and edge-preservation/loss Pearson averaged `-0.997404`.
+IID winners dispersed as `2 exact / 1 mild / 5 random`, exact mass averaged
+`0.283272` near the population share `0.25`, and edge/loss Pearson was
+`-0.018631`. Giving every candidate its exact inverse tied all echo losses at
+zero.
+
+Thus, arbitrary invertible private codes survive paired echo, while structured
+local prediction selects tree-edge/prefix-preserving rotations in this
+controlled world. Order was an observed survivor property, not a loss label.
+The operators still came from a fixed bank, so learning new rotation formulas
+and language-scale selection remain open. See
+`m0-treeheap-math/logic/rotation_selection_multiseed.md`.
+
 ## Maintenance Rule
 
 When a new SPR blog changes a claim, update this file in the same commit or add

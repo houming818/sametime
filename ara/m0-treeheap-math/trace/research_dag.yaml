@@ -138,6 +138,24 @@ nodes:
     rejects: "Recursive execution order is always informative. It matters only for actually selected noncommutative compositions."
     next_predict: "Learn the encoder rotation program from task loss and test whether noncommutative programs emerge without registration."
 
+  - id: rotation_selection_single_seed
+    type: experiment
+    parents: [fixed_capacity_rotation_protocol_probe]
+    source: src/rotation_selection_evolution_probe.py
+    evidence: evidence/rotation_selection_evolution_probe/
+    result: "partial pass; structured exact mass=0.999713 and edge/loss Pearson=-0.997420; exact echo ties all candidates; IID exact mass=0.905888 despite tied losses"
+    lesson: A single gate trajectory confounds environmental selection with neutral winner lock-in; repeat seeds before attributing order to fitness.
+    next_predict: P-ROT02-C
+
+  - id: rotation_selection_multiseed
+    type: experiment
+    parents: [rotation_selection_single_seed]
+    source: src/rotation_selection_multiseed_probe.py
+    evidence: evidence/rotation_selection_multiseed_probe/
+    result: "all gates pass; structured exact winners=8/8, mass mean/min=0.999657/0.999215, edge/loss Pearson=-0.997404; IID winners=2 exact/1 mild/5 random, exact mass=0.283272; echo inverse error=0"
+    supports: "In the controlled branching world, tree-edge/prefix order is selected by local predictive fitness rather than supplied as a label."
+    boundary: "Selection is from a fixed bank of bijections; no new operator formula or language semantics is learned."
+
   - id: handoff_to_s1
     type: decision
     parents: [algebraic_decoder_probe, treeheap_diff_algebra_probe]

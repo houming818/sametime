@@ -909,6 +909,18 @@ python3 ara/m0-treeheap-math/src/rotation_selection_multiseed_probe.py \
 
 See `logic/rotation_selection_multiseed.md`.
 
+### Result
+
+All registered gates passed. Structured exact winners were `8/8`; exact-group
+mass mean/min was `0.999657/0.999215`. IID winners dispersed as
+`2 exact / 1 mild / 5 random`, exact mass averaged `0.283272`, and group losses
+were tied within `0.000992`. Exact paired echo reconstructed every permutation
+with zero error.
+
+Decision: tree-relational order was selected by structured masked-prediction
+fitness, not by echo or a hard order label. The result remains a fixed-bank
+Gaussian-tree pilot.
+
 ---
 
 ## algebraic_decoder_probe.py

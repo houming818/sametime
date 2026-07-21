@@ -853,6 +853,12 @@ repeat `P-ROT02-B`. Structured worlds should select exact automorphisms in at
 least seven seeds, while IID exact winners should not exceed four and mean IID
 exact mass should remain at or below `0.50`.
 
+Result: all nine gates passed. Structured exact winners were `8/8`, with exact
+mass mean/min `0.999657/0.999215` and edge/loss Pearson mean `-0.997404`. IID
+winners were `2 exact / 1 mild / 5 random`; exact mass averaged `0.283272`,
+exact/random loss gap `0.000992`, and edge/loss Pearson `-0.018631`. This
+supports selected tree-relational order in the controlled world.
+
 ## P-DIFF01: TreeHeap diff algebra before distance and learning
 
 ### Predict
