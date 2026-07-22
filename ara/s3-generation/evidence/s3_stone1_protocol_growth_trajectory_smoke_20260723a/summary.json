@@ -1,0 +1,407 @@
+{
+  "experiment_id": "s3_stone1_protocol_growth_trajectory",
+  "claim": "S3-STONE1-PROTOCOL-GROWTH-C04",
+  "predict": "P-S3-STONE1-PROTOCOL-GROWTH-04",
+  "status": "smoke_only",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "unknown",
+  "seconds": 210.35776281356812,
+  "parameters": 50267778,
+  "finite_gradients": true,
+  "peak_vram_bytes": 2258369536,
+  "platform_checks": {
+    "tokenizer_sha256": true
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 100000,
+        "eligible": 57887,
+        "selected": 4352,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 200000,
+        "eligible": 115513,
+        "selected": 8448,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        4096
+      ],
+      "train_sha256": {
+        "4096": "b46c78744916390438a3eccdb0893337dc7dfac18c3cd5071aedfd1f39ae0d5c"
+      },
+      "validation_rows": 128,
+      "validation_sha256": "df4ba5413def0e343f08dadab01ca0f3026ba4d4c403a28eec8aaf4a024c5e17",
+      "test_rows": 128,
+      "test_sha256": "69c6ab15ca2c0b452d02311970c271f927cd3baae470ff40dbba490abae39a10"
+    },
+    "leakage_control": {
+      "train_rows_unique": 4096,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "milestones": [
+    {
+      "step": 500,
+      "normal": {
+        "nll": 8.857506068982937,
+        "ppl": 7026.936179605344,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          0.9999972581863403,
+          2.6728521334007382e-06,
+          1.7616682157495234e-07,
+          1.552888262423835e-09,
+          3.63578528395081e-10,
+          2.0162703451287456e-10
+        ]
+      },
+      "root_only": {
+        "nll": 8.857505630472609,
+        "ppl": 7026.933098221927,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          1.0
+        ]
+      },
+      "postfold_address_swap": {
+        "nll": 8.857505630472609,
+        "ppl": 7026.933098221927,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          0.9999972581863403,
+          2.6728516786533874e-06,
+          2.2795829668353917e-09,
+          7.66693097897786e-11,
+          4.505394668452567e-11,
+          3.137026402533216e-11
+        ]
+      },
+      "force_algebraic": {
+        "nll": 9.195804508587786,
+        "ppl": 9855.692722449614,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          0.9999940395355225,
+          5.558054908760823e-06,
+          4.287877004571783e-07,
+          7.086293329905402e-09,
+          2.1000228223044815e-09,
+          1.1117327058940418e-09
+        ]
+      },
+      "prefold_mirrors": [
+        {
+          "depth": 0,
+          "nll": 8.928594293752807,
+          "damage_nll": 0.07108822476986987
+        },
+        {
+          "depth": 1,
+          "nll": 8.909980407358555,
+          "damage_nll": 0.052474338375617435
+        },
+        {
+          "depth": 2,
+          "nll": 8.87723157905815,
+          "damage_nll": 0.019725510075213393
+        },
+        {
+          "depth": 3,
+          "nll": 8.851837884485855,
+          "damage_nll": -0.005668184497082507
+        },
+        {
+          "depth": 4,
+          "nll": 8.870293030141445,
+          "damage_nll": 0.012786961158507637
+        },
+        {
+          "depth": 5,
+          "nll": 8.808437640323305,
+          "damage_nll": -0.049068428659632346
+        }
+      ],
+      "nonroot_route_mass": 2.7418136596679688e-06,
+      "root_to_full_gain_nll": -4.3851032849318017e-07,
+      "postfold_address_damage_nll": -4.3851032849318017e-07,
+      "force_algebraic_damage_nll": 0.3382984396048485,
+      "max_prefold_mirror_damage_nll": 0.07108822476986987
+    },
+    {
+      "step": 1000,
+      "normal": {
+        "nll": 9.432993867871575,
+        "ppl": 12493.875807984088,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          0.9999958276748657,
+          3.934365850000177e-06,
+          2.9172184667913825e-07,
+          3.4258929026975693e-09,
+          8.714483579197463e-10,
+          4.694388766601776e-10
+        ]
+      },
+      "root_only": {
+        "nll": 9.432993867871575,
+        "ppl": 12493.875807984088,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          1.0
+        ]
+      },
+      "postfold_address_swap": {
+        "nll": 9.432993867871575,
+        "ppl": 12493.875807984088,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          0.9999958276748657,
+          3.9343663047475275e-06,
+          2.3521840031293095e-09,
+          8.978464499653782e-11,
+          5.957313115034779e-11,
+          4.062258168735511e-11
+        ]
+      },
+      "force_algebraic": {
+        "nll": 9.935908207510103,
+        "ppl": 20659.038605891026,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          0.9999924898147583,
+          6.8674607973662205e-06,
+          6.436459898395697e-07,
+          1.2324186116074998e-08,
+          3.572007134522437e-09,
+          1.8522794409392418e-09
+        ]
+      },
+      "prefold_mirrors": [
+        {
+          "depth": 0,
+          "nll": 9.475460085035923,
+          "damage_nll": 0.04246621716434795
+        },
+        {
+          "depth": 1,
+          "nll": 9.465159038925686,
+          "damage_nll": 0.03216517105411043
+        },
+        {
+          "depth": 2,
+          "nll": 9.42408289950045,
+          "damage_nll": -0.008910968371125705
+        },
+        {
+          "depth": 3,
+          "nll": 9.42124442214863,
+          "damage_nll": -0.011749445722944785
+        },
+        {
+          "depth": 4,
+          "nll": 9.38993916984733,
+          "damage_nll": -0.04305469802424611
+        },
+        {
+          "depth": 5,
+          "nll": 9.352979765379434,
+          "damage_nll": -0.08001410249214125
+        }
+      ],
+      "nonroot_route_mass": 4.172325134277344e-06,
+      "root_to_full_gain_nll": 0.0,
+      "postfold_address_damage_nll": 0.0,
+      "force_algebraic_damage_nll": 0.5029143396385276,
+      "max_prefold_mirror_damage_nll": 0.04246621716434795
+    }
+  ],
+  "final_test": {
+    "nll": 9.264354035821476,
+    "ppl": 10554.99024231924,
+    "tokens": 2249,
+    "route_mass_by_level": [
+      0.9999943971633911,
+      4.987041393178515e-06,
+      5.712017809855752e-07,
+      1.3143258925651935e-08,
+      4.820820631579181e-09,
+      3.6395502167607674e-09
+    ],
+    "exact": 0.0,
+    "nonempty": 1.0,
+    "severe_repetition_rate": 0.0,
+    "token_bleu4": 4.213859382634061,
+    "examples": [
+      {
+        "en": "See how care and education bring healthy smiles to millions of children in 80 countries.",
+        "reference_zh": "了解关爱和教育如何将健康的微笑带给80个国家的数百万儿童。",
+        "hypothesis_zh": "服务的运行可能受到很多网站无法控制的因素的影响。",
+        "severe_repetition": false
+      },
+      {
+        "en": "Billund Airport (BLL) 1 km",
+        "reference_zh": "鹿特丹机场 (RTM) 1 km",
+        "hypothesis_zh": "离机场(St公里) 1公里 (显示地图 )",
+        "severe_repetition": false
+      },
+      {
+        "en": "The Prophet (blessings and peace of Allah be upon him) said: \"There should be neither harming nor reciprocating harm.\"",
+        "reference_zh": "先知(愿主福安之)说 : \" 不能伤害别人,也不能伤害自己 。 \"",
+        "hypothesis_zh": "荣 ⁇ 2013年香港工商业料,单生产公司和布 ⁇ 的工商业奖线",
+        "severe_repetition": false
+      },
+      {
+        "en": "Upon termination, you must destroy all materials obtained from this Website and all copies thereof, whether made under the terms of these Terms of Use or otherwise.",
+        "reference_zh": "条款终止时,您必须销毁所有从本网站取得的资料以及所有相关的拷贝,无论这些资料或拷贝是否是根据这些使用条款的规定或其他规定制作的。",
+        "hypothesis_zh": "解,您可能会收到使机,使该死后,这个时候的,从那些受其,都是战后,",
+        "severe_repetition": false
+      },
+      {
+        "en": "The software has a very good user interface and helps to recover different types of files in less time span.",
+        "reference_zh": "该软件具有非常良好的用户界面,并帮助恢复在更短的时间跨度不同类型的文件.",
+        "hypothesis_zh": "我们3月份、私人冰箱和旅客的重要的特点。",
+        "severe_repetition": false
+      },
+      {
+        "en": "Check availability Map Quick description Situated less than 1 km from Museum of Modern Art in New York, Apartment Manhattan Residence.22 offers accommodation with a kitchenette.",
+        "reference_zh": "简单描述 Aparthotel Manhattan Residence.22公寓式酒店位于纽约,提供免费WiFi和空调,距离现代艺术博物馆(Museum of Modern Art)500米。",
+        "hypothesis_zh": "根据酒店积分兑换等级和申请入住天数的不同,PointSavers 可节省多达 33% 的积分。",
+        "severe_repetition": false
+      },
+      {
+        "en": "6 Jesus told the people this story, but they did not understand what it meant.",
+        "reference_zh": "6 耶稣把这比方告诉他们,但他们不明白他所说的是什么。",
+        "hypothesis_zh": "但她不得不在某个地方放置,需要基地,武器,装备,预算。",
+        "severe_repetition": false
+      },
+      {
+        "en": "Male Dorms (with 11 beds)",
+        "reference_zh": "Male Dorms (同 11 床)",
+        "hypothesis_zh": "发展中国家、最不发达国家和转型期国家",
+        "severe_repetition": false
+      },
+      {
+        "en": "Read 10 Reasons to Choose Dell EMC Data Protection for VMware",
+        "reference_zh": "人们为 VMware 环境选择 Dell EMC 数据保护的十大理由",
+        "hypothesis_zh": "暹粒 10 大免费停车酒店",
+        "severe_repetition": false
+      },
+      {
+        "en": "That is why most mobile positions in the field do not have application deadlines and the location given is \"Worldwide\".",
+        "reference_zh": "这就是多数一线驻外职位没有应聘截止日期且工作地点是\"全球\"的原因。",
+        "hypothesis_zh": "这是称自己\"阿当\"阿图?",
+        "severe_repetition": false
+      },
+      {
+        "en": "PREVIOUS:Do not install solar controller can NEXT:Solar controller",
+        "reference_zh": "PREVIOUS:长海光伏太阳能发电 NEXT:船用太阳能发电",
+        "hypothesis_zh": "评分:4.5 总评分次数: 2397 Robotman",
+        "severe_repetition": false
+      },
+      {
+        "en": "This was a residential area which appears to have been developed in the first century AD and a wall added around the third century.",
+        "reference_zh": "这是它似乎在公元一世纪被开发的一个住宅区,墙壁周围添加第三个世纪。",
+        "hypothesis_zh": "世界上有很多地区,比北京 CBD 还拥挤,它们都是非常有活力的地区。",
+        "severe_repetition": false
+      },
+      {
+        "en": "详细搜索 SN74AHC1G86DBVRG4 Datasheet(数据表) 4 Page - Texas Instruments",
+        "reference_zh": "SN74AHC1G86DBVT Datasheet(数据表) 9 Page - Texas Instruments",
+        "hypothesis_zh": "SN74AHC245DBRE4 Datasheet(数据表) 11 Page - Texas Instruments",
+        "severe_repetition": false
+      },
+      {
+        "en": "“That looks like crop fields.”",
+        "reference_zh": "看来你还真是忍的挺难受的嘛 。 ”",
+        "hypothesis_zh": "并以 - godkov 30倍!",
+        "severe_repetition": false
+      },
+      {
+        "en": "4 A Citizen of Mondath (1973 ) Essays",
+        "reference_zh": "行尸走肉 And Now the Screaming Starts ! ( 1973)",
+        "hypothesis_zh": "A.net 提供您4家的折扣饭店旅馆在美国的兰",
+        "severe_repetition": false
+      },
+      {
+        "en": "Premier King Room - Unserviced (Double)",
+        "reference_zh": "尊贵特大号床间 - 不提供服务 (双人间)",
+        "hypothesis_zh": "主要特性 Vdemag = VCC - (per channel)",
+        "severe_repetition": false
+      },
+      {
+        "en": "This was put autism problem as the top of the list.",
+        "reference_zh": "这是自闭症的问题被放在列表的顶部。",
+        "hypothesis_zh": "这之间的骂战是口没遮拦的,堪称一绝。",
+        "severe_repetition": false
+      },
+      {
+        "en": "Labels: admin , windows Email This BlogThis!",
+        "reference_zh": "转帖 Labels: movie Email This BlogThis!",
+        "hypothesis_zh": "描述: 烤意大利粉 game 时钟滴!",
+        "severe_repetition": false
+      },
+      {
+        "en": "We will measure these tools on speed (how quickly popular websites are loaded) and on stability (the extent to which popular websites load successfully).",
+        "reference_zh": "我们将会测试工具的速度(流行网站的加载速度)和稳定性(流行网站加载成功的程度 ) 。",
+        "hypothesis_zh": "(一)的F ⁇ 子无投票权 (49 ) 。",
+        "severe_repetition": false
+      },
+      {
+        "en": "I did not know my license included such info; when and where it was licensed .",
+        "reference_zh": "我不知道我的执照等信息; 在何时何地被准许 .",
+        "hypothesis_zh": "他小心地维持着与奥斯曼帝国 的相对和平。",
+        "severe_repetition": false
+      }
+    ]
+  },
+  "gates": {
+    "G1_nll_gain_at_31250_at_least_0_08": false,
+    "G2_nonroot_route_growth": false,
+    "G3_final_root_to_full_gain_at_least_0_10": false,
+    "G4_final_postfold_address_damage_at_least_0_10": false,
+    "G5_final_prefold_mirror_damage_at_least_0_10": false,
+    "E1_finite_final_nll": true,
+    "E2_generation_nonempty": true
+  },
+  "checkpoints": [
+    {
+      "path": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory_smoke_20260723a/checkpoints/growth_step500.pt",
+      "bytes": 603246149,
+      "sha256": "d5f41f3e0030a73116631e229a702272444c03d1a01e5c9269d715c616af4b2f"
+    },
+    {
+      "path": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory_smoke_20260723a/checkpoints/growth_step1000.pt",
+      "bytes": 603246263,
+      "sha256": "b55f4d29ca2d1a8be5c9a2e0b6ae8a3107b4effa503a5b4f59738426e36ec7a9"
+    }
+  ],
+  "boundary": "Single-seed trajectory separates recursive decoder growth from path-sensitive root compression; it does not establish stable emergence."
+}
