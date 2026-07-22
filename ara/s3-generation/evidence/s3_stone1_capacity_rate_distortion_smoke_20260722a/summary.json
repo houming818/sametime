@@ -1,0 +1,313 @@
+{
+  "experiment_id": "s3_stone1_capacity_rate_distortion_smoke",
+  "claim": "S3-STONE1-CAPACITY-RATE-DISTORTION-C03",
+  "predict": "P-S3-STONE1-CAPACITY-RATE-DISTORTION-03",
+  "milestone": "STONE-1",
+  "status": "smoke_only",
+  "stage_b_authorized": false,
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "d18ec85",
+  "seconds": 205.90846419334412,
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "baseline_summary": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_canonical_codec/summary.json",
+    "evidence_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_capacity_rate_distortion_smoke_20260722a",
+    "checkpoint_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_capacity_rate_distortion_smoke_20260722a/checkpoints",
+    "arms": [
+      "base_28m_long",
+      "balanced_50m_equal"
+    ],
+    "seeds": [
+      71901
+    ],
+    "train_samples": 4096,
+    "valid_samples": 128,
+    "test_samples": 128,
+    "baseline_max_scan": 100000,
+    "pool_max_scan": 200000,
+    "source_rows": 14170275,
+    "source_col": 1,
+    "target_col": 0,
+    "min_len": 8,
+    "max_len": 32,
+    "data_seed": 71900,
+    "pool_seed": 72003,
+    "model_seed": 71901,
+    "batch_size": 64,
+    "eval_interval": 100,
+    "lr": 0.002,
+    "grad_clip": 1.0,
+    "num_workers": 2,
+    "device": "cuda",
+    "heap_width": 64,
+    "leaf_cut": 1,
+    "cli_max_new_tokens": 64,
+    "latency_repeats": 5,
+    "code_commit": "d18ec85",
+    "smoke": true,
+    "base_train_samples": 4096,
+    "doses": [
+      4096
+    ],
+    "arm_configs": {
+      "base_28m_long": {
+        "dim": 192,
+        "hidden": 256,
+        "steps": 31250
+      },
+      "balanced_50m_equal": {
+        "dim": 320,
+        "hidden": 512,
+        "steps": 15625
+      }
+    }
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 100000,
+        "eligible": 57887,
+        "selected": 4352,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 200000,
+        "eligible": 115513,
+        "selected": 8448,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        4096
+      ],
+      "train_sha256": {
+        "4096": "b46c78744916390438a3eccdb0893337dc7dfac18c3cd5071aedfd1f39ae0d5c"
+      },
+      "validation_rows": 128,
+      "validation_sha256": "df4ba5413def0e343f08dadab01ca0f3026ba4d4c403a28eec8aaf4a024c5e17",
+      "test_rows": 128,
+      "test_sha256": "69c6ab15ca2c0b452d02311970c271f927cd3baae470ff40dbba490abae39a10"
+    },
+    "leakage_control": {
+      "train_rows_unique": 4096,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "platform_checks": {
+    "tokenizer_sha256": true
+  },
+  "frozen_c02_baseline": {
+    "nll_mean": 4.053849851815637,
+    "nll_std": 0.09139879528634272,
+    "bleu4_mean": 11.286529740065545,
+    "nonempty_mean": 1.0,
+    "severe_repetition_mean": 0.04783333333333333,
+    "seconds_mean": 2938.833192666372,
+    "parameters": 27620482,
+    "trainable_parameters": 27620482,
+    "peak_vram_max": 1751481344
+  },
+  "aggregate": {
+    "base_28m_long": {
+      "nll_mean": 7.608746682553357,
+      "nll_std": 0.0,
+      "bits_per_token_mean": 10.977101106300081,
+      "bleu4_mean": 1.3086216317567076,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.0859375,
+      "final_train_nll_mean": 1.743890527486801,
+      "seconds_mean": 94.68836212158203,
+      "parameters": 27620482,
+      "trainable_parameters": 27620482,
+      "peak_vram_max": 1750702080
+    },
+    "balanced_50m_equal": {
+      "nll_mean": 7.626962677856826,
+      "nll_std": 0.0,
+      "bits_per_token_mean": 11.003381232389252,
+      "bleu4_mean": 1.8743997520387323,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.2890625,
+      "final_train_nll_mean": 0.3778022558987141,
+      "seconds_mean": 95.88670492172241,
+      "parameters": 50267778,
+      "trainable_parameters": 50267778,
+      "peak_vram_max": 2257968640
+    }
+  },
+  "intervention": {
+    "seed": 71901,
+    "normal": {
+      "nll": 7.626962677856826,
+      "ppl": 2052.805509713261,
+      "tokens": 2249,
+      "route_mass_by_level": [
+        0.9958006143569946,
+        0.0034178944770246744,
+        0.0007580821984447539,
+        1.4069959433982149e-05,
+        3.8504867916344665e-06,
+        5.463674369821092e-06
+      ]
+    },
+    "force_algebraic": {
+      "nll": 7.826304746554024,
+      "ppl": 2505.6532214073227,
+      "tokens": 2249,
+      "route_mass_by_level": [
+        0.9985007047653198,
+        0.0013584602857008576,
+        0.0001394514983985573,
+        1.0609338687572745e-06,
+        2.0765287445101421e-07,
+        1.834441292203337e-07
+      ]
+    },
+    "address_swap": {
+      "nll": 7.626953125,
+      "ppl": 2052.785899649802,
+      "tokens": 2249,
+      "route_mass_by_level": [
+        0.9958051443099976,
+        0.0034147589467465878,
+        1.7395249187757145e-06,
+        4.89910645384839e-09,
+        1.1804450750219075e-09,
+        1.003198857318921e-09
+      ]
+    },
+    "damage_nll": {
+      "force_algebraic": 0.19934206869719873,
+      "address_swap": -9.552856825578715e-06
+    },
+    "depth_growth": [
+      {
+        "visible_levels": 1,
+        "nll": 7.626992204868831,
+        "ppl": 2052.866123821063,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          1.0
+        ]
+      },
+      {
+        "visible_levels": 2,
+        "nll": 7.626987862661183,
+        "ppl": 2052.857209869434,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.9957985877990723,
+          0.004201446194201708
+        ]
+      },
+      {
+        "visible_levels": 3,
+        "nll": 7.626970928051356,
+        "ppl": 2052.822445827912,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.9958004355430603,
+          0.0034180250950157642,
+          0.0007815643912181258
+        ]
+      },
+      {
+        "visible_levels": 4,
+        "nll": 7.626965283181414,
+        "ppl": 2052.810857944897,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.9958005547523499,
+          0.003417939879000187,
+          0.0007581162499263883,
+          2.3385955500998534e-05
+        ]
+      },
+      {
+        "visible_levels": 5,
+        "nll": 7.626963546298355,
+        "ppl": 2052.807292455592,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.9958006143569946,
+          0.0034179151989519596,
+          0.0007580987294204533,
+          1.407045238011051e-05,
+          9.314621820522007e-06
+        ]
+      },
+      {
+        "visible_levels": 6,
+        "nll": 7.626962677856826,
+        "ppl": 2052.805509713261,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.9958006143569946,
+          0.0034178944770246744,
+          0.0007580821984447539,
+          1.4069959433982149e-05,
+          3.8504867916344665e-06,
+          5.463674369821092e-06
+        ]
+      }
+    ],
+    "root_to_full_gain_nll": 2.95270120052038e-05,
+    "improving_depth_transitions": 5,
+    "learned_output_parameter_norm": 12.644331932067871,
+    "learned_output_parameter_rms": 0.019741352647542953,
+    "latency": {
+      "samples": 5,
+      "p50_ms": 21.64719789288938,
+      "min_ms": 21.626670146360993,
+      "max_ms": 21.694698138162494
+    }
+  },
+  "gates": {
+    "C1_50m_nll_gain_at_least_0_08": false,
+    "C2_50m_bleu_gain_at_least_0_75": false,
+    "C3_50m_nll_std_at_most_0_08": true,
+    "C4_50m_within_0_02_of_28m_long": true,
+    "C5_force_algebraic_damage_at_least_0_10": true,
+    "C6_address_damage_at_least_0_10": false,
+    "C7_depth_growth": false,
+    "C8_closure_below_1e_5": true,
+    "C9_generation_nondegenerate": false,
+    "Q1_nll_at_most_3_90": false,
+    "Q2_bleu4_at_least_13_5": false,
+    "Q3_nll_std_at_most_0_05": true,
+    "E1_peak_vram_below_10gib": true,
+    "E2_all_gradients_finite": true,
+    "E3_parameter_counts_exact": true
+  },
+  "capacity_deltas": {
+    "nll_gain_50m_over_c02_28m": -3.5731128260411884,
+    "bleu_gain_50m_over_c02_28m": -9.412129988026813,
+    "nll_50m_minus_28m_long": 0.018215995303468624
+  },
+  "boundary": "C03 tests whole-system capacity under one frozen WMT and optimizer contract. It does not isolate codec-only capacity or establish general scaling laws, dialogue, or world knowledge."
+}

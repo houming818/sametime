@@ -1,0 +1,45 @@
+{"event": "pool_sampling_started", "required": 8448}
+{"event": "dataset_ready", "train_doses": [4096], "train_sha256": {"4096": "b46c78744916390438a3eccdb0893337dc7dfac18c3cd5071aedfd1f39ae0d5c"}, "validation_rows": 128, "validation_sha256": "df4ba5413def0e343f08dadab01ca0f3026ba4d4c403a28eec8aaf4a024c5e17", "test_rows": 128, "test_sha256": "69c6ab15ca2c0b452d02311970c271f927cd3baae470ff40dbba490abae39a10"}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 100, "sample_exposures": 6400, "train_nll_window": 7.941236696243286, "valid_nll": 7.962207864419623, "elapsed_sec": 18.99874496459961}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 200, "sample_exposures": 12800, "train_nll_window": 6.28555968284607, "valid_nll": 7.802839178968343, "elapsed_sec": 38.206889629364014}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 300, "sample_exposures": 19200, "train_nll_window": 4.516039669513702, "valid_nll": 8.004049204366861, "elapsed_sec": 56.888671875}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 400, "sample_exposures": 25600, "train_nll_window": 2.916795729398727, "valid_nll": 8.283645143410418, "elapsed_sec": 75.54383063316345}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 500, "sample_exposures": 32000, "train_nll_window": 1.743890527486801, "valid_nll": 8.540184647928829, "elapsed_sec": 93.95625376701355}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 100, "sample_exposures": 6400, "train_nll_window": 7.665647215843201, "valid_nll": 7.854196193028738, "elapsed_sec": 18.94035267829895}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 200, "sample_exposures": 12800, "train_nll_window": 5.1594096636772155, "valid_nll": 7.902807255416479, "elapsed_sec": 38.200268507003784}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 300, "sample_exposures": 19200, "train_nll_window": 2.3966078400611877, "valid_nll": 8.346444645964302, "elapsed_sec": 57.153972148895264}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 400, "sample_exposures": 25600, "train_nll_window": 0.9807281038165092, "valid_nll": 8.751929445442299, "elapsed_sec": 76.16668105125427}
+{"event": "evaluation", "variant": "canonical_learned", "seed": 71901, "step": 500, "sample_exposures": 32000, "train_nll_window": 0.3778022558987141, "valid_nll": 9.023041086663673, "elapsed_sec": 94.99774646759033}
+{
+  "status": "smoke_only",
+  "stage_b_authorized": false,
+  "seconds": 205.90846419334412,
+  "aggregate": {
+    "base_28m_long": {
+      "nll_mean": 7.608746682553357,
+      "nll_std": 0.0,
+      "bits_per_token_mean": 10.977101106300081,
+      "bleu4_mean": 1.3086216317567076,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.0859375,
+      "final_train_nll_mean": 1.743890527486801,
+      "seconds_mean": 94.68836212158203,
+      "parameters": 27620482,
+      "trainable_parameters": 27620482,
+      "peak_vram_max": 1750702080
+    },
+    "balanced_50m_equal": {
+      "nll_mean": 7.626962677856826,
+      "nll_std": 0.0,
+      "bits_per_token_mean": 11.003381232389252,
+      "bleu4_mean": 1.8743997520387323,
+      "nonempty_mean": 1.0,
+      "severe_repetition_mean": 0.2890625,
+      "final_train_nll_mean": 0.3778022558987141,
+      "seconds_mean": 95.88670492172241,
+      "parameters": 50267778,
+      "trainable_parameters": 50267778,
+      "peak_vram_max": 2257968640
+    }
+  }
+}
