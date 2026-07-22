@@ -128,6 +128,7 @@ class CanonicalLiftingEncoder(nn.Module):
         length: torch.Tensor,
         codec_override: str | None = None,
         pair_break_depth: int = -1,
+        fold_mirror_depth: int = -1,
     ):
         if src.shape[1] > self.heap_width:
             raise ValueError(
@@ -149,6 +150,9 @@ class CanonicalLiftingEncoder(nn.Module):
         for depth in range(self.depths):
             left, right = node[:, 0::2], node[:, 1::2]
             left_mask, right_mask = node_mask[:, 0::2], node_mask[:, 1::2]
+            if depth == fold_mirror_depth:
+                left, right = right, left
+                left_mask, right_mask = right_mask, left_mask
             if depth == pair_break_depth:
                 right = right.roll(1, dims=0)
                 right_mask = right_mask.roll(1, dims=0)
@@ -232,9 +236,10 @@ class CanonicalLiftingEncoder(nn.Module):
         intervention: str = "native",
         codec_override: str | None = None,
         pair_break_depth: int = -1,
+        fold_mirror_depth: int = -1,
     ):
         leaf, root, details, masks = self.fold(
-            src, length, codec_override, pair_break_depth,
+            src, length, codec_override, pair_break_depth, fold_mirror_depth,
         )
         levels, level_masks = self.unfold(
             root, details, masks, codec_override, intervention,
@@ -267,11 +272,13 @@ class CanonicalTreeHeap(prior.S2Model):
     def teacher(
         self, src, length, target, bos, intervention="native",
         codec_override=None, max_visible_levels=None, pair_break_depth=-1,
+        fold_mirror_depth=-1,
         route_mode="native", gate_override=None,
     ):
         state = self.states(
             src, length, intervention=intervention,
             codec_override=codec_override, pair_break_depth=pair_break_depth,
+            fold_mirror_depth=fold_mirror_depth,
         )
         levels, masks = self.visible(state[3], state[4], max_visible_levels)
         return self.decoder.teacher(levels, masks, target, bos, route_mode)
@@ -299,6 +306,7 @@ def evaluate(
     model, loader, args, pad: int, bos: int, eos: int, sp,
     generate: bool = False, intervention: str = "native",
     codec_override: str | None = None, max_visible_levels: int | None = None,
+    fold_mirror_depth: int = -1,
 ):
     model.eval()
     loss_sum = tokens = exact = nonempty = repeated = count = 0
@@ -314,6 +322,7 @@ def evaluate(
         logits, route = model.teacher(
             source, length, target, bos, intervention=intervention,
             codec_override=codec_override, max_visible_levels=max_visible_levels,
+            fold_mirror_depth=fold_mirror_depth,
         )
         valid = target.ne(pad)
         loss_sum += float(F.cross_entropy(

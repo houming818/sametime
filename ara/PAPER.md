@@ -624,6 +624,16 @@ next encoder-path causality test.
 See `s3-generation/logic/stone1_capacity_rate_distortion.md` and formal evidence
 under `s3-generation/evidence/s3_stone1_capacity_rate_distortion/`.
 
+`S3-STONE1-PROTOCOL-GROWTH-C04` is the preregistered follow-up. It trains one
+50.27M model continuously from scratch to 62,500 updates and observes whether
+the root-only decoder at 15,625 updates later grows non-root route mass and
+positive depth/address causality. A new pre-fold subtree mirror changes root
+formation and is kept separate from the old post-fold address swap, which
+leaves root unchanged. Four milestones distinguish recursive decoder growth,
+path-sensitive root compression, and bag-like root collapse. This is a
+single-seed diagnostic and cannot complete STONE-1 by itself. See
+`s3-generation/logic/stone1_protocol_growth_trajectory.md`.
+
 ## 2026-07 Bounded Rotation Search Result
 
 `M0-ROT-C01` is supported as a synthetic pilot. The registered construction
