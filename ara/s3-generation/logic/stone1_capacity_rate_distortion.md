@@ -69,6 +69,12 @@ Run two new arms across all three seeds:
 The completed C02 `base_28m` result at 15,625 updates is the frozen reference.
 The new implementation must reproduce its dataset hashes and evaluation code.
 
+The two new arms are also a rough compute-matched comparison. Parameter-update
+products are `27.62M * 31,250 = 863.1B` and
+`50.27M * 15,625 = 785.4B`; the longer 28M arm receives about `9.9%` more by
+this coarse measure. This is not an exact FLOP count, but prevents the larger
+model from receiving both more parameters and more update steps.
+
 Record training-window NLL, validation NLL, test NLL, bits per token,
 BLEU-4, seed variance, checkpoint bytes, peak VRAM, latency, and NLL improvement
 per added million parameters. Also repeat force-algebraic, address-swap, and
@@ -82,7 +88,7 @@ Capacity evidence requires all of:
 C1  mean NLL(50M, 15,625) <= mean NLL(28M, 15,625) - 0.08
 C2  mean BLEU(50M)        >= mean BLEU(28M) + 0.75
 C3  NLL std(50M)          <= 0.08
-C4  50M beats 28M-long, or reaches its result with half the updates
+C4  NLL(50M) <= NLL(28M-long) + 0.02 using half the updates
 C5  force-algebraic damage >= 0.10 NLL
 C6  address-swap damage    >= 0.10 NLL
 C7  root-to-full gain       >= 0.50 NLL and at least 4/5 depths improve
@@ -100,6 +106,22 @@ Q3 NLL std       <= 0.05
 
 Passing capacity gates does not complete STONE-1 unless all product,
 structural, and engineering gates pass together.
+
+## Smoke and Stop Conditions
+
+Before formal execution, run one seed for `500` updates per new arm. Continue
+only if both runs have finite gradients, declining validation NLL, peak VRAM
+below `10 GiB`, non-empty evidence logs, and no GPU reset. The io 3090 power
+and frequency limits must not be changed.
+
+The formal queue is serial. Forecast runtime is `10-13 h` for Stage A based on
+C02 throughput; this estimate must be replaced by the measured 500-step rate
+after smoke. Stop the queue on OOM, non-finite loss, GPU disappearance, or an
+epoch estimate above `6 h` for one arm before investigating the implementation.
+
+Learning rate remains fixed at `0.002` to isolate capacity under one training
+recipe. A failure therefore rejects capacity scaling under this optimizer
+contract, not every possible scale-specific optimizer.
 
 ## Conditional Stage B
 
