@@ -180,15 +180,24 @@ The best 50M checkpoint assigned all measured route mass to level zero:
 [1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ```
 
-Consequently, swapping left/right addresses caused exactly `0.0` NLL damage,
-and exposing levels one through six produced exactly the same NLL. Forcing the
-algebraic codec still caused `+1.1021` NLL damage and closure max error remained
-below `1e-5`. Thus the model used learned codec values but bypassed TreeHeap
-address and depth structure through a root-only shortcut.
+Consequently, swapping the already-unfolded left/right child addresses caused
+exactly `0.0` NLL damage, and exposing levels one through six produced exactly
+the same NLL. Forcing the algebraic codec still caused `+1.1021` NLL damage and
+closure max error remained below `1e-5`. Thus the decoder used learned root
+codec values but did not directly read the unfolded child levels.
+
+This intervention occurs after folding: `levels[0]` remains the original root
+and only `levels[1:]` are swapped. It therefore does **not** test whether
+left/right encoder paths contributed to root formation. Since the canonical
+base fold is `parent = 0.4 left + 0.6 right`, path handedness participates
+algebraically in root construction unless learned residuals cancel it. A
+pre-fold subtree mirror intervention is required to distinguish a
+path-sensitive compressed root from a bag-like root shortcut.
 
 The 28M-long test route mass was also numerically concentrated at root. Its
-better NLL must therefore be reported as seq2seq optimization progress, not as
-stronger evidence for a distributed TreeHeap private protocol.
+better NLL must therefore be reported as seq2seq optimization progress and
+possible root-compression progress, not as evidence that the decoder uses the
+distributed detail hierarchy.
 
 ## Gate Decision
 
@@ -197,8 +206,11 @@ Passed: `C3`, `C5`, `C8`, `C9`, and all engineering gates. Failed: `C1`, `C2`,
 three 50M runs converged reproducibly to the same inferior root-only solution.
 
 This result rejects the registered capacity-limitation explanation. The next
-iteration must remove or constrain the root-only read shortcut and require
-positive address/depth use during model selection before spending compute on
-larger parameter counts. It must not merely add parameters or launch 92M.
+iteration must first test root causality correctly by mirroring subtrees before
+folding. Only if root quality survives such path destruction should root-only
+reading be treated as a bag-like shortcut; if it is damaged, the root is a
+path-sensitive TreeHeap compression even though the decoder does not reopen
+details. In either case, the failed registered depth-read gate does not
+authorize 92M.
 
 Formal evidence: `../evidence/s3_stone1_capacity_rate_distortion/`.

@@ -612,11 +612,15 @@ NLL monotonically from `4.6366` to `3.9876`. Formal evidence is under
 registered contract. Across three seeds, 28M-long reached mean test NLL/BLEU
 `3.7495/12.7444`, while 50M at the original update count reached
 `4.1469/10.1225`; the larger model was also worse than frozen C02. The 50M
-route collapsed entirely to level zero: address swap and positive depth growth
-had zero effect, although forcing the algebraic codec damaged NLL by `1.1021`.
-Thus more updates improved the seq2seq product signal, but more parameters did
-not improve the private protocol and instead exposed a root-only shortcut.
-STONE-1 remains incomplete and the conditional 91.93M stage is not authorized.
+route stopped entirely at level zero: post-fold child-address swap and positive
+depth growth had zero effect, although forcing the algebraic codec damaged NLL
+by `1.1021`. The swap left the already-formed root unchanged, so this proves
+that the decoder ignored unfolded children but does not determine whether
+encoder left/right paths were compressed into root. Thus more updates improved
+the seq2seq product signal, while more parameters did not improve the registered
+quality/depth-read contract. STONE-1 remains incomplete and the conditional
+91.93M stage is not authorized. A pre-fold subtree mirror is required for the
+next encoder-path causality test.
 See `s3-generation/logic/stone1_capacity_rate_distortion.md` and formal evidence
 under `s3-generation/evidence/s3_stone1_capacity_rate_distortion/`.
 
