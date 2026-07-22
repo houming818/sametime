@@ -1,7 +1,7 @@
 # STONE-1 C02: Canonical 0.4/0.6 Codec
 
 Date: 2026-07-22
-Status: preregistered
+Status: not supported / structural mechanism positive / STONE-1 incomplete
 Milestone: `STONE-1` (still incomplete)
 Claim: `S3-STONE1-PRIVATE-PROTOCOL-C02`
 Predict: `P-S3-STONE1-PRIVATE-PROTOCOL-02`
@@ -198,3 +198,30 @@ Formal evidence: `../evidence/s3_stone1_canonical_codec/`
 Evidence must include `command.sh`, `config.json`, dataset hashes,
 `trace.jsonl`, per-run results, intervention/depth-growth results, closure,
 checkpoint SHA-256, CLI transcript, `summary.json`, and `REPORT.md`.
+
+## Formal Result
+
+The formal io run completed successfully in `7.26 h` with three arms and
+three seeds. Mean test results were:
+
+| Arm | NLL | NLL std | BLEU-4 |
+|---|---:|---:|---:|
+| `canonical_algebraic` | 4.1138 | 0.0119 | 10.7937 |
+| `canonical_learned` | 4.0538 | 0.0914 | 11.2865 |
+| `canonical_frozen` | 4.0910 | 0.0093 | 10.6865 |
+
+The learned arm beat algebraic by `0.0599` NLL but beat frozen by only
+`0.0372`, and one of three learned seeds regressed. Product NLL, BLEU, and
+stability gates failed. C02 is therefore not supported and STONE-1 remains
+incomplete.
+
+The structural result is positive and must be retained. On the best learned
+checkpoint, forcing the algebraic codec damaged NLL by `+1.0984`, swapping
+left/right addresses damaged it by `+1.3545`, and opening levels 1 through 6
+improved NLL monotonically from `4.6366` to `3.9876`. Root-to-full gain was
+`0.6491`, all five depth transitions improved, and closure remained below
+`1e-5`. The decoder therefore used codec values, addresses, and recursive
+resolution; the current protocol was simply not stable or strong enough to
+complete the product milestone.
+
+Formal evidence: `../evidence/s3_stone1_canonical_codec/`.

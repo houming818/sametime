@@ -599,6 +599,24 @@ suffer damage when forced back to the algebraic codec, retain address
 causality, and show positive held-out improvement as finer TreeHeap depths are
 exposed. See `s3-generation/logic/stone1_canonical_codec.md`.
 
+C02 completed in 7.26 hours. Learned/algebraic/frozen mean NLL was
+`4.0538/4.1138/4.0910`; learned BLEU-4 was `11.2865` and NLL standard
+deviation was `0.0914`. Product quality, stability, and frozen-control gates
+failed, so C02 did not complete STONE-1. Structural evidence was positive:
+forcing the learned checkpoint back to exact algebra damaged NLL by `1.0984`,
+swapping addresses damaged it by `1.3545`, and opening all six levels improved
+NLL monotonically from `4.6366` to `3.9876`. Formal evidence is under
+`s3-generation/evidence/s3_stone1_canonical_codec/`.
+
+`S3-STONE1-CAPACITY-RATE-DISTORTION-C03` is the next preregistered iteration.
+It treats parameter count as the finite storage budget of the learned private
+protocol. Stage A compares a 27.62M model trained twice as long against a
+balanced 50.27M model at the original update count, across the same three
+seeds. This separates capacity from additional optimization. A 91.93M stage
+is authorized only if the 50M model improves held-out NLL and stability while
+retaining codec/address/depth causality. See
+`s3-generation/logic/stone1_capacity_rate_distortion.md`.
+
 ## 2026-07 Bounded Rotation Search Result
 
 `M0-ROT-C01` is supported as a synthetic pilot. The registered construction
