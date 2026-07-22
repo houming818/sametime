@@ -608,14 +608,17 @@ swapping addresses damaged it by `1.3545`, and opening all six levels improved
 NLL monotonically from `4.6366` to `3.9876`. Formal evidence is under
 `s3-generation/evidence/s3_stone1_canonical_codec/`.
 
-`S3-STONE1-CAPACITY-RATE-DISTORTION-C03` is the next preregistered iteration.
-It treats parameter count as the finite storage budget of the learned private
-protocol. Stage A compares a 27.62M model trained twice as long against a
-balanced 50.27M model at the original update count, across the same three
-seeds. This separates capacity from additional optimization. A 91.93M stage
-is authorized only if the 50M model improves held-out NLL and stability while
-retaining codec/address/depth causality. See
-`s3-generation/logic/stone1_capacity_rate_distortion.md`.
+`S3-STONE1-CAPACITY-RATE-DISTORTION-C03` rejected capacity scaling under the
+registered contract. Across three seeds, 28M-long reached mean test NLL/BLEU
+`3.7495/12.7444`, while 50M at the original update count reached
+`4.1469/10.1225`; the larger model was also worse than frozen C02. The 50M
+route collapsed entirely to level zero: address swap and positive depth growth
+had zero effect, although forcing the algebraic codec damaged NLL by `1.1021`.
+Thus more updates improved the seq2seq product signal, but more parameters did
+not improve the private protocol and instead exposed a root-only shortcut.
+STONE-1 remains incomplete and the conditional 91.93M stage is not authorized.
+See `s3-generation/logic/stone1_capacity_rate_distortion.md` and formal evidence
+under `s3-generation/evidence/s3_stone1_capacity_rate_distortion/`.
 
 ## 2026-07 Bounded Rotation Search Result
 

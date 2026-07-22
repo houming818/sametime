@@ -1,0 +1,58 @@
+{
+  "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+  "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+  "baseline_summary": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_canonical_codec/summary.json",
+  "evidence_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_capacity_rate_distortion",
+  "checkpoint_dir": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_capacity_rate_distortion/checkpoints",
+  "arms": [
+    "base_28m_long",
+    "balanced_50m_equal"
+  ],
+  "seeds": [
+    71901,
+    71902,
+    71903
+  ],
+  "train_samples": 1000000,
+  "valid_samples": 2000,
+  "test_samples": 2000,
+  "baseline_max_scan": 300000,
+  "pool_max_scan": 3000000,
+  "source_rows": 14170275,
+  "source_col": 1,
+  "target_col": 0,
+  "min_len": 8,
+  "max_len": 32,
+  "data_seed": 71900,
+  "pool_seed": 72003,
+  "model_seed": 71901,
+  "batch_size": 64,
+  "eval_interval": 500,
+  "lr": 0.002,
+  "grad_clip": 1.0,
+  "num_workers": 2,
+  "device": "cuda",
+  "heap_width": 64,
+  "leaf_cut": 1,
+  "cli_max_new_tokens": 64,
+  "latency_repeats": 20,
+  "code_commit": "d18ec85",
+  "smoke": false,
+  "base_train_samples": 30000,
+  "doses": [
+    30000,
+    1000000
+  ],
+  "arm_configs": {
+    "base_28m_long": {
+      "dim": 192,
+      "hidden": 256,
+      "steps": 31250
+    },
+    "balanced_50m_equal": {
+      "dim": 320,
+      "hidden": 512,
+      "steps": 15625
+    }
+  }
+}

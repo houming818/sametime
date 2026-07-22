@@ -1,7 +1,7 @@
 # STONE-1 C03: Capacity and Rate-Distortion Audit
 
-Date: 2026-07-22
-Status: preregistered
+Date: 2026-07-22--2026-07-23
+Status: rejected under registered capacity-scaling contract / STONE-1 incomplete
 Milestone: `STONE-1` (still incomplete)
 Claim: `S3-STONE1-CAPACITY-RATE-DISTORTION-C03`
 Predict: `P-S3-STONE1-CAPACITY-RATE-DISTORTION-03`
@@ -150,4 +150,55 @@ models are inherently better, or that parameter count equals stored knowledge.
 It tests only whether the C02 system lies on a reproducible capacity-distortion
 slope under one frozen WMT platform.
 
-Planned evidence: `../evidence/s3_stone1_capacity_rate_distortion/`.
+## Formal Result
+
+The serial formal run completed normally on `io` in `7.44 h`. All six runs had
+finite gradients, exact registered parameter counts, and peak VRAM below
+`2.11 GiB`.
+
+| Arm | Updates | Mean test NLL | NLL std | BLEU-4 | Repetition |
+|---|---:|---:|---:|---:|---:|
+| frozen C02 28M | 15,625 | 4.0538 | 0.0914 | 11.2865 | 0.0478 |
+| 28M-long | 31,250 | **3.7495** | 0.1083 | **12.7444** | 0.0340 |
+| 50M-equal | 15,625 | 4.1469 | **0.0089** | 10.1225 | 0.0707 |
+
+The 50M arm was `0.0930` NLL worse than the frozen 28M baseline and `0.3974`
+worse than 28M-long. Its BLEU was respectively `1.1640` and `2.6219` lower.
+Larger capacity therefore did not reduce held-out distortion under the frozen
+optimizer and exposure contract. The 92M conditional stage is not authorized.
+
+The longer 28M arm supplies a separate positive engineering result: additional
+updates crossed the NLL product threshold (`3.7495 <= 3.90`). It did not cross
+BLEU (`12.7444 < 13.5`) or stability (`0.1083 > 0.05`), so STONE-1 remains
+incomplete.
+
+## Structural Diagnosis
+
+The best 50M checkpoint assigned all measured route mass to level zero:
+
+```text
+[1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+```
+
+Consequently, swapping left/right addresses caused exactly `0.0` NLL damage,
+and exposing levels one through six produced exactly the same NLL. Forcing the
+algebraic codec still caused `+1.1021` NLL damage and closure max error remained
+below `1e-5`. Thus the model used learned codec values but bypassed TreeHeap
+address and depth structure through a root-only shortcut.
+
+The 28M-long test route mass was also numerically concentrated at root. Its
+better NLL must therefore be reported as seq2seq optimization progress, not as
+stronger evidence for a distributed TreeHeap private protocol.
+
+## Gate Decision
+
+Passed: `C3`, `C5`, `C8`, `C9`, and all engineering gates. Failed: `C1`, `C2`,
+`C4`, `C6`, `C7`, `Q1`, and `Q2` for the 50M arm. `Q3` passed only because the
+three 50M runs converged reproducibly to the same inferior root-only solution.
+
+This result rejects the registered capacity-limitation explanation. The next
+iteration must remove or constrain the root-only read shortcut and require
+positive address/depth use during model selection before spending compute on
+larger parameter counts. It must not merely add parameters or launch 92M.
+
+Formal evidence: `../evidence/s3_stone1_capacity_rate_distortion/`.
