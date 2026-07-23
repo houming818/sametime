@@ -184,7 +184,7 @@ def forced_depth_vector(model, loader, args, pad, bos, eos, sp):
 def gradient_cosine_diagnostic(
     model, batch, args, pad: int, bos: int,
 ):
-    _, (source, length, target, _) = batch
+    source, length, target, _ = batch
     source = source.to(args.device, non_blocking=True)
     length = length.to(args.device, non_blocking=True)
     target = target.to(args.device, non_blocking=True)
