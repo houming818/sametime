@@ -640,6 +640,16 @@ the intended coarse-to-detail recursive decoder. See
 `s3-generation/logic/stone1_protocol_growth_trajectory.md` and evidence under
 `s3-generation/evidence/s3_stone1_protocol_growth_trajectory/`.
 
+`S3-STONE1-FROZEN-PRESSURE-C05` is the preregistered low-cost follow-up. It
+loads the C04 update-62,500 checkpoint, freezes the entire encoder, and trains
+two equally initialized decoder arms for 15,625 updates. The root control is
+forced to stop at root; the pressure arm is forced through every visible
+TreeHeap level so that its shared branch kernel receives gradient. Improvement
+plus frozen-detail causality will test whether C04 `H_state` contains
+recursively readable information. This intervention does not test spontaneous
+stopping-depth learning and cannot complete STONE-1 by itself. See
+`s3-generation/logic/stone1_frozen_encoder_pressure_decoder.md`.
+
 ## 2026-07 Bounded Rotation Search Result
 
 `M0-ROT-C01` is supported as a synthetic pilot. The registered construction
