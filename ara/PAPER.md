@@ -624,15 +624,21 @@ next encoder-path causality test.
 See `s3-generation/logic/stone1_capacity_rate_distortion.md` and formal evidence
 under `s3-generation/evidence/s3_stone1_capacity_rate_distortion/`.
 
-`S3-STONE1-PROTOCOL-GROWTH-C04` is the preregistered follow-up. It trains one
-50.27M model continuously from scratch to 62,500 updates and observes whether
-the root-only decoder at 15,625 updates later grows non-root route mass and
-positive depth/address causality. A new pre-fold subtree mirror changes root
-formation and is kept separate from the old post-fold address swap, which
-leaves root unchanged. Four milestones distinguish recursive decoder growth,
-path-sensitive root compression, and bag-like root collapse. This is a
-single-seed diagnostic and cannot complete STONE-1 by itself. See
-`s3-generation/logic/stone1_protocol_growth_trajectory.md`.
+`S3-STONE1-PROTOCOL-GROWTH-C04` supports path-sensitive root compression and
+rejects the simple "recursive decoding only needs more updates" explanation
+under one frozen 50.27M run. From 15,625 to 62,500 updates, validation NLL
+improved `4.1879 -> 3.6613`, but non-root route mass, root-to-full gain, and
+post-fold child-address damage all remained approximately zero. The decoder
+therefore continued to stop at root. This was not a bag-like collapse:
+mirroring left/right subheaps before root formation damaged final NLL at every
+fold depth, with maximum damage `0.6747`, and forcing the algebraic codec
+damaged NLL by `1.3456`. The observed mechanism is an ordered recursive encoder
+compressed into root and a root-only surface decoder. Final test NLL/BLEU-4 was
+`3.5818/12.5107`; exact recovery was `0.004`, so generation remains weak and
+STONE-1 is incomplete. This single seed does not establish stable emergence or
+the intended coarse-to-detail recursive decoder. See
+`s3-generation/logic/stone1_protocol_growth_trajectory.md` and evidence under
+`s3-generation/evidence/s3_stone1_protocol_growth_trajectory/`.
 
 ## 2026-07 Bounded Rotation Search Result
 

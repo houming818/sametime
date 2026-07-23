@@ -1,0 +1,596 @@
+{
+  "experiment_id": "s3_stone1_protocol_growth_trajectory",
+  "claim": "S3-STONE1-PROTOCOL-GROWTH-C04",
+  "predict": "P-S3-STONE1-PROTOCOL-GROWTH-04",
+  "status": "path_sensitive_root_compression_single_seed",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "26c8269",
+  "seconds": 12103.466903448105,
+  "parameters": 50267778,
+  "finite_gradients": true,
+  "peak_vram_bytes": 2258618880,
+  "platform_checks": {
+    "tokenizer_sha256": true,
+    "train_1m_sha256": true,
+    "validation_sha256": true,
+    "test_sha256": true
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 300000,
+        "eligible": 173313,
+        "selected": 34000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 3000000,
+        "eligible": 1734343,
+        "selected": 1034000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        30000,
+        1000000
+      ],
+      "train_sha256": {
+        "30000": "50e7a7213af49b8e0c1f7e705aa80a7caa561e2dd36b3c42b67f68cf904120be",
+        "1000000": "a4a254f3a965a20751b5b3322434876751ee3c93eae9fd89518179fd279a8fdf"
+      },
+      "validation_rows": 2000,
+      "validation_sha256": "86ac3b0fe60302b397416a6fabb8921f6890565ebb373cd04768fa72bddf6f76",
+      "test_rows": 2000,
+      "test_sha256": "b893d33aa433214f87a6c16ee357178beffb12adcde53576a5d178e2813660c0"
+    },
+    "leakage_control": {
+      "train_rows_unique": 1000000,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "milestones": [
+    {
+      "step": 15625,
+      "normal": {
+        "nll": 4.187879200579045,
+        "ppl": 65.88291823699315,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "root_only": {
+        "nll": 4.187879200579045,
+        "ppl": 65.88291823699315,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0
+        ]
+      },
+      "postfold_address_swap": {
+        "nll": 4.187879200579045,
+        "ppl": 65.88291823699315,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "force_algebraic": {
+        "nll": 5.284765286395264,
+        "ppl": 197.3078671720931,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "prefold_mirrors": [
+        {
+          "depth": 0,
+          "nll": 4.396722687363441,
+          "damage_nll": 0.20884348678439668
+        },
+        {
+          "depth": 1,
+          "nll": 4.320972169599341,
+          "damage_nll": 0.13309296902029644
+        },
+        {
+          "depth": 2,
+          "nll": 4.36780523329264,
+          "damage_nll": 0.17992603271359542
+        },
+        {
+          "depth": 3,
+          "nll": 4.488141430482641,
+          "damage_nll": 0.30026222990359663
+        },
+        {
+          "depth": 4,
+          "nll": 5.171506005305561,
+          "damage_nll": 0.9836268047265166
+        },
+        {
+          "depth": 5,
+          "nll": 5.815799409349944,
+          "damage_nll": 1.6279202087708997
+        }
+      ],
+      "nonroot_route_mass": 0.0,
+      "root_to_full_gain_nll": 0.0,
+      "postfold_address_damage_nll": 0.0,
+      "force_algebraic_damage_nll": 1.0968860858162195,
+      "max_prefold_mirror_damage_nll": 1.6279202087708997
+    },
+    {
+      "step": 31250,
+      "normal": {
+        "nll": 3.8866730567231826,
+        "ppl": 48.748433165046904,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "root_only": {
+        "nll": 3.8866730567231826,
+        "ppl": 48.748433165046904,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0
+        ]
+      },
+      "postfold_address_swap": {
+        "nll": 3.8866730567231826,
+        "ppl": 48.748433165046904,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "force_algebraic": {
+        "nll": 5.117824392738481,
+        "ppl": 166.97170931029575,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "prefold_mirrors": [
+        {
+          "depth": 0,
+          "nll": 4.11673033953667,
+          "damage_nll": 0.2300572828134877
+        },
+        {
+          "depth": 1,
+          "nll": 3.995034284427273,
+          "damage_nll": 0.10836122770409018
+        },
+        {
+          "depth": 2,
+          "nll": 3.993332351257183,
+          "damage_nll": 0.10665929453400036
+        },
+        {
+          "depth": 3,
+          "nll": 4.169885039799351,
+          "damage_nll": 0.28321198307616857
+        },
+        {
+          "depth": 4,
+          "nll": 4.488493237865112,
+          "damage_nll": 0.601820181141929
+        },
+        {
+          "depth": 5,
+          "nll": 4.3526267875685845,
+          "damage_nll": 0.4659537308454018
+        }
+      ],
+      "nonroot_route_mass": 0.0,
+      "root_to_full_gain_nll": 0.0,
+      "postfold_address_damage_nll": 0.0,
+      "force_algebraic_damage_nll": 1.2311513360152988,
+      "max_prefold_mirror_damage_nll": 0.601820181141929
+    },
+    {
+      "step": 46875,
+      "normal": {
+        "nll": 3.7331275151501013,
+        "ppl": 41.809664257917895,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          3.047484764540087e-10,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "root_only": {
+        "nll": 3.7331275151501013,
+        "ppl": 41.809664257917895,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0
+        ]
+      },
+      "postfold_address_swap": {
+        "nll": 3.7331275151501013,
+        "ppl": 41.809664257917895,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          3.047484764540087e-10,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "force_algebraic": {
+        "nll": 5.066302343885148,
+        "ppl": 158.58684224677205,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          7.49484502238218e-11,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "prefold_mirrors": [
+        {
+          "depth": 0,
+          "nll": 3.949455007598261,
+          "damage_nll": 0.21632749244815974
+        },
+        {
+          "depth": 1,
+          "nll": 3.8382013738038805,
+          "damage_nll": 0.10507385865377916
+        },
+        {
+          "depth": 2,
+          "nll": 3.8492923131642236,
+          "damage_nll": 0.11616479801412227
+        },
+        {
+          "depth": 3,
+          "nll": 4.1001459202786075,
+          "damage_nll": 0.36701840512850614
+        },
+        {
+          "depth": 4,
+          "nll": 4.419092664320104,
+          "damage_nll": 0.6859651491700025
+        },
+        {
+          "depth": 5,
+          "nll": 4.241335677721859,
+          "damage_nll": 0.508208162571758
+        }
+      ],
+      "nonroot_route_mass": 0.0,
+      "root_to_full_gain_nll": 0.0,
+      "postfold_address_damage_nll": 0.0,
+      "force_algebraic_damage_nll": 1.333174828735047,
+      "max_prefold_mirror_damage_nll": 0.6859651491700025
+    },
+    {
+      "step": 62500,
+      "normal": {
+        "nll": 3.6613479917698335,
+        "ppl": 38.91376296467727,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          1.0881194612011313e-08,
+          1.9618001342348867e-14,
+          1.739352299275315e-15,
+          5.1228557943896e-16,
+          5.699794286961738e-16
+        ]
+      },
+      "root_only": {
+        "nll": 3.6613479991148385,
+        "ppl": 38.91376325049905,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0
+        ]
+      },
+      "postfold_address_swap": {
+        "nll": 3.6613479917698335,
+        "ppl": 38.91376296467727,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          1.0881194612011313e-08,
+          2.2417944558946737e-16,
+          6.257476990946764e-18,
+          1.7588337228811965e-18,
+          1.784743708003348e-18
+        ]
+      },
+      "force_algebraic": {
+        "nll": 5.006953898282139,
+        "ppl": 149.44880583234604,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          1.0722091658976751e-08,
+          1.4687276866714657e-14,
+          1.4418661755074874e-15,
+          4.023597081871059e-16,
+          4.69016701273487e-16
+        ]
+      },
+      "prefold_mirrors": [
+        {
+          "depth": 0,
+          "nll": 3.8291703190928765,
+          "damage_nll": 0.16782232732304303
+        },
+        {
+          "depth": 1,
+          "nll": 3.7719948767267226,
+          "damage_nll": 0.11064688495688912
+        },
+        {
+          "depth": 2,
+          "nll": 3.794903552884742,
+          "damage_nll": 0.13355556111490863
+        },
+        {
+          "depth": 3,
+          "nll": 4.052129205338608,
+          "damage_nll": 0.3907812135687747
+        },
+        {
+          "depth": 4,
+          "nll": 4.336047263756431,
+          "damage_nll": 0.6746992719865972
+        },
+        {
+          "depth": 5,
+          "nll": 4.1396273463178135,
+          "damage_nll": 0.47827935454798
+        }
+      ],
+      "nonroot_route_mass": 0.0,
+      "root_to_full_gain_nll": 7.3450050486201235e-09,
+      "postfold_address_damage_nll": 0.0,
+      "force_algebraic_damage_nll": 1.3456059065123052,
+      "max_prefold_mirror_damage_nll": 0.6746992719865972
+    }
+  ],
+  "final_test": {
+    "nll": 3.5818269811470302,
+    "ppl": 35.93914103677547,
+    "tokens": 33414,
+    "route_mass_by_level": [
+      1.0,
+      1.0170145614551984e-08,
+      2.014112380837544e-14,
+      1.5954931764257103e-15,
+      4.632703238801955e-16,
+      4.748867454770777e-16
+    ],
+    "exact": 0.004,
+    "nonempty": 1.0,
+    "severe_repetition_rate": 0.0275,
+    "token_bleu4": 12.510655485552531,
+    "examples": [
+      {
+        "en": "Integrated, standards-based certification labeling and reporting",
+        "reference_zh": "集成的、基于标准的认证标签和报告",
+        "hypothesis_zh": "基于标签、标签和标准报告",
+        "severe_repetition": false
+      },
+      {
+        "en": "详细搜索 LM2574DW-ADJR2 Datasheet(数据表) 5 Page - ON Semiconductor",
+        "reference_zh": "LM2594DADJG Datasheet(数据表) 5 Page - ON Semiconductor",
+        "hypothesis_zh": "LM2576R-12BT Datasheet(数据表) 5 Page - Micrel Semiconductor",
+        "severe_repetition": false
+      },
+      {
+        "en": "POWER TRANSISTORS DARLINGTON NPN SILICON",
+        "reference_zh": "Epitaxial Planar NPN Silicon Transistors",
+        "hypothesis_zh": "COMPLEMENTARY SILICON POWER TRANSISTORS",
+        "severe_repetition": false
+      },
+      {
+        "en": "Adobe Dreamweaver CSS Grafisk design HTML Webbdesign $90 (Avg Bid)",
+        "reference_zh": "Adobe Dreamweaver CSS 平面设计 HTML 网站设计 $708 (Avg Bid)",
+        "hypothesis_zh": "CSS Adobe InDesign 横幅设计 平面设计 徽标设计 $6321 (Avg Bid)",
+        "severe_repetition": false
+      },
+      {
+        "en": "Requested URL: /FixedCamera/ANF24A.aspx",
+        "reference_zh": "请求的 URL : / ProList.aspx",
+        "hypothesis_zh": "请求的 URL : / lianxi.aspx",
+        "severe_repetition": false
+      },
+      {
+        "en": "Download XChat 2.8.9 - FileHippo.com WINDOWS MAC",
+        "reference_zh": "下载PeerBlock 1.1-下载 -FileHippo.com 广告 WINDOWS MAC",
+        "hypothesis_zh": "下载Shockwave Player 11.6.7.637-下载 -FileHippo.com 广告 WINDOWS MAC",
+        "severe_repetition": false
+      },
+      {
+        "en": "You got to leave with root in V702?",
+        "reference_zh": "你要留下 V702 根? 答复",
+        "hypothesis_zh": "你有过2个问题吗?",
+        "severe_repetition": false
+      },
+      {
+        "en": "Battery Labels - Self-adhesive labels,Sticker printing,Label Printing - DongGuan Sunprint Printing Co.,Ltd English",
+        "reference_zh": "电池标签 - 不干胶标签印刷厂家,红酒标签,商标印刷厂 - 东莞赛宝伦印刷股份有限公司",
+        "hypothesis_zh": "印刷 - - 印刷印花标签打印 - 印刷印花标签贴纸,印花后打印 - 印刷印花标签贴",
+        "severe_repetition": false
+      },
+      {
+        "en": "Requested URL: /send.aspx",
+        "reference_zh": "请求的 URL : / 907/online/pricesel.aspx",
+        "hypothesis_zh": "请求的 URL : / skin/images/ShadowLine.png",
+        "severe_repetition": false
+      },
+      {
+        "en": "The bathroom has a large, free-standing bath, toilet and a shower.",
+        "reference_zh": "浴室里设有一个大型的独立浴缸、厕所和淋浴。",
+        "hypothesis_zh": "浴室设有淋浴、浴缸、淋浴和免费洗浴用品。",
+        "severe_repetition": false
+      },
+      {
+        "en": "At Saracen Bay Resort, every effort is made to make guests feel comfortable. To do so, the hotel provides the best in services and amenities.",
+        "reference_zh": "在皮皮岛自然度假村,一切都是为了营造宾至如归的氛围。 为此,皮皮岛自然度假村提供最优质的服务和最优良的设施。",
+        "hypothesis_zh": "为此,甲米亚精品酒店,一切都是为了营造宾至如归的氛围。 为此,甲米碧昂海滩,提供优质的服务和最优良的设施。",
+        "severe_repetition": false
+      },
+      {
+        "en": "Information Sorry, but that user does not exist.",
+        "reference_zh": "所查看的用户不存在 [点这里返回上一页]",
+        "hypothesis_zh": "对不起,您访问的网页不存在 . . .",
+        "severe_repetition": false
+      },
+      {
+        "en": "Requested URL: /ViewRead/Products/",
+        "reference_zh": "请求的 URL : / mjhs/Product-33.aspx",
+        "hypothesis_zh": "请求的 URL : / NewsShow.aspx",
+        "severe_repetition": false
+      },
+      {
+        "en": "CIRCULAR CONNECTOR, PLUG, 10-5, CABLE",
+        "reference_zh": "Amphenol Tuchel CIRCULAR CONNECTOR, RECEPTACLE, 5 POSITI",
+        "hypothesis_zh": "CIRC, CULC, CIRC, 逆变器, UL",
+        "severe_repetition": false
+      },
+      {
+        "en": "John Deere 750A John Deere Accord DA Pneumatic",
+        "reference_zh": "约翰迪尔 750A 约翰迪尔 Accord DA Pneumatic",
+        "hypothesis_zh": "Deereere Deereereereereere Deereere",
+        "severe_repetition": true
+      },
+      {
+        "en": "This villa offers airport transfer, housekeeping and ironing service.",
+        "reference_zh": "别墅还提供机场接送,家政服务和熨烫服务。",
+        "hypothesis_zh": "别墅提供机场接送,家政服务和熨烫服务。",
+        "severe_repetition": false
+      },
+      {
+        "en": "We construct solutions aimed at improving the efficiency needs of groups, organizations and individuals by placing them at the center of all the digital opportunities.",
+        "reference_zh": "我们将它们放置在所有的数字机会中心的建设旨在提高团体,组织和个人的需要效率的解决方案。",
+        "hypothesis_zh": "我们为中心,旨在提高整个效率,并利用各种组织和解决方案。",
+        "severe_repetition": false
+      },
+      {
+        "en": "\"Yes, I just don't know where to start.",
+        "reference_zh": "不得不说,我真不知道你到底把它们藏在哪里了 。 」",
+        "hypothesis_zh": "“我不知道,我真的不知道啊,只能不知道该怎么说。",
+        "severe_repetition": false
+      },
+      {
+        "en": "Questions? Get answers from Umgawa Legendary Adventures staff and past visitors.",
+        "reference_zh": "您可以从Umgawa Legendary Adventures的工作人员及之前的访客获得解答。",
+        "hypothesis_zh": "您可以从 坦桑尼亚的经历了从2010年开始。",
+        "severe_repetition": false
+      },
+      {
+        "en": "Aeropuerto Internacional Comandante Armando Tola (Airport - 20.0KM, 30 min)",
+        "reference_zh": "Aeropuerto Internacional Comandante Armando Tola (机场 - 20.0KM, 30 min)",
+        "hypothesis_zh": " ⁇ 火金三角洲 -  ⁇ 火 ⁇ ,  ⁇ 罗 ⁇  (Manduomo)",
+        "severe_repetition": false
+      }
+    ]
+  },
+  "gates": {
+    "G1_nll_gain_at_31250_at_least_0_08": true,
+    "G2_nonroot_route_growth": false,
+    "G3_final_root_to_full_gain_at_least_0_10": false,
+    "G4_final_postfold_address_damage_at_least_0_10": false,
+    "G5_final_prefold_mirror_damage_at_least_0_10": true,
+    "E1_finite_final_nll": true,
+    "E2_generation_nonempty": true
+  },
+  "checkpoints": [
+    {
+      "path": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory/checkpoints/growth_step15625.pt",
+      "bytes": 603246505,
+      "sha256": "48fab66c9db3151840a40f47712542be91b86e72e4ab4f061ff22002e7436aa2"
+    },
+    {
+      "path": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory/checkpoints/growth_step31250.pt",
+      "bytes": 603246505,
+      "sha256": "5fb125cf2bb1bd86709c5cfce96591c424800d26c1e0a7025402d71153cbcae8"
+    },
+    {
+      "path": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory/checkpoints/growth_step46875.pt",
+      "bytes": 603246505,
+      "sha256": "ddf1b23684d266c80b2e965411a1d3773ed2d7cbade857cf2039b4c90291ffd7"
+    },
+    {
+      "path": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory/checkpoints/growth_step62500.pt",
+      "bytes": 603246505,
+      "sha256": "dae8e23618bb8ffda7ed00057eb452dad0c3427446ef16033ce84a11de02ccad"
+    }
+  ],
+  "boundary": "Single-seed trajectory separates recursive decoder growth from path-sensitive root compression; it does not establish stable emergence."
+}

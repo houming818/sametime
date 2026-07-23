@@ -1,7 +1,7 @@
 # STONE-1 C04: Recursive Private-Protocol Growth Trajectory
 
 Date: 2026-07-23
-Status: preregistered single-seed pilot
+Status: supported path-sensitive root compression / recursive decoder growth rejected / single seed
 Milestone: `STONE-1` (still incomplete)
 Claim: `S3-STONE1-PROTOCOL-GROWTH-C04`
 Predict: `P-S3-STONE1-PROTOCOL-GROWTH-04`
@@ -67,4 +67,54 @@ milestone. Stop immediately on non-finite gradients, GPU loss, or rising
 validation NLL across three consecutive milestones. C04 does not authorize a
 92M model and does not alter STONE-1 product thresholds.
 
-Planned evidence: `../evidence/s3_stone1_protocol_growth_trajectory/`.
+## Result
+
+The formal run completed all `62,500` updates in `12,103` seconds on the io
+RTX 3090. Gradients remained finite and peak allocated VRAM was `2.104 GiB`.
+Validation NLL improved continuously:
+
+| Update | Validation NLL | Perplexity | Non-root route mass | Root-only gain | Post-fold swap damage | Maximum pre-fold mirror damage |
+|---:|---:|---:|---:|---:|---:|---:|
+| 15,625 | 4.1879 | 65.88 | 0.0000 | 0.0000 | 0.0000 | 1.6279 |
+| 31,250 | 3.8867 | 48.75 | 0.0000 | 0.0000 | 0.0000 | 0.6018 |
+| 46,875 | 3.7331 | 41.81 | approximately 0 | 0.0000 | 0.0000 | 0.6860 |
+| 62,500 | 3.6613 | 38.91 | approximately 0 | 0.0000 | 0.0000 | 0.6747 |
+
+Final test NLL was `3.5818`, token BLEU-4 was `12.5107`, and severe
+repetition rate was `0.0275`. The output was nonempty for every evaluated
+example, but exact sentence recovery was only `0.004`; this remains far below
+the STONE-1 product target.
+
+Gates `G1` and `G5` passed. Gates `G2`, `G3`, and `G4` failed. More training
+therefore improved prediction quality but did not make the decoder read lower
+TreeHeap levels: final route mass was effectively all at root, root-only and
+full-depth NLL were equal, and swapping unfolded child addresses after root
+formation caused zero damage.
+
+The positive pre-fold intervention is the important counterpoint. Mirroring
+left/right subheaps before folding changed root formation and increased final
+validation NLL at every tested depth. Damage ranged from `0.1106` to `0.6747`
+NLL, with the largest damage at fold depth 4. Forcing the fixed algebraic codec
+also caused `+1.3456` NLL damage. The learned root is therefore not a
+bag-of-tokens shortcut: its state depends on ordered recursive folding and on
+the learned codec.
+
+## Decision
+
+The simple hypothesis "the decoder reads only root because 15,625 updates were
+insufficient" is rejected under this training contract. The supported
+single-seed interpretation is:
+
+```text
+ordered leaves
+  -> path-sensitive recursive fold
+  -> compressed root state
+  -> root-only surface decoder
+```
+
+This is a real TreeHeap encoder-path effect, but it is not yet the intended
+recursive encoder-decoder private protocol. C04 does not show that root gives a
+coarse outline while deeper levels add detail, does not establish stable
+emergence across seeds, and does not complete STONE-1.
+
+Evidence: `../evidence/s3_stone1_protocol_growth_trajectory/`.
