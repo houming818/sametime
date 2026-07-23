@@ -71,6 +71,10 @@ class PulseDecoder(prior.RecursiveDecoder):
         return contexts
 
     def read(self, hidden: torch.Tensor, levels, masks, route_mode: str = "native"):
+        if len(levels) != self.depths:
+            raise ValueError(
+                f"decoder expected {self.depths} visible levels, got {len(levels)}"
+            )
         if route_mode == "uniform_depth":
             contexts = self._contexts(hidden, levels, masks)
             weights = hidden.new_full((len(contexts),), 1.0 / len(contexts))
@@ -169,7 +173,7 @@ def load_model(args, vocab: int, pad: int):
 
 def forced_depth_vector(model, loader, args, pad, bos, eos, sp):
     rows = []
-    for depth in range(model.encoder.depths + 1):
+    for depth in range(model.encoder.depths):
         score = c05.evaluate(
             model, loader, args, pad, bos, eos, sp, f"force_depth_{depth}",
         )
@@ -190,7 +194,7 @@ def gradient_cosine_diagnostic(
     ]
     vectors = []
     model.train()
-    for depth in range(model.encoder.depths + 1):
+    for depth in range(model.encoder.depths):
         model.zero_grad(set_to_none=True)
         logits, _ = model.teacher(
             source, length, target, bos,
@@ -236,7 +240,7 @@ def train_arm(
         rows[: args.train_samples], args, pad,
         args.model_seed + args.train_samples,
     )
-    depths = model.encoder.depths + 1
+    depths = model.encoder.depths
     schedule = PulseSchedule(
         schedule_spec[0], schedule_spec[1], depths,
         args.schedule_seed + sum(ord(char) for char in arm),
