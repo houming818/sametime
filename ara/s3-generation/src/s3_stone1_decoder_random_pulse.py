@@ -483,7 +483,12 @@ def main():
         ),
         "G5_branch_gradients_finite_and_nonzero": (
             primary["finite_gradients"]
-            and primary["branch_grad_nonzero_fraction"] > 0.99
+            and all(
+                fraction is not None and fraction > 0.99
+                for fraction in primary[
+                    "branch_grad_nonzero_fraction_by_depth"
+                ][2:]
+            )
         ),
         "G6_encoder_unchanged": all(
             row["encoder_unchanged"] for row in arms.values()

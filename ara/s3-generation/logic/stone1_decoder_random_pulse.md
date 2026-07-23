@@ -50,9 +50,15 @@ G1 every depth receives at least 8% of primary-arm updates
 G2 mean forced-depth validation NLL improves by at least 0.20
 G3 at least five of six depths improve by at least 0.10
 G4 final maximum forgetting on the fixed probe is at most 0.15 NLL
-G5 branch gradients are finite and nonzero whenever depth > 0
+G5 gradients are finite, and every non-degenerate branch depth (2..5)
+   receives nonzero branch gradients on every observed update
 G6 the frozen encoder checksum remains unchanged
 ```
+
+Depth 1 is reported but excluded from G5. With `heap_width=64` and source
+length capped at 32, the first root split can have only one valid half. A
+one-choice softmax is constant and correctly produces no routing gradient.
+This is a topology boundary, not a broken gradient channel.
 
 Forgetting at depth `d` is:
 
