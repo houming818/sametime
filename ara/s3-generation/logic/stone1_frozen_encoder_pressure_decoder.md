@@ -1,7 +1,7 @@
 # STONE-1 C05: Frozen-Encoder Decoder Pressure
 
 Date: 2026-07-23
-Status: preregistered single-seed mechanism probe
+Status: supported forced recursive decoder channel / single seed
 Milestone: `STONE-1` (still incomplete)
 Claim: `S3-STONE1-FROZEN-PRESSURE-C05`
 Predict: `P-S3-STONE1-FROZEN-PRESSURE-05`
@@ -71,3 +71,38 @@ passed, but usefulness did not; the formal equal-budget run remains necessary.
 
 Smoke evidence:
 `../evidence/s3_stone1_frozen_encoder_pressure_decoder_smoke/`.
+
+## Formal Result
+
+The equal-budget formal run completed in `3,987` seconds with peak allocated
+VRAM `1.669 GiB`. All five registered gates passed.
+
+| Arm | Initial valid NLL | Final valid NLL | Test NLL | BLEU-4 | Severe repetition |
+|---|---:|---:|---:|---:|---:|
+| Root control | 3.6613 | 3.5875 | 3.5149 | 13.5999 | 0.0260 |
+| Leaf pressure | 4.6301 | **3.5496** | **3.4636** | **13.9564** | **0.0195** |
+
+The forced recursive arm improved validation NLL by `1.0805` and finished
+`0.0513` test NLL better than the equal-update root control. Its shared branch
+kernel received nonzero gradient in every observed update. Encoder checksums
+were identical before and after both arms.
+
+Frozen-detail shuffle damage was:
+
+| Fold depth | NLL damage |
+|---:|---:|
+| 0 | 0.0000 |
+| 1 | 0.0942 |
+| 2 | 0.1633 |
+| 3 | 0.5632 |
+| 4 | 0.6909 |
+| 5 | 0.0826 |
+
+This supports a trainable downward decoder channel over frozen TreeHeap state.
+It also locates substantial causal information in intermediate detail levels.
+It does not show that route depth emerges without intervention: the pressure
+arm was forced to traverse every visible level. One seed is insufficient for a
+stable product claim, and STONE-1 remains incomplete.
+
+Formal evidence:
+`../evidence/s3_stone1_frozen_encoder_pressure_decoder/`.
