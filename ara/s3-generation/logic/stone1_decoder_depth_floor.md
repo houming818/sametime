@@ -56,3 +56,14 @@ does not show that the floor can be removed, that the route is stable across
 seeds, or that end-to-end encoder-decoder training avoids parameter freedom.
 
 Planned evidence: `../evidence/s3_stone1_decoder_depth_floor/`.
+
+## Smoke Result
+
+The 200-update-per-arm smoke completed in `124.4` seconds with peak allocated
+VRAM `2.251 GiB`. The depth-floor route was
+`[0.3712, 0.3585, 0.0676, 0.0675, 0.0675, 0.0676]`: it neither collapsed to
+root nor remained uniform. Five of six gates passed. The only failed smoke gate
+was detail causality, whose maximum shuffle damage was `0.0800` rather than
+`0.10`. The registered threshold is unchanged for the formal run.
+
+Smoke evidence: `../evidence/s3_stone1_decoder_depth_floor_smoke/`.
