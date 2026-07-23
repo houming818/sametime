@@ -1,0 +1,562 @@
+{
+  "experiment_id": "s3_stone1_frozen_encoder_pressure_decoder",
+  "claim": "S3-STONE1-FROZEN-PRESSURE-C05",
+  "predict": "P-S3-STONE1-FROZEN-PRESSURE-05",
+  "status": "forced_recursive_channel_supported_single_seed",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "bbd6eca",
+  "seconds": 66.54127287864685,
+  "platform_checks": {
+    "tokenizer_sha256": true
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 100000,
+        "eligible": 57887,
+        "selected": 4352,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 200000,
+        "eligible": 115513,
+        "selected": 8448,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        4096
+      ],
+      "train_sha256": {
+        "4096": "b46c78744916390438a3eccdb0893337dc7dfac18c3cd5071aedfd1f39ae0d5c"
+      },
+      "validation_rows": 128,
+      "validation_sha256": "df4ba5413def0e343f08dadab01ca0f3026ba4d4c403a28eec8aaf4a024c5e17",
+      "test_rows": 128,
+      "test_sha256": "69c6ab15ca2c0b452d02311970c271f927cd3baae470ff40dbba490abae39a10"
+    },
+    "leakage_control": {
+      "train_rows_unique": 4096,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "source_checkpoint": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory/checkpoints/growth_step62500.pt",
+  "arms": {
+    "root_control": {
+      "arm": "root_control",
+      "route_mode": "force_root",
+      "initial_valid": {
+        "nll": 3.416309207664459,
+        "ppl": 30.4567976099664,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "final_valid": {
+        "nll": 3.8332588596626627,
+        "ppl": 46.212894443851816,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "final_test": {
+        "nll": 3.858309856463984,
+        "ppl": 47.38519586828423,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.0234375,
+        "token_bleu4": 8.20004418263519,
+        "examples": [
+          {
+            "en": "See how care and education bring healthy smiles to millions of children in 80 countries.",
+            "reference_zh": "了解关爱和教育如何将健康的微笑带给80个国家的数百万儿童。",
+            "hypothesis_zh": "了解如何跨境的儿童和教育安全国家。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Billund Airport (BLL) 1 km",
+            "reference_zh": "鹿特丹机场 (RTM) 1 km",
+            "hypothesis_zh": "乔治敦 ( 1 km)",
+            "severe_repetition": false
+          },
+          {
+            "en": "The Prophet (blessings and peace of Allah be upon him) said: \"There should be neither harming nor reciprocating harm.\"",
+            "reference_zh": "先知(愿主福安之)说 : \" 不能伤害别人,也不能伤害自己 。 \"",
+            "hypothesis_zh": "既不诚实又虔诚,也不可伤害他,也不可伤害他。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Upon termination, you must destroy all materials obtained from this Website and all copies thereof, whether made under the terms of these Terms of Use or otherwise.",
+            "reference_zh": "条款终止时,您必须销毁所有从本网站取得的资料以及所有相关的拷贝,无论这些资料或拷贝是否是根据这些使用条款的规定或其他规定制作的。",
+            "hypothesis_zh": "您必须接受这些使用条款,如果您受其约束,本声明将全部全部全部纳入本协议的约束。",
+            "severe_repetition": false
+          },
+          {
+            "en": "The software has a very good user interface and helps to recover different types of files in less time span.",
+            "reference_zh": "该软件具有非常良好的用户界面,并帮助恢复在更短的时间跨度不同类型的文件.",
+            "hypothesis_zh": "该软件具有良好的软件,并让用户更快速地恢复了良好的内容。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Check availability Map Quick description Situated less than 1 km from Museum of Modern Art in New York, Apartment Manhattan Residence.22 offers accommodation with a kitchenette.",
+            "reference_zh": "简单描述 Aparthotel Manhattan Residence.22公寓式酒店位于纽约,提供免费WiFi和空调,距离现代艺术博物馆(Museum of Modern Art)500米。",
+            "hypothesis_zh": "简单描述 现代化旅舍坐落于纽约(距离Carte)的旅舍,距离Cartment仅数步之遥。",
+            "severe_repetition": false
+          },
+          {
+            "en": "6 Jesus told the people this story, but they did not understand what it meant.",
+            "reference_zh": "6 耶稣把这比方告诉他们,但他们不明白他所说的是什么。",
+            "hypothesis_zh": "耶稣知道什么叫什么人,但他们不知道如何回答。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Male Dorms (with 11 beds)",
+            "reference_zh": "Male Dorms (同 11 床)",
+            "hypothesis_zh": "床, 浪漫风格",
+            "severe_repetition": false
+          },
+          {
+            "en": "Read 10 Reasons to Choose Dell EMC Data Protection for VMware",
+            "reference_zh": "人们为 VMware 环境选择 Dell EMC 数据保护的十大理由",
+            "hypothesis_zh": "阅读案例 案例分析 如何将数据提供给Cisco 10 阅读",
+            "severe_repetition": false
+          },
+          {
+            "en": "That is why most mobile positions in the field do not have application deadlines and the location given is \"Worldwide\".",
+            "reference_zh": "这就是多数一线驻外职位没有应聘截止日期且工作地点是\"全球\"的原因。",
+            "hypothesis_zh": "这是为什么我们移动的应用程序,但没有解释的职位,这是为什么不当日.",
+            "severe_repetition": false
+          },
+          {
+            "en": "PREVIOUS:Do not install solar controller can NEXT:Solar controller",
+            "reference_zh": "PREVIOUS:长海光伏太阳能发电 NEXT:船用太阳能发电",
+            "hypothesis_zh": "下一个: NIOUS PIOUS NIOUS PIOTOP",
+            "severe_repetition": false
+          },
+          {
+            "en": "This was a residential area which appears to have been developed in the first century AD and a wall added around the third century.",
+            "reference_zh": "这是它似乎在公元一世纪被开发的一个住宅区,墙壁周围添加第三个世纪。",
+            "hypothesis_zh": "这里的一个世纪初是第一个世纪,并开始于18世纪初建成。",
+            "severe_repetition": false
+          }
+        ]
+      },
+      "cross_route": {
+        "native": {
+          "nll": 3.858309856463984,
+          "ppl": 47.38519586828423,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            1.0,
+            1.3639191998038314e-08,
+            3.9626772864584034e-14,
+            4.306574695922723e-15,
+            1.5689760688580856e-15,
+            2.1952095496198185e-15
+          ]
+        },
+        "force_root": {
+          "nll": 3.858309856463984,
+          "ppl": 47.38519586828423,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "force_leaf": {
+          "nll": 5.450791714720431,
+          "ppl": 232.94251694099563,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "detail_shuffle": [
+        {
+          "depth": 0,
+          "nll": 3.858309856463984,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 1,
+          "nll": 3.858309856463984,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 2,
+          "nll": 3.858309856463984,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 3,
+          "nll": 3.858309856463984,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 4,
+          "nll": 3.858309856463984,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 5,
+          "nll": 3.858309856463984,
+          "damage_nll": 0.0
+        }
+      ],
+      "max_detail_shuffle_damage_nll": 0.0,
+      "branch_grad_nonzero_fraction": 0.0,
+      "branch_grad_observations": 200,
+      "finite_gradients": true,
+      "encoder_digest_before": "f14529d9f5a8c61fa7ef17e5e2402b39b645714cf39d1eb29e1ebb3f291a070a",
+      "encoder_digest_after": "f14529d9f5a8c61fa7ef17e5e2402b39b645714cf39d1eb29e1ebb3f291a070a",
+      "encoder_unchanged": true,
+      "trace": [
+        {
+          "arm": "root_control",
+          "step": 100,
+          "train_nll_window": 2.862435989379883,
+          "valid_nll": 3.5588996109536373,
+          "route_mass_by_level": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "branch_grad_nonzero_fraction": 0.0,
+          "elapsed_sec": 12.531331777572632
+        },
+        {
+          "arm": "root_control",
+          "step": 200,
+          "train_nll_window": 1.4321254628896714,
+          "valid_nll": 3.8332588596626627,
+          "route_mass_by_level": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "branch_grad_nonzero_fraction": 0.0,
+          "elapsed_sec": 24.684855699539185
+        }
+      ],
+      "seconds": 27.0062575340271,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone1_frozen_encoder_pressure_decoder_smoke/checkpoints/decoder_root_control.pt",
+        "bytes": 156825789,
+        "sha256": "9b8dcab691912b9f5f3dbdca5977ae72fee0bf8cee6e64893b157337cdc18009"
+      }
+    },
+    "leaf_pressure": {
+      "arm": "leaf_pressure",
+      "route_mode": "force_leaf",
+      "initial_valid": {
+        "nll": 4.51871277047317,
+        "ppl": 91.71746053613946,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "final_valid": {
+        "nll": 4.210434528654019,
+        "ppl": 67.3858145165884,
+        "tokens": 2227,
+        "route_mass_by_level": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "final_test": {
+        "nll": 4.214865026817474,
+        "ppl": 67.68502959051612,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.015625,
+        "token_bleu4": 7.683221573087733,
+        "examples": [
+          {
+            "en": "See how care and education bring healthy smiles to millions of children in 80 countries.",
+            "reference_zh": "了解关爱和教育如何将健康的微笑带给80个国家的数百万儿童。",
+            "hypothesis_zh": "发展中国家和健康的孩子,在儿童和教育方面。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Billund Airport (BLL) 1 km",
+            "reference_zh": "鹿特丹机场 (RTM) 1 km",
+            "hypothesis_zh": "离Lex Airport (Life) 1 km",
+            "severe_repetition": false
+          },
+          {
+            "en": "The Prophet (blessings and peace of Allah be upon him) said: \"There should be neither harming nor reciprocating harm.\"",
+            "reference_zh": "先知(愿主福安之)说 : \" 不能伤害别人,也不能伤害自己 。 \"",
+            "hypothesis_zh": "先知和虔诚的使者说 : \" 你们是平安无耻的。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Upon termination, you must destroy all materials obtained from this Website and all copies thereof, whether made under the terms of these Terms of Use or otherwise.",
+            "reference_zh": "条款终止时,您必须销毁所有从本网站取得的资料以及所有相关的拷贝,无论这些资料或拷贝是否是根据这些使用条款的规定或其他规定制作的。",
+            "hypothesis_zh": "声明本网站的所有权,必须通过本站点的所有内容,且必须使用本软件。",
+            "severe_repetition": false
+          },
+          {
+            "en": "The software has a very good user interface and helps to recover different types of files in less time span.",
+            "reference_zh": "该软件具有非常良好的用户界面,并帮助恢复在更短的时间跨度不同类型的文件.",
+            "hypothesis_zh": "界面有不同的用户,并有助于用户对用户进行更精准的应用程序,并具有非常好的选择。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Check availability Map Quick description Situated less than 1 km from Museum of Modern Art in New York, Apartment Manhattan Residence.22 offers accommodation with a kitchenette.",
+            "reference_zh": "简单描述 Aparthotel Manhattan Residence.22公寓式酒店位于纽约,提供免费WiFi和空调,距离现代艺术博物馆(Museum of Modern Art)500米。",
+            "hypothesis_zh": "简单描述 这间现代化的客房距离美术博物馆仅2公里。",
+            "severe_repetition": false
+          },
+          {
+            "en": "6 Jesus told the people this story, but they did not understand what it meant.",
+            "reference_zh": "6 耶稣把这比方告诉他们,但他们不明白他所说的是什么。",
+            "hypothesis_zh": "告诉他们,但他们都明白,但这确实是他们。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Male Dorms (with 11 beds)",
+            "reference_zh": "Male Dorms (同 11 床)",
+            "hypothesis_zh": "床铺, 11 Male (占男性 Male)",
+            "severe_repetition": false
+          },
+          {
+            "en": "Read 10 Reasons to Choose Dell EMC Data Protection for VMware",
+            "reference_zh": "人们为 VMware 环境选择 Dell EMC 数据保护的十大理由",
+            "hypothesis_zh": "Dell EMC 数据保护解决方案 10 阅读说明,了解客户数据泄露或下载",
+            "severe_repetition": false
+          },
+          {
+            "en": "That is why most mobile positions in the field do not have application deadlines and the location given is \"Worldwide\".",
+            "reference_zh": "这就是多数一线驻外职位没有应聘截止日期且工作地点是\"全球\"的原因。",
+            "hypothesis_zh": "业界首款应用领域是移动,且可选择该领域工作的。",
+            "severe_repetition": false
+          },
+          {
+            "en": "PREVIOUS:Do not install solar controller can NEXT:Solar controller",
+            "reference_zh": "PREVIOUS:长海光伏太阳能发电 NEXT:船用太阳能发电",
+            "hypothesis_zh": "控制器: NIOUS - 控制器",
+            "severe_repetition": false
+          },
+          {
+            "en": "This was a residential area which appears to have been developed in the first century AD and a wall added around the third century.",
+            "reference_zh": "这是它似乎在公元一世纪被开发的一个住宅区,墙壁周围添加第三个世纪。",
+            "hypothesis_zh": "坐落在一个世纪初的,在北京的领域,是专门设计的。",
+            "severe_repetition": false
+          }
+        ]
+      },
+      "cross_route": {
+        "native": {
+          "nll": 3.6716444287738996,
+          "ppl": 39.31650592427625,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            1.0,
+            1.300321095243362e-08,
+            2.5054333336726325e-14,
+            2.142284178218291e-15,
+            7.058432487379676e-16,
+            8.013051324429481e-16
+          ]
+        },
+        "force_root": {
+          "nll": 3.6716444287738996,
+          "ppl": 39.31650592427625,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "force_leaf": {
+          "nll": 4.214865026817474,
+          "ppl": 67.68502959051612,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "detail_shuffle": [
+        {
+          "depth": 0,
+          "nll": 4.214865026817474,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 1,
+          "nll": 4.227908584370831,
+          "damage_nll": 0.013043557553356955
+        },
+        {
+          "depth": 2,
+          "nll": 4.250083804607604,
+          "damage_nll": 0.03521877779012961
+        },
+        {
+          "depth": 3,
+          "nll": 4.4086742545297914,
+          "damage_nll": 0.19380922771231734
+        },
+        {
+          "depth": 4,
+          "nll": 4.394866468430414,
+          "damage_nll": 0.18000144161293985
+        },
+        {
+          "depth": 5,
+          "nll": 4.221198788003002,
+          "damage_nll": 0.006333761185527642
+        }
+      ],
+      "max_detail_shuffle_damage_nll": 0.19380922771231734,
+      "branch_grad_nonzero_fraction": 1.0,
+      "branch_grad_observations": 200,
+      "finite_gradients": true,
+      "encoder_digest_before": "f14529d9f5a8c61fa7ef17e5e2402b39b645714cf39d1eb29e1ebb3f291a070a",
+      "encoder_digest_after": "f14529d9f5a8c61fa7ef17e5e2402b39b645714cf39d1eb29e1ebb3f291a070a",
+      "encoder_unchanged": true,
+      "trace": [
+        {
+          "arm": "leaf_pressure",
+          "step": 100,
+          "train_nll_window": 3.234450751543045,
+          "valid_nll": 3.9265199206471713,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 11.187810182571411
+        },
+        {
+          "arm": "leaf_pressure",
+          "step": 200,
+          "train_nll_window": 1.6181517446041107,
+          "valid_nll": 4.210434528654019,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 23.379252672195435
+        }
+      ],
+      "seconds": 25.734946966171265,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone1_frozen_encoder_pressure_decoder_smoke/checkpoints/decoder_leaf_pressure.pt",
+        "bytes": 156825809,
+        "sha256": "f59397b06cd4fa5fd59f0a88651186d678c322e682be2e4c640e2e84d4a12a63"
+      }
+    }
+  },
+  "leaf_nll_gain": 0.30827824181915187,
+  "leaf_minus_root_final_nll": 0.35655517035349016,
+  "gates": {
+    "G1_leaf_nll_gain_at_least_0_30": true,
+    "G2_leaf_branch_gradient_nonzero": true,
+    "G3_detail_shuffle_damage_at_least_0_10": true,
+    "G4_encoder_unchanged": true,
+    "G5_leaf_within_0_10_of_root_control": false
+  },
+  "boundary": "Forced depth diagnoses a trainable decoder channel; it does not show spontaneous stopping-depth learning or complete STONE-1."
+}

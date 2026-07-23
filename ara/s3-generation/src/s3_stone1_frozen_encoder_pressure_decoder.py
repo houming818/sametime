@@ -317,6 +317,8 @@ def main():
     pad, bos, eos, vocab = pieces, sp.bos_id(), sp.eos_id(), pieces + 1
     valid_loader = data_dose.make_loader(valid, args, pad, False)
     test_loader = data_dose.make_loader(test, args, pad, False)
+    if args.device.startswith("cuda"):
+        torch.cuda.reset_peak_memory_stats()
 
     arms = {}
     for arm, route_mode in ARMS.items():
@@ -366,6 +368,10 @@ def main():
         ),
         "git_commit": args.code_commit or c01.git_revision(),
         "seconds": time.time() - started,
+        "peak_vram_bytes": (
+            int(torch.cuda.max_memory_allocated())
+            if args.device.startswith("cuda") else 0
+        ),
         "platform_checks": platform_checks,
         "dataset": manifest,
         "source_checkpoint": args.c04_checkpoint,

@@ -59,3 +59,15 @@ Even a positive result does not establish spontaneous recursive emergence:
 route depth is forced, one seed is used, and the source encoder remains frozen.
 
 Planned evidence: `../evidence/s3_stone1_frozen_encoder_pressure_decoder/`.
+
+## Smoke Result
+
+The 200-update-per-arm smoke completed in `66.5` seconds. With the encoder
+checksum unchanged, mandatory recursive validation NLL improved by `0.3083`,
+the shared branch kernel had nonzero gradients in every observed update, and
+the largest frozen-detail shuffle damage was `0.1938` NLL. The recursive arm
+was still `0.3566` test NLL worse than the root control. The mechanism gates
+passed, but usefulness did not; the formal equal-budget run remains necessary.
+
+Smoke evidence:
+`../evidence/s3_stone1_frozen_encoder_pressure_decoder_smoke/`.
