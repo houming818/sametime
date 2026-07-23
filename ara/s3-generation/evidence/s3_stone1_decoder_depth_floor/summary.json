@@ -1,0 +1,2119 @@
+{
+  "experiment_id": "s3_stone1_decoder_depth_floor",
+  "claim": "S3-STONE1-DECODER-DEPTH-FLOOR-C06",
+  "predict": "P-S3-STONE1-DECODER-DEPTH-FLOOR-06",
+  "status": "bounded_pressure_learnable_depth_supported_single_seed",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "cf3b4c1",
+  "seconds": 8163.62487244606,
+  "peak_vram_bytes": 2418912768,
+  "platform_checks": {
+    "tokenizer_sha256": true,
+    "train_1m_sha256": true,
+    "validation_sha256": true,
+    "test_sha256": true
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 300000,
+        "eligible": 173313,
+        "selected": 34000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 3000000,
+        "eligible": 1734343,
+        "selected": 1034000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        30000,
+        1000000
+      ],
+      "train_sha256": {
+        "30000": "50e7a7213af49b8e0c1f7e705aa80a7caa561e2dd36b3c42b67f68cf904120be",
+        "1000000": "a4a254f3a965a20751b5b3322434876751ee3c93eae9fd89518179fd279a8fdf"
+      },
+      "validation_rows": 2000,
+      "validation_sha256": "86ac3b0fe60302b397416a6fabb8921f6890565ebb373cd04768fa72bddf6f76",
+      "test_rows": 2000,
+      "test_sha256": "b893d33aa433214f87a6c16ee357178beffb12adcde53576a5d178e2813660c0"
+    },
+    "leakage_control": {
+      "train_rows_unique": 1000000,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "source_checkpoint": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory/checkpoints/growth_step62500.pt",
+  "depth_floor": 0.02,
+  "arms": {
+    "native_control": {
+      "arm": "native_control",
+      "route_mode": "native",
+      "initial_valid": {
+        "nll": 3.6613479917698335,
+        "ppl": 38.91376296467727,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          1.0881194612011313e-08,
+          1.9618001342348867e-14,
+          1.739352299275315e-15,
+          5.1228557943896e-16,
+          5.699794286961738e-16
+        ]
+      },
+      "final_valid": {
+        "nll": 3.587818669657396,
+        "ppl": 36.15512357910324,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          1.0,
+          4.689239929689393e-08,
+          2.0390017452243114e-10,
+          3.4795787778874043e-11,
+          2.0927341456977722e-11,
+          2.8423680076272717e-11
+        ]
+      },
+      "final_test": {
+        "nll": 3.5156223714733392,
+        "ppl": 33.63685603036513,
+        "tokens": 33414,
+        "route_mass_by_level": [
+          1.0,
+          4.554452814886645e-08,
+          1.931229759444264e-10,
+          3.491544553479997e-11,
+          2.062293738558374e-11,
+          2.8985510172607754e-11
+        ],
+        "exact": 0.004,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.0335,
+        "token_bleu4": 13.482263020554273,
+        "examples": [
+          {
+            "en": "Integrated, standards-based certification labeling and reporting",
+            "reference_zh": "集成的、基于标准的认证标签和报告",
+            "hypothesis_zh": "整合、报告和认证标准",
+            "severe_repetition": false
+          },
+          {
+            "en": "详细搜索 LM2574DW-ADJR2 Datasheet(数据表) 5 Page - ON Semiconductor",
+            "reference_zh": "LM2594DADJG Datasheet(数据表) 5 Page - ON Semiconductor",
+            "hypothesis_zh": "LM25010SDX-TN3-T Datasheet(数据表) 4 Page - ON Semiconductor",
+            "severe_repetition": false
+          },
+          {
+            "en": "POWER TRANSISTORS DARLINGTON NPN SILICON",
+            "reference_zh": "Epitaxial Planar NPN Silicon Transistors",
+            "hypothesis_zh": "SILICONARLENARLING TRANSISTOR",
+            "severe_repetition": false
+          },
+          {
+            "en": "Adobe Dreamweaver CSS Grafisk design HTML Webbdesign $90 (Avg Bid)",
+            "reference_zh": "Adobe Dreamweaver CSS 平面设计 HTML 网站设计 $708 (Avg Bid)",
+            "hypothesis_zh": "Adobe InDesign 横幅设计 横幅设计 平面设计 徽标 Photoshop 海线 网站设计 $1389 (Avg Bid)",
+            "severe_repetition": false
+          },
+          {
+            "en": "Requested URL: /FixedCamera/ANF24A.aspx",
+            "reference_zh": "请求的 URL : / ProList.aspx",
+            "hypothesis_zh": "请求的 URL : / NewsShow.aspx",
+            "severe_repetition": false
+          },
+          {
+            "en": "Download XChat 2.8.9 - FileHippo.com WINDOWS MAC",
+            "reference_zh": "下载PeerBlock 1.1-下载 -FileHippo.com 广告 WINDOWS MAC",
+            "hypothesis_zh": "下载SeaMonkey 2.40 -FileHippo.com 广告 WINDOWS MAC",
+            "severe_repetition": false
+          },
+          {
+            "en": "You got to leave with root in V702?",
+            "reference_zh": "你要留下 V702 根? 答复",
+            "hypothesis_zh": "你是否会把羊根放在冰箱里?",
+            "severe_repetition": false
+          },
+          {
+            "en": "Battery Labels - Self-adhesive labels,Sticker printing,Label Printing - DongGuan Sunprint Printing Co.,Ltd English",
+            "reference_zh": "电池标签 - 不干胶标签印刷厂家,红酒标签,商标印刷厂 - 东莞赛宝伦印刷股份有限公司",
+            "hypothesis_zh": "- - 印刷印花印刷有限公司 - -印花定印刷印花 发布人 - 印刷印花 发布人:搜索次数",
+            "severe_repetition": false
+          },
+          {
+            "en": "Requested URL: /send.aspx",
+            "reference_zh": "请求的 URL : / 907/online/pricesel.aspx",
+            "hypothesis_zh": "请求的 URL : / images/index.jpg",
+            "severe_repetition": false
+          },
+          {
+            "en": "The bathroom has a large, free-standing bath, toilet and a shower.",
+            "reference_zh": "浴室里设有一个大型的独立浴缸、厕所和淋浴。",
+            "hypothesis_zh": "宽敞的浴室配有浴缸、淋浴、卫生间和免费洗浴用品。",
+            "severe_repetition": false
+          },
+          {
+            "en": "At Saracen Bay Resort, every effort is made to make guests feel comfortable. To do so, the hotel provides the best in services and amenities.",
+            "reference_zh": "在皮皮岛自然度假村,一切都是为了营造宾至如归的氛围。 为此,皮皮岛自然度假村提供最优质的服务和最优良的设施。",
+            "hypothesis_zh": "为此,瓦拉普拉别墅度假村提供最优质的服务和最优良的设施。 显示更多",
+            "severe_repetition": false
+          },
+          {
+            "en": "Information Sorry, but that user does not exist.",
+            "reference_zh": "所查看的用户不存在 [点这里返回上一页]",
+            "hypothesis_zh": "抱歉,您要访问的页面没找到!",
+            "severe_repetition": false
+          }
+        ]
+      },
+      "detail_shuffle": [
+        {
+          "depth": 0,
+          "nll": 3.5156223714733392,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 1,
+          "nll": 3.5156223714733392,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 2,
+          "nll": 3.5156223806065103,
+          "damage_nll": 9.133171108288707e-09
+        },
+        {
+          "depth": 3,
+          "nll": 3.515622369646705,
+          "damage_nll": -1.8266343992934253e-09
+        },
+        {
+          "depth": 4,
+          "nll": 3.515622355033631,
+          "damage_nll": -1.6439708261373198e-08
+        },
+        {
+          "depth": 5,
+          "nll": 3.5156223714733392,
+          "damage_nll": 0.0
+        }
+      ],
+      "max_detail_shuffle_damage_nll": 9.133171108288707e-09,
+      "branch_grad_nonzero_fraction": 1.0,
+      "finite_gradients": true,
+      "encoder_unchanged": true,
+      "trace": [
+        {
+          "arm": "native_control",
+          "step": 500,
+          "train_nll_window": 3.115168773174286,
+          "valid_nll": 3.704033395343784,
+          "route_mass_by_level": [
+            1.0,
+            5.337719599651791e-09,
+            2.2939292067432338e-14,
+            2.3834670690700598e-15,
+            7.296667915333236e-16,
+            8.229015079826174e-16
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 87.4002742767334
+        },
+        {
+          "arm": "native_control",
+          "step": 1000,
+          "train_nll_window": 3.1125830187797545,
+          "valid_nll": 3.685756035038142,
+          "route_mass_by_level": [
+            1.0,
+            1.1083887585527918e-07,
+            3.8819766628658825e-13,
+            4.1802824223002855e-14,
+            1.3106197544073255e-14,
+            1.5404911978748707e-14
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 173.94393253326416
+        },
+        {
+          "arm": "native_control",
+          "step": 1500,
+          "train_nll_window": 3.1247788968086243,
+          "valid_nll": 3.680812363662015,
+          "route_mass_by_level": [
+            1.0,
+            1.064621102386809e-08,
+            9.488717862653206e-14,
+            8.749143919658912e-15,
+            2.931046764415653e-15,
+            3.580900817702756e-15
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 260.36954736709595
+        },
+        {
+          "arm": "native_control",
+          "step": 2000,
+          "train_nll_window": 3.1237636585235595,
+          "valid_nll": 3.6810377653427166,
+          "route_mass_by_level": [
+            1.0,
+            6.618018577597695e-09,
+            1.1577082337493189e-13,
+            1.6845310140279485e-14,
+            6.935167805972257e-15,
+            1.1084431542930911e-14
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 349.5682246685028
+        },
+        {
+          "arm": "native_control",
+          "step": 2500,
+          "train_nll_window": 3.1313259325027465,
+          "valid_nll": 3.6750752517808993,
+          "route_mass_by_level": [
+            1.0,
+            7.983128824662344e-09,
+            1.3076172089565574e-13,
+            1.6888652816190487e-14,
+            6.4741612305831576e-15,
+            8.318058359615098e-15
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 436.0592243671417
+        },
+        {
+          "arm": "native_control",
+          "step": 3000,
+          "train_nll_window": 3.135602572441101,
+          "valid_nll": 3.6682586646968733,
+          "route_mass_by_level": [
+            1.0,
+            1.4021110494866207e-08,
+            2.579244868898545e-13,
+            3.308200000290244e-14,
+            1.2933846668097739e-14,
+            1.7824986753007914e-14
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 522.9761352539062
+        },
+        {
+          "arm": "native_control",
+          "step": 3500,
+          "train_nll_window": 3.15802756357193,
+          "valid_nll": 3.6676322312456753,
+          "route_mass_by_level": [
+            1.0,
+            5.112380296878882e-09,
+            1.5233315639722605e-13,
+            1.830008753312285e-14,
+            7.120518943622232e-15,
+            9.069817040962234e-15
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 610.3289752006531
+        },
+        {
+          "arm": "native_control",
+          "step": 4000,
+          "train_nll_window": 3.164530044555664,
+          "valid_nll": 3.6655751670783006,
+          "route_mass_by_level": [
+            1.0,
+            1.169049568261471e-08,
+            3.7455002749493815e-13,
+            4.69873976966656e-14,
+            1.7898077226026488e-14,
+            2.3084788610848103e-14
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 697.0828061103821
+        },
+        {
+          "arm": "native_control",
+          "step": 4500,
+          "train_nll_window": 3.172136543273926,
+          "valid_nll": 3.663288189560832,
+          "route_mass_by_level": [
+            1.0,
+            1.2820503769717106e-08,
+            4.4048814075436926e-13,
+            5.695779541374166e-14,
+            2.2544654335108875e-14,
+            2.8859777930064986e-14
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 783.7846968173981
+        },
+        {
+          "arm": "native_control",
+          "step": 5000,
+          "train_nll_window": 3.1707520990371703,
+          "valid_nll": 3.654338172291256,
+          "route_mass_by_level": [
+            1.0,
+            7.731570050850678e-09,
+            4.669955828290329e-13,
+            6.764534543407183e-14,
+            2.883318448365299e-14,
+            4.0266025241745065e-14
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 873.4178085327148
+        },
+        {
+          "arm": "native_control",
+          "step": 5500,
+          "train_nll_window": 3.1865107355117797,
+          "valid_nll": 3.647683373634887,
+          "route_mass_by_level": [
+            1.0,
+            6.708444022507365e-09,
+            5.381359962676469e-13,
+            7.784806057165722e-14,
+            3.3576840038820194e-14,
+            4.673422293686308e-14
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 959.9992215633392
+        },
+        {
+          "arm": "native_control",
+          "step": 6000,
+          "train_nll_window": 3.199066105365753,
+          "valid_nll": 3.6432876488215555,
+          "route_mass_by_level": [
+            1.0,
+            1.5594268987229043e-08,
+            1.0847983752601542e-12,
+            1.499023615739864e-13,
+            6.204037256802783e-14,
+            8.207587983821013e-14
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1046.7468061447144
+        },
+        {
+          "arm": "native_control",
+          "step": 6500,
+          "train_nll_window": 3.196915575027466,
+          "valid_nll": 3.6406600962706883,
+          "route_mass_by_level": [
+            1.0,
+            1.3444093838188564e-08,
+            1.2971656084340144e-12,
+            1.805359789615324e-13,
+            7.615098601611997e-14,
+            1.0153308722211582e-13
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1133.4455027580261
+        },
+        {
+          "arm": "native_control",
+          "step": 7000,
+          "train_nll_window": 3.195053948879242,
+          "valid_nll": 3.6323800371163673,
+          "route_mass_by_level": [
+            1.0,
+            2.610830662774788e-08,
+            2.7816269253244652e-12,
+            3.8418690429496694e-13,
+            1.6290326021722173e-13,
+            2.185046983843933e-13
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1219.8179349899292
+        },
+        {
+          "arm": "native_control",
+          "step": 7500,
+          "train_nll_window": 3.2064150733947754,
+          "valid_nll": 3.6301679364172874,
+          "route_mass_by_level": [
+            1.0,
+            1.1342356387444852e-08,
+            2.0041496674033654e-12,
+            3.0379011480875795e-13,
+            1.4639241967089045e-13,
+            2.0239686933810203e-13
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1309.23304104805
+        },
+        {
+          "arm": "native_control",
+          "step": 8000,
+          "train_nll_window": 3.2001027688980104,
+          "valid_nll": 3.6234546292864276,
+          "route_mass_by_level": [
+            1.0,
+            6.754766967986825e-09,
+            1.6928074610469968e-12,
+            2.651831933295906e-13,
+            1.26327591508206e-13,
+            1.7167319540760395e-13
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1396.0126111507416
+        },
+        {
+          "arm": "native_control",
+          "step": 8500,
+          "train_nll_window": 3.201959593296051,
+          "valid_nll": 3.62938025623256,
+          "route_mass_by_level": [
+            1.0,
+            8.704872378473283e-09,
+            2.4891050592196207e-12,
+            3.7870341628234994e-13,
+            1.7629632833877223e-13,
+            2.424044309463219e-13
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1482.6793229579926
+        },
+        {
+          "arm": "native_control",
+          "step": 9000,
+          "train_nll_window": 3.210803644180298,
+          "valid_nll": 3.6241142915407636,
+          "route_mass_by_level": [
+            1.0,
+            2.180313174449111e-08,
+            6.442445101700889e-12,
+            9.253484480400975e-13,
+            4.1571604557193165e-13,
+            5.432875828902117e-13
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1569.6971797943115
+        },
+        {
+          "arm": "native_control",
+          "step": 9500,
+          "train_nll_window": 3.2223594069480894,
+          "valid_nll": 3.625110048375379,
+          "route_mass_by_level": [
+            1.0,
+            1.1579205150269445e-08,
+            5.250058634359567e-12,
+            7.86670262351713e-13,
+            3.7558703976786623e-13,
+            4.873195488634685e-13
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1656.7358264923096
+        },
+        {
+          "arm": "native_control",
+          "step": 10000,
+          "train_nll_window": 3.213784703731537,
+          "valid_nll": 3.6229678702887376,
+          "route_mass_by_level": [
+            1.0,
+            3.451756214190027e-08,
+            1.6776299099907632e-11,
+            2.5408609678062577e-12,
+            1.2692557508492408e-12,
+            1.79599304178657e-12
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1746.2328016757965
+        },
+        {
+          "arm": "native_control",
+          "step": 10500,
+          "train_nll_window": 3.226989411830902,
+          "valid_nll": 3.6188421276646503,
+          "route_mass_by_level": [
+            1.0,
+            1.686609074624812e-08,
+            1.0931832696015054e-11,
+            1.6525961371929854e-12,
+            8.314582204162202e-13,
+            1.0979590717510868e-12
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1832.6436443328857
+        },
+        {
+          "arm": "native_control",
+          "step": 11000,
+          "train_nll_window": 3.2307627782821657,
+          "valid_nll": 3.6100228478136094,
+          "route_mass_by_level": [
+            1.0,
+            1.8670002432941146e-08,
+            1.4072370872753037e-11,
+            2.133881829916029e-12,
+            1.0716361608861802e-12,
+            1.4211248280590616e-12
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1919.3639965057373
+        },
+        {
+          "arm": "native_control",
+          "step": 11500,
+          "train_nll_window": 3.236913001537323,
+          "valid_nll": 3.607998501971517,
+          "route_mass_by_level": [
+            1.0,
+            1.791125470163024e-08,
+            1.8371484888923817e-11,
+            2.911959519000251e-12,
+            1.5410453945916003e-12,
+            2.1345163050273674e-12
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2006.0637729167938
+        },
+        {
+          "arm": "native_control",
+          "step": 12000,
+          "train_nll_window": 3.2328741335868836,
+          "valid_nll": 3.607776275169276,
+          "route_mass_by_level": [
+            1.0,
+            3.3979443259113395e-08,
+            3.6099147976420554e-11,
+            5.5520288887167535e-12,
+            2.8461709985355688e-12,
+            3.743711070314237e-12
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2092.9617574214935
+        },
+        {
+          "arm": "native_control",
+          "step": 12500,
+          "train_nll_window": 3.2296006116867066,
+          "valid_nll": 3.596261767726494,
+          "route_mass_by_level": [
+            1.0,
+            2.8145757724473697e-08,
+            3.5588042929246555e-11,
+            5.437354125975569e-12,
+            2.877948964211119e-12,
+            3.73010173096433e-12
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2182.2074677944183
+        },
+        {
+          "arm": "native_control",
+          "step": 13000,
+          "train_nll_window": 3.254540560245514,
+          "valid_nll": 3.5949912103792796,
+          "route_mass_by_level": [
+            1.0,
+            1.4665924474854819e-08,
+            2.6499481428632343e-11,
+            4.1196898323270226e-12,
+            2.2731142055448794e-12,
+            2.969963251026053e-12
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2269.2906341552734
+        },
+        {
+          "arm": "native_control",
+          "step": 13500,
+          "train_nll_window": 3.228492398738861,
+          "valid_nll": 3.5956869457899843,
+          "route_mass_by_level": [
+            1.0,
+            6.054112589026772e-08,
+            9.555000540784064e-11,
+            1.47434859459894e-11,
+            7.756577498352346e-12,
+            1.0139786579821397e-11
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2356.613499403
+        },
+        {
+          "arm": "native_control",
+          "step": 14000,
+          "train_nll_window": 3.238985987663269,
+          "valid_nll": 3.593650317263089,
+          "route_mass_by_level": [
+            1.0,
+            3.037491680402127e-08,
+            5.938955577322602e-11,
+            9.4954027279881e-12,
+            5.1262952216468705e-12,
+            6.6723163452686585e-12
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2443.323366165161
+        },
+        {
+          "arm": "native_control",
+          "step": 14500,
+          "train_nll_window": 3.226246955394745,
+          "valid_nll": 3.588530562243101,
+          "route_mass_by_level": [
+            1.0,
+            3.99133348594205e-08,
+            8.942183798987813e-11,
+            1.4511818829943124e-11,
+            7.950248098742563e-12,
+            1.0480622446296106e-11
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2530.429263830185
+        },
+        {
+          "arm": "native_control",
+          "step": 15000,
+          "train_nll_window": 3.2456295833587645,
+          "valid_nll": 3.5908910448992524,
+          "route_mass_by_level": [
+            1.0,
+            2.9520403899141456e-08,
+            8.657117384069934e-11,
+            1.4023272126850728e-11,
+            7.905441926081558e-12,
+            1.019251870404414e-11
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2619.01372218132
+        },
+        {
+          "arm": "native_control",
+          "step": 15500,
+          "train_nll_window": 3.2355619359016417,
+          "valid_nll": 3.5877336989657294,
+          "route_mass_by_level": [
+            1.0,
+            3.56510341248395e-08,
+            1.4523240943198346e-10,
+            2.4693117342544646e-11,
+            1.4898176442512678e-11,
+            2.0227541863704346e-11
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2705.496511697769
+        },
+        {
+          "arm": "native_control",
+          "step": 15625,
+          "train_nll_window": 3.2181114959716797,
+          "valid_nll": 3.587818669657396,
+          "route_mass_by_level": [
+            1.0,
+            4.689239929689393e-08,
+            2.0390017452243114e-10,
+            3.4795787778874043e-11,
+            2.0927341456977722e-11,
+            2.8423680076272717e-11
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2729.2495992183685
+        }
+      ],
+      "seconds": 2750.542094707489,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone1_decoder_depth_floor/checkpoints/decoder_native_control.pt",
+        "bytes": 156825893,
+        "sha256": "425d8bbbb59d0b32d50e4ddb547b8ef4e1dc67fe21a170b8fde454e6f14f5e2f"
+      }
+    },
+    "leaf_reference": {
+      "arm": "leaf_reference",
+      "route_mode": "force_leaf",
+      "initial_valid": {
+        "nll": 4.630066316435277,
+        "ppl": 102.5208627032178,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "final_valid": {
+        "nll": 3.549557480335365,
+        "ppl": 34.79791531815535,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "final_test": {
+        "nll": 3.4635921347438807,
+        "ppl": 31.931472901559633,
+        "tokens": 33414,
+        "route_mass_by_level": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "exact": 0.0065,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.0195,
+        "token_bleu4": 13.95642270799582,
+        "examples": [
+          {
+            "en": "Integrated, standards-based certification labeling and reporting",
+            "reference_zh": "集成的、基于标准的认证标签和报告",
+            "hypothesis_zh": "集成认证的标准、报告和报告",
+            "severe_repetition": false
+          },
+          {
+            "en": "详细搜索 LM2574DW-ADJR2 Datasheet(数据表) 5 Page - ON Semiconductor",
+            "reference_zh": "LM2594DADJG Datasheet(数据表) 5 Page - ON Semiconductor",
+            "hypothesis_zh": "LM25010SD Datasheet(数据表) 8 Page - National Semiconductor (TI)",
+            "severe_repetition": false
+          },
+          {
+            "en": "POWER TRANSISTORS DARLINGTON NPN SILICON",
+            "reference_zh": "Epitaxial Planar NPN Silicon Transistors",
+            "hypothesis_zh": "SILICON NPN EPITAXIAL TRANSISTORS",
+            "severe_repetition": false
+          },
+          {
+            "en": "Adobe Dreamweaver CSS Grafisk design HTML Webbdesign $90 (Avg Bid)",
+            "reference_zh": "Adobe Dreamweaver CSS 平面设计 HTML 网站设计 $708 (Avg Bid)",
+            "hypothesis_zh": "Adobe Dreamweaver CSS 平面设计 HTML 网站设计 $166 (Avg Bid)",
+            "severe_repetition": false
+          },
+          {
+            "en": "Requested URL: /FixedCamera/ANF24A.aspx",
+            "reference_zh": "请求的 URL : / ProList.aspx",
+            "hypothesis_zh": "请求的 URL : / cixijian/index.aspx",
+            "severe_repetition": false
+          },
+          {
+            "en": "Download XChat 2.8.9 - FileHippo.com WINDOWS MAC",
+            "reference_zh": "下载PeerBlock 1.1-下载 -FileHippo.com 广告 WINDOWS MAC",
+            "hypothesis_zh": "下载Telegram 1.0.14 -FileHippo.com WINDOWS MAC",
+            "severe_repetition": false
+          },
+          {
+            "en": "You got to leave with root in V702?",
+            "reference_zh": "你要留下 V702 根? 答复",
+            "hypothesis_zh": "根管,你留下了两个根源。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Battery Labels - Self-adhesive labels,Sticker printing,Label Printing - DongGuan Sunprint Printing Co.,Ltd English",
+            "reference_zh": "电池标签 - 不干胶标签印刷厂家,红酒标签,商标印刷厂 - 东莞赛宝伦印刷股份有限公司",
+            "hypothesis_zh": "印刷标签 - 印刷标签,LG,LG,印刷,印花印刷厂",
+            "severe_repetition": false
+          },
+          {
+            "en": "Requested URL: /send.aspx",
+            "reference_zh": "请求的 URL : / 907/online/pricesel.aspx",
+            "hypothesis_zh": "请求的 URL : / newInfo.aspx",
+            "severe_repetition": false
+          },
+          {
+            "en": "The bathroom has a large, free-standing bath, toilet and a shower.",
+            "reference_zh": "浴室里设有一个大型的独立浴缸、厕所和淋浴。",
+            "hypothesis_zh": "宽敞的浴室,厕所,淋浴间,厕所和卫生间淋浴间。",
+            "severe_repetition": false
+          },
+          {
+            "en": "At Saracen Bay Resort, every effort is made to make guests feel comfortable. To do so, the hotel provides the best in services and amenities.",
+            "reference_zh": "在皮皮岛自然度假村,一切都是为了营造宾至如归的氛围。 为此,皮皮岛自然度假村提供最优质的服务和最优良的设施。",
+            "hypothesis_zh": " ⁇ 湾度假村酒店成为优质贴心的服务和方便实用的设施,赢得了客人的普遍好评。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Information Sorry, but that user does not exist.",
+            "reference_zh": "所查看的用户不存在 [点这里返回上一页]",
+            "hypothesis_zh": "抱歉,您要访问的页面没找到!",
+            "severe_repetition": false
+          }
+        ]
+      },
+      "detail_shuffle": [
+        {
+          "depth": 0,
+          "nll": 3.4635921347438807,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 1,
+          "nll": 3.557779699494411,
+          "damage_nll": 0.09418756475053014
+        },
+        {
+          "depth": 2,
+          "nll": 3.6269190473117554,
+          "damage_nll": 0.16332691256787468
+        },
+        {
+          "depth": 3,
+          "nll": 4.026747390455722,
+          "damage_nll": 0.5631552557118416
+        },
+        {
+          "depth": 4,
+          "nll": 4.154476835004601,
+          "damage_nll": 0.6908847002607206
+        },
+        {
+          "depth": 5,
+          "nll": 3.5461639077329346,
+          "damage_nll": 0.08257177298905383
+        }
+      ],
+      "max_detail_shuffle_damage_nll": 0.6908847002607206,
+      "branch_grad_nonzero_fraction": 1.0,
+      "finite_gradients": true,
+      "encoder_unchanged": true,
+      "trace": [
+        {
+          "arm": "leaf_reference",
+          "step": 500,
+          "train_nll_window": 3.3893891615867613,
+          "valid_nll": 3.809771651943947,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 62.13065767288208
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 1000,
+          "train_nll_window": 3.2941160502433777,
+          "valid_nll": 3.766508607787774,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 123.67872333526611
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 1500,
+          "train_nll_window": 3.280610219478607,
+          "valid_nll": 3.7508463429043255,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 184.85367059707642
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 2000,
+          "train_nll_window": 3.266147800922394,
+          "valid_nll": 3.7352322282019053,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 245.04336261749268
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 2500,
+          "train_nll_window": 3.2667476139068605,
+          "valid_nll": 3.720714019478836,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 304.94629526138306
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 3000,
+          "train_nll_window": 3.264040407180786,
+          "valid_nll": 3.7034022684343175,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 365.37205147743225
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 3500,
+          "train_nll_window": 3.2802434210777283,
+          "valid_nll": 3.686045182181981,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 428.7476661205292
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 4000,
+          "train_nll_window": 3.2766131496429445,
+          "valid_nll": 3.6901611173879894,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 493.70439195632935
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 4500,
+          "train_nll_window": 3.280709325313568,
+          "valid_nll": 3.6793859232712562,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 554.0936071872711
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 5000,
+          "train_nll_window": 3.2724856715202333,
+          "valid_nll": 3.6658248201296386,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 616.1805191040039
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 5500,
+          "train_nll_window": 3.2861585884094238,
+          "valid_nll": 3.6552249457762342,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 678.485062122345
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 6000,
+          "train_nll_window": 3.2962615485191344,
+          "valid_nll": 3.6545367720482953,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 740.9165346622467
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 6500,
+          "train_nll_window": 3.2847399406433104,
+          "valid_nll": 3.6384961604426462,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 803.9210138320923
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 7000,
+          "train_nll_window": 3.2822863450050352,
+          "valid_nll": 3.6362140746985845,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 866.4016945362091
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 7500,
+          "train_nll_window": 3.288612168312073,
+          "valid_nll": 3.629126460598337,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 929.8974030017853
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 8000,
+          "train_nll_window": 3.2791904315948486,
+          "valid_nll": 3.6186327178963342,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 992.9768488407135
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 8500,
+          "train_nll_window": 3.278431875705719,
+          "valid_nll": 3.62034762785421,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1054.7592780590057
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 9000,
+          "train_nll_window": 3.2823672785758973,
+          "valid_nll": 3.613096673693976,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1118.8939912319183
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 9500,
+          "train_nll_window": 3.2891676111221315,
+          "valid_nll": 3.609944799789263,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1182.0526745319366
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 10000,
+          "train_nll_window": 3.277852274417877,
+          "valid_nll": 3.6016401936278495,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1244.1035091876984
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 10500,
+          "train_nll_window": 3.2920962324142455,
+          "valid_nll": 3.5991609367302435,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1307.520024061203
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 11000,
+          "train_nll_window": 3.291605146408081,
+          "valid_nll": 3.586853220150134,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1370.2890417575836
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 11500,
+          "train_nll_window": 3.2924097123146057,
+          "valid_nll": 3.5876734882863035,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1429.6555981636047
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 12000,
+          "train_nll_window": 3.286638237953186,
+          "valid_nll": 3.579496283074852,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1492.9938836097717
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 12500,
+          "train_nll_window": 3.284214853286743,
+          "valid_nll": 3.5699003827805345,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1555.0524003505707
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 13000,
+          "train_nll_window": 3.3051661367416383,
+          "valid_nll": 3.5643174297030127,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1615.64000415802
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 13500,
+          "train_nll_window": 3.277108711719513,
+          "valid_nll": 3.5609471814512412,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1676.7356555461884
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 14000,
+          "train_nll_window": 3.2851539878845215,
+          "valid_nll": 3.5510108934211555,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1738.1973540782928
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 14500,
+          "train_nll_window": 3.272037098407745,
+          "valid_nll": 3.5589631009271865,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1802.7368779182434
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 15000,
+          "train_nll_window": 3.2919602637290954,
+          "valid_nll": 3.55035943186503,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1864.621332168579
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 15500,
+          "train_nll_window": 3.28171062040329,
+          "valid_nll": 3.549289226058574,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1926.2845165729523
+        },
+        {
+          "arm": "leaf_reference",
+          "step": 15625,
+          "train_nll_window": 3.257014898300171,
+          "valid_nll": 3.549557480335365,
+          "route_mass_by_level": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1943.5359599590302
+        }
+      ],
+      "seconds": 1959.199545621872,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone1_decoder_depth_floor/checkpoints/decoder_leaf_reference.pt",
+        "bytes": 156825893,
+        "sha256": "0ed3b8223a181ab503e7ae7afbd734ad530fce214e61633190ebd449c25b9a5f"
+      }
+    },
+    "depth_floor": {
+      "arm": "depth_floor",
+      "route_mode": "depth_floor",
+      "initial_valid": {
+        "nll": 3.847216012428454,
+        "ppl": 46.86241707061989,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          0.1702711582183838,
+          0.1702711582183838,
+          0.16979993879795074,
+          0.16792427003383636,
+          0.16056941449642181,
+          0.1611640304327011
+        ]
+      },
+      "final_valid": {
+        "nll": 3.5001503981609754,
+        "ppl": 33.1204328363148,
+        "tokens": 33239,
+        "route_mass_by_level": [
+          0.5446123480796814,
+          0.09108103066682816,
+          0.09107660502195358,
+          0.09107660502195358,
+          0.09107660502195358,
+          0.09107660502195358
+        ]
+      },
+      "final_test": {
+        "nll": 3.411720426119572,
+        "ppl": 30.31735819237073,
+        "tokens": 33414,
+        "route_mass_by_level": [
+          0.5446332693099976,
+          0.09107688814401627,
+          0.09107241779565811,
+          0.09107241779565811,
+          0.09107241779565811,
+          0.09107241779565811
+        ],
+        "exact": 0.0075,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.019,
+        "token_bleu4": 14.488587854997753,
+        "examples": [
+          {
+            "en": "Integrated, standards-based certification labeling and reporting",
+            "reference_zh": "集成的、基于标准的认证标签和报告",
+            "hypothesis_zh": "依据标签标准、集成和报告",
+            "severe_repetition": false
+          },
+          {
+            "en": "详细搜索 LM2574DW-ADJR2 Datasheet(数据表) 5 Page - ON Semiconductor",
+            "reference_zh": "LM2594DADJG Datasheet(数据表) 5 Page - ON Semiconductor",
+            "hypothesis_zh": "LM25010SD Datasheet(数据表) 8 Page - National Semiconductor (TI)",
+            "severe_repetition": false
+          },
+          {
+            "en": "POWER TRANSISTORS DARLINGTON NPN SILICON",
+            "reference_zh": "Epitaxial Planar NPN Silicon Transistors",
+            "hypothesis_zh": "SILICON PLAN DRLITA NPN TRANSISTOR",
+            "severe_repetition": false
+          },
+          {
+            "en": "Adobe Dreamweaver CSS Grafisk design HTML Webbdesign $90 (Avg Bid)",
+            "reference_zh": "Adobe Dreamweaver CSS 平面设计 HTML 网站设计 $708 (Avg Bid)",
+            "hypothesis_zh": "Adobe Dreamweaver CSS 平面设计 HTML 网站设计 $1365 (Avg Bid)",
+            "severe_repetition": false
+          },
+          {
+            "en": "Requested URL: /FixedCamera/ANF24A.aspx",
+            "reference_zh": "请求的 URL : / ProList.aspx",
+            "hypothesis_zh": "请求的 URL : / News/Default.aspx",
+            "severe_repetition": false
+          },
+          {
+            "en": "Download XChat 2.8.9 - FileHippo.com WINDOWS MAC",
+            "reference_zh": "下载PeerBlock 1.1-下载 -FileHippo.com 广告 WINDOWS MAC",
+            "hypothesis_zh": "下载Miranda 0.10.66 -FileHippo.com WINDOWS MAC",
+            "severe_repetition": false
+          },
+          {
+            "en": "You got to leave with root in V702?",
+            "reference_zh": "你要留下 V702 根? 答复",
+            "hypothesis_zh": "你是否会离开根源根源?",
+            "severe_repetition": false
+          },
+          {
+            "en": "Battery Labels - Self-adhesive labels,Sticker printing,Label Printing - DongGuan Sunprint Printing Co.,Ltd English",
+            "reference_zh": "电池标签 - 不干胶标签印刷厂家,红酒标签,商标印刷厂 - 东莞赛宝伦印刷股份有限公司",
+            "hypothesis_zh": "印刷 - 印刷印花 - 印刷印花 - 印刷印花 - 印刷印花印花业有限公司",
+            "severe_repetition": true
+          },
+          {
+            "en": "Requested URL: /send.aspx",
+            "reference_zh": "请求的 URL : / 907/online/pricesel.aspx",
+            "hypothesis_zh": "请求的 URL : / newshow.aspx",
+            "severe_repetition": false
+          },
+          {
+            "en": "The bathroom has a large, free-standing bath, toilet and a shower.",
+            "reference_zh": "浴室里设有一个大型的独立浴缸、厕所和淋浴。",
+            "hypothesis_zh": "宽敞的浴室配有浴缸、卫生间、淋浴和卫生间。",
+            "severe_repetition": false
+          },
+          {
+            "en": "At Saracen Bay Resort, every effort is made to make guests feel comfortable. To do so, the hotel provides the best in services and amenities.",
+            "reference_zh": "在皮皮岛自然度假村,一切都是为了营造宾至如归的氛围。 为此,皮皮岛自然度假村提供最优质的服务和最优良的设施。",
+            "hypothesis_zh": "为此,普萨克岛度假村提供最优质的服务和最优良的设施,提供优质的服务和优良的设施。",
+            "severe_repetition": false
+          },
+          {
+            "en": "Information Sorry, but that user does not exist.",
+            "reference_zh": "所查看的用户不存在 [点这里返回上一页]",
+            "hypothesis_zh": "抱歉,您要访问的页面没找到!",
+            "severe_repetition": false
+          }
+        ]
+      },
+      "detail_shuffle": [
+        {
+          "depth": 0,
+          "nll": 3.411720426119572,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 1,
+          "nll": 3.4207414565540453,
+          "damage_nll": 0.009021030434473332
+        },
+        {
+          "depth": 2,
+          "nll": 3.446729352588805,
+          "damage_nll": 0.03500892646923326
+        },
+        {
+          "depth": 3,
+          "nll": 3.523503025023194,
+          "damage_nll": 0.11178259890362208
+        },
+        {
+          "depth": 4,
+          "nll": 3.542862374128827,
+          "damage_nll": 0.13114194800925505
+        },
+        {
+          "depth": 5,
+          "nll": 3.4265492474033152,
+          "damage_nll": 0.014828821283743299
+        }
+      ],
+      "max_detail_shuffle_damage_nll": 0.13114194800925505,
+      "branch_grad_nonzero_fraction": 1.0,
+      "finite_gradients": true,
+      "encoder_unchanged": true,
+      "trace": [
+        {
+          "arm": "depth_floor",
+          "step": 500,
+          "train_nll_window": 3.1046022462844847,
+          "valid_nll": 3.654519481906256,
+          "route_mass_by_level": [
+            0.36871469020843506,
+            0.36245715618133545,
+            0.06721248477697372,
+            0.06720313429832458,
+            0.06720131635665894,
+            0.06721130758523941
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 104.57064604759216
+        },
+        {
+          "arm": "depth_floor",
+          "step": 1000,
+          "train_nll_window": 3.077647087574005,
+          "valid_nll": 3.628622137857167,
+          "route_mass_by_level": [
+            0.36871305108070374,
+            0.3625084459781647,
+            0.06719794869422913,
+            0.06719369441270828,
+            0.06719361245632172,
+            0.06719329953193665
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 209.16948294639587
+        },
+        {
+          "arm": "depth_floor",
+          "step": 1500,
+          "train_nll_window": 3.080023280620575,
+          "valid_nll": 3.6179713901620882,
+          "route_mass_by_level": [
+            0.3687222898006439,
+            0.36249998211860657,
+            0.06719443202018738,
+            0.06719443202018738,
+            0.06719443202018738,
+            0.06719443202018738
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 316.05366039276123
+        },
+        {
+          "arm": "depth_floor",
+          "step": 2000,
+          "train_nll_window": 3.0733183069229124,
+          "valid_nll": 3.608704522225633,
+          "route_mass_by_level": [
+            0.3687153160572052,
+            0.3625107407569885,
+            0.06719349324703217,
+            0.06719349324703217,
+            0.06719349324703217,
+            0.06719349324703217
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 420.4778709411621
+        },
+        {
+          "arm": "depth_floor",
+          "step": 2500,
+          "train_nll_window": 3.077283618450165,
+          "valid_nll": 3.5967897524016403,
+          "route_mass_by_level": [
+            0.5204319953918457,
+            0.12288832664489746,
+            0.08918386697769165,
+            0.08916523307561874,
+            0.08916523307561874,
+            0.08916523307561874
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 525.2084217071533
+        },
+        {
+          "arm": "depth_floor",
+          "step": 3000,
+          "train_nll_window": 3.080449915885925,
+          "valid_nll": 3.583544923344001,
+          "route_mass_by_level": [
+            0.5295084118843079,
+            0.11464910954236984,
+            0.08896060287952423,
+            0.08896060287952423,
+            0.08896060287952423,
+            0.08896060287952423
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 632.5135293006897
+        },
+        {
+          "arm": "depth_floor",
+          "step": 3500,
+          "train_nll_window": 3.1005614743232726,
+          "valid_nll": 3.5793857058591048,
+          "route_mass_by_level": [
+            0.5032401084899902,
+            0.15276338160037994,
+            0.0863722413778305,
+            0.08605505526065826,
+            0.08581719547510147,
+            0.08575188368558884
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 737.5627844333649
+        },
+        {
+          "arm": "depth_floor",
+          "step": 4000,
+          "train_nll_window": 3.1034135375022887,
+          "valid_nll": 3.579826439218496,
+          "route_mass_by_level": [
+            0.5163343548774719,
+            0.13496118783950806,
+            0.08718977868556976,
+            0.0871715322136879,
+            0.0871715322136879,
+            0.0871715322136879
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 842.1652088165283
+        },
+        {
+          "arm": "depth_floor",
+          "step": 4500,
+          "train_nll_window": 3.107812185764313,
+          "valid_nll": 3.569642811813683,
+          "route_mass_by_level": [
+            0.5246443152427673,
+            0.12217100709676743,
+            0.08829614520072937,
+            0.08829614520072937,
+            0.08829614520072937,
+            0.08829614520072937
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 949.1395063400269
+        },
+        {
+          "arm": "depth_floor",
+          "step": 5000,
+          "train_nll_window": 3.1029125652313234,
+          "valid_nll": 3.560187050544447,
+          "route_mass_by_level": [
+            0.4997812807559967,
+            0.14589735865592957,
+            0.09272351115942001,
+            0.08611826598644257,
+            0.09017428010702133,
+            0.08530525863170624
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1053.867912054062
+        },
+        {
+          "arm": "depth_floor",
+          "step": 5500,
+          "train_nll_window": 3.1192591547966004,
+          "valid_nll": 3.554719854747529,
+          "route_mass_by_level": [
+            0.5305453538894653,
+            0.11297604441642761,
+            0.08912322670221329,
+            0.08911840617656708,
+            0.08911840617656708,
+            0.08911840617656708
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1158.5451955795288
+        },
+        {
+          "arm": "depth_floor",
+          "step": 6000,
+          "train_nll_window": 3.1289858155250547,
+          "valid_nll": 3.5571187683066907,
+          "route_mass_by_level": [
+            0.5253919363021851,
+            0.12090832740068436,
+            0.08848552405834198,
+            0.0884021520614624,
+            0.08841471374034882,
+            0.0883973240852356
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1265.4256570339203
+        },
+        {
+          "arm": "depth_floor",
+          "step": 6500,
+          "train_nll_window": 3.123579960823059,
+          "valid_nll": 3.5457538382205627,
+          "route_mass_by_level": [
+            0.5317016839981079,
+            0.11129314452409744,
+            0.08925125747919083,
+            0.08925125747919083,
+            0.08925125747919083,
+            0.08925125747919083
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1369.261308670044
+        },
+        {
+          "arm": "depth_floor",
+          "step": 7000,
+          "train_nll_window": 3.1240829615592958,
+          "valid_nll": 3.5451564028495564,
+          "route_mass_by_level": [
+            0.5196537375450134,
+            0.11939053237438202,
+            0.09027272462844849,
+            0.0902232974767685,
+            0.09024334698915482,
+            0.09021627902984619
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1472.9035439491272
+        },
+        {
+          "arm": "depth_floor",
+          "step": 7500,
+          "train_nll_window": 3.134495544910431,
+          "valid_nll": 3.538414523648801,
+          "route_mass_by_level": [
+            0.5065253376960754,
+            0.1500890851020813,
+            0.08585334569215775,
+            0.0858440175652504,
+            0.08584410697221756,
+            0.0858440175652504
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1579.6503412723541
+        },
+        {
+          "arm": "depth_floor",
+          "step": 8000,
+          "train_nll_window": 3.124515468597412,
+          "valid_nll": 3.5261841811888193,
+          "route_mass_by_level": [
+            0.5297656059265137,
+            0.11426850408315659,
+            0.08899541199207306,
+            0.0889892578125,
+            0.08899189531803131,
+            0.0889892578125
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1684.1196660995483
+        },
+        {
+          "arm": "depth_floor",
+          "step": 8500,
+          "train_nll_window": 3.12640123462677,
+          "valid_nll": 3.533486774407511,
+          "route_mass_by_level": [
+            0.5376771688461304,
+            0.10197144001722336,
+            0.09008783102035522,
+            0.09008783102035522,
+            0.09008783102035522,
+            0.09008783102035522
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1787.668386220932
+        },
+        {
+          "arm": "depth_floor",
+          "step": 9000,
+          "train_nll_window": 3.1314531202316283,
+          "valid_nll": 3.5279922239752954,
+          "route_mass_by_level": [
+            0.5374173521995544,
+            0.1024676263332367,
+            0.09002875536680222,
+            0.09002875536680222,
+            0.09002875536680222,
+            0.09002875536680222
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1894.2712466716766
+        },
+        {
+          "arm": "depth_floor",
+          "step": 9500,
+          "train_nll_window": 3.1428363919258118,
+          "valid_nll": 3.523083457899723,
+          "route_mass_by_level": [
+            0.534764289855957,
+            0.1065513864159584,
+            0.0896870419383049,
+            0.08966574817895889,
+            0.08966574817895889,
+            0.08966574817895889
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 1998.2430815696716
+        },
+        {
+          "arm": "depth_floor",
+          "step": 10000,
+          "train_nll_window": 3.1350639100074766,
+          "valid_nll": 3.5223555072965866,
+          "route_mass_by_level": [
+            0.5389529466629028,
+            0.1000835970044136,
+            0.09024085849523544,
+            0.09024085849523544,
+            0.09024085849523544,
+            0.09024085849523544
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2102.780503988266
+        },
+        {
+          "arm": "depth_floor",
+          "step": 10500,
+          "train_nll_window": 3.14729882144928,
+          "valid_nll": 3.5087531582787492,
+          "route_mass_by_level": [
+            0.5136756300926208,
+            0.13732010126113892,
+            0.08852803707122803,
+            0.08681171387434006,
+            0.08685267716646194,
+            0.08681171387434006
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2209.4465625286102
+        },
+        {
+          "arm": "depth_floor",
+          "step": 11000,
+          "train_nll_window": 3.1500526790618895,
+          "valid_nll": 3.5058803192820838,
+          "route_mass_by_level": [
+            0.5362691283226013,
+            0.10415598750114441,
+            0.08989370614290237,
+            0.08989370614290237,
+            0.08989370614290237,
+            0.08989370614290237
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2313.6923859119415
+        },
+        {
+          "arm": "depth_floor",
+          "step": 11500,
+          "train_nll_window": 3.1553683938980104,
+          "valid_nll": 3.5078173660658885,
+          "route_mass_by_level": [
+            0.5381022095680237,
+            0.10115388035774231,
+            0.09018594026565552,
+            0.09018594026565552,
+            0.09018594026565552,
+            0.09018594026565552
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2417.8072214126587
+        },
+        {
+          "arm": "depth_floor",
+          "step": 12000,
+          "train_nll_window": 3.149220070838928,
+          "valid_nll": 3.496621923809028,
+          "route_mass_by_level": [
+            0.5389900207519531,
+            0.0998980849981308,
+            0.09027796983718872,
+            0.09027796983718872,
+            0.09027796983718872,
+            0.09027796983718872
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2524.0534312725067
+        },
+        {
+          "arm": "depth_floor",
+          "step": 12500,
+          "train_nll_window": 3.144987916469574,
+          "valid_nll": 3.4939786823272363,
+          "route_mass_by_level": [
+            0.5390834212303162,
+            0.09989926964044571,
+            0.09025432914495468,
+            0.09025432914495468,
+            0.09025432914495468,
+            0.09025432914495468
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2628.210038423538
+        },
+        {
+          "arm": "depth_floor",
+          "step": 13000,
+          "train_nll_window": 3.167846356868744,
+          "valid_nll": 3.4899754103184275,
+          "route_mass_by_level": [
+            0.5391238927841187,
+            0.09982794523239136,
+            0.0902620181441307,
+            0.0902620181441307,
+            0.0902620181441307,
+            0.0902620181441307
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2732.0960459709167
+        },
+        {
+          "arm": "depth_floor",
+          "step": 13500,
+          "train_nll_window": 3.1416274333000183,
+          "valid_nll": 3.4866047121850934,
+          "route_mass_by_level": [
+            0.5391010046005249,
+            0.0998632162809372,
+            0.09025892615318298,
+            0.09025892615318298,
+            0.09025892615318298,
+            0.09025892615318298
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2839.003992795944
+        },
+        {
+          "arm": "depth_floor",
+          "step": 14000,
+          "train_nll_window": 3.1536129732131957,
+          "valid_nll": 3.4852200208034048,
+          "route_mass_by_level": [
+            0.5344536900520325,
+            0.1008090153336525,
+            0.09118431061506271,
+            0.09118431061506271,
+            0.09118431061506271,
+            0.09118431061506271
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 2943.5805015563965
+        },
+        {
+          "arm": "depth_floor",
+          "step": 14500,
+          "train_nll_window": 3.1393977046012878,
+          "valid_nll": 3.489129904744685,
+          "route_mass_by_level": [
+            0.5390441417694092,
+            0.09987306594848633,
+            0.09027071297168732,
+            0.09027071297168732,
+            0.09027071297168732,
+            0.09027071297168732
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 3047.8300602436066
+        },
+        {
+          "arm": "depth_floor",
+          "step": 15000,
+          "train_nll_window": 3.1600825276374818,
+          "valid_nll": 3.4867004873792835,
+          "route_mass_by_level": [
+            0.5389464497566223,
+            0.09992965310811996,
+            0.09028097242116928,
+            0.09028097242116928,
+            0.09028097242116928,
+            0.09028097242116928
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 3153.3273413181305
+        },
+        {
+          "arm": "depth_floor",
+          "step": 15500,
+          "train_nll_window": 3.1726868505477905,
+          "valid_nll": 3.5092730873195364,
+          "route_mass_by_level": [
+            0.5443843007087708,
+            0.09134109318256378,
+            0.09106863290071487,
+            0.09106863290071487,
+            0.09106863290071487,
+            0.09106863290071487
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 3259.8240752220154
+        },
+        {
+          "arm": "depth_floor",
+          "step": 15625,
+          "train_nll_window": 3.1534694995880126,
+          "valid_nll": 3.5001503981609754,
+          "route_mass_by_level": [
+            0.5446123480796814,
+            0.09108103066682816,
+            0.09107660502195358,
+            0.09107660502195358,
+            0.09107660502195358,
+            0.09107660502195358
+          ],
+          "branch_grad_nonzero_fraction": 1.0,
+          "elapsed_sec": 3288.123779296875
+        }
+      ],
+      "seconds": 3311.145034313202,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone1_decoder_depth_floor/checkpoints/decoder_depth_floor.pt",
+        "bytes": 156825769,
+        "sha256": "289ea83f976f8c005ab68ee11588edad962d589f3f56e7365ccede457d9fcbbd"
+      }
+    }
+  },
+  "floor_minus_native_test_nll": -0.10390194535376729,
+  "floor_minus_leaf_test_nll": -0.05187170862430879,
+  "gates": {
+    "G1_floor_branch_gradient_nonzero": true,
+    "G2_every_depth_mass_at_least_0_019": true,
+    "G3_floor_within_0_10_of_native": true,
+    "G4_floor_within_0_10_of_leaf": true,
+    "G5_detail_damage_at_least_0_10": true,
+    "G6_encoder_unchanged": true
+  },
+  "boundary": "A fixed depth floor is an architectural pressure supply; passing does not show the floor can be removed or STONE-1 is complete."
+}

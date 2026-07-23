@@ -1,7 +1,7 @@
 # STONE-1 C06: Decoder Depth Floor
 
 Date: 2026-07-23
-Status: preregistered single-seed mechanism probe
+Status: supported bounded-pressure learnable-depth mechanism / single seed
 Milestone: `STONE-1` (still incomplete)
 Claim: `S3-STONE1-DECODER-DEPTH-FLOOR-C06`
 Predict: `P-S3-STONE1-DECODER-DEPTH-FLOOR-06`
@@ -67,3 +67,49 @@ was detail causality, whose maximum shuffle damage was `0.0800` rather than
 `0.10`. The registered threshold is unchanged for the formal run.
 
 Smoke evidence: `../evidence/s3_stone1_decoder_depth_floor_smoke/`.
+
+## Formal Result
+
+The formal three-arm run completed on `io` in `8163.6` seconds with peak
+allocated VRAM `2.253 GiB`. All arms used the same frozen C04 encoder, one
+million training pairs, 15,625 decoder-only updates, validation/test splits,
+optimizer settings, seed, and batch order.
+
+| Arm | Test NLL | PPL | BLEU-4 | Severe repetition | Route mass by depth |
+|---|---:|---:|---:|---:|---|
+| Native control | 3.5156 | 33.64 | 13.4823 | 3.35% | `[1, 0, 0, 0, 0, 0]` |
+| Forced leaf reference | 3.4636 | 31.93 | 13.9564 | 1.95% | `[0, 0, 0, 0, 0, 1]` |
+| Two-percent depth floor | **3.4117** | **30.32** | **14.4886** | **1.90%** | `[0.5446, 0.0911, 0.0911, 0.0911, 0.0911, 0.0911]` |
+
+The bounded-pressure arm improved test NLL by `0.1039` over the native
+root-collapse control and by `0.0519` over mandatory deepest reading. Its
+maximum detail-shuffle damage was `0.1311` NLL, versus approximately zero for
+the native root reader. Every registered gate passed:
+
+```text
+G1 branch gradients finite and nonzero                 PASS
+G2 every depth route mass >= 0.019                     PASS
+G3 within 0.10 NLL of native                           PASS (better by 0.1039)
+G4 within 0.10 NLL of forced leaf                      PASS (better by 0.0519)
+G5 at least one detail shuffle damage >= 0.10          PASS (0.1311)
+G6 frozen encoder checksums unchanged                  PASS
+```
+
+The data contract also passed: tokenizer and split hashes matched, one million
+training rows were unique, validation/test overlap was zero, and no new
+training row matched the frozen evaluation sets.
+
+## Interpretation Boundary
+
+C06 supports the following narrow statement:
+
+> A small fixed pressure supply can keep every recursive decoder level
+> trainable while the remaining probability learns a useful, non-collapsed
+> depth mixture. On this single seed, that mixture outperformed both root-only
+> and forced-leaf extremes.
+
+It does not show that the fixed floor can be removed, that the learned mixture
+is stable across seeds, or that end-to-end encoder-decoder training preserves
+the same result. STONE-1 therefore remains incomplete.
+
+Formal evidence: `../evidence/s3_stone1_decoder_depth_floor/`.
