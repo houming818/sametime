@@ -1,0 +1,819 @@
+{
+  "experiment_id": "s3_stone1_fixed_root_noise_repair",
+  "claim": "S3-STONE1-FIXED-ROOT-NOISE-REPAIR-C08",
+  "predict": "P-S3-STONE1-FIXED-ROOT-NOISE-REPAIR-08",
+  "status": "smoke_completed",
+  "host": "io",
+  "device_name": "NVIDIA GeForce RTX 3090",
+  "git_commit": "f06b997",
+  "seconds": 176.2233853340149,
+  "peak_vram_bytes": 2434660864,
+  "platform_checks": {
+    "tokenizer_sha256": true
+  },
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 100000,
+        "eligible": 57887,
+        "selected": 4352,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 200000,
+        "eligible": 115513,
+        "selected": 8448,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        4096
+      ],
+      "train_sha256": {
+        "4096": "b46c78744916390438a3eccdb0893337dc7dfac18c3cd5071aedfd1f39ae0d5c"
+      },
+      "validation_rows": 128,
+      "validation_sha256": "df4ba5413def0e343f08dadab01ca0f3026ba4d4c403a28eec8aaf4a024c5e17",
+      "test_rows": 128,
+      "test_sha256": "69c6ab15ca2c0b452d02311970c271f927cd3baae470ff40dbba490abae39a10"
+    },
+    "leakage_control": {
+      "train_rows_unique": 4096,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "source_checkpoint": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory/checkpoints/growth_step62500.pt",
+  "fixed_root_contract": {
+    "heap_width": 64,
+    "root_moved": false,
+    "encoder_frozen": true,
+    "decoder_route": "depth_floor",
+    "depth_floor": 0.02
+  },
+  "initial_valid": {
+    "clean_mask": {
+      "nll": 3.6460573755683092,
+      "ppl": 38.323273528698145,
+      "tokens": 2227,
+      "route_mass_by_level": [
+        0.1702163815498352,
+        0.1702163815498352,
+        0.16968214511871338,
+        0.16778205335140228,
+        0.16085368394851685,
+        0.16124942898750305
+      ]
+    },
+    "masked_random": {
+      "nll": 3.6460573755683092,
+      "ppl": 38.323273528698145,
+      "tokens": 2227,
+      "route_mass_by_level": [
+        0.1702163815498352,
+        0.1702163815498352,
+        0.16968214511871338,
+        0.16778205335140228,
+        0.16085368394851685,
+        0.16124942898750305
+      ]
+    },
+    "eos_tail": {
+      "nll": 5.6981233512011675,
+      "ppl": 298.3070577661745,
+      "tokens": 2227,
+      "route_mass_by_level": [
+        0.1705729365348816,
+        0.1705729365348816,
+        0.1702977418899536,
+        0.1658054143190384,
+        0.16109567880630493,
+        0.16165536642074585
+      ]
+    },
+    "random_tail": {
+      "nll": 5.255099875112259,
+      "ppl": 191.5406150395256,
+      "tokens": 2227,
+      "route_mass_by_level": [
+        0.16945719718933105,
+        0.16945719718933105,
+        0.16938161849975586,
+        0.1668437123298645,
+        0.16210894286632538,
+        0.1627514362335205
+      ]
+    }
+  },
+  "root_cosine_to_clean": {
+    "clean_mask": 1.0,
+    "masked_random": 1.0,
+    "eos_tail": 0.28312425315380096,
+    "random_tail": 0.2415742129087448
+  },
+  "arms": {
+    "clean_mask": {
+      "arm": "clean_mask",
+      "trace": [
+        {
+          "arm": "clean_mask",
+          "step": 80,
+          "train_nll_window": 3.0847316652536394,
+          "matched_valid_nll": 3.5399615557995623,
+          "route_mass_by_level": [
+            0.3846094012260437,
+            0.3374875783920288,
+            0.06950057297945023,
+            0.06944651156663895,
+            0.06942538917064667,
+            0.06953062117099762
+          ],
+          "elapsed_sec": 17.210367679595947
+        },
+        {
+          "arm": "clean_mask",
+          "step": 160,
+          "train_nll_window": 1.7548498809337616,
+          "matched_valid_nll": 3.7201127804712057,
+          "route_mass_by_level": [
+            0.3674181401729584,
+            0.3643069267272949,
+            0.06706060469150543,
+            0.06703746318817139,
+            0.06704439967870712,
+            0.06713254004716873
+          ],
+          "elapsed_sec": 34.11669397354126
+        },
+        {
+          "arm": "clean_mask",
+          "step": 240,
+          "train_nll_window": 0.9316534854471683,
+          "matched_valid_nll": 3.951054792742479,
+          "route_mass_by_level": [
+            0.368001788854599,
+            0.36339688301086426,
+            0.06719830632209778,
+            0.06710799038410187,
+            0.06711293756961823,
+            0.06718213856220245
+          ],
+          "elapsed_sec": 50.78223252296448
+        }
+      ],
+      "cross_valid": {
+        "clean_mask": {
+          "nll": 3.951054792742479,
+          "ppl": 51.99017678433353,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.368001788854599,
+            0.36339688301086426,
+            0.06719830632209778,
+            0.06710799038410187,
+            0.06711293756961823,
+            0.06718213856220245
+          ]
+        },
+        "masked_random": {
+          "nll": 3.951054792742479,
+          "ppl": 51.99017678433353,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.368001788854599,
+            0.36339688301086426,
+            0.06719830632209778,
+            0.06710799038410187,
+            0.06711293756961823,
+            0.06718213856220245
+          ]
+        },
+        "eos_tail": {
+          "nll": 5.601852793837001,
+          "ppl": 270.92791625996546,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.43355846405029297,
+            0.26250994205474854,
+            0.07598036527633667,
+            0.0759798064827919,
+            0.07598128169775009,
+            0.07599024474620819
+          ]
+        },
+        "random_tail": {
+          "nll": 6.76224868973114,
+          "ppl": 864.584193092928,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.5098888874053955,
+            0.13302356004714966,
+            0.08925141394138336,
+            0.08923589438199997,
+            0.08933921158313751,
+            0.089260995388031
+          ]
+        }
+      },
+      "cross_test": {
+        "clean_mask": {
+          "nll": 3.97231408403735,
+          "ppl": 53.1072834718939,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.37020862102508545,
+            0.3600142002105713,
+            0.06752772629261017,
+            0.0674067959189415,
+            0.06740875542163849,
+            0.0674339234828949
+          ]
+        },
+        "masked_random": {
+          "nll": 3.97231408403735,
+          "ppl": 53.1072834718939,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.37020862102508545,
+            0.3600142002105713,
+            0.06752772629261017,
+            0.0674067959189415,
+            0.06740875542163849,
+            0.0674339234828949
+          ]
+        },
+        "eos_tail": {
+          "nll": 5.587221925022232,
+          "ppl": 266.9928622834773,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.439103901386261,
+            0.2537335157394409,
+            0.07678819447755814,
+            0.07678728550672531,
+            0.07678893953561783,
+            0.07679815590381622
+          ]
+        },
+        "random_tail": {
+          "nll": 6.693105138742219,
+          "ppl": 806.8236659389231,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.5069608092308044,
+            0.1371179223060608,
+            0.08901204913854599,
+            0.08896024525165558,
+            0.08896549046039581,
+            0.08898349106311798
+          ]
+        }
+      },
+      "matched_generation": {
+        "nll": 3.97231408403735,
+        "ppl": 53.1072834718939,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.37020862102508545,
+          0.3600142002105713,
+          0.06752772629261017,
+          0.0674067959189415,
+          0.06740875542163849,
+          0.0674339234828949
+        ],
+        "token_bleu4": 8.060187373505533,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.0078125,
+        "examples": [
+          {
+            "en": "See how care and education bring healthy smiles to millions of children in 80 countries.",
+            "reference_zh": "了解关爱和教育如何将健康的微笑带给80个国家的数百万儿童。",
+            "hypothesis_zh": "了解如何利用国家/地区和教育的医疗安全问题。"
+          },
+          {
+            "en": "Billund Airport (BLL) 1 km",
+            "reference_zh": "鹿特丹机场 (RTM) 1 km",
+            "hypothesis_zh": "玛丽·机场 (Ling) 1 km"
+          },
+          {
+            "en": "The Prophet (blessings and peace of Allah be upon him) said: \"There should be neither harming nor reciprocating harm.\"",
+            "reference_zh": "先知(愿主福安之)说 : \" 不能伤害别人,也不能伤害自己 。 \"",
+            "hypothesis_zh": "(二)无辜的民众,没有任何的,都应于无耻地道歉,也不知足。"
+          },
+          {
+            "en": "Upon termination, you must destroy all materials obtained from this Website and all copies thereof, whether made under the terms of these Terms of Use or otherwise.",
+            "reference_zh": "条款终止时,您必须销毁所有从本网站取得的资料以及所有相关的拷贝,无论这些资料或拷贝是否是根据这些使用条款的规定或其他规定制作的。",
+            "hypothesis_zh": "您必须接受所有条款、经许可、接受本经许可的经销,以来的本经出售。"
+          },
+          {
+            "en": "The software has a very good user interface and helps to recover different types of files in less time span.",
+            "reference_zh": "该软件具有非常良好的用户界面,并帮助恢复在更短的时间跨度不同类型的文件.",
+            "hypothesis_zh": "该软件具有良好的软件,并让用户更快速地恢复正常工作。"
+          },
+          {
+            "en": "Check availability Map Quick description Situated less than 1 km from Museum of Modern Art in New York, Apartment Manhattan Residence.22 offers accommodation with a kitchenette.",
+            "reference_zh": "简单描述 Aparthotel Manhattan Residence.22公寓式酒店位于纽约,提供免费WiFi和空调,距离现代艺术博物馆(Museum of Modern Art)500米。",
+            "hypothesis_zh": "简单描述 这间现代化的客房坐落在一楼,距离Cley Beach(Murray)有2公里。"
+          },
+          {
+            "en": "6 Jesus told the people this story, but they did not understand what it meant.",
+            "reference_zh": "6 耶稣把这比方告诉他们,但他们不明白他所说的是什么。",
+            "hypothesis_zh": "耶稣基督是听众所议的,但这并不明白。"
+          },
+          {
+            "en": "Male Dorms (with 11 beds)",
+            "reference_zh": "Male Dorms (同 11 床)",
+            "hypothesis_zh": "床, 猫头 (宿舍 )"
+          }
+        ]
+      },
+      "finite_gradients": true,
+      "encoder_unchanged": true,
+      "seconds": 53.29627776145935,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone1_fixed_root_noise_repair_smoke/checkpoints/decoder_clean_mask.pt",
+        "bytes": 156825685,
+        "sha256": "44722a7e09477b8de4086823b6f45248806298cb21a7162363a3b077145db33a"
+      }
+    },
+    "eos_tail": {
+      "arm": "eos_tail",
+      "trace": [
+        {
+          "arm": "eos_tail",
+          "step": 80,
+          "train_nll_window": 3.6191053867340086,
+          "matched_valid_nll": 3.956624312415806,
+          "route_mass_by_level": [
+            0.17024511098861694,
+            0.17023976147174835,
+            0.16308122873306274,
+            0.16308999061584473,
+            0.16310620307922363,
+            0.17023777961730957
+          ],
+          "elapsed_sec": 16.924930572509766
+        },
+        {
+          "arm": "eos_tail",
+          "step": 160,
+          "train_nll_window": 2.073698100447655,
+          "matched_valid_nll": 4.123369399346093,
+          "route_mass_by_level": [
+            0.17025473713874817,
+            0.1702544242143631,
+            0.16305740177631378,
+            0.1630869209766388,
+            0.16309572756290436,
+            0.17025083303451538
+          ],
+          "elapsed_sec": 34.00416922569275
+        },
+        {
+          "arm": "eos_tail",
+          "step": 240,
+          "train_nll_window": 1.1793290950357913,
+          "matched_valid_nll": 4.360521265996857,
+          "route_mass_by_level": [
+            0.17022758722305298,
+            0.17022748291492462,
+            0.16309016942977905,
+            0.16310805082321167,
+            0.1631191223859787,
+            0.1702275574207306
+          ],
+          "elapsed_sec": 51.14495253562927
+        }
+      ],
+      "cross_valid": {
+        "clean_mask": {
+          "nll": 3.8335276664936013,
+          "ppl": 46.225318455310536,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.16830319166183472,
+            0.16830319166183472,
+            0.16417478024959564,
+            0.16500288248062134,
+            0.16591280698776245,
+            0.16830319166183472
+          ]
+        },
+        "masked_random": {
+          "nll": 3.8335276664936013,
+          "ppl": 46.225318455310536,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.16830319166183472,
+            0.16830319166183472,
+            0.16417478024959564,
+            0.16500288248062134,
+            0.16591280698776245,
+            0.16830319166183472
+          ]
+        },
+        "eos_tail": {
+          "nll": 4.360521265996857,
+          "ppl": 78.29793784006345,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.17022758722305298,
+            0.17022748291492462,
+            0.16309016942977905,
+            0.16310805082321167,
+            0.1631191223859787,
+            0.1702275574207306
+          ]
+        },
+        "random_tail": {
+          "nll": 5.830397141263471,
+          "ppl": 340.4938763920289,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.16936376690864563,
+            0.16936376690864563,
+            0.1630932092666626,
+            0.1633824110031128,
+            0.16543307900428772,
+            0.16936376690864563
+          ]
+        }
+      },
+      "cross_test": {
+        "clean_mask": {
+          "nll": 3.8381893688861717,
+          "ppl": 46.44131018638441,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.16835838556289673,
+            0.16835838556289673,
+            0.16381138563156128,
+            0.16500240564346313,
+            0.16611111164093018,
+            0.16835838556289673
+          ]
+        },
+        "masked_random": {
+          "nll": 3.8381893688861717,
+          "ppl": 46.44131018638441,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.16835838556289673,
+            0.16835838556289673,
+            0.16381138563156128,
+            0.16500240564346313,
+            0.16611111164093018,
+            0.16835838556289673
+          ]
+        },
+        "eos_tail": {
+          "nll": 4.367111945586927,
+          "ppl": 78.81567871895865,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.17039965093135834,
+            0.1703995168209076,
+            0.16291138529777527,
+            0.16293710470199585,
+            0.1629527062177658,
+            0.17039963603019714
+          ]
+        },
+        "random_tail": {
+          "nll": 5.794793128543241,
+          "ppl": 328.5842022578657,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.16945810616016388,
+            0.16942769289016724,
+            0.1629370003938675,
+            0.16326075792312622,
+            0.16545838117599487,
+            0.16945810616016388
+          ]
+        }
+      },
+      "matched_generation": {
+        "nll": 4.367111945586927,
+        "ppl": 78.81567871895865,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.17039965093135834,
+          0.1703995168209076,
+          0.16291138529777527,
+          0.16293710470199585,
+          0.1629527062177658,
+          0.17039963603019714
+        ],
+        "token_bleu4": 6.24915172421478,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.0234375,
+        "examples": [
+          {
+            "en": "See how care and education bring healthy smiles to millions of children in 80 countries.",
+            "reference_zh": "了解关爱和教育如何将健康的微笑带给80个国家的数百万儿童。",
+            "hypothesis_zh": "发展中国家、健康的教育和健康的孩子为80年代的教育和80年代。"
+          },
+          {
+            "en": "Billund Airport (BLL) 1 km",
+            "reference_zh": "鹿特丹机场 (RTM) 1 km",
+            "hypothesis_zh": "玛丽·阿玛尔(Linghine)"
+          },
+          {
+            "en": "The Prophet (blessings and peace of Allah be upon him) said: \"There should be neither harming nor reciprocating harm.\"",
+            "reference_zh": "先知(愿主福安之)说 : \" 不能伤害别人,也不能伤害自己 。 \"",
+            "hypothesis_zh": "先知说 : \" 哪里有平安,不要伤害你的,并不能伤害你的 。 \""
+          },
+          {
+            "en": "Upon termination, you must destroy all materials obtained from this Website and all copies thereof, whether made under the terms of these Terms of Use or otherwise.",
+            "reference_zh": "条款终止时,您必须销毁所有从本网站取得的资料以及所有相关的拷贝,无论这些资料或拷贝是否是根据这些使用条款的规定或其他规定制作的。",
+            "hypothesis_zh": "我们保留所有权利、自行决定删除、本网站或实体等方面均受这些限制的权利。"
+          },
+          {
+            "en": "The software has a very good user interface and helps to recover different types of files in less time span.",
+            "reference_zh": "该软件具有非常良好的用户界面,并帮助恢复在更短的时间跨度不同类型的文件.",
+            "hypothesis_zh": "恢复软件是一个非常好的用户和文件的用户界面,以帮助用户更快的速度."
+          },
+          {
+            "en": "Check availability Map Quick description Situated less than 1 km from Museum of Modern Art in New York, Apartment Manhattan Residence.22 offers accommodation with a kitchenette.",
+            "reference_zh": "简单描述 Aparthotel Manhattan Residence.22公寓式酒店位于纽约,提供免费WiFi和空调,距离现代艺术博物馆(Museum of Modern Art)500米。",
+            "hypothesis_zh": "简单描述 这间现代化的客房坐落在一楼,距离Caymarketing(Muran S)仅有19米,距离Corn Art Gallery仅2公里。"
+          },
+          {
+            "en": "6 Jesus told the people this story, but they did not understand what it meant.",
+            "reference_zh": "6 耶稣把这比方告诉他们,但他们不明白他所说的是什么。",
+            "hypothesis_zh": "告诉了这件事,他们都不知道,但他们已经完全理解这一事实。"
+          },
+          {
+            "en": "Male Dorms (with 11 beds)",
+            "reference_zh": "Male Dorms (同 11 床)",
+            "hypothesis_zh": "洛克蒂迪·阿特 (同比)"
+          }
+        ]
+      },
+      "finite_gradients": true,
+      "encoder_unchanged": true,
+      "seconds": 53.74596333503723,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone1_fixed_root_noise_repair_smoke/checkpoints/decoder_eos_tail.pt",
+        "bytes": 156825645,
+        "sha256": "d89a56c8a7eb0910af1ed84493179d9f13735afb839729533a6f18f9f2cbcd91"
+      }
+    },
+    "random_tail": {
+      "arm": "random_tail",
+      "trace": [
+        {
+          "arm": "random_tail",
+          "step": 80,
+          "train_nll_window": 3.9811349183321,
+          "matched_valid_nll": 4.299933390281208,
+          "route_mass_by_level": [
+            0.16666853427886963,
+            0.16666853427886963,
+            0.16666793823242188,
+            0.16666853427886963,
+            0.16665807366371155,
+            0.16666844487190247
+          ],
+          "elapsed_sec": 16.7739474773407
+        },
+        {
+          "arm": "random_tail",
+          "step": 160,
+          "train_nll_window": 2.322794222831726,
+          "matched_valid_nll": 4.466463387895712,
+          "route_mass_by_level": [
+            0.1666674017906189,
+            0.1666674017906189,
+            0.1666669249534607,
+            0.1666673719882965,
+            0.16666410863399506,
+            0.16666683554649353
+          ],
+          "elapsed_sec": 33.70967388153076
+        },
+        {
+          "arm": "random_tail",
+          "step": 240,
+          "train_nll_window": 1.3596501871943474,
+          "matched_valid_nll": 4.672516759864728,
+          "route_mass_by_level": [
+            0.1666668951511383,
+            0.1666668951511383,
+            0.16666574776172638,
+            0.16666680574417114,
+            0.16666680574417114,
+            0.16666686534881592
+          ],
+          "elapsed_sec": 50.40863656997681
+        }
+      ],
+      "cross_valid": {
+        "clean_mask": {
+          "nll": 4.0240303659631795,
+          "ppl": 55.92605467642203,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.1666717678308487,
+            0.1666717678308487,
+            0.16666322946548462,
+            0.16667145490646362,
+            0.16665971279144287,
+            0.16666215658187866
+          ]
+        },
+        "masked_random": {
+          "nll": 4.0240303659631795,
+          "ppl": 55.92605467642203,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.1666717678308487,
+            0.1666717678308487,
+            0.16666322946548462,
+            0.16667145490646362,
+            0.16665971279144287,
+            0.16666215658187866
+          ]
+        },
+        "eos_tail": {
+          "nll": 4.81498810759991,
+          "ppl": 123.34534542925907,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.16666802763938904,
+            0.16666802763938904,
+            0.16666743159294128,
+            0.16666799783706665,
+            0.1666639894247055,
+            0.16666460037231445
+          ]
+        },
+        "random_tail": {
+          "nll": 4.672516759864728,
+          "ppl": 106.96661322795465,
+          "tokens": 2227,
+          "route_mass_by_level": [
+            0.1666668951511383,
+            0.1666668951511383,
+            0.16666574776172638,
+            0.16666680574417114,
+            0.16666680574417114,
+            0.16666686534881592
+          ]
+        }
+      },
+      "cross_test": {
+        "clean_mask": {
+          "nll": 4.0408191401039355,
+          "ppl": 56.872910611996026,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.1666674017906189,
+            0.1666674017906189,
+            0.16666649281978607,
+            0.1666673719882965,
+            0.16666452586650848,
+            0.16666686534881592
+          ]
+        },
+        "masked_random": {
+          "nll": 4.0408191401039355,
+          "ppl": 56.872910611996026,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.1666674017906189,
+            0.1666674017906189,
+            0.16666649281978607,
+            0.1666673719882965,
+            0.16666452586650848,
+            0.16666686534881592
+          ]
+        },
+        "eos_tail": {
+          "nll": 4.731493293894508,
+          "ppl": 113.46487230348852,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.16666698455810547,
+            0.16666698455810547,
+            0.16666549444198608,
+            0.16666695475578308,
+            0.16666679084300995,
+            0.16666683554649353
+          ]
+        },
+        "random_tail": {
+          "nll": 4.64825056796076,
+          "ppl": 104.40218120106127,
+          "tokens": 2249,
+          "route_mass_by_level": [
+            0.16666680574417114,
+            0.16666680574417114,
+            0.16666677594184875,
+            0.16666680574417114,
+            0.16666632890701294,
+            0.16666650772094727
+          ]
+        }
+      },
+      "matched_generation": {
+        "nll": 4.64825056796076,
+        "ppl": 104.40218120106127,
+        "tokens": 2249,
+        "route_mass_by_level": [
+          0.16666680574417114,
+          0.16666680574417114,
+          0.16666677594184875,
+          0.16666680574417114,
+          0.16666632890701294,
+          0.16666650772094727
+        ],
+        "token_bleu4": 4.7176838283859235,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.0546875,
+        "examples": [
+          {
+            "en": "See how care and education bring healthy smiles to millions of children in 80 countries.",
+            "reference_zh": "了解关爱和教育如何将健康的微笑带给80个国家的数百万儿童。",
+            "hypothesis_zh": "进一步了解如何让数以千计的教育和/儿童,安全。"
+          },
+          {
+            "en": "Billund Airport (BLL) 1 km",
+            "reference_zh": "鹿特丹机场 (RTM) 1 km",
+            "hypothesis_zh": " ⁇ 兰 ⁇  (Lingway) 沙滩 1 1 km"
+          },
+          {
+            "en": "The Prophet (blessings and peace of Allah be upon him) said: \"There should be neither harming nor reciprocating harm.\"",
+            "reference_zh": "先知(愿主福安之)说 : \" 不能伤害别人,也不能伤害自己 。 \"",
+            "hypothesis_zh": "门徒说 : \" 哪里可以伤害你的人,我不知道,不要伤害你的。"
+          },
+          {
+            "en": "Upon termination, you must destroy all materials obtained from this Website and all copies thereof, whether made under the terms of these Terms of Use or otherwise.",
+            "reference_zh": "条款终止时,您必须销毁所有从本网站取得的资料以及所有相关的拷贝,无论这些资料或拷贝是否是根据这些使用条款的规定或其他规定制作的。",
+            "hypothesis_zh": "我们保留自行决定拒绝这些使用条款,以供使用这些使用条款、服务或下载到本网站之所采用的之全部。"
+          },
+          {
+            "en": "The software has a very good user interface and helps to recover different types of files in less time span.",
+            "reference_zh": "该软件具有非常良好的用户界面,并帮助恢复在更短的时间跨度不同类型的文件.",
+            "hypothesis_zh": "恢复的文件可以帮助我们对用户和网站内容进行分析,以用户计算。"
+          },
+          {
+            "en": "Check availability Map Quick description Situated less than 1 km from Museum of Modern Art in New York, Apartment Manhattan Residence.22 offers accommodation with a kitchenette.",
+            "reference_zh": "简单描述 Aparthotel Manhattan Residence.22公寓式酒店位于纽约,提供免费WiFi和空调,距离现代艺术博物馆(Museum of Modern Art)500米。",
+            "hypothesis_zh": "简单描述 这间现代化的客房坐落在一楼,距离Paseo Avenue公寓提供当代风格的客房。"
+          },
+          {
+            "en": "6 Jesus told the people this story, but they did not understand what it meant.",
+            "reference_zh": "6 耶稣把这比方告诉他们,但他们不明白他所说的是什么。",
+            "hypothesis_zh": "告诉人们,我只是想什么,但他们都不知道。"
+          },
+          {
+            "en": "Male Dorms (with 11 beds)",
+            "reference_zh": "Male Dorms (同 11 床)",
+            "hypothesis_zh": "蓝色 (泰国 ) (  ⁇ )"
+          }
+        ]
+      },
+      "finite_gradients": true,
+      "encoder_unchanged": true,
+      "seconds": 52.84485220909119,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone1_fixed_root_noise_repair_smoke/checkpoints/decoder_random_tail.pt",
+        "bytes": 156825705,
+        "sha256": "47b3cfd0d73d4bf75ced87ccf95105f0a14e0a7c80a1f902e69619377bb203d9"
+      }
+    }
+  },
+  "gates": {
+    "G1_masked_random_is_numerically_invariant": true,
+    "G2_eos_matched_nll_gain_at_least_0_30": true,
+    "G3_eos_beats_random_matched_nll_by_0_10": true,
+    "G4_eos_training_retains_clean_within_0_15": true,
+    "G5_eos_measurably_changes_frozen_root": true,
+    "G6_encoder_frozen_and_gradients_finite": true
+  },
+  "boundary": "This tests decoder-side suppression of visible fixed-root tail noise. It does not prove protocol migration or persistent-memory repair."
+}
