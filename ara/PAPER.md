@@ -655,6 +655,17 @@ STONE-1. See `s3-generation/logic/stone1_frozen_encoder_pressure_decoder.md`
 and formal evidence under
 `s3-generation/evidence/s3_stone1_frozen_encoder_pressure_decoder/`.
 
+`S3-STONE1-DECODER-DEPTH-FLOOR-C06` is the preregistered follow-up. It keeps the
+C04 encoder frozen and compares native sequential stopping, mandatory deepest
+reading, and a learnable depth distribution with a fixed two-percent mass floor
+at each of six visible levels. The floor is an architectural pressure supply:
+it prevents gradient starvation while leaving 88 percent of route probability
+learnable. Equal-update arms test whether this bounded pressure can remain
+within `0.10` NLL of both controls and retain frozen-detail causality. Passing
+would support learnable depth under a nonzero pressure floor, not spontaneous
+routing after the floor is removed. See
+`s3-generation/logic/stone1_decoder_depth_floor.md`.
+
 ## 2026-07 Bounded Rotation Search Result
 
 `M0-ROT-C01` is supported as a synthetic pilot. The registered construction
