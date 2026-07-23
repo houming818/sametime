@@ -252,6 +252,9 @@ def train_arm(
     trace = []
     route_counts = [0] * depths
     branch_nonzero = branch_observations = 0
+    branch_observations_by_depth = [0] * depths
+    branch_nonzero_by_depth = [0] * depths
+    branch_grad_max_by_depth = [0.0] * depths
     finite = True
     started = time.time()
     window_loss = 0.0
@@ -280,8 +283,15 @@ def train_arm(
         if depth > 0:
             gradient = model.decoder.branch.weight.grad
             if gradient is not None:
+                gradient_max = float(gradient.detach().abs().max())
                 branch_observations += 1
-                branch_nonzero += int(float(gradient.detach().abs().max()) > 0.0)
+                branch_observations_by_depth[depth] += 1
+                branch_grad_max_by_depth[depth] = max(
+                    branch_grad_max_by_depth[depth], gradient_max,
+                )
+                if gradient_max > 0.0:
+                    branch_nonzero += 1
+                    branch_nonzero_by_depth[depth] += 1
         torch.nn.utils.clip_grad_norm_(trainable, args.grad_clip)
         optimizer.step()
         window_loss += float(loss.detach())
@@ -374,6 +384,14 @@ def train_arm(
         "branch_grad_nonzero_fraction": (
             branch_nonzero / max(1, branch_observations)
         ),
+        "branch_grad_observations_by_depth": branch_observations_by_depth,
+        "branch_grad_nonzero_fraction_by_depth": [
+            nonzero / observations if observations else None
+            for nonzero, observations in zip(
+                branch_nonzero_by_depth, branch_observations_by_depth,
+            )
+        ],
+        "branch_grad_max_by_depth": branch_grad_max_by_depth,
         "finite_gradients": finite,
         "encoder_unchanged": encoder_before == encoder_after,
         "trace": trace,
@@ -446,10 +464,10 @@ def main():
 
     primary_name = "random_32"
     primary = arms[primary_name]
-    coverage_threshold = 0.08 if not args.smoke else 0.0
-    gain_threshold = 0.20 if not args.smoke else 0.0
-    improved_threshold = 5 if not args.smoke else 0
-    forgetting_threshold = 0.15 if not args.smoke else float("inf")
+    coverage_threshold = 0.08
+    gain_threshold = 0.20
+    improved_threshold = 5
+    forgetting_threshold = 0.15
     gates = {
         "G1_every_depth_update_fraction_at_least_0_08": (
             min(primary["route_update_fraction"]) >= coverage_threshold
