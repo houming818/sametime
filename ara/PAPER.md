@@ -655,16 +655,40 @@ STONE-1. See `s3-generation/logic/stone1_frozen_encoder_pressure_decoder.md`
 and formal evidence under
 `s3-generation/evidence/s3_stone1_frozen_encoder_pressure_decoder/`.
 
-`S3-STONE1-DECODER-DEPTH-FLOOR-C06` is the preregistered follow-up. It keeps the
+`S3-STONE1-DECODER-DEPTH-FLOOR-C06` supports bounded-pressure learnable depth
+on one seed. It kept the
 C04 encoder frozen and compares native sequential stopping, mandatory deepest
 reading, and a learnable depth distribution with a fixed two-percent mass floor
 at each of six visible levels. The floor is an architectural pressure supply:
 it prevents gradient starvation while leaving 88 percent of route probability
 learnable. Equal-update arms test whether this bounded pressure can remain
-within `0.10` NLL of both controls and retain frozen-detail causality. Passing
-would support learnable depth under a nonzero pressure floor, not spontaneous
-routing after the floor is removed. See
-`s3-generation/logic/stone1_decoder_depth_floor.md`.
+within `0.10` NLL of both controls and retain frozen-detail causality. Formal
+native/forced-leaf/depth-floor test NLL was `3.5156/3.4636/3.4117`, and BLEU-4
+was `13.4823/13.9564/14.4886`. All six gates passed. The result supports
+learnable depth under a nonzero pressure floor, not spontaneous routing after
+the floor is removed. See `s3-generation/logic/stone1_decoder_depth_floor.md`.
+
+`S3-STONE1-DECODER-RANDOM-PULSE-C07` completed two 4K-data smoke runs and was
+deferred before the one-million-pair formal run. Shared decoder-cell gradients
+from all depth pairs were aligned rather than antagonistic (mean cosine about
+`0.70-0.75`), but every temporary-depth schedule overfit the small stream. The
+registered primary `random_32` arm had mean probe gain `-0.2858` and maximum
+forgetting `0.4736`. This rejects accumulation at smoke scale but does not
+decide the formal C07 claim.
+
+`S3-STONE1-FIXED-ROOT-NOISE-REPAIR-C08` tested the fixed-coordinate issue
+directly. One 64-leaf physical root was retained; the C04 encoder was frozen;
+decoder arms trained on clean masked tails, visible repeated-EOS tails, or
+visible deterministic-random tails over one million WMT pairs. Masked random
+values were exactly invariant. EOS matched valid NLL improved
+`5.8130 -> 3.5370` and beat random-tail training at `3.7162`; matched test NLL
+was `3.4517` versus the clean arm's `3.4117`. However, the EOS-trained decoder
+scored `3.8258` on clean input, `0.3256` behind the clean-trained decoder and
+above the registered `0.15` retention limit. Five of six gates passed.
+Repeated EOS is therefore supported as a learnable fixed-frame convention,
+while protocol-independent clean-compatible repair is rejected. See
+`s3-generation/logic/stone1_fixed_root_noise_repair.md` and evidence under
+`s3-generation/evidence/s3_stone1_fixed_root_noise_repair/`.
 
 ## 2026-07 Bounded Rotation Search Result
 
