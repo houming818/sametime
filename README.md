@@ -35,6 +35,16 @@ from this public mirror. Public evidence files keep summaries and pointers, so
 humans and AI agents can study the reasoning process without downloading
 multi-GB experiment outputs.
 
+## Downloadable Checkpoint
+
+The first executable fixed-root TreeHeap translation checkpoint is published as
+the **STONE-1 Candidate C08** release:
+
+- https://github.com/houming818/sametime/releases/tag/stone1-candidate-c08
+
+It is a research POC, not `STONE-1: COMPLETE`. The release includes the frozen
+encoder, EOS-tail decoder, tokenizer, model card, checksums, and CLI usage.
+
 ## Related Blog
 
 The SPR / TreeHeap notes are published here:
@@ -44,3 +54,8 @@ The SPR / TreeHeap notes are published here:
 
 The blog is the human-readable explanation. The `ara/` directory is the
 machine-readable research trail.
+
+## License
+
+SameTime is distributed under GPL-3.0. See `LICENSE`. Raw training corpora are
+not redistributed.
