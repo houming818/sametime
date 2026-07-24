@@ -24,3 +24,8 @@ complete training trace, `config.json` records the recipe, and
 `dataset_manifest.json` records the frozen split hashes. Decoder checkpoints
 remain on io under the same evidence directory and are intentionally excluded
 from Git.
+
+`cli_poc.jsonl` records five non-teacher-forced manual translations produced by
+the EOS-tail checkpoint through `treeheap_fixed_root_cli.py`. The taskd run was
+task 18 and completed in 2.8 seconds including model loading. These examples
+demonstrate executable POC inference, not production translation quality.
