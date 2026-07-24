@@ -29,6 +29,8 @@ names, and modifiers.
 
 Download the model bundle attached to this release:
 
+https://repos.grepcode.cn/houming818/grepcode-sametime/releases/tag/stone1-candidate-c08
+
 ```text
 sametime-stone1-candidate-c08.tar.gz
 sametime-stone1-candidate-c08.sha256

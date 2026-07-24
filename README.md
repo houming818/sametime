@@ -40,7 +40,11 @@ multi-GB experiment outputs.
 The first executable fixed-root TreeHeap translation checkpoint is published as
 the **STONE-1 Candidate C08** release:
 
-- https://github.com/houming818/sametime/releases/tag/stone1-candidate-c08
+- https://repos.grepcode.cn/houming818/grepcode-sametime/releases/tag/stone1-candidate-c08
+
+GitHub remains a public source mirror:
+
+- https://github.com/houming818/sametime/tree/stone1-candidate-c08
 
 It is a research POC, not `STONE-1: COMPLETE`. The release includes the frozen
 encoder, EOS-tail decoder, tokenizer, model card, checksums, and CLI usage.
