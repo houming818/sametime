@@ -27,11 +27,7 @@ names, and modifiers.
 
 ## Download
 
-Download the model bundle attached to this release:
-
-https://repos.grepcode.cn/houming818/grepcode-sametime/releases/tag/stone1-candidate-c08
-
-Direct CDN downloads:
+Download the model bundle from the public CDN:
 
 ```text
 https://www.grepcode.cn/models/stone1-candidate-c08/sametime-stone1-candidate-c08.tar.gz
