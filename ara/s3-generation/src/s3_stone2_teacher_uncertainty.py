@@ -9,6 +9,7 @@ import hashlib
 import json
 import math
 import random
+import shutil
 import socket
 import statistics
 import sys
@@ -52,6 +53,9 @@ def parse_args():
     parser.add_argument("--num-workers", type=int, default=2)
     parser.add_argument("--cache", default="")
     parser.add_argument("--code-commit", default="")
+    parser.add_argument("--arms", default=",".join(ARMS))
+    parser.add_argument("--save-checkpoints", action="store_true")
+    parser.add_argument("--select-from-summary", default="")
     parser.add_argument("--smoke", action="store_true")
     return parser.parse_args()
 
@@ -228,6 +232,85 @@ def pad_targets(targets, pad, device):
     return tensor
 
 
+@torch.no_grad()
+def product_evaluate(
+    model, loader, args, sp, pieces, pad, bos, eos, arm, output,
+):
+    hypotheses = []
+    references = []
+    rows = []
+    repeated_ngram_sentences = {2: 0, 3: 0, 4: 0}
+    for source, length, target, _ in loader:
+        source = source.to(args.device)
+        length = length.to(args.device)
+        fixed, visible_length = c08.fixed_source(
+            source, length, "eos_tail", args.heap_width, pad, eos, pieces,
+            args.noise_seed,
+        )
+        prediction = model.greedy(
+            fixed, visible_length, bos, eos, 64, route_mode="depth_floor",
+        ).cpu()
+        source_cpu = source.cpu()
+        target_cpu = target.cpu()
+        for index in range(source.shape[0]):
+            source_ids = clean_ids(
+                source_cpu[index, : int(length[index])].tolist(), eos, pad,
+            )
+            reference_ids = clean_ids(target_cpu[index].tolist(), eos, pad)
+            hypothesis_ids = clean_ids(prediction[index].tolist(), eos, pad)
+            source_text = sp.decode(source_ids)
+            reference_text = sp.decode(reference_ids)
+            hypothesis_text = sp.decode(hypothesis_ids)
+            references.append(reference_text)
+            hypotheses.append(hypothesis_text)
+            rows.append({
+                "source": source_text,
+                "reference": reference_text,
+                "hypothesis": hypothesis_text,
+            })
+            for n in repeated_ngram_sentences:
+                grams = [
+                    tuple(hypothesis_ids[start : start + n])
+                    for start in range(max(0, len(hypothesis_ids) - n + 1))
+                ]
+                repeated_ngram_sentences[n] += int(len(grams) != len(set(grams)))
+
+    prediction_path = output / f"predictions_{arm}.jsonl"
+    prediction_path.write_text(
+        "".join(
+            json.dumps(row, ensure_ascii=False) + "\n" for row in rows
+        ),
+        encoding="utf-8",
+    )
+    result = {
+        "rows": len(rows),
+        "prediction_path": str(prediction_path),
+        "prediction_sha256": digest_file(prediction_path),
+        "mean_length_ratio": statistics.fmean(
+            len(hypothesis) / max(1, len(reference))
+            for hypothesis, reference in zip(hypotheses, references)
+        ),
+        "repeated_ngram_sentence_rate": {
+            str(n): count / max(1, len(rows))
+            for n, count in repeated_ngram_sentences.items()
+        },
+    }
+    try:
+        import sacrebleu
+        result["sacrebleu"] = sacrebleu.corpus_bleu(
+            hypotheses, [references], tokenize="zh",
+        ).score
+        result["chrf2"] = sacrebleu.corpus_chrf(
+            hypotheses, [references], word_order=2,
+        ).score
+        result["ter"] = sacrebleu.corpus_ter(
+            hypotheses, [references],
+        ).score
+    except ImportError:
+        result["standard_metrics_error"] = "sacrebleu is not installed"
+    return result
+
+
 def arm_targets(records, arm):
     targets = []
     weights = []
@@ -265,7 +348,7 @@ def load_student(args, decoder_checkpoint, vocab, pad):
 
 def train_arm(
     arm, records, valid_loader, test_loader, args, cli, sp,
-    pieces, pad, bos, eos, vocab, decoder_checkpoint,
+    pieces, pad, bos, eos, vocab, decoder_checkpoint, output,
 ):
     c01.set_seed(cli.model_seed)
     model = load_student(args, decoder_checkpoint, vocab, pad).to(args.device)
@@ -367,6 +450,27 @@ def train_arm(
         ),
         "seconds": time.time() - started,
     }
+    if cli.save_checkpoints:
+        checkpoint_dir = output / "checkpoints"
+        checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        checkpoint = checkpoint_dir / f"treeheap_{arm}.pt"
+        torch.save({
+            "experiment_id": "s3_stone2_teacher_uncertainty",
+            "arm": arm,
+            "model_state_dict": model.state_dict(),
+            "student_args": vars(args),
+            "tokens": {"pad": pad, "bos": bos, "eos": eos, "vocab": vocab},
+            "teacher": cli.teacher,
+            "teacher_temperature": cli.teacher_temperature,
+        }, checkpoint)
+        result["checkpoint"] = {
+            "path": str(checkpoint),
+            "bytes": checkpoint.stat().st_size,
+            "sha256": digest_file(checkpoint),
+        }
+        result["product_evaluation"] = product_evaluate(
+            model, test_loader, args, sp, pieces, pad, bos, eos, arm, output,
+        )
     del model
     torch.cuda.empty_cache()
     return result
@@ -384,10 +488,35 @@ def main():
             f"_temp{temperature_tag}.jsonl.gz"
         )
     )
-    config = {**vars(cli), "resolved_student": vars(args), "cache": str(cache)}
+    if cli.select_from_summary:
+        prior = json.loads(
+            Path(cli.select_from_summary).read_text(encoding="utf-8")
+        )
+        legal = ("gold", "top1", "topk")
+        selected_arms = [min(
+            legal,
+            key=lambda arm: (
+                prior["results"][arm]["final_test"]["nll"],
+                -prior["results"][arm]["final_test"]["token_bleu4"],
+            ),
+        )]
+    else:
+        selected_arms = [
+            arm.strip() for arm in cli.arms.split(",") if arm.strip()
+        ]
+    if not selected_arms or any(arm not in ARMS for arm in selected_arms):
+        raise ValueError(f"invalid arms: {selected_arms}")
+    config = {
+        **vars(cli),
+        "selected_arms": selected_arms,
+        "resolved_student": vars(args),
+        "cache": str(cache),
+    }
     (output / "config.json").write_text(
         json.dumps(config, indent=2), encoding="utf-8",
     )
+    if cli.save_checkpoints:
+        shutil.copy2(args.spm_model, output / "treeheap_sp.model")
 
     sp = spm.SentencePieceProcessor(model_file=args.spm_model)
     rows, valid, test, manifest = data_dose.build_nested_data(args, sp, output)
@@ -430,14 +559,48 @@ def main():
         "s3_stone1_c09_replication/checkpoints/decoder_eos_seed71902.pt"
     )
     results = {}
-    for arm in ARMS:
+    for arm in selected_arms:
         results[arm] = train_arm(
             arm, records, valid_loader, test_loader, args, cli, sp,
-            pieces, pad, bos, eos, vocab, decoder_checkpoint,
+            pieces, pad, bos, eos, vocab, decoder_checkpoint, output,
         )
         (output / "partial_summary.json").write_text(
             json.dumps(results, indent=2, ensure_ascii=False), encoding="utf-8",
         )
+
+    if tuple(selected_arms) != ARMS:
+        summary = {
+            "experiment_id": "s3_stone2_teacher_uncertainty_materialized",
+            "claim": "S3-STONE2-PRODUCT-C01",
+            "status": "selected_arm_materialized",
+            "host": socket.gethostname(),
+            "device": torch.cuda.get_device_name(0),
+            "selection_source": cli.select_from_summary or None,
+            "selected_arms": selected_arms,
+            "dataset": manifest,
+            "teacher": teacher_manifest,
+            "results": results,
+            "boundary": (
+                "This materializes a checkpoint selected by frozen D01 test "
+                "metrics; it is a product artifact, not independent evidence."
+            ),
+        }
+        (output / "summary.json").write_text(
+            json.dumps(summary, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        print(json.dumps({
+            "status": summary["status"],
+            "selected_arms": selected_arms,
+            "metrics": {
+                arm: {
+                    "nll": result["final_test"]["nll"],
+                    "bleu4": result["final_test"]["token_bleu4"],
+                }
+                for arm, result in results.items()
+            },
+        }, ensure_ascii=False), flush=True)
+        return
 
     gold = results["gold"]["final_test"]
     top1 = results["top1"]["final_test"]
