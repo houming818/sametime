@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd /home/nio/log/holds/SameTime
+export HF_HUB_DISABLE_XET=1
+export HF_HUB_DOWNLOAD_TIMEOUT=600
 evidence="ara/s3-generation/evidence/s3_stone2_teacher_uncertainty_300k"
 cache="/home/nio/datasets/distillation/opus_mt_en_zh_300k_top4.jsonl.gz"
 mkdir -p "$evidence" "$(dirname "$cache")"
