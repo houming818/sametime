@@ -1,7 +1,7 @@
 # STONE-1 C09: Frozen-Platform Replication
 
 Date: 2026-07-25
-Status: preregistered / queued
+Status: supported / STONE-1 complete on frozen platform
 Milestone: `STONE-1`
 Claim: `S3-STONE1-FROZEN-PLATFORM-REPLICATION-C09`
 Predict: `P-S3-STONE1-FROZEN-PLATFORM-REPLICATION-09`
@@ -97,4 +97,51 @@ Planned evidence:
 
 ```text
 ../evidence/s3_stone1_c09_replication/
+```
+
+## Formal Result
+
+The io run completed in `9,966.24` seconds (`2.77` hours). All three seeds used
+the frozen one-million-pair split for exactly `15,625` decoder updates. Every
+registered platform hash and constant matched before training.
+
+| Seed | Valid NLL | Test NLL | BLEU-4 | Repetition | Maximum detail-shuffle damage |
+|---:|---:|---:|---:|---:|---:|
+| 71901 | 3.5340 | 3.4546 | 13.7066 | 0.0215 | +0.5648 |
+| 71902 | 3.5370 | 3.4517 | 13.8713 | 0.0150 | +0.5634 |
+| 71903 | 3.5306 | 3.4510 | 13.5945 | 0.0130 | +0.5747 |
+
+Aggregate results:
+
+```text
+mean test NLL                  3.4524    gate <= 3.90
+test NLL population std       0.00157   gate <= 0.05
+mean token BLEU-4             13.7241   gate >= 13.5
+minimum non-empty rate         1.0000
+maximum severe repetition      0.0215   gate <= 0.10
+minimum detail-shuffle damage +0.5634   gate >= 0.10
+minimum branch-gradient rate   1.0000
+peak allocated VRAM            2.27 GiB gate <= 4 GiB
+```
+
+All five product gates, five TreeHeap/integrity gates, and three engineering
+gates passed. The encoder checksum was unchanged in every seed. Every branch
+kernel observation received nonzero gradient, all six visible depths retained
+their registered pressure, and disturbing frozen details caused substantial
+held-out damage in every seed.
+
+The measured model contains `50,267,778` parameters: `11,062,720` belong to
+the frozen encoder and `39,205,058` to the trained decoder. Each decoder-only
+checkpoint is about `149.6 MiB`.
+
+Decision:
+
+> `STONE-1` is complete against the exact `S3-STONE1-C09-PLATFORM-V1`
+> contract. This is a reproducible TreeHeap translation PoC, not a claim of
+> state-of-the-art translation or general intelligence.
+
+The three large checkpoints are archived outside Git at:
+
+```text
+/mnt/nas/ara/s3_stone1_c09_replication/checkpoints/
 ```

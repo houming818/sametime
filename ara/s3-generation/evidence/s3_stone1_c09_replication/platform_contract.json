@@ -1,0 +1,63 @@
+{
+  "contract_id": "S3-STONE1-C09-PLATFORM-V1",
+  "corpus": {
+    "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "bytes": 2520995022,
+    "declared_rows": 14170275,
+    "language_direction": "en_to_zh",
+    "source_column": 1,
+    "target_column": 0,
+    "pool_scan_rows": 3000000,
+    "data_seed": 71900,
+    "pool_seed": 72003
+  },
+  "splits": {
+    "train_rows": 1000000,
+    "train_sha256": "a4a254f3a965a20751b5b3322434876751ee3c93eae9fd89518179fd279a8fdf",
+    "validation_rows": 2000,
+    "validation_sha256": "86ac3b0fe60302b397416a6fabb8921f6890565ebb373cd04768fa72bddf6f76",
+    "test_rows": 2000,
+    "test_sha256": "b893d33aa433214f87a6c16ee357178beffb12adcde53576a5d178e2813660c0",
+    "min_tokens": 8,
+    "max_tokens": 32
+  },
+  "tokenizer": {
+    "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "bytes": 756882,
+    "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+    "pieces": 32000
+  },
+  "model": {
+    "source_checkpoint": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_stone1_protocol_growth_trajectory/checkpoints/growth_step62500.pt",
+    "source_checkpoint_bytes": 603246505,
+    "source_checkpoint_sha256": "dae8e23618bb8ffda7ed00057eb452dad0c3427446ef16033ce84a11de02ccad",
+    "encoder_frozen": true,
+    "heap_width": 64,
+    "leaf_cut": 1,
+    "state_dim": 320,
+    "decoder_hidden": 512,
+    "decoder_route": "depth_floor",
+    "depth_floor": 0.02,
+    "tail_condition": "eos_tail"
+  },
+  "optimization": {
+    "optimizer": "AdamW",
+    "learning_rate": 0.002,
+    "gradient_clip": 1.0,
+    "batch_size": 64,
+    "updates": 15625,
+    "sample_exposures": 1000000,
+    "epochs": 1.0,
+    "model_seeds": [
+      71901,
+      71902,
+      71903
+    ]
+  },
+  "hardware": {
+    "host": "io",
+    "accelerator": "NVIDIA GeForce RTX 3090",
+    "device": "cuda",
+    "single_gpu_serial_queue": true
+  }
+}

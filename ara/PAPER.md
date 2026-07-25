@@ -690,6 +690,25 @@ while protocol-independent clean-compatible repair is rejected. See
 `s3-generation/logic/stone1_fixed_root_noise_repair.md` and evidence under
 `s3-generation/evidence/s3_stone1_fixed_root_noise_repair/`.
 
+`S3-STONE1-FROZEN-PLATFORM-REPLICATION-C09` completes STONE-1 against the
+machine-readable `S3-STONE1-C09-PLATFORM-V1` contract. The contract freezes the
+1M/2K/2K split and hashes, tokenizer, C04 checkpoint, 64-leaf TreeHeap,
+320/512 dimensions, EOS-tail convention, two-percent depth floor, AdamW
+settings, batch 64, and 15,625 updates. Seeds `71901/71902/71903` reached test
+NLL `3.4546/3.4517/3.4510` and BLEU-4
+`13.7066/13.8713/13.5945`. Mean NLL/BLEU-4 was `3.4524/13.7241`; NLL standard
+deviation was `0.00157`. Generation was nonempty in every seed, maximum severe
+repetition was `0.0215`, every branch observation received nonzero gradient,
+encoder checksums stayed unchanged, and shuffling frozen details caused at
+least `+0.5634` NLL damage. All registered product, TreeHeap/integrity, and
+engineering gates passed.
+
+This signs a reproducible TreeHeap translation PoC on one exact platform. It
+does not establish state-of-the-art translation, full-corpus scaling, a
+removable pressure floor, conversation, world knowledge, or general
+intelligence. See `s3-generation/logic/stone1_c09_replication.md` and evidence
+under `s3-generation/evidence/s3_stone1_c09_replication/`.
+
 ## 2026-07 Bounded Rotation Search Result
 
 `M0-ROT-C01` is supported as a synthetic pilot. The registered construction
