@@ -1,0 +1,27 @@
+{
+  "model": "Helsinki-NLP/opus-mt-en-zh",
+  "revision": "main",
+  "beams": 4,
+  "temperature": 0.1,
+  "cache": "ara/s3-generation/evidence/s3_stone2_teacher_uncertainty_smoke/opus_top4_2048_temp0p1.jsonl.gz",
+  "cache_bytes": 618475,
+  "cache_sha256": "04f638fb41605140401b1926857b7730b92dc6a78a23ad2ae4cf77692a363849",
+  "train": {
+    "rows": 2048,
+    "mean_top1_weight": 0.357625043936423,
+    "mean_probability_entropy_nats": 1.3113454971627916,
+    "mean_top1_top2_gap": 0.09009897348914819,
+    "mean_unique_candidates": 3.91796875,
+    "all_candidates_identical_fraction": 0.00244140625,
+    "top1_token_bleu4": 12.505271786358934
+  },
+  "test": {
+    "rows": 128,
+    "mean_top1_weight": 0.35864128777757287,
+    "mean_probability_entropy_nats": 1.3111286859793732,
+    "mean_top1_top2_gap": 0.09090213908348233,
+    "mean_unique_candidates": 3.921875,
+    "all_candidates_identical_fraction": 0.0,
+    "top1_token_bleu4": 13.454605397927482
+  }
+}
