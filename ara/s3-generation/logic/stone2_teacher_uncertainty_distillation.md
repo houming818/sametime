@@ -49,6 +49,7 @@ Pilot/formal mechanism run:
 ```text
 teacher              Helsinki-NLP/opus-mt-en-zh
 teacher candidates   top 4 beam hypotheses
+teacher temperature  0.1
 student start        C09 seed-71902 encoder plus decoder
 train pairs          300,000
 validation/test      frozen C09 2,000 / 2,000
@@ -66,6 +67,13 @@ updates              one nominal 300K-pair epoch per arm
 The teacher emits strings. Every string is retokenized with the TreeHeap
 tokenizer, so teacher and student vocabularies need not share coordinates.
 
+The first smoke at temperature `1.0` was rejected as an experimental
+manipulation. Its mean entropy was `1.3853` nats versus the four-candidate
+maximum `ln(4)=1.3863`, and its mean top-1 weight was only `0.2607`.
+Temperature `0.1` is therefore preregistered before the formal run to create a
+non-degenerate ranking. This calibration uses teacher diagnostics, not student
+outcome metrics.
+
 ## Predictions
 
 Primary uncertainty gates:
@@ -81,6 +89,8 @@ General distillation observations:
 ```text
 D1 top1 improves over gold by at least 0.02 NLL or 0.20 BLEU-4
 D2 every arm is nonempty and severe repetition <= 0.10
+D3 mean teacher top-1 weight >= 0.30, mean unique candidates >= 2.0,
+   and all-identical candidate fraction <= 0.05
 ```
 
 TreeHeap integrity:

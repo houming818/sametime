@@ -44,7 +44,7 @@ def parse_args():
     parser.add_argument("--teacher-batch", type=int, default=64)
     parser.add_argument("--student-batch", type=int, default=32)
     parser.add_argument("--teacher-beams", type=int, default=4)
-    parser.add_argument("--teacher-temperature", type=float, default=1.0)
+    parser.add_argument("--teacher-temperature", type=float, default=0.1)
     parser.add_argument("--encoder-lr", type=float, default=5e-5)
     parser.add_argument("--decoder-lr", type=float, default=2e-4)
     parser.add_argument("--model-seed", type=int, default=71912)
@@ -104,7 +104,8 @@ def generate_records(
     teacher = AutoModelForSeq2SeqLM.from_pretrained(
         cli.teacher,
         revision=cli.teacher_revision,
-        torch_dtype=torch.float16 if device.startswith("cuda") else torch.float32,
+        dtype=torch.float16 if device.startswith("cuda") else torch.float32,
+        use_safetensors=False,
     ).to(device)
     teacher.eval()
     records = []
@@ -153,6 +154,7 @@ def generate_records(
                 "gold": gold,
                 "candidates": candidate_ids,
                 "candidate_text": candidates,
+                "sequence_scores": scores[index].cpu().tolist(),
                 "weights": weights[index],
             })
             teacher_hypotheses.append(candidate_ids[0])
@@ -375,8 +377,12 @@ def main():
     output = Path(cli.evidence_dir)
     output.mkdir(parents=True, exist_ok=True)
     args, contract = make_args(cli, output)
+    temperature_tag = str(cli.teacher_temperature).replace(".", "p")
     cache = Path(cli.cache) if cli.cache else (
-        output / f"opus_top{cli.teacher_beams}_{args.train_samples}.jsonl.gz"
+        output / (
+            f"opus_top{cli.teacher_beams}_{args.train_samples}"
+            f"_temp{temperature_tag}.jsonl.gz"
+        )
     )
     config = {**vars(cli), "resolved_student": vars(args), "cache": str(cache)}
     (output / "config.json").write_text(
@@ -456,6 +462,11 @@ def main():
             and result["final_test"]["severe_repetition_rate"] <= 0.10
             for result in results.values()
         ),
+        "D3_teacher_distribution_non_degenerate": (
+            teacher_test["mean_top1_weight"] >= 0.30
+            and teacher_test["mean_unique_candidates"] >= 2.0
+            and teacher_test["all_candidates_identical_fraction"] <= 0.05
+        ),
         "S1_encoder_gradient": all(
             result["encoder_grad_nonzero_fraction"] > 0.0
             and result["finite"] for result in results.values()
@@ -474,6 +485,7 @@ def main():
         "U1_topk_nll_beats_top1_by_0_02",
         "U2_topk_bleu_beats_top1_by_0_20",
         "U3_topk_nll_beats_shuffled_by_0_02",
+        "D3_teacher_distribution_non_degenerate",
     ))
     status = (
         "teacher_uncertainty_supported_pilot"
