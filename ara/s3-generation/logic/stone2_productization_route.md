@@ -1,7 +1,7 @@
 # STONE-2 Productization Route
 
-Date: 2026-07-25
-Status: registered / D01 running
+Date: 2026-07-26
+Status: supported artifact / gold arm materialized
 Claim: `S3-STONE2-PRODUCT-C01`
 
 ## Goal
@@ -59,3 +59,18 @@ every visible depth route mass >= 0.019
 ../evidence/s3_stone2_teacher_uncertainty_300k/
 ../evidence/s3_stone2_product_checkpoint/
 ```
+
+## Result
+
+The selection rule chose `gold`, because it beat both teacher arms. A complete
+`201,083,096` byte checkpoint was saved with SHA-256
+`0d19a4b0814c82a7c8a86281d54a03afcfd0bff4ac42399099227837608e6e49`.
+The deterministic rerun reproduced test NLL `3.2375`, internal token BLEU-4
+`15.5264`, nonempty rate `1.0`, and maximum detail-shuffle damage `0.4511` NLL.
+
+The stricter product audit found a mean hypothesis/reference length ratio of
+`0.9023`; `32.35%` of sentences repeated at least one bigram, `16.85%` repeated
+a trigram, and `8.90%` repeated a four-gram. These are occurrence rates, not
+the earlier severe-repetition classifier, so they expose a quality weakness
+without contradicting its `1.5%` result. Standard SacreBLEU/chrF/TER remain
+unreported because `sacrebleu` was unavailable on io.

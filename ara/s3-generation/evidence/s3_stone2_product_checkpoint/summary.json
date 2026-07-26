@@ -1,0 +1,341 @@
+{
+  "experiment_id": "s3_stone2_teacher_uncertainty_materialized",
+  "claim": "S3-STONE2-PRODUCT-C01",
+  "status": "selected_arm_materialized",
+  "host": "io",
+  "device": "NVIDIA GeForce RTX 3090",
+  "selection_source": "ara/s3-generation/evidence/s3_stone2_teacher_uncertainty_300k/summary.json",
+  "selected_arms": [
+    "gold"
+  ],
+  "dataset": {
+    "source": {
+      "path": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+      "bytes": 2520995022,
+      "declared_rows": 14170275
+    },
+    "tokenizer": {
+      "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+      "bytes": 756882,
+      "sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "vocabulary_pieces": 32000
+    },
+    "language_direction": "en_to_zh",
+    "filter": {
+      "min_tokens": 8,
+      "max_tokens": 32
+    },
+    "sampling": {
+      "historical_30k_contract": {
+        "scanned": 300000,
+        "eligible": 173313,
+        "selected": 34000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "large_pool": {
+        "scanned": 3000000,
+        "eligible": 1734343,
+        "selected": 334000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "data_seed": 71900,
+      "pool_seed": 72003,
+      "algorithm": "historical reservoir plus leakage-free deterministic reservoir pool"
+    },
+    "splits": {
+      "train_doses": [
+        30000,
+        300000
+      ],
+      "train_sha256": {
+        "30000": "50e7a7213af49b8e0c1f7e705aa80a7caa561e2dd36b3c42b67f68cf904120be",
+        "300000": "73a187c2911188405a8a328261fb59b619cdcee4e89f995d25646613ed7fe3fc"
+      },
+      "validation_rows": 2000,
+      "validation_sha256": "86ac3b0fe60302b397416a6fabb8921f6890565ebb373cd04768fa72bddf6f76",
+      "test_rows": 2000,
+      "test_sha256": "b893d33aa433214f87a6c16ee357178beffb12adcde53576a5d178e2813660c0"
+    },
+    "leakage_control": {
+      "train_rows_unique": 300000,
+      "historical_train_eval_overlap_removed": 0,
+      "historical_train_duplicates_removed": 0,
+      "validation_test_content_overlap": 0,
+      "new_train_rows_matching_frozen_eval": 0
+    }
+  },
+  "teacher": {
+    "model": "Helsinki-NLP/opus-mt-en-zh",
+    "revision": "main",
+    "beams": 4,
+    "temperature": 0.1,
+    "cache": "/home/nio/datasets/distillation/opus_mt_en_zh_300k_top4_temp0p1.jsonl.gz",
+    "cache_bytes": 90272366,
+    "cache_sha256": "c7a966a03655518885b870848336a54ec7284b7d229b9aa5ef5958ab63c8e97f",
+    "train": {
+      "rows": 300000,
+      "mean_top1_weight": 0.3606249351460735,
+      "mean_probability_entropy_nats": 1.3067839956719953,
+      "mean_top1_top2_gap": 0.09298672371398242,
+      "mean_unique_candidates": 3.9246166666666666,
+      "all_candidates_identical_fraction": 0.0008733333333333334,
+      "loaded_cache": true
+    },
+    "test": {
+      "rows": 2000,
+      "mean_top1_weight": 0.35968478487432004,
+      "mean_probability_entropy_nats": 1.3103437436029235,
+      "mean_top1_top2_gap": 0.09356179492501542,
+      "mean_unique_candidates": 3.9125,
+      "all_candidates_identical_fraction": 0.0005,
+      "top1_token_bleu4": 12.242664310379618
+    }
+  },
+  "results": {
+    "gold": {
+      "arm": "gold",
+      "final_test": {
+        "nll": 3.2375198321331906,
+        "ppl": 25.470472298201216,
+        "tokens": 33414,
+        "route_mass_by_level": [
+          0.17040503025054932,
+          0.17040503025054932,
+          0.16292831301689148,
+          0.16292831301689148,
+          0.16292831301689148,
+          0.17040503025054932
+        ],
+        "token_bleu4": 15.526427955688165,
+        "nonempty": 1.0,
+        "severe_repetition_rate": 0.015,
+        "examples": [
+          {
+            "en": "Integrated, standards-based certification labeling and reporting",
+            "reference_zh": "集成的、基于标准的认证标签和报告",
+            "hypothesis_zh": "基于标签、集成和认证的报告"
+          },
+          {
+            "en": "详细搜索 LM2574DW-ADJR2 Datasheet(数据表) 5 Page - ON Semiconductor",
+            "reference_zh": "LM2594DADJG Datasheet(数据表) 5 Page - ON Semiconductor",
+            "hypothesis_zh": "LM2574MADJR2G Datasheet(数据表) 5 Page - ON Semiconductor"
+          },
+          {
+            "en": "POWER TRANSISTORS DARLINGTON NPN SILICON",
+            "reference_zh": "Epitaxial Planar NPN Silicon Transistors",
+            "hypothesis_zh": "压接机 NPN SILICON DARLINGTON TRANSISTORS"
+          },
+          {
+            "en": "Adobe Dreamweaver CSS Grafisk design HTML Webbdesign $90 (Avg Bid)",
+            "reference_zh": "Adobe Dreamweaver CSS 平面设计 HTML 网站设计 $708 (Avg Bid)",
+            "hypothesis_zh": "Adobe Dreamweaver CSS 平面设计 HTML 网站设计 $1365 (Avg Bid)"
+          },
+          {
+            "en": "Requested URL: /FixedCamera/ANF24A.aspx",
+            "reference_zh": "请求的 URL : / ProList.aspx",
+            "hypothesis_zh": "请求的 URL : / newslist.aspx"
+          },
+          {
+            "en": "Download XChat 2.8.9 - FileHippo.com WINDOWS MAC",
+            "reference_zh": "下载PeerBlock 1.1-下载 -FileHippo.com 广告 WINDOWS MAC",
+            "hypothesis_zh": "下载Internet Explorer 11.0 Windows 7-下载 -FileHippo.com 广告 WINDOWS MAC"
+          },
+          {
+            "en": "You got to leave with root in V702?",
+            "reference_zh": "你要留下 V702 根? 答复",
+            "hypothesis_zh": "你离开的根源,在根源?"
+          },
+          {
+            "en": "Battery Labels - Self-adhesive labels,Sticker printing,Label Printing - DongGuan Sunprint Printing Co.,Ltd English",
+            "reference_zh": "电池标签 - 不干胶标签印刷厂家,红酒标签,商标印刷厂 - 东莞赛宝伦印刷股份有限公司",
+            "hypothesis_zh": "印刷 - - - - - 印刷印花标签印刷 - - 灰印标签印刷 - -印花印刷有限公司"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "arm": "gold",
+          "step": 500,
+          "train_loss": 2.7218410968780518,
+          "valid_nll": 3.487901179037849,
+          "elapsed_sec": 107.83251667022705
+        },
+        {
+          "arm": "gold",
+          "step": 1000,
+          "train_loss": 3.1862597465515137,
+          "valid_nll": 3.464900016411679,
+          "elapsed_sec": 215.8552017211914
+        },
+        {
+          "arm": "gold",
+          "step": 1500,
+          "train_loss": 2.856746196746826,
+          "valid_nll": 3.441653444310876,
+          "elapsed_sec": 323.2244653701782
+        },
+        {
+          "arm": "gold",
+          "step": 2000,
+          "train_loss": 2.623568534851074,
+          "valid_nll": 3.427828012797702,
+          "elapsed_sec": 430.35516929626465
+        },
+        {
+          "arm": "gold",
+          "step": 2500,
+          "train_loss": 2.9982948303222656,
+          "valid_nll": 3.4166474258136854,
+          "elapsed_sec": 538.723865032196
+        },
+        {
+          "arm": "gold",
+          "step": 3000,
+          "train_loss": 2.5814690589904785,
+          "valid_nll": 3.4029309794863996,
+          "elapsed_sec": 645.577921628952
+        },
+        {
+          "arm": "gold",
+          "step": 3500,
+          "train_loss": 3.196249008178711,
+          "valid_nll": 3.395901163231398,
+          "elapsed_sec": 751.6643123626709
+        },
+        {
+          "arm": "gold",
+          "step": 4000,
+          "train_loss": 2.5369770526885986,
+          "valid_nll": 3.3891067617353205,
+          "elapsed_sec": 861.2886199951172
+        },
+        {
+          "arm": "gold",
+          "step": 4500,
+          "train_loss": 3.0668811798095703,
+          "valid_nll": 3.380001482075132,
+          "elapsed_sec": 969.328206539154
+        },
+        {
+          "arm": "gold",
+          "step": 5000,
+          "train_loss": 2.8461127281188965,
+          "valid_nll": 3.3717952640934783,
+          "elapsed_sec": 1076.2484090328217
+        },
+        {
+          "arm": "gold",
+          "step": 5500,
+          "train_loss": 3.146872043609619,
+          "valid_nll": 3.3656729654541495,
+          "elapsed_sec": 1184.067331314087
+        },
+        {
+          "arm": "gold",
+          "step": 6000,
+          "train_loss": 2.7318828105926514,
+          "valid_nll": 3.36183710080191,
+          "elapsed_sec": 1291.1366062164307
+        },
+        {
+          "arm": "gold",
+          "step": 6500,
+          "train_loss": 2.8706226348876953,
+          "valid_nll": 3.352960283853305,
+          "elapsed_sec": 1397.5375652313232
+        },
+        {
+          "arm": "gold",
+          "step": 7000,
+          "train_loss": 2.62880802154541,
+          "valid_nll": 3.3489177509559083,
+          "elapsed_sec": 1505.8437509536743
+        },
+        {
+          "arm": "gold",
+          "step": 7500,
+          "train_loss": 3.224837064743042,
+          "valid_nll": 3.346901928992251,
+          "elapsed_sec": 1612.9052290916443
+        },
+        {
+          "arm": "gold",
+          "step": 8000,
+          "train_loss": 2.553377151489258,
+          "valid_nll": 3.3388565262250762,
+          "elapsed_sec": 1719.8869910240173
+        },
+        {
+          "arm": "gold",
+          "step": 8500,
+          "train_loss": 2.98158597946167,
+          "valid_nll": 3.336713294130201,
+          "elapsed_sec": 1828.5049862861633
+        },
+        {
+          "arm": "gold",
+          "step": 9000,
+          "train_loss": 2.37858510017395,
+          "valid_nll": 3.330208906488566,
+          "elapsed_sec": 1935.1802875995636
+        },
+        {
+          "arm": "gold",
+          "step": 9375,
+          "train_loss": 2.5382847785949707,
+          "valid_nll": 3.32751528010794,
+          "elapsed_sec": 2016.0808417797089
+        }
+      ],
+      "encoder_grad_nonzero_fraction": 1.0,
+      "encoder_changed": true,
+      "finite": true,
+      "detail_shuffle": [
+        {
+          "depth": 0,
+          "damage_nll": 0.0
+        },
+        {
+          "depth": 1,
+          "damage_nll": 0.016797395956083427
+        },
+        {
+          "depth": 2,
+          "damage_nll": 0.06441096993517892
+        },
+        {
+          "depth": 3,
+          "damage_nll": 0.17202863455204032
+        },
+        {
+          "depth": 4,
+          "damage_nll": 0.4510601087312067
+        },
+        {
+          "depth": 5,
+          "damage_nll": 0.3840613077193038
+        }
+      ],
+      "max_detail_shuffle_damage_nll": 0.4510601087312067,
+      "seconds": 2051.6248602867126,
+      "checkpoint": {
+        "path": "ara/s3-generation/evidence/s3_stone2_product_checkpoint/checkpoints/treeheap_gold.pt",
+        "bytes": 201083096,
+        "sha256": "0d19a4b0814c82a7c8a86281d54a03afcfd0bff4ac42399099227837608e6e49"
+      },
+      "product_evaluation": {
+        "rows": 2000,
+        "prediction_path": "ara/s3-generation/evidence/s3_stone2_product_checkpoint/predictions_gold.jsonl",
+        "prediction_sha256": "ec3620bf3d7bd0004f6cc12e8e705b2fb4d2f450cd1dc800180c48337a0acd4b",
+        "mean_length_ratio": 0.9022738109212622,
+        "repeated_ngram_sentence_rate": {
+          "2": 0.3235,
+          "3": 0.1685,
+          "4": 0.089
+        },
+        "standard_metrics_error": "sacrebleu is not installed"
+      }
+    }
+  },
+  "boundary": "This materializes a checkpoint selected by frozen D01 test metrics; it is a product artifact, not independent evidence."
+}

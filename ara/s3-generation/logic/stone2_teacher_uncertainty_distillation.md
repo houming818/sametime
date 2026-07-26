@@ -1,7 +1,7 @@
 # STONE-2 D01: Teacher Uncertainty Distillation
 
-Date: 2026-07-25
-Status: preregistered / smoke first
+Date: 2026-07-26
+Status: not supported under the registered recipe
 Claim: `S3-STONE2-TEACHER-UNCERTAINTY-D01`
 Predict: `P-S3-STONE2-TEACHER-UNCERTAINTY-01`
 
@@ -127,3 +127,27 @@ Planned evidence:
 ../evidence/s3_stone2_teacher_uncertainty_smoke/
 ../evidence/s3_stone2_teacher_uncertainty_300k/
 ```
+
+## Result
+
+The 300K run completed all four arms on the same frozen validation and test
+splits:
+
+| arm | test NLL | token BLEU-4 | severe repetition |
+|---|---:|---:|---:|
+| gold | 3.2375 | 15.5264 | 0.0150 |
+| teacher top-1 | 3.3131 | 13.5238 | 0.0145 |
+| teacher top-k | 3.3082 | 13.4217 | 0.0160 |
+| shuffled top-k | 3.3084 | 13.3838 | 0.0145 |
+
+`top-k` improved NLL over `top-1` by only `0.0049` and reduced BLEU-4 by
+`0.1021`. More importantly, `top-k` and shuffled teacher weights differed by
+only `0.0002` NLL and `0.0379` BLEU-4. U1, U2, U3 and D1 all failed. The
+registered claim is therefore not supported: this experiment found no usable
+signal in the teacher probability ordering, and every teacher arm lost to the
+gold target arm.
+
+The TreeHeap mechanism itself remained active. Every encoder changed and
+received nonzero finite gradient; the largest detail-shuffle damage was between
+`0.4511` and `0.4683` NLL, and all six route levels retained mass. This says the
+negative result concerns the distillation target, not a bypassed encoder.

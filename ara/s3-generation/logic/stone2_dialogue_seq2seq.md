@@ -1,7 +1,7 @@
 # STONE-2 D02: Chinese Dialogue Seq2Seq
 
-Date: 2026-07-25
-Status: registered / queued after product checkpoint
+Date: 2026-07-26
+Status: open / repetition gate failed
 Claim: `S3-STONE2-DIALOGUE-C01`
 
 ## Question
@@ -73,3 +73,17 @@ instruction/response PoC with measured TreeHeap causality.
 ```text
 ../evidence/s3_stone2_dialogue_100k/
 ```
+
+## Result
+
+The 100K BELLE continuation completed. Validation NLL fell from `7.7765` to
+`4.5793`; test NLL was `4.5911`, every output was nonempty, checkpoint reload
+was exact, and shuffling depth 5 increased NLL by `0.2927`. Encoder gradient,
+encoder change, route-mass and detail-causality gates all passed.
+
+The dialogue claim remains open because severe repetition was `0.317`, above
+the registered `0.10` limit. Held-out prompts repeatedly produced list-shaped
+phrases such as `制定计划` or alternating `鸡蛋/牛奶`, including for unrelated
+questions about the Earth and recursion. The run learned a BELLE response
+surface and retained causal TreeHeap state, but it did not become a minimally
+reliable dialogue model.

@@ -1,0 +1,27 @@
+{
+  "model": "Helsinki-NLP/opus-mt-en-zh",
+  "revision": "main",
+  "beams": 4,
+  "temperature": 0.1,
+  "cache": "/home/nio/datasets/distillation/opus_mt_en_zh_300k_top4_temp0p1.jsonl.gz",
+  "cache_bytes": 90272366,
+  "cache_sha256": "c7a966a03655518885b870848336a54ec7284b7d229b9aa5ef5958ab63c8e97f",
+  "train": {
+    "rows": 300000,
+    "mean_top1_weight": 0.3606249351460735,
+    "mean_probability_entropy_nats": 1.3067839956719953,
+    "mean_top1_top2_gap": 0.09298672371398242,
+    "mean_unique_candidates": 3.9246166666666666,
+    "all_candidates_identical_fraction": 0.0008733333333333334,
+    "top1_token_bleu4": 12.700479860532404
+  },
+  "test": {
+    "rows": 2000,
+    "mean_top1_weight": 0.35968478487432004,
+    "mean_probability_entropy_nats": 1.3103437436029235,
+    "mean_top1_top2_gap": 0.09356179492501542,
+    "mean_unique_candidates": 3.9125,
+    "all_candidates_identical_fraction": 0.0005,
+    "top1_token_bleu4": 12.242664310379618
+  }
+}
