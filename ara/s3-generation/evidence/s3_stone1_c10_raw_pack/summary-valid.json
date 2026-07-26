@@ -1,0 +1,63 @@
+{
+  "claim": "S3-STONE1-FULL-CORPUS-LONG-C10",
+  "host": "io",
+  "format": "npy uint16 [rows, 256]; first 128 source, last 128 target",
+  "contract": {
+    "split": "valid",
+    "width": 256,
+    "tokenizer_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+    "tokenizer_vocab": 32000,
+    "pad": 32000,
+    "eos": 2,
+    "files": [
+      {
+        "index": 0,
+        "source": "news",
+        "path": "/home/nio/datasets/pretrain/Chinese-Train-Datasets/new2016zh/news2016zh_valid.json",
+        "bytes": 283711020,
+        "mtime_ns": 1783834617497496999
+      },
+      {
+        "index": 1,
+        "source": "web",
+        "path": "/home/nio/datasets/pretrain/Chinese-Train-Datasets/webtext2019zh/webtext_zh_valid.json",
+        "bytes": 64794612,
+        "mtime_ns": 1783834656034421156
+      }
+    ]
+  },
+  "shards": [
+    {
+      "path": "valid-00000.npy",
+      "rows": 100000,
+      "bytes": 51200128,
+      "sha256": "ac52de94b0ba7b1cd08ba07c83c2dd366fb2215f9bc04bdf15689ae39c14774b"
+    },
+    {
+      "path": "valid-00001.npy",
+      "rows": 100000,
+      "bytes": 51200128,
+      "sha256": "a043b631248d7c69a58aa6a339b9fba8f735eec46dbd8979467ad49a63316a56"
+    },
+    {
+      "path": "valid-00002.npy",
+      "rows": 80391,
+      "bytes": 41160320,
+      "sha256": "e1f83b005e6bde0ccc7a0110eb7a2dc5abc24ec6f9ba5878c52ad584e4d4dc74"
+    }
+  ],
+  "counters": {
+    "news_physical_rows": 76797,
+    "news_filtered_rows": 372,
+    "news_accepted_docs": 76425,
+    "news_tokens": 63432764,
+    "blocks": 280391,
+    "web_physical_rows": 68345,
+    "web_accepted_docs": 68249,
+    "web_tokens": 8347265,
+    "web_filtered_rows": 96,
+    "final_block_valid_tokens": 189
+  },
+  "complete_source_pass": true,
+  "elapsed_sec_this_run": 13.453668594360352
+}

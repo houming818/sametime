@@ -1,7 +1,7 @@
 # STONE-1 C10: Full-Corpus Long-Context Growth
 
 Date: 2026-07-26
-Status: 128-token smoke supported / full-corpus pass open
+Status: 128-token smoke supported / core-raw full pass running
 Milestone: `STONE-1-LONG`
 Claim: `S3-STONE1-FULL-CORPUS-LONG-C10`
 Predict: `P-S3-STONE1-FULL-CORPUS-LONG-10`
@@ -83,6 +83,36 @@ alone is approximately 4.3 device-days. Parallel and instruction stages make
 the first exhaustive pass an approximately one-week job; this estimate must be
 replaced by observed wall time once the deterministic full-pass iterator runs.
 
+## Core-Raw Materialization And Launch
+
+Task 42 rebuilt the raw continuation data with the frozen 32K tokenizer. It
+visited all 1,276 available news/wiki/web files, inserted EOS after every
+accepted document, packed short documents without erasing boundaries, and
+created blocks of exactly 256 tokens:
+
+```text
+block[0:128]   = source
+block[128:256] = target
+```
+
+The training split contains 11,016,813 blocks and 2,820,304,204 tokens in 111
+shards. The validation split contains 280,391 blocks and 71,780,218 tokens in
+three shards. Both manifests report `complete_source_pass=true`. Preparation
+took 572.5 seconds including validation. Every shard carries SHA-256, and the
+packer stores a file/line cursor plus the pending token tail for recovery.
+
+This is the complete core-raw pass, not yet every locally eligible raw file.
+Four materialized Zhihu parquet shards require a parquet runtime and are staged
+for a later continuation on the same checkpoint; shard 00000 is absent from the
+local mirror and remains a declared corpus gap.
+
+Tasks 43 and 44 validated BF16 training and exact checkpoint continuation.
+Task 44 resumed from step 10 and row 960 and reached step 20 and row 1,920.
+The run remained finite, peaked at 13.89 GiB, and measured about 8,282 target
+tokens/second. Task 45 then started the exhaustive batch-96 core-raw pass with
+a 72-hour taskd window, 1,000-step atomic checkpoints and 2,000-step frozen
+validation. Its initial wall-time estimate is about 47 hours.
+
 The intended capacity ladder is:
 
 | arm | effective tokens | TreeHeap leaves | recursive depths |
@@ -143,5 +173,7 @@ means summary or that a particular depth has a human grammatical label.
 ../evidence/s3_stone1_c10_long_smoke/
 ../evidence/s3_stone1_c10_long_smoke_fp32/
 ../evidence/s3_stone1_c10_batch_ladder/
+../evidence/s3_stone1_c10_raw_pack/
+../evidence/s3_stone1_c10_raw_train_smoke/
 ../evidence/s3_stone1_c10_full_corpus/
 ```

@@ -1,0 +1,118 @@
+{
+  "claim": "S3-STONE1-FULL-CORPUS-LONG-C10",
+  "status": "stopped_early",
+  "host": "io",
+  "config": {
+    "block_dir": "/home/nio/datasets/derived/stone1_c10/raw_32k_256",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_stone1_c10_raw_train_smoke",
+    "batch": 96,
+    "dim": 320,
+    "hidden": 512,
+    "heap_width": 256,
+    "source_width": 128,
+    "target_width": 128,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "seed": 75020,
+    "log_every": 100,
+    "checkpoint_every": 1000,
+    "valid_every": 2000,
+    "valid_batches": 8,
+    "device": "cuda",
+    "resume": true,
+    "max_steps": 20,
+    "pad": 32000,
+    "bos": 1,
+    "eos": 2,
+    "vocab": 32001
+  },
+  "parameters": 50679947,
+  "depth_floor_per_level": 0.015,
+  "manifest": "/home/nio/datasets/derived/stone1_c10/raw_32k_256/manifest-train.json",
+  "total_rows": 11016813,
+  "processed_rows": 1920,
+  "processed_tokens": 245760,
+  "global_step": 20,
+  "finite": true,
+  "initial": {
+    "nll": 8.538662195205688,
+    "ppl": 5108.505604917527,
+    "tokens": 98304,
+    "route_mass_by_level": [
+      0.14697794616222382,
+      0.06206195056438446,
+      0.09878530353307724,
+      0.12318577617406845,
+      0.13658899068832397,
+      0.14122840762138367,
+      0.14531923830509186,
+      0.14585241675376892
+    ]
+  },
+  "final": {
+    "nll": 8.082377831141153,
+    "ppl": 3236.9209444100434,
+    "tokens": 98304,
+    "route_mass_by_level": [
+      0.14616039395332336,
+      0.0391654446721077,
+      0.08865629136562347,
+      0.14235734939575195,
+      0.14550919830799103,
+      0.14593906700611115,
+      0.14609907567501068,
+      0.14611318707466125
+    ]
+  },
+  "detail_shuffle": [
+    {
+      "depth": 0,
+      "damage_nll": 0.0
+    },
+    {
+      "depth": 1,
+      "damage_nll": -0.00016101201375207097
+    },
+    {
+      "depth": 2,
+      "damage_nll": -0.0002427895863839069
+    },
+    {
+      "depth": 3,
+      "damage_nll": 0.0003301302591971478
+    },
+    {
+      "depth": 4,
+      "damage_nll": 0.0009670257568359375
+    },
+    {
+      "depth": 5,
+      "damage_nll": 0.006928841272991093
+    },
+    {
+      "depth": 6,
+      "damage_nll": 0.020069519678752812
+    },
+    {
+      "depth": 7,
+      "damage_nll": 0.18457468350728412
+    }
+  ],
+  "peak_vram_bytes": 14913411584,
+  "elapsed_sec_this_run": 42.65034818649292,
+  "trace": [
+    {
+      "step": 1,
+      "train_nll": 16.92424774169922,
+      "processed_rows": 96,
+      "total_rows": 11016813,
+      "progress": 8.713953844909595e-06,
+      "tokens_per_sec": 8282.465987554993,
+      "eta_sec": 170256.029800646,
+      "shard_position": 0,
+      "row_position": 96,
+      "elapsed_sec": 1.4836161136627197
+    }
+  ]
+}
