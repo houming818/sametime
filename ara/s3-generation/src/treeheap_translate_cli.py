@@ -59,14 +59,15 @@ def translate(text, args, tokens, sp, model, max_new_tokens):
         sp.get_piece_size(),
         args.noise_seed,
     )
-    prediction = model.greedy(
+    prediction, _ = model.greedy(
         fixed,
         visible_length,
         tokens["bos"],
         tokens["eos"],
         max_new_tokens,
         route_mode="depth_floor",
-    )[0].cpu().tolist()
+    )
+    prediction = prediction[0].cpu().tolist()
     clean = base.clean(prediction, tokens["eos"], tokens["pad"])
     return sp.decode(clean)
 

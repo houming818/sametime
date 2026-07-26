@@ -247,9 +247,10 @@ def product_evaluate(
             source, length, "eos_tail", args.heap_width, pad, eos, pieces,
             args.noise_seed,
         )
-        prediction = model.greedy(
+        prediction, _ = model.greedy(
             fixed, visible_length, bos, eos, 64, route_mode="depth_floor",
-        ).cpu()
+        )
+        prediction = prediction.cpu()
         source_cpu = source.cpu()
         target_cpu = target.cpu()
         for index in range(source.shape[0]):
