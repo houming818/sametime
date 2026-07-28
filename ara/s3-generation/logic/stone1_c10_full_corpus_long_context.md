@@ -1,10 +1,38 @@
 # STONE-1 C10: Full-Corpus Long-Context Growth
 
 Date: 2026-07-26
-Status: 128-token smoke supported / core-raw full pass running
+Last audit: 2026-07-28
+Status: invalid for translation/private-protocol support; diagnostic evidence retained
 Milestone: `STONE-1-LONG`
 Claim: `S3-STONE1-FULL-CORPUS-LONG-C10`
 Predict: `P-S3-STONE1-FULL-CORPUS-LONG-10`
+
+## Retraction Notice (2026-07-28)
+
+The completed core-raw pass cannot support the registered translation or
+private-protocol claim. Three unrelated English CLI inputs all collapsed into
+nearly the same repetitive Chinese Belt-and-Road continuation and did not emit
+EOS within 48 pieces.
+
+Code review found two confounds:
+
+1. Training and validation used full target teacher forcing. The decoder could
+   reduce token NLL from the gold Chinese prefix while ignoring the English
+   source. Free-running CLI generation did not receive that prefix.
+2. `fixed_source(..., "eos_tail", heap_width=256)` copied at most 128 source
+   pieces and exposed every remaining leaf as EOS. A short source could
+   therefore be represented by a few source pieces plus roughly 250 visible
+   EOS leaves, making different source heaps unnecessarily similar.
+
+Consequently, the observed NLL curve is retained as evidence that optimization
+ran and learned teacher-forced target continuation. It is not evidence of
+source-conditioned translation, a TreeHeap private protocol, or STONE-1
+completion. Detail-shuffle damage only establishes dependence on some TreeHeap
+state under the same confounded evaluation; it does not establish that source
+semantics entered that state.
+
+Reopening C10 requires source-shuffle, empty-source, first-step-logit and
+free-running diversity/EOS audits before another long training run.
 
 ## Question
 
