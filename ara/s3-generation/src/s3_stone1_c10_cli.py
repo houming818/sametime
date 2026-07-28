@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run non-teacher-forced translation with a STONE-1 C10 checkpoint."""
+"""Run free-running Chinese-prefix continuation with a STONE-1 C10 checkpoint."""
 from __future__ import annotations
 
 import argparse
@@ -31,7 +31,7 @@ def load_runtime(checkpoint_path: Path, tokenizer_path: Path, device: str):
 
 
 @torch.inference_mode()
-def translate(model, sp, config, pad: int, text: str, max_output: int, device: str):
+def continue_prefix(model, sp, config, pad: int, text: str, max_output: int, device: str):
     source = sp.encode(text, out_type=int) + [sp.eos_id()]
     if len(source) > int(config.source_width):
         raise ValueError(
@@ -55,8 +55,8 @@ def translate(model, sp, config, pad: int, text: str, max_output: int, device: s
         predicted[0].detach().cpu().tolist(), sp.eos_id(), pad,
     )
     return {
-        "input": text,
-        "translation": sp.decode(token_ids),
+        "prefix": text,
+        "continuation": sp.decode(token_ids),
         "input_pieces": len(source),
         "output_pieces": len(token_ids),
         "route_mass_by_level": [float(value) for value in route.detach().cpu()],
@@ -64,7 +64,13 @@ def translate(model, sp, config, pad: int, text: str, max_output: int, device: s
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(prog="treeheap-c10")
+    parser = argparse.ArgumentParser(
+        prog="treeheap-c10",
+        description=(
+            "Continue an in-domain Chinese text prefix with the C10 core-raw "
+            "checkpoint. This checkpoint was not trained for EN-ZH translation."
+        ),
+    )
     parser.add_argument(
         "--checkpoint",
         default=(
@@ -76,7 +82,12 @@ def main() -> None:
         "--spm-model",
         default="/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
     )
-    parser.add_argument("--text", action="append", default=[])
+    parser.add_argument(
+        "--text",
+        action="append",
+        default=[],
+        help="Chinese prefix to continue; repeat the option for multiple prefixes",
+    )
     parser.add_argument("--max-output", type=int, default=64)
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--json", action="store_true")
@@ -95,6 +106,9 @@ def main() -> None:
 
     metadata = {
         "claim": checkpoint["claim"],
+        "task": "zh_prefix_continuation",
+        "training_objective": "first_128_raw_zh_pieces_to_next_128_raw_zh_pieces",
+        "translation_supported": False,
         "global_step": checkpoint["global_step"],
         "processed_tokens": checkpoint["processed_tokens"],
         "heap_width": config.heap_width,
@@ -109,19 +123,19 @@ def main() -> None:
 
     for text in texts:
         try:
-            result = translate(
+            result = continue_prefix(
                 model, sp, config, pad, text, args.max_output, args.device,
             )
         except ValueError as error:
-            result = {"input": text, "error": str(error)}
+            result = {"prefix": text, "error": str(error)}
         if args.json:
             print(json.dumps(result, ensure_ascii=False))
             continue
-        print(f"EN: {result['input']}")
+        print(f"PREFIX: {result['prefix']}")
         if "error" in result:
             print(f"ERROR: {result['error']}")
         else:
-            print(f"ZH: {result['translation']}")
+            print(f"CONTINUATION: {result['continuation']}")
             print(
                 f"pieces: input={result['input_pieces']} "
                 f"output={result['output_pieces']}"
