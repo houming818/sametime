@@ -209,8 +209,8 @@ def main() -> None:
         optimizer.step()
         if step == 1 or step % args.eval_every == 0:
             metrics = {str(n): evaluate(model, valid, args, pad, bos, eos, valid_rng, n) for n in LENGTHS}
-            row = {"step": step, "train_nll": float(native.mean()),
-                   "dependence_loss": float(dependence), "by_length": metrics,
+            row = {"step": step, "train_nll": float(native.mean().detach()),
+                   "dependence_loss": float(dependence.detach()), "by_length": metrics,
                    "elapsed_sec": time.time() - started}
             trace.append(row)
             print(json.dumps(row, ensure_ascii=False), flush=True)
