@@ -1,0 +1,284 @@
+{
+  "claim": "S3-TARGET-TREE-AUTOREGRESSIVE-C14",
+  "status": "smoke_complete",
+  "host": "io",
+  "config": {
+    "data": "/home/nio/datasets/wmt17/train.zh-en",
+    "spm_model": "/home/nio/datasets/wmt17/sp_bpe.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_stone1_c14_target_tree_autoregressive",
+    "model": "target_tree_autoregressive",
+    "seed": 75034,
+    "train_samples": 5000,
+    "valid_samples": 500,
+    "test_samples": 500,
+    "max_scan": 100000,
+    "min_len": 8,
+    "max_len": 24,
+    "dim": 192,
+    "hidden": 384,
+    "batch_size": 16,
+    "epochs": 5,
+    "lr": 0.001,
+    "device": "cuda",
+    "num_workers": 0
+  },
+  "args": {
+    "data": "/home/nio/datasets/wmt17/train.zh-en",
+    "spm_model": "/home/nio/datasets/wmt17/sp_bpe.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_stone1_c14_target_tree_autoregressive",
+    "seed": 75034,
+    "train_samples": 5000,
+    "valid_samples": 500,
+    "test_samples": 500,
+    "max_scan": 100000,
+    "min_len": 8,
+    "max_len": 24,
+    "heap_width": 32,
+    "dim": 192,
+    "hidden": 384,
+    "batch_size": 16,
+    "epochs": 5,
+    "lr": 0.001,
+    "device": "cuda"
+  },
+  "parameters": 10309507,
+  "initial": {
+    "nll": 9.685563112235695,
+    "tokens": 7969,
+    "route_mass": [
+      0.457710325717926,
+      0.23971731960773468,
+      0.14583174884319305,
+      0.07615876942873001,
+      0.040447868406772614,
+      0.040133990347385406
+    ]
+  },
+  "initial_test": {
+    "nll": 9.685454376433032,
+    "tokens": 7905,
+    "route_mass": [
+      0.4553855061531067,
+      0.23962432146072388,
+      0.1466309279203415,
+      0.07662007212638855,
+      0.0409969799220562,
+      0.040742211043834686
+    ]
+  },
+  "test": {
+    "nll": 6.960061203475846,
+    "tokens": 7905,
+    "route_mass": [
+      6.1729115742592544e-12,
+      1.3198503401312678e-10,
+      5.948440628955609e-10,
+      5.7800444430711195e-09,
+      4.6405656206616186e-08,
+      1.0
+    ],
+    "token_bleu4": 0.21501298973027153,
+    "nonempty": 1.0,
+    "max_repeat_run": 4,
+    "unique_output_fraction": 0.184,
+    "examples": [
+      {
+        "source": "The course of the electoral struggle so far indicates that the Liberal Democrats will do very well.",
+        "hypothesis": "布什的 ⁇ 的 ⁇ 的。",
+        "reference": "到目前为止的竞选趋势表明,自由民主党成绩异常出色。"
+      },
+      {
+        "source": "Moreover, Labour and the Conservatives are in a political trap.",
+        "hypothesis": "此外,美国在美国的“的。",
+        "reference": "此外,工党和保守党都陷入了一个政治陷阱。"
+      },
+      {
+        "source": "Another Roller Coaster Ride for Exchange Rates in 2009?",
+        "hypothesis": "纽 — —  ⁇ 的。",
+        "reference": "2009年的汇率将又会大起大落吗?"
+      },
+      {
+        "source": "CAMBRIDGE – 2008 has been an exceptionally tumultuous year for exchange rates.",
+        "hypothesis": "纽 — —  ⁇ 的。",
+        "reference": "坎布里奇-2008年是汇率非常动荡的一年。"
+      },
+      {
+        "source": "Indeed, the currency of any country that is significantly dependent on commodity exports has suffered.",
+        "hypothesis": "事实上,美国的的“的“的。",
+        "reference": "实际上,每个在很大程度上依赖于商品出口国家的货币,都受到影响。"
+      },
+      {
+        "source": "So, what will the New Year bring for exchange rates?",
+        "hypothesis": " ⁇ 的 ⁇ 的命运。",
+        "reference": "那么,明年的汇率将会是怎样?"
+      },
+      {
+        "source": "Normally, short-run and long-run exchange-rate trends point in the same direction.",
+        "hypothesis": " ⁇ 的 ⁇ 的命运。",
+        "reference": "通常情况下,短期和长期汇率趋势的方向是一致的。"
+      },
+      {
+        "source": "The continuing financial crisis is putting steady upward pressure on the dollar thanks to its safe haven status.",
+        "hypothesis": "布什的“ ⁇ 的。",
+        "reference": "由于美元其避风港的地位,持续的财政危机正对美元造成稳步上升的压力。"
+      }
+    ]
+  },
+  "interventions": {
+    "source_shuffle": {
+      "nll": 7.057980495310523,
+      "tokens": 7905,
+      "route_mass": [
+        1.4808515741773776e-12,
+        1.919140957262755e-10,
+        7.401695367725836e-10,
+        4.647799478618708e-09,
+        4.2203467387480487e-08,
+        1.0
+      ]
+    },
+    "target_zero": {
+      "nll": 11.345737692285836,
+      "tokens": 7905,
+      "route_mass": [
+        3.762389908629725e-14,
+        8.660945766993111e-13,
+        3.2878808182978947e-12,
+        3.301841439151687e-11,
+        2.154549039179443e-10,
+        1.0
+      ]
+    },
+    "target_root_only": {
+      "nll": 7.731908079433261,
+      "tokens": 7905,
+      "route_mass": [
+        2.3424353277380627e-13,
+        2.3826917869285147e-11,
+        6.982277256373237e-11,
+        5.715120043880972e-10,
+        4.530232633470632e-09,
+        1.0
+      ]
+    },
+    "source_root_only": {
+      "nll": 7.49252117043579,
+      "tokens": 7905,
+      "route_mass": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "damage": {
+    "source_shuffle": 0.0979192918346774,
+    "target_zero": 4.38567648880999,
+    "target_root_only": 0.7718468759574151,
+    "source_root_only": 0.5324599669599444
+  },
+  "closure": {
+    "mse": 1.0778773774683566e-14,
+    "max_abs": 1.1920928955078125e-06
+  },
+  "gates": {
+    "learned": true,
+    "source_causal": false,
+    "target_history_causal": true,
+    "target_path_causal": true,
+    "source_recursive_causal": true,
+    "generation_noncollapsed": false,
+    "closure": true
+  },
+  "trace": [
+    {
+      "epoch": 1,
+      "train_nll": 7.112265180094173,
+      "valid": {
+        "nll": 6.8307285028803015,
+        "tokens": 7969,
+        "route_mass": [
+          1.0283270901467745e-09,
+          1.6718248119218515e-08,
+          5.141222345628194e-07,
+          4.978267043043161e-06,
+          2.0726367438328452e-05,
+          0.9999738335609436
+        ]
+      },
+      "elapsed_sec": 70.59061288833618
+    },
+    {
+      "epoch": 2,
+      "train_nll": 6.651024033848089,
+      "valid": {
+        "nll": 6.768136337420051,
+        "tokens": 7969,
+        "route_mass": [
+          2.0923811728384978e-12,
+          7.467143570139001e-11,
+          1.3736416448750788e-09,
+          3.0358219049730906e-08,
+          2.7572187377700175e-07,
+          0.9999998807907104
+        ]
+      },
+      "elapsed_sec": 140.95732831954956
+    },
+    {
+      "epoch": 3,
+      "train_nll": 6.4912478900945985,
+      "valid": {
+        "nll": 6.759605986932272,
+        "tokens": 7969,
+        "route_mass": [
+          6.539431322838407e-12,
+          2.8309218857991425e-10,
+          1.4241280377191856e-09,
+          7.946210800469089e-09,
+          5.187673224327227e-08,
+          1.0
+        ]
+      },
+      "elapsed_sec": 211.32748007774353
+    },
+    {
+      "epoch": 4,
+      "train_nll": 6.325204262718225,
+      "valid": {
+        "nll": 6.827617456180296,
+        "tokens": 7969,
+        "route_mass": [
+          8.63331281464319e-12,
+          1.8496983111848664e-10,
+          1.1529394106091218e-09,
+          6.8812298081866174e-09,
+          4.179715773489079e-08,
+          1.0
+        ]
+      },
+      "elapsed_sec": 281.9230070114136
+    },
+    {
+      "epoch": 5,
+      "train_nll": 6.127983783380673,
+      "valid": {
+        "nll": 6.915652316851334,
+        "tokens": 7969,
+        "route_mass": [
+          3.0870085133971603e-12,
+          9.3794257083335e-11,
+          6.031943833306741e-10,
+          4.523778684983881e-09,
+          3.322363895108538e-08,
+          1.0
+        ]
+      },
+      "elapsed_sec": 351.80996799468994
+    }
+  ],
+  "elapsed_sec": 364.3062698841095
+}
