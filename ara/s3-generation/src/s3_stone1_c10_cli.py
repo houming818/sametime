@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run free-running Chinese-prefix continuation with a STONE-1 C10 checkpoint."""
+"""Run free Chinese-prefix continuation with a STONE-1 C10/C11 checkpoint."""
 from __future__ import annotations
 
 import argparse
@@ -12,13 +12,18 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import s3_stone1_c10_long_smoke as c10
+import s3_stone1_fixed_root_noise_repair as c08
 import s3_wmt_treeheap_seq2seq as base
 
 
 def load_runtime(checkpoint_path: Path, tokenizer_path: Path, device: str):
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
-    if checkpoint.get("claim") != "S3-STONE1-FULL-CORPUS-LONG-C10":
-        raise ValueError("checkpoint is not a STONE-1 C10 checkpoint")
+    supported = {
+        "S3-STONE1-FULL-CORPUS-LONG-C10",
+        "S3-STONE1-SOURCE-CONDITIONED-C11",
+    }
+    if checkpoint.get("claim") not in supported:
+        raise ValueError("checkpoint is not a supported STONE-1 C10/C11 checkpoint")
 
     sp = spm.SentencePieceProcessor(model_file=str(tokenizer_path))
     config = argparse.Namespace(**checkpoint["config"])
@@ -31,7 +36,8 @@ def load_runtime(checkpoint_path: Path, tokenizer_path: Path, device: str):
 
 
 @torch.inference_mode()
-def continue_prefix(model, sp, config, pad: int, text: str, max_output: int, device: str):
+def continue_prefix(model, sp, config, pad: int, text: str, max_output: int,
+                    device: str, claim: str):
     source = sp.encode(text, out_type=int) + [sp.eos_id()]
     if len(source) > int(config.source_width):
         raise ValueError(
@@ -40,9 +46,15 @@ def continue_prefix(model, sp, config, pad: int, text: str, max_output: int, dev
 
     source_tensor = torch.tensor(source, dtype=torch.long, device=device)[None]
     length = torch.tensor([len(source)], dtype=torch.long, device=device)
-    fixed, visible_length = c10.fixed_source(
-        source_tensor, length, config, pad, sp.eos_id(), sp.get_piece_size(),
-    )
+    if claim == "S3-STONE1-SOURCE-CONDITIONED-C11":
+        fixed, visible_length = c08.fixed_source(
+            source_tensor, length, "clean_mask", config.heap_width, pad,
+            sp.eos_id(), sp.get_piece_size(), 0,
+        )
+    else:
+        fixed, visible_length = c10.fixed_source(
+            source_tensor, length, config, pad, sp.eos_id(), sp.get_piece_size(),
+        )
     predicted, route = model.greedy(
         fixed,
         visible_length,
@@ -65,10 +77,10 @@ def continue_prefix(model, sp, config, pad: int, text: str, max_output: int, dev
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        prog="treeheap-c10",
+        prog="treeheap-c10-c11",
         description=(
-            "Continue an in-domain Chinese text prefix with the C10 core-raw "
-            "checkpoint. This checkpoint was not trained for EN-ZH translation."
+            "Continue an in-domain Chinese text prefix with a C10/C11 core-raw "
+            "checkpoint. These checkpoints were not trained for EN-ZH translation."
         ),
     )
     parser.add_argument(
@@ -107,10 +119,14 @@ def main() -> None:
     metadata = {
         "claim": checkpoint["claim"],
         "task": "zh_prefix_continuation",
-        "training_objective": "first_128_raw_zh_pieces_to_next_128_raw_zh_pieces",
+        "training_objective": (
+            "last_16_256_raw_zh_pieces_to_next_128_raw_zh_pieces"
+            if checkpoint["claim"] == "S3-STONE1-SOURCE-CONDITIONED-C11"
+            else "first_128_raw_zh_pieces_to_next_128_raw_zh_pieces"
+        ),
         "translation_supported": False,
-        "global_step": checkpoint["global_step"],
-        "processed_tokens": checkpoint["processed_tokens"],
+        "global_step": checkpoint.get("global_step", checkpoint.get("step")),
+        "processed_tokens": checkpoint.get("processed_tokens"),
         "heap_width": config.heap_width,
         "source_width": config.source_width,
         "depth_floor_per_level": floor,
@@ -125,6 +141,7 @@ def main() -> None:
         try:
             result = continue_prefix(
                 model, sp, config, pad, text, args.max_output, args.device,
+                checkpoint["claim"],
             )
         except ValueError as error:
             result = {"prefix": text, "error": str(error)}
