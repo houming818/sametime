@@ -1,6 +1,6 @@
 # STONE-1 C13: emergent TreeHeap private protocol
 
-Status: registered; experiment pending
+Status: smoke complete; partial content/round protocol, strong claim not supported
 
 ## Prior evidence
 
@@ -98,3 +98,52 @@ protocol. A passing smoke would establish a causal learned communication
 mechanism, not dialogue, translation quality, semantic hierarchy,
 consciousness, or superiority over Transformer.
 
+## Result
+
+The registered smoke completed on `io` as task 58 with exit code 0. It trained
+1,000 updates on the adjacent-block corpus in 345.6 seconds. The encoder had
+11.47M parameters and the protocol module 18.44M.
+
+| Measurement | Initial | Final |
+|---|---:|---:|
+| Validation NLL | 10.3917 | 7.9772 |
+| Leaf variance | 0.0764 | 0.0189 |
+| Mean attention entropy | 1.1152 | 0.2023 |
+
+The NLL and entropy curves show successful optimization and increasingly sharp
+reads, but neither quantity alone establishes a private protocol. The causal
+interventions give the actual decision:
+
+| Intervention | NLL increase | Registered gate |
+|---|---:|---:|
+| Source shuffle | +0.0627 | pass |
+| Empty source | +0.2204 | pass |
+| Source sibling-address mirror | +0.0018 | fail |
+| Remove last communication round | +0.0115 | pass |
+| Remove head 0/1/2/3 | +0.0015/+0.0006/-0.0022/+0.0059 | fail: only one head causal |
+| Zero detail depth 1/2/3 | +0.0054/+0.0060/+0.0054 | pass |
+
+The encoder changed by L2 `3.0164`. Therefore the run was not a frozen-code
+decoder fit. It learned a source-content-dependent target state, used repeated
+updates, and placed causally useful information in several target detail
+depths. This is positive evidence beyond C12.
+
+However, it did not learn the full registered TreeHeap protocol. Address
+mirroring was neutral and independent head specialization did not appear. Free
+generation remained identical to C12: distinct-2/4 `0.0079/0.0080`, maximum
+repeat run 128, unique-output fraction `0.0625`, and samples collapsed to 128
+commas.
+
+The preregistered absolute FP32 closure gate also failed: maximum error was
+`1.38e-4` before C13 training and `2.45e-4` after it, while MSE stayed small
+(`6.58e-12 -> 1.73e-11`). Because the imported C11 checkpoint already exceeded
+the `1e-5` threshold before the experiment, this gate cannot attribute the
+entire failure to C13, but the measured numerical drift must be retained.
+
+Predictions 1, 2, 5, and 6 passed; 3, 4, and 7 failed; prediction 8 was mixed.
+The strong claim is therefore **not supported**. The narrower supported result
+is that joint training plus repeated TreeHeap updates can create causal source,
+round, and multi-depth state dependence. It has not yet created address-aware
+multi-head specialization or usable generation.
+
+Evidence: `../evidence/s3_stone1_c13_emergent_protocol/summary.json`.
