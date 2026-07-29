@@ -1,0 +1,157 @@
+{
+  "claim": "S3-BUDGETED-CONDITIONAL-INDEX-C15",
+  "status": "probe_complete",
+  "config": {
+    "seed": 75035,
+    "train_per_query": 600,
+    "test_per_query": 300,
+    "layouts": 64,
+    "budget": 10,
+    "top_k": 3,
+    "swap_rounds": 32,
+    "smoothing": 0.1,
+    "evidence_dir": "ara/s3-generation/evidence/s3_stone1_c15_budgeted_index"
+  },
+  "exact": {
+    "nll_min": 1.7103905643791535,
+    "nll_max": 1.7103905643791542,
+    "nll_range": 6.661338147750939e-16,
+    "flat_count_entries": 192,
+    "tree_count_entries": 372
+  },
+  "structured": {
+    "random_train_mean": 0.6928515625,
+    "random_test_mean": 0.6921354166666667,
+    "random_test_min": 0.635,
+    "random_test_max": 0.7733333333333333,
+    "optimized_train_hit": 0.8120833333333334,
+    "optimized_test_hit": 0.8125,
+    "optimized_advantage": 0.12036458333333333,
+    "train_test_gap": -0.0004166666666666208,
+    "layout": [
+      "train",
+      "bicycle",
+      "mountain",
+      "museum",
+      "car",
+      "bus",
+      "beach",
+      "hotel",
+      "aspirin",
+      "rice",
+      "insulin",
+      "ibuprofen",
+      "noodles",
+      "apple",
+      "bread",
+      "amoxicillin"
+    ],
+    "optimization_trace": [
+      {
+        "round": 0,
+        "train_hit": 0.7731944444444444
+      },
+      {
+        "round": 1,
+        "train_hit": 0.8120833333333334
+      }
+    ]
+  },
+  "shuffled": {
+    "random_train_mean": 0.6901323784722222,
+    "random_test_mean": 0.6893142361111111,
+    "random_test_min": 0.6255555555555555,
+    "random_test_max": 0.7475,
+    "optimized_train_hit": 0.7761111111111111,
+    "optimized_test_hit": 0.7733333333333333,
+    "optimized_advantage": 0.08401909722222223,
+    "train_test_gap": 0.002777777777777768,
+    "layout": [
+      "rice",
+      "noodles",
+      "bicycle",
+      "bread",
+      "car",
+      "beach",
+      "mountain",
+      "museum",
+      "ibuprofen",
+      "aspirin",
+      "hotel",
+      "bus",
+      "apple",
+      "amoxicillin",
+      "insulin",
+      "train"
+    ],
+    "optimization_trace": [
+      {
+        "round": 0,
+        "train_hit": 0.7469444444444444
+      },
+      {
+        "round": 1,
+        "train_hit": 0.7754166666666666
+      },
+      {
+        "round": 2,
+        "train_hit": 0.7761111111111111
+      }
+    ]
+  },
+  "advantage_drop_after_shuffle": 0.0363454861111111,
+  "flat_exact_topk_hit": 0.8125,
+  "eat_trace": {
+    "returned": [
+      "rice",
+      "noodles",
+      "apple"
+    ],
+    "visited": [
+      {
+        "node": 0,
+        "mass": 600.0
+      },
+      {
+        "node": 2,
+        "mass": 562.0
+      },
+      {
+        "node": 6,
+        "mass": 326.0
+      },
+      {
+        "node": 13,
+        "mass": 261.0
+      },
+      {
+        "node": 5,
+        "mass": 236.0
+      },
+      {
+        "node": 11,
+        "mass": 231.0
+      },
+      {
+        "node": 24,
+        "mass": 228.0
+      },
+      {
+        "node": 27,
+        "mass": 157.0
+      },
+      {
+        "node": 28,
+        "mass": 104.0
+      }
+    ]
+  },
+  "gates": {
+    "exact_nll_invariant": true,
+    "tree_storage_exceeds_flat": true,
+    "optimized_beats_random": true,
+    "heldout_transfer": true,
+    "shuffle_reduces_advantage": true,
+    "eat_returns_multiple": true
+  }
+}

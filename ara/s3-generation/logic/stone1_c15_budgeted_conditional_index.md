@@ -1,6 +1,6 @@
 # C15: budgeted conditional TreeHeap index
 
-Status: preregistered; implementation prepared; formal evidence pending
+Status: supported controlled index toy; language-scale claim remains open
 
 ## Question
 
@@ -153,3 +153,41 @@ differentiable placement rule exists.
 - Do not reconnect this result to WMT generation until the index can retrieve
   held-out corpus values and accept new observations without a full rebuild.
 
+## Formal result (io task 62, 2026-07-29)
+
+The preregistered default configuration used 12 queries, 16 values, 600
+training events and 300 independent test events per query, 64 random layouts,
+a 10-node visit budget and Top-3 retrieval. The run completed on io and wrote
+`../evidence/s3_stone1_c15_budgeted_index/summary.json`.
+
+| Measurement | Prediction | Result | Gate |
+|---|---:|---:|---|
+| Exact NLL range across layouts | < `1e-12` | `6.66e-16` | pass |
+| Flat/tree count entries | tree > flat | `192 / 372` | pass |
+| Random-layout held-out Hit@3 | reference | `0.6921` mean | reference |
+| Optimized held-out Hit@3 | random + `0.05` | `0.8125` (`+0.1204`) | pass |
+| Train-test Hit@3 gap | < `0.10` | `-0.0004` | pass |
+| Advantage drop after shuffle | >= `0.02` | `0.0363` | pass |
+| Flat exact Top-3 | upper reference | `0.8125` | matched |
+
+For `eat`, the frozen optimized tree returned `rice`, `noodles` and `apple`
+after visiting nine nodes, below the ten-node budget.
+
+### Interpretation
+
+The negative theorem is confirmed: exact full path NLL is topology blind, and
+the uncompressed exact-count tree stores more scalar entries than the flat
+conditional table. This objective must not be used to claim learned TreeHeap
+structure.
+
+The finite-budget placement claim is supported in this controlled corpus.
+Legal leaf swaps driven only by training Hit@3 transfer to independently sampled
+test events and recover the flat table's Top-3 result while visiting fewer than
+all 16 leaves. Destroying cross-query shared structure leaves some
+query-specific optimization possible, but reduces the advantage by `0.0363`.
+
+This does not establish semantic indexing, memory compression, differentiable
+placement, online insertion or natural-language retrieval. The next admissible
+experiment must replace hand-sized query count channels with a bounded node
+state and compare against a matched flat inverted index under the same memory,
+node-visit and update budgets.
