@@ -147,3 +147,21 @@ round, and multi-depth state dependence. It has not yet created address-aware
 multi-head specialization or usable generation.
 
 Evidence: `../evidence/s3_stone1_c13_emergent_protocol/summary.json`.
+
+## Post-hoc top-2 diagnostic
+
+At the user's request, task 59 repeated the same seeded 1,000-update run and
+changed only deterministic decoding from vocabulary rank 1 to rank 2. The
+learning trace and final NLL reproduced exactly.
+
+- rank 1 produced 128 commas for every inspected source;
+- rank 2 produced 128 full stops for every inspected source;
+- both ranks had distinct-2/4 `0.0079/0.0080`, maximum repeat run 128, and
+  unique-output fraction `0.0625`.
+
+This falsifies the narrow explanation that one dominant comma hid an otherwise
+source-specific second choice. The high-probability vocabulary ordering itself
+is nearly shared across leaves and sources. Top-k sampling could add visible
+noise but would not repair the missing target-side generative protocol.
+
+Diagnostic evidence: `../evidence/s3_stone1_c13_top2_diagnostic/summary.json`.
