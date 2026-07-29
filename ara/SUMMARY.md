@@ -1,8 +1,11 @@
 # SameTime / TreeHeap ARA Summary
 
-Status: living research entry point  
-Updated: 2026-07-29  
-Branch: `experiment/private-protocol-battle`  
+Status: living research entry point
+
+Updated: 2026-07-29
+
+Branch: `experiment/private-protocol-battle`
+
 Scope: M0 algebra, S1 echo/encoding, S2 translation, and S3 generation/indexing
 
 This document is the shortest complete route into the current TreeHeap research.
@@ -354,4 +357,3 @@ A new reviewer should proceed in this order:
 
 Do not infer progress from blog count, training duration, GPU use, low
 teacher-forced NLL, or model parameter count alone.
-

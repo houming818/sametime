@@ -1,8 +1,11 @@
 # SameTime / TreeHeap ARA 项目综述
 
-状态：持续更新的研究入口  
-更新时间：2026-07-29  
-分支：`experiment/private-protocol-battle`  
+状态：持续更新的研究入口
+
+更新时间：2026-07-29
+
+分支：`experiment/private-protocol-battle`
+
 范围：M0 代数、S1 编码与 Echo、S2 翻译、S3 生成与索引
 
 这是一份能够单独恢复 TreeHeap 当前研究状态的入口文档。它集中说明：
@@ -330,4 +333,3 @@ STONE-1 尚未完成。要达到可发布产品里程碑，至少需要：
 
 不要仅凭 blog 数量、训练时长、GPU 利用率、较低的 teacher-forced NLL 或
 参数规模来判断项目进度。
-
