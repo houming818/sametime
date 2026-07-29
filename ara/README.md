@@ -39,10 +39,11 @@ cp template.md ara/{topic-id}/trace/dag.yaml     # ← fill in
 
 ## Key Rule
 
-Start from `PAPER.md` when reviewing the whole project. Use `PAPER.zh.md` for
-the Chinese root manifest, and `TRANSLATION.zh.md` for the recursive Chinese
-mirror index. These files bind the SPR blog series to the ARA claim registry,
-evidence pointers, downgraded claims, and the next proof queue.
+Start from `SUMMARY.md` for the current English research state or
+`SUMMARY.zh.md` for the complete Chinese entry point. Continue with `PAPER.md`
+or `PAPER.zh.md` when the full claim history is needed. These files bind the SPR
+blog series to the ARA claim registry, evidence pointers, downgraded claims, and
+the next proof queue.
 
 **Every claim in `/logic` must have an evidence pointer to `/evidence`.**
 **Every dead end in `/trace` must have: hypothesis + failure mode + lesson + pivot_to.**
