@@ -263,12 +263,14 @@ def evaluate(protocol, encoder, stream, args, pad, rng, intervention="native"):
 
 
 @torch.no_grad()
-def generation(protocol, encoder, stream, args, sp, pad, eos, rng):
+def generation(protocol, encoder, stream, args, sp, pad, eos, rng, rank: int = 1):
     protocol.eval(); encoder.eval()
     source, length, _ = new_batch(stream, 16, pad, args.device, rng)
     _, root, levels, masks = encode(encoder, source, length)
     logits, _, _, _ = protocol(encoder, root, levels, masks)
-    outputs = logits.argmax(-1)
+    if rank < 1 or rank > logits.shape[-1]:
+        raise ValueError(f"invalid vocabulary rank: {rank}")
+    outputs = logits.topk(rank, dim=-1).indices[..., rank - 1]
     rows, d2, d4, runs, eos_hits = [], [], [], [], 0
     for src, n, output in zip(source, length, outputs):
         raw = output.cpu().tolist()
@@ -279,7 +281,8 @@ def generation(protocol, encoder, stream, args, sp, pad, eos, rng):
         rows.append({"source": sp.decode(src[:int(n)].cpu().tolist()),
                      "output": sp.decode(ids), "distinct2": d2[-1],
                      "distinct4": d4[-1], "max_repeat_run": runs[-1]})
-    return {"distinct2": sum(d2) / len(d2), "distinct4": sum(d4) / len(d4),
+    return {"rank": rank, "distinct2": sum(d2) / len(d2),
+            "distinct4": sum(d4) / len(d4),
             "max_repeat_run": max(runs), "eos_fraction": eos_hits / len(rows),
             "unique_output_fraction": len({row["output"] for row in rows}) / len(rows),
             "samples": rows[:8]}
@@ -363,8 +366,12 @@ def main() -> None:
             protocol, encoder, valid, args, pad, random.Random(valid_seed), name,
         )
     damage = {name: row["nll"] - native["nll"] for name, row in interventions.items()}
+    generation_state = copy.deepcopy(valid.rng.bit_generator.state)
     generated = generation(protocol, encoder, valid, args, sp, pad, eos,
-                           random.Random(valid_seed + 1))
+                           random.Random(valid_seed + 1), rank=1)
+    valid.rng.bit_generator.state = generation_state
+    generated_top2 = generation(protocol, encoder, valid, args, sp, pad, eos,
+                                random.Random(valid_seed + 1), rank=2)
     codec = closure(encoder, valid, args, pad, random.Random(valid_seed + 2))
     encoder_delta = parameter_delta(encoder_before, list(encoder.parameters()))
     gates = {
@@ -385,14 +392,16 @@ def main() -> None:
         "parameters": {"encoder": sum(p.numel() for p in encoder.parameters()),
                        "protocol": sum(p.numel() for p in protocol.parameters())},
         "initial": initial, "final": native, "interventions": interventions,
-        "damage": damage, "generation": generated, "closure": codec,
+        "damage": damage, "generation": generated,
+        "generation_top2": generated_top2, "closure": codec,
         "initial_closure": initial_closure,
         "encoder_parameter_delta": encoder_delta, "gates": gates,
         "trace": trace, "elapsed_sec": time.time() - started,
     }
     atomic_json(output / "summary.json", summary)
     print(json.dumps({"final_nll": native["nll"], "damage": damage,
-                      "generation": generated, "closure": codec,
+                      "generation": generated, "generation_top2": generated_top2,
+                      "closure": codec,
                       "encoder_parameter_delta": encoder_delta, "gates": gates},
                      ensure_ascii=False, indent=2), flush=True)
 
