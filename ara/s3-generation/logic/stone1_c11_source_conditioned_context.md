@@ -1,6 +1,6 @@
 # STONE-1 C11: source-conditioned variable context
 
-Status: registered, running
+Status: completed; source conditioning supported, nondegenerate generation rejected
 
 ## Problem
 
@@ -75,3 +75,34 @@ single dominant template despite lower teacher-forced NLL.  Passing this test
 does not prove that TreeHeap is better than a Transformer; matched baselines
 belong to the next experiment.
 
+## Result
+
+The io run completed 10,000 updates in 27,038 seconds with 50,679,947
+parameters. Every registered numerical source-dependence gate passed:
+
+| context pieces | initial NLL | final NLL | gain | final shuffle damage | final empty damage |
+|---:|---:|---:|---:|---:|---:|
+| 16  | 5.8125 | 4.9922 | 0.8203 | +0.2188 | +0.3281 |
+| 32  | 5.3359 | 4.9297 | 0.4062 | +0.2708 | +0.3958 |
+| 64  | 5.1380 | 4.9453 | 0.1927 | +0.3281 | +0.4661 |
+| 128 | 5.1354 | 4.8776 | 0.2578 | +0.3099 | +0.4635 |
+| 256 | 5.1354 | 4.9870 | 0.1484 | +0.2474 | +0.4349 |
+
+This is positive evidence that the corrected TreeHeap frame reads its source:
+replacing or emptying the source makes the same target less probable at every
+tested length. Variable-length training particularly repaired the short-input
+distribution mismatch.
+
+The original free-generation gate was inadequate. Eight outputs were eight
+different strings, so the automatic `unique_output_fraction` was `1.0`, but
+manual inspection found severe within-output loops such as repeated variants
+of “我当时就医了”, “不忘初心”, and empty book-title templates. Mean character
+distinct-1/2/4 was only `0.2774/0.3568/0.4514`; one output had distinct-4
+`0.1111`. String identity measures inter-sample diversity, not intra-sample
+degeneration.
+
+Therefore the composite claim is only partially supported. C11 repairs source
+visibility and establishes conditional dependence, but it does not yet produce
+usable free continuation. The next experiment must register token-level
+distinct-n, repeated-span/run length, EOS rate, and source-output relevance
+before training rather than accepting unique strings as a generation gate.
