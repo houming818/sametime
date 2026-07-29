@@ -8,6 +8,10 @@ Branch: `experiment/private-protocol-battle`
 
 Scope: M0 algebra, S1 echo/encoding, S2 translation, and S3 generation/indexing
 
+Repository note: this summary is published in `main`, while the newest C14-C17
+logic, code, and evidence currently remain on
+`experiment/private-protocol-battle` pending integration review.
+
 This document is the shortest complete route into the current TreeHeap research.
 It summarizes what the project means, what has actually been measured, what has
 failed, and what should be tested next. It is not a substitute for raw evidence.
@@ -54,6 +58,10 @@ often repetitive. STONE-1 is incomplete.
 | Reproducible programs | `ara/*/src/` |
 | Metrics and run summaries | `ara/*/evidence/` |
 | Failed paths and pivots | `ara/*/trace/` |
+
+For C14-C17, review the corresponding files on
+[`experiment/private-protocol-battle`](https://github.com/houming818/sametime/tree/experiment/private-protocol-battle/ara/s3-generation)
+until those artifacts are integrated into `main`.
 
 ARA uses the chain:
 

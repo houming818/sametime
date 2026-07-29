@@ -8,6 +8,9 @@
 
 范围：M0 代数、S1 编码与 Echo、S2 翻译、S3 生成与索引
 
+仓库说明：本文发布在 `main`；最新的 C14-C17 logic、代码与 evidence 目前
+仍在 `experiment/private-protocol-battle`，等待正式集成评审。
+
 这是一份能够单独恢复 TreeHeap 当前研究状态的入口文档。它集中说明：
 项目到底在研究什么、哪些结论已有数据、哪些路线失败了、下一步应该验证
 什么。它不能替代原始 evidence；若本文与 evidence 冲突，以 evidence 和
@@ -49,6 +52,10 @@ TreeHeap 目前是一个**已有多项代数与因果机制证据、但还没有
 | 可复现代码 | `ara/*/src/` |
 | 指标和运行摘要 | `ara/*/evidence/` |
 | 失败路线和转向记录 | `ara/*/trace/` |
+
+在 C14-C17 合入 `main` 之前，请到
+[`experiment/private-protocol-battle`](https://github.com/houming818/sametime/tree/experiment/private-protocol-battle/ara/s3-generation)
+查看对应的 logic、代码与 evidence。
 
 ARA 的基本链条是：
 
