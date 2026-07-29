@@ -161,6 +161,7 @@ class EmergentProtocol(nn.Module):
             source_levels = [torch.zeros_like(row) for row in source_levels]
         elif intervention == "address_swap":
             source_levels = [self.sibling_swap(row) for row in source_levels]
+            source_masks = [self.sibling_swap(row) for row in source_masks]
         elif intervention not in {"native"} and not (
             intervention.startswith("head_zero_") or
             intervention.startswith("detail_zero_") or
@@ -317,6 +318,9 @@ def main() -> None:
     valid = c11.AdjacentBlocks(Path(args.block_dir), "valid", args.seed + 9000)
     rng = random.Random(args.seed); valid_seed = args.seed + 8000
     initial = evaluate(protocol, encoder, valid, args, pad, random.Random(valid_seed))
+    initial_closure = closure(
+        encoder, valid, args, pad, random.Random(valid_seed + 2),
+    )
     trace, started = [], time.time()
     for step in range(1, args.steps + 1):
         source, length, target = new_batch(train, args.batch, pad, args.device, rng)
@@ -382,6 +386,7 @@ def main() -> None:
                        "protocol": sum(p.numel() for p in protocol.parameters())},
         "initial": initial, "final": native, "interventions": interventions,
         "damage": damage, "generation": generated, "closure": codec,
+        "initial_closure": initial_closure,
         "encoder_parameter_delta": encoder_delta, "gates": gates,
         "trace": trace, "elapsed_sec": time.time() - started,
     }
