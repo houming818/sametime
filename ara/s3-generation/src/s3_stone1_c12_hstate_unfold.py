@@ -167,6 +167,7 @@ def gru_forward(decoder, levels, masks, target, bos):
 def evaluate_unfold(decoder, encoder, stream, args, pad, bos, eos, rng,
                     intervention="native"):
     decoder.eval()
+    stream_state = copy.deepcopy(stream.rng.bit_generator.state)
     total = tokens = 0.0
     variances = []
     detail_norms = None
@@ -182,15 +183,18 @@ def evaluate_unfold(decoder, encoder, stream, args, pad, bos, eos, rng,
         variances.append(float(leaves.float().var(dim=1).mean()))
         norms = torch.tensor([float(row.float().norm(dim=-1).mean()) for row in details])
         detail_norms = norms if detail_norms is None else detail_norms + norms
-    return {"nll": total / tokens, "tokens": int(tokens),
-            "leaf_variance": sum(variances) / len(variances),
-            "detail_norm_by_depth": (detail_norms / args.valid_batches).tolist()}
+    result = {"nll": total / tokens, "tokens": int(tokens),
+              "leaf_variance": sum(variances) / len(variances),
+              "detail_norm_by_depth": (detail_norms / args.valid_batches).tolist()}
+    stream.rng.bit_generator.state = stream_state
+    return result
 
 
 @torch.no_grad()
 def evaluate_gru(decoder, encoder, stream, args, pad, bos, rng,
                  intervention="native"):
     decoder.eval()
+    stream_state = copy.deepcopy(stream.rng.bit_generator.state)
     total = tokens = 0.0
     for _ in range(args.valid_batches):
         source, length, target = new_batch(stream, args.batch, pad, args.device, rng)
@@ -205,7 +209,9 @@ def evaluate_gru(decoder, encoder, stream, args, pad, bos, rng,
         total += float(F.cross_entropy(logits.flatten(0, 1), target.flatten(),
                                        ignore_index=pad, reduction="sum"))
         tokens += int(target.ne(pad).sum())
-    return {"nll": total / tokens, "tokens": int(tokens)}
+    result = {"nll": total / tokens, "tokens": int(tokens)}
+    stream.rng.bit_generator.state = stream_state
+    return result
 
 
 @torch.no_grad()
@@ -235,8 +241,8 @@ def generation_metrics(arm, decoder, encoder, stream, args, sp, pad, bos, eos, r
 def train_arm(name, decoder, encoder, train, valid, args, pad, bos, eos, sp):
     decoder.to(args.device)
     optimizer = torch.optim.AdamW(decoder.parameters(), lr=args.lr, weight_decay=1e-4)
-    rng = random.Random(args.seed + (0 if name == "unfold" else 100))
-    valid_seed = args.seed + 9000 + (0 if name == "unfold" else 100)
+    rng = random.Random(args.seed)
+    valid_seed = args.seed + 9000
     trace = []
     started = time.time()
     initial = (evaluate_unfold if name == "unfold" else evaluate_gru)(
