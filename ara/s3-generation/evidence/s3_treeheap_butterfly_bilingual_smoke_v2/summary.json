@@ -1,0 +1,52 @@
+{
+  "claim": "S3-TREEHEAP-BUTTERFLY-BIDIR-C03",
+  "host": "io",
+  "mode": "smoke",
+  "epoch": 1,
+  "next_line": 0,
+  "global_examples": 29944,
+  "global_tokens": 633547,
+  "elapsed_sec": 222.0303099155426,
+  "test_native": {
+    "en2zh": 6.665407840458376,
+    "zh2en": 5.885413878503507,
+    "mean": 6.2754108594809415
+  },
+  "test_identity": {
+    "en2zh": 6.771631359748612,
+    "zh2en": 6.017345840565479,
+    "mean": 6.394488600157046
+  },
+  "identity_damage": 0.11907774067610433,
+  "best_valid_mean": 6.500734083104402,
+  "config": {
+    "mode": "smoke",
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "dreams": "ara/s3-generation/dreams.txt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_smoke_v2",
+    "resume": null,
+    "device": "cuda",
+    "seed": 8104,
+    "heap_width": 256,
+    "max_content": 253,
+    "dim": 256,
+    "hidden": 256,
+    "coupling_scale": 0.25,
+    "lr": 0.002,
+    "epochs": 1,
+    "time_budget_hours": 0.5,
+    "block_lines": 10000,
+    "max_lines": 30000,
+    "wake_blocks": 1,
+    "save_blocks": 1,
+    "eval_pairs": 128,
+    "eval_scan": 3000000,
+    "batch_32": 64,
+    "batch_64": 32,
+    "batch_128": 16,
+    "batch_256": 8,
+    "dream_max_output": 128,
+    "notify": true
+  }
+}

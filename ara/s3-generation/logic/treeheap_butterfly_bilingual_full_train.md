@@ -1,6 +1,6 @@
 # TreeHeap Butterfly bilingual full training
 
-Status: registered / implementation and smoke pending
+Status: smoke passed / io taskd 89 full run active
 
 ## Claim S3-TREEHEAP-BUTTERFLY-BIDIR-C03
 
@@ -108,3 +108,20 @@ checkpoint reload changes deterministic output
 
 The first 15-minute smoke must validate data direction, dynamic widths, CUDA
 memory, atomic reload and dreams output before the 96-hour queue starts.
+
+## Smoke result
+
+Taskd 87 trained 29,944 examples (633,547 target tokens) from 30,000 raw
+parallel rows in 226.1 seconds on `io`. Both directions were balanced. Mean
+validation NLL fell from `10.5612` at initialization to `6.5007`; final test
+NLL was `6.6654` for English-to-Chinese and `5.8854` for Chinese-to-English.
+Replacing Butterfly with identity increased mean test NLL by `0.11908`.
+
+The checkpoint strict-reload gate (taskd 88) reproduced directional NLL and
+identity damage exactly. SMTP wake notifications succeeded. Immutable dream
+snapshots show severe repetition at this early scale; they are retained as the
+honest starting point for the full-run growth curve.
+
+The 96-hour full run started as taskd 89. Its first 50,000-line block produced
+49,897 eligible examples and 1,054,937 target tokens in 344.9 seconds. GPU
+memory was about 4.76 GiB under the configured power limit.
