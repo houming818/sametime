@@ -69,7 +69,7 @@ def batch_limit(width: int, args) -> int:
 
 def width_bucket(source, target) -> int:
     needed = max(2, len(source), len(target))
-    return min(256, 1 << (needed - 1).bit_length())
+    return max(32, min(256, 1 << (needed - 1).bit_length()))
 
 
 def collate(rows, pad: int, device: str):
