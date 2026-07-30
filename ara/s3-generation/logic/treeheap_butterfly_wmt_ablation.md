@@ -1,6 +1,6 @@
 # TreeHeap Butterfly WMT Matched Ablation
 
-Status: smoke passed / formal task 83 running
+Status: supported / formal three-seed WMT ablation
 
 Date: 2026-07-30
 
@@ -149,10 +149,57 @@ attention allocation. Every provisional language gate also passed in this one
 small seed. This is permission to run the formal experiment, not support for
 the claim.
 
-Formal taskd task 83 now runs 200,000/5,000/5,000 rows, five epochs, and seeds
-8104/8105/8106. The result remains open until that queue finishes.
+Formal taskd task 83 used 200,000/5,000/5,000 rows, five epochs, and seeds
+8104/8105/8106.
 
-## 8. Falsification boundary
+## 8. Formal result
+
+Task 83 completed on `io` in 31,286.5 seconds. All three arms had exactly
+34,445,832 allocated parameters. Each seed sampled 210,000 rows from the same
+2,000,000-line scan and used matched initialization and batch order across
+arms.
+
+### 8.1 Held-out WMT
+
+| Seed | Identity NLL | Adjacent NLL | Butterfly NLL | Gain vs identity | Gain vs adjacent |
+|---:|---:|---:|---:|---:|---:|
+| 8104 | `4.62285` | `4.62273` | `4.54546` | `0.07738` | `0.07727` |
+| 8105 | `4.66175` | `4.67974` | `4.58915` | `0.07260` | `0.09059` |
+| 8106 | `4.67127` | `4.65998` | `4.56066` | `0.11061` | `0.09932` |
+| Mean | `4.65196` | `4.65415` | **`4.56509`** | **`0.08687`** | **`0.08906`** |
+
+Mean token BLEU-4 was `9.9501/9.9485/10.5462` for
+identity/adjacent/Butterfly. Generation remains a small-model WMT result, not a
+production-quality translation claim.
+
+### 8.2 Long-source and causal checks
+
+Butterfly NLL gains over identity on 25--32-piece sources were
+`0.07451/0.07825/0.10424`, mean `0.08567`. The effect therefore did not vanish
+on the preregistered long-source subset.
+
+Disabling a trained Butterfly increased NLL by
+`1.15034/1.11919/1.23666`. Replacing its schedule with repeated adjacent pairs
+increased NLL by `0.92585/1.12803/1.13160`. Source shuffling increased NLL by
+`3.23155/3.18970/3.04751`.
+
+These interventions distinguish the address schedule from merely allocating
+extra nonlinear layers: the trained model depended on the native changing-bit
+topology.
+
+### 8.3 Algebra and decision
+
+All six mechanism gates and all seven language gates passed in all three
+seeds. Butterfly inverse MSE was between `6.73e-16` and `7.15e-16`; lifting
+FOLD/UNFOLD closure MSE was between `6.68e-15` and `8.17e-15`. No dense address
+attention tensor was allocated.
+
+The preregistered decision is `supported`. The evidence supports a narrow
+claim: sparse changing-bit communication improves this matched adaptive
+TreeHeap WMT model. It does not establish semantic XOR addresses, Transformer
+superiority, production translation quality, or measured compute savings.
+
+## 9. Falsification boundary
 
 If Butterfly merely matches identity, the sparse transport exists but adds no
 measurable WMT value under this encoder. If adjacent matches Butterfly, extra

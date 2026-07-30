@@ -1,0 +1,1796 @@
+{
+  "claim": "S3-TREEHEAP-BUTTERFLY-WMT-C02",
+  "mode": "formal",
+  "host": "io",
+  "seconds": 31284.352833032608,
+  "config": {
+    "mode": "formal",
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s2_treeheap_butterfly_wmt_formal",
+    "seeds": [
+      8104,
+      8105,
+      8106
+    ],
+    "source_col": 1,
+    "target_col": 0,
+    "train_samples": 200000,
+    "valid_samples": 5000,
+    "test_samples": 5000,
+    "max_scan": 2000000,
+    "min_len": 8,
+    "max_len": 32,
+    "long_min": 25,
+    "heap_width": 64,
+    "dim": 256,
+    "hidden": 256,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 0.002,
+    "coupling_scale": 0.25,
+    "device": "cuda",
+    "num_workers": 2,
+    "generate_examples": true,
+    "save_checkpoint": true,
+    "seed": 8106
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "vocab": 32001,
+    "sampling_by_seed": {
+      "8104": {
+        "scanned": 2000000,
+        "eligible": 1156240,
+        "selected": 210000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "8105": {
+        "scanned": 2000000,
+        "eligible": 1156240,
+        "selected": 210000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      },
+      "8106": {
+        "scanned": 2000000,
+        "eligible": 1156240,
+        "selected": 210000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      }
+    }
+  },
+  "seeds": {
+    "8104": {
+      "models": {
+        "identity": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3353.6997253894806,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 0
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 0
+          },
+          "closure": {
+            "state_mse": 1.8880510083965282e-14,
+            "state_max_abs": 4.291534423828125e-06
+          },
+          "update": {
+            "delta_rms": 0.3362261820074244,
+            "detail_rms": 0.6804453455020539,
+            "delta_to_detail_rms": 0.49412665430071556
+          },
+          "trace": [
+            {
+              "seed": 8104,
+              "arm": "identity",
+              "epoch": 1,
+              "train_nll": 5.683919097595215,
+              "valid_nll": 5.01587617121083,
+              "elapsed_sec": 668.901914358139
+            },
+            {
+              "seed": 8104,
+              "arm": "identity",
+              "epoch": 2,
+              "train_nll": 4.380697451477051,
+              "valid_nll": 4.7214751144935345,
+              "elapsed_sec": 1340.426399230957
+            },
+            {
+              "seed": 8104,
+              "arm": "identity",
+              "epoch": 3,
+              "train_nll": 3.835604774093628,
+              "valid_nll": 4.640737289466944,
+              "elapsed_sec": 2010.3347706794739
+            },
+            {
+              "seed": 8104,
+              "arm": "identity",
+              "epoch": 4,
+              "train_nll": 3.484443914642334,
+              "valid_nll": 4.618591528891265,
+              "elapsed_sec": 2684.0271470546722
+            },
+            {
+              "seed": 8104,
+              "arm": "identity",
+              "epoch": 5,
+              "train_nll": 3.2173120264434814,
+              "valid_nll": 4.639278226250923,
+              "elapsed_sec": 3353.6716814041138
+            }
+          ],
+          "test": {
+            "nll": 4.622846765950134,
+            "ppl": 101.7833735325772,
+            "tokens": 84340,
+            "route_depth_mass": [
+              4.393420113046886e-06,
+              0.11300129443407059,
+              0.027108171954751015,
+              0.021110903471708298,
+              0.01032006461173296,
+              0.005915139336138964,
+              0.8225399851799011
+            ],
+            "exact": 0.005,
+            "nonempty": 1.0,
+            "token_bleu4": 9.932893924243189,
+            "examples": [
+              {
+                "en": "Made in: Taiwan, ROC Supplier: GREATSTONE INT'L MANUFACTURED ...",
+                "reference_zh": "产地: 台湾 供货商: 东元精电股份有限公司",
+                "hypothesis_zh": "产地: 台湾 供货商: 庆典企业有限公司"
+              },
+              {
+                "en": "7 Springfield Gardens Apartment 2/4, Glasgow, United Kingdom (Show map )",
+                "reference_zh": "7 Springfield Gardens Apartment 2/4, 格拉斯哥, 英国 (显示地图 )",
+                "hypothesis_zh": "7 每天 2公寓/一室公寓 Apartment 7 格拉斯哥 英国 (显示地图 )"
+              },
+              {
+                "en": "4096x3062 Celebrity Kim Cattrall",
+                "reference_zh": "4096x3062 名人 Kim Cattrall",
+                "hypothesis_zh": "4096x409640 名人泼辣椒"
+              },
+              {
+                "en": "In China, there may be untapped demand among domestic investors for exposure to reserve",
+                "reference_zh": "在中国, 有可能是国内投资者尚未开发的需求暴露储备",
+                "hypothesis_zh": "国内可预知,可可信的接触,需求增加以下需求需求"
+              },
+              {
+                "en": "Let this Comparison chart help you decide which CODESOFT edition is right for your business.",
+                "reference_zh": "查看 比较图 有助于决定哪个 CODESOFT 版本适合您的企业。",
+                "hypothesis_zh": "让这个的图表图表决定,以帮助您的业务版本。"
+              },
+              {
+                "en": "Treatment of an ectopic pregnancy",
+                "reference_zh": "宫腹腔镜治疗宫外孕费用",
+                "hypothesis_zh": "治疗的治疗效果"
+              },
+              {
+                "en": "Study English at Framingham State University!",
+                "reference_zh": "在弗雷明汉州立大学(Framingham State University)学习英语!",
+                "hypothesis_zh": "大学 英语(英文)"
+              },
+              {
+                "en": "Food 5.6 Set in a quiet area in Croydon, Atini Guest House features a large garden.",
+                "reference_zh": "食物 5.6 Atini Guest House酒店位于克罗伊登(Croydon)的宁静区域,设有1座大花园。",
+                "hypothesis_zh": "在食物中,一个村庄宾馆位于一个古老的乡村民宿的旅馆。"
+              },
+              {
+                "en": "We produce Histamine as an API.",
+                "reference_zh": "我司生产用作原料药产品的组织胺。",
+                "hypothesis_zh": "我们生产了 API 作为一种方式。"
+              },
+              {
+                "en": "Pula – the ideal getaway for old town, history and seaside!",
+                "reference_zh": "1,844间公寓 普拉—古城、历史、海滨的理想胜地",
+                "hypothesis_zh": " ⁇ 鱼和老旧 – 老旧太大,而且能吃饱和准备"
+              },
+              {
+                "en": "Although you have a life plan that you have agreed to prior to incarnating you may at an y time change the course of your life.",
+                "reference_zh": "虽然你们都有着一份生命计划,在你投胎之前就已经同意,但你也可以在任何时候改变你生命的方向。",
+                "hypothesis_zh": "虽然你必须参加我们的生命,你必须参加我们的生命里,你有你的一生。"
+              },
+              {
+                "en": "Requested URL: /Resource/images/date_arrow.gif",
+                "reference_zh": "请求的 URL : / viewspace-961.html",
+                "hypothesis_zh": "请求的 URL : / skin/images/visog.png"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 5.095449075468268,
+            "ppl": 163.27715192635895,
+            "tokens": 23037,
+            "route_depth_mass": [
+              5.065784989710664e-06,
+              0.11096058785915375,
+              0.04082973673939705,
+              0.030449936166405678,
+              0.01346650067716837,
+              0.006661899387836456,
+              0.7976263165473938
+            ]
+          },
+          "long_test_rows": 945
+        },
+        "adjacent": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3468.2955493927,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.12084293365478516,
+            "inverse_mse": 2.4073277224964174e-16,
+            "inverse_max_abs": 4.76837158203125e-07,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "closure": {
+            "state_mse": 8.111502599163559e-15,
+            "state_max_abs": 3.516674041748047e-06
+          },
+          "update": {
+            "delta_rms": 0.3616664276473842,
+            "detail_rms": 0.6329529741097306,
+            "delta_to_detail_rms": 0.5713954155221089
+          },
+          "trace": [
+            {
+              "seed": 8104,
+              "arm": "adjacent",
+              "epoch": 1,
+              "train_nll": 5.674362067718506,
+              "valid_nll": 4.961338301652827,
+              "elapsed_sec": 693.0464441776276
+            },
+            {
+              "seed": 8104,
+              "arm": "adjacent",
+              "epoch": 2,
+              "train_nll": 4.335469376831055,
+              "valid_nll": 4.709593917105679,
+              "elapsed_sec": 1385.6735396385193
+            },
+            {
+              "seed": 8104,
+              "arm": "adjacent",
+              "epoch": 3,
+              "train_nll": 3.7952486952209474,
+              "valid_nll": 4.630669797517963,
+              "elapsed_sec": 2079.5517983436584
+            },
+            {
+              "seed": 8104,
+              "arm": "adjacent",
+              "epoch": 4,
+              "train_nll": 3.4495631877136232,
+              "valid_nll": 4.61335906854977,
+              "elapsed_sec": 2773.3262810707092
+            },
+            {
+              "seed": 8104,
+              "arm": "adjacent",
+              "epoch": 5,
+              "train_nll": 3.181735473327637,
+              "valid_nll": 4.639971057567316,
+              "elapsed_sec": 3468.268580675125
+            }
+          ],
+          "test": {
+            "nll": 4.622731344807846,
+            "ppl": 101.77162625729314,
+            "tokens": 84340,
+            "route_depth_mass": [
+              0.010426957160234451,
+              0.11061936616897583,
+              0.041053105145692825,
+              0.03511210158467293,
+              0.028510410338640213,
+              0.09910489618778229,
+              0.675173282623291
+            ],
+            "exact": 0.006,
+            "nonempty": 1.0,
+            "token_bleu4": 10.177893289530395,
+            "examples": [
+              {
+                "en": "Made in: Taiwan, ROC Supplier: GREATSTONE INT'L MANUFACTURED ...",
+                "reference_zh": "产地: 台湾 供货商: 东元精电股份有限公司",
+                "hypothesis_zh": "产地: 台湾 供货商:  ⁇ 子精密工业股份有限公司"
+              },
+              {
+                "en": "7 Springfield Gardens Apartment 2/4, Glasgow, United Kingdom (Show map )",
+                "reference_zh": "7 Springfield Gardens Apartment 2/4, 格拉斯哥, 英国 (显示地图 )",
+                "hypothesis_zh": "7 Springfield Gardens 73, 007, 格拉斯哥, 英国 (显示地图 )"
+              },
+              {
+                "en": "4096x3062 Celebrity Kim Cattrall",
+                "reference_zh": "4096x3062 名人 Kim Cattrall",
+                "hypothesis_zh": "4096x96409668 名孩 40"
+              },
+              {
+                "en": "In China, there may be untapped demand among domestic investors for exposure to reserve",
+                "reference_zh": "在中国, 有可能是国内投资者尚未开发的需求暴露储备",
+                "hypothesis_zh": "国内市场需求,中国国内业务需求,旨在国内接触需求。"
+              },
+              {
+                "en": "Let this Comparison chart help you decide which CODESOFT edition is right for your business.",
+                "reference_zh": "查看 比较图 有助于决定哪个 CODESOFT 版本适合您的企业。",
+                "hypothesis_zh": "让此项性的指导O(DOFT) VoOFT 是一种帮助。"
+              },
+              {
+                "en": "Treatment of an ectopic pregnancy",
+                "reference_zh": "宫腹腔镜治疗宫外孕费用",
+                "hypothesis_zh": "治疗的治疗效果"
+              },
+              {
+                "en": "Study English at Framingham State University!",
+                "reference_zh": "在弗雷明汉州立大学(Framingham State University)学习英语!",
+                "hypothesis_zh": "大学英文研究 英语语法与汉语!"
+              },
+              {
+                "en": "Food 5.6 Set in a quiet area in Croydon, Atini Guest House features a large garden.",
+                "reference_zh": "食物 5.6 Atini Guest House酒店位于克罗伊登(Croydon)的宁静区域,设有1座大花园。",
+                "hypothesis_zh": "位于一个花园区,一个村庄面积,一个 Croibon,是一个当代花园区。"
+              },
+              {
+                "en": "We produce Histamine as an API.",
+                "reference_zh": "我司生产用作原料药产品的组织胺。",
+                "hypothesis_zh": "我们开始使用pine as alexine asine"
+              },
+              {
+                "en": "Pula – the ideal getaway for old town, history and seaside!",
+                "reference_zh": "1,844间公寓 普拉—古城、历史、海滨的理想胜地",
+                "hypothesis_zh": "普拉城市, 埃及城镇和海滩,吸引游客!"
+              },
+              {
+                "en": "Although you have a life plan that you have agreed to prior to incarnating you may at an y time change the course of your life.",
+                "reference_zh": "虽然你们都有着一份生命计划,在你投胎之前就已经同意,但你也可以在任何时候改变你生命的方向。",
+                "hypothesis_zh": "你有一个计划,你必须随时终止之前,你可能会随时改变你的生命。"
+              },
+              {
+                "en": "Requested URL: /Resource/images/date_arrow.gif",
+                "reference_zh": "请求的 URL : / viewspace-961.html",
+                "hypothesis_zh": "请求的 URL : / skin/images/visog.png"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 5.091627204843024,
+            "ppl": 162.65431872771893,
+            "tokens": 23037,
+            "route_depth_mass": [
+              0.014571421779692173,
+              0.1101566031575203,
+              0.051104143261909485,
+              0.03976632282137871,
+              0.030110366642475128,
+              0.1088118925690651,
+              0.6454792618751526
+            ]
+          },
+          "long_test_rows": 945
+        },
+        "butterfly": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3476.1905529499054,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.16511426866054535,
+            "inverse_mse": 6.98873544010604e-16,
+            "inverse_max_abs": 4.76837158203125e-07,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "closure": {
+            "state_mse": 6.681982881774368e-15,
+            "state_max_abs": 4.5299530029296875e-06
+          },
+          "update": {
+            "delta_rms": 0.32733423722330296,
+            "detail_rms": 0.6646331159160028,
+            "delta_to_detail_rms": 0.49250365259360906
+          },
+          "trace": [
+            {
+              "seed": 8104,
+              "arm": "butterfly",
+              "epoch": 1,
+              "train_nll": 5.6010210273742675,
+              "valid_nll": 4.865554932281491,
+              "elapsed_sec": 696.9433250427246
+            },
+            {
+              "seed": 8104,
+              "arm": "butterfly",
+              "epoch": 2,
+              "train_nll": 4.231747437362671,
+              "valid_nll": 4.602903771773114,
+              "elapsed_sec": 1390.1356122493744
+            },
+            {
+              "seed": 8104,
+              "arm": "butterfly",
+              "epoch": 3,
+              "train_nll": 3.706661045761108,
+              "valid_nll": 4.522331033335027,
+              "elapsed_sec": 2083.182531118393
+            },
+            {
+              "seed": 8104,
+              "arm": "butterfly",
+              "epoch": 4,
+              "train_nll": 3.374153226928711,
+              "valid_nll": 4.539721760888072,
+              "elapsed_sec": 2777.339980840683
+            },
+            {
+              "seed": 8104,
+              "arm": "butterfly",
+              "epoch": 5,
+              "train_nll": 3.131754488067627,
+              "valid_nll": 4.545269248861357,
+              "elapsed_sec": 3476.163083791733
+            }
+          ],
+          "test": {
+            "nll": 4.545463670201852,
+            "ppl": 94.2040967170398,
+            "tokens": 84340,
+            "route_depth_mass": [
+              0.03833466023206711,
+              0.10084915161132812,
+              0.03740617632865906,
+              0.0590035505592823,
+              0.05931335315108299,
+              0.07796530425548553,
+              0.6271277070045471
+            ],
+            "exact": 0.0064,
+            "nonempty": 1.0,
+            "token_bleu4": 10.92837901119563,
+            "examples": [
+              {
+                "en": "Made in: Taiwan, ROC Supplier: GREATSTONE INT'L MANUFACTURED ...",
+                "reference_zh": "产地: 台湾 供货商: 东元精电股份有限公司",
+                "hypothesis_zh": "产地: 台湾 供货商:  ⁇ 翔实业股份有限公司 类型: 出口商, 制造商"
+              },
+              {
+                "en": "7 Springfield Gardens Apartment 2/4, Glasgow, United Kingdom (Show map )",
+                "reference_zh": "7 Springfield Gardens Apartment 2/4, 格拉斯哥, 英国 (显示地图 )",
+                "hypothesis_zh": "7 Spring Gardens Gardens Apartment 2/2 Villagowowow, 格拉斯, 英国 (显示地图 )"
+              },
+              {
+                "en": "4096x3062 Celebrity Kim Cattrall",
+                "reference_zh": "4096x3062 名人 Kim Cattrall",
+                "hypothesis_zh": "4096x30x62621, 莫斯科, 戛纳  ⁇ "
+              },
+              {
+                "en": "In China, there may be untapped demand among domestic investors for exposure to reserve",
+                "reference_zh": "在中国, 有可能是国内投资者尚未开发的需求暴露储备",
+                "hypothesis_zh": " ⁇ ,可能有困难,国内为难度、中国—减灾需求"
+              },
+              {
+                "en": "Let this Comparison chart help you decide which CODESOFT edition is right for your business.",
+                "reference_zh": "查看 比较图 有助于决定哪个 CODESOFT 版本适合您的企业。",
+                "hypothesis_zh": "让我们此帮助您帮助您帮助OFF 脱颖而出。"
+              },
+              {
+                "en": "Treatment of an ectopic pregnancy",
+                "reference_zh": "宫腹腔镜治疗宫外孕费用",
+                "hypothesis_zh": "治疗的治疗方法有哪些"
+              },
+              {
+                "en": "Study English at Framingham State University!",
+                "reference_zh": "在弗雷明汉州立大学(Framingham State University)学习英语!",
+                "hypothesis_zh": "大学研究教授 物理学大学!"
+              },
+              {
+                "en": "Food 5.6 Set in a quiet area in Croydon, Atini Guest House features a large garden.",
+                "reference_zh": "食物 5.6 Atini Guest House酒店位于克罗伊登(Croydon)的宁静区域,设有1座大花园。",
+                "hypothesis_zh": "Food 5.6 酒店位置 2 浴室位于一个很好的位置,距离Piso伦坡花园。"
+              },
+              {
+                "en": "We produce Histamine as an API.",
+                "reference_zh": "我司生产用作原料药产品的组织胺。",
+                "hypothesis_zh": "我们生产在泡沫的泡沫砖。"
+              },
+              {
+                "en": "Pula – the ideal getaway for old town, history and seaside!",
+                "reference_zh": "1,844间公寓 普拉—古城、历史、海滨的理想胜地",
+                "hypothesis_zh": "秘鲁 – 休闲的理想场所, 浪漫风格"
+              },
+              {
+                "en": "Although you have a life plan that you have agreed to prior to incarnating you may at an y time change the course of your life.",
+                "reference_zh": "虽然你们都有着一份生命计划,在你投胎之前就已经同意,但你也可以在任何时候改变你生命的方向。",
+                "hypothesis_zh": "虽然你一生计划,你必须同意到你家的本质,但是您应该随时改变。"
+              },
+              {
+                "en": "Requested URL: /Resource/images/date_arrow.gif",
+                "reference_zh": "请求的 URL : / viewspace-961.html",
+                "hypothesis_zh": "请求的 URL : / images/zr3/tit_allbet.png"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 5.020938378342449,
+            "ppl": 151.5534515660997,
+            "tokens": 23037,
+            "route_depth_mass": [
+              0.06046884134411812,
+              0.07242679595947266,
+              0.05799591541290283,
+              0.06346594542264938,
+              0.06973952800035477,
+              0.08999856561422348,
+              0.5859044194221497
+            ]
+          },
+          "long_test_rows": 945,
+          "interventions": {
+            "communication_identity": {
+              "nll": 5.69580306735456,
+              "ppl": 297.615703098416,
+              "tokens": 84340,
+              "route_depth_mass": [
+                0.0005693724961020052,
+                0.02331089973449707,
+                0.007382115349173546,
+                0.014841817319393158,
+                0.03434166684746742,
+                0.05775192007422447,
+                0.8618021011352539
+              ]
+            },
+            "communication_adjacent": {
+              "nll": 5.4713141618872925,
+              "ppl": 237.77245903551997,
+              "tokens": 84340,
+              "route_depth_mass": [
+                0.034319303929805756,
+                0.10337525606155396,
+                0.03258999064564705,
+                0.04857553914189339,
+                0.03848719224333763,
+                0.0662335529923439,
+                0.6764190196990967
+              ]
+            },
+            "source_shuffle": {
+              "nll": 7.777011232147687,
+              "ppl": 2385.1355405994796,
+              "tokens": 84340,
+              "route_depth_mass": [
+                0.03910532966256142,
+                0.10490911453962326,
+                0.038012754172086716,
+                0.06192585080862045,
+                0.06312094628810883,
+                0.08346733450889587,
+                0.6094587445259094
+              ]
+            }
+          },
+          "checkpoint": "checkpoint_seed8104_butterfly.pt"
+        }
+      },
+      "derived": {
+        "identity_nll": 4.622846765950134,
+        "adjacent_nll": 4.622731344807846,
+        "butterfly_nll": 4.545463670201852,
+        "butterfly_gain_over_identity": 0.0773830957482824,
+        "butterfly_gain_over_adjacent": 0.07726767460599415,
+        "identity_long_nll": 5.095449075468268,
+        "butterfly_long_nll": 5.020938378342449,
+        "butterfly_long_gain": 0.07451069712581937,
+        "disable_damage": 1.1503393971527078,
+        "adjacent_override_damage": 0.9258504916854404,
+        "source_shuffle_damage": 3.2315475619458347
+      },
+      "gates": {
+        "P1_butterfly_beats_identity": true,
+        "P2_butterfly_beats_adjacent": true,
+        "P3_long_source_gain": true,
+        "P4_communication_causal": true,
+        "P5_source_causal": true,
+        "P6_multiresolution": true,
+        "P7_finite_nonempty": true
+      },
+      "mechanism_gates": {
+        "M1_finite_gradients": true,
+        "M2_initial_identity": true,
+        "M3_communication_inverse": true,
+        "M4_fold_unfold_closure": true,
+        "M5_parameter_matched": true,
+        "M6_no_dense_attention": true
+      },
+      "language_pass": true,
+      "mechanism_pass": true
+    },
+    "8105": {
+      "models": {
+        "identity": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3336.736481189728,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 0
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 0
+          },
+          "closure": {
+            "state_mse": 1.6595303283699694e-14,
+            "state_max_abs": 3.516674041748047e-06
+          },
+          "update": {
+            "delta_rms": 0.34547960302322755,
+            "detail_rms": 0.7233163614690759,
+            "delta_to_detail_rms": 0.4776327778920261
+          },
+          "trace": [
+            {
+              "seed": 8105,
+              "arm": "identity",
+              "epoch": 1,
+              "train_nll": 5.666338726043701,
+              "valid_nll": 4.9824641484274,
+              "elapsed_sec": 668.4911749362946
+            },
+            {
+              "seed": 8105,
+              "arm": "identity",
+              "epoch": 2,
+              "train_nll": 4.346029991760254,
+              "valid_nll": 4.736507836288937,
+              "elapsed_sec": 1336.1862862110138
+            },
+            {
+              "seed": 8105,
+              "arm": "identity",
+              "epoch": 3,
+              "train_nll": 3.823892347869873,
+              "valid_nll": 4.666953875034838,
+              "elapsed_sec": 2003.1984708309174
+            },
+            {
+              "seed": 8105,
+              "arm": "identity",
+              "epoch": 4,
+              "train_nll": 3.4758292330932616,
+              "valid_nll": 4.635994813212602,
+              "elapsed_sec": 2671.0258951187134
+            },
+            {
+              "seed": 8105,
+              "arm": "identity",
+              "epoch": 5,
+              "train_nll": 3.211721297149658,
+              "valid_nll": 4.6758429199815215,
+              "elapsed_sec": 3336.709923505783
+            }
+          ],
+          "test": {
+            "nll": 4.66175338830632,
+            "ppl": 105.82146570501652,
+            "tokens": 84578,
+            "route_depth_mass": [
+              0.00011362964141881093,
+              0.11285088956356049,
+              0.03158481419086456,
+              0.02831793762743473,
+              0.01736379787325859,
+              0.0036981943994760513,
+              0.8060708045959473
+            ],
+            "exact": 0.0036,
+            "nonempty": 1.0,
+            "token_bleu4": 10.082326177013782,
+            "examples": [
+              {
+                "en": "Issues such as energy efficiency, resource efficiency and the best possible deployment of personnel are some of these ingredients that we pay great attention to.",
+                "reference_zh": "能源效率、资源效率和最佳人工部署等是我们最为重视的一些问题。",
+                "hypothesis_zh": "对于效率、提高效率、能效能效能效能效能效能效能效能效能效能效能效能"
+              },
+              {
+                "en": "He gripped my sleeve, and I could feel the heat of his skin like a fire.",
+                "reference_zh": "她感到更加难忍了,阴道内象着了火一般热。",
+                "hypothesis_zh": "他把脸转向了我,把脸转向了我像火一样。"
+              },
+              {
+                "en": "If so, then you better pump down the volume.",
+                "reference_zh": "如果有,那么你最好降低音量。",
+                "hypothesis_zh": "如果是,那么好象,那么小伙子。"
+              },
+              {
+                "en": "Join us in Burnaby for Stroll for Liver!",
+                "reference_zh": "加入我们的本拿比 Stroll for Liver!",
+                "hypothesis_zh": "加入我们吧 !"
+              },
+              {
+                "en": "Going forward, a competitive advantage is enormous for all businesses functioning in today's market economy.",
+                "reference_zh": "向前走, 竞争优势是巨大的在今天市场经济运作的所有业务.",
+                "hypothesis_zh": "今后绘制优势,是业内专业人士,在未来市场竞争优势。"
+              },
+              {
+                "en": "The story here is that, when I was a small kiddo, Santa used to bring the tree on Christmas Eve.",
+                "reference_zh": "第二天清早,我翻开天经,想拿出这张名单时,难以置信地竟看到了一段经文:",
+                "hypothesis_zh": "故事是这里,小猫,  ⁇ 的小猫,  ⁇ 树的 ⁇ 子,"
+              },
+              {
+                "en": "In front of it was a splendorous garden, where roses and azaleas blossomed.",
+                "reference_zh": "说着亲自动手给在座的人每人成了一碗。",
+                "hypothesis_zh": "汪洋走到门口一副很敏感,是无奈的,他也是如此的。"
+              },
+              {
+                "en": "The RT series includes pressure cswitches for general applications within industrial and maritime refrigeration. Product range",
+                "reference_zh": "RT 系列包括了工业和船用制冷应用的压力控制器。 产品范围",
+                "hypothesis_zh": "用于True 系列适用于工业制冷机、制冷和空调、制冷制冷产品范围。"
+              },
+              {
+                "en": "Blogger: My Links - Post a Comment",
+                "reference_zh": "Blogger: 旅泊飞鸿 - Post a Comment",
+                "hypothesis_zh": "Blogger: 旅友 - Post a Comment"
+              },
+              {
+                "en": "Researchers studying meteorites in the SÃ ̧r Rondane Mountains in January 2013.",
+                "reference_zh": "2013年1月,参加第54次科考的队员在南龙达讷山 ⁇ 进行 ⁇ 石探查活动",
+                "hypothesis_zh": "展会ites到Surcanecortecraigs"
+              },
+              {
+                "en": "When it comes to gays, though, heâ€TMs right out in front of the backward movement.",
+                "reference_zh": "今天真奇怪,平常凡是有歌舞的时候,都是准我看的。",
+                "hypothesis_zh": "当它涉及到住,但她只能再次回到前沿前,双腿微微的臀部。"
+              },
+              {
+                "en": "Requested URL: /all_products.aspx",
+                "reference_zh": "请求的 URL : / ServiceNetwork/MediaVideo.aspx",
+                "hypothesis_zh": "请求的 URL : / news_show.aspx"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 5.069942473268382,
+            "ppl": 159.16517082786226,
+            "tokens": 24345,
+            "route_depth_mass": [
+              0.00011752528371289372,
+              0.1146421954035759,
+              0.03736598789691925,
+              0.03481057658791542,
+              0.019897479563951492,
+              0.0034600833896547556,
+              0.7897061109542847
+            ]
+          },
+          "long_test_rows": 998
+        },
+        "adjacent": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3464.280704498291,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.12927702069282532,
+            "inverse_mse": 2.76589688610166e-16,
+            "inverse_max_abs": 4.76837158203125e-07,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "closure": {
+            "state_mse": 1.2614075636883243e-14,
+            "state_max_abs": 3.7848949432373047e-06
+          },
+          "update": {
+            "delta_rms": 0.3287831954501501,
+            "detail_rms": 0.6502535978550056,
+            "delta_to_detail_rms": 0.5056230315906113
+          },
+          "trace": [
+            {
+              "seed": 8105,
+              "arm": "adjacent",
+              "epoch": 1,
+              "train_nll": 5.655893559265137,
+              "valid_nll": 4.95637018263024,
+              "elapsed_sec": 693.2984476089478
+            },
+            {
+              "seed": 8105,
+              "arm": "adjacent",
+              "epoch": 2,
+              "train_nll": 4.31891599861145,
+              "valid_nll": 4.70850231460334,
+              "elapsed_sec": 1385.4368352890015
+            },
+            {
+              "seed": 8105,
+              "arm": "adjacent",
+              "epoch": 3,
+              "train_nll": 3.7856192869567873,
+              "valid_nll": 4.63747243598807,
+              "elapsed_sec": 2081.9813327789307
+            },
+            {
+              "seed": 8105,
+              "arm": "adjacent",
+              "epoch": 4,
+              "train_nll": 3.440313688812256,
+              "valid_nll": 4.647773638530415,
+              "elapsed_sec": 2774.8947315216064
+            },
+            {
+              "seed": 8105,
+              "arm": "adjacent",
+              "epoch": 5,
+              "train_nll": 3.1781592565917967,
+              "valid_nll": 4.66115394052738,
+              "elapsed_sec": 3464.252477169037
+            }
+          ],
+          "test": {
+            "nll": 4.679736758657458,
+            "ppl": 107.74170676650101,
+            "tokens": 84578,
+            "route_depth_mass": [
+              0.02083452418446541,
+              0.10529693216085434,
+              0.03418289124965668,
+              0.027296651154756546,
+              0.019170455634593964,
+              0.0885072574019432,
+              0.704711377620697
+            ],
+            "exact": 0.004,
+            "nonempty": 1.0,
+            "token_bleu4": 9.258052141100286,
+            "examples": [
+              {
+                "en": "Issues such as energy efficiency, resource efficiency and the best possible deployment of personnel are some of these ingredients that we pay great attention to.",
+                "reference_zh": "能源效率、资源效率和最佳人工部署等是我们最为重视的一些问题。",
+                "hypothesis_zh": "效率效率,提高效率的效率,提高效率,因此提高效率的绝佳性关注,从而提高大量注意。"
+              },
+              {
+                "en": "He gripped my sleeve, and I could feel the heat of his skin like a fire.",
+                "reference_zh": "她感到更加难忍了,阴道内象着了火一般热。",
+                "hypothesis_zh": " ⁇  ⁇ ,我马上回来,我就把他的脸埋进了我的怀里。"
+              },
+              {
+                "en": "If so, then you better pump down the volume.",
+                "reference_zh": "如果有,那么你最好降低音量。",
+                "hypothesis_zh": "那么,请稍微量,请稍微量。"
+              },
+              {
+                "en": "Join us in Burnaby for Stroll for Liver!",
+                "reference_zh": "加入我们的本拿比 Stroll for Liver!",
+                "hypothesis_zh": "加入我们在西门子学院 加入我们吧!"
+              },
+              {
+                "en": "Going forward, a competitive advantage is enormous for all businesses functioning in today's market economy.",
+                "reference_zh": "向前走, 竞争优势是巨大的在今天市场经济运作的所有业务.",
+                "hypothesis_zh": "今后,我们所有的企业都已经开始了,企业筹备忘录。"
+              },
+              {
+                "en": "The story here is that, when I was a small kiddo, Santa used to bring the tree on Christmas Eve.",
+                "reference_zh": "第二天清早,我翻开天经,想拿出这张名单时,难以置信地竟看到了一段经文:",
+                "hypothesis_zh": "故事是,小伙子,我妈,那小伙子,我还是要快死了。"
+              },
+              {
+                "en": "In front of it was a splendorous garden, where roses and azaleas blossomed.",
+                "reference_zh": "说着亲自动手给在座的人每人成了一碗。",
+                "hypothesis_zh": " ⁇ 子,他是个 ⁇ 府,也是那种忘怀的味道,不过是她,她是一些疯狂的。"
+              },
+              {
+                "en": "The RT series includes pressure cswitches for general applications within industrial and maritime refrigeration. Product range",
+                "reference_zh": "RT 系列包括了工业和船用制冷应用的压力控制器。 产品范围",
+                "hypothesis_zh": "T 系列 系列机包括工业应用提供通用工业应用。"
+              },
+              {
+                "en": "Blogger: My Links - Post a Comment",
+                "reference_zh": "Blogger: 旅泊飞鸿 - Post a Comment",
+                "hypothesis_zh": "Blogger: 旅友们 a Comment"
+              },
+              {
+                "en": "Researchers studying meteorites in the SÃ ̧r Rondane Mountains in January 2013.",
+                "reference_zh": "2013年1月,参加第54次科考的队员在南龙达讷山 ⁇ 进行 ⁇ 石探查活动",
+                "hypothesis_zh": "Resistance Resistance Resistance Resistance Resistance Resistance Resanerill 类别"
+              },
+              {
+                "en": "When it comes to gays, though, heâ€TMs right out in front of the backward movement.",
+                "reference_zh": "今天真奇怪,平常凡是有歌舞的时候,都是准我看的。",
+                "hypothesis_zh": "当涉及到,他来到那边,他回到前门,他回到前门上。"
+              },
+              {
+                "en": "Requested URL: /all_products.aspx",
+                "reference_zh": "请求的 URL : / ServiceNetwork/MediaVideo.aspx",
+                "hypothesis_zh": "请求的 URL : / news/detail.aspx"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 5.083182767412456,
+            "ppl": 161.28657754047353,
+            "tokens": 24345,
+            "route_depth_mass": [
+              0.028291290625929832,
+              0.10638424009084702,
+              0.04470193758606911,
+              0.031618595123291016,
+              0.02439850941300392,
+              0.10696063190698624,
+              0.6576448082923889
+            ]
+          },
+          "long_test_rows": 998
+        },
+        "butterfly": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3467.364203453064,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.16482682526111603,
+            "inverse_mse": 7.153226062089272e-16,
+            "inverse_max_abs": 4.76837158203125e-07,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "closure": {
+            "state_mse": 8.171281102383084e-15,
+            "state_max_abs": 5.4836273193359375e-06
+          },
+          "update": {
+            "delta_rms": 0.3356558089399051,
+            "detail_rms": 0.6922078740571581,
+            "delta_to_detail_rms": 0.484906083157599
+          },
+          "trace": [
+            {
+              "seed": 8105,
+              "arm": "butterfly",
+              "epoch": 1,
+              "train_nll": 5.584950727081299,
+              "valid_nll": 4.846574420874892,
+              "elapsed_sec": 691.5971803665161
+            },
+            {
+              "seed": 8105,
+              "arm": "butterfly",
+              "epoch": 2,
+              "train_nll": 4.210614490737915,
+              "valid_nll": 4.605053634353106,
+              "elapsed_sec": 1384.6731271743774
+            },
+            {
+              "seed": 8105,
+              "arm": "butterfly",
+              "epoch": 3,
+              "train_nll": 3.6771868622589112,
+              "valid_nll": 4.551213495071313,
+              "elapsed_sec": 2077.1097135543823
+            },
+            {
+              "seed": 8105,
+              "arm": "butterfly",
+              "epoch": 4,
+              "train_nll": 3.34133672416687,
+              "valid_nll": 4.55671807151149,
+              "elapsed_sec": 2774.077659368515
+            },
+            {
+              "seed": 8105,
+              "arm": "butterfly",
+              "epoch": 5,
+              "train_nll": 3.0785745808410643,
+              "valid_nll": 4.583974903291138,
+              "elapsed_sec": 3467.3369929790497
+            }
+          ],
+          "test": {
+            "nll": 4.589149550689803,
+            "ppl": 98.41070125040089,
+            "tokens": 84578,
+            "route_depth_mass": [
+              1.1269176866335329e-05,
+              0.12285860627889633,
+              0.04929029196500778,
+              0.04654566943645477,
+              0.05585520341992378,
+              0.06213613227009773,
+              0.6633027195930481
+            ],
+            "exact": 0.0048,
+            "nonempty": 1.0,
+            "token_bleu4": 10.151546025589086,
+            "examples": [
+              {
+                "en": "Issues such as energy efficiency, resource efficiency and the best possible deployment of personnel are some of these ingredients that we pay great attention to.",
+                "reference_zh": "能源效率、资源效率和最佳人工部署等是我们最为重视的一些问题。",
+                "hypothesis_zh": "对于诸如效率来说,效率,我们希望我们认识到,提高效率的一些效率,我们认识到,我们认识到。"
+              },
+              {
+                "en": "He gripped my sleeve, and I could feel the heat of his skin like a fire.",
+                "reference_zh": "她感到更加难忍了,阴道内象着了火一般热。",
+                "hypothesis_zh": "他把我的脸蛋,就像一只手,我感觉到自己快要射了。"
+              },
+              {
+                "en": "If so, then you better pump down the volume.",
+                "reference_zh": "如果有,那么你最好降低音量。",
+                "hypothesis_zh": "那么,那么那么那么那么容易那么多的。"
+              },
+              {
+                "en": "Join us in Burnaby for Stroll for Liver!",
+                "reference_zh": "加入我们的本拿比 Stroll for Liver!",
+                "hypothesis_zh": " ⁇ 州,我们为 乔治州超市州际"
+              },
+              {
+                "en": "Going forward, a competitive advantage is enormous for all businesses functioning in today's market economy.",
+                "reference_zh": "向前走, 竞争优势是巨大的在今天市场经济运作的所有业务.",
+                "hypothesis_zh": "今后转发着竞争优势,让企业市场竞争优势。"
+              },
+              {
+                "en": "The story here is that, when I was a small kiddo, Santa used to bring the tree on Christmas Eve.",
+                "reference_zh": "第二天清早,我翻开天经,想拿出这张名单时,难以置信地竟看到了一段经文:",
+                "hypothesis_zh": "故事是,我就是一个女人,在床边上,那时候就好了。"
+              },
+              {
+                "en": "In front of it was a splendorous garden, where roses and azaleas blossomed.",
+                "reference_zh": "说着亲自动手给在座的人每人成了一碗。",
+                "hypothesis_zh": " ⁇ 然, ⁇ 着头, ⁇ 着头, ⁇ 着头, ⁇ 着头, ⁇ 着头晕。"
+              },
+              {
+                "en": "The RT series includes pressure cswitches for general applications within industrial and maritime refrigeration. Product range",
+                "reference_zh": "RT 系列包括了工业和船用制冷应用的压力控制器。 产品范围",
+                "hypothesis_zh": "额定压系列 包厢的压力,包括工业应用范围宽电气泵。"
+              },
+              {
+                "en": "Blogger: My Links - Post a Comment",
+                "reference_zh": "Blogger: 旅泊飞鸿 - Post a Comment",
+                "hypothesis_zh": "Blogger: 旅友们 Post a Comment"
+              },
+              {
+                "en": "Researchers studying meteorites in the SÃ ̧r Rondane Mountains in January 2013.",
+                "reference_zh": "2013年1月,参加第54次科考的队员在南龙达讷山 ⁇ 进行 ⁇ 石探查活动",
+                "hypothesis_zh": "Resccorold ine 魔力地执行, 示范"
+              },
+              {
+                "en": "When it comes to gays, though, heâ€TMs right out in front of the backward movement.",
+                "reference_zh": "今天真奇怪,平常凡是有歌舞的时候,都是准我看的。",
+                "hypothesis_zh": "当它涉及到困难,他一开始就得出一个新生,"
+              },
+              {
+                "en": "Requested URL: /all_products.aspx",
+                "reference_zh": "请求的 URL : / ServiceNetwork/MediaVideo.aspx",
+                "hypothesis_zh": "请求的 URL : / ShowCharacteristic.aspx"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 4.991689551403009,
+            "ppl": 147.1848899755041,
+            "tokens": 24345,
+            "route_depth_mass": [
+              4.495985194807872e-05,
+              0.11753735691308975,
+              0.0760355144739151,
+              0.0591115728020668,
+              0.07404159754514694,
+              0.08148060739040375,
+              0.5917483568191528
+            ]
+          },
+          "long_test_rows": 998,
+          "interventions": {
+            "communication_identity": {
+              "nll": 5.708335769120387,
+              "ppl": 301.36910293826196,
+              "tokens": 84578,
+              "route_depth_mass": [
+                2.9936352348158835e-06,
+                0.03863632678985596,
+                0.02111503668129444,
+                0.011591637507081032,
+                0.03481867536902428,
+                0.03184515982866287,
+                0.8619903326034546
+              ]
+            },
+            "communication_adjacent": {
+              "nll": 5.71717801818292,
+              "ppl": 304.04569973474855,
+              "tokens": 84578,
+              "route_depth_mass": [
+                0.02019439823925495,
+                0.11230642348527908,
+                0.0669708177447319,
+                0.04470360279083252,
+                0.050108376890420914,
+                0.05241846293210983,
+                0.6532979011535645
+              ]
+            },
+            "source_shuffle": {
+              "nll": 7.77885107473256,
+              "ppl": 2389.5278538812745,
+              "tokens": 84578,
+              "route_depth_mass": [
+                1.4467333130596671e-05,
+                0.1257915198802948,
+                0.052503060549497604,
+                0.04950143024325371,
+                0.061420783400535583,
+                0.06805683672428131,
+                0.642711877822876
+              ]
+            }
+          },
+          "checkpoint": "checkpoint_seed8105_butterfly.pt"
+        }
+      },
+      "derived": {
+        "identity_nll": 4.66175338830632,
+        "adjacent_nll": 4.679736758657458,
+        "butterfly_nll": 4.589149550689803,
+        "butterfly_gain_over_identity": 0.07260383761651656,
+        "butterfly_gain_over_adjacent": 0.09058720796765485,
+        "identity_long_nll": 5.069942473268382,
+        "butterfly_long_nll": 4.991689551403009,
+        "butterfly_long_gain": 0.07825292186537336,
+        "disable_damage": 1.1191862184305839,
+        "adjacent_override_damage": 1.1280284674931167,
+        "source_shuffle_damage": 3.189701524042757
+      },
+      "gates": {
+        "P1_butterfly_beats_identity": true,
+        "P2_butterfly_beats_adjacent": true,
+        "P3_long_source_gain": true,
+        "P4_communication_causal": true,
+        "P5_source_causal": true,
+        "P6_multiresolution": true,
+        "P7_finite_nonempty": true
+      },
+      "mechanism_gates": {
+        "M1_finite_gradients": true,
+        "M2_initial_identity": true,
+        "M3_communication_inverse": true,
+        "M4_fold_unfold_closure": true,
+        "M5_parameter_matched": true,
+        "M6_no_dense_attention": true
+      },
+      "language_pass": true,
+      "mechanism_pass": true
+    },
+    "8106": {
+      "models": {
+        "identity": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3349.628324508667,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 0
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 0
+          },
+          "closure": {
+            "state_mse": 1.958397094665998e-14,
+            "state_max_abs": 4.947185516357422e-06
+          },
+          "update": {
+            "delta_rms": 0.3383529920704667,
+            "detail_rms": 0.7242811371337481,
+            "delta_to_detail_rms": 0.4671569846613103
+          },
+          "trace": [
+            {
+              "seed": 8106,
+              "arm": "identity",
+              "epoch": 1,
+              "train_nll": 5.68882678527832,
+              "valid_nll": 4.962753577640546,
+              "elapsed_sec": 674.8009462356567
+            },
+            {
+              "seed": 8106,
+              "arm": "identity",
+              "epoch": 2,
+              "train_nll": 4.38114081375122,
+              "valid_nll": 4.706134838949202,
+              "elapsed_sec": 1343.9431810379028
+            },
+            {
+              "seed": 8106,
+              "arm": "identity",
+              "epoch": 3,
+              "train_nll": 3.8408623230743406,
+              "valid_nll": 4.615920668239292,
+              "elapsed_sec": 2011.137307882309
+            },
+            {
+              "seed": 8106,
+              "arm": "identity",
+              "epoch": 4,
+              "train_nll": 3.4928614698028566,
+              "valid_nll": 4.587372403470544,
+              "elapsed_sec": 2680.0038447380066
+            },
+            {
+              "seed": 8106,
+              "arm": "identity",
+              "epoch": 5,
+              "train_nll": 3.224849644470215,
+              "valid_nll": 4.606716940248651,
+              "elapsed_sec": 3349.6001896858215
+            }
+          ],
+          "test": {
+            "nll": 4.671274182811063,
+            "ppl": 106.83378151276091,
+            "tokens": 84517,
+            "route_depth_mass": [
+              0.00016231364861596376,
+              0.11101501435041428,
+              0.04913386330008507,
+              0.030801568180322647,
+              0.016214853152632713,
+              0.002729885745793581,
+              0.7899424433708191
+            ],
+            "exact": 0.004,
+            "nonempty": 1.0,
+            "token_bleu4": 9.83508520327368,
+            "examples": [
+              {
+                "en": "More stock photos from Nopparat Jaikla ' portfolio",
+                "reference_zh": "更多库存图片 Nopparat Jaikla 图集",
+                "hypothesis_zh": "更多库存图片 库存图片"
+              },
+              {
+                "en": "Dual Port 10 Gigabit Ethernet I/O Expansion Module AXX10GBIOMOD",
+                "reference_zh": "Dual Port Intel® 82599EB 10GbE I/O Module AXX10GBNIAIOM",
+                "hypothesis_zh": "ADI/OASTER/LGBASI/OODI/MODIGB"
+              },
+              {
+                "en": "The new venture is expected to be operational by spring 2019, pending local approvals.",
+                "reference_zh": "合资公司预计于2019年春季投入运营。",
+                "hypothesis_zh": "新的新的预期的春季,由新款新款v.vbyv."
+              },
+              {
+                "en": "详细搜索 VY2681M29Y5UG6V7 Datasheet(数据表) 3 Page - Vishay Siliconix",
+                "reference_zh": "UC1709L Datasheet(数据表) 3 Page - Texas Instruments",
+                "hypothesis_zh": "MC175C-VU Datasheet(数据表) 5 Page - Motorola, Inc"
+              },
+              {
+                "en": "Ding... the pilot has turned on the Fasten Seat Belt sign!",
+                "reference_zh": " ⁇  . . . 飞行员已经打开了扣好安全带的标志!",
+                "hypothesis_zh": "戴尔森兴奋进驻华大使的演变。"
+              },
+              {
+                "en": "The community as a whole will have to work together to assemble open standards and reusable toolkits in order to facilitate mature software development processes.",
+                "reference_zh": "为促进软件开发过程的成熟,社区必须作为一个整体协同工作,制定开放标准和可重用的工具包。",
+                "hypothesis_zh": "整个社区将会工作,并且迅速发展的整个工具,同时加快开发工具,同时加快发展战略。"
+              },
+              {
+                "en": "And this MIX millet and product positioning is clearly consistent, that is, build rich high-tech product image.",
+                "reference_zh": "而这和小米MIX的产品定位显然是吻合的, 即打造富有高科技的产品形象.",
+                "hypothesis_zh": "普通的是, 是一家产品, 锌座, 是一家产品高高新技术产品。"
+              },
+              {
+                "en": "1.2 km to Beatrix Potter Exhibition (Show map ) Ravenscroft is located about 1.5 km from Lake Windermere.",
+                "reference_zh": "离Beatrix Potter Exhibition 1.2公里 (显示地图 ) Ravenscroft距离温德米尔湖1.5公里。",
+                "hypothesis_zh": "离Kapter 1.2公里 (显示地图 )enscenscens Clay公寓距离布坎湾仅2.7公里。"
+              },
+              {
+                "en": "Ks. 16,653 Think Apple 6 back clip rechargeable battery iphone6plus dedicated wireless mobile power 6S mobile phone shell Chong",
+                "reference_zh": "Ks. 14,669 超薄苹果7手机专用背夹充电宝 iPhone6/plus电池6s无线壳移动电源",
+                "hypothesis_zh": "Ks. 16, iphone3 iphone3 iphone4,34 iphone4,移动电源移动电源移动电源移动"
+              },
+              {
+                "en": "Two-factor authentication significantly improves the security of your Apple ID.",
+                "reference_zh": "双重认证会显著提升 Apple ID 的安全性。",
+                "hypothesis_zh": "预安装的身份验证协议,用户安全性。"
+              },
+              {
+                "en": "The hotel is around 20 minutes' drive from Bali's Ngurah Rai International Airport.",
+                "reference_zh": "从酒店到巴厘岛的巴厘岛国际机场需20分钟车程。",
+                "hypothesis_zh": "走路只需20分钟路程,距离上海火车站有5分钟车程。"
+              },
+              {
+                "en": "Buy Now Product Search Search by Part # or Name",
+                "reference_zh": "产品搜索 按零件号或名称搜索",
+                "hypothesis_zh": " ⁇ 酸 ⁇   ⁇  Buyers List of Fay"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 5.152737584331483,
+            "ppl": 172.904182785537,
+            "tokens": 23841,
+            "route_depth_mass": [
+              0.00012874219100922346,
+              0.11622371524572372,
+              0.05304555594921112,
+              0.03771320357918739,
+              0.017038382589817047,
+              0.002965938299894333,
+              0.7728844285011292
+            ]
+          },
+          "long_test_rows": 993
+        },
+        "adjacent": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3467.4183218479156,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.13169528543949127,
+            "inverse_mse": 2.7019636333362935e-16,
+            "inverse_max_abs": 4.76837158203125e-07,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "closure": {
+            "state_mse": 1.0099342389669527e-14,
+            "state_max_abs": 9.894371032714844e-06
+          },
+          "update": {
+            "delta_rms": 0.34722509874938606,
+            "detail_rms": 0.6266353767587678,
+            "delta_to_detail_rms": 0.55411027150332
+          },
+          "trace": [
+            {
+              "seed": 8106,
+              "arm": "adjacent",
+              "epoch": 1,
+              "train_nll": 5.671397841339111,
+              "valid_nll": 4.92967589149805,
+              "elapsed_sec": 693.2606210708618
+            },
+            {
+              "seed": 8106,
+              "arm": "adjacent",
+              "epoch": 2,
+              "train_nll": 4.328168307342529,
+              "valid_nll": 4.6752095003782195,
+              "elapsed_sec": 1388.852765083313
+            },
+            {
+              "seed": 8106,
+              "arm": "adjacent",
+              "epoch": 3,
+              "train_nll": 3.7876393701171875,
+              "valid_nll": 4.5934685363616845,
+              "elapsed_sec": 2081.18248963356
+            },
+            {
+              "seed": 8106,
+              "arm": "adjacent",
+              "epoch": 4,
+              "train_nll": 3.4482449880981445,
+              "valid_nll": 4.583670891643698,
+              "elapsed_sec": 2778.6996278762817
+            },
+            {
+              "seed": 8106,
+              "arm": "adjacent",
+              "epoch": 5,
+              "train_nll": 3.180412427749634,
+              "valid_nll": 4.6003722824617626,
+              "elapsed_sec": 3467.389867782593
+            }
+          ],
+          "test": {
+            "nll": 4.659981613351456,
+            "ppl": 105.63413988099934,
+            "tokens": 84517,
+            "route_depth_mass": [
+              0.012530413456261158,
+              0.1103082001209259,
+              0.034480005502700806,
+              0.031021902337670326,
+              0.03185784071683884,
+              0.11843813210725784,
+              0.6613635420799255
+            ],
+            "exact": 0.0048,
+            "nonempty": 1.0,
+            "token_bleu4": 10.409604159133284,
+            "examples": [
+              {
+                "en": "More stock photos from Nopparat Jaikla ' portfolio",
+                "reference_zh": "更多库存图片 Nopparat Jaikla 图集",
+                "hypothesis_zh": "更多库存图片 NoBR Reppla old"
+              },
+              {
+                "en": "Dual Port 10 Gigabit Ethernet I/O Expansion Module AXX10GBIOMOD",
+                "reference_zh": "Dual Port Intel® 82599EB 10GbE I/O Module AXX10GBNIAIOM",
+                "hypothesis_zh": "ADI/端口 扩展模块 10GB 端口扩展模块,IGB360"
+              },
+              {
+                "en": "The new venture is expected to be operational by spring 2019, pending local approvals.",
+                "reference_zh": "合资公司预计于2019年春季投入运营。",
+                "hypothesis_zh": "新的新的预期,由新的春季9,由新的补救措施的绝对。"
+              },
+              {
+                "en": "详细搜索 VY2681M29Y5UG6V7 Datasheet(数据表) 3 Page - Vishay Siliconix",
+                "reference_zh": "UC1709L Datasheet(数据表) 3 Page - Texas Instruments",
+                "hypothesis_zh": "UCYZ-VSA Datasheet(数据表) 3 Page - Vishay Siliconix"
+              },
+              {
+                "en": "Ding... the pilot has turned on the Fasten Seat Belt sign!",
+                "reference_zh": " ⁇  . . . 飞行员已经打开了扣好安全带的标志!",
+                "hypothesis_zh": "试探尼克儿在杜勒姆的沙姆沙姆沙姆沙姆沙姆沙姆沙姆的沙姆沙伊娃"
+              },
+              {
+                "en": "The community as a whole will have to work together to assemble open standards and reusable toolkits in order to facilitate mature software development processes.",
+                "reference_zh": "为促进软件开发过程的成熟,社区必须作为一个整体协同工作,制定开放标准和可重用的工具包。",
+                "hypothesis_zh": "整个社区作为一个整体整个世界,并开始重建设计,以实现可持续发展目标。"
+              },
+              {
+                "en": "And this MIX millet and product positioning is clearly consistent, that is, build rich high-tech product image.",
+                "reference_zh": "而这和小米MIX的产品定位显然是吻合的, 即打造富有高科技的产品形象.",
+                "hypothesis_zh": " ⁇ 法是 ⁇  ⁇ 是,这显然是,这并不是有着丰富的竞争力。"
+              },
+              {
+                "en": "1.2 km to Beatrix Potter Exhibition (Show map ) Ravenscroft is located about 1.5 km from Lake Windermere.",
+                "reference_zh": "离Beatrix Potter Exhibition 1.2公里 (显示地图 ) Ravenscroft距离温德米尔湖1.5公里。",
+                "hypothesis_zh": "离City 1.2公里 (显示地图 ) Smenscrootá Hotel Continental 0.5公里 (显示地图 ) 戴尔茨姆的距离"
+              },
+              {
+                "en": "Ks. 16,653 Think Apple 6 back clip rechargeable battery iphone6plus dedicated wireless mobile power 6S mobile phone shell Chong",
+                "reference_zh": "Ks. 14,669 超薄苹果7手机专用背夹充电宝 iPhone6/plus电池6s无线壳移动电源",
+                "hypothesis_zh": "Ks. 16, 6 iphone 656 iphone 656 iphone 656:家用便携手机无线充电宝 手机通用无线充电"
+              },
+              {
+                "en": "Two-factor authentication significantly improves the security of your Apple ID.",
+                "reference_zh": "双重认证会显著提升 Apple ID 的安全性。",
+                "hypothesis_zh": "身份验证-杠杆的身份验证、安全性"
+              },
+              {
+                "en": "The hotel is around 20 minutes' drive from Bali's Ngurah Rai International Airport.",
+                "reference_zh": "从酒店到巴厘岛的巴厘岛国际机场需20分钟车程。",
+                "hypothesis_zh": "酒店距巴厘岛商场,距离哈姆国际机场有20分钟路程。"
+              },
+              {
+                "en": "Buy Now Product Search Search by Part # or Name",
+                "reference_zh": "产品搜索 按零件号或名称搜索",
+                "hypothesis_zh": "春秋节号楼秋季拍卖"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 5.141559361941482,
+            "ppl": 170.9821836582377,
+            "tokens": 23841,
+            "route_depth_mass": [
+              0.022519588470458984,
+              0.1069643571972847,
+              0.042514584958553314,
+              0.03569517284631729,
+              0.03429267928004265,
+              0.12940387427806854,
+              0.6286097168922424
+            ]
+          },
+          "long_test_rows": 993
+        },
+        "butterfly": {
+          "parameters": 34445832,
+          "finite_gradients": true,
+          "seconds": 3478.3251473903656,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.1675906628370285,
+            "inverse_mse": 6.725012790769597e-16,
+            "inverse_max_abs": 4.76837158203125e-07,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "closure": {
+            "state_mse": 6.833610673178834e-15,
+            "state_max_abs": 2.9206275939941406e-06
+          },
+          "update": {
+            "delta_rms": 0.32583242562366993,
+            "detail_rms": 0.6730347288105277,
+            "delta_to_detail_rms": 0.48412423858055925
+          },
+          "trace": [
+            {
+              "seed": 8106,
+              "arm": "butterfly",
+              "epoch": 1,
+              "train_nll": 5.597939772338867,
+              "valid_nll": 4.824236614267375,
+              "elapsed_sec": 696.3531541824341
+            },
+            {
+              "seed": 8106,
+              "arm": "butterfly",
+              "epoch": 2,
+              "train_nll": 4.216678211517334,
+              "valid_nll": 4.582725501090591,
+              "elapsed_sec": 1389.9978427886963
+            },
+            {
+              "seed": 8106,
+              "arm": "butterfly",
+              "epoch": 3,
+              "train_nll": 3.6872773989868164,
+              "valid_nll": 4.489219167661773,
+              "elapsed_sec": 2088.005101442337
+            },
+            {
+              "seed": 8106,
+              "arm": "butterfly",
+              "epoch": 4,
+              "train_nll": 3.3505125189208984,
+              "valid_nll": 4.504572696961626,
+              "elapsed_sec": 2780.4950733184814
+            },
+            {
+              "seed": 8106,
+              "arm": "butterfly",
+              "epoch": 5,
+              "train_nll": 3.094765466384888,
+              "valid_nll": 4.530321583772744,
+              "elapsed_sec": 3478.2972841262817
+            }
+          ],
+          "test": {
+            "nll": 4.560662026978947,
+            "ppl": 95.64677962322891,
+            "tokens": 84517,
+            "route_depth_mass": [
+              0.021236132830381393,
+              0.10042735189199448,
+              0.03909286484122276,
+              0.036656830459833145,
+              0.06112419813871384,
+              0.05312173441052437,
+              0.688340961933136
+            ],
+            "exact": 0.0048,
+            "nonempty": 1.0,
+            "token_bleu4": 10.558634328916263,
+            "examples": [
+              {
+                "en": "More stock photos from Nopparat Jaikla ' portfolio",
+                "reference_zh": "更多库存图片 Nopparat Jaikla 图集",
+                "hypothesis_zh": "更多库存图片 Noppe Jaora 项目 。"
+              },
+              {
+                "en": "Dual Port 10 Gigabit Ethernet I/O Expansion Module AXX10GBIOMOD",
+                "reference_zh": "Dual Port Intel® 82599EB 10GbE I/O Module AXX10GBNIAIOM",
+                "hypothesis_zh": "EI 10 GigI/O/AS Module VPS模块"
+              },
+              {
+                "en": "The new venture is expected to be operational by spring 2019, pending local approvals.",
+                "reference_zh": "合资公司预计于2019年春季投入运营。",
+                "hypothesis_zh": "预计2019年创业者,由新奥尔良预期的预期。"
+              },
+              {
+                "en": "详细搜索 VY2681M29Y5UG6V7 Datasheet(数据表) 3 Page - Vishay Siliconix",
+                "reference_zh": "UC1709L Datasheet(数据表) 3 Page - Texas Instruments",
+                "hypothesis_zh": "UCY7473 Datasheet(数据表) 5 Page - Vishay Siliconix"
+              },
+              {
+                "en": "Ding... the pilot has turned on the Fasten Seat Belt sign!",
+                "reference_zh": " ⁇  . . . 飞行员已经打开了扣好安全带的标志!",
+                "hypothesis_zh": " ⁇ 森的叹息,这片刻便转弯。"
+              },
+              {
+                "en": "The community as a whole will have to work together to assemble open standards and reusable toolkits in order to facilitate mature software development processes.",
+                "reference_zh": "为促进软件开发过程的成熟,社区必须作为一个整体协同工作,制定开放标准和可重用的工具包。",
+                "hypothesis_zh": "整个社区将将工作和奖励工作,将有助于修复软件开发工具,以促进一种设计软件。"
+              },
+              {
+                "en": "And this MIX millet and product positioning is clearly consistent, that is, build rich high-tech product image.",
+                "reference_zh": "而这和小米MIX的产品定位显然是吻合的, 即打造富有高科技的产品形象.",
+                "hypothesis_zh": " ⁇ 的轮子和 ⁇ 子,是全然的冲击,如云的图像。"
+              },
+              {
+                "en": "1.2 km to Beatrix Potter Exhibition (Show map ) Ravenscroft is located about 1.5 km from Lake Windermere.",
+                "reference_zh": "离Beatrix Potter Exhibition 1.2公里 (显示地图 ) Ravenscroft距离温德米尔湖1.5公里。",
+                "hypothesis_zh": "离安迅雷克会展中心 1.9公里 (显示地图 ) Parliamentcrockcrock,距离基米尔米尔仅1.8公里。"
+              },
+              {
+                "en": "Ks. 16,653 Think Apple 6 back clip rechargeable battery iphone6plus dedicated wireless mobile power 6S mobile phone shell Chong",
+                "reference_zh": "Ks. 14,669 超薄苹果7手机专用背夹充电宝 iPhone6/plus电池6s无线壳移动电源",
+                "hypothesis_zh": "Ks. 18,657苹果笔记本电脑电池有限公司"
+              },
+              {
+                "en": "Two-factor authentication significantly improves the security of your Apple ID.",
+                "reference_zh": "双重认证会显著提升 Apple ID 的安全性。",
+                "hypothesis_zh": "流动性 身份验证 调整您的安全性"
+              },
+              {
+                "en": "The hotel is around 20 minutes' drive from Bali's Ngurah Rai International Airport.",
+                "reference_zh": "从酒店到巴厘岛的巴厘岛国际机场需20分钟车程。",
+                "hypothesis_zh": "酒店距离Sarai国际机场,距离Rh International国际机场有5分钟车程。"
+              },
+              {
+                "en": "Buy Now Product Search Search by Part # or Name",
+                "reference_zh": "产品搜索 按零件号或名称搜索",
+                "hypothesis_zh": "产品分类产品名称:首页 >"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 5.04849279389366,
+            "ppl": 155.78748360199,
+            "tokens": 23841,
+            "route_depth_mass": [
+              0.034807898104190826,
+              0.08560475707054138,
+              0.05213469639420509,
+              0.04432426765561104,
+              0.07237786799669266,
+              0.0654895007610321,
+              0.6452610492706299
+            ]
+          },
+          "long_test_rows": 993,
+          "interventions": {
+            "communication_identity": {
+              "nll": 5.797321537267465,
+              "ppl": 329.416048602118,
+              "tokens": 84517,
+              "route_depth_mass": [
+                0.0008236633730120957,
+                0.028965137898921967,
+                0.01370286662131548,
+                0.010325715877115726,
+                0.03875480592250824,
+                0.020210301503539085,
+                0.8872174620628357
+              ]
+            },
+            "communication_adjacent": {
+              "nll": 5.692261938091504,
+              "ppl": 296.56367121281494,
+              "tokens": 84517,
+              "route_depth_mass": [
+                0.03321696072816849,
+                0.0917225256562233,
+                0.03576524183154106,
+                0.023586539551615715,
+                0.03847191110253334,
+                0.03553486615419388,
+                0.7417020797729492
+              ]
+            },
+            "source_shuffle": {
+              "nll": 7.608173513665797,
+              "ppl": 2014.5951048446748,
+              "tokens": 84517,
+              "route_depth_mass": [
+                0.02222689613699913,
+                0.10476239025592804,
+                0.040176186710596085,
+                0.03926348686218262,
+                0.06627348810434341,
+                0.05686997249722481,
+                0.6704277396202087
+              ]
+            }
+          },
+          "checkpoint": "checkpoint_seed8106_butterfly.pt"
+        }
+      },
+      "derived": {
+        "identity_nll": 4.671274182811063,
+        "adjacent_nll": 4.659981613351456,
+        "butterfly_nll": 4.560662026978947,
+        "butterfly_gain_over_identity": 0.11061215583211581,
+        "butterfly_gain_over_adjacent": 0.09931958637250915,
+        "identity_long_nll": 5.152737584331483,
+        "butterfly_long_nll": 5.04849279389366,
+        "butterfly_long_gain": 0.1042447904378232,
+        "disable_damage": 1.2366595102885185,
+        "adjacent_override_damage": 1.1315999111125574,
+        "source_shuffle_damage": 3.04751148668685
+      },
+      "gates": {
+        "P1_butterfly_beats_identity": true,
+        "P2_butterfly_beats_adjacent": true,
+        "P3_long_source_gain": true,
+        "P4_communication_causal": true,
+        "P5_source_causal": true,
+        "P6_multiresolution": true,
+        "P7_finite_nonempty": true
+      },
+      "mechanism_gates": {
+        "M1_finite_gradients": true,
+        "M2_initial_identity": true,
+        "M3_communication_inverse": true,
+        "M4_fold_unfold_closure": true,
+        "M5_parameter_matched": true,
+        "M6_no_dense_attention": true
+      },
+      "language_pass": true,
+      "mechanism_pass": true
+    }
+  },
+  "aggregate": {
+    "language_seed_pass_count": 3,
+    "mechanism_all_seeds_pass": true,
+    "mean_test_nll": {
+      "identity": 4.651958112355839,
+      "adjacent": 4.654149905605586,
+      "butterfly": 4.5650917492902
+    },
+    "butterfly_mean_gain_over_identity": 0.08686636306563855,
+    "butterfly_mean_gain_over_adjacent": 0.08905815631538605
+  },
+  "decision": "supported",
+  "boundary": "Matched WMT mechanism ablation. No Transformer superiority, production quality, semantic-address, or compute-saving claim."
+}
