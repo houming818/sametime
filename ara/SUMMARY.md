@@ -45,6 +45,11 @@ stable encoder-decoder private protocol, superiority over Transformer, usable
 chat, or GPT-level generation. Current non-teacher-forced generation is weak and
 often repetitive. STONE-1 is incomplete.
 
+Project phase update (2026-07-30): STONE is suspended as the active product
+milestone. The project is collecting depth/state/output observations from frozen
+checkpoints before designing another algorithm. No new capability Claim is being
+registered during this observation phase.
+
 ## 2. Authoritative Record
 
 | Need | Source |
@@ -277,9 +282,11 @@ These failures are part of the result. They prevent repeated research loops.
 - Whether variable-depth routing can emerge without a forced floor or collapse.
 - Whether a fixed-capacity TreeHeap can produce fluent, source-relevant free text.
 
-## 11. Next Proof: Selective Bucket Migration
+## 11. Deferred Branch: Selective Bucket Migration
 
-The immediate claim should refine C17 instead of starting another decoder.
+This was the immediate candidate after C17, but it is now deferred. Downward
+migration may be a useful bounded-index mechanism, yet the present evidence does
+not show that storage pressure corresponds to semantic resolution.
 
 Start with a node whose STOP bucket contains:
 
@@ -325,6 +332,13 @@ error, migration/forgetting rate, memory bytes, and held-out stream performance.
 Only after the controlled bucket proof passes should it move to real corpus
 co-occurrence events and a learned kernel.
 
+The active work is instead a no-training observation atlas. OBS-001 showed that
+C08 depth slices changed its candidate distribution and exposed source-related
+words. OBS-002 then fixed one C04 encoder and compared three compatible decoders
+over 1,000 held-out examples. Native read stayed root-only; forced-leaf and
+depth-floor reads recovered measurable D4-D5 task signal. See
+[`s3-generation/observations/OBS-002-MATCHED-DECODER-RESOLUTION.zh.md`](s3-generation/observations/OBS-002-MATCHED-DECODER-RESOLUTION.zh.md).
+
 ## 12. Engineering State
 
 - Main repository under review: `holds/SameTime-depth-growth`.
@@ -339,7 +353,8 @@ co-occurrence events and a learned kernel.
 
 ## 13. Gates Before Product Claims
 
-STONE-1 is not complete. A release-quality milestone requires at least:
+STONE is currently suspended rather than promoted. If a future release-quality
+milestone is reopened, it requires at least:
 
 1. source-conditioned free generation, not target teacher-forcing leakage;
 2. low repetition and non-trivial conditional diversity;

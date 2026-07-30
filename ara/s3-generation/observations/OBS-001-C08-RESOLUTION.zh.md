@@ -282,3 +282,6 @@ root-only：缺少足够条件信息，输出受无关高频模板支配
 - [原始 JSON](../evidence/diagnostic_resolution_observation_c08/result.json)
 - [运行说明](../evidence/diagnostic_resolution_observation_c08/README.md)
 - [诊断脚本](../src/s3_resolution_observe_existing.py)
+
+后续 matched-decoder 归因观察：
+[OBS-002](OBS-002-MATCHED-DECODER-RESOLUTION.zh.md)

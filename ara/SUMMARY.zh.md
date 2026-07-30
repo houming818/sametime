@@ -39,6 +39,10 @@ TreeHeap 目前是一个**已有多项代数与因果机制证据、但还没有
 私有协议、优于 Transformer、可用聊天能力或 GPT 级生成。当前自由生成较差
 且经常重复，STONE-1 尚未完成。
 
+项目阶段更新（2026-07-30）：STONE 已暂停作为当前产品里程碑。项目先使用
+冻结 checkpoint 收集深度、状态和输出的观察数据，再根据可重复规律设计算法。
+观察阶段不注册新的能力 Claim。
+
 ## 2. 权威资料入口
 
 | 要了解的内容 | 文件 |
@@ -259,9 +263,10 @@ route 的预算 AUC 从随机的 `0.5269` 提高到 `0.5574`。但平均深度�
 - 不使用强制 depth floor 时，变量深度路由能否自然形成。
 - 固定容量 TreeHeap 能否生成流畅且与 source 有关的自由文本。
 
-## 11. 下一项 Proof：概率桶的选择性下迁
+## 11. 延期支线：概率桶的选择性下迁
 
-下一步应当细化 C17，而不是立即再造一个 decoder。
+这是 C17 之后曾提出的候选方向，目前已经延期。数据下迁可能仍是有限预算索引
+的工程机制，但现有证据没有说明“存储压力”对应“语义分辨率”。
 
 假设一个内部节点的 STOP 概率桶目前是：
 
@@ -303,6 +308,12 @@ subtree_mass(parent, w)
 遗忘率、内存 byte 和 held-out stream 表现。受控概率桶 proof 通过后，才进入
 真实语料共现事件和 learned kernel。
 
+当前活动改为不训练的观察图谱。OBS-001 发现 C08 的深度切片会改变候选分布并
+逐渐暴露 source 相关词；OBS-002 随后固定同一个 C04 encoder，在 1,000 条
+held-out 数据上比较三个兼容 decoder。Native READ 始终停在 root；forced-leaf
+和 depth-floor READ 都从 D4-D5 获得了可测量任务信号。详见
+[`s3-generation/observations/OBS-002-MATCHED-DECODER-RESOLUTION.zh.md`](s3-generation/observations/OBS-002-MATCHED-DECODER-RESOLUTION.zh.md)。
+
 ## 12. 工程状态
 
 - 当前评审仓库：`holds/SameTime-depth-growth`。
@@ -316,7 +327,8 @@ subtree_mass(parent, w)
 
 ## 13. 产品 Gate
 
-STONE-1 尚未完成。要达到可发布产品里程碑，至少需要：
+STONE 当前处于暂停状态，而不是进入下一里程碑。如果未来重新开启产品发布
+目标，至少需要：
 
 1. 生成确实依赖 source，而非 target teacher forcing 泄漏；
 2. 低重复、具有有效 conditional diversity；
