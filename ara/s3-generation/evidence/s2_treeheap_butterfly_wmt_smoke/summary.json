@@ -1,0 +1,563 @@
+{
+  "claim": "S3-TREEHEAP-BUTTERFLY-WMT-C02",
+  "mode": "smoke",
+  "host": "io",
+  "seconds": 117.94780111312866,
+  "config": {
+    "mode": "smoke",
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s2_treeheap_butterfly_wmt_smoke",
+    "seeds": [
+      8104
+    ],
+    "source_col": 1,
+    "target_col": 0,
+    "train_samples": 5000,
+    "valid_samples": 500,
+    "test_samples": 500,
+    "max_scan": 100000,
+    "min_len": 8,
+    "max_len": 32,
+    "long_min": 25,
+    "heap_width": 64,
+    "dim": 128,
+    "hidden": 128,
+    "batch_size": 64,
+    "epochs": 2,
+    "lr": 0.002,
+    "coupling_scale": 0.25,
+    "device": "cuda",
+    "num_workers": 2,
+    "generate_examples": true,
+    "save_checkpoint": false,
+    "seed": 8104
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "vocab": 32001,
+    "sampling_by_seed": {
+      "8104": {
+        "scanned": 100000,
+        "eligible": 57887,
+        "selected": 6000,
+        "sampling": "deterministic_reservoir_then_shuffle"
+      }
+    }
+  },
+  "seeds": {
+    "8104": {
+      "models": {
+        "identity": {
+          "parameters": 16829320,
+          "finite_gradients": true,
+          "seconds": 34.343117237091064,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 0
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 0
+          },
+          "closure": {
+            "state_mse": 1.7154060425817255e-15,
+            "state_max_abs": 9.5367431640625e-07
+          },
+          "update": {
+            "delta_rms": 0.09229782850780456,
+            "detail_rms": 0.6244454813328594,
+            "delta_to_detail_rms": 0.14780766498749856
+          },
+          "trace": [
+            {
+              "seed": 8104,
+              "arm": "identity",
+              "epoch": 1,
+              "train_nll": 8.291966969453835,
+              "valid_nll": 7.78257615963477,
+              "elapsed_sec": 17.263200283050537
+            },
+            {
+              "seed": 8104,
+              "arm": "identity",
+              "epoch": 2,
+              "train_nll": 6.711357744434212,
+              "valid_nll": 7.631405566394703,
+              "elapsed_sec": 34.27527451515198
+            }
+          ],
+          "test": {
+            "nll": 7.59495070761135,
+            "ppl": 1988.131849317024,
+            "tokens": 8498,
+            "route_depth_mass": [
+              0.23131036758422852,
+              0.2125042825937271,
+              0.15928693115711212,
+              0.18374821543693542,
+              0.1727513074874878,
+              0.021258486434817314,
+              0.019140370190143585
+            ],
+            "exact": 0.0,
+            "nonempty": 1.0,
+            "token_bleu4": 2.347738377153617,
+            "examples": [
+              {
+                "en": "These include real estate, corporate governance, finance, tax, securities and partnership law, as well as compliance with numerous disclosure and reporting obligations.",
+                "reference_zh": "此等问题包括房地产、公司治理、融资、税务、证券与合伙法以及各种披露及报告义务的合规。",
+                "hypothesis_zh": ", , ,包括,包括,包括,包括,包括,包括,包括,包括,包括,包括,包括,包括,"
+              },
+              {
+                "en": "So I tell those who plan to come here to look at those alumni and have no fear.",
+                "reference_zh": "所以我总是告诉那些愿意过来的人,要看看这些毕业生,什么都不要怕。",
+                "hypothesis_zh": "铁艺大门和围墙,以以的,以以。"
+              },
+              {
+                "en": "Therefore, every man on Earth will have the same groundwork knowledge and opportunity to build his own environment and so be in control of his future and destiny.",
+                "reference_zh": "如此一来,地球上的每个人都将拥有相同的基础知识和公平的机会,去建造他自己的环境,从而掌握他自己未来的命运。",
+                "hypothesis_zh": "提到,在在,在对的。"
+              },
+              {
+                "en": "File:Candi Bahal 1.JPG - Wikipedia",
+                "reference_zh": "File:Minamijima.jpg - 维基百科,自由的百科全书",
+                "hypothesis_zh": "File: File:  File: 自由的百科全书"
+              },
+              {
+                "en": "(b) maintain and promptly amend all information to keep it true, accurate, current and complete.",
+                "reference_zh": "(b)维持并及时更新会员资料,使其保持真实、准确、完整和反映当前情况。",
+                "hypothesis_zh": "走,她和和和和和和和 (显示地图 )"
+              },
+              {
+                "en": "Unified Solution of Backup, Recovery and Archiving PDF Download",
+                "reference_zh": "备份、恢复、归档一体化方案PDF文档下载",
+                "hypothesis_zh": "“,你,你,你,你,你,你,你"
+              },
+              {
+                "en": "Market Study for business idea ($250-750 USD) Need to hire a freelancer for a job?",
+                "reference_zh": "Create a logo ($10-30 USD) 需要雇佣一个威客来工作?",
+                "hypothesis_zh": "妈:  ⁇ ,  ⁇ 的?"
+              },
+              {
+                "en": "详细搜索 SN74ABT16623DGGR Datasheet(数据表) 7 Page - Texas Instruments",
+                "reference_zh": "74ALVTH16245VRE4 Datasheet(数据表) 10 Page - Texas Instruments",
+                "hypothesis_zh": "SN74AHC245DG Datasheet(数据表) 9 Page - Texas Instruments"
+              },
+              {
+                "en": "Yes, how was such a spirit cheated?",
+                "reference_zh": "“妈,怎么来得这么快 ? ”",
+                "hypothesis_zh": "五,有,有"
+              },
+              {
+                "en": "Ray-Ban Erika RB4171 sunglasses are the perfect accessory to complete any look.",
+                "reference_zh": "Ray-Ban Erika 太阳镜是可搭配任何造型的完美配件。",
+                "hypothesis_zh": "顺,以的的。"
+              },
+              {
+                "en": "Might suck to be downwind in the fallout cloud in Toledo, but sacrifices will have to be made.",
+                "reference_zh": "须要为天下苍生做出付出,可是你不一样,他希望你勇敢的活着,快乐的活着,",
+                "hypothesis_zh": "例,但,但是,但是,但是,但是。"
+              },
+              {
+                "en": "This is a group hug and you're part of the group.",
+                "reference_zh": "console是主机的控制台,是一个物理概念。",
+                "hypothesis_zh": "这是是是是,因为是是是。"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 7.985030644852786,
+            "ppl": 2936.6672968480043,
+            "tokens": 2369,
+            "route_depth_mass": [
+              0.19636976718902588,
+              0.19042623043060303,
+              0.17077675461769104,
+              0.19750255346298218,
+              0.19854110479354858,
+              0.02496272325515747,
+              0.021420884877443314
+            ]
+          },
+          "long_test_rows": 100
+        },
+        "adjacent": {
+          "parameters": 16829320,
+          "finite_gradients": true,
+          "seconds": 35.262314319610596,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.15554727613925934,
+            "inverse_mse": 4.1784601156175626e-16,
+            "inverse_max_abs": 4.76837158203125e-07,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "closure": {
+            "state_mse": 1.5657577671749929e-15,
+            "state_max_abs": 8.344650268554688e-07
+          },
+          "update": {
+            "delta_rms": 0.08030671141032003,
+            "detail_rms": 0.65255962556601,
+            "delta_to_detail_rms": 0.1230641741598164
+          },
+          "trace": [
+            {
+              "seed": 8104,
+              "arm": "adjacent",
+              "epoch": 1,
+              "train_nll": 8.297429851338833,
+              "valid_nll": 7.801363757926127,
+              "elapsed_sec": 17.53490114212036
+            },
+            {
+              "seed": 8104,
+              "arm": "adjacent",
+              "epoch": 2,
+              "train_nll": 6.925995253309419,
+              "valid_nll": 7.635793226949568,
+              "elapsed_sec": 35.21384143829346
+            }
+          ],
+          "test": {
+            "nll": 7.601900642522505,
+            "ppl": 2001.9973626617102,
+            "tokens": 8498,
+            "route_depth_mass": [
+              0.1637260615825653,
+              0.14143848419189453,
+              0.16375601291656494,
+              0.13534867763519287,
+              0.15025079250335693,
+              0.12080763280391693,
+              0.12467236816883087
+            ],
+            "exact": 0.0,
+            "nonempty": 1.0,
+            "token_bleu4": 2.432116757505474,
+            "examples": [
+              {
+                "en": "These include real estate, corporate governance, finance, tax, securities and partnership law, as well as compliance with numerous disclosure and reporting obligations.",
+                "reference_zh": "此等问题包括房地产、公司治理、融资、税务、证券与合伙法以及各种披露及报告义务的合规。",
+                "hypothesis_zh": ",即使,即使,即使,即使,即使,因为,我, 贴牌生产"
+              },
+              {
+                "en": "So I tell those who plan to come here to look at those alumni and have no fear.",
+                "reference_zh": "所以我总是告诉那些愿意过来的人,要看看这些毕业生,什么都不要怕。",
+                "hypothesis_zh": "铁艺大门和围墙,请,请,以以。"
+              },
+              {
+                "en": "Therefore, every man on Earth will have the same groundwork knowledge and opportunity to build his own environment and so be in control of his future and destiny.",
+                "reference_zh": "如此一来,地球上的每个人都将拥有相同的基础知识和公平的机会,去建造他自己的环境,从而掌握他自己未来的命运。",
+                "hypothesis_zh": "提到,在在,在在,然后,然后,然后,然后和。"
+              },
+              {
+                "en": "File:Candi Bahal 1.JPG - Wikipedia",
+                "reference_zh": "File:Minamijima.jpg - 维基百科,自由的百科全书",
+                "hypothesis_zh": "File: B: 自由的百科全书:"
+              },
+              {
+                "en": "(b) maintain and promptly amend all information to keep it true, accurate, current and complete.",
+                "reference_zh": "(b)维持并及时更新会员资料,使其保持真实、准确、完整和反映当前情况。",
+                "hypothesis_zh": "走,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇  )"
+              },
+              {
+                "en": "Unified Solution of Backup, Recovery and Archiving PDF Download",
+                "reference_zh": "备份、恢复、归档一体化方案PDF文档下载",
+                "hypothesis_zh": ",你,你,你,你,你,你,你,你,你,你,你,你,你,你,"
+              },
+              {
+                "en": "Market Study for business idea ($250-750 USD) Need to hire a freelancer for a job?",
+                "reference_zh": "Create a logo ($10-30 USD) 需要雇佣一个威客来工作?",
+                "hypothesis_zh": "冯  ⁇ 吗?"
+              },
+              {
+                "en": "详细搜索 SN74ABT16623DGGR Datasheet(数据表) 7 Page - Texas Instruments",
+                "reference_zh": "74ALVTH16245VRE4 Datasheet(数据表) 10 Page - Texas Instruments",
+                "hypothesis_zh": "SN74AHC245DG Datasheet(数据表) 9 Page - Texas Instruments"
+              },
+              {
+                "en": "Yes, how was such a spirit cheated?",
+                "reference_zh": "“妈,怎么来得这么快 ? ”",
+                "hypothesis_zh": "提到,就,然后?"
+              },
+              {
+                "en": "Ray-Ban Erika RB4171 sunglasses are the perfect accessory to complete any look.",
+                "reference_zh": "Ray-Ban Erika 太阳镜是可搭配任何造型的完美配件。",
+                "hypothesis_zh": "顺,以在的。"
+              },
+              {
+                "en": "Might suck to be downwind in the fallout cloud in Toledo, but sacrifices will have to be made.",
+                "reference_zh": "须要为天下苍生做出付出,可是你不一样,他希望你勇敢的活着,快乐的活着,",
+                "hypothesis_zh": "例,但是,但是,但是,但是,但是。"
+              },
+              {
+                "en": "This is a group hug and you're part of the group.",
+                "reference_zh": "console是主机的控制台,是一个物理概念。",
+                "hypothesis_zh": "这是是,这是是。"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 7.996004090927079,
+            "ppl": 2969.0701172168424,
+            "tokens": 2369,
+            "route_depth_mass": [
+              0.13813821971416473,
+              0.12592342495918274,
+              0.17405512928962708,
+              0.14684757590293884,
+              0.16751831769943237,
+              0.12902840971946716,
+              0.11848895251750946
+            ]
+          },
+          "long_test_rows": 100
+        },
+        "butterfly": {
+          "parameters": 16829320,
+          "finite_gradients": true,
+          "seconds": 35.39767146110535,
+          "initial_communication": {
+            "initial_or_trained_delta_rms": 0.0,
+            "inverse_mse": 0.0,
+            "inverse_max_abs": 0.0,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "trained_communication": {
+            "initial_or_trained_delta_rms": 0.09077843278646469,
+            "inverse_mse": 3.1603381597209183e-16,
+            "inverse_max_abs": 4.76837158203125e-07,
+            "dense_attention_allocated": false,
+            "pair_operations_per_example": 192
+          },
+          "closure": {
+            "state_mse": 1.5207829646537497e-15,
+            "state_max_abs": 7.748603820800781e-07
+          },
+          "update": {
+            "delta_rms": 0.0816629382231251,
+            "detail_rms": 0.6308093376623757,
+            "delta_to_detail_rms": 0.12945740233609712
+          },
+          "trace": [
+            {
+              "seed": 8104,
+              "arm": "butterfly",
+              "epoch": 1,
+              "train_nll": 8.280660568913326,
+              "valid_nll": 7.7791073823829375,
+              "elapsed_sec": 17.60114574432373
+            },
+            {
+              "seed": 8104,
+              "arm": "butterfly",
+              "epoch": 2,
+              "train_nll": 6.8069800244101994,
+              "valid_nll": 7.599678081951342,
+              "elapsed_sec": 35.34863758087158
+            }
+          ],
+          "test": {
+            "nll": 7.557761695306984,
+            "ppl": 1915.5531197855428,
+            "tokens": 8498,
+            "route_depth_mass": [
+              0.19626300036907196,
+              0.1756325513124466,
+              0.15992827713489532,
+              0.14380605518817902,
+              0.19940701127052307,
+              0.07209519296884537,
+              0.05286794155836105
+            ],
+            "exact": 0.0,
+            "nonempty": 1.0,
+            "token_bleu4": 2.5657148711205413,
+            "examples": [
+              {
+                "en": "These include real estate, corporate governance, finance, tax, securities and partnership law, as well as compliance with numerous disclosure and reporting obligations.",
+                "reference_zh": "此等问题包括房地产、公司治理、融资、税务、证券与合伙法以及各种披露及报告义务的合规。",
+                "hypothesis_zh": ",因为,我,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,"
+              },
+              {
+                "en": "So I tell those who plan to come here to look at those alumni and have no fear.",
+                "reference_zh": "所以我总是告诉那些愿意过来的人,要看看这些毕业生,什么都不要怕。",
+                "hypothesis_zh": "铁艺大门和围墙,以以的。"
+              },
+              {
+                "en": "Therefore, every man on Earth will have the same groundwork knowledge and opportunity to build his own environment and so be in control of his future and destiny.",
+                "reference_zh": "如此一来,地球上的每个人都将拥有相同的基础知识和公平的机会,去建造他自己的环境,从而掌握他自己未来的命运。",
+                "hypothesis_zh": "提到,在在对的,在对对的。"
+              },
+              {
+                "en": "File:Candi Bahal 1.JPG - Wikipedia",
+                "reference_zh": "File:Minamijima.jpg - 维基百科,自由的百科全书",
+                "hypothesis_zh": "File:  File:// /自由的百科全书"
+              },
+              {
+                "en": "(b) maintain and promptly amend all information to keep it true, accurate, current and complete.",
+                "reference_zh": "(b)维持并及时更新会员资料,使其保持真实、准确、完整和反映当前情况。",
+                "hypothesis_zh": "走,她和和和 (Avg)"
+              },
+              {
+                "en": "Unified Solution of Backup, Recovery and Archiving PDF Download",
+                "reference_zh": "备份、恢复、归档一体化方案PDF文档下载",
+                "hypothesis_zh": ",你,你,你,你,你,你,你,你,你,你"
+              },
+              {
+                "en": "Market Study for business idea ($250-750 USD) Need to hire a freelancer for a job?",
+                "reference_zh": "Create a logo ($10-30 USD) 需要雇佣一个威客来工作?",
+                "hypothesis_zh": "避免  ⁇ ?"
+              },
+              {
+                "en": "详细搜索 SN74ABT16623DGGR Datasheet(数据表) 7 Page - Texas Instruments",
+                "reference_zh": "74ALVTH16245VRE4 Datasheet(数据表) 10 Page - Texas Instruments",
+                "hypothesis_zh": "SN74AHC245DG Datasheet(数据表) 8 Page - Texas Instruments"
+              },
+              {
+                "en": "Yes, how was such a spirit cheated?",
+                "reference_zh": "“妈,怎么来得这么快 ? ”",
+                "hypothesis_zh": "五,我,我,然后,我,然后是,然后?"
+              },
+              {
+                "en": "Ray-Ban Erika RB4171 sunglasses are the perfect accessory to complete any look.",
+                "reference_zh": "Ray-Ban Erika 太阳镜是可搭配任何造型的完美配件。",
+                "hypothesis_zh": "卓越.com 市.com."
+              },
+              {
+                "en": "Might suck to be downwind in the fallout cloud in Toledo, but sacrifices will have to be made.",
+                "reference_zh": "须要为天下苍生做出付出,可是你不一样,他希望你勇敢的活着,快乐的活着,",
+                "hypothesis_zh": "例,因为是,但是,你,因为将,但是,你,因为将,但是。"
+              },
+              {
+                "en": "This is a group hug and you're part of the group.",
+                "reference_zh": "console是主机的控制台,是一个物理概念。",
+                "hypothesis_zh": "这是是是,因为是是是。"
+              }
+            ]
+          },
+          "long_test": {
+            "nll": 7.938393292924229,
+            "ppl": 2802.8535239790363,
+            "tokens": 2369,
+            "route_depth_mass": [
+              0.15078699588775635,
+              0.14596852660179138,
+              0.16781023144721985,
+              0.15984812378883362,
+              0.2306850552558899,
+              0.08458293974399567,
+              0.06031816452741623
+            ]
+          },
+          "long_test_rows": 100,
+          "interventions": {
+            "communication_identity": {
+              "nll": 7.738357209968522,
+              "ppl": 2294.699575417647,
+              "tokens": 8498,
+              "route_depth_mass": [
+                0.17737668752670288,
+                0.17111168801784515,
+                0.1515364795923233,
+                0.14085789024829865,
+                0.20567438006401062,
+                0.08449795842170715,
+                0.06894491612911224
+              ]
+            },
+            "communication_adjacent": {
+              "nll": 7.619054552357908,
+              "ppl": 2036.6356868812536,
+              "tokens": 8498,
+              "route_depth_mass": [
+                0.19113822281360626,
+                0.16903027892112732,
+                0.15627184510231018,
+                0.1421625018119812,
+                0.20254051685333252,
+                0.07795555889606476,
+                0.060901109129190445
+              ]
+            },
+            "source_shuffle": {
+              "nll": 8.56655403293422,
+              "ppl": 5252.996911133209,
+              "tokens": 8498,
+              "route_depth_mass": [
+                0.19619843363761902,
+                0.17592689394950867,
+                0.16035689413547516,
+                0.14406083524227142,
+                0.19961757957935333,
+                0.07191113382577896,
+                0.051928237080574036
+              ]
+            }
+          }
+        }
+      },
+      "derived": {
+        "identity_nll": 7.59495070761135,
+        "adjacent_nll": 7.601900642522505,
+        "butterfly_nll": 7.557761695306984,
+        "butterfly_gain_over_identity": 0.03718901230436611,
+        "butterfly_gain_over_adjacent": 0.04413894721552136,
+        "identity_long_nll": 7.985030644852786,
+        "butterfly_long_nll": 7.938393292924229,
+        "butterfly_long_gain": 0.046637351928557,
+        "disable_damage": 0.18059551466153856,
+        "adjacent_override_damage": 0.061292857050924354,
+        "source_shuffle_damage": 1.008792337627237
+      },
+      "gates": {
+        "P1_butterfly_beats_identity": true,
+        "P2_butterfly_beats_adjacent": true,
+        "P3_long_source_gain": true,
+        "P4_communication_causal": true,
+        "P5_source_causal": true,
+        "P6_multiresolution": true,
+        "P7_finite_nonempty": true
+      },
+      "mechanism_gates": {
+        "M1_finite_gradients": true,
+        "M2_initial_identity": true,
+        "M3_communication_inverse": true,
+        "M4_fold_unfold_closure": true,
+        "M5_parameter_matched": true,
+        "M6_no_dense_attention": true
+      },
+      "language_pass": true,
+      "mechanism_pass": true
+    }
+  },
+  "aggregate": {
+    "language_seed_pass_count": 1,
+    "mechanism_all_seeds_pass": true,
+    "mean_test_nll": {
+      "identity": 7.59495070761135,
+      "adjacent": 7.601900642522505,
+      "butterfly": 7.557761695306984
+    },
+    "butterfly_mean_gain_over_identity": 0.03718901230436611,
+    "butterfly_mean_gain_over_adjacent": 0.04413894721552136
+  },
+  "decision": "smoke_pass",
+  "boundary": "Matched WMT mechanism ablation. No Transformer superiority, production quality, semantic-address, or compute-saving claim."
+}
