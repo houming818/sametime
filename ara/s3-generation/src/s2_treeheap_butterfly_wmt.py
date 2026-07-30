@@ -63,13 +63,14 @@ class ReversibleAddressCommunication(nn.Module):
         self.depths = depths
         self.scale = scale
 
-    def schedule(self, mode: str) -> List[int]:
+    def schedule(self, mode: str, active_depths: int | None = None) -> List[int]:
+        depths = self.depths if active_depths is None else active_depths
         if mode == "identity":
             return []
         if mode == "adjacent":
-            return [0] * self.depths
+            return [0] * depths
         if mode == "butterfly":
-            return list(range(self.depths))
+            return list(range(depths))
         raise ValueError(mode)
 
     def _gain(self, step: int) -> torch.Tensor:
@@ -77,7 +78,8 @@ class ReversibleAddressCommunication(nn.Module):
 
     def forward(self, state: torch.Tensor, mask: torch.Tensor, mode: str) -> torch.Tensor:
         result = state
-        for step, address_stage in enumerate(self.schedule(mode)):
+        active_depths = int(math.log2(result.shape[1]))
+        for step, address_stage in enumerate(self.schedule(mode, active_depths)):
             left_index, right_index = pair_indices(
                 result.shape[1], address_stage, result.device,
             )
@@ -94,7 +96,8 @@ class ReversibleAddressCommunication(nn.Module):
 
     def inverse(self, state: torch.Tensor, mask: torch.Tensor, mode: str) -> torch.Tensor:
         result = state
-        schedule = self.schedule(mode)
+        active_depths = int(math.log2(result.shape[1]))
+        schedule = self.schedule(mode, active_depths)
         for step in reversed(range(len(schedule))):
             address_stage = schedule[step]
             left_index, right_index = pair_indices(
@@ -113,19 +116,28 @@ class ReversibleAddressCommunication(nn.Module):
 
 
 class ButterflyAdaptiveEncoder(adaptive.AdaptiveLiftingEncoder):
-    def __init__(self, vocab: int, dim: int, heap_width: int, pad: int, mode: str, scale: float):
+    def __init__(
+        self, vocab: int, dim: int, heap_width: int, pad: int, mode: str,
+        scale: float, dynamic_width: bool = False,
+    ):
         super().__init__(vocab, dim, heap_width, pad, learned_update=True, alternate=False)
         self.communication = ReversibleAddressCommunication(dim, self.depths, scale)
         self.communication_mode = mode
         self.runtime_mode: str | None = None
+        self.dynamic_width = dynamic_width
 
     def raw_leaf(self, src: torch.Tensor, length: torch.Tensor):
+        width = self.heap_width
+        if self.dynamic_width:
+            required = max(2, int(length.max().item()))
+            width = 1 << (required - 1).bit_length()
+            width = min(width, self.heap_width)
         padded = torch.full(
-            (src.shape[0], self.heap_width), self.pad,
+            (src.shape[0], width), self.pad,
             dtype=src.dtype, device=src.device,
         )
         padded[:, : src.shape[1]] = src
-        mask = torch.arange(self.heap_width, device=src.device)[None] < length[:, None]
+        mask = torch.arange(width, device=src.device)[None] < length[:, None]
         return self.embedding(padded) * mask[:, :, None], mask
 
     def fold(self, src: torch.Tensor, length: torch.Tensor, pair_break_depth: int = -1):
@@ -137,7 +149,8 @@ class ButterflyAdaptiveEncoder(adaptive.AdaptiveLiftingEncoder):
         node, node_mask = leaf, leaf_mask
         details: List[torch.Tensor] = []
         masks: List[torch.Tensor] = [leaf_mask]
-        for depth in range(self.depths):
+        active_depths = int(math.log2(leaf.shape[1]))
+        for depth in range(active_depths):
             left, right = node[:, 0::2], node[:, 1::2]
             lm, rm = node_mask[:, 0::2], node_mask[:, 1::2]
             if depth == pair_break_depth:
@@ -156,10 +169,12 @@ class ButterflyAdaptiveEncoder(adaptive.AdaptiveLiftingEncoder):
 class ButterflyRecursive(adaptive.AdaptiveRecursive):
     def __init__(
         self, vocab: int, dim: int, hidden: int, heap_width: int, pad: int,
-        mode: str, scale: float,
+        mode: str, scale: float, dynamic_width: bool = False,
     ):
         nn.Module.__init__(self)
-        self.encoder = ButterflyAdaptiveEncoder(vocab, dim, heap_width, pad, mode, scale)
+        self.encoder = ButterflyAdaptiveEncoder(
+            vocab, dim, heap_width, pad, mode, scale, dynamic_width,
+        )
         self.decoder = lifting.RecursiveDecoder(vocab, dim, hidden, self.encoder.depths)
 
 
