@@ -70,3 +70,6 @@ Raw output: [`result.json`](result.json)
 
 Reproduction script:
 [`../../src/s3_resolution_observe_existing.py`](../../src/s3_resolution_observe_existing.py)
+
+Chinese observation report:
+[`../../observations/OBS-001-C08-RESOLUTION.zh.md`](../../observations/OBS-001-C08-RESOLUTION.zh.md)
