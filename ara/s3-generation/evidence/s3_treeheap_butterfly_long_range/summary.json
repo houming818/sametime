@@ -1,0 +1,1009 @@
+{
+  "claim": "S3-TREEHEAP-BUTTERFLY-LONGRANGE-C01",
+  "status": "supported_mechanism",
+  "scope": "synthetic address-conditioned long-range communication only",
+  "config": {
+    "output": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range",
+    "device": "cuda",
+    "seeds": "8101,8102,8103",
+    "steps": 1200,
+    "batch": 256,
+    "eval_batch": 256,
+    "eval_batches": 16,
+    "train_width": 32,
+    "ood_width": 64,
+    "vocab": 64,
+    "dim": 64,
+    "lr": 0.003,
+    "smoke": false
+  },
+  "environment": {
+    "host": "io",
+    "platform": "Linux-5.15.0-186-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "torch": "2.12.0+cu130",
+    "cuda_available": true,
+    "cuda_device": "NVIDIA GeForce RTX 3090",
+    "git_revision_before_run": "312e85a91343caae7f95ebafd83b3c5877c10b55",
+    "argv": [
+      "ara/s3-generation/src/s3_treeheap_butterfly_long_range.py",
+      "--device",
+      "cuda",
+      "--steps",
+      "1200",
+      "--batch",
+      "256",
+      "--eval-batches",
+      "16",
+      "--output",
+      "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range"
+    ]
+  },
+  "deductive_contract": [
+    {
+      "width": 8,
+      "depth": 3,
+      "inverse_mse": 1.567190353998684e-14,
+      "energy_relative_error": 0.0,
+      "gradient_norm_ratio": 0.9999999403953552,
+      "coverage_pairs_by_stage": [
+        16,
+        32,
+        64
+      ],
+      "final_coverage_fraction": 1.0,
+      "pair_operations": 12,
+      "dense_attention_pairs": 64
+    },
+    {
+      "width": 16,
+      "depth": 4,
+      "inverse_mse": 2.614855252084606e-14,
+      "energy_relative_error": 0.0,
+      "gradient_norm_ratio": 0.9999998807907104,
+      "coverage_pairs_by_stage": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "final_coverage_fraction": 1.0,
+      "pair_operations": 32,
+      "dense_attention_pairs": 256
+    },
+    {
+      "width": 32,
+      "depth": 5,
+      "inverse_mse": 3.881619282724777e-14,
+      "energy_relative_error": 1.210880924418234e-07,
+      "gradient_norm_ratio": 0.9999999403953552,
+      "coverage_pairs_by_stage": [
+        64,
+        128,
+        256,
+        512,
+        1024
+      ],
+      "final_coverage_fraction": 1.0,
+      "pair_operations": 80,
+      "dense_attention_pairs": 1024
+    },
+    {
+      "width": 64,
+      "depth": 6,
+      "inverse_mse": 5.3685639375862515e-14,
+      "energy_relative_error": 2.3482402866648044e-07,
+      "gradient_norm_ratio": 0.9999998807907104,
+      "coverage_pairs_by_stage": [
+        128,
+        256,
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "final_coverage_fraction": 1.0,
+      "pair_operations": 192,
+      "dense_attention_pairs": 4096
+    }
+  ],
+  "runs": [
+    {
+      "arm": "butterfly",
+      "seed": 8101,
+      "parameters": 4226,
+      "seconds": 10.696183919906616,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 0.0006353084863803815,
+        "token_accuracy": 1.0,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 1.0,
+          "2": 1.0
+        }
+      },
+      "heldout_width": {
+        "nll": 0.0011444410993135534,
+        "token_accuracy": 1.0,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 1.0,
+          "4": 1.0,
+          "5": 1.0
+        }
+      },
+      "max_distance": {
+        "nll": 0.0018241550133097917,
+        "token_accuracy": 0.9999771118164062,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.9999771118164062
+        }
+      },
+      "ood_width": {
+        "nll": 0.0018684059832594357,
+        "token_accuracy": 0.9999847412109375,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.999991874674987,
+          "4": 0.9999891114982579,
+          "5": 0.9999492694805194,
+          "6": 1.0
+        }
+      },
+      "ood_max_distance": {
+        "nll": 0.003456540813203901,
+        "token_accuracy": 0.9999160766601562,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.9999160766601562
+        }
+      },
+      "protocol": {
+        "p_exchange_query_bit_0": 0.16607213020324707,
+        "p_exchange_query_bit_1": 0.7942715287208557
+      },
+      "query_bit_probability_gap": 0.6281993985176086,
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/butterfly_seed8101.pt"
+    },
+    {
+      "arm": "adjacent_only",
+      "seed": 8101,
+      "parameters": 4226,
+      "seconds": 9.765816450119019,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 4.097561299800873,
+        "token_accuracy": 0.0780487060546875,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 0.20205169920462762,
+          "2": 0.01483597493549576
+        }
+      },
+      "heldout_width": {
+        "nll": 4.198978453874588,
+        "token_accuracy": 0.0156707763671875,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.01602320273868391,
+          "4": 0.015374599358974358,
+          "5": 0.013127853881278538
+        }
+      },
+      "max_distance": {
+        "nll": 4.197216749191284,
+        "token_accuracy": 0.01575469970703125,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.01575469970703125
+        }
+      },
+      "ood_width": {
+        "nll": 4.198564052581787,
+        "token_accuracy": 0.015666961669921875,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.015373114924596984,
+          "4": 0.015570557491289199,
+          "5": 0.016233766233766232,
+          "6": 0.018570696721311477
+        }
+      },
+      "ood_max_distance": {
+        "nll": 4.19660758972168,
+        "token_accuracy": 0.0158843994140625,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.0158843994140625
+        }
+      },
+      "protocol": {
+        "p_exchange_query_bit_0": 0.015166640281677246,
+        "p_exchange_query_bit_1": 0.8431434035301208
+      },
+      "query_bit_probability_gap": 0.8279767632484436,
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/adjacent_only_seed8101.pt"
+    },
+    {
+      "arm": "root_bottleneck",
+      "seed": 8101,
+      "parameters": 46464,
+      "seconds": 7.619221448898315,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 3.976404517889023,
+        "token_accuracy": 0.05297088623046875,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 0.053552060737527114,
+          "2": 0.05267462218945816
+        }
+      },
+      "heldout_width": {
+        "nll": 3.976280227303505,
+        "token_accuracy": 0.05261993408203125,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.052372575123621146,
+          "4": 0.05373597756410257,
+          "5": 0.04922945205479452
+        }
+      },
+      "max_distance": {
+        "nll": 3.9771345406770706,
+        "token_accuracy": 0.05283355712890625,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.05283355712890625
+        }
+      },
+      "ood_width": {
+        "nll": 4.414791792631149,
+        "token_accuracy": 0.016208648681640625,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.01580375715028601,
+          "4": 0.016158536585365854,
+          "5": 0.017273741883116884,
+          "6": 0.017802254098360656
+        }
+      },
+      "ood_max_distance": {
+        "nll": 4.4031872153282166,
+        "token_accuracy": 0.0160675048828125,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.0160675048828125
+        }
+      },
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/root_bottleneck_seed8101.pt"
+    },
+    {
+      "arm": "butterfly",
+      "seed": 8102,
+      "parameters": 4226,
+      "seconds": 10.505293846130371,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 0.0006002878471917938,
+        "token_accuracy": 1.0,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 1.0,
+          "2": 1.0
+        }
+      },
+      "heldout_width": {
+        "nll": 0.0011302516795694828,
+        "token_accuracy": 1.0,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 1.0,
+          "4": 1.0,
+          "5": 1.0
+        }
+      },
+      "max_distance": {
+        "nll": 0.0018558153169578873,
+        "token_accuracy": 0.9999771118164062,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.9999771118164062
+        }
+      },
+      "ood_width": {
+        "nll": 0.0018519645382184535,
+        "token_accuracy": 0.999969482421875,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.9999766092814372,
+          "4": 0.9999891417651147,
+          "5": 0.9999152350813744,
+          "6": 0.99984375
+        }
+      },
+      "ood_max_distance": {
+        "nll": 0.0035098550433758646,
+        "token_accuracy": 0.9999046325683594,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.9999046325683594
+        }
+      },
+      "protocol": {
+        "p_exchange_query_bit_0": 0.1664646416902542,
+        "p_exchange_query_bit_1": 0.7937822937965393
+      },
+      "query_bit_probability_gap": 0.6273176521062851,
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/butterfly_seed8102.pt"
+    },
+    {
+      "arm": "adjacent_only",
+      "seed": 8102,
+      "parameters": 4226,
+      "seconds": 9.741239070892334,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 4.091175943613052,
+        "token_accuracy": 0.082305908203125,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 0.2187730627306273,
+          "2": 0.014844035023713974
+        }
+      },
+      "heldout_width": {
+        "nll": 4.197188884019852,
+        "token_accuracy": 0.0158538818359375,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.016111760124610592,
+          "4": 0.015737051792828687,
+          "5": 0.013965201465201466
+        }
+      },
+      "max_distance": {
+        "nll": 4.196552813053131,
+        "token_accuracy": 0.0154266357421875,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.0154266357421875
+        }
+      },
+      "ood_width": {
+        "nll": 4.197138756513596,
+        "token_accuracy": 0.01595306396484375,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.016295533932135727,
+          "4": 0.015505559416261293,
+          "5": 0.015879294755877033,
+          "6": 0.0159375
+        }
+      },
+      "ood_max_distance": {
+        "nll": 4.19546365737915,
+        "token_accuracy": 0.01560211181640625,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.01560211181640625
+        }
+      },
+      "protocol": {
+        "p_exchange_query_bit_0": 0.015109625644981861,
+        "p_exchange_query_bit_1": 0.8399686217308044
+      },
+      "query_bit_probability_gap": 0.8248589960858226,
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/adjacent_only_seed8102.pt"
+    },
+    {
+      "arm": "root_bottleneck",
+      "seed": 8102,
+      "parameters": 46464,
+      "seconds": 7.532461166381836,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 3.9634439796209335,
+        "token_accuracy": 0.05157470703125,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 0.05124538745387454,
+          "2": 0.05173750456037943
+        }
+      },
+      "heldout_width": {
+        "nll": 3.9597435891628265,
+        "token_accuracy": 0.051788330078125,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.05169392523364486,
+          "4": 0.05176792828685259,
+          "5": 0.05277014652014652
+        }
+      },
+      "max_distance": {
+        "nll": 3.963170140981674,
+        "token_accuracy": 0.05243682861328125,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.05243682861328125
+        }
+      },
+      "ood_width": {
+        "nll": 4.471624583005905,
+        "token_accuracy": 0.021831512451171875,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.02126996007984032,
+          "4": 0.022205090340514246,
+          "5": 0.022943037974683545,
+          "6": 0.0215625
+        }
+      },
+      "ood_max_distance": {
+        "nll": 4.455481976270676,
+        "token_accuracy": 0.02219390869140625,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.02219390869140625
+        }
+      },
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/root_bottleneck_seed8102.pt"
+    },
+    {
+      "arm": "butterfly",
+      "seed": 8103,
+      "parameters": 4226,
+      "seconds": 10.046016216278076,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 0.0006255734551814385,
+        "token_accuracy": 1.0,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 1.0,
+          "2": 1.0
+        }
+      },
+      "heldout_width": {
+        "nll": 0.0011127725374535657,
+        "token_accuracy": 1.0,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 1.0,
+          "4": 1.0,
+          "5": 1.0
+        }
+      },
+      "max_distance": {
+        "nll": 0.001765558852639515,
+        "token_accuracy": 0.9999923706054688,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.9999923706054688
+        }
+      },
+      "ood_width": {
+        "nll": 0.0018044358876068145,
+        "token_accuracy": 0.9999847412109375,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.9999920564311133,
+          "4": 0.9999674705065926,
+          "5": 1.0,
+          "6": 1.0
+        }
+      },
+      "ood_max_distance": {
+        "nll": 0.003371988204889931,
+        "token_accuracy": 0.99993896484375,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.99993896484375
+        }
+      },
+      "protocol": {
+        "p_exchange_query_bit_0": 0.16658098995685577,
+        "p_exchange_query_bit_1": 0.7940120100975037
+      },
+      "query_bit_probability_gap": 0.6274310201406479,
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/butterfly_seed8103.pt"
+    },
+    {
+      "arm": "adjacent_only",
+      "seed": 8103,
+      "parameters": 4226,
+      "seconds": 6.394349575042725,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 4.091590523719788,
+        "token_accuracy": 0.081787109375,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 0.21298146802325582,
+          "2": 0.015418198529411765
+        }
+      },
+      "heldout_width": {
+        "nll": 4.199550092220306,
+        "token_accuracy": 0.01566314697265625,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.015326433121019108,
+          "4": 0.01651854714064915,
+          "5": 0.014762931034482759
+        }
+      },
+      "max_distance": {
+        "nll": 4.196493983268738,
+        "token_accuracy": 0.0155181884765625,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.0155181884765625
+        }
+      },
+      "ood_width": {
+        "nll": 4.198841691017151,
+        "token_accuracy": 0.015331268310546875,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.015966573462125065,
+          "4": 0.014638272033310201,
+          "5": 0.014848923841059602,
+          "6": 0.015811011904761904
+        }
+      },
+      "ood_max_distance": {
+        "nll": 4.196328788995743,
+        "token_accuracy": 0.015621185302734375,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.015621185302734375
+        }
+      },
+      "protocol": {
+        "p_exchange_query_bit_0": 0.01571170799434185,
+        "p_exchange_query_bit_1": 0.8463733792304993
+      },
+      "query_bit_probability_gap": 0.8306616712361574,
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/adjacent_only_seed8103.pt"
+    },
+    {
+      "arm": "root_bottleneck",
+      "seed": 8103,
+      "parameters": 46464,
+      "seconds": 5.984088897705078,
+      "train_queries": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        16,
+        17,
+        18,
+        20,
+        24
+      ],
+      "heldout_queries": [
+        7,
+        11,
+        13,
+        14,
+        15,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "train_width": {
+        "nll": 4.006812244653702,
+        "token_accuracy": 0.04808807373046875,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "1": 0.049032521802325583,
+          "2": 0.047610294117647056
+        }
+      },
+      "heldout_width": {
+        "nll": 4.007128328084946,
+        "token_accuracy": 0.04676055908203125,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.04651423168789809,
+          "4": 0.046536901081916535,
+          "5": 0.049892241379310344
+        }
+      },
+      "max_distance": {
+        "nll": 4.009129643440247,
+        "token_accuracy": 0.046478271484375,
+        "tokens": 131072,
+        "accuracy_by_query_hamming_weight": {
+          "5": 0.046478271484375
+        }
+      },
+      "ood_width": {
+        "nll": 4.31230965256691,
+        "token_accuracy": 0.024288177490234375,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "3": 0.024076957295373666,
+          "4": 0.024548924358084662,
+          "5": 0.02462748344370861,
+          "6": 0.022321428571428572
+        }
+      },
+      "ood_max_distance": {
+        "nll": 4.303176015615463,
+        "token_accuracy": 0.024562835693359375,
+        "tokens": 262144,
+        "accuracy_by_query_hamming_weight": {
+          "6": 0.024562835693359375
+        }
+      },
+      "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_long_range/root_bottleneck_seed8103.pt"
+    }
+  ],
+  "aggregate": {
+    "butterfly": {
+      "mean_train_accuracy": 1.0,
+      "mean_heldout_accuracy": 1.0,
+      "mean_max_distance_accuracy": 0.9999821980794271,
+      "mean_ood_accuracy": 0.9999796549479166,
+      "mean_ood_max_distance_accuracy": 0.9999198913574219,
+      "mean_parameters": 4226.0,
+      "mean_seconds": 10.415831327438354
+    },
+    "adjacent_only": {
+      "mean_train_accuracy": 0.08071390787760417,
+      "mean_heldout_accuracy": 0.015729268391927082,
+      "mean_max_distance_accuracy": 0.015566507975260416,
+      "mean_ood_accuracy": 0.015650431315104168,
+      "mean_ood_max_distance_accuracy": 0.015702565511067707,
+      "mean_parameters": 4226.0,
+      "mean_seconds": 8.633801698684692
+    },
+    "root_bottleneck": {
+      "mean_train_accuracy": 0.050877888997395836,
+      "mean_heldout_accuracy": 0.050389607747395836,
+      "mean_max_distance_accuracy": 0.0505828857421875,
+      "mean_ood_accuracy": 0.020776112874348957,
+      "mean_ood_max_distance_accuracy": 0.020941416422526043,
+      "mean_parameters": 46464.0,
+      "mean_seconds": 7.045257170995076
+    }
+  },
+  "gates": {
+    "deductive_contract": true,
+    "per_seed": [
+      {
+        "seed": 8101,
+        "heldout_at_least_0_95": true,
+        "max_distance_at_least_0_90": true,
+        "ood_at_least_0_90": true,
+        "beats_adjacent_by_0_25": true,
+        "beats_root_by_0_25": true,
+        "query_bit_probability_gap_at_least_0_50": true
+      },
+      {
+        "seed": 8102,
+        "heldout_at_least_0_95": true,
+        "max_distance_at_least_0_90": true,
+        "ood_at_least_0_90": true,
+        "beats_adjacent_by_0_25": true,
+        "beats_root_by_0_25": true,
+        "query_bit_probability_gap_at_least_0_50": true
+      },
+      {
+        "seed": 8103,
+        "heldout_at_least_0_95": true,
+        "max_distance_at_least_0_90": true,
+        "ood_at_least_0_90": true,
+        "beats_adjacent_by_0_25": true,
+        "beats_root_by_0_25": true,
+        "query_bit_probability_gap_at_least_0_50": true
+      }
+    ],
+    "seed_full_pass": [
+      true,
+      true,
+      true
+    ],
+    "at_least_two_of_three_seeds": true,
+    "full_claim": true
+  },
+  "not_proved": [
+    "language semantics",
+    "WMT or dialogue improvement",
+    "compression or wall-clock superiority",
+    "superiority over a tuned Transformer",
+    "emergent private protocol"
+  ]
+}

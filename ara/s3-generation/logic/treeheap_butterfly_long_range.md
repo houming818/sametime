@@ -1,6 +1,6 @@
 # TreeHeap Butterfly Long-Range Communication
 
-Status: preregistered, awaiting evidence
+Status: supported mechanism / synthetic address communication only
 
 Date: 2026-07-30
 
@@ -141,3 +141,50 @@ The first run is deliberately synthetic because it isolates address distance.
 Only after the mechanism survives this falsification should the same layer be
 inserted into the frozen WMT TreeHeap encoder/decoder for a matched ablation.
 
+## 8. Formal result
+
+Formal execution: `io` taskd task 78, CUDA, three seeds, 1,200 updates per arm.
+Wall time was 82.2 seconds. Evidence is stored at:
+
+```text
+evidence/s3_treeheap_butterfly_long_range/
+```
+
+### Deductive contract
+
+| Width | Depth | Inverse MSE | Energy relative error | Gradient norm ratio | Coverage | Pair operations |
+|---:|---:|---:|---:|---:|---:|---:|
+| 8 | 3 | `1.57e-14` | `0` | `0.99999994` | `1.0` | 12 |
+| 16 | 4 | `2.61e-14` | `0` | `0.99999988` | `1.0` | 32 |
+| 32 | 5 | `3.88e-14` | `1.21e-7` | `0.99999994` | `1.0` | 80 |
+| 64 | 6 | `5.37e-14` | `2.35e-7` | `0.99999988` | `1.0` | 192 |
+
+All deductive gates passed. The implementation used rank-3 pair tensors and did
+not allocate dense address-pair attention.
+
+### Learned address routing
+
+Mean held-out token accuracy across three seeds:
+
+| Arm | Width-32 unseen masks | Width-32 maximal mask | Width-64 unseen width | Parameters |
+|---|---:|---:|---:|---:|
+| Butterfly | `1.000000` | `0.999982` | `0.999980` | 4,226 |
+| Adjacent-only | `0.015729` | `0.015567` | `0.015650` | 4,226 |
+| Root bottleneck | `0.050390` | `0.050583` | `0.020776` | 46,464 |
+
+Every registered gate passed in every seed. The Butterfly query-bit probability
+gap was `0.6282`, `0.6273`, and `0.6274`, showing that final routing was
+conditioned on the query bit rather than using one fixed permutation.
+
+### Decision
+
+`S3-TREEHEAP-BUTTERFLY-LONGRANGE-C01` is supported at its registered scope:
+XOR address stages provide exact sparse long-range transport and the learned
+stage value composes to unseen masks and an unseen larger width.
+
+The result is deliberately narrow. Binary decomposition of the query is an
+explicit architectural prior; the model did not discover XOR topology from
+language. The next admissible experiment is a matched WMT ablation that asks
+whether this communication layer helps real TreeHeap states. Until that test,
+do not claim semantics, translation gain, private-protocol emergence, or
+superiority over Transformer.
