@@ -1,8 +1,8 @@
-# TreeHeap：从树形直觉到可逆多分辨率双语协议
+# TreeHeap：可逆多分辨率树状态、稀疏通信与双语序列协议
 
-**English title:** *TreeHeap: From Tree-Structured Intuition to a Reversible Multiresolution Bilingual Protocol*
+**English title:** *TreeHeap: Reversible Multiresolution Tree States, Sparse Communication, and a Bilingual Sequence Protocol*
 
-**状态：** 中文审阅稿 v0.4，2026-08-01
+**状态：** 中文审阅稿 v0.5，2026-08-02
 
 **作者：** Houming818（Independent Researcher）
 
@@ -12,119 +12,101 @@
 
 **代码与证据：** SameTime / ARA，GPL-3.0
 
-**结果边界：** 三臂匹配训练比较已完成；严格的同 checkpoint 拓扑消融仍待补做；全量双向训练仍在运行，文中明确标为中期观察。
+**证据截止：** 正式结论截至三种子 WMT 匹配实验；全量双向训练仍在运行，其数字和输出仅作为阶段观察。
 
 ## 摘要
 
-本文记录 TreeHeap 算法从直觉、争论、失败实验到真实双向生成的形成过程。最初的设想不是先规定一种语法树，而是把模型状态放进一个固定容量、有地址、有递归深度的树堆：局部 kernel 在子堆上卷积，信息逐层向 root 抽取，Decoder 再沿着同一结构展开和读取。算法必须在有限内存中生长，必须允许数学上的 FOLD/UNFOLD，且内部编码可以由任务梯度自行形成。围绕这些约束，Houming818 提供关于秩序、旋转、抽水机、分辨率和私有协议的原始直觉；Codex 将其转写为代数定义、Claim、Predict、Proof 和可复现实验；DeepSeek 与 GLM 对泄漏、错误实现和过强结论进行交叉审计。
+本文提出 TreeHeap：一种固定容量、显式寻址、可逆且具有多分辨率状态的序列模型。它研究的问题不是“能否把数组换成树保存”，而是：当模型状态本身具有 root、内部节点、leaf、路径和子堆时，最终任务梯度能否让 Encoder 与 Decoder 形成一套共同使用的内部协议。
 
-最终形成的 TreeHeap 是一种固定容量、可寻址的多分辨率状态结构。输入 token 写入叶节点；稀疏 XOR-Butterfly 通信以共享的双节点可逆核在 `log2(N)` 个阶段连接全部叶地址；可逆 lifting FOLD 将细节逐层抽取到父节点，同时保留精确 UNFOLD 所需的 detail 状态。递归 Decoder 根据自身隐状态，在 root、内部节点与 leaf 之间分配概率读取质量。系统不接收人工语法结构，只使用最终译文的 token 交叉熵训练。
+TreeHeap 的最终架构由四个部分组成。首先，输入 token 被写入叶地址。其次，共享的双节点可逆 kernel 按 XOR-Butterfly 调度进行稀疏通信，使固定容量为 (N) 的叶状态在 (log_2N) 个阶段内获得全地址通信路径。随后，可逆 lifting FOLD 把叶状态分解为一个 root 与逐层 detail；它改变表示分辨率，但保留精确 UNFOLD 所需的信息。最后，递归概率 READ 根据 Decoder 隐状态，在 root、内部节点与 leaf 之间分配读取质量。系统没有接收人工语法树、主谓宾标签、角色槽位或内部节点监督，训练目标只有目标序列的 token 交叉熵。
 
-在真实 WMT 中英数据上的匹配训练实验中，我们保持参数量、初始化、样本、批次顺序、优化器和 Decoder 一致，仅改变 TreeHeap 内部地址通信调度。三颗随机种子的平均测试 NLL 分别为：关闭通信 `4.65196`、重复相邻通信 `4.65415`、XOR-Butterfly 通信 `4.56509`；对应 token BLEU-4 为 `9.9501`、`9.9485` 和 `10.5462`。这支持一个有限结论：在该训练合同下，Butterfly 配置比两个对照配置得到更低损失。训练完成后直接旁路 Butterfly 会使 NLL 恶化，但该操作同时移除了整个已学习变换并改变后续模块接收的坐标分布，因此只能作为模块依赖检查，不能单独证明 changing-bit 拓扑具有因果优势。
+在真实 WMT 中英语料上的参数匹配实验中，我们保持参数量、初始化、样本、批次顺序、优化器与 Decoder 一致，只改变通信调度。三颗随机种子的平均测试负对数似然（NLL）分别为：关闭通信 (4.65196)、重复相邻通信 (4.65415)、XOR-Butterfly 通信 (4.56509)；对应项目内 token BLEU-4 为 (9.9501)、(9.9485) 与 (10.5462)。该结果支持一个有限结论：在当前数据、规模和训练合同中，从头训练的 Butterfly 配置稳定优于两个注册对照。训练后旁路通信会显著损害 NLL，但这一干预同时移除了已经学习的坐标变换，因此只能说明模型依赖该模块，不能单独证明 changing-bit 拓扑的全部因果优势。
 
-我们进一步启动一个单卡、1417 万平行句对、双向交替、最长 253 pieces 的规模化实验。第一轮训练尚未结束时，固定双向探针已经从高频重复发展为保留年份、事件和关系轮廓的自由译文；中期双向验证 NLL 为 `3.48393`。该实验曾报告运行时 Identity NLL，但复核发现 native 与 Identity 使用的验证样本数量不一致，所以该差值现已撤出正式证据，只保留为需要重算的诊断记录。这些数据是正在生长的研究记录，不是最终质量结论。
+我们还启动了一个使用 1417 万中英平行句对、双向交替、最长 253 pieces 的 96 小时单卡实验。截至本文修订时，任务已处理约 3692 万训练样本和 7.81 亿目标 token。验证 mean NLL 的最好阶段观测为 (3.4230)，最近一次为 (3.4302)，表明后期训练进入震荡平台，而非继续单调下降。固定 `dreams` 探针从初始的单 token 重复，逐渐发展为能够保留年份、事件和部分关系的源相关句子，但输出仍存在重复、实体偏差和不自然表达。因此，这部分只构成协议生长的观察记录，不构成最终质量结论。
 
-这些结果说明：可逆树形状态、稀疏地址通信和最终任务损失可以共同形成一种可训练的序列协议。TreeHeap 还很年轻，但它已经从概念发展为可以被复现、比较、干预、恢复和继续训练的算法对象；关于 Butterfly 拓扑本身的严格因果结论仍保持开放。
+TreeHeap 当前最可靠的结论是：可逆树形状态、稀疏地址通信、递归多分辨率读取和最终序列损失能够组成一条可训练的端到端路径。它已经成为一个可以复现、比较、干预、恢复和继续训练的算法对象；语义地址、存储压缩、计算优势和产品级生成仍然是开放问题。
 
 ## 1. 引言
 
-TreeHeap 研究源自一个关于内存形状的问题：如果模型状态本身是一棵有地址的树，梯度能否在树的 root、路径、内部节点和 leaf 之间形成 Encoder 与 Decoder 共同理解的私有协议？
+### 1.1 从“模型参数”到“模型状态的形状”
 
-最初的 TreeHeap 被理解为一个“神经元单侧切片”：一棵有序树描述一个局部方向上的状态，有限旋转可以提供其他观察方向，多个切片在固定容量中组合成更完整的状态。这个想法首先提供的是几何直觉，而不是现成公式。研究很快遇到四个必须回答的问题：
+机器学习通常把长期知识保存在共享参数中，并为每个输入计算临时隐状态。TreeHeap 接受这一基本事实，但进一步追问：如果临时状态不是一排彼此平等的向量，而是一棵有地址、有父子关系、有递归深度的树，学习过程会发生什么？
 
-1. 参数究竟存在哪里，是 kernel 的 `theta`，还是每个样本的 TreeHeap 状态 `H`？
-2. 多个 token 怎样真正合成一棵树，而不是换一种方式存放数组？
-3. 信息怎样从 leaf 逐层进入 parent，同时又能被 Decoder 取回？
-4. 长距离 leaf 如何相互作用，而不无限申请新节点或把整棵树摊平？
+一棵树天然提供四类序列之外的对象：
 
-我们没有一次性回答这些问题，而是在数十个 Claim 和失败实验中逐步缩小设计空间。这里的“私有协议”最终被定义为训练产生的内部编码，而不是人工命名的主语、谓语或宾语。人类不必直接读懂每个内部节点，只需要验证：
+1. **地址：** 一个状态位于哪个节点；
+2. **路径：** 从 root 到该节点经过哪些分支；
+3. **子结构：** 一个内部节点覆盖哪些后代；
+4. **分辨率：** leaf 保存局部细节，较高节点覆盖更大的范围。
 
-1. 协议能够支持真实序列任务；
-2. 结构操作在数学上明确并可逆；
-3. 破坏结构会可测量地伤害结果；
-4. 随着数据进入，固定探针的自由生成出现稳定改善；
-5. 所有失败、边界和原始输出都能被复查。
+这些性质本身不等于语义。把 token 放在树上，不会自动产生语言理解；把两个节点连起来，也不会自动得到句法关系。TreeHeap 的核心问题恰恰是：怎样让任务数据通过梯度选择和使用这些结构，而不是由研究者事先替模型写入答案。
 
-本文沿着设计问题、失败证据、数学修正和最终效果组织。
+### 1.2 研究问题
 
-### 1.1 研究问题
+本文围绕三个可以证伪的问题展开。
 
-本文考察以下核心 Claim：
+**问题一：代数可行性。** TreeHeap 的通信、FOLD 与 UNFOLD 是否有明确数学定义，并在训练后保持数值可逆？
 
-> 在不提供语法树、角色槽位或类比标签的情况下，一个共享参数的可逆 TreeHeap，能否依靠中英 Seq2Seq 交叉熵，自发形成双向编码、结构通信与递归读取协议？
+**问题二：结构参与性。** root、detail、深度和叶地址通信是否真正影响任务结果，还是模型最终退化为换一种形状保存数组？
 
-该 Claim 被拆成三个可以证伪的子问题：
+**问题三：协议形成。** 在没有内部语义标签的条件下，Encoder 与 Decoder 能否只依赖目标 token loss，形成一套共享、可训练、可恢复的内部编码协议？
 
-- **代数问题：** FOLD/UNFOLD 与通信是否保持闭合和可逆？
-- **因果问题：** 学习结果是否真正依赖树上的地址通信？
-- **生成问题：** 自由解码是否随数据规模从重复坍缩走向源相关输出？
+本文将“私有协议”定义为由任务训练产生、由 Encoder 与 Decoder 共同使用、但没有被人工命名的内部表示规则。本文将“涌现”限定为一个操作性概念：能力由最终任务目标间接形成，而不是由内部标签直接指定。它不表示神秘过程，也不等同于意识、世界模型或人类可读语义。
 
-### 1.2 贡献
+### 1.3 本文贡献
 
-本文的贡献是：
+本文的主要贡献如下。
 
-1. 定义一个由可逆 lifting、detail 状态和递归概率 READ 组成的 TreeHeap Seq2Seq 系统；
-2. 引入固定容量 XOR-Butterfly 通信，使任意叶地址可以通过 `log2(N)` 个稀疏阶段交换信息；
-3. 设计参数匹配的三臂训练比较，并明确区分“架构训练收益”“已训练模块依赖”和“changing-bit 拓扑因果性”三个不同问题；
-4. 在三颗随机种子的真实 WMT 实验中得到一致的架构比较证据；
-5. 公开全量双向训练的 checkpoints、wake reports 与 `dreams` 生长轨迹，使中间失败也成为 evidence。
+1. 定义固定容量 TreeHeap 状态，严格区分共享参数 (	heta) 与样本状态 (H_	heta(x))。
+2. 构造可逆 lifting FOLD/UNFOLD，使完整状态由 root、逐层 detail 与 mask 共同组成。
+3. 引入由共享双节点 kernel 组成的 XOR-Butterfly 通信，在不分配稠密 (N\times N) 注意力矩阵的条件下提供全地址通信路径。
+4. 定义递归概率 READ，让 Decoder 在每个生成时间步选择读取分辨率，而不是预先规定 root 或 leaf 必须承担全部信息。
+5. 设计三种子、参数匹配、数据匹配的真实 WMT 比较，区分“从头训练的架构差异”与“训练后运行时依赖”。
+6. 建立可恢复训练、固定 `dreams` 探针和 ARA Claim/Evidence 记录，使失败实现、降级结论和中间生成均可复查。
 
-## 2. TreeHeap 是怎样商量出来的
+本文不声称 TreeHeap 已达到产品级翻译质量，也不声称它已经节省存储或计算。当前工作的目标是建立一种新的、可训练且可检验的状态结构，而不是宣布一个已经完成的通用模型。
 
-TreeHeap 不是从一张完成的架构图开始的。它由人类直觉、数学翻译、代码实验和独立审计反复往返形成。本节记录对最终算法真正产生影响的设计转折。
+## 2. 从树形直觉到可训练算法
 
-### 2.1 第一阶段：路径不是语义
+TreeHeap 不是从一张完整架构图开始的。它由 Houming818 提出的结构直觉、Codex 的数学与代码转写，以及 DeepSeek、GLM 的交叉审计反复修订而来。本节保留这段演化过程，因为最终算法中的每个主要部件，都对应一个被实验暴露出来的具体缺口。
 
-我们最早拥有的 TreeHeap 不是现在的可逆多分辨率状态，而是一种由 token ID 决定路径的树形索引。它看起来已经具备地址、前缀和子堆，因此最自然的第一步，是问这些路径能否直接承担语言结构。
+### 2.1 路径能够定位，但不能自动解释语义
 
-#### 2.1.1 路径邻接与前缀相似
+早期 TreeHeap 使用由 token ID 决定的路径。路径拥有公共前缀、左右分支和相邻地址，于是最初的设想是：公共前缀更长的 token 也许属于同一语言结构，地址更近的 token 也许应获得更高连接权重。
 
-第一种尝试把路径距离当成结构距离。例如两个 token 的路径拥有较长公共前缀，就认为它们可能属于同一个短语；在堆地址上相邻，就提高彼此连接的权重。这个想法利用了树的真实性质：路径确实能表示“一个节点在哪里”，公共前缀也确实能表示“两个地址何时分叉”。
-
-问题在于，早期路径由 token ID 产生。同一个 `cat` 无论在句子中是施事、受事还是被修饰对象，基础路径都相同；两个 ID 接近的 token 也不必具有句法关系。实验 C-023 最终确认，路径更接近词表地址，而不是当前句子的语法角色。
-
-我们由此第一次分开了两个此前混合的概念：
+这个设想混淆了“位置”与“含义”。同一个 token 在不同句子中可以承担不同作用，但由 token ID 产生的基础路径不会随上下文改变。两个词表 ID 接近的 token 也不必在当前句子中相关。路径能够可靠回答：
 
 ```text
-路径回答：状态放在哪里？
-语义回答：这个状态在当前上下文中表示什么？
+这个状态被放在哪里？
 ```
 
-TreeHeap 仍然需要路径，但不能把地址本身解释为语义。
+却不能单独回答：
 
-#### 2.1.2 位权、角色基与外积张量
+```text
+这个状态在当前上下文中表示什么？
+```
 
-Houming818 随后提出“321 与 123”的位权类比。数字之所以因排列不同而改变，不只是因为包含 `1、2、3`，而是因为每个数字乘上了百位、十位和个位这些不同的基。对应到句子，一个 token 向量 `s_i` 也许需要乘上一个结构角色基 `e_role`：
+因此，最终设计保留地址，却不把地址直接命名为语义。
+
+### 2.2 位权与张量解决“可区分”，没有解决“可选择”
+
+Houming818 曾用数字 (321) 与 (123) 解释结构位权：数字不同，不仅因为包含的基元不同，也因为基元处于百位、十位和个位。对应到语言，一个 token 向量 (s_i) 可以与角色基 (e_r) 做外积：
 
 $$
-T_{sentence} = \sum_i s_i \otimes e_{role(i)}.
+T=\sum_i s_i\otimes e_{r_i}.
 $$
 
-这样，`cat` 放入 SUBJECT 槽与放入 OBJECT 槽会形成不同张量。我们测试了 one-hot、随机和正交角色基，也测试了有序拼接、外积和其他非交换组合。结果确认了一件事：这些算子可以让不同排列得到不同表示。也就是说，它们具有**表达顺序差异的容量**。
+这样，同一个 token 放在不同角色基上会得到不同表示。实验也确认，拼接、外积与非交换组合能够区分不同排列。
 
-但这里存在一个循环：若构造张量前已经知道哪个 token 是 SUBJECT，结构问题其实已经由外部答案解决。随机角色基能区分两个排列，也不表示正确排列会自动获得更低能量。实验 C-022 中，候选排列的能量范围约为 `0.06`，说明算子对排列敏感；可是 gold 排列并不稳定处于最低能量。
+但这只证明了表示容量。若在构造张量前已经知道哪个 token 是 SUBJECT、OBJECT 或 ROOT，那么结构答案已经由外部标签提供。随机角色基能够让两个排列不同，也不能保证正确排列自然获得最低能量。于是研究问题从“能否表示两个结构”升级为：
 
-这一步把我们的理解从：
+> 最终任务梯度能否让正确结构在候选表示中获得稳定优势？
 
-```text
-不同结构能否被表示？
-```
+这一转折使项目逐步离开人工语法角色，转向由数据形成的 latent protocol。
 
-推进为更严格的问题：
+### 2.3 概率容器能够延迟决定，但不能创造信息
 
-```text
-任务数据能否通过梯度，让正确结构在这些表示中获得可选择的优势？
-```
-
-“能够区分”只是表示能力，“知道选谁”才是学习协议。
-
-#### 2.1.3 从人工语法角色转向 latent slot
-
-角色基实验失败后，我们没有直接放弃 slot，而是改变了 slot 的含义。ROOT、SUBJECT、OBJECT 是人类预先定义的语法标签；TreeHeap 真正需要的也许是训练后自行形成的 latent slot。它们可以被临时编号为 slot-0、slot-1、slot-2，却不预先规定对应什么语言学名称。
-
-为判断这种结构是否在容量上可行，我们统计了真实样本中的 FoldNode 子节点数量。12K WMT 审计显示，四个 slot 可以覆盖约 `99.0%` 的节点，五个 slot 可以覆盖约 `99.8%`。这支持“小型槽位预算足以容纳多数局部组合”的结构判断，却没有证明这些 slot 已经自行学出语义。
-
-同一阶段还尝试了概率容器。与其过早把一个节点固定挂到唯一 parent，不如保留多个候选：
+早期 Graph Builder 还尝试保留多个 parent 候选，而不是立即选择唯一父节点。例如：
 
 ```text
 Parent A: 0.62
@@ -132,403 +114,441 @@ Parent B: 0.25
 Parent C: 0.13
 ```
 
-在当时的 parent 候选实验中，gold parent 的 top-1、top-3、top-5 覆盖率分别为 `93.1%`、`99.9%`、`100%`。这说明延迟坍缩可以保留几乎全部正确候选。但它只证明“候选桶没有过早丢掉答案”，尚未证明后续模块能利用这些概率完成生成。后来递归 READ 的 `{stop,left,right}` 概率质量，继承了“信息不足时先保留分布”的思想，但读取对象和训练合同已经重新设计。
+该设计体现了一个后来被继承的原则：信息不足时保留概率分布，不要过早坍缩。历史 parent 候选实验曾获得很高的 top-k gold 覆盖率，说明候选桶可以避免过早丢失答案。
 
-#### 2.1.4 `t_merge` 与世界模型背景场
+然而，概率容器只能保存已有候选。若节点状态没有携带可区分信息，延迟选择不会自动产生结构。最终 TreeHeap 保留了概率 READ 的思想，但把概率对象从“人工 parent 候选”改成了对真实 root、internal state 和 leaf 的递归读取质量。
 
-接下来我们尝试让语义向量携带上下文。早期表述是 `L0 × 背景场`：L0 token 向量与一个上下文场通过 CMul 等操作结合，再经过 `t_merge` 形成句子状态。Houming818 后来把“背景场”统一称为“世界模型”，希望它提供类似以下关系的参考系：
+### 2.4 世界模型参考系没有由向量距离自动产生
+
+项目曾把上下文背景场称为“世界模型”，希望得到类似下列可迁移关系：
 
 ```text
 ball + foot -> football
 ball + hand -> basketball
 ```
 
-如果参考系成立，那么 `football - ball` 不应只得到一个任意向量，而应指向 foot、kick、field、goal 一类局部关系方向。为此，我们比较了 L0、path、CMul pre-merge、merge-no-bias、最终 tree 以及 centered-tree 等多个读出点。
+围绕 `t_merge`、CMul、去中心化和 relation anchor 的实验说明，旧 checkpoint 中存在强公共方向；部分差异在去中心化或 merge 前仍然存在，但没有形成稳定、跨样本迁移的关系方向。历史 TreeHeap checkpoint 的向量平均 cosine 一度达到约 (0.985)，表现出严重方向坍缩。
 
-诊断得到的结果比“`t_merge` 直接毁掉空间”更复杂：最终向量受到一个很强的公共方向支配；去中心化或在 merge 前读取时，部分差异仍存在。这说明信息不一定在 `t_merge` 一步完全消失，也可能是 checkpoint、共同偏置和训练 loss 没有建立所需参考系。随后进行的局部上下文训练仍未形成稳定的 relation-anchor 排名，世界模型 Claim 因此被标记为 inconclusive，而不是 supported。
+因此，本文不把“向量之间存在距离”称为世界模型。世界参考系至少需要在新样本上重复出现关系方向，并稳定优于困难负例。这个 Claim 在当前证据中仍未成立。
 
-这次失败很重要。它让我们认识到，不能因为向量之间存在距离，就宣布拓扑世界模型已经形成。一个世界参考系至少需要满足：同类关系在不同词组上产生可迁移方向，正向 anchor 排名稳定优于困难负例，并且结果能在新训练 checkpoint 上复现。
+### 2.5 从封闭算子到可逆信息抽取
 
-#### 2.1.5 旧 checkpoint 审计与第一次大退航
+第一次大退航之后，研究回到 M0 数学层。TreeHeap 被要求拥有明确的 `Zero`、`plus`、`diff`、compose、decompose、mirror 和子堆 kernel。这里逐渐形成了两类证明纪律：
 
-最后，我们把上述设想放进一次统一的 12K WMT 策略审计：同时比较 random、L0 和 TreeHeap 向量，one-hot、random 和 orthogonal 角色基，多种非交换张量、FoldNode 度数以及 parent 概率容器。
+- 由定义直接成立的演绎性质，用闭包、逆运算和数值误差验证；
+- 必须从数据得到的归纳性质，用 loss、梯度、对照和干预验证。
 
-审计发现，历史三轮训练 checkpoint 的 TreeHeap 向量两两平均 cosine 为 `0.9849`。它们几乎指向同一方向，张量 margin 接近零，也没有在角色槽模板排序上稳定超过 L0 或随机向量。这意味着旧 checkpoint 不能为“正确句子天然具有最低 TreeHeap 能量”背书。
+最简单的 parent 是对子节点求和或平均。这种操作能减少节点数，却丢失左右关系和子堆身份。紧凑 route 实验表明，随机 token 向量求和后，Decoder 无法稳定恢复目标。Houming818 用“信息抽水机”描述希望看到的过程：leaf 保存具体状态，parent 接收更大范围的信息，越靠近 root 分辨率越粗；但被抽走的细节不能凭空消失。
 
-我们没有把这解释成 TreeHeap 已被否定。被否定的是一个更具体的假设：**只要把 token 放进树路径，再做一次向量合并，语义结构就会自然出现。** 从这里开始，项目暂时退出句法能量搜索，退回 M0 数学层，先问 TreeHeap 对象本身支持哪些闭合算子、信息怎样可逆地进入 parent、梯度又怎样穿过这些算子。
+Lifting scheme 提供了所需的数学形式：parent 保存更新后的 anchor，detail 保存预测残差。FOLD 改变分辨率，UNFOLD 又能恢复完整状态。由此，TreeHeap 不再要求 root 单独记住整句。
 
-第一阶段最终留下四条边界：
+### 2.6 root 不是完整 TreeHeap 状态
+
+早期 Decoder 多次选择最短优化路径，只读取 root。root-exclusive 实验确实增强了 root 的因果性，却损害了翻译 NLL。这说明“信息向上流动”不等于“所有信息必须挤进 root”。
+
+最终定义改为：
+
+$$
+H=\text{root}+\text{all details}+\text{masks}.
+$$
+
+root 是完整状态的一部分，不是完整状态本身。Decoder 在每个生成时间步决定在哪个深度停止、向哪个 child 继续。本文也不预设“越靠近 root 一定越像人类摘要”；不同深度具体承载什么，只能由任务训练与干预实验确定。
+
+### 2.7 局部 FOLD 无法直接解决长距离 leaf 通信
+
+二叉 FOLD 的局部性带来另一个问题：相距很远的 leaf 要经过多层 parent 才能相遇，途中还会受到分辨率变换影响。循环位移、扩大邻接窗口和矩阵视觉层都曾被讨论，但要么覆盖不完整，要么缺少可逆性和固定容量约束。
+
+最终采用 XOR-Butterfly，因为它同时满足：
+
+1. 不增加 TreeHeap 容量；
+2. 只使用共享局部双节点 kernel；
+3. 在 (log_2N) 个阶段内提供所有叶地址之间的通信路径；
+4. 每个阶段都有明确逆运算。
+
+它把“旋转、换观察方向”的几何直觉收敛成一个有限、可计算、可审计的地址调度。
+
+### 2.8 失败如何约束最终算法
+
+| 早期实现或假设 | 暴露的问题 | 进入最终设计的修正 |
+|---|---|---|
+| token ID 路径直接解释语义 | 地址不随上下文角色改变 | 地址与语义学习分离 |
+| 随机角色基张量能量 | 可区分不等于可选择 | 结构选择交给任务梯度 |
+| 概率 parent 桶 | 能延迟丢失，不能创造状态信息 | 概率用于真实递归 READ |
+| 旧 TreeHeap checkpoint | 向量方向高度坍缩 | 撤回背书，重新训练 |
+| 每种长度一张 flat route 表 | 记住长度，没有共享递归规律 | 使用共享 kernel |
+| route feature 包含左右区间答案 | 特征泄漏产生虚假高准确率 | kernel 只读 query 与实际状态 |
+| parent 等于子节点加和 | 次序和子堆身份丢失 | 保存 lifting detail |
+| root-exclusive Decoder | root 因果性增强但任务质量下降 | 完整 (H) 参与 READ |
+| 固定 lifting Update | 数学稳定但任务适应性有限 | 增加可学习 Update |
+| 仅局部相邻 FOLD | 长距离地址通信过深 | FOLD 前加入 Butterfly |
+| 只观察平均 NLL | 重复坍缩可能被均值掩盖 | 固定 `dreams` 与重复率审计 |
+
+这张表不是研究花絮，而是最终算法的约束来源。TreeHeap 的每一项核心设计，都必须对应一个已经被观察到的失败模式。
+
+## 3. TreeHeap 的形式化定义
+
+### 3.1 地址、容量与有效位置
+
+给定最大叶容量 (N=2^D)，TreeHeap 使用二叉堆地址：
+
+$$
+\operatorname{root}=0,
+\qquad
+\operatorname{left}(i)=2i+1,
+\qquad
+\operatorname{right}(i)=2i+2.
+$$
+
+输入 token 首先形成叶状态：
+
+$$
+X^{(0)}=[x_0,x_1,\ldots,x_{N-1}],
+\qquad x_i\in\mathbb{R}^{m}.
+$$
+
+实际序列不足 (N) 时，剩余位置由 mask 关闭。规模化版本的最大叶容量为 256；较短 batch 只展开到能够容纳自身的最近二次幂。不同宽度共享相同 kernel 参数，不是多个独立模型。
+
+### 3.2 参数 \(\theta\) 与样本状态 \(H_\theta(x)\)
+
+TreeHeap 中最容易混淆的是长期参数和临时状态。
+
+共享参数记为：
+
+$$
+\theta=\{E_{src},E_{tgt},F,G,\alpha,P,U,E_{depth},S,B,
+\operatorname{GRU},W_o\}.
+$$
+
+其中：
+
+- (E_{src}) 与 (E_{tgt}) 是输入、输出 embedding；
+- (F,G,\alpha) 定义 Butterfly 双节点 kernel；
+- (P,U) 是 lifting Predictor 与 Update；
+- (E_{depth},S,B) 定义深度表示、stop 和 branch；
+- GRU 与 (W_o) 根据读取上下文生成目标 token。
+
+对于具体输入 (x)，这些共享参数计算临时状态：
+
+$$
+H_\theta(x)
+=\left(r_x,\{d_x^{(0)},d_x^{(1)},\ldots,d_x^{(D-1)}\},M_x\right).
+$$
+
+(H_	heta(x)) 随输入改变，不作为一份新的模型参数永久写入 checkpoint。可以把 (	heta) 理解为长期形成的编码规则，把 (H_	heta(x)) 理解为规则对当前句子的实例化。
+
+### 3.3 WRITE：把 token 写入 leaf
+
+输入由方向 token、SentencePiece pieces 与 EOS 组成。方向不是额外旁路变量，而是序列的第一个特殊 token。对有效位置：
+
+$$
+x_i=E_{src}(w_i).
+$$
+
+其中 (w_0) 是 `en2zh` 或 `zh2en` 方向 token，后续位置是原文 pieces 与 EOS。当前实现没有额外的位置 embedding；位置差异由 leaf 下标、Butterfly 配对和二叉 FOLD 路径进入计算。无效位置由 mask 关闭，避免 padding 在通信和 FOLD 中被误当成内容。
+
+WRITE 本身没有产生高层结构。它只把离散输入映射到共享连续空间，并放入可寻址位置。
+
+### 3.4 可逆双节点通信 kernel
+
+对于一对状态 ((a,b))，第 (s) 个通信阶段定义：
+
+$$
+b'=b+\alpha_s\tanh(F_\theta(a)),
+$$
+
+$$
+a'=a+\alpha_s\tanh(G_\theta(b')).
+$$
+
+(F_	heta) 与 (G_	heta) 是所有地址共享的小型非线性 kernel，(alpha_s) 是有界阶段增益。逆运算按相反顺序进行：
+
+$$
+a=a'-\alpha_s\tanh(G_\theta(b')),
+$$
+
+$$
+b=b'-\alpha_s\tanh(F_\theta(a)).
+$$
+
+因此，通信改变状态坐标，却不要求在数学上丢弃输入。
+
+### 3.5 XOR-Butterfly 地址调度
+
+在阶段 (s)，地址 (i) 与地址
+
+$$
+j=i\oplus2^s
+$$
+
+配对，其中 (oplus) 是按位 XOR。每阶段包含 (N/2) 个双节点操作，共有 (log_2N) 个阶段，总 pair 操作数为：
+
+$$
+\frac{N}{2}\log_2N=O(N\log N).
+$$
+
+对 (N=8)，配对图为：
 
 ```text
-地址可以承载结构，但地址本身不是语义。
-排列可区分，不等于正确排列可选择。
-概率容器可以延迟丢失，但不能弥补空洞的状态。
-世界模型必须由可迁移关系证据建立，不能由向量距离命名出来。
+stage 0: (0,1) (2,3) (4,5) (6,7)
+stage 1: (0,2) (1,3) (4,6) (5,7)
+stage 2: (0,4) (1,5) (2,6) (3,7)
 ```
 
-### 2.2 第二阶段：先建立可以闭合的算子
+经过全部阶段，每个地址都存在到其他地址的 changing-bit 路径。XOR 是明确加入的通信先验，不是已经发现的语义坐标。任务梯度只能决定如何使用这些路径，不能反过来证明路径天然具有语言含义。
 
-Houming818 提出，TreeHeap 不应只是一种容器；它需要自己的 `Zero`、`plus`、`diff`、compose、decompose、mirror 和子堆 kernel。Codex 将这些要求转写为 M0 数学 probe，区分两类推理：
+### 3.6 可逆多分辨率 FOLD
 
-- 由定义直接成立的演绎性质，例如确定性 mirror 和精确 compose/decompose；
-- 必须从数据归纳得到的概率性质，例如 kernel 参数和 READ 分布。
-
-这一步的重要收获不是找到了一条语言规则，而是建立了研究纪律：确定性算子用闭包和逆运算证明；可学习算子用 loss、梯度、对照与干预验证。后来采用的 lifting FOLD/UNFOLD 正是沿着这条要求产生的。
-
-### 2.3 第三阶段：从“加和 parent”到信息抽水机
-
-最简单的 parent 定义是对子节点向量求和或平均。它能压缩形状，却会丢失左右关系和子堆身份。紧凑 route 实验明确失败：随机 token 向量加和后，Decoder 无法稳定恢复目标。
-
-Houming818 用“抽水机”描述希望看到的过程：
-
-```text
-leaf 保存具体 token 和局部细节；
-parent 接收子节点共同形成的信息；
-越向 root，分辨率越粗；
-Decoder 需要细节时，必须沿同一套管道取回。
-```
-
-一个关键修正是：抽水不能只是不可逆的平均。若 parent 只保存平均值，丢失的信息无法区分是合理退火还是实现损坏。于是我们采用 lifting：parent 保存更新后的 anchor，detail 保存预测残差。FOLD 可以改变分辨率，UNFOLD 又可以数值恢复完整状态。
-
-### 2.4 第四阶段：root 不是全部意识状态
-
-早期 Decoder 多次选择只从 root 读取，因为这是最短的优化路径。root-exclusive 实验虽然让 root 变得更有因果性，却损害了翻译 NLL。这说明强迫 root 单独恢复句子并不符合完整 TreeHeap 状态。
-
-最终我们把样本状态定义为：
-
-```text
-H = root + all lifting details + masks
-```
-
-Decoder 的任务不是“从 root 猜回一切”，而是在每个生成时间步，根据当前隐状态决定在哪个深度停止、向哪个 child 继续。root、内部节点和 leaf 都可以参与，读取比例由任务 loss 学习。
-
-### 2.5 第五阶段：修复长距离 leaf 通信
-
-二叉 FOLD 的局部性带来新问题：相距很远的 leaf 要经过多层 parent 才能相遇。我们讨论过循环位移、矩阵视觉层和扩大邻接窗口，但这些方案要么覆盖不完整，要么缺少可逆性。
-
-最终采用的 XOR-Butterfly 来自三个共同约束：
-
-1. 固定容量，不允许递归复制导致内存指数生长；
-2. 只使用共享的局部双节点 kernel；
-3. 在有限阶段内让所有地址存在通信路径。
-
-阶段 `s` 把地址 `i` 与 `i XOR 2^s` 配对。它把“旋转/换观察方向”的几何直觉，收敛成一个有限、可逆、可以逐阶段审计的地址调度。
-
-### 2.6 第六阶段：让训练过程可以被看见
-
-单个 NLL 无法告诉人类自由生成究竟发生了什么。我们建立 `dreams.txt`：其中保存固定的中英双向句子，永不进入训练。每约 100 万样本，当前 checkpoint 对这些句子自由解码并保存新文件。
-
-因此，研究者既能看到损失曲线，也能看到同一个 TreeHeap 如何从：
-
-```text
-新新是是是是是……
-```
-
-逐渐发展为：
-
-```text
-新年公司预计于2019年，预计在2019年春天开始运营。
-```
-
-Dreams 不是评价函数，也不会反向指导梯度。它是一扇固定观察窗。
-
-### 2.7 协作方法
-
-整个过程采用 ARA 工作流：
-
-```text
-直觉 -> Claim -> Predict -> Experiment -> Evidence -> Audit -> Revision
-```
-
-Houming818 负责提出结构直觉、反驳不符合 TreeHeap 精神的实现，并决定研究目标；Codex 负责把直觉组织为数学、代码和可证伪实验；DeepSeek 与 GLM 负责独立代码审计。route feature 泄漏、flat 路由伪装成树、错误 CLI 标签和过强博客结论，都曾被审计发现并公开降级。
-
-这种协作没有消除错误。它的作用是让错误能够留下证据，并成为下一版算法的输入。
-
-### 2.8 失败怎样改变了算法
-
-TreeHeap 的主要设计变化不是来自一次灵感完成，而是来自失败后的约束收紧。
-
-| 阶段 | 当时的实现或假设 | 观察到的问题 | 进入下一版的修正 |
-|---|---|---|---|
-| 路径语义 | 用 token ID 路径直接解释句法 | 路径只保证地址唯一，不保证当前语义角色 | 把地址与任务学习分开 |
-| 张量能量 | 用随机角色基区分排列 | 能区分两个排列，不等于正确排列自然具有最低能量 | 不把可区分性写成生成证据 |
-| 历史 TreeHeap 向量 | 用旧 checkpoint 为结构能量背书 | 平均 cosine 约 `0.985`，表示方向高度坍缩 | 降级旧结论，重新训练和审计 |
-| flat route | 每个长度学习一张路由表 | 只记住训练长度，树地址没有真正参与 | 改为共享的递归 kernel |
-| geometry route | kernel 输入目标所在左右区间的布尔值 | 答案被直接写进 feature，得到虚假的 `1.0` accuracy | 删除泄漏，只允许读取 query 与节点状态 |
-| 紧凑加和 state | 子节点随机向量直接相加 | 子堆身份和左右次序丢失 | 引入可逆 detail，不再只保留和 |
-| root-exclusive | 强迫 Decoder 只从 root 读 | root 因果性提高，但序列 NLL 恶化 | 把 `H` 定义为 root、全部 detail 与 mask |
-| 固定 lifting | `parent = left + 0.5 * detail` | 数学稳定，但信息价值分配没有适应任务 | 在固定起点上增加可学习 Update |
-| 局部 FOLD | 只让相邻 leaf 逐层相遇 | 长距离地址要经过较多层才能交互 | FOLD 前加入固定容量 Butterfly 通信 |
-| 全量生成 | 只看平均 NLL | 条件坍缩和高频重复可能被均值掩盖 | 增加固定 `dreams`、重复率和运行时消融 |
-
-这张表也规定了论文的证据标准：一个模块只有在正确实现、无输入泄漏、通过对照并在干预后造成可测损伤时，才被认为参与了任务。
-
-## 3. TreeHeap 状态
-
-### 3.1 地址与容量
-
-给定最大叶容量 `N = 2^D`，TreeHeap 使用二叉堆地址：
-
-```text
-root = 0
-left(i) = 2i + 1
-right(i) = 2i + 2
-```
-
-在实现中，输入 token 首先形成叶状态：
+对相邻左右状态 ((l,r))，lifting 定义：
 
 $$
-X^{(0)} = [x_0, x_1, \ldots, x_{N-1}], \qquad x_i \in \mathbb{R}^d.
-$$
-
-不足 `N` 的位置由 mask 关闭，不参与有效双节点通信。规模化版本的最大容量为 256，但短 batch 只展开到容纳自身所需的最近二次幂。32、64、128 和 256 叶共享同一组 kernel 参数，因此它们不是四个独立模型。
-
-### 3.2 TreeHeap 不是只有 root
-
-TreeHeap 完整状态记为：
-
-$$
-H = \left(r, \{d^{(0)}, d^{(1)}, \ldots, d^{(D-1)}\}, M\right),
-$$
-
-其中 `r` 是 root，`d^(k)` 是第 `k` 层 lifting detail，`M` 是各层有效地址 mask。root 提供最压缩的状态，但完整信息分布在 root 与不同分辨率的 detail 中。本文不假设 root 必须对应一条人类可读摘要。
-
-### 3.3 学习参数 `theta` 与样本状态 `H(x)`
-
-这两个对象必须严格区分。
-
-**学习参数 `theta`** 保存在 checkpoint 中，对全部训练样本共享。当前实现包括：
-
-$$
-\theta = \{E_{src}, E_{tgt}, F, G, \alpha, P, U, E_{depth}, S, B, \operatorname{GRU}, W_o\}.
-$$
-
-- `E_src`：把输入 piece 写成叶向量的 embedding；
-- `E_tgt`：Decoder 已生成 piece 的 embedding；
-- `F,G,alpha`：Butterfly 双节点通信 kernel 及各阶段增益；
-- `P,U`：lifting 的 Predictor 与 Update；
-- `E_depth,S,B`：深度表示、stop kernel 与左右 branch kernel；
-- `GRU,W_o`：生成历史状态与输出词表分布。
-
-**样本状态 `H(x)`** 是输入句子 `x` 经过这些共享参数计算后形成的临时 TreeHeap：
-
-$$
-H_\theta(x) = \left(r_x, \{d_x^{(k)}\}_{k=0}^{D-1}, M_x\right).
-$$
-
-`H(x)` 随输入变化，不作为一份新的模型参数永久保存。训练真正做的是调整 `theta`，使不同输入形成对任务有用的 `H(x)`。因此，`theta` 是形成私有协议的长期规律，`H(x)` 是协议对当前句子的实例化状态。
-
-### 3.4 完整前向过程
-
-对一个输入序列 `x`，TreeHeap Encoder 按以下顺序工作：
-
-```text
-ENCODE(x):
-  1. WRITE
-     把 direction、输入 pieces 和 EOS 写入有效 leaf；其余地址由 mask 关闭。
-
-  2. COMMUNICATE
-     对 s = 0 .. log2(N)-1：
-       令地址 i 与 i XOR 2^s 成对；
-       用共享可逆 kernel 更新这一对状态。
-
-  3. FOLD
-     从 leaf 层开始，递归处理每对 left/right：
-       detail = right - P(left)
-       parent = left + U(detail)
-     保存每层 detail，直到只剩 root。
-
-  4. RETURN
-     返回 H(x) = (root, all_details, masks)。
-```
-
-Decoder 不把 `H(x)` 还原成原输入字符串再生成。它先用 UNFOLD 取得所有可读分辨率，然后在每个输出时间步递归分配读取概率：
-
-```text
-DECODE(H):
-  levels = UNFOLD(root, all_details, masks)
-  hidden = 0
-  previous = BOS
-
-  对 t = 0 .. T-1：
-    从 root 开始；
-    对当前可达节点计算 stop 概率；
-    未停止的概率按 branch 分数进入 left/right child；
-    汇总所有停止节点，得到 context_t；
-    hidden_t = GRU(previous, context_t, hidden_(t-1))；
-    输出词表概率 p(y_t)；
-    训练时使用真实 previous，生成时使用模型上一步输出。
-```
-
-最后的交叉熵梯度依次穿过输出层、递归 READ、UNFOLD、root/detail、lifting 与 Butterfly，回到 token embedding 和全部共享 kernel。Encoder 与 Decoder 没有一张预先商定的“食物表”或“语法表”；它们能共同使用的内部编码，只能在这条端到端梯度链中形成。
-
-## 4. 可逆地址通信
-
-### 4.1 双节点耦合核
-
-对一对状态 `(a,b)`，一个通信阶段定义为：
-
-$$
-b' = b + \alpha_s \tanh(F_\theta(a)),
+d=r-P_\theta(l),
 $$
 
 $$
-a' = a + \alpha_s \tanh(G_\theta(b')).
+p=l+U_\theta(d).
 $$
 
-`F` 与 `G` 是所有地址和深度共享的小型 MLP kernel，`alpha_s` 是可学习的有界阶段增益。其逆运算按相反顺序计算：
+(p) 进入上一层成为 parent，(d) 作为本层 detail 保存。逆运算为：
 
 $$
-a = a' - \alpha_s \tanh(G_\theta(b')),
-$$
-
-$$
-b = b' - \alpha_s \tanh(F_\theta(a)).
-$$
-
-因此，在浮点误差范围内，通信不要求丢弃输入状态。
-
-### 4.2 XOR-Butterfly 调度
-
-在阶段 `s`，地址 `i` 与地址
-
-$$
-j = i \oplus 2^s
-$$
-
-配对，其中 `oplus` 为按位 XOR。每个阶段包含 `N/2` 对局部操作，共有 `log2(N)` 个阶段，所以 pair 操作数量为：
-
-$$
-\frac{N}{2}\log_2 N = O(N\log N).
-$$
-
-经过全部阶段，每个地址都存在一条到任意其他地址的 changing-bit 路径。这里的 XOR 是明确的通信先验，不被解释成天然语义地址。语义是否利用这些路径，由任务梯度决定。
-
-## 5. 可逆多分辨率 FOLD
-
-### 5.1 Lifting 形式
-
-对相邻左右状态 `(l,r)`，共享 Predictor `P` 与 Update `U` 定义：
-
-$$
-d = r - P(l),
+l=p-U_\theta(d),
 $$
 
 $$
-p = l + U(d).
+r=d+P_\theta(l).
 $$
 
-`p` 进入上一层成为 parent，`d` 被保留为当前分辨率 detail。逆运算为：
+递归执行后，(N) 个叶状态被组织为一个 root 与总计 (N-1) 个逐层 detail。当前 Update 使用稳定线性项与可学习项的组合：
 
 $$
-l = p - U(d),
+U_\theta(d)=0.5d+0.5\tanh(\widetilde U_\theta(d)).
+$$
+
+可学习项从零初始化，所以训练开始时系统等价于确定的 (0.5d) 更新；随后梯度可以调整 detail 对 parent 的贡献，同时保持逆式成立。
+
+### 3.7 递归概率 READ
+
+Decoder 在输出时间步 (t) 维护隐状态 (h_t)。从 root 开始，每个候选节点 (n_i^{(k)}) 计算停止概率：
+
+$$
+p_{stop}(i,k,t)
+=\sigma\left(S_\theta\left[q(h_t),n_i^{(k)}+e_k\right]\right).
+$$
+
+没有停止的概率质量继续分配给左右 child：
+
+$$
+p(c\mid i,t)
+=\operatorname{softmax}_c
+\left(\frac{B_\theta(h_t)^\top n_c}{\sqrt m}\right).
+$$
+
+如果到达节点 (i) 的质量为 (m_i)，则：
+
+$$
+m_i^{stop}=m_i p_{stop},
 $$
 
 $$
-r = d + P(l).
+m_{left}+m_{right}=m_i(1-p_{stop}).
 $$
 
-递归执行后，`N` 个叶状态变为一个 root 和 `N-1` 个分布在各层的 detail 状态。由于逆式明确，模型不需要让 root 单独记住所有 token。
-
-### 5.2 可学习 Update
-
-实验中的 Update 以稳定的线性 lifting 为起点：
+于是每层递归都满足质量守恒：
 
 $$
-U(d) = 0.5d + 0.5\tanh(U_\theta(d)).
+m_i^{stop}+m_{left}+m_{right}=m_i.
 $$
 
-最后一层参数从零初始化，因此训练开始时系统等价于确定的 `0.5d` 更新；随后梯度可以改变 detail 对 parent 的贡献。
-
-## 6. 递归概率 READ 与生成
-
-Decoder 在每个输出时间步维护隐状态 `h_t`。对于深度 `k` 的候选节点 `n_i^(k)`，模型计算停止概率：
+所有深度上停止节点的加权和形成上下文 (c_t)。Decoder 随后更新：
 
 $$
-p_{\text{stop}}(i,k,t)
-= \sigma\left(S_\theta\left[q(h_t), n_i^{(k)} + e_k\right]\right),
-$$
-
-其中 `e_k` 是深度 embedding。未停止的概率质量在两个 child 之间分配：
-
-$$
-p(c\mid i,t) =
-\operatorname{softmax}_c
-\left(\frac{B_\theta(h_t)^\top n_c}{\sqrt d}\right).
-$$
-
-所有深度上停止的节点加权形成 context `c_t`。随后 GRU 状态更新并输出下一个 token 分布：
-
-$$
-h_{t+1}=\operatorname{GRU}([E(y_t),c_t],h_t),
+h_{t+1}=\operatorname{GRU}([E_{tgt}(y_t),c_t],h_t),
 $$
 
 $$
 p(y_{t+1})=\operatorname{softmax}(W_o[h_{t+1},c_t]).
 $$
 
-训练阶段使用 teacher forcing；唯一语言目标是目标 token 的交叉熵：
+### 3.8 训练目标与梯度路径
+
+训练使用 teacher forcing，唯一语言目标是目标 token 的交叉熵：
 
 $$
-\mathcal{L}_{\text{seq}}
-= -\sum_t \log p_\theta(y_t\mid y_{<t},H_x).
+\mathcal L_{seq}
+=-\sum_t\log p_\theta(y_t\mid y_{<t},H_\theta(x)).
 $$
 
-没有语法标签、角色分类损失或人工“正确内部节点”目标。内部协议由最终序列损失间接塑造。
+梯度依次穿过输出层、GRU、递归 READ、UNFOLD、root/detail、lifting、Butterfly 和输入 embedding。没有额外损失告诉某个内部节点应当表示“主语”“食物”或“时间”。若 Encoder 与 Decoder 形成了共同内部协议，它只能来自这条端到端梯度链。
 
-## 7. 实验一：匹配 WMT 架构比较与依赖检查
+完整前向过程可以概括为：
 
-### 7.1 目的
+```text
+input token
+    -> WRITE
+    -> reversible Butterfly communication
+    -> reversible multiresolution FOLD
+    -> H(root, details, masks)
+    -> recursive probabilistic READ
+    -> recurrent generation state
+    -> target-token distribution
+    -> cross-entropy loss
+```
 
-本实验包含两个必须分开的研究问题：
+## 4. 私有协议与涌现的可检验定义
 
-1. **从头训练的架构比较：** 在相同训练合同下，changing-bit、完全不通信和重复最近邻通信最终得到的任务损失是否不同？
-2. **训练后的依赖检查：** 已经用 Butterfly 训练的模型，在运行时移除或替换通信后是否受损？
+### 4.1 私有不等于不可验证
 
-第一个问题比较三种训练配置；第二个问题只说明已训练系统是否依赖其内部变换。第二个问题不能单独回答 Butterfly 拓扑是否优于其他同容量拓扑。
+本文所说的“私有协议”不要求人类为每个内部维度命名。它要求以下可观察条件同时成立：
 
-### 7.2 三个实验臂
+1. 内部节点没有人工语义标签；
+2. Encoder 与 Decoder 由同一最终任务共同训练；
+3. 相同参数能够处理不同输入和长度；
+4. 改变输入会改变状态和输出；
+5. 干预协议结构会造成可测量损失；
+6. checkpoint 保存、重载和恢复训练后行为可复现。
 
-| 实验臂 | 通信调度 | 解释 |
+协议可以是私有的，但协议是否存在必须接受公开实验。仅仅看到向量、树或非零梯度，都不足以证明协议已经形成。
+
+### 4.2 涌现不等于无因解释
+
+这里的“涌现”有三个边界。
+
+第一，内部结构不是由句法标签直接监督，而由最终序列目标间接形成。第二，模型行为可以随着数据量出现阶段变化，例如由高频重复转向源相关输出。第三，变化必须能够由固定输入、固定 checkpoint 和固定评估程序复查。
+
+“涌现”不表示结构形成原理不可讨论。WRITE、Butterfly、FOLD、READ 和梯度路径都是公开设计；私有的是训练后形成的具体坐标与分工，而不是形成协议的物理通道。
+
+### 4.3 证据分级
+
+本文把证据分为四级。
+
+| 等级 | 回答的问题 | 典型证据 |
 |---|---|---|
-| Identity | 分配相同 kernel 参数，但训练和推理都跳过 pair update | 无地址通信的训练基线 |
-| Adjacent | 每个阶段都重复 bit-0 相邻配对 | 控制额外深度和参数 |
-| Butterfly | 阶段 `s` 使用 `i XOR 2^s` | changing-bit 稀疏通信 |
+| E1 代数正确性 | 运算是否按定义成立 | inverse/closure MSE |
+| E2 机制参与性 | 模块是否被任务使用 | root/detail/source 干预、深度读取质量 |
+| E3 架构比较 | 某配置是否在匹配合同中更优 | 多种子从头训练对照 |
+| E4 规模生长观察 | 行为是否随训练数据发生变化 | 验证曲线、固定 `dreams` |
 
-三个实验臂具有完全相同的已分配参数数量 `34,445,832`。通信 kernel 的输出层从零初始化，因此三个臂从相同函数起点出发。样本、初始化、batch 顺序、优化器、训练轮数、Decoder 与测试集全部匹配。需要注意：Identity 虽然分配了通信参数，却从不执行通信，所以“参数数量相同”不等于“有效计算路径完全相同”；Butterfly 与 Adjacent 才是更接近的等计算量拓扑对照。
+E1 不能推出语言能力；E2 不能推出架构优势；E3 不能推出跨任务普遍性；E4 的主观样例不能代替标准测试指标。后文按这一等级组织实验。
 
-### 7.3 数据与训练
+## 5. 实验设计
 
-语料为本地 WMT massive 中英 TSV。每颗种子从前 200 万行进行确定性 reservoir sampling，选择：
+### 5.1 实验一：代数闭合与递归读取
+
+早期 lifting-pump 实验首先验证完整 (H) 是否可读。实验比较：
+
+- root-only：只允许 Decoder 读取 root；
+- full：直接读取完整 UNFOLD 状态；
+- recursive：通过 stop/left/right 递归分配读取质量；
+- flat：相同任务下的序列读出对照。
+
+同时对 source、root、每一层 detail 与 pairing 进行干预，检查任务损失是否上升。
+
+### 5.2 实验二：Butterfly 匹配 WMT 比较
+
+本实验比较三个从头训练的实验臂。
+
+| 实验臂 | 通信调度 | 目的 |
+|---|---|---|
+| Identity | 分配相同参数，但不执行 pair update | 无通信训练基线 |
+| Adjacent | 每个阶段重复相邻配对 | 控制调用深度与参数 |
+| Butterfly | 阶段 (s) 使用 (i\oplus2^s) | changing-bit 稀疏通信 |
+
+三个实验臂具有相同的已分配参数量 (34,445,832)。通信 kernel 输出层从零初始化，所以三个实验臂从相同函数起点开始。它们共享样本、初始化规则、batch 顺序、优化器、Decoder 与测试集。
+
+需要明确：Identity 虽然分配通信参数，却不执行通信，所以参数量相同不等于有效计算量完全相同。Adjacent 与 Butterfly 是更接近的等调用次数拓扑对照。
+
+### 5.3 WMT 数据与训练合同
+
+正式三种子实验使用本地 WMT massive 中英 TSV。每颗种子从前 200 万行中确定性抽样：
 
 ```text
 train / valid / test = 200,000 / 5,000 / 5,000
-source/target length = 8..32 SentencePiece pieces
+source / target length = 8..32 SentencePiece pieces
 direction = English -> Chinese
 epochs = 5
 dim / hidden = 256 / 256
 seeds = 8104, 8105, 8106
+hardware = one RTX 3090
 ```
 
-训练运行于单张 RTX 3090。生成指标是项目代码中固定实现的 token BLEU-4。
+主要指标为 NLL；生成指标是项目代码中固定实现的 token BLEU-4。它适合内部匹配比较，但不能直接等同于标准 detokenized BLEU。
 
-### 7.4 预注册判定
+### 5.4 预注册判定
 
-Butterfly 必须在至少两颗种子中同时满足：
+Butterfly 在至少两颗种子中需要满足：
 
-1. 测试 NLL 优于 Identity 至少 `0.02`；
-2. 优于 Adjacent 至少 `0.015`；
-3. 长源子集收益不消失；
-4. 训练后关闭通信至少恶化 `0.02` NLL，作为依赖检查而非拓扑优势证明；
-5. source shuffle 至少恶化 `0.50` NLL；
-6. 多个 TreeHeap 分辨率被 READ 使用；
-7. 梯度与生成有限且非空。
+1. 测试 NLL 优于 Identity 至少 (0.02)；
+2. 优于 Adjacent 至少 (0.015)；
+3. 25--32-piece 长源子集收益不消失；
+4. source shuffle 至少恶化 (0.50) NLL；
+5. 多个 TreeHeap 分辨率被 READ 使用；
+6. 梯度和生成有限且非空。
 
-## 8. 实验一结果
+训练后旁路通信至少恶化 (0.02) NLL，被预注册为模块依赖检查，不被单独解释成拓扑优势。
 
-### 8.1 测试损失
+### 5.5 实验三：全量双向生长观察
 
-| Seed | Identity NLL | Adjacent NLL | Butterfly NLL | Butterfly 相对 Identity | 相对 Adjacent |
+规模实验使用：
+
+```text
+parallel rows = 14,170,275
+dataset size = about 2.4 GiB TSV
+directions = en2zh and zh2en
+maximum content = 253 pieces
+maximum TreeHeap leaves = 256
+stream block = 50,000 rows
+time budget = 96 hours
+```
+
+方向由显式 token 指示，Encoder、Butterfly、FOLD/UNFOLD、READ 与 Decoder 参数全部共享。训练在 block 边界原子保存 checkpoint，可以在中断后继续。
+
+固定 `dreams.txt` 保存六条不进入训练的中英双向输入。每约 100 万训练样本，当前 checkpoint 对这些输入自由解码并保存不可变快照。Dreams 不参与 loss，只用于观察行为生长和坍缩。
+
+## 6. 结果一：代数闭合与多分辨率读取
+
+### 6.1 数值可逆性
+
+在正式 Butterfly 三种子实验中：
+
+```text
+Butterfly forward/inverse MSE: about 6.7e-16 .. 7.2e-16
+FOLD/UNFOLD closure MSE:      about 6.7e-15 .. 8.2e-15
+```
+
+误差接近 FP32 数值精度。这支持 E1 结论：训练没有破坏所定义的逆运算。它不表示生成文本可以无损恢复，也不表示 root 单独包含全部信息。
+
+### 6.2 root 与 detail 的任务作用
+
+在 27K/2K/2K WMT、10 epochs 的 lifting-pump 实验中：
+
+| 读出方式 | 测试 NLL |
+|---|---:|
+| recursive READ | 5.0903 |
+| root-only | 5.4337 |
+| full UNFOLD read | 5.1342 |
+| flat sequence | 4.8103 |
+
+source shuffle 与 root shuffle 分别造成约 (+1.4450) 和 (+1.7204) NLL 损伤；所有 detail 深度和 pairing 深度均表现出可测影响。recursive READ 优于 root-only，并接近 full UNFOLD read，说明 Decoder 确实利用多个分辨率，而不是只依赖 root。
+
+该实验同时保留一个负结论：flat sequence 仍优于 TreeHeap (0.2800) NLL。因此，实验支持多分辨率机制参与，不支持翻译质量优势。
+
+### 6.3 可学习 Update
+
+在 200K/5K/5K WMT 实验中，把固定 Update 改为可学习 Update 后：
+
+```text
+NLL:          4.6743 -> 4.6335
+token BLEU-4: 9.609  -> 9.909
+closure MSE:  2.35e-14
+```
+
+预注册的 (0.05) NLL 提升门槛没有通过，实际提升为 (0.0408)。因此证据支持较窄的机制结论：任务梯度能够在保持可逆闭合的同时调整 detail 向 parent 的贡献；它不足以支持大幅质量提升。
+
+## 7. 结果二：Butterfly 的三种子 WMT 比较
+
+### 7.1 测试损失
+
+| Seed | Identity NLL | Adjacent NLL | Butterfly NLL | 相对 Identity 收益 | 相对 Adjacent 收益 |
 |---:|---:|---:|---:|---:|---:|
 | 8104 | 4.62285 | 4.62273 | **4.54546** | 0.07738 | 0.07727 |
 | 8105 | 4.66175 | 4.67974 | **4.58915** | 0.07260 | 0.09059 |
@@ -541,244 +561,335 @@ Butterfly 必须在至少两颗种子中同时满足：
 |---:|---:|---:|
 | 9.9501 | 9.9485 | **10.5462** |
 
-三个实验种子全部通过当时的预注册 gate。严格按当前修订后的证据口径，该表支持：在这个数据、规模和优化合同下，从头训练的 Butterfly 配置稳定优于 Identity 与 Adjacent 配置。它尚未证明任意任务上的普遍优势，也没有仅靠一项运行时干预隔离出 changing-bit 拓扑的全部因果贡献。
+三颗种子均通过注册门槛。严格结论是：在当前数据、模型规模与训练合同中，从头训练的 Butterfly 配置稳定优于 Identity 和重复 Adjacent 配置。
 
-### 8.2 长源与运行时依赖检查
+### 7.2 长源子集
 
-在 25--32-piece 长源子集上，Butterfly 相对 Identity 的 NLL 收益分别为：
+在 25--32-piece 长源子集上，Butterfly 相对 Identity 的 NLL 收益为：
 
 ```text
-0.07451 / 0.07825 / 0.10424
-mean = 0.08567
+seed 8104: 0.07451
+seed 8105: 0.07825
+seed 8106: 0.10424
+mean:      0.08567
 ```
 
-训练完成后还进行了运行时结构替换：
+收益没有在该实验的较长输入端消失。但训练长度最多只有 32 pieces，这不能替代真正的 64、128 或 253-piece 长程验证。
 
-| 干预 | 平均结果 |
+### 7.3 运行时依赖检查及其边界
+
+训练完成后进行结构替换：
+
+| 干预 | 平均 NLL 变化 |
 |---|---:|
-| Butterfly 改为 Identity | NLL 恶化 1.16873 |
-| Butterfly 改为 Adjacent | NLL 约恶化 1.06183 |
-| Source shuffle | NLL 约恶化 3.15625 |
+| Butterfly 改为 Identity | (+1.16873) |
+| Butterfly 改为 Adjacent | 约 (+1.06183) |
+| Source shuffle | 约 (+3.15625) |
 
-这些数字表明已训练模型对原生内部协议敏感，但三种干预的解释力度不同：
+这些结果说明输出依赖源输入，也依赖训练时的通信变换。但是：
 
-- `Butterfly -> Identity` 完全绕过 `B_theta`。后续 FOLD 与 Decoder 接收到未经训练时变换的坐标，因此性能下降几乎是预期现象。它只证明模型依赖 `B_theta`，不能证明 Butterfly 地址拓扑本身更优。
-- `Butterfly -> Adjacent` 保留相同通信 kernel 和调用深度，只改变配对调度，因而更接近拓扑干预；但它仍把训练时协议替换为训练外协议，包含分布偏移。
-- `Source shuffle` 证明输出依赖源输入，不直接判断 Butterfly 调度。
+- Butterfly 改为 Identity 会完全绕过 (B_\theta)，后续模块收到训练外坐标；
+- Butterfly 改为 Adjacent 保留 kernel 调用，却仍替换为训练外协议；
+- source shuffle 只证明输入条件性，不判断通信拓扑。
 
-因此，本节把过去的“因果消融”改称“运行时依赖检查”。Butterfly 的主要正向证据来自 8.1 节的三种子匹配训练比较，而严格的同 checkpoint 拓扑因果实验仍待完成。
+因此，本文把这些结果称为“运行时依赖检查”，不称为严格拓扑消融。
 
-### 8.3 严格拓扑消融应当怎样做
+### 7.4 仍缺少的严格拓扑证据
 
-下一轮实验必须让 `B_theta` 始终参与，并保持 kernel 参数、调用次数、阶段数、输入、checkpoint 和评估样本完全相同，只改变地址配对图。例如，对宽度 8 的状态：
-
-```text
-Native Butterfly:
-stage 0: (0,1) (2,3) (4,5) (6,7)
-stage 1: (0,2) (1,3) (4,6) (5,7)
-stage 2: (0,4) (1,5) (2,6) (3,7)
-
-Repeated adjacent:
-stage 0..2: 始终重复 (0,1) (2,3) (4,5) (6,7)
-
-Random perfect matching:
-每阶段使用固定种子的随机两两配对，保持相同边数与 kernel 调用次数
-```
-
-对同一批句子计算成对差值：
+更严格的实验应在相同 checkpoint、相同验证句、相同 kernel 参数和相同调用次数下，只替换地址配对图，并报告逐句成对差值：
 
 $$
-\Delta L_i = L_i(\text{wrong topology}) - L_i(\text{native topology}).
+\Delta L_i=L_i(\text{wrong topology})-L_i(\text{native topology}).
 $$
 
-运行时配对实验若稳定恶化，只能说明模型依赖训练时地址图。为了进一步判断 changing-bit 调度是否提供了更好的学习偏置，还必须把 Native、Repeated Adjacent 和若干具有相同边数、调用次数及全局覆盖能力的固定 Random Matching 从头训练。只有“同 checkpoint 拓扑干预”和“多种子匹配重训”同时支持，才把“收益来自 changing-bit 拓扑”升级为严格支持。
+此外，还应将 Butterfly、重复相邻调度和若干具有相同边数、阶段数与全局覆盖能力的固定随机调度从头训练。只有同 checkpoint 干预和多种子匹配重训同时支持，才能把“收益来自 changing-bit 拓扑本身”升级为强因果结论。
 
-### 8.4 数学完整性
+## 8. 结果三：双向协议的规模生长
 
-三颗种子中：
+### 8.1 NLL 轨迹
 
-```text
-Butterfly forward/inverse MSE：约 6.7e-16 .. 7.2e-16
-FOLD/UNFOLD closure MSE：约 6.7e-15 .. 8.2e-15
-dense N x N attention allocation：无
-```
+全量双向训练仍在运行。下表区分已归档快照与当前远程运行观察。
 
-可逆误差接近 FP32 数值精度，说明任务训练没有破坏代数闭合。
+| 训练样本 | Mean validation NLL | 证据性质 |
+|---:|---:|---|
+| 0 | 10.5612 | 固定初始快照 |
+| 5.99M | 3.5630 | 已归档 dream 快照 |
+| 11.98M | 3.4839 | 已归档 dream 快照 |
+| 17.93M | 3.4561 | 已归档 dream 快照 |
+| 21.93M | 3.4407 | 已归档 dream 快照 |
+| 31.88M | **3.4230** | 当前运行中的最好 wake 观察 |
+| 36.87M | 3.4302 | 2026-08-02 最近 wake 观察 |
 
-### 8.5 改进链及其效果
+从 0 到约 1200 万样本，验证 NLL 快速下降；之后下降明显放缓，并在 (3.42) 到 (3.47) 附近震荡。最好值没有出现在最新 checkpoint，因此不能把训练描述成持续单调改善。更可能的解释包括：当前容量和优化合同接近平台、流式 block 的数据分布变化、双向任务之间的轻微干扰，或者固定验证集对不同训练阶段敏感。这些解释目前都只是待验证假设。
 
-最终结果之前经历了三次决定性的改进。由于各阶段的数据规模和实验合同不同，下表不能被当作一条严格的单变量曲线；它用于说明每次修改解决了什么问题，以及留下了什么可复查结果。
+### 8.2 Dreams 从坍缩到源相关输出
 
-| 改进 | 实验规模 | 主要结果 | 当时得到的结论 |
-|---|---:|---|---|
-| 完整 lifting state：root + details + recursive READ | 27K/2K/2K，10 epochs | recursive/root/full NLL 为 `5.0903/5.4337/5.1342`；source/root shuffle 损伤 `+1.4450/+1.7204`；闭包 MSE `1.73e-14` | Decoder 确实同时使用 root 和多个 detail 深度；root 单独不够 |
-| 可学习 Update：`0.5d + 0.5 tanh(U_theta(d))` | 200K/5K/5K，5 epochs | 固定到可学习 Update：NLL `4.6743 -> 4.6335`，token BLEU-4 `9.609 -> 9.909`；闭包 MSE `2.35e-14` | 可以在不破坏 UNFOLD 的情况下，让梯度调整 detail 向 parent 的贡献 |
-| XOR-Butterfly 通信 | 200K/5K/5K，3 seeds | 平均 NLL `4.56509`，BLEU-4 `10.5462`；优于从头训练的 Identity 与 Adjacent | 在该训练合同下，Butterfly 配置有稳定收益；严格拓扑因果性仍待补证 |
-
-这三步对应一条清晰的算法演化：先证明完整 `H` 可读，再让抽水规则可学习，最后补上 leaf 平面的长距离通信。每一步都保留前一步的闭包要求，而不是用新的黑盒覆盖旧问题。
-
-## 9. 实验二：全量双向生长观察
-
-### 9.1 设计
-
-本实验正在运行，尚不提供最终 Claim。原始语料为：
-
-```text
-14,170,275 parallel rows
-2.4 GiB TSV
-maximum content = 253 pieces
-maximum TreeHeap = 256 leaves
-```
-
-每条平行语料在相邻 epoch 中交换方向。方向由显式 `en2zh` 或 `zh2en` token 指示，但 Encoder、Butterfly、FOLD/UNFOLD、READ 和 Decoder 参数全部共享。训练采用流式 50K 行 block，并在 block 边界原子保存 checkpoint。
-
-### 9.2 Dreams 观察协议
-
-固定文件 `dreams.txt` 保存人类选择、从不参与训练的双向句子。每约 100 万样本，当前 checkpoint 对这些句子自由解码，并生成不可变快照。该设计不把主观样例当作损失，但允许观察同一输入随训练发生的变化。
-
-在约 3 万样本时：
+固定探针：
 
 ```text
 SOURCE: The new company is expected to begin operations in the spring of 2019.
-DREAM:  新新是是是是是是是是是是是是是是是是是……
+REFERENCE: 新公司预计将在2019年春季开始运营。
 ```
 
-在约 1198 万样本时：
+训练开始时：
 
 ```text
-SOURCE: The new company is expected to begin operations in the spring of 2019.
-DREAM:  新年公司预计于2019年,预计在2019年春天开始运营。
+意愿 Fe Fe Fe Fe Fe Fe Fe ...
 ```
 
-反方向：
+约 599 万样本时：
 
 ```text
-SOURCE: 新公司预计将在2019年春季开始运营。
-DREAM:  New Year's anticipation will start to operate in spring and 2019.
+预计于2019年年底,开始新年。
 ```
 
-输出仍有实体偏差、重复和不自然表达，但已经由源无关高频坍缩发展为保留年份、事件和方向的源相关序列。
+约 1198 万样本时：
 
-### 9.3 中期数字
+```text
+新年公司预计于2019年,预计在2019年春天开始运营。
+```
 
-在 `11,975,676` 个训练样本、`253,253,198` 个目标 token 时：
+约 1793 万样本时：
 
-| 指标 | 数值 |
-|---|---:|
-| en2zh validation NLL | 3.78795 |
-| zh2en validation NLL | 3.17990 |
-| mean validation NLL | 3.48393 |
-| runtime Identity NLL | 4.80849 |
-| Identity damage | +1.32457 |
+```text
+预计于2019年春天开始运营。
+```
 
-复核代码后发现，这里的 native NLL 使用全部验证行，而 runtime Identity 仅使用前 512 行，两者不是同一个评估样本集合。因此 `4.80849` 与 `+1.32457` 只能作为历史诊断记录，不能进入正式 Claim，也不能称为配对消融结果。中期 native NLL 仍可描述规模训练自身的数值进展。修复方法是预先冻结同一批 probe rows，再分别运行 Native、Adjacent 和固定随机配对，并报告逐句成对差值。
+约 2193 万样本时：
 
-## 10. 讨论
+```text
+新的公司预计将于2019年春春新公司运营。
+```
 
-### 10.1 什么是“涌现协议”
+这条轨迹显示，模型从源无关的单 token 循环，发展为能够保留“公司、2019、春季、开始运营”等主要关系。它也显示生成并非单调改善：1793 万样本时的句子比 2193 万样本时更简洁，而后者重新出现重复和语序问题。
 
-本文使用“涌现”一词时，不表示不可解释的神秘现象。它有一个操作性定义：
+另一条因果句探针：
 
-1. 训练目标只评价最终 token；
-2. 没有标签规定内部节点应该存什么；
-3. Encoder 和 Decoder 共同适应一套内部表示；
-4. 结构干预会破坏这套表示；
-5. 自由输出随数据形成源相关规律。
+```text
+SOURCE: Why is the window wet? Because the rain was blown against the glass by the wind.
+```
 
-因此，“私有”意味着协议不是人工命名的，不意味着它无法被实验观察。
+从初始的符号重复，发展到包含“雨、湿、风、窗户”等源相关词，但在 2193 万样本时仍输出：
 
-### 10.2 root 与 detail
+```text
+雨湿的湿润湿润湿透,因为风湿透风的风湿是无情。
+```
 
-实验并未证明“越靠近 root 就一定是人类语言中的摘要”。更准确的说法是：TreeHeap 提供多个递归分辨率，Decoder 学习在不同时间步如何分配读取质量。哪个深度承载何种信息，是任务与参数共同决定的。
+这说明模型已经学习部分词汇和关系条件，却仍会进入局部重复吸引子。NLL 的总体改善并不保证每个自由生成样例都同步改善。
 
-### 10.3 为什么需要 Butterfly
+### 8.3 双向协议的不对称
 
-纯二叉相邻 FOLD 使远距离叶节点只能经过多层 parent 间接相遇。Butterfly 在 FOLD 前提供固定深度的全地址稀疏通信。它没有取消树，而是为树的叶平面增加一组可逆“神经纤维”，随后信息仍进入 lifting 的 root/detail 分解。
+在多数 wake 快照中，zh2en NLL 低于 en2zh。例如 3188 万样本时：
 
-### 10.4 当前代价与研究边界
+```text
+en2zh NLL = 3.7308
+zh2en NLL = 3.1153
+mean       = 3.4230
+```
 
-TreeHeap 的显式层级与可逆 detail 允许研究者直接做地址替换、深度开放、root/detail shuffle 和通信调度干预。这是当前最明确的可观察性收益。代价也同样明确：当前递归 Decoder 会展开总计小于 `2N` 个层级节点，并在每个输出时间步进行软 READ，生成复杂度约为 `O(TN)`；当前 checkpoint 也没有实现文件大小意义上的压缩。
+这说明共享协议并没有让两个方向达到相同难度。差异可能来自 tokenizer、目标语言熵、语料噪声或解码器容量，当前尚未由控制实验分解。后续报告必须分别给出两个方向，不能只报告均值。
 
-因此，“多分辨率”在本文中指状态被组织成 root 与逐层 detail，而不是已经节省了存储。“可逆”指在数值精度内能由 `H` 恢复通信前状态，而不是保证生成文本无损。“私有协议”指 Encoder 与 Decoder 从任务梯度共同形成内部编码，而不是已经发现了人类可读的语义坐标系。
+### 8.4 为什么 Dreams 不是最终指标
 
-## 11. 局限与风险
+Dreams 的价值是让训练过程可见：它能暴露单 token 坍缩、短语循环、实体错误和源条件变化。但六条人工选择的句子不能代表完整测试分布，也不参与梯度。
 
-1. **翻译质量仍处于研究 PoC。** 实验一 BLEU-4 约 10.55，不能作为商业翻译器使用。
-2. **全量训练尚未完成。** 实验二所有数字均为中期快照。
-3. **Decoder 计算仍然昂贵。** 当前实现展开总计小于 `2N` 个层级节点，每个输出步进行软 READ，生成大致为 `O(TN)`。
-4. **地址语义未知。** XOR 地址是通信调度，不等于已经发现语义坐标系。
-5. **数据存在噪声。** WMT massive 含网页、商品、成人语句和实体错配；模型输出会继承这些问题。
-6. **评估尚不完整。** 最终稿需要补充标准 BLEU、chrF、COMET、重复率、长度分桶和人工盲评。
-7. **硬件范围有限。** 当前主要证据来自单张 RTX 3090；跨硬件和多卡可扩展性尚未验证。
-8. **严格拓扑消融尚未完成。** 运行时 Identity 绕过了整个已学习通信变换；全量训练脚本还存在 native/Identity 评估样本未配对问题。它们不能替代保持 `B_theta` 活跃、仅改变配对图的严格实验。
+正式质量结论仍需要：标准 detokenized BLEU、chrF、COMET、重复率、长度分桶、方向分桶和人工盲评。本文只把 dreams 解释为阶段行为证据。
 
-## 12. 可复现性
+## 9. 讨论
 
-核心文件：
+### 9.1 当前证据真正支持什么
+
+第一，TreeHeap 的核心变换可以在训练后保持数值可逆。第二，Decoder 的确使用 root 与多个 detail 深度，完整状态没有退化为 root-only。第三，在匹配 WMT 合同中，Butterfly 配置跨三颗种子获得更低 NLL 和更高项目内 token BLEU-4。第四，一个共享的 TreeHeap 已经能够在双向数据中从高频坍缩发展出源相关序列。
+
+这些结论共同支持：TreeHeap 不再只是一个数据结构草图。它已经拥有确定的状态、共享参数、梯度路径、训练程序、checkpoint 和可干预行为。
+
+### 9.2 当前证据没有支持什么
+
+本文没有证明：
+
+- root 是人类语言中的摘要；
+- XOR 地址天然具有语义；
+- TreeHeap 内部形成了可迁移世界模型；
+- 当前状态表示具有文件压缩意义上的压缩率；
+- 当前实现比稠密模型节省实际 GPU 时间；
+- 当前生成达到产品质量；
+- 当前结果可以推广到翻译之外的任务。
+
+保持这些边界并不会削弱已有结果。相反，它使下一轮实验可以针对真正未知的部分设计。
+
+### 9.3 TreeHeap 当前最独特的研究价值
+
+TreeHeap 当前最明确的价值不是单一质量数字，而是结构可观察性。研究者可以分别干预：
+
+- 某个 leaf 地址；
+- 某条 Butterfly 配对边；
+- 某个 FOLD 层级；
+- root；
+- 某层 detail；
+- READ 的停止深度。
+
+这些对象在算法中有明确位置，也有明确逆运算。它们使“模型是否使用结构”可以被拆成多个局部问题，而不是只能观察一个整体隐向量。
+
+### 9.4 多分辨率不是已经实现的压缩
+
+一个 (N)-leaf TreeHeap 在 lifting 后仍保存一个 root 和 (N-1) 个 detail，总状态数量没有减少。当前“多分辨率”表示信息被重组为不同尺度，不表示 checkpoint 或运行内存已经缩小。
+
+真正的压缩需要证明：可以丢弃、量化或延迟加载一部分 detail，同时在给定质量预算下获得更低存储或计算成本。这属于未来的率失真问题，当前没有完成。
+
+### 9.5 复杂度与工程代价
+
+Butterfly 通信需要 (O(N\log N)) 个双节点操作，FOLD/UNFOLD 为 (O(N))。当前递归 Decoder 在每个输出时间步读取总计小于 (2N) 个层级节点，因此生成复杂度约为 (O(TN))。代码尚未把稀疏地址操作优化为高效 CUDA kernel。
+
+所以，数学上的稀疏不等于当前实现已经更快。计算优势必须用训练 token、GPU 小时、显存、吞吐和实际反向 FLOPs 测量，而不能由复杂度公式直接宣布。
+
+## 10. 局限、风险与可证伪条件
+
+### 10.1 当前局限
+
+1. 正式 WMT 比较规模为 20 万训练句、最长 32 pieces，仍属于研究型实验。
+2. 全量双向训练尚未结束，运行中最好 checkpoint 不等于最终 checkpoint。
+3. 自由生成仍有重复、实体偏差、语法错误和局部吸引子。
+4. 当前 Decoder 为 (O(TN))，尚未证明工程效率。
+5. WMT massive 含网页、商品、成人内容和错配样本，模型会继承数据噪声。
+6. 主要结果来自单张 RTX 3090，跨硬件与多卡扩展性未知。
+7. runtime Identity 会绕过已学习变换，不能作为严格 topology-only 消融。
+8. 尚无标准 BLEU、chrF、COMET 和人工盲评的完整最终报告。
+
+### 10.2 核心 Claim 的否证条件
+
+以下结果应迫使我们撤回或降级相应 Claim。
+
+| Claim | 否证条件 |
+|---|---|
+| FOLD/UNFOLD 可逆 | 在有效输入上闭包误差系统性超出浮点误差，且无法由数值精度解释 |
+| 多分辨率状态参与任务 | root/detail/depth 干预在多种子上不造成稳定损失，或 Decoder 只依赖 leaf 直通路径 |
+| Butterfly 在当前合同中有收益 | 匹配复现实验不能重复三种子收益 |
+| changing-bit 拓扑具有特殊优势 | 具有相同边数、阶段数和全局覆盖的固定随机拓扑表现相当或更好 |
+| 双向私有协议正在形成 | 输出长期源无关、方向混淆、验证损失不改善或 checkpoint 重载行为不一致 |
+| TreeHeap 具有计算优势 | 匹配质量下 GPU 小时、吞吐、显存和 FLOPs 没有改善 |
+
+### 10.3 下一轮最重要的实验
+
+下一轮应优先完成三件事：
+
+1. 冻结全量双向训练的最好 checkpoint，而不是默认采用最后 checkpoint；
+2. 在固定验证句上完成 Native、Adjacent 与固定随机 topology 的样本配对评估；
+3. 对同覆盖能力的多个拓扑进行匹配重训，并测量质量、吞吐和 GPU 小时。
+
+只有这三步完成，才能判断当前收益主要来自 changing-bit 调度、可逆通信本身，还是额外非线性深度。
+
+## 11. 可复现性
+
+### 11.1 核心代码
 
 ```text
 ara/s3-generation/src/s2_treeheap_butterfly_wmt.py
 ara/s3-generation/src/s3_treeheap_butterfly_bilingual_full.py
+ara/s3-generation/src/s2_treeheap_butterfly_cli.py
+```
+
+### 11.2 Logic 与 Evidence
+
+```text
 ara/s3-generation/logic/treeheap_butterfly_wmt_ablation.md
 ara/s3-generation/logic/treeheap_butterfly_bilingual_full_train.md
-```
-
-正式三种子 evidence：
-
-```text
 ara/s3-generation/evidence/s2_treeheap_butterfly_wmt_formal/
+ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/
 ```
 
-关键 Git 记录：
+正式三种子 checkpoints 约 132 MiB，保留于 `io`，SHA-256 记录在 Evidence 的 `CHECKPOINTS.md`。全量训练由 `taskd` 串行管理，在 50K 行 block 边界原子保存并支持恢复。
+
+### 11.3 关键版本记录
 
 ```text
-373c0b4  preregistration
-8f48cbe  formal evidence and supported decision
+373c0b4  Butterfly WMT preregistration
+8f48cbe  formal three-seed evidence
 2eef49e  bilingual full trainer
 a0feb5b  bilingual smoke evidence
 ```
 
-约 132 MiB 的正式 checkpoints 保留在 `io`，其 SHA-256 已记录于 evidence 的 `CHECKPOINTS.md`。代码使用 GPL-3.0 发布。
+### 11.4 ARA 研究流程
+
+本项目使用：
+
+```text
+intuition -> Claim -> Predict -> Experiment -> Evidence -> Audit -> Revision
+```
+
+Houming818 提出结构直觉并审核算法是否仍然体现 TreeHeap；Codex 负责形式化、实验设计和代码审查；DeepSeek 与 GLM 进行独立复核。路径语义、flat route、geometry feature 泄漏、错误 CLI 标签和运行时消融过强解释，都曾在审计后被公开降级。
+
+ARA 的目标不是保证研究者不犯错，而是保证错误不会在没有记录的情况下变成下一轮前提。
+
+## 12. 相关数学背景
+
+TreeHeap 的最终实现并非从零发明全部数学对象。
+
+Lifting scheme 提供了可逆的 coarse/detail 分解：一个分支用于预测，预测残差作为 detail 保存，另一个分支由 detail 更新。TreeHeap 把这种思想用于可学习的树形序列状态。
+
+Butterfly factorization 研究如何用稀疏分阶段变换表达全局线性变换。TreeHeap 使用 XOR changing-bit 配对建立固定容量的全地址通信，但本文实现的双节点 kernel 是非线性可逆耦合，不等同于某一特定线性 Butterfly 矩阵。
+
+有根树的 Hopf 代数、operad 和 decomposition space 为 compose、cut、grafting 与 many-in-one composition 提供了成熟背景。TreeHeap 与这些理论具有结构对应，但当前数值模型还没有被证明是某个特定 Hopf 代数或 operad 的完整实现。因此，本文只把它们列为数学定位，不写成等价定理。
+
+参考文献：
+
+1. Sweldens, W. *The Lifting Scheme: A Custom-Design Construction of Biorthogonal Wavelets*. Applied and Computational Harmonic Analysis, 1996.
+2. Dao, T., Gu, A., Eichhorn, M., Rudra, A., and Ré, C. *Learning Fast Algorithms for Linear Transforms Using Butterfly Factorizations*. ICML, 2019. arXiv:1903.05895.
+3. Ebrahimi-Fard, K., and Rahm, L. *A Survey on the Munthe-Kaas-Wright Hopf Algebra*. 2023. arXiv:2306.04381.
 
 ## 13. 结论
 
-TreeHeap 从一个关于有序树、旋转切片和有限内存的直觉出发，经过了一条并不笔直的研究路径。路径地址曾被误当成语义，随机张量的可区分性曾被误写成结构能量，flat 路由曾伪装成递归路由，几何 feature 曾直接泄漏答案，root 也曾被要求独自承担整个句子。每一次失败都迫使算法增加更严格的定义：地址与语义分离，`theta` 与 `H(x)` 分离，root 与完整状态分离，数学闭包与归纳学习分离。
+TreeHeap 从一个关于有序树、旋转切片、有限容量和信息分辨率的直觉出发，经历了多次必要的失败。路径曾被误当成语义，张量可区分性曾被误当成正确结构选择，旧 checkpoint 曾出现严重方向坍缩，flat 表曾伪装成递归路由，几何特征也曾直接泄漏答案。正是这些失败，迫使最终系统明确区分地址与语义、参数与状态、root 与完整 (H)、数学闭包与归纳学习。
 
-当前算法由四个相互衔接的部分组成：token embedding 把输入写入叶地址；共享的 XOR-Butterfly 双节点 kernel 在固定容量内建立 changing-bit 通信；可逆 lifting 把叶状态分解为 root 和多层 detail；递归概率 READ 在生成时按时间步读取不同分辨率。最终 token 交叉熵沿着整条链反向传播，使 Encoder 与 Decoder 在没有人工内部标签的情况下共同形成私有协议。
+当前 TreeHeap 由一条完整链路组成：WRITE 把输入写入 leaf；共享可逆 kernel 按 XOR-Butterfly 调度建立稀疏全地址通信；lifting FOLD 把状态组织为 root 与多层 detail；递归概率 READ 在生成时选择不同分辨率；最终 token 交叉熵沿整条链反向传播，使 Encoder 与 Decoder 在没有人工内部标签的情况下共同适应。
 
-三种子匹配训练比较说明，在当前实验合同下，Butterfly 配置得到的 NLL 与 BLEU-4 优于 Identity 和 Adjacent 配置。运行时旁路只说明已训练模型依赖 `B_theta`，不能单独证明 changing-bit 拓扑优势；这个边界现已明确写入证据链。更早的 lifting 实验说明 root 与多个 detail 深度都具有因果作用，可学习 Update 又在保持数值闭包时改善了任务结果。全量双向实验进一步显示，固定探针可以从重复坍缩逐渐长出保留年份、事件和方向的翻译轮廓。
+正式三种子 WMT 结果支持 Butterfly 配置在当前训练合同中的稳定收益。早期 lifting 实验支持 root 与多个 detail 深度共同参与任务，可学习 Update 则说明梯度能够在保持可逆闭合时改变信息上导规则。全量双向训练进一步展示了一条不单调但可观察的行为轨迹：模型从高频重复发展为能够保留年份、事件和部分关系的源相关输出，同时仍受到重复、实体偏差和训练平台的限制。
 
-TreeHeap 仍不是完成品。它的自由生成仍有重复、实体偏差和不自然表达，当前 READ 代价较高，内部地址也还不能被直接解释。但它已经不再只是一组散落的哲学比喻或 toy 公式，而是一套有代码、有 checkpoint、有闭包测试、有匹配对照、有依赖检查、有失败档案并能继续接受数据训练的算法。本文所记录的，正是这套算法怎样被两位研究参与者一问一答地构造出来，并第一次开始形成语言协议。
-
-## 数学背景文献
-
-1. Sweldens, W. *The Lifting Scheme: A Custom-Design Construction of Biorthogonal Wavelets*. Applied and Computational Harmonic Analysis, 1996.
-2. Dao, T., Gu, A., Eichhorn, M., Rudra, A., and Ré, C. *Learning Fast Algorithms for Linear Transforms Using Butterfly Factorizations*. ICML, 2019. [arXiv:1903.05895](https://arxiv.org/abs/1903.05895).
-3. Ebrahimi-Fard, K., and Rahm, L. *A Survey on the Munthe-Kaas-Wright Hopf Algebra*. 2023. [arXiv:2306.04381](https://arxiv.org/abs/2306.04381).
+因此，TreeHeap 已经从哲学直觉和 toy 公式发展成一个可训练、可逆、可干预、可恢复的算法对象。它尚未证明语义地址、真正压缩、工程效率或产品能力。下一阶段的任务不是继续扩大语言，而是用更严格的拓扑对照、最终质量指标和计算成本测量，判断这套结构究竟在哪些条件下提供独立价值。
 
 ## 附录 A：Claim 边界表
 
 | 陈述 | 当前状态 |
 |---|---|
-| TreeHeap FOLD/UNFOLD 在训练后保持数值可逆 | 支持 |
-| XOR-Butterfly 在固定容量中提供全地址稀疏路径 | 数学定义成立 |
-| Butterfly 训练配置在当前 WMT 合同中优于 Identity/Adjacent | 三种子支持 |
-| 已训练模型依赖通信变换 `B_theta` | 运行时旁路支持，但属于弱依赖证据 |
-| 收益严格来自 changing-bit 拓扑而非协议替换或分布偏移 | 开放，待严格配对拓扑消融 |
-| 一个共享 TreeHeap 能开始形成中英双向协议 | smoke 与中期结果支持 |
+| Butterfly 正反变换在训练后保持数值闭合 | 支持 |
+| FOLD/UNFOLD 在训练后保持数值闭合 | 支持 |
+| root 与多个 detail 深度参与当前 WMT 任务 | 支持机制 |
+| 可学习 Update 能在保持闭合时改善当前任务 | 部分支持，未达到注册的 0.05 NLL 门槛 |
+| Butterfly 配置在当前 WMT 合同中优于 Identity/Adjacent | 三种子支持 |
+| 已训练模型依赖通信变换 | 运行时依赖检查支持 |
+| 收益严格来自 changing-bit 拓扑 | 开放 |
+| 一个共享 TreeHeap 正在形成中英双向协议 | smoke 与规模生长观察支持，最终质量开放 |
 | root 是人类可读摘要 | 未证明 |
 | XOR 地址天然具有语义 | 未证明 |
+| 当前 TreeHeap 已实现存储压缩 | 否 |
+| 当前 TreeHeap 已节省训练或生成计算 | 未证明 |
 | 当前模型达到产品级翻译质量 | 否 |
-| 当前实现节省训练或生成计算 | 未证明 |
 
-## 附录 B：最终稿待补实验
+## 附录 B：符号表
 
-1. 完成 96 小时双向训练并冻结最终 checkpoint；
-2. 在固定测试集报告标准 BLEU、chrF、COMET；
-3. 报告 8--32、33--64、65--128、129--253 长度区间；
-4. 报告自由生成重复率、空输出率与 unique-output rate；
-5. 对最终 checkpoint 使用同一批样本重做 Native、Adjacent、固定随机完美匹配与 source shuffle；Identity 仅保留为模块依赖检查；
-6. 对拓扑干预报告逐句配对 NLL 差值、bootstrap 置信区间和多种固定随机配对，并对相同拓扑重新做多种子匹配训练；
-7. 对 `dreams` 进行时间序列分析，但不把探针选择成训练目标；
-8. 增加独立人工盲评与数据污染审计；
-9. 测量实际 wall-clock、GPU hours、token throughput 与显存。
+| 符号 | 含义 |
+|---|---|
+| (N) | TreeHeap 最大叶容量 |
+| (D) | 最大递归深度，(D=\log_2N) |
+| (m) | 单节点向量维度 |
+| (d) | 一对 child 经 Predictor 得到的 lifting detail |
+| (	heta) | 全数据共享、写入 checkpoint 的学习参数 |
+| (H_\theta(x)) | 输入 (x) 产生的临时 TreeHeap 状态 |
+| (r) | root 状态 |
+| (d^{(k)}) | 第 (k) 层 lifting detail |
+| (M) | 有效地址 mask |
+| (F,G) | Butterfly 双节点耦合 kernel |
+| (P,U) | lifting Predictor 与 Update |
+| (S,B) | READ 的 stop 与 branch kernel |
+| (h_t) | Decoder 在时间步 (t) 的隐状态 |
+| (c_t) | recursive READ 得到的上下文 |
+
+## 附录 C：最终稿待补项目
+
+1. 等待 96 小时双向任务结束，冻结最好与最后 checkpoint；
+2. 把完整远程 Evidence 同步回仓库并记录 SHA-256；
+3. 统一 Native、Adjacent、Random topology 的验证样本；
+4. 报告标准 BLEU、chrF、COMET、重复率和长度分桶；
+5. 报告 en2zh 与 zh2en 的独立结果；
+6. 测量训练 token、GPU 小时、峰值显存、吞吐和估算 FLOPs；
+7. 增加三个以上固定全覆盖随机 topology 的多种子重训；
+8. 将完整 dreams 轨迹作为补充材料发布，不只选择最好样例。
