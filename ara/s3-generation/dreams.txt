@@ -1,7 +1,65 @@
-# direction<TAB>source<TAB>optional reference
+# Fixed bilingual Dreams probes. These lines are observations, never training data.
+# Format: direction<TAB>source<TAB>optional reference
+
+# Baseline facts and free composition
 en2zh	The new company is expected to begin operations in the spring of 2019.	新公司预计将在2019年春季开始运营。
-en2zh	Today was productive. I reviewed my notes, worked through several practice problems, and tried to sort out a few confusing concepts. Small progress still counts.
-en2zh	Why is the window wet? Because the rain was blown against the glass by the wind.
+en2zh	Today was productive. I reviewed my notes, worked through several practice problems, and tried to sort out a few confusing concepts. Small progress still counts.	今天很有收获。我复习了笔记，完成了几道练习题，也尝试梳理一些令人困惑的概念。小小的进步也值得珍惜。
 zh2en	新公司预计将在2019年春季开始运营。	The new company is expected to begin operations in the spring of 2019.
-zh2en	今天很有收获。我复习了笔记，完成了几道练习题，也梳理了一些容易混淆的概念。小小的进步也值得珍惜。
-zh2en	为什么窗户是湿的？因为风把雨水吹到了玻璃上。
+zh2en	今天很有收获。我复习了笔记，完成了几道练习题，也梳理了一些容易混淆的概念。小小的进步也值得珍惜。	Today was productive. I reviewed my notes, completed several exercises, and sorted out some easily confused concepts. Small progress still matters.
+
+# Agent/patient reversal: identical entities and relation, opposite handedness
+en2zh	Ultraman defeated the little monster.	奥特曼打败了小怪兽。
+en2zh	The little monster defeated Ultraman.	小怪兽打败了奥特曼。
+en2zh	The dog chased the cat.	狗追赶了猫。
+en2zh	The cat chased the dog.	猫追赶了狗。
+zh2en	奥特曼打败了小怪兽。	Ultraman defeated the little monster.
+zh2en	小怪兽打败了奥特曼。	The little monster defeated Ultraman.
+
+# Active/passive: same event under a different grammatical projection
+en2zh	The wind blew the rain against the glass.	风把雨水吹到了玻璃上。
+en2zh	The rain was blown against the glass by the wind.	雨水被风吹到了玻璃上。
+zh2en	风把雨水吹到了玻璃上。	The wind blew the rain against the glass.
+zh2en	雨水被风吹到了玻璃上。	The rain was blown against the glass by the wind.
+
+# Negation and polarity
+en2zh	The cat ate the fish.	猫吃了鱼。
+en2zh	The cat did not eat the fish.	猫没有吃鱼。
+zh2en	猫吃了鱼。	The cat ate the fish.
+zh2en	猫没有吃鱼。	The cat did not eat the fish.
+
+# Temporal order
+en2zh	Xiaohong arrived before Xiaoming ate dinner.	小红在小明吃晚饭前到了。
+en2zh	Xiaohong arrived after Xiaoming ate dinner.	小红在小明吃完晚饭后到了。
+zh2en	小红在小明吃晚饭前到了。	Xiaohong arrived before Xiaoming ate dinner.
+zh2en	小红在小明吃完晚饭后到了。	Xiaohong arrived after Xiaoming ate dinner.
+
+# Quantifier scope
+en2zh	Every window in that house is open.	那所房子的每一扇窗户都开着。
+en2zh	Not every window in that house is open.	那所房子并不是每一扇窗户都开着。
+zh2en	那所房子的每一扇窗户都开着。	Every window in that house is open.
+zh2en	那所房子并不是每一扇窗户都开着。	Not every window in that house is open.
+
+# Relative clauses and attachment
+en2zh	The book that the student borrowed yesterday is on the desk.	那个学生昨天借的书在桌上。
+en2zh	I used a telescope to see the man.	我用望远镜看到了那个男人。
+en2zh	I saw the man who was holding a telescope.	我看见了那个拿着望远镜的男人。
+zh2en	那个学生昨天借的书在桌上。	The book that the student borrowed yesterday is on the desk.
+zh2en	我用望远镜看到了那个男人。	I used a telescope to see the man.
+zh2en	我看见了那个拿着望远镜的男人。	I saw the man who was holding a telescope.
+
+# Cause and consequence
+en2zh	Why is the window wet? Because the rain was blown against the glass by the wind.	为什么窗户是湿的？因为风把雨水吹到了玻璃上。
+en2zh	The match was canceled because the heavy rain flooded the field.	比赛取消了，因为大雨淹没了场地。
+zh2en	为什么窗户是湿的？因为风把雨水吹到了玻璃上。	Why is the window wet? Because the wind blew the rain against the glass.
+zh2en	因为大雨淹没了场地，所以比赛取消了。	The match was canceled because the heavy rain flooded the field.
+
+# Topic-comment and exact facts
+zh2en	这本书，我昨天已经读完了。	I finished reading this book yesterday.
+en2zh	At 7:35 on Tuesday morning, train G17 carried exactly 612 passengers into Nanjing Station.	星期二早上7点35分，G17次列车载着整整612名乘客驶入南京站。
+zh2en	星期二早上7点35分，G17次列车载着整整612名乘客驶入南京站。	At 7:35 on Tuesday morning, train G17 carried exactly 612 passengers into Nanjing Station.
+
+# Long composition and nested relations
+en2zh	The teacher praised the student who solved the problem that everyone else had found difficult.	老师表扬了那个解决了大家都觉得困难的问题的学生。
+zh2en	老师表扬了那个解决了大家都觉得困难的问题的学生。	The teacher praised the student who solved the problem that everyone else had found difficult.
+en2zh	Although the road was covered with snow, the doctor who had worked all night drove to the village and delivered the medicine before sunrise.	尽管道路被积雪覆盖，那位工作了一整夜的医生仍开车赶到村庄，并在日出前送到了药品。
+zh2en	尽管道路被积雪覆盖，那位工作了一整夜的医生仍开车赶到村庄，并在日出前送到了药品。	Although the road was covered with snow, the doctor who had worked all night drove to the village and delivered the medicine before sunrise.
