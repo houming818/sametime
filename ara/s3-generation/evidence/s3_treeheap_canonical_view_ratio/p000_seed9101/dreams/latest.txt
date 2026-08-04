@@ -1,0 +1,36 @@
+TreeHeap dreams at step 299407
+time: 2026-08-04 00:20:17 +0800
+validation: {"claim": "S3-TREEHEAP-CANONICAL-VIEW-C05", "arm": "p000_seed9101", "canonical_probability": 0.0, "seed": 9101, "start_line": 6400000, "stop_line": 6700000, "updates": 6056, "examples": 299407, "target_tokens": 6308579, "view_examples": {"butterfly": 299407, "identity": 0}, "view_tokens": {"butterfly": 6308579, "identity": 0}, "actual_canonical_example_ratio": 0.0, "actual_canonical_token_ratio": 0.0, "train_nll_per_update": 3.2120288817145553, "communication_grad_norm_mean": 0.17862582102644317, "communication_grad_norm_min": 0.09983788430690765, "elapsed_sec": 2045.864103794098, "metrics": {"native": {"en2zh": 3.566539240912424, "zh2en": 2.975483125600854, "mean": 3.271011183256639}, "identity": {"en2zh": 5.242199481969706, "zh2en": 4.424965597619988, "mean": 4.833582539794847}, "adjacent": {"en2zh": 5.05493076467524, "zh2en": 4.253869074364672, "mean": 4.654399919519956}, "identity_damage": 1.562571356538208, "adjacent_damage": 1.383388736263317, "cross_view_js": 0.23783227752115943, "source_shuffle": {"matched_native_nll": 3.496448326521611, "shuffled_nll": 5.3211031035391105, "damage": 1.8246547770174995, "tokens": 2786}, "source_shuffle_damage": 1.8246547770174995, "communication_delta_rms": 0.25115180015563965, "grammar_reference_native": {"en2zh": 1.915966727516868, "zh2en": 1.1741090138753256, "mean": 1.5450378706960968}, "grammar_reference_identity": {"en2zh": 4.747695229270241, "zh2en": 2.3524569193522136, "mean": 3.550076074311227}}}
+
+[1] en2zh
+SOURCE: The new company is expected to begin operations in the spring of 2019.
+REFERENCE: 新公司预计将在2019年春季开始运营。
+DREAM: 新年公司预计于2019年春夏的经营计划。
+ROUTE: [0.1208, 0.0965, 0.0845, 0.1010, 0.5971]
+
+[2] en2zh
+SOURCE: Today was productive. I reviewed my notes, worked through several practice problems, and tried to sort out a few confusing concepts. Small progress still counts.
+DREAM: 进行了审查,我进行了审查,通过几个实践练习,并尝试一些几个概念,而这些概念仍然计数。
+ROUTE: [0.0290, 0.0322, 0.0469, 0.0836, 0.1289, 0.1446, 0.5348]
+
+[3] en2zh
+SOURCE: Why is the window wet? Because the rain was blown against the glass by the wind.
+DREAM: 为什么是窗户的? 因为风雨在玻璃上,
+ROUTE: [0.0743, 0.0316, 0.0771, 0.0799, 0.1327, 0.6045]
+
+[4] zh2en
+SOURCE: 新公司预计将在2019年春季开始运营。
+REFERENCE: The new company is expected to begin operations in the spring of 2019.
+DREAM: The company is expected to start in the spring of 2019 Spring 2019.
+ROUTE: [0.0824, 0.0923, 0.1007, 0.0949, 0.6297]
+
+[5] zh2en
+SOURCE: 今天很有收获。我复习了笔记，完成了几道练习题，也梳理了一些容易混淆的概念。小小的进步也值得珍惜。
+DREAM: I was a little more. I'm going to be a lot of fun, and I'll have a lot of a lot of money to do with a lot of confusion.
+ROUTE: [0.0094, 0.0063, 0.0099, 0.0067, 0.0552, 0.2188, 0.6937]
+
+[6] zh2en
+SOURCE: 为什么窗户是湿的？因为风把雨水吹到了玻璃上。
+DREAM: Why do you have the wetting of the wet because the wind blowing the glass on the glass.
+ROUTE: [0.0780, 0.0303, 0.0738, 0.0973, 0.1478, 0.5728]
+

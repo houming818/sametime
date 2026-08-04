@@ -1,6 +1,6 @@
 # TreeHeap Canonical View Ratio
 
-Status: preregistered / checkpoint-continuation pilot pending
+Status: not supported by the registered one-seed screen
 
 ## Claim S3-TREEHEAP-CANONICAL-VIEW-C05
 
@@ -267,3 +267,48 @@ This experiment tests a continuation-training intervention on one existing
 Butterfly TreeHeap checkpoint. It does not establish a unique canonical
 semantic space, human perception, consciousness, or superiority over other
 architectures.
+
+## Screening result
+
+Taskd 99 completed successfully on `io` on 2026-08-04. Every arm consumed the
+same 299,407 examples, 6,308,579 target tokens and 6,056 optimizer updates.
+The realized canonical ratios matched the registered ratios within 0.14
+percentage points.
+
+| `p` | Native NLL | Change vs `p=0` | Identity NLL | Cross-view JS | Source-shuffle damage |
+|---:|---:|---:|---:|---:|---:|
+| 0.0 | **3.2710** | 0.0000 | 4.8336 | 0.2378 | +1.8247 |
+| 0.2 | 3.2826 | +0.0116 | 3.7668 | 0.1011 | +1.8468 |
+| 0.4 | 3.2939 | +0.0229 | 3.6963 | 0.0910 | +1.8575 |
+| 0.6 | 3.3090 | +0.0380 | **3.6480** | **0.0838** | +1.8566 |
+
+Lower NLL and lower JS are better. The primary preregistered prediction is not
+supported: `p=0` is the best native arm, and native NLL worsens monotonically as
+canonical exposure increases. No moderate ratio qualifies for multi-seed
+confirmation under the registered gate.
+
+The negative result is not equivalent to "nothing happened." Canonical mixing
+reduced cross-view JS by 57.5% at `p=0.2` and by 64.8% at `p=0.6`. Identity
+damage also fell from 1.5626 to 0.3390. Meanwhile source shuffling continued to
+damage NLL by about 1.85, structural overrides remained harmful, Butterfly
+communication stayed non-trivial, and communication parameters received
+gradient. The model therefore did not obtain low JS by simply ignoring the
+source or deleting the Butterfly path.
+
+The supported observation is narrower than the original claim:
+
+> In this continuation setting, canonical-view mixing acts as a view-invariance
+> regularizer. It makes one shared FOLD/Decoder more capable of reading both
+> identity and Butterfly coordinates, but this invariance costs performance on
+> the specialized native Butterfly route.
+
+The fixed Dreams do not show a consistent monotonic improvement in semantic or
+grammatical quality. Some individual outputs change in a favorable direction
+and others regress or retain repetition. They therefore do not overturn the
+primary numeric result.
+
+This screen does not prove that canonical exposure can never help. It rejects
+the registered version: continued training from this checkpoint, with a fixed
+budget, one shared cross-entropy objective and sample-level ratios 0.2--0.6.
+Future work should not repeat the same ratio sweep without changing the
+mechanism or prediction.

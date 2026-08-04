@@ -1,0 +1,88 @@
+{
+  "claim": "S3-TREEHEAP-CANONICAL-VIEW-C05",
+  "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+  "checkpoint_claim": "S3-TREEHEAP-BUTTERFLY-BIDIR-C03",
+  "checkpoint_examples": 48811685,
+  "checkpoint_tokens": 1032196489,
+  "ratios": [
+    0.0,
+    0.2,
+    0.4,
+    0.6
+  ],
+  "seeds": [
+    9101
+  ],
+  "initial_metrics": {
+    "native": {
+      "en2zh": 3.778171640808118,
+      "zh2en": 3.1657199881002933,
+      "mean": 3.4719458144542057
+    },
+    "identity": {
+      "en2zh": 5.3938025621006185,
+      "zh2en": 4.558349319239722,
+      "mean": 4.976075940670171
+    },
+    "adjacent": {
+      "en2zh": 5.180337103063047,
+      "zh2en": 4.368982254932256,
+      "mean": 4.774659678997651
+    },
+    "identity_damage": 1.5041301262159652,
+    "adjacent_damage": 1.302713864543445,
+    "cross_view_js": 0.2398319821176303,
+    "source_shuffle": {
+      "matched_native_nll": 3.690076525401316,
+      "shuffled_nll": 5.51656917454267,
+      "damage": 1.8264926491413536,
+      "tokens": 2786
+    },
+    "source_shuffle_damage": 1.8264926491413536,
+    "communication_delta_rms": 0.24891792237758636,
+    "grammar_reference_native": {
+      "en2zh": 2.016176223754883,
+      "zh2en": 1.4113390604654947,
+      "mean": 1.7137576421101888
+    },
+    "grammar_reference_identity": {
+      "en2zh": 4.709951574152166,
+      "zh2en": 2.8406214396158855,
+      "mean": 3.775286506884026
+    }
+  },
+  "config": {
+    "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "dreams": "ara/s3-generation/dreams.txt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_canonical_view_ratio",
+    "ratios": "0.0,0.2,0.4,0.6",
+    "seeds": "9101",
+    "start_line": -1,
+    "train_lines": 300000,
+    "block_lines": 50000,
+    "eval_pairs": 1000,
+    "eval_scan": 3000000,
+    "diagnostic_rows": 128,
+    "diagnostic_batch": 4,
+    "dream_limit": 0,
+    "dream_max_output": 128,
+    "lr": 0.0002,
+    "batch_seed": 8104,
+    "device": "cuda",
+    "reuse_optimizer": true,
+    "resume_completed": true,
+    "save_arm_checkpoints": false,
+    "notify": true,
+    "heap_width": 256,
+    "max_content": 253,
+    "dim": 256,
+    "hidden": 256,
+    "coupling_scale": 0.25,
+    "batch_32": 64,
+    "batch_64": 32,
+    "batch_128": 16,
+    "batch_256": 8
+  }
+}

@@ -1,6 +1,6 @@
 # S3-TREEHEAP-CANONICAL-VIEW-C05 Evidence
 
-Status: preregistered; smoke and one-seed screening pending.
+Status: completed; registered one-seed screening negative.
 
 This directory records the matched continuation-training experiment defined in
 `../../logic/treeheap_canonical_view_ratio.md`.
@@ -39,3 +39,22 @@ a candidate ratio for a later multi-seed confirmation.
 The runner may reuse an arm only when its completed `summary.json` matches the
 registered claim, seed, ratio, source interval, and training length. This lets a
 failed later arm resume without retraining an already completed independent arm.
+
+## Result
+
+Taskd 96 exposed and preserved a subgroup-padding failure after completing the
+`p=0` arm. Commit `6dac477` trimmed each split view subgroup to its own real
+source width. Taskd 98 verified the failing mixed-view path, and taskd 99 resumed
+the completed control and finished all registered arms.
+
+```text
+p=0.0 native NLL: 3.2710   cross-view JS: 0.2378
+p=0.2 native NLL: 3.2826   cross-view JS: 0.1011
+p=0.4 native NLL: 3.2939   cross-view JS: 0.0910
+p=0.6 native NLL: 3.3090   cross-view JS: 0.0838
+```
+
+The primary prediction was not confirmed because `p=0` remained best on native
+NLL. Canonical mixing did produce a strong, monotonic cross-view consistency
+effect without removing source dependence. See `summary.json`, the per-arm
+Dreams, and the three `taskd-*.log` files for the complete record.

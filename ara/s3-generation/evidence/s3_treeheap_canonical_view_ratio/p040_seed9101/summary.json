@@ -1,0 +1,64 @@
+{
+  "claim": "S3-TREEHEAP-CANONICAL-VIEW-C05",
+  "arm": "p040_seed9101",
+  "canonical_probability": 0.4,
+  "seed": 9101,
+  "start_line": 6400000,
+  "stop_line": 6700000,
+  "updates": 6056,
+  "examples": 299407,
+  "target_tokens": 6308579,
+  "view_examples": {
+    "butterfly": 179255,
+    "identity": 120152
+  },
+  "view_tokens": {
+    "butterfly": 3776747,
+    "identity": 2531832
+  },
+  "actual_canonical_example_ratio": 0.4012999028078836,
+  "actual_canonical_token_ratio": 0.40133158354678605,
+  "train_nll_per_update": 3.4425853299496194,
+  "communication_grad_norm_mean": 0.1647309043470529,
+  "communication_grad_norm_min": 0.0,
+  "elapsed_sec": 4032.649752140045,
+  "metrics": {
+    "native": {
+      "en2zh": 3.5897457395338197,
+      "zh2en": 2.998108427472925,
+      "mean": 3.2939270835033723
+    },
+    "identity": {
+      "en2zh": 4.022578922178219,
+      "zh2en": 3.36997984402853,
+      "mean": 3.6962793831033744
+    },
+    "adjacent": {
+      "en2zh": 4.871637839479764,
+      "zh2en": 4.064985413749986,
+      "mean": 4.4683116266148755
+    },
+    "identity_damage": 0.4023522996000022,
+    "adjacent_damage": 1.1743845431115032,
+    "cross_view_js": 0.09103271992020015,
+    "source_shuffle": {
+      "matched_native_nll": 3.528826947017103,
+      "shuffled_nll": 5.386294565522577,
+      "damage": 1.8574676185054737,
+      "tokens": 2786
+    },
+    "source_shuffle_damage": 1.8574676185054737,
+    "communication_delta_rms": 0.24486689269542694,
+    "grammar_reference_native": {
+      "en2zh": 1.8109130859375,
+      "zh2en": 1.239220682779948,
+      "mean": 1.5250668843587238
+    },
+    "grammar_reference_identity": {
+      "en2zh": 2.4099063873291016,
+      "zh2en": 2.590784708658854,
+      "mean": 2.5003455479939776
+    }
+  },
+  "dream": "ara/s3-generation/evidence/s3_treeheap_canonical_view_ratio/p040_seed9101/dreams/step-000000299407.txt"
+}
