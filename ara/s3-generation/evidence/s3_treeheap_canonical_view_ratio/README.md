@@ -35,3 +35,7 @@ stdout.log
 
 The single-seed screen cannot upgrade the claim. A positive screen only selects
 a candidate ratio for a later multi-seed confirmation.
+
+The runner may reuse an arm only when its completed `summary.json` matches the
+registered claim, seed, ratio, source interval, and training length. This lets a
+failed later arm resume without retraining an already completed independent arm.

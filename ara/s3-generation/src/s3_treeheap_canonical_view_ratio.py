@@ -87,6 +87,10 @@ def grouped_view_loss(
             local_source = source[index]
             local_length = length[index]
             local_target = target[index]
+            # The parent batch is padded to its own longest source.  Once a
+            # view subgroup is selected, trim that inherited padding so
+            # raw_leaf sizes the TreeHeap from this subgroup's real lengths.
+            local_source = local_source[:, : int(local_length.max().item())]
             model.encoder.runtime_mode = mode
             logits, _ = model.teacher(local_source, local_length, local_target, bos)
             local_tokens = int(local_target.ne(pad).sum())
@@ -419,6 +423,7 @@ def main():
     parser.add_argument("--batch-seed", type=int, default=8104)
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--reuse-optimizer", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--resume-completed", action="store_true")
     parser.add_argument("--save-arm-checkpoints", action="store_true")
     parser.add_argument("--notify", action="store_true")
     parser.add_argument("--heap-width", type=int, default=256)
@@ -485,6 +490,31 @@ def main():
     results = []
     for seed in seeds:
         for ratio in ratios:
+            arm_summary = output / f"{ratio_tag(ratio)}_seed{seed}" / "summary.json"
+            if args.resume_completed and arm_summary.is_file():
+                cached = json.loads(arm_summary.read_text(encoding="utf-8"))
+                if (
+                    cached.get("claim") != CLAIM
+                    or int(cached.get("seed", -1)) != seed
+                    or not math.isclose(
+                        float(cached.get("canonical_probability", -1.0)), ratio,
+                        rel_tol=0.0, abs_tol=1e-12,
+                    )
+                    or int(cached.get("start_line", -1))
+                    != int(checkpoint.get("next_line", 0) if args.start_line < 0 else args.start_line)
+                    or int(cached.get("stop_line", -1))
+                    != int(
+                        (checkpoint.get("next_line", 0) if args.start_line < 0 else args.start_line)
+                        + args.train_lines
+                    )
+                ):
+                    raise RuntimeError(f"completed arm does not match this run: {arm_summary}")
+                print(json.dumps({
+                    "event": "resume_completed_arm", "arm": cached["arm"],
+                    "summary": str(arm_summary),
+                }), flush=True)
+                results.append(cached)
+                continue
             results.append(train_arm(
                 checkpoint, ratio, seed, args, sp, direction_ids,
                 pad, bos, eos, vocab, eval_rows["valid"], grammar_rows, dreams,

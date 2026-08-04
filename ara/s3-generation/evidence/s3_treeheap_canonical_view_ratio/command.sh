@@ -14,5 +14,6 @@ python3 ara/s3-generation/src/s3_treeheap_canonical_view_ratio.py \
   --diagnostic-batch 4 \
   --lr 0.0002 \
   --reuse-optimizer \
+  --resume-completed \
   --notify \
   2>&1 | tee ara/s3-generation/evidence/s3_treeheap_canonical_view_ratio/stdout.log
