@@ -51,7 +51,9 @@ The four arms are:
 For `BB` and `BI`, the same deterministic 20% examples are replayed at the same
 points in the stream. Only the replay coordinate differs. `BB` uses Butterfly;
 `BI` uses identity. This controls example identity, target text, order, update
-count and added compute.
+count and added compute. Base and replay losses are summed with target-token
+weighting before one shared backward pass, so a small replay subset does not
+receive a second full-strength optimizer step.
 
 ## Registered predictions
 

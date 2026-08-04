@@ -126,32 +126,44 @@ def train_arm(checkpoint, arm: str, args, sp, direction_ids, pad, bos, eos, voca
             loss, local_tokens = mode_loss(
                 model, source, length, target, "butterfly", bos, pad, vocab,
             )
-            gradient_norms.append(update(model, optimizer, loss))
-            updates += 1
-            weighted_loss += float(loss.detach()) * local_tokens
+            base_loss = loss
+            base_local_tokens = local_tokens
             counts["base_examples"] += len(batch)
             counts["base_tokens"] += local_tokens
             counts["butterfly_examples"] += len(batch)
             counts["butterfly_tokens"] += local_tokens
 
             if arm not in ("BB_add_butterfly", "BI_add_identity"):
+                gradient_norms.append(update(model, optimizer, base_loss))
+                updates += 1
+                weighted_loss += float(base_loss.detach()) * base_local_tokens
                 continue
             subset = subset_tensors(source, length, target, batch, args.seed)
             if subset is None:
+                gradient_norms.append(update(model, optimizer, base_loss))
+                updates += 1
+                weighted_loss += float(base_loss.detach()) * base_local_tokens
                 continue
             local_source, local_length, local_target, indices = subset
             extra_mode = "butterfly" if arm == "BB_add_butterfly" else "identity"
-            loss, local_tokens = mode_loss(
+            extra_loss, extra_local_tokens = mode_loss(
                 model, local_source, local_length, local_target,
                 extra_mode, bos, pad, vocab,
             )
-            gradient_norms.append(update(model, optimizer, loss))
+            combined_tokens = base_local_tokens + extra_local_tokens
+            combined_loss = (
+                base_loss * base_local_tokens + extra_loss * extra_local_tokens
+            ) / combined_tokens
+            gradient_norms.append(update(model, optimizer, combined_loss))
             updates += 1
-            weighted_loss += float(loss.detach()) * local_tokens
+            weighted_loss += (
+                float(base_loss.detach()) * base_local_tokens
+                + float(extra_loss.detach()) * extra_local_tokens
+            )
             counts["extra_examples"] += len(indices)
-            counts["extra_tokens"] += local_tokens
+            counts["extra_tokens"] += extra_local_tokens
             counts[f"{extra_mode}_examples"] += len(indices)
-            counts[f"{extra_mode}_tokens"] += local_tokens
+            counts[f"{extra_mode}_tokens"] += extra_local_tokens
 
         event = {
             "event": "dose_block", "claim": CLAIM, "arm": arm,
