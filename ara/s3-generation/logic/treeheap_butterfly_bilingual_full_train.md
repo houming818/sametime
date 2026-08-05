@@ -1,6 +1,6 @@
 # TreeHeap Butterfly bilingual full training
 
-Status: smoke passed / io taskd 89 full run active
+Status: full scale run completed / bilingual path and Butterfly causality supported / product quality open
 
 ## Claim S3-TREEHEAP-BUTTERFLY-BIDIR-C03
 
@@ -125,3 +125,24 @@ honest starting point for the full-run growth curve.
 The 96-hour full run started as taskd 89. Its first 50,000-line block produced
 49,897 eligible examples and 1,054,937 target tokens in 344.9 seconds. GPU
 memory was about 4.76 GiB under the configured power limit.
+
+## Full-run result
+
+Taskd 89 completed after `345,626.9` seconds. It processed `50,009,218`
+eligible bilingual examples and `1,057,491,121` target tokens. The final test
+result was:
+
+```text
+English -> Chinese NLL   3.762406
+Chinese -> English NLL   3.235606
+mean Native NLL          3.499006
+mean Identity NLL        4.952169
+Identity damage         +1.453163
+best valid mean NLL      3.422301
+```
+
+The run supports one shared dynamic-width bilingual model and strong causal use
+of Butterfly communication at scale. Atomic checkpoints, resume and immutable
+Dream snapshots worked. Dreams remained mixed and sometimes repetitive, so the
+run does not establish product translation quality. It became the frozen
+starting checkpoint for C05/C06 and the draft C07 product selector.

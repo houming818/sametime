@@ -187,6 +187,7 @@ def train_arm(checkpoint, arm: str, args, sp, direction_ids, pad, bos, eos, voca
         "train_nll": weighted_loss / max(1, total_tokens),
         "communication_grad_norm_mean": sum(gradient_norms) / max(1, len(gradient_norms)),
         "communication_grad_norm_min": min(gradient_norms, default=0.0),
+        "effective_lr": [float(group["lr"]) for group in optimizer.param_groups],
         "elapsed_sec": time.time() - started,
         "metrics": metrics,
         "config": vars(args),
@@ -201,6 +202,17 @@ def train_arm(checkpoint, arm: str, args, sp, direction_ids, pad, bos, eos, voca
     summary_path.write_text(
         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8",
     )
+    if args.save_arm_checkpoints:
+        base.atomic_checkpoint(output / "checkpoint_final.pt", {
+            "claim": CLAIM,
+            "arm": arm,
+            "seed": args.seed,
+            "state_dict": model.state_dict(),
+            "config": vars(args),
+            "counts": counts,
+            "updates": updates,
+            "metrics": metrics,
+        })
     del optimizer, model
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
@@ -288,6 +300,7 @@ def parser():
     p.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     p.add_argument("--reuse-optimizer", action=argparse.BooleanOptionalAction, default=True)
     p.add_argument("--resume-completed", action="store_true")
+    p.add_argument("--save-arm-checkpoints", action="store_true")
     p.add_argument("--heap-width", type=int, default=256)
     p.add_argument("--max-content", type=int, default=253)
     p.add_argument("--dim", type=int, default=256)

@@ -1,0 +1,35 @@
+# STONE-1-BUTTERFLY-V1 immutable core Dreams candidate.
+# These probes are observations, never training data. Freeze only after contamination scan and human review.
+# id	direction	category	source	reference	required_facts
+S01	en2zh	simple	The small library opens at nine every morning.	这座小图书馆每天早上九点开门。	library;opens;09:00;daily
+S02	en2zh	simple	A red cup is standing beside the blue bottle.	一个红色杯子放在蓝色瓶子旁边。	red cup;blue bottle;beside
+S03	zh2en	simple	孩子把湿雨伞放在门外。	The child left the wet umbrella outside the door.	child;wet umbrella;outside door
+S04	zh2en	simple	清晨的第一班公交车已经到站了。	The first bus of the morning has arrived at the stop.	first bus;morning;arrived
+R01	en2zh	roles	The doctor thanked the farmer.	医生感谢了农民。	doctor=agent;farmer=patient;thank
+R02	en2zh	roles	The farmer thanked the doctor.	农民感谢了医生。	farmer=agent;doctor=patient;thank
+R03	zh2en	roles	小林把钥匙交给了小周。	Xiaolin handed the key to Xiaozhou.	Xiaolin=giver;key;Xiaozhou=receiver
+R04	zh2en	roles	小周把钥匙交给了小林。	Xiaozhou handed the key to Xiaolin.	Xiaozhou=giver;key;Xiaolin=receiver
+N01	en2zh	polarity_scope	Every lamp in the hall is on.	大厅里的每一盏灯都亮着。	every lamp;on
+N02	en2zh	polarity_scope	Not every lamp in the hall is on.	大厅里的灯并不是每一盏都亮着。	not every lamp;some may be off
+N03	zh2en	polarity_scope	小王可能不会参加明天的会议。	Xiaowang may not attend tomorrow's meeting.	may;not attend;tomorrow
+N04	zh2en	polarity_scope	小王明天一定会参加会议。	Xiaowang will definitely attend tomorrow's meeting.	definitely;attend;tomorrow
+T01	en2zh	time_cause	The alarm rang before the door opened.	门打开之前，警报响了。	alarm before door
+T02	en2zh	time_cause	The alarm rang after the door opened.	门打开之后，警报响了。	alarm after door
+T03	zh2en	time_cause	因为水管破裂，地下室被水淹了。	The basement flooded because the pipe burst.	pipe burst=cause;basement flooded=result
+T04	zh2en	time_cause	因为地下室被水淹了，维修人员关闭了水阀。	Because the basement flooded, the repair worker shut off the water valve.	basement flood=cause;worker shut valve=result
+A01	en2zh	attachment_voice	I photographed the bird with the long lens.	我用长焦镜头拍摄了那只鸟。	long lens=instrument;bird=object
+A02	en2zh	attachment_voice	I photographed the bird that had a long tail.	我拍摄了那只长着长尾巴的鸟。	long tail=bird property;photograph
+A03	zh2en	attachment_voice	雨水被大风吹到了窗户上。	The rain was blown against the window by the strong wind.	rain=patient;wind=agent;window
+A04	zh2en	attachment_voice	那位记者采访了昨天获得冠军的运动员。	The reporter interviewed the athlete who won the championship yesterday.	reporter=agent;athlete=patient;athlete won championship
+F01	en2zh	exact_facts	At 6:42 p.m. on March 17, train D228 carried 487 passengers into Suzhou Station.	3月17日下午6点42分，D228次列车载着487名乘客驶入苏州站。	March 17;18:42;D228;487;Suzhou
+F02	en2zh	exact_facts	The sensor recorded 37.6 degrees Celsius and 82 percent humidity.	传感器记录到37.6摄氏度和82%的湿度。	37.6 C;82 percent;sensor
+F03	zh2en	exact_facts	编号为QX-71的样品重2.35千克，存放在四号柜中。	The sample labeled QX-71 weighs 2.35 kilograms and is stored in cabinet four.	QX-71;2.35 kg;cabinet 4
+F04	zh2en	exact_facts	会议改到11月9日星期一上午10点15分举行。	The meeting was moved to 10:15 a.m. on Monday, November 9.	November 9;Monday;10:15
+L01	en2zh	long_composition	Although the mountain road was still covered with ice, the nurse who had finished a twelve-hour shift drove slowly to the village, delivered the medicine to three families, and returned to the hospital before midnight.	尽管山路仍被冰雪覆盖，那位刚结束十二小时轮班的护士还是缓慢开车前往村庄，给三个家庭送去药品，并在午夜前返回医院。	icy road;nurse;12-hour shift;village;three families;before midnight
+L02	en2zh	long_composition	The engineer explained that the backup pump would start automatically if the river rose above the red mark, but only after both pressure sensors had confirmed the change for more than thirty seconds.	工程师解释说，如果河水涨过红色标记，备用水泵将自动启动，但前提是两个压力传感器都连续三十秒以上确认了这一变化。	backup pump;river above red mark;two sensors;over 30 seconds;conditional order
+L03	zh2en	long_composition	虽然实验的第一组数据看起来支持原来的假设，研究人员仍然重新校准了仪器，因为第二组样本在相同温度下出现了完全相反的变化趋势。	Although the first set of experimental data appeared to support the original hypothesis, the researchers recalibrated the instrument because the second set of samples showed the opposite trend at the same temperature.	first set supports;researchers recalibrated;second set opposite;same temperature
+L04	zh2en	long_composition	委员会在审阅了全部四份报告之后决定暂缓施工，直到负责桥梁安全的独立团队完成新的载荷测试并公开原始测量数据。	After reviewing all four reports, the committee decided to postpone construction until the independent team responsible for bridge safety completed a new load test and published the raw measurements.	four reports;committee postpones;independent team;load test;publish raw data
+C01	en2zh	collapse_trap	Please translate this sentence exactly once; do not repeat the phrase "I understand".	请只翻译这句话一次；不要重复“我明白”这个短语。	translate instruction as text;I understand appears once
+C02	en2zh	collapse_trap	The first box contains rice, the second contains medicine, and the third is empty.	第一个箱子里装着大米，第二个箱子里装着药品，第三个箱子是空的。	box1 rice;box2 medicine;box3 empty
+C03	zh2en	collapse_trap	请把这句话翻译成英文，而不是回答其中的问题：为什么鲨鱼不坐沙发？	Translate this sentence into English instead of answering its question: Why don't sharks sit on sofas?	translate not answer;shark;sofa;question retained
+C04	zh2en	collapse_trap	前一句说的是苹果很甜；这一句说的是柠檬很酸，请不要把两句话混在一起。	The previous sentence says that apples are sweet; this sentence says that lemons are sour, so do not mix them together.	apples sweet;lemons sour;keep clauses separate
