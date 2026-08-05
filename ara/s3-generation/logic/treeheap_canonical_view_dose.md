@@ -2,8 +2,11 @@
 
 ## Status
 
-Preregistered. This experiment follows the negative fixed-budget C05 screen.
-It does not reinterpret or overwrite C05.
+One-seed screen completed on `io`. The full C06 gate is not supported because
+native-dose recovery was `0.3909`, below the registered `0.50` threshold. The
+narrower view-specific protocol signal is supported: additive identity replay
+reduced cross-view JS by `0.1375` against equal-compute Butterfly replay while
+costing only `0.00281` native NLL.
 
 ## Problem
 
@@ -131,6 +134,57 @@ C06 is not supported by the one-seed screen if any primary gate P1--P4 fails.
 It must also be downgraded if dose accounting differs between matched arms,
 the replay example sets differ, the starting checkpoint differs, or results are
 selected from intermediate wakes instead of the registered final state.
+
+## One-seed screening result
+
+Tasks `105` and `110--115` completed on `io` on 2026-08-05. The corrected smoke
+confirmed one token-weighted backward pass per parent batch. Every formal arm
+used `6,054` optimizer updates, the same seed, checkpoint and line interval.
+
+| Arm | Native NLL | Identity NLL | Cross-view JS | Source-shuffle damage |
+|---|---:|---:|---:|---:|
+| `A_base` | **3.272799** | 4.847785 | 0.242087 | +1.809397 |
+| `S_substitute` | 3.282513 | 3.770985 | 0.102573 | +1.817281 |
+| `BB_add_butterfly` | 3.275903 | 4.840925 | 0.242107 | +1.826621 |
+| `BI_add_identity` | 3.278716 | 3.779678 | **0.104578** | +1.823747 |
+
+Dose accounting passed exactly:
+
+```text
+A base Butterfly tokens     6,308,579
+S identity tokens           1,272,632
+BB extra Butterfly tokens   1,272,632
+BI base Butterfly tokens    6,308,579
+BI extra identity tokens    1,272,632
+all optimizer updates           6,054
+```
+
+Derived registered quantities:
+
+```text
+native-dose recovery                 0.390900  FAIL (< 0.50)
+JS specificity: JS_BB - JS_BI       0.137528  PASS (>= 0.05)
+equal-compute native cost: N_BI-N_BB 0.002812  PASS (<= 0.015)
+structural/source causality                    PASS
+dose and replay matching                       PASS
+```
+
+The result rejects a pure absolute-dose explanation. Restoring all native
+Butterfly tokens recovered only 39.1% of the replacement penalty, so normalized
+view composition still matters. It also rejects a generic-extra-compute
+explanation: extra Butterfly replay left JS unchanged (`0.242087 -> 0.242107`),
+whereas the matched identity replay reduced it to `0.104578`.
+
+The defensible observation is therefore:
+
+> Identity exposure is a strong, view-specific control signal for the shared
+> FOLD/Decoder protocol. Adding it instead of substituting it makes the native
+> trade-off much cheaper, but this one seed did not meet the preregistered
+> native-dose recovery gate.
+
+Fixed Dreams remain mixed and do not show a uniform semantic or grammatical
+improvement. They do not override the numerical screening decision. C06 must
+remain unconfirmed until a separately registered multi-seed experiment.
 
 ## Files
 

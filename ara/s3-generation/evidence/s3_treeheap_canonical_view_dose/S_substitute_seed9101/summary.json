@@ -1,0 +1,97 @@
+{
+  "claim": "S3-TREEHEAP-CANONICAL-DOSE-C06",
+  "arm": "S_substitute",
+  "seed": 9101,
+  "start_line": 6400000,
+  "stop_line": 6700000,
+  "updates": 6054,
+  "counts": {
+    "base_examples": 299407,
+    "base_tokens": 6308579,
+    "extra_examples": 0,
+    "extra_tokens": 0,
+    "butterfly_examples": 239263,
+    "butterfly_tokens": 5035947,
+    "identity_examples": 60144,
+    "identity_tokens": 1272632
+  },
+  "total_training_tokens": 6308579,
+  "identity_token_ratio": 0.20173037382903503,
+  "train_nll": 3.375917117687096,
+  "communication_grad_norm_mean": 0.15954967621784025,
+  "communication_grad_norm_min": 0.07177332788705826,
+  "elapsed_sec": 3970.536846637726,
+  "metrics": {
+    "native": {
+      "en2zh": 3.5767346343578543,
+      "zh2en": 2.9882911145994497,
+      "mean": 3.282512874478652
+    },
+    "identity": {
+      "en2zh": 4.104598449157165,
+      "zh2en": 3.437372288472332,
+      "mean": 3.7709853688147486
+    },
+    "adjacent": {
+      "en2zh": 4.955408297318371,
+      "zh2en": 4.154804696587256,
+      "mean": 4.555106496952813
+    },
+    "identity_damage": 0.48847249433609674,
+    "adjacent_damage": 1.2725936224741616,
+    "cross_view_js": 0.10257282388869242,
+    "source_shuffle": {
+      "matched_native_nll": 3.507931137632656,
+      "shuffled_nll": 5.325212071973988,
+      "damage": 1.817280934341332,
+      "tokens": 2786
+    },
+    "source_shuffle_damage": 1.817280934341332,
+    "communication_delta_rms": 0.2471056580543518,
+    "grammar_reference_native": {
+      "en2zh": 1.884778456254439,
+      "zh2en": 1.1343372344970704,
+      "mean": 1.5095578453757548
+    },
+    "grammar_reference_identity": {
+      "en2zh": 2.5501122908158735,
+      "zh2en": 1.8767603556315104,
+      "mean": 2.213436323223692
+    }
+  },
+  "config": {
+    "arm": "S_substitute",
+    "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "dreams": "ara/s3-generation/dreams.txt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose",
+    "smoke_marker": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/SMOKE_PASS",
+    "require_smoke": true,
+    "seed": 9101,
+    "start_line": -1,
+    "train_lines": 300000,
+    "block_lines": 75000,
+    "eval_pairs": 1000,
+    "eval_scan": 3000000,
+    "diagnostic_rows": 128,
+    "diagnostic_batch": 4,
+    "dream_limit": 0,
+    "dream_max_output": 128,
+    "lr": 0.0002,
+    "batch_seed": 8104,
+    "device": "cuda",
+    "reuse_optimizer": true,
+    "resume_completed": false,
+    "heap_width": 256,
+    "max_content": 253,
+    "dim": 256,
+    "hidden": 256,
+    "coupling_scale": 0.25,
+    "batch_32": 64,
+    "batch_64": 32,
+    "batch_128": 16,
+    "batch_256": 8
+  },
+  "dream": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/S_substitute_seed9101/dreams/step-000000299407.txt"
+}

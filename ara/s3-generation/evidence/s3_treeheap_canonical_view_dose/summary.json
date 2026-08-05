@@ -1,0 +1,420 @@
+{
+  "claim": "S3-TREEHEAP-CANONICAL-DOSE-C06",
+  "seed": 9101,
+  "arms": {
+    "A_base": {
+      "claim": "S3-TREEHEAP-CANONICAL-DOSE-C06",
+      "arm": "A_base",
+      "seed": 9101,
+      "start_line": 6400000,
+      "stop_line": 6700000,
+      "updates": 6054,
+      "counts": {
+        "base_examples": 299407,
+        "base_tokens": 6308579,
+        "extra_examples": 0,
+        "extra_tokens": 0,
+        "butterfly_examples": 299407,
+        "butterfly_tokens": 6308579,
+        "identity_examples": 0,
+        "identity_tokens": 0
+      },
+      "total_training_tokens": 6308579,
+      "identity_token_ratio": 0.0,
+      "train_nll": 3.2432434464450015,
+      "communication_grad_norm_mean": 0.18206076842474592,
+      "communication_grad_norm_min": 0.09556709229946136,
+      "elapsed_sec": 2040.890955209732,
+      "metrics": {
+        "native": {
+          "en2zh": 3.568485518159193,
+          "zh2en": 2.9771125034246912,
+          "mean": 3.272799010791942
+        },
+        "identity": {
+          "en2zh": 5.270851133655458,
+          "zh2en": 4.424719426048043,
+          "mean": 4.847785279851751
+        },
+        "adjacent": {
+          "en2zh": 5.046661165957928,
+          "zh2en": 4.247204932531833,
+          "mean": 4.646933049244881
+        },
+        "identity_damage": 1.5749862690598087,
+        "adjacent_damage": 1.3741340384529388,
+        "cross_view_js": 0.24208713793018613,
+        "source_shuffle": {
+          "matched_native_nll": 3.4934963505642926,
+          "shuffled_nll": 5.302893201139276,
+          "damage": 1.8093968505749833,
+          "tokens": 2786
+        },
+        "source_shuffle_damage": 1.8093968505749833,
+        "communication_delta_rms": 0.2512725591659546,
+        "grammar_reference_native": {
+          "en2zh": 1.8535315773703835,
+          "zh2en": 1.1422996520996094,
+          "mean": 1.4979156147349966
+        },
+        "grammar_reference_identity": {
+          "en2zh": 4.735497214577415,
+          "zh2en": 2.3662129720052083,
+          "mean": 3.550855093291312
+        }
+      },
+      "config": {
+        "arm": "A_base",
+        "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+        "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+        "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+        "dreams": "ara/s3-generation/dreams.txt",
+        "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose",
+        "smoke_marker": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/SMOKE_PASS",
+        "require_smoke": true,
+        "seed": 9101,
+        "start_line": -1,
+        "train_lines": 300000,
+        "block_lines": 75000,
+        "eval_pairs": 1000,
+        "eval_scan": 3000000,
+        "diagnostic_rows": 128,
+        "diagnostic_batch": 4,
+        "dream_limit": 0,
+        "dream_max_output": 128,
+        "lr": 0.0002,
+        "batch_seed": 8104,
+        "device": "cuda",
+        "reuse_optimizer": true,
+        "resume_completed": false,
+        "heap_width": 256,
+        "max_content": 253,
+        "dim": 256,
+        "hidden": 256,
+        "coupling_scale": 0.25,
+        "batch_32": 64,
+        "batch_64": 32,
+        "batch_128": 16,
+        "batch_256": 8
+      },
+      "dream": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/A_base_seed9101/dreams/step-000000299407.txt"
+    },
+    "S_substitute": {
+      "claim": "S3-TREEHEAP-CANONICAL-DOSE-C06",
+      "arm": "S_substitute",
+      "seed": 9101,
+      "start_line": 6400000,
+      "stop_line": 6700000,
+      "updates": 6054,
+      "counts": {
+        "base_examples": 299407,
+        "base_tokens": 6308579,
+        "extra_examples": 0,
+        "extra_tokens": 0,
+        "butterfly_examples": 239263,
+        "butterfly_tokens": 5035947,
+        "identity_examples": 60144,
+        "identity_tokens": 1272632
+      },
+      "total_training_tokens": 6308579,
+      "identity_token_ratio": 0.20173037382903503,
+      "train_nll": 3.375917117687096,
+      "communication_grad_norm_mean": 0.15954967621784025,
+      "communication_grad_norm_min": 0.07177332788705826,
+      "elapsed_sec": 3970.536846637726,
+      "metrics": {
+        "native": {
+          "en2zh": 3.5767346343578543,
+          "zh2en": 2.9882911145994497,
+          "mean": 3.282512874478652
+        },
+        "identity": {
+          "en2zh": 4.104598449157165,
+          "zh2en": 3.437372288472332,
+          "mean": 3.7709853688147486
+        },
+        "adjacent": {
+          "en2zh": 4.955408297318371,
+          "zh2en": 4.154804696587256,
+          "mean": 4.555106496952813
+        },
+        "identity_damage": 0.48847249433609674,
+        "adjacent_damage": 1.2725936224741616,
+        "cross_view_js": 0.10257282388869242,
+        "source_shuffle": {
+          "matched_native_nll": 3.507931137632656,
+          "shuffled_nll": 5.325212071973988,
+          "damage": 1.817280934341332,
+          "tokens": 2786
+        },
+        "source_shuffle_damage": 1.817280934341332,
+        "communication_delta_rms": 0.2471056580543518,
+        "grammar_reference_native": {
+          "en2zh": 1.884778456254439,
+          "zh2en": 1.1343372344970704,
+          "mean": 1.5095578453757548
+        },
+        "grammar_reference_identity": {
+          "en2zh": 2.5501122908158735,
+          "zh2en": 1.8767603556315104,
+          "mean": 2.213436323223692
+        }
+      },
+      "config": {
+        "arm": "S_substitute",
+        "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+        "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+        "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+        "dreams": "ara/s3-generation/dreams.txt",
+        "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose",
+        "smoke_marker": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/SMOKE_PASS",
+        "require_smoke": true,
+        "seed": 9101,
+        "start_line": -1,
+        "train_lines": 300000,
+        "block_lines": 75000,
+        "eval_pairs": 1000,
+        "eval_scan": 3000000,
+        "diagnostic_rows": 128,
+        "diagnostic_batch": 4,
+        "dream_limit": 0,
+        "dream_max_output": 128,
+        "lr": 0.0002,
+        "batch_seed": 8104,
+        "device": "cuda",
+        "reuse_optimizer": true,
+        "resume_completed": false,
+        "heap_width": 256,
+        "max_content": 253,
+        "dim": 256,
+        "hidden": 256,
+        "coupling_scale": 0.25,
+        "batch_32": 64,
+        "batch_64": 32,
+        "batch_128": 16,
+        "batch_256": 8
+      },
+      "dream": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/S_substitute_seed9101/dreams/step-000000299407.txt"
+    },
+    "BB_add_butterfly": {
+      "claim": "S3-TREEHEAP-CANONICAL-DOSE-C06",
+      "arm": "BB_add_butterfly",
+      "seed": 9101,
+      "start_line": 6400000,
+      "stop_line": 6700000,
+      "updates": 6054,
+      "counts": {
+        "base_examples": 299407,
+        "base_tokens": 6308579,
+        "extra_examples": 60144,
+        "extra_tokens": 1272632,
+        "butterfly_examples": 359551,
+        "butterfly_tokens": 7581211,
+        "identity_examples": 0,
+        "identity_tokens": 0
+      },
+      "total_training_tokens": 7581211,
+      "identity_token_ratio": 0.0,
+      "train_nll": 3.245130677876914,
+      "communication_grad_norm_mean": 0.19296727236329544,
+      "communication_grad_norm_min": 0.10113713890314102,
+      "elapsed_sec": 3990.645159959793,
+      "metrics": {
+        "native": {
+          "en2zh": 3.5717771871020503,
+          "zh2en": 2.980029307276076,
+          "mean": 3.2759032471890634
+        },
+        "identity": {
+          "en2zh": 5.255473202638049,
+          "zh2en": 4.426377198809364,
+          "mean": 4.8409252007237065
+        },
+        "adjacent": {
+          "en2zh": 5.058946057632737,
+          "zh2en": 4.277295781879758,
+          "mean": 4.668120919756248
+        },
+        "identity_damage": 1.565021953534643,
+        "adjacent_damage": 1.3922176725671846,
+        "cross_view_js": 0.24210680652161082,
+        "source_shuffle": {
+          "matched_native_nll": 3.4986123511539633,
+          "shuffled_nll": 5.3252330131010455,
+          "damage": 1.8266206619470822,
+          "tokens": 2786
+        },
+        "source_shuffle_damage": 1.8266206619470822,
+        "communication_delta_rms": 0.2510473430156708,
+        "grammar_reference_native": {
+          "en2zh": 1.8387929742986506,
+          "zh2en": 1.1941724141438803,
+          "mean": 1.5164826942212655
+        },
+        "grammar_reference_identity": {
+          "en2zh": 4.553340911865234,
+          "zh2en": 2.4158864339192707,
+          "mean": 3.4846136728922525
+        }
+      },
+      "config": {
+        "arm": "BB_add_butterfly",
+        "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+        "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+        "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+        "dreams": "ara/s3-generation/dreams.txt",
+        "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose",
+        "smoke_marker": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/SMOKE_PASS",
+        "require_smoke": true,
+        "seed": 9101,
+        "start_line": -1,
+        "train_lines": 300000,
+        "block_lines": 75000,
+        "eval_pairs": 1000,
+        "eval_scan": 3000000,
+        "diagnostic_rows": 128,
+        "diagnostic_batch": 4,
+        "dream_limit": 0,
+        "dream_max_output": 128,
+        "lr": 0.0002,
+        "batch_seed": 8104,
+        "device": "cuda",
+        "reuse_optimizer": true,
+        "resume_completed": false,
+        "heap_width": 256,
+        "max_content": 253,
+        "dim": 256,
+        "hidden": 256,
+        "coupling_scale": 0.25,
+        "batch_32": 64,
+        "batch_64": 32,
+        "batch_128": 16,
+        "batch_256": 8
+      },
+      "dream": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/BB_add_butterfly_seed9101/dreams/step-000000299407.txt"
+    },
+    "BI_add_identity": {
+      "claim": "S3-TREEHEAP-CANONICAL-DOSE-C06",
+      "arm": "BI_add_identity",
+      "seed": 9101,
+      "start_line": 6400000,
+      "stop_line": 6700000,
+      "updates": 6054,
+      "counts": {
+        "base_examples": 299407,
+        "base_tokens": 6308579,
+        "extra_examples": 60144,
+        "extra_tokens": 1272632,
+        "butterfly_examples": 299407,
+        "butterfly_tokens": 6308579,
+        "identity_examples": 60144,
+        "identity_tokens": 1272632
+      },
+      "total_training_tokens": 7581211,
+      "identity_token_ratio": 0.1678665849031243,
+      "train_nll": 3.353181063262549,
+      "communication_grad_norm_mean": 0.15255512853793315,
+      "communication_grad_norm_min": 0.07946990430355072,
+      "elapsed_sec": 4020.64231300354,
+      "metrics": {
+        "native": {
+          "en2zh": 3.573185557667724,
+          "zh2en": 2.984245884327072,
+          "mean": 3.278715720997398
+        },
+        "identity": {
+          "en2zh": 4.116459384345169,
+          "zh2en": 3.442895640289363,
+          "mean": 3.779677512317266
+        },
+        "adjacent": {
+          "en2zh": 4.975185391889437,
+          "zh2en": 4.171014513508173,
+          "mean": 4.573099952698805
+        },
+        "identity_damage": 0.5009617913198681,
+        "adjacent_damage": 1.2943842317014074,
+        "cross_view_js": 0.10457839027892234,
+        "source_shuffle": {
+          "matched_native_nll": 3.506671433130444,
+          "shuffled_nll": 5.330418846201572,
+          "damage": 1.823747413071128,
+          "tokens": 2786
+        },
+        "source_shuffle_damage": 1.823747413071128,
+        "communication_delta_rms": 0.2476445585489273,
+        "grammar_reference_native": {
+          "en2zh": 1.842045697298917,
+          "zh2en": 1.155346934000651,
+          "mean": 1.498696315649784
+        },
+        "grammar_reference_identity": {
+          "en2zh": 2.514416954734109,
+          "zh2en": 1.7668139139811199,
+          "mean": 2.1406154343576143
+        }
+      },
+      "config": {
+        "arm": "BI_add_identity",
+        "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+        "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+        "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+        "dreams": "ara/s3-generation/dreams.txt",
+        "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose",
+        "smoke_marker": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/SMOKE_PASS",
+        "require_smoke": true,
+        "seed": 9101,
+        "start_line": -1,
+        "train_lines": 300000,
+        "block_lines": 75000,
+        "eval_pairs": 1000,
+        "eval_scan": 3000000,
+        "diagnostic_rows": 128,
+        "diagnostic_batch": 4,
+        "dream_limit": 0,
+        "dream_max_output": 128,
+        "lr": 0.0002,
+        "batch_seed": 8104,
+        "device": "cuda",
+        "reuse_optimizer": true,
+        "resume_completed": false,
+        "heap_width": 256,
+        "max_content": 253,
+        "dim": 256,
+        "hidden": 256,
+        "coupling_scale": 0.25,
+        "batch_32": 64,
+        "batch_64": 32,
+        "batch_128": 16,
+        "batch_256": 8
+      },
+      "dream": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/BI_add_identity_seed9101/dreams/step-000000299407.txt"
+    }
+  },
+  "derived": {
+    "native_nll": {
+      "A_base": 3.272799010791942,
+      "S_substitute": 3.282512874478652,
+      "BB_add_butterfly": 3.2759032471890634,
+      "BI_add_identity": 3.278715720997398
+    },
+    "cross_view_js": {
+      "A_base": 0.24208713793018613,
+      "S_substitute": 0.10257282388869242,
+      "BB_add_butterfly": 0.24210680652161082,
+      "BI_add_identity": 0.10457839027892234
+    },
+    "native_dose_recovery": 0.3909004288838362,
+    "js_specificity_BB_minus_BI": 0.13752841624268847,
+    "equal_compute_native_cost_BI_minus_BB": 0.0028124738083343814
+  },
+  "gates": {
+    "P1_recovery_ge_0p50": false,
+    "P2_js_specificity_ge_0p05": true,
+    "P3_native_cost_le_0p015": true,
+    "P4_structural_source_causality": true,
+    "dose_and_replay_match": true
+  },
+  "screening_status": "screening_not_confirmed",
+  "boundary": "One seed cannot upgrade C06; confirmation requires a separate preregistration."
+}

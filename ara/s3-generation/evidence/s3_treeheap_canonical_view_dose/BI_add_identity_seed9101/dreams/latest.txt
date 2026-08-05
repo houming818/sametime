@@ -1,0 +1,36 @@
+TreeHeap dreams at step 299407
+time: 2026-08-05 02:04:44 +0800
+validation: {"claim": "S3-TREEHEAP-CANONICAL-DOSE-C06", "arm": "BI_add_identity", "seed": 9101, "start_line": 6400000, "stop_line": 6700000, "updates": 6054, "counts": {"base_examples": 299407, "base_tokens": 6308579, "extra_examples": 60144, "extra_tokens": 1272632, "butterfly_examples": 299407, "butterfly_tokens": 6308579, "identity_examples": 60144, "identity_tokens": 1272632}, "total_training_tokens": 7581211, "identity_token_ratio": 0.1678665849031243, "train_nll": 3.353181063262549, "communication_grad_norm_mean": 0.15255512853793315, "communication_grad_norm_min": 0.07946990430355072, "elapsed_sec": 4020.64231300354, "metrics": {"native": {"en2zh": 3.573185557667724, "zh2en": 2.984245884327072, "mean": 3.278715720997398}, "identity": {"en2zh": 4.116459384345169, "zh2en": 3.442895640289363, "mean": 3.779677512317266}, "adjacent": {"en2zh": 4.975185391889437, "zh2en": 4.171014513508173, "mean": 4.573099952698805}, "identity_damage": 0.5009617913198681, "adjacent_damage": 1.2943842317014074, "cross_view_js": 0.10457839027892234, "source_shuffle": {"matched_native_nll": 3.506671433130444, "shuffled_nll": 5.330418846201572, "damage": 1.823747413071128, "tokens": 2786}, "source_shuffle_damage": 1.823747413071128, "communication_delta_rms": 0.2476445585489273, "grammar_reference_native": {"en2zh": 1.842045697298917, "zh2en": 1.155346934000651, "mean": 1.498696315649784}, "grammar_reference_identity": {"en2zh": 2.514416954734109, "zh2en": 1.7668139139811199, "mean": 2.1406154343576143}}, "config": {"arm": "BI_add_identity", "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt", "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv", "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model", "dreams": "ara/s3-generation/dreams.txt", "evidence_dir": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose", "smoke_marker": "ara/s3-generation/evidence/s3_treeheap_canonical_view_dose/SMOKE_PASS", "require_smoke": true, "seed": 9101, "start_line": -1, "train_lines": 300000, "block_lines": 75000, "eval_pairs": 1000, "eval_scan": 3000000, "diagnostic_rows": 128, "diagnostic_batch": 4, "dream_limit": 0, "dream_max_output": 128, "lr": 0.0002, "batch_seed": 8104, "device": "cuda", "reuse_optimizer": true, "resume_completed": false, "heap_width": 256, "max_content": 253, "dim": 256, "hidden": 256, "coupling_scale": 0.25, "batch_32": 64, "batch_64": 32, "batch_128": 16, "batch_256": 8}}
+
+[1] en2zh
+SOURCE: The new company is expected to begin operations in the spring of 2019.
+REFERENCE: 新公司预计将在2019年春季开始运营。
+DREAM: 新年公司预计于2019年春季开始工作。
+ROUTE: [0.1126, 0.1066, 0.0804, 0.0932, 0.6072]
+
+[2] en2zh
+SOURCE: Today was productive. I reviewed my notes, worked through several practice problems, and tried to sort out a few confusing concepts. Small progress still counts.
+DREAM: 今天,我进行了审查,通过几个练习练习,并尝试一些几个概念,小数仍然在数秒的计算。
+ROUTE: [0.0286, 0.0286, 0.0409, 0.0792, 0.1188, 0.1386, 0.5653]
+
+[3] en2zh
+SOURCE: Why is the window wet? Because the rain was blown against the glass by the wind.
+DREAM: 为什么是“风湿”的风情,因为在风吹的玻璃上?
+ROUTE: [0.0595, 0.0175, 0.0348, 0.0555, 0.1518, 0.6809]
+
+[4] zh2en
+SOURCE: 新公司预计将在2019年春季开始运营。
+REFERENCE: The new company is expected to begin operations in the spring of 2019.
+DREAM: The company is expected to start in the spring of 2019 Spring 2019.
+ROUTE: [0.0938, 0.0871, 0.1024, 0.0882, 0.6284]
+
+[5] zh2en
+SOURCE: 今天很有收获。我复习了笔记，完成了几道练习题，也梳理了一些容易混淆的概念。小小的进步也值得珍惜。
+DREAM: I was very happy to be a little more. I'm going to be a lot of fun, and I'll be able to get a lot of money and the best of the world.
+ROUTE: [0.0084, 0.0045, 0.0075, 0.0047, 0.0396, 0.2268, 0.7086]
+
+[6] zh2en
+SOURCE: 为什么窗户是湿的？因为风把雨水吹到了玻璃上。
+DREAM: Why is the window is wet because the wind blowing the wind blowing glass on the glass.
+ROUTE: [0.0750, 0.0292, 0.0731, 0.1031, 0.1412, 0.5784]
+
