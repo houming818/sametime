@@ -1,0 +1,376 @@
+{
+  "claim": "S3-TREEHEAP-CANONICAL-DOSE-C06",
+  "arm": "BI_add_identity",
+  "seed": 9199,
+  "start_line": 6700000,
+  "stop_line": 6730000,
+  "updates": 607,
+  "counts": {
+    "base_examples": 29940,
+    "base_tokens": 632913,
+    "extra_examples": 5897,
+    "extra_tokens": 124935,
+    "butterfly_examples": 29940,
+    "butterfly_tokens": 632913,
+    "identity_examples": 5897,
+    "identity_tokens": 124935
+  },
+  "total_training_tokens": 757848,
+  "identity_token_ratio": 0.1648549577223929,
+  "train_nll": 3.5036400460887553,
+  "communication_grad_norm_mean": 0.14693943468801665,
+  "communication_grad_norm_min": 0.09176106750965118,
+  "effective_lr": [
+    0.0002
+  ],
+  "elapsed_sec": 406.0550048351288,
+  "metrics": {
+    "native": {
+      "en2zh": 4.072910771859093,
+      "zh2en": 3.2614117136374463,
+      "mean": 3.6671612427482696
+    },
+    "identity": {
+      "en2zh": 4.901597371769773,
+      "zh2en": 3.9579654842753373,
+      "mean": 4.429781428022555
+    },
+    "adjacent": {
+      "en2zh": 5.538657861289888,
+      "zh2en": 4.474820470083147,
+      "mean": 5.0067391656865174
+    },
+    "identity_damage": 0.7626201852742858,
+    "adjacent_damage": 1.3395779229382478,
+    "cross_view_js": 0.14170973230760386,
+    "source_shuffle": {
+      "matched_native_nll": 3.632714076428985,
+      "shuffled_nll": 5.503113181832362,
+      "damage": 1.8703991054033775,
+      "tokens": 2786
+    },
+    "source_shuffle_damage": 1.8703991054033775,
+    "communication_delta_rms": 0.2472253441810608,
+    "grammar_reference_native": {
+      "en2zh": 1.974382920698686,
+      "zh2en": 1.3430506388346355,
+      "mean": 1.6587167797666607
+    },
+    "grammar_reference_identity": {
+      "en2zh": 3.316076798872514,
+      "zh2en": 2.173670450846354,
+      "mean": 2.744873624859434
+    }
+  },
+  "config": {
+    "action": "arm",
+    "arm": "BI_replay",
+    "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "dreams": "ara/s3-generation/dreams.txt",
+    "dreams_core": "ara/s3-generation/dreams_product_v1_core.tsv",
+    "evidence_dir": "ara/s3-generation/evidence/s3_stone1_butterfly_product_v1/smoke/selector_seed9199",
+    "smoke_marker": "ara/s3-generation/evidence/s3_stone1_butterfly_product_v1/SMOKE_PASS",
+    "require_smoke": false,
+    "seed": 9199,
+    "start_line": 6700000,
+    "train_lines": 30000,
+    "block_lines": 30000,
+    "smoke_lines": 30000,
+    "smoke_eval_pairs": 64,
+    "smoke_generation_pairs": 16,
+    "eval_pairs": 64,
+    "eval_scan": 3000000,
+    "generation_pairs": 16,
+    "generation_max_output": 64,
+    "diagnostic_rows": 128,
+    "diagnostic_batch": 4,
+    "dream_limit": 0,
+    "dream_max_output": 128,
+    "lr": 0.0002,
+    "batch_seed": 9199,
+    "device": "cuda",
+    "reuse_optimizer": true,
+    "resume_completed": false,
+    "save_arm_checkpoints": true,
+    "heap_width": 256,
+    "max_content": 253,
+    "dim": 256,
+    "hidden": 256,
+    "coupling_scale": 0.25,
+    "batch_32": 64,
+    "batch_64": 32,
+    "batch_128": 16,
+    "batch_256": 8
+  },
+  "dream": "ara/s3-generation/evidence/s3_stone1_butterfly_product_v1/smoke/selector_seed9199/BI_add_identity_seed9199/dreams/step-000000029940.txt",
+  "parent_claim": "S3-TREEHEAP-BUTTERFLY-PRODUCT-C07",
+  "product_arm": "BI_replay",
+  "environment": {
+    "claim": "S3-TREEHEAP-BUTTERFLY-PRODUCT-C07",
+    "hashes": {
+      "checkpoint": "821ce8123d78817b37ff8f0a68458fd59427a7af555f93c7c87c297f28861c1d",
+      "data": "3f4a5189a6b2f06a8a928165a69e119d6e0afe71ffece2bbe7c049ecef7a44df",
+      "spm_model": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+      "dreams_core": "049d81bdb6400793b489e3c2ee89d77870933465ff9a8bd7addd4f1957cf8349"
+    },
+    "sizes": {
+      "checkpoint": 413423041,
+      "data": 2520995022,
+      "spm_model": 756882,
+      "dreams_core": 6675
+    },
+    "torch": "2.12.0+cu130",
+    "cuda": "13.0",
+    "device": "cuda",
+    "time": 1785924686.0818157
+  },
+  "product_generation": {
+    "per_direction": {
+      "en2zh": {
+        "rows": 16,
+        "chrf2": 23.371763355623454,
+        "sacrebleu": 14.544078572327166,
+        "token_bleu4": 12.023564183937948,
+        "nonempty_rate": 1.0,
+        "severe_repetition_rate": 0.0,
+        "distinct_output_rate": 1.0
+      },
+      "zh2en": {
+        "rows": 16,
+        "chrf2": 32.566826781376776,
+        "sacrebleu": 15.422210888709843,
+        "token_bleu4": 17.608060374874132,
+        "nonempty_rate": 1.0,
+        "severe_repetition_rate": 0.0,
+        "distinct_output_rate": 1.0
+      }
+    },
+    "chrf2_mean": 27.969295068500116,
+    "sacrebleu_mean": 14.983144730518504,
+    "token_bleu4_mean": 14.815812279406039,
+    "severe_repetition_mean": 0.0,
+    "nonempty_min": 1.0,
+    "buckets": {
+      "le32": {
+        "rows": 28,
+        "nonempty": 28,
+        "repeated": 0,
+        "nonempty_rate": 1.0,
+        "severe_repetition_rate": 0.0
+      },
+      "33_64": {
+        "rows": 4,
+        "nonempty": 4,
+        "repeated": 0,
+        "nonempty_rate": 1.0,
+        "severe_repetition_rate": 0.0
+      }
+    },
+    "examples": [
+      {
+        "direction": "zh2en",
+        "source": "家里的一切,压抑到了极点。",
+        "reference": "Press officer to the delegation.'",
+        "hypothesis": "The house was a little bit of the bed.",
+        "source_pieces": 12,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "Skills: Facebook Marketing , Social Media Marketing , Social Networking , YouTube",
+        "reference": "技能: Facebook营销 , 社交媒体营销 , 社交网络 , YouTube",
+        "hypothesis": "技能: Facebook营销 , 社交媒体营销 , 社交网络 , YouTube",
+        "source_pieces": 16,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "System login Remember",
+        "reference": "综合管理系统 登录",
+        "hypothesis": "系统登录 记住",
+        "source_pieces": 5,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "After working at several graphics studios including Studio 109, he joined Nippon Design Center in 2006.",
+        "reference": "曾在IMAGE Studio 109等多家公司任职,2006年入职日本设计中心。",
+        "hypothesis": "在工作后,在工作室中,在 Studio 中,他包括3个工作组,他加入了200个虚拟币。",
+        "source_pieces": 21,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "The eyes of the Deinonychus glinted even in the dim light.",
+        "reference": "这个疑问不止一次的出现在田歌的脑海之中了。",
+        "hypothesis": " ⁇ 的眼睛,在眼里,她不觉的目光。",
+        "source_pieces": 20,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "Smart Retail Driven by New ICT",
+        "reference": "新ICT推动下的智能零售",
+        "hypothesis": "零售驱动的ICT",
+        "source_pieces": 9,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "弟子:有的学员长时间处于消病业的状态,始终停留在那一层次中上不去?",
+        "reference": "Question: Some students have been in the state of eliminating sickness karma for a long period of time.",
+        "hypothesis": "Disciple: A student of the longest is the state of the state of the state, always in the hierarchy of the state.",
+        "source_pieces": 24,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "速度就是金钱。",
+        "reference": "And speed is your currency.",
+        "hypothesis": "The speed is money.",
+        "source_pieces": 7,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "In other words, if you want to create a site about beauty tips, why not focus on makeup for the face?",
+        "reference": "如果你想有一个峰与您的意见,以显示, 去获得 的gravatar !",
+        "hypothesis": "如果其他的话,如果你想要在美容院,那么为什么专注于焦点?",
+        "source_pieces": 27,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "综合管理系统 登录",
+        "reference": "System login Remember",
+        "hypothesis": "Integrated Management System",
+        "source_pieces": 6,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "Unbelievable price on Kubovka in Almaty (Kazakhstan) company Expochem.",
+        "reference": "介绍 Almaty (哈萨克斯坦) Expochem 企业网站。",
+        "hypothesis": "Unbelievable price 公司 的不可思议的价格。",
+        "source_pieces": 26,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "如果 CRC 数值不同,代表目前读取的文件数据与以前文件写入磁盘时的数据不同。",
+        "reference": "If the CRC values are different, then it is absolutely certain that the information written to the file is not the same as the information read.",
+        "hypothesis": "If the CRC values are different, the data is collected from the data file before the file is written.",
+        "source_pieces": 23,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "介绍 Almaty (哈萨克斯坦) Expochem 企业网站。",
+        "reference": "Unbelievable price on Kubovka in Almaty (Kazakhstan) company Expochem.",
+        "hypothesis": "Almaty (Kazakhstan) company Expochem.",
+        "source_pieces": 16,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "管理 Jobs for today",
+        "reference": "Web design Jobs for today",
+        "hypothesis": "Jobs for today in New Jersey",
+        "source_pieces": 6,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "新ICT推动下的智能零售",
+        "reference": "Smart Retail Driven by New ICT",
+        "hypothesis": "New Energy Retail New",
+        "source_pieces": 8,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "Question: Some students have been in the state of eliminating sickness karma for a long period of time.",
+        "reference": "弟子:有的学员长时间处于消病业的状态,始终停留在那一层次中上不去?",
+        "hypothesis": "弟子:有些学员在病因中,有病因业而长而异。",
+        "source_pieces": 25,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "If the CRC values are different, then it is absolutely certain that the information written to the file is not the same as the information read.",
+        "reference": "如果 CRC 数值不同,代表目前读取的文件数据与以前文件写入磁盘时的数据不同。",
+        "hypothesis": "如果 CRC值是不同的,那么它是绝对没有信息写入的信息,而不是信息。",
+        "source_pieces": 31,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "It is often referred to as a charitable donation from a trust that they have set up.",
+        "reference": "他们通常称自己建立了一个信任,并以此名义进行慈善捐赠。",
+        "hypothesis": "它通常被称为慈善信托捐赠信托信托。",
+        "source_pieces": 22,
+        "severe_repetition": false
+      },
+      {
+        "direction": "en2zh",
+        "source": "Web design Jobs for today",
+        "reference": "管理 Jobs for today",
+        "hypothesis": "职位设计 Jobs for today",
+        "source_pieces": 7,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "他们通常称自己建立了一个信任,并以此名义进行慈善捐赠。",
+        "reference": "It is often referred to as a charitable donation from a trust that they have set up.",
+        "hypothesis": "They often call themselves trust, and nominations charity.",
+        "source_pieces": 16,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "技能: Facebook营销 , 社交媒体营销 , 社交网络 , YouTube",
+        "reference": "Skills: Facebook Marketing , Social Media Marketing , Social Networking , YouTube",
+        "hypothesis": "Skills: Facebook Marketing , Social Media Marketing , Social , Social Media , YouTube",
+        "source_pieces": 16,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "这个疑问不止一次的出现在田歌的脑海之中了。",
+        "reference": "The eyes of the Deinonychus glinted even in the dim light.",
+        "hypothesis": "This is not the first time of the day of the Lord.",
+        "source_pieces": 17,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "曾在IMAGE Studio 109等多家公司任职,2006年入职日本设计中心。",
+        "reference": "After working at several graphics studios including Studio 109, he joined Nippon Design Center in 2006.",
+        "hypothesis": "He worked in many companies in the company, as well as the design of the company in 2006.",
+        "source_pieces": 22,
+        "severe_repetition": false
+      },
+      {
+        "direction": "zh2en",
+        "source": "如果你想有一个峰与您的意见,以显示, 去获得 的gravatar !",
+        "reference": "In other words, if you want to create a site about beauty tips, why not focus on makeup for the face?",
+        "hypothesis": "If you have a peaks to your opinion, to see the status of the Vvish!",
+        "source_pieces": 18,
+        "severe_repetition": false
+      }
+    ]
+  },
+  "core_dreams": {
+    "path": "ara/s3-generation/evidence/s3_stone1_butterfly_product_v1/smoke/selector_seed9199/BI_add_identity_seed9199/core_dreams.jsonl",
+    "rows": 32,
+    "sha256": "bd6a57b06a2a2b4c08acbe0bfb178da7213f083fbc6be27f4add9c6a17700e02"
+  },
+  "checkpoint_final": {
+    "path": "ara/s3-generation/evidence/s3_stone1_butterfly_product_v1/smoke/selector_seed9199/BI_add_identity_seed9199/checkpoint_final.pt",
+    "sha256": "c5869f3b150d1acc115cf6d92d61c165e7c5ad3a38c2f896e18e464feb3b7456",
+    "bytes": 137809163
+  }
+}

@@ -2,11 +2,17 @@
 
 Date: 2026-08-05
 
-Status: registered / execution approved / selector smoke pending
+Status: selector smoke passed / formal three-seed selector running
 
 Milestone: `STONE-1-BUTTERFLY-V1`
 
 Claim family: `S3-TREEHEAP-BUTTERFLY-PRODUCT-C07`
+
+Execution update (2026-08-05): taskd run 117 completed the preregistered
+three-arm smoke in 1,044.5 seconds. All five gates passed: matched optimizer
+updates, exact effective learning rate, matched replay dose, finite metrics,
+and checkpoint persistence. Formal taskd runs 118-126 plus summarizer 127 are
+now queued serially on io.
 
 ## 1. Decision to Make
 

@@ -2,11 +2,16 @@
 
 日期：2026-08-05
 
-状态：已注册并获准执行，等待 selector smoke
+状态：selector smoke 已通过，三 seed 正式筛选正在执行
 
 里程碑：`STONE-1-BUTTERFLY-V1`
 
 Claim 系列：`S3-TREEHEAP-BUTTERFLY-PRODUCT-C07`
+
+执行更新（2026-08-05）：taskd #117 用 1,044.5 秒完成预注册的三臂
+smoke。五项门禁全部通过：优化器更新步数一致、有效学习率精确一致、
+replay 剂量一致、所有指标有限、checkpoint 均成功保存。正式任务
+#118-#126 与汇总任务 #127 已在 io 上按串行队列启动。
 
 ## 1. 这次到底要决定什么
 

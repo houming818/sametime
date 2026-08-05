@@ -1,0 +1,36 @@
+TreeHeap dreams at step 29940
+time: 2026-08-05 18:04:27 +0800
+validation: {"claim": "S3-TREEHEAP-CANONICAL-DOSE-C06", "arm": "A_base", "seed": 9199, "start_line": 6700000, "stop_line": 6730000, "updates": 607, "counts": {"base_examples": 29940, "base_tokens": 632913, "extra_examples": 0, "extra_tokens": 0, "butterfly_examples": 29940, "butterfly_tokens": 632913, "identity_examples": 0, "identity_tokens": 0}, "total_training_tokens": 632913, "identity_token_ratio": 0.0, "train_nll": 3.348907721077798, "communication_grad_norm_mean": 0.19596117216928002, "communication_grad_norm_min": 0.11040432751178741, "effective_lr": [0.0002], "elapsed_sec": 212.55135774612427, "metrics": {"native": {"en2zh": 4.070779990104371, "zh2en": 3.2533254250538435, "mean": 3.6620527075791074}, "identity": {"en2zh": 5.722471567271926, "zh2en": 4.676081875446539, "mean": 5.199276721359233}, "adjacent": {"en2zh": 5.528644176414448, "zh2en": 4.49146430013668, "mean": 5.010054238275564}, "identity_damage": 1.5372240137801256, "adjacent_damage": 1.3480015306964566, "cross_view_js": 0.2386926298764483, "source_shuffle": {"matched_native_nll": 3.6272189899562335, "shuffled_nll": 5.498554656938606, "damage": 1.8713356669823726, "tokens": 2786}, "source_shuffle_damage": 1.8713356669823726, "communication_delta_rms": 0.24796058237552643, "grammar_reference_native": {"en2zh": 1.959395321932706, "zh2en": 1.3753515879313152, "mean": 1.6673734549320107}, "grammar_reference_identity": {"en2zh": 4.77270473133434, "zh2en": 2.8851593017578123, "mean": 3.828932016546076}}, "config": {"action": "arm", "arm": "N_native", "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt", "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv", "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model", "dreams": "ara/s3-generation/dreams.txt", "dreams_core": "ara/s3-generation/dreams_product_v1_core.tsv", "evidence_dir": "ara/s3-generation/evidence/s3_stone1_butterfly_product_v1/smoke/selector_seed9199", "smoke_marker": "ara/s3-generation/evidence/s3_stone1_butterfly_product_v1/SMOKE_PASS", "require_smoke": false, "seed": 9199, "start_line": 6700000, "train_lines": 30000, "block_lines": 30000, "smoke_lines": 30000, "smoke_eval_pairs": 64, "smoke_generation_pairs": 16, "eval_pairs": 64, "eval_scan": 3000000, "generation_pairs": 16, "generation_max_output": 64, "diagnostic_rows": 128, "diagnostic_batch": 4, "dream_limit": 0, "dream_max_output": 128, "lr": 0.0002, "batch_seed": 9199, "device": "cuda", "reuse_optimizer": true, "resume_completed": false, "save_arm_checkpoints": true, "heap_width": 256, "max_content": 253, "dim": 256, "hidden": 256, "coupling_scale": 0.25, "batch_32": 64, "batch_64": 32, "batch_128": 16, "batch_256": 8}}
+
+[1] en2zh
+SOURCE: The new company is expected to begin operations in the spring of 2019.
+REFERENCE: 新公司预计将在2019年春季开始运营。
+DREAM: 新年公司预计于2019年春季开始运作。
+ROUTE: [0.1215, 0.0901, 0.0799, 0.0967, 0.6118]
+
+[2] en2zh
+SOURCE: Today was productive. I reviewed my notes, worked through several practice problems, and tried to sort out a few confusing concepts. Small progress still counts.
+DREAM: 我进行了审查,我进行了多次审查,并尝试几个几个步骤,而异地,这些问题仍然在一些概念中,小编的计数。
+ROUTE: [0.0283, 0.0298, 0.0355, 0.0809, 0.1196, 0.1358, 0.5702]
+
+[3] en2zh
+SOURCE: Why is the window wet? Because the rain was blown against the glass by the wind.
+DREAM: 为什么是窗户的 ? " 因为雨水在风吹的玻璃。
+ROUTE: [0.0805, 0.0342, 0.0672, 0.0695, 0.1397, 0.6088]
+
+[4] zh2en
+SOURCE: 新公司预计将在2019年春季开始运营。
+REFERENCE: The new company is expected to begin operations in the spring of 2019.
+DREAM: The company is expected to start in the spring of 2019 Spring 2019 2019.
+ROUTE: [0.0956, 0.0792, 0.0893, 0.0882, 0.6477]
+
+[5] zh2en
+SOURCE: 今天很有收获。我复习了笔记，完成了几道练习题，也梳理了一些容易混淆的概念。小小的进步也值得珍惜。
+DREAM: I was very happy to write a few minutes, and I'll have a lot of trouble, and I'll be able to get a very little of the best of the idea of the same.
+ROUTE: [0.0079, 0.0060, 0.0069, 0.0033, 0.0436, 0.2209, 0.7113]
+
+[6] zh2en
+SOURCE: 为什么窗户是湿的？因为风把雨水吹到了玻璃上。
+DREAM: Why do you have wet the wetting wind because the wind blowing the glass on the glass.
+ROUTE: [0.0807, 0.0316, 0.0705, 0.0861, 0.1451, 0.5861]
+
