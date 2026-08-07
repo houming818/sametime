@@ -2,17 +2,18 @@
 
 Date: 2026-08-05
 
-Status: selector smoke passed / formal three-seed selector running
+Status: selector complete / BI replay selected / full-corpus product run active
 
 Milestone: `STONE-1-BUTTERFLY-V1`
 
 Claim family: `S3-TREEHEAP-BUTTERFLY-PRODUCT-C07`
 
-Execution update (2026-08-05): taskd run 117 completed the preregistered
-three-arm smoke in 1,044.5 seconds. All five gates passed: matched optimizer
-updates, exact effective learning rate, matched replay dose, finite metrics,
-and checkpoint persistence. Formal taskd runs 118-126 plus summarizer 127 are
-now queued serially on io.
+Execution update (2026-08-07): taskd runs 118-126 completed the formal
+three-seed selector and run 127 produced the aggregate decision. `BI_replay`
+passed all ten registered gates and was selected. After two product-runner
+smokes (runs 128-129), full-corpus Phase B started as taskd run 130 on `io`
+with release seed 9301, 20% additive Identity replay, atomic recovery every
+250,000 raw rows, and the registered wake windows.
 
 ## 1. Decision to Make
 

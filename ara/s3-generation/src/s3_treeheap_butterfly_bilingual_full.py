@@ -218,6 +218,10 @@ def parse_dreams(path: Path):
         if not line or line.startswith("#"):
             continue
         parts = line.split("\t")
+        if len(parts) >= 4 and parts[1] in DIRECTIONS:
+            # Product Dreams: id, direction, category, source, reference, facts.
+            dreams.append((parts[1], parts[3], parts[4] if len(parts) > 4 else None))
+            continue
         if len(parts) < 2 or parts[0] not in DIRECTIONS:
             print(f"dreams.txt:{line_no}: ignored malformed line", flush=True)
             continue
@@ -278,9 +282,10 @@ def notify(subject: str, report: Path):
         return f"failed: {error}"
 
 
-def save_state(path, model, optimizer, args, epoch, next_line, examples, tokens, best, started):
+def save_state(path, model, optimizer, args, epoch, next_line, examples, tokens, best,
+               started, replay_examples=0, replay_tokens=0):
     atomic_checkpoint(path, {
-        "claim": CLAIM,
+        "claim": args.run_claim,
         "state_dict": model.state_dict(),
         "optimizer": optimizer.state_dict(),
         "config": vars(args),
@@ -288,6 +293,8 @@ def save_state(path, model, optimizer, args, epoch, next_line, examples, tokens,
         "next_line": next_line,
         "global_examples": examples,
         "global_tokens": tokens,
+        "replay_examples": replay_examples,
+        "replay_tokens": replay_tokens,
         "best_valid_mean": best,
         "elapsed_before_resume": time.time() - started,
     })
@@ -301,6 +308,10 @@ def main():
     parser.add_argument("--dreams", default="ara/s3-generation/dreams.txt")
     parser.add_argument("--evidence-dir", default="ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full")
     parser.add_argument("--resume")
+    parser.add_argument("--init-checkpoint")
+    parser.add_argument("--run-claim", default=CLAIM)
+    parser.add_argument("--identity-replay-ratio", type=float, default=0.0)
+    parser.add_argument("--wake-lines", default="")
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--seed", type=int, default=8104)
     parser.add_argument("--heap-width", type=int, default=256)
@@ -324,6 +335,13 @@ def main():
     parser.add_argument("--dream-max-output", type=int, default=128)
     parser.add_argument("--notify", action="store_true")
     args = parser.parse_args()
+    if args.resume and args.init_checkpoint:
+        parser.error("--resume and --init-checkpoint are mutually exclusive")
+    if not 0.0 <= args.identity_replay_ratio <= 1.0:
+        parser.error("--identity-replay-ratio must be in [0, 1]")
+    wake_lines = sorted({
+        int(value) for value in args.wake_lines.split(",") if value.strip()
+    })
 
     defaults = {
         "smoke": dict(epochs=1, time_budget_hours=0.5, block_lines=10_000, wake_blocks=1, save_blocks=1, eval_pairs=128, max_lines=30_000),
@@ -354,14 +372,23 @@ def main():
     ).to(args.device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr)
     epoch = next_line = global_examples = global_tokens = 0
+    replay_examples = replay_tokens = 0
     best = float("inf")
-    if args.resume:
-        state = torch.load(args.resume, map_location="cpu", weights_only=False)
+    state_path = args.resume or args.init_checkpoint
+    if state_path:
+        state = torch.load(state_path, map_location="cpu", weights_only=False)
         model.load_state_dict(state["state_dict"], strict=True)
-        optimizer.load_state_dict(state["optimizer"])
-        epoch, next_line = int(state["epoch"]), int(state["next_line"])
+        if "optimizer" in state:
+            optimizer.load_state_dict(state["optimizer"])
+        epoch = int(state.get("epoch", 0))
+        next_line = 0 if args.init_checkpoint else int(state.get("next_line", 0))
         global_examples, global_tokens = int(state["global_examples"]), int(state["global_tokens"])
         best = float(state["best_valid_mean"])
+        if args.resume:
+            replay_examples = int(state.get("replay_examples", 0))
+            replay_tokens = int(state.get("replay_tokens", 0))
+    for group in optimizer.param_groups:
+        group["lr"] = args.lr
 
     eval_rows = read_eval_rows(args, sp, direction_ids, eos)
     dreams = parse_dreams(Path(args.dreams))
@@ -378,30 +405,63 @@ def main():
         reached_eof = True
         for cursor, block in iter_blocks(args.data, next_line, args.block_lines, args.max_lines):
             reached_eof = False
+            previous_line = next_line
             rows, counts = prepare_train_block(block, epoch, args, sp, direction_ids, eos)
             rng = random.Random(args.seed + epoch * 1_000_003 + cursor)
             model.train()
-            loss_sum = updates = 0
+            loss_sum = updates = block_training_tokens = 0
             for batch in rows_to_batches(rows, args, rng):
                 source, length, target = collate(batch, pad, args.device)
+                model.encoder.runtime_mode = "butterfly"
                 logits, _ = model.teacher(source, length, target, bos)
-                loss = F.cross_entropy(logits.reshape(-1, vocab), target.reshape(-1), ignore_index=pad)
+                base_token_count = int(target.ne(pad).sum())
+                base_loss_sum = F.cross_entropy(
+                    logits.reshape(-1, vocab), target.reshape(-1),
+                    ignore_index=pad, reduction="sum",
+                )
+                total_loss_sum = base_loss_sum
+                total_token_count = base_token_count
+                indices = [
+                    index for index, row in enumerate(batch)
+                    if stable_int(f"canonical-view:{args.seed}:{int(row[-1])}") % 1_000_000
+                    < int(round(args.identity_replay_ratio * 1_000_000))
+                ]
+                if indices:
+                    index = torch.tensor(indices, device=source.device)
+                    local_length = length[index]
+                    local_source = source[index, : int(local_length.max().item())]
+                    local_target = target[index]
+                    model.encoder.runtime_mode = "identity"
+                    identity_logits, _ = model.teacher(local_source, local_length, local_target, bos)
+                    local_tokens = int(local_target.ne(pad).sum())
+                    total_loss_sum = total_loss_sum + F.cross_entropy(
+                        identity_logits.reshape(-1, vocab), local_target.reshape(-1),
+                        ignore_index=pad, reduction="sum",
+                    )
+                    total_token_count += local_tokens
+                    replay_examples += len(indices)
+                    replay_tokens += local_tokens
+                model.encoder.runtime_mode = "butterfly"
+                loss = total_loss_sum / max(1, total_token_count)
                 optimizer.zero_grad(set_to_none=True)
                 loss.backward()
                 if not all(p.grad is None or bool(torch.isfinite(p.grad).all()) for p in model.parameters()):
                     raise RuntimeError("non-finite gradient")
                 torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
                 optimizer.step()
-                loss_sum += float(loss.detach())
+                loss_sum += float(total_loss_sum.detach())
+                block_training_tokens += total_token_count
                 updates += 1
                 global_examples += len(batch)
-                global_tokens += int(target.ne(pad).sum())
+                global_tokens += base_token_count
             next_line = cursor
             block_count += 1
             event = {
                 "event": "block", "epoch": epoch, "next_line": next_line,
                 "global_examples": global_examples, "global_tokens": global_tokens,
-                "train_nll": loss_sum / max(1, updates), "counts": counts,
+                "train_nll": loss_sum / max(1, block_training_tokens),
+                "replay_examples": replay_examples, "replay_tokens": replay_tokens,
+                "identity_replay_ratio": args.identity_replay_ratio, "counts": counts,
                 "elapsed_sec": time.time() - started,
             }
             with trace_path.open("a", encoding="utf-8") as handle:
@@ -409,8 +469,11 @@ def main():
             print(json.dumps(event), flush=True)
 
             if block_count % args.save_blocks == 0:
-                save_state(latest_checkpoint, model, optimizer, args, epoch, next_line, global_examples, global_tokens, best, started)
-            if block_count % args.wake_blocks == 0:
+                save_state(latest_checkpoint, model, optimizer, args, epoch, next_line,
+                           global_examples, global_tokens, best, started,
+                           replay_examples, replay_tokens)
+            registered_wake = any(previous_line < value <= next_line for value in wake_lines)
+            if registered_wake or (not wake_lines and block_count % args.wake_blocks == 0):
                 native = evaluate(model, eval_rows["valid"], args, pad, bos, eos)
                 identity = evaluate(model, eval_rows["valid"], args, pad, bos, eos, mode="identity", limit=min(512, len(eval_rows["valid"])))
                 metrics = {"native": native, "identity": identity, "identity_damage": identity["mean"] - native["mean"]}
@@ -419,8 +482,12 @@ def main():
                 report.write_text(json.dumps({**event, **metrics, "dream": str(snapshot)}, ensure_ascii=False, indent=2), encoding="utf-8")
                 if native["mean"] < best:
                     best = native["mean"]
-                    save_state(output / "checkpoint_best.pt", model, optimizer, args, epoch, next_line, global_examples, global_tokens, best, started)
-                save_state(latest_checkpoint, model, optimizer, args, epoch, next_line, global_examples, global_tokens, best, started)
+                    save_state(output / "checkpoint_best.pt", model, optimizer, args, epoch,
+                               next_line, global_examples, global_tokens, best, started,
+                               replay_examples, replay_tokens)
+                save_state(latest_checkpoint, model, optimizer, args, epoch, next_line,
+                           global_examples, global_tokens, best, started,
+                           replay_examples, replay_tokens)
                 status = notify(f"TreeHeap wake-up step {global_examples}", report) if args.notify else "disabled"
                 print(json.dumps({"event": "wake", "metrics": metrics, "dream": str(snapshot), "notify": status}), flush=True)
             if time.time() - started >= args.time_budget_hours * 3600:
@@ -434,15 +501,18 @@ def main():
     final_native = evaluate(model, eval_rows["test"], args, pad, bos, eos)
     final_identity = evaluate(model, eval_rows["test"], args, pad, bos, eos, mode="identity", limit=min(512, len(eval_rows["test"])))
     final = {
-        "claim": CLAIM, "host": socket.gethostname(), "mode": args.mode,
+        "claim": args.run_claim, "host": socket.gethostname(), "mode": args.mode,
         "epoch": epoch, "next_line": next_line, "global_examples": global_examples,
-        "global_tokens": global_tokens, "elapsed_sec": time.time() - started,
+        "global_tokens": global_tokens, "replay_examples": replay_examples,
+        "replay_tokens": replay_tokens, "elapsed_sec": time.time() - started,
         "test_native": final_native, "test_identity": final_identity,
         "identity_damage": final_identity["mean"] - final_native["mean"],
         "best_valid_mean": best, "config": vars(args),
     }
     (output / "summary.json").write_text(json.dumps(final, ensure_ascii=False, indent=2), encoding="utf-8")
-    save_state(latest_checkpoint, model, optimizer, args, epoch, next_line, global_examples, global_tokens, best, started)
+    save_state(latest_checkpoint, model, optimizer, args, epoch, next_line,
+               global_examples, global_tokens, best, started,
+               replay_examples, replay_tokens)
     final_dream = render_dreams(model, dreams, args, sp, direction_ids, pad, bos, eos, pieces, global_examples, final)
     if args.notify:
         notify(f"TreeHeap {args.mode} training finished", output / "summary.json")
