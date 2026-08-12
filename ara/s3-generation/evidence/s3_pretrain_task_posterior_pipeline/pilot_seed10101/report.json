@@ -1,0 +1,475 @@
+{
+  "claim": "S3-TREEHEAP-PRETRAIN-POSTERIOR-C10",
+  "mode": "pilot",
+  "claim_status": "open / pilot evidence",
+  "contract": {
+    "class": "ButterflyRecursive",
+    "parameters": 34448396,
+    "trainable_parameters": 34448396,
+    "vocab": 32003,
+    "pad": 32000,
+    "dim": 256,
+    "hidden": 256,
+    "heap_width": 256,
+    "coupling_scale": 0.25,
+    "dynamic_width": true,
+    "communication": "xor_butterfly",
+    "fold": "learned_lifting",
+    "read": "recursive_probability_container"
+  },
+  "hashes": {
+    "initial_state": "553d2548903221fd0f0c20b41831220d1a525d044ca396297f0a1256ee06fd20",
+    "pretrained_state": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+    "pretrain_stream": "8aa773847d7db1ac758a7bd641ae7a3eecdc795ce06b11e0c56de485854cf051",
+    "task_stream_shared_by_PT_and_SC": "f697f64500c46c9a910fb6b37081635d783e668babb78b28b2af4d7d83b75d05"
+  },
+  "row_counts": {
+    "pretrain_train": "fresh streaming windows",
+    "pretrain_valid": 2048,
+    "pretrain_train_scan": {
+      "streaming": true,
+      "steps": 97657,
+      "target_pieces_per_batch": 1024
+    },
+    "pretrain_valid_scan": {
+      "documents": 450,
+      "raw_pieces": 390314,
+      "width_32": 346,
+      "target_pieces": 65536,
+      "width_4": 368,
+      "width_8": 363,
+      "width_64": 335,
+      "width_16": 356,
+      "width_128": 280
+    },
+    "task_train": 200000,
+    "task_valid": 1000,
+    "task_test": 1000,
+    "posterior": {
+      "documents": 2810,
+      "tokens": 2000387,
+      "selected": 103,
+      "per_length": {
+        "4": 86,
+        "8": 16,
+        "16": 1
+      },
+      "unique_documents": 15
+    }
+  },
+  "pretrain": {
+    "stage": "pretrain",
+    "parent_state_sha256": "553d2548903221fd0f0c20b41831220d1a525d044ca396297f0a1256ee06fd20",
+    "state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+    "checkpoint_sha256": "ed1f09cf7c6e3b7d8086431c3b0e528556c849943f3cd7fe4857c8fc805d1949",
+    "steps": 97657,
+    "train_tokens": 100000768,
+    "stream_sha256": "8aa773847d7db1ac758a7bd641ae7a3eecdc795ce06b11e0c56de485854cf051",
+    "train_nll": 5.8031789442736965,
+    "initial_valid": {
+      "nll": 10.72367662936449,
+      "ppl": 45418.583540565596,
+      "tokens": 65536
+    },
+    "best_valid": {
+      "nll": 5.680394247174263,
+      "ppl": 293.0649471771788,
+      "tokens": 65536
+    },
+    "finite_gradients": true,
+    "seconds": 17456.4495344162
+  },
+  "task": {
+    "PT": {
+      "stage": "task-PT",
+      "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+      "state_sha256": "811fe2c00de5aaa27a90f22660ffceca0444d3c53f2ad8a04ed764c480b55f71",
+      "checkpoint_sha256": "75a07dbd9058a841d6a1c7d197b7da201239281d98182a9d18f711038b4db810",
+      "steps": 25000,
+      "train_tokens": 20198612,
+      "stream_sha256": "f697f64500c46c9a910fb6b37081635d783e668babb78b28b2af4d7d83b75d05",
+      "train_nll": 1.6613866995161772,
+      "initial_valid": {
+        "nll": 8.02641927453709,
+        "ppl": 3060.7622784774967,
+        "tokens": 20654
+      },
+      "best_valid": {
+        "nll": 5.51637654153516,
+        "ppl": 248.7321318090279,
+        "tokens": 20654
+      },
+      "finite_gradients": true,
+      "seconds": 26413.852014541626,
+      "test": {
+        "nll": 5.403696108915988,
+        "ppl": 222.22627263916283,
+        "tokens": 20586
+      },
+      "generation": {
+        "token_bleu4": 5.0654430037178315,
+        "nonempty": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "If any information or any other parties, or any person or otherwise, the breach of any parties or oral or written by the parties or oral of the written by the parties or oral of the written by its written in its sole discretion or to terminate",
+            "route": [
+              0.0,
+              0.0,
+              7.012724525201263e-33,
+              2.876965623921443e-23,
+              1.4676830861759527e-09,
+              1.0
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "generation": "建设部主任阿育 ⁇ 、奥兰、尼姆雷埃森在斯蒂冈 (T) 预制表; (b) 的前排在1848年,他加入了多米和亚兰公司(埃森)的销售。",
+            "route": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.374393700982213e-23,
+              3.876294285554138e-10,
+              1.0
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": "在适用法律 在会议期间,您可以选择关于 OMSO 的ONOO",
+            "route": [
+              0.0,
+              0.0,
+              2.4370053995034623e-19,
+              2.2551432943274108e-10,
+              1.0
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "管理员使用这些条款,我们此页面",
+            "route": [
+              0.0,
+              0.0,
+              4.851425714290865e-33,
+              6.899607035586389e-24,
+              4.045443702249685e-10,
+              1.0
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "穆罕默德在黑山, 英国 (显示地图 )",
+            "route": [
+              0.0,
+              8.070501048182848e-38,
+              4.56614878654881e-29,
+              2.3354610952473648e-20,
+              1.8046714123087781e-10,
+              1.0
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The following the two days is the image of the synthetic with the sea, the table of the camera is displayed in the screen of the micro-chone-the-art with the-s-bread-up.",
+            "route": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.6363269181796168e-23,
+              4.637494277481835e-10,
+              0.9999999403953552
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+            "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+            "generation": "硬质合金和金属中, 既能为一个漫游室,一个一个独特的又能让一个独特的又能发现它们在一个充满进异中游轮进一个异步,而它们以更有效的方法。",
+            "route": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              4.8686566463099764e-21,
+              1.7985556099997524e-10,
+              1.0
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": "事实和欧洲和欧洲的黑色法和需要",
+            "route": [
+              0.0,
+              0.0,
+              2.7886366360572362e-33,
+              4.512754144533247e-24,
+              2.2043075698086056e-10,
+              1.0
+            ]
+          }
+        ]
+      }
+    },
+    "SC": {
+      "stage": "task-SC",
+      "parent_state_sha256": "553d2548903221fd0f0c20b41831220d1a525d044ca396297f0a1256ee06fd20",
+      "state_sha256": "610772de48590ab8faa1821faeccc5d4944b619043afe75c024fa5631a7e7c6e",
+      "checkpoint_sha256": "443defd3fae7c6568e31b542ccdf855ad89d307c81cb40cacef6bc4c77eef44b",
+      "steps": 25000,
+      "train_tokens": 20198612,
+      "stream_sha256": "f697f64500c46c9a910fb6b37081635d783e668babb78b28b2af4d7d83b75d05",
+      "train_nll": 2.202104192450514,
+      "initial_valid": {
+        "nll": 10.661380428352256,
+        "ppl": 42675.50701144113,
+        "tokens": 20654
+      },
+      "best_valid": {
+        "nll": 6.388682501630283,
+        "ppl": 595.0720565331628,
+        "tokens": 20654
+      },
+      "finite_gradients": true,
+      "seconds": 26411.763966321945,
+      "test": {
+        "nll": 6.2919746531604455,
+        "ppl": 540.2190217502958,
+        "tokens": 20586
+      },
+      "generation": {
+        "token_bleu4": 1.1711014876321746,
+        "nonempty": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "You may not do not agree that the use of the Terms of any breach of the Terms of Use.",
+            "route": [
+              1.0719540699702207e-28,
+              1.1809635106106915e-16,
+              4.2308861969431177e-10,
+              2.1682926671928726e-05,
+              2.6892530513578095e-07,
+              0.9999780058860779
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "generation": " ⁇ 类,葡萄地,移转的,注册商标专用立以制表,以经济在居民和家庭,以及接内为25年前(H ⁇ )的由火星的计划有关的。",
+            "route": [
+              0.0,
+              0.0,
+              3.7307022841267442e-28,
+              2.682521580218847e-17,
+              2.6424567829003154e-12,
+              2.523437387935701e-07,
+              0.08112393319606781,
+              0.9188758134841919
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": "The CMSOs",
+            "route": [
+              1.7361780730839816e-18,
+              1.7562803433790464e-09,
+              5.226986104389653e-06,
+              0.005402817856520414,
+              0.9945919513702393
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "本隐私政策,您有权与您使用本网站,则在收集数据、并本的权利。",
+            "route": [
+              6.908872995779115e-24,
+              2.3634908266623178e-11,
+              4.340552361981054e-09,
+              0.00013561249943450093,
+              1.9630042515927926e-06,
+              0.9998624920845032
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "威尔河 Road, Road, Bangkok, 显示地图",
+            "route": [
+              3.432632579684475e-25,
+              5.5615290150967667e-11,
+              9.090387886878659e-10,
+              1.7982527424464934e-05,
+              5.861729945877414e-08,
+              0.9999818801879883
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The number of the following is a very different of the original meaning that the time of the number of the people's performance of the same time in the same time, and the functionality is a very different areas of the original meaning that the current session of the current session.",
+            "route": [
+              5.2510450977089216e-39,
+              3.2069974328415645e-17,
+              4.2973824826208823e-16,
+              4.11613437778513e-10,
+              4.231262007436953e-09,
+              7.350141822826117e-05,
+              0.9999266266822815
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+            "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+            "generation": "钨合金的,钢 ⁇  ⁇  ⁇  ⁇  ⁇ 芦, ⁇  ⁇  ⁇ 芦, ⁇  ⁇ 不会形成的许多著名舍, ⁇  ⁇  ⁇ 芦 ⁇  ⁇ 芦, 法国",
+            "route": [
+              2.3243935982200007e-38,
+              1.0913835560403428e-16,
+              1.488696615457928e-15,
+              7.504256105406171e-10,
+              5.592657448261207e-09,
+              0.00024359188682865351,
+              0.999756395816803
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": "在a, 850,000,000岁以下的润湿润润湿润润了,三个天药润润了。",
+            "route": [
+              6.434676157831991e-26,
+              6.563001444387373e-12,
+              1.4841908257956504e-10,
+              6.696303444186924e-06,
+              2.833225387632865e-08,
+              0.9999932646751404
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "proof": {
+    "contexts": 103,
+    "unigram_top1_id": 28568,
+    "unigram_top1": ",",
+    "native_unique_greedy_rate": 0.21359223300970873,
+    "native_greedy_differs_from_unigram_rate": 0.6407766990291263,
+    "nonempty_generation_rate": 1.0,
+    "severe_adjacent_repetition_rate": 0.04854368932038835,
+    "maximum_greedy_share": 0.3592233009708738,
+    "modes": {
+      "native": {
+        "model_js": 0.6094035271636208,
+        "unigram_js": 0.641004197845362,
+        "model_candidate_mass": 0.062018447016864854,
+        "unigram_candidate_mass": 0.03327652215801095,
+        "greedy_in_empirical": 0.27184466019417475,
+        "entropy": 6.664653094069472,
+        "route": [
+          0.0,
+          8.983227746003741e-33,
+          1.1989930819473083e-23,
+          2.208224159083727e-10,
+          1.0
+        ],
+        "greedy_changed_from_native": 0.0
+      },
+      "wrong_source": {
+        "model_js": 0.638035864688809,
+        "unigram_js": 0.641004197845362,
+        "model_candidate_mass": 0.038779733714004054,
+        "unigram_candidate_mass": 0.03327652215801095,
+        "greedy_in_empirical": 0.1650485436893204,
+        "entropy": 6.664653094069472,
+        "route": [
+          0.0,
+          8.983227746003741e-33,
+          1.1989930819473083e-23,
+          2.208224020305849e-10,
+          1.0
+        ],
+        "greedy_changed_from_native": 0.7864077669902912
+      },
+      "identity": {
+        "model_js": 0.6106394939063957,
+        "unigram_js": 0.641004197845362,
+        "model_candidate_mass": 0.06313029178926081,
+        "unigram_candidate_mass": 0.03327652215801095,
+        "greedy_in_empirical": 0.20388349514563106,
+        "entropy": 6.435662415421125,
+        "route": [
+          0.0,
+          9.479021141137842e-33,
+          1.2344623192843986e-23,
+          2.2510583674861806e-10,
+          1.0
+        ],
+        "greedy_changed_from_native": 0.2621359223300971
+      },
+      "pair_break_depth_0": {
+        "model_js": 0.62046598747178,
+        "unigram_js": 0.641004197845362,
+        "model_candidate_mass": 0.05201645373474482,
+        "unigram_candidate_mass": 0.03327652215801095,
+        "greedy_in_empirical": 0.21359223300970873,
+        "entropy": 7.0205325906716505,
+        "route": [
+          0.0,
+          8.90912899023172e-33,
+          1.238834738623767e-23,
+          2.2345118810829234e-10,
+          0.9854369163513184
+        ],
+        "greedy_changed_from_native": 0.5825242718446602
+      }
+    }
+  },
+  "integrity": {
+    "architecture_parameter_count_frozen": true,
+    "pretrain_parent_is_initial": true,
+    "pt_parent_is_pretrained": true,
+    "sc_parent_is_initial": true,
+    "matched_task_stream_hash": true,
+    "finite_gradients": true,
+    "pretrain_checkpoint_reload": true,
+    "pt_checkpoint_reload": true,
+    "sc_checkpoint_reload": true
+  },
+  "p0_smoke_pass": true,
+  "seconds": 70360.48979091644,
+  "not_proved": [
+    "Bayesian or semantic reasoning",
+    "product-quality generation",
+    "architecture superiority",
+    "any C10 prediction when mode=smoke"
+  ]
+}

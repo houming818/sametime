@@ -1,0 +1,131 @@
+{
+  "diagnostic": "S3-C10-PATH-SHAPE-AUDIT-D01",
+  "checkpoint": "/home/nio/log/holds/SameTime/ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/task/PT/checkpoint_best.pt",
+  "state_sha256": "811fe2c00de5aaa27a90f22660ffceca0444d3c53f2ad8a04ed764c480b55f71",
+  "rows": 256,
+  "results": {
+    "native_model": {
+      "nll": 5.299829634131028,
+      "tokens": 5226,
+      "delta_nll": 0.0
+    },
+    "all_leaf": {
+      "nll": 5.29982958741449,
+      "tokens": 5226,
+      "leaf_distribution": {
+        "top1_mass": 0.21036617399128835,
+        "top2_mass": 0.3368563305271502,
+        "top4_mass": 0.5109842739260795,
+        "top8_mass": 0.7221594884666592,
+        "entropy": 2.620935840780964,
+        "effective_leaves": 15.847528308732638,
+        "depth_branch_entropy": {
+          "0": 0.029866133067075796,
+          "1": 0.24234551296610216,
+          "2": 0.46137263023654845,
+          "3": 0.5421502825872131,
+          "4": 0.5694379721291668,
+          "5": 0.5911997112075214,
+          "6": 0.18456360274890898
+        }
+      },
+      "address_trajectory": {
+        "mean_unique_leaves_per_row": 6.71875,
+        "stationary_rate": 0.3386317907444668,
+        "adjacent_forward_rate": 0.04024144869215292,
+        "stationary_plus_adjacent_rate": 0.3788732394366197,
+        "monotonic_forward_rate": 0.6732394366197183,
+        "mean_absolute_jump": 6.299597585513078,
+        "transitions": 4970
+      },
+      "delta_nll": -4.6716537305258043e-08
+    },
+    "top1": {
+      "nll": 9.304610698012342,
+      "tokens": 5226,
+      "delta_nll": 4.004781063881314
+    },
+    "top2": {
+      "nll": 6.836010564664657,
+      "tokens": 5226,
+      "delta_nll": 1.5361809305336296
+    },
+    "top4": {
+      "nll": 5.8048473406330725,
+      "tokens": 5226,
+      "delta_nll": 0.5050177065020449
+    },
+    "top8": {
+      "nll": 5.4381654537184865,
+      "tokens": 5226,
+      "delta_nll": 0.13833581958745889
+    },
+    "drop_top1": {
+      "nll": 5.382716310649277,
+      "tokens": 5226,
+      "delta_nll": 0.08288667651824966
+    },
+    "uniform_leaf": {
+      "nll": 5.32694061898291,
+      "tokens": 5226,
+      "delta_nll": 0.027110984851882236
+    },
+    "ordered_cursor": {
+      "nll": 9.36250594234357,
+      "tokens": 5226,
+      "delta_nll": 4.062676308212543
+    },
+    "uniform_depth_0": {
+      "nll": 5.278781614949591,
+      "tokens": 5226,
+      "delta_nll": -0.021048019181436395
+    },
+    "uniform_depth_1": {
+      "nll": 5.306350164928064,
+      "tokens": 5226,
+      "delta_nll": 0.006520530797036628
+    },
+    "uniform_depth_2": {
+      "nll": 5.311018268221692,
+      "tokens": 5226,
+      "delta_nll": 0.011188634090664173
+    },
+    "uniform_depth_3": {
+      "nll": 5.299955558557872,
+      "tokens": 5226,
+      "delta_nll": 0.0001259244268441151
+    },
+    "uniform_depth_4": {
+      "nll": 5.302904469913055,
+      "tokens": 5226,
+      "delta_nll": 0.0030748357820273853
+    },
+    "uniform_depth_5": {
+      "nll": 5.298172948919764,
+      "tokens": 5226,
+      "delta_nll": -0.0016566852112633867
+    },
+    "uniform_depth_6": {
+      "nll": 5.293841087904827,
+      "tokens": 5226,
+      "delta_nll": -0.005988546226200597
+    },
+    "uniform_depth_7": {
+      "nll": 5.29982958741449,
+      "tokens": 5226,
+      "delta_nll": -4.6716537305258043e-08
+    }
+  },
+  "linked_path_gates": {
+    "top1_mass_ge_0p80": false,
+    "top1_damage_le_0p02": false,
+    "drop_top1_damage_ge_0p10": false,
+    "sequential_rate_ge_0p70": false
+  },
+  "distributed_leaf_gates": {
+    "top1_damage_gt_0p05": true,
+    "top4_or_top8_recovers": true,
+    "at_least_two_causal_depths": false
+  },
+  "classification": "mixed_or_degenerate_leaf_protocol"
+}
