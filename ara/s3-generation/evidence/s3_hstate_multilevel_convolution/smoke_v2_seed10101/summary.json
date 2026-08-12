@@ -1,0 +1,335 @@
+{
+  "claim": "S3-HSTATE-MULTILEVEL-CONV-C11",
+  "mode": "smoke",
+  "host": "io",
+  "source_checkpoint": "ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/pretrain/checkpoint_best.pt",
+  "source_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "trained_state_sha256": "a1720c48fe6e580f3f99b07fb6cd8e354117df03d10f17575467bad8fd7eb908",
+  "config": {
+    "mode": "smoke",
+    "checkpoint": "ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/pretrain/checkpoint_best.pt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_hstate_multilevel_convolution/smoke_v2_seed10101",
+    "wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "seed": 10101,
+    "steps": 40,
+    "batch_size": 8,
+    "train_rows": 512,
+    "eval_rows": 64,
+    "max_source": 64,
+    "max_target": 64,
+    "lr": 0.0005,
+    "log_every": 10
+  },
+  "rows": {
+    "train": 512,
+    "valid": 64
+  },
+  "stream_sha256": "cc25994f6eea796737cc15ebb5077d9313817cd2e016e10c821611bce269ac15",
+  "parameters": 35366925,
+  "initial": {
+    "nll": 8.190640830993653,
+    "ppl": 3607.033004526037,
+    "tokens": 1280
+  },
+  "final": {
+    "nll": 7.81002025604248,
+    "ppl": 2465.180369578127,
+    "tokens": 1280
+  },
+  "train_tokens": 5865,
+  "probe_before": {
+    "loss": 10.498205184936523,
+    "level_widths": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "level_grad_norms": [
+      0.30206015706062317,
+      1.109315276145935,
+      1.1430021524429321,
+      1.1923068761825562
+    ],
+    "parameter_grad_norms": {
+      "encoder_embedding": 1.4668700695037842,
+      "fold_predictor": 0.008062274195253849,
+      "fold_update": 6.738304136888473e-08,
+      "butterfly_forward": 0.22495850920677185,
+      "butterfly_backward": 0.07359802722930908,
+      "up_kernel": 0.010091463103890419,
+      "read_kernel": 2.8472752571105957,
+      "branch_kernel": 0.1378260999917984
+    },
+    "frontier_entropy": [
+      0.0,
+      0.6827566027641296,
+      1.03518545627594,
+      1.3875219821929932
+    ],
+    "finite": true
+  },
+  "probe_after": {
+    "loss": 6.861073017120361,
+    "level_widths": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "level_grad_norms": [
+      0.02398134022951126,
+      0.026005636900663376,
+      0.03119814395904541,
+      0.0565585233271122,
+      0.06906936317682266,
+      0.1225406676530838,
+      0.109541155397892
+    ],
+    "parameter_grad_norms": {
+      "encoder_embedding": 0.17451445758342743,
+      "fold_predictor": 0.012187973596155643,
+      "fold_update": 8.181658631656319e-05,
+      "butterfly_forward": 0.06730097532272339,
+      "butterfly_backward": 0.05178235098719597,
+      "up_kernel": 0.0027504332829266787,
+      "read_kernel": 0.9832746386528015,
+      "branch_kernel": 0.09760458767414093
+    },
+    "frontier_entropy": [
+      0.0,
+      0.05634985864162445,
+      0.5560554265975952,
+      1.16787588596344,
+      1.7252063751220703,
+      2.393378496170044,
+      3.0515687465667725
+    ],
+    "finite": true
+  },
+  "interventions": {
+    "native": {
+      "nll": 7.81002025604248,
+      "ppl": 2465.180369578127,
+      "tokens": 1280
+    },
+    "bypass_up": {
+      "nll": 7.810125923156738,
+      "ppl": 2465.440871836923,
+      "tokens": 1280
+    },
+    "leaf_only": {
+      "nll": 7.926215076446534,
+      "ppl": 2768.9267699884094,
+      "tokens": 1280
+    },
+    "source_shuffle": {
+      "nll": 7.919788646697998,
+      "ppl": 2751.1895112899283,
+      "tokens": 1280
+    },
+    "runtime_identity": {
+      "nll": 7.817554092407226,
+      "ppl": 2483.822771317746,
+      "tokens": 1280
+    },
+    "pair_break_depth_0": {
+      "nll": 7.827408409118652,
+      "ppl": 2508.420143661125,
+      "tokens": 1280
+    },
+    "ablate_depth": {
+      "0": {
+        "nll": 7.805225086212158,
+        "ppl": 2453.3877075485725,
+        "tokens": 1280
+      },
+      "1": {
+        "nll": 7.8052643775939945,
+        "ppl": 2453.484106435592,
+        "tokens": 1280
+      },
+      "2": {
+        "nll": 7.805394649505615,
+        "ppl": 2453.803747319931,
+        "tokens": 1280
+      },
+      "3": {
+        "nll": 7.805645179748535,
+        "ppl": 2454.4185763822466,
+        "tokens": 1280
+      },
+      "4": {
+        "nll": 7.8044733047485355,
+        "ppl": 2451.5439892704053,
+        "tokens": 1280
+      },
+      "5": {
+        "nll": 7.8056817054748535,
+        "ppl": 2454.5082274407127,
+        "tokens": 1280
+      },
+      "6": {
+        "nll": 7.810823535919189,
+        "ppl": 2467.1613949138373,
+        "tokens": 1280
+      }
+    }
+  },
+  "intervention_deltas": {
+    "bypass_up": 0.00010566711425763486,
+    "leaf_only": 0.11619482040405327,
+    "source_shuffle": 0.10976839065551758,
+    "runtime_identity": 0.007533836364745916,
+    "pair_break_depth_0": 0.017388153076171697
+  },
+  "nonleaf_ablation_deltas": [
+    -0.00479516983032191,
+    -0.004755878448485795,
+    -0.004625606536865057,
+    -0.004375076293944957,
+    -0.00554695129394478,
+    -0.0043385505676267755
+  ],
+  "generation": {
+    "token_bleu4": 0.199572527820738,
+    "nonempty": 1.0,
+    "examples": [
+      {
+        "direction": "zh2en",
+        "source": "技能: Facebook营销 , 社交媒体营销 , 社交网络 , YouTube",
+        "reference": "Skills: Facebook Marketing , Social Media Marketing , Social Networking , YouTube",
+        "generation": "营销的营销软件,我们做营销的营销策略,我们做得更好,我们公司也做得更好。我们公司创始人,我们公司",
+        "route": [
+          0.0,
+          0.5904183983802795,
+          1.2664155960083008,
+          1.9186956882476807,
+          2.5874249935150146
+        ]
+      },
+      {
+        "direction": "zh2en",
+        "source": "如果你想有一个峰与您的意见,以显示, 去获得 的gravatar !",
+        "reference": "In other words, if you want to create a site about beauty tips, why not focus on makeup for the face?",
+        "generation": ", and the city's, and a great choice, a great choice, a great choice, and a great choice, and a great choice for both business, and a great choice, and a great choice",
+        "route": [
+          0.0,
+          0.227857768535614,
+          0.7720111012458801,
+          1.2825698852539062,
+          1.8485126495361328,
+          2.4976377487182617
+        ]
+      },
+      {
+        "direction": "en2zh",
+        "source": "The eyes of the Deinonychus glinted even in the dim light.",
+        "reference": "这个疑问不止一次的出现在田歌的脑海之中了。",
+        "generation": ", the city's, the city's, and the city's of the most great will be a great choice of the city's of the",
+        "route": [
+          0.0,
+          0.035190150141716,
+          0.6535382270812988,
+          1.2601318359375,
+          1.9064456224441528,
+          2.5157313346862793
+        ]
+      },
+      {
+        "direction": "en2zh",
+        "source": "After working at several graphics studios including Studio 109, he joined Nippon Design Center in 2006.",
+        "reference": "曾在IMAGE Studio 109等多家公司任职,2006年入职日本设计中心。",
+        "generation": ", and the city's, and a great choice for the best to the best to the best to the world in the city's of a great world, and a great choice",
+        "route": [
+          0.0,
+          0.03383596986532211,
+          0.7011759877204895,
+          1.292017936706543,
+          1.9428192377090454,
+          2.5600337982177734
+        ]
+      },
+      {
+        "direction": "en2zh",
+        "source": "If the CRC values are different, then it is absolutely certain that the information written to the file is not the same as the information read.",
+        "reference": "如果 CRC 数值不同,代表目前读取的文件数据与以前文件写入磁盘时的数据不同。",
+        "generation": ", the city's, the first time, the first time, the first time, the first time, the first time, the first time, and the city's of the world",
+        "route": [
+          0.0,
+          0.45121780037879944,
+          1.1214755773544312,
+          1.685189127922058,
+          2.332227945327759,
+          2.9093520641326904
+        ]
+      },
+      {
+        "direction": "zh2en",
+        "source": "人权观察访问到三名罗兴亚男性和三名男童,最小的16岁,分别在貌夺镇(Maungdaw)不同地点被捕。",
+        "reference": "Human Rights Watch interviewed three Rohingya men and three boys, the youngest 16, who were taken into custody at different times and in different locations in Maungdaw township.",
+        "generation": ",在1970年,在1970年,该区内被改为该区。  ⁇ 桐河河是河北省的县,是河北省的县,河北省的县治所在,该县的县治所在,该县的",
+        "route": [
+          0.0,
+          0.32389771938323975,
+          0.6328593492507935,
+          0.9407106041908264,
+          1.6235707998275757,
+          2.2949740886688232,
+          2.901313304901123
+        ]
+      },
+      {
+        "direction": "zh2en",
+        "source": "速度就是金钱。",
+        "reference": "And speed is your currency.",
+        "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇  ",
+        "route": [
+          0.0,
+          0.6895948052406311,
+          1.3585273027420044,
+          1.8759795427322388
+        ]
+      },
+      {
+        "direction": "zh2en",
+        "source": "Saucony Peregrine 8 924 kr",
+        "reference": "Saucony Guide ISO Womens 924 kr",
+        "generation": ", and the city, and the city, and the city, and the city, and the city of the most of the city of the",
+        "route": [
+          0.0,
+          0.16010791063308716,
+          0.798254668712616,
+          1.3998751640319824,
+          2.0682573318481445
+        ]
+      }
+    ]
+  },
+  "p0": {
+    "tree_widths_double": true,
+    "no_stop_parameter": true,
+    "all_level_gradients_nonzero": true,
+    "all_required_parameter_gradients_nonzero": true,
+    "finite": true
+  },
+  "p0_pass": true,
+  "p1": {
+    "valid_nll_improved": true,
+    "bottom_up_causal": true,
+    "two_nonleaf_depths_causal": true
+  },
+  "p1_pass": true,
+  "seconds": 38.048858404159546,
+  "not_proved": [
+    "human-readable hierarchy",
+    "private-protocol uniqueness",
+    "formal WMT improvement when mode=smoke",
+    "product readiness"
+  ]
+}
