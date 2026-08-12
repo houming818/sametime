@@ -290,6 +290,7 @@ def main():
     parser.add_argument("--max-target", type=int, default=0)
     parser.add_argument("--lr", type=float, default=5e-4)
     parser.add_argument("--log-every", type=int, default=0)
+    parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
     if args.mode == "smoke":
         args.steps = args.steps or 40
@@ -314,7 +315,7 @@ def main():
     output = Path(args.evidence_dir)
     output.mkdir(parents=True, exist_ok=True)
     trace_path = output / "trace.jsonl"
-    if trace_path.exists():
+    if trace_path.exists() and not args.resume:
         trace_path.unlink()
 
     payload = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
@@ -346,10 +347,30 @@ def main():
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr)
     best_nll = initial["nll"]
     best_state = {name: value.detach().cpu().clone() for name, value in model.state_dict().items()}
-    started = time.time()
+    progress_path = output / "checkpoint_progress.pt"
+    start_step = 0
     train_loss_sum = 0.0
     train_tokens = 0
+    if args.resume and progress_path.exists():
+        progress = torch.load(progress_path, map_location="cpu", weights_only=False)
+        if progress.get("stream_sha256") != stream_hash:
+            raise RuntimeError("resume stream hash mismatch")
+        model.load_state_dict(progress["state_dict"], strict=True)
+        optimizer.load_state_dict(progress["optimizer_state_dict"])
+        for state in optimizer.state.values():
+            for name, value in state.items():
+                if torch.is_tensor(value):
+                    state[name] = value.to(args.device)
+        start_step = int(progress["step"])
+        best_nll = float(progress["best_nll"])
+        best_state = progress["best_state"]
+        train_loss_sum = float(progress["train_loss_sum"])
+        train_tokens = int(progress["train_tokens"])
+        print(json.dumps({"event": "resume", "step": start_step}), flush=True)
+    started = time.time()
     for step, batch in enumerate(schedule, 1):
+        if step <= start_step:
+            continue
         model.train()
         source, length, target = c10.collate_rows(batch, pad, args.device)
         logits, entropy = model.teacher(source, length, target, bos)
@@ -382,6 +403,23 @@ def main():
             if valid["nll"] < best_nll:
                 best_nll = valid["nll"]
                 best_state = {name: value.detach().cpu().clone() for name, value in model.state_dict().items()}
+            if args.mode == "formal":
+                temporary = progress_path.with_suffix(".pt.tmp")
+                torch.save({
+                    "claim": CLAIM,
+                    "step": step,
+                    "stream_sha256": stream_hash,
+                    "state_dict": {
+                        name: value.detach().cpu().clone()
+                        for name, value in model.state_dict().items()
+                    },
+                    "optimizer_state_dict": optimizer.state_dict(),
+                    "best_nll": best_nll,
+                    "best_state": best_state,
+                    "train_loss_sum": train_loss_sum,
+                    "train_tokens": train_tokens,
+                }, temporary)
+                os.replace(temporary, progress_path)
 
     model.load_state_dict(best_state, strict=True)
     final = evaluate(model, valid_rows, pad, bos, args.device, args.batch_size)
