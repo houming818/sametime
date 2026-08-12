@@ -91,10 +91,11 @@ class MultiLevelConvolutionDecoder(nn.Module):
         self.read_kernel = SharedReadKernel(dim)
         self.branch = old_decoder.branch
         self.depth_embedding = old_decoder.depth_embedding
-        self.up_norm = nn.LayerNorm(dim)
-        self.read_norm = nn.LayerNorm(dim)
-        self.up_gain_logit = nn.Parameter(torch.tensor(-2.0))
-        self.read_gain_logit = nn.Parameter(torch.tensor(-1.0))
+        # Start as a small residual correction to the inherited C10 readout.
+        # The formal test must measure learned structure, not recovery from a
+        # randomly destroyed checkpoint interface.
+        self.up_gain_logit = nn.Parameter(torch.tensor(-4.0))
+        self.read_gain_logit = nn.Parameter(torch.tensor(-4.0))
         self.hidden = hidden
         self.depths = depths
 
@@ -109,13 +110,13 @@ class MultiLevelConvolutionDecoder(nn.Module):
             )
             left, right = children[:, :, 0], children[:, :, 1]
             update = self.up_kernel(tree[depth], left, right)
-            tree[depth] = self.up_norm(tree[depth] + gain * update)
+            tree[depth] = tree[depth] + gain * update
             tree[depth] = tree[depth] * masks[depth][:, :, None]
         return tree
 
-    def read(self, hidden, levels, masks, mode: str = "native", ablate_depth: int = -1):
-        tree = self.convolve(levels, masks, bypass_up=mode == "bypass_up")
-        query = self.query(hidden)
+    def read(self, hidden, tree, masks, mode: str = "native", ablate_depth: int = -1):
+        base_query = self.query(hidden)
+        query = base_query
         frontier = masks[0].to(query.dtype)
         entropies = []
         gain = torch.sigmoid(self.read_gain_logit)
@@ -124,9 +125,9 @@ class MultiLevelConvolutionDecoder(nn.Module):
             frontier = frontier * valid.to(frontier.dtype)
             frontier = frontier / frontier.sum(-1, keepdim=True).clamp_min(1e-9)
             local = (frontier[:, :, None] * nodes).sum(1)
-            if depth != ablate_depth and not (mode == "leaf_only" and depth != last_depth):
+            if depth != ablate_depth and mode != "leaf_only":
                 depth_state = self.depth_embedding.weight[depth][None].expand_as(local)
-                query = self.read_norm(query + gain * self.read_kernel(query, local, depth_state))
+                query = query + gain * self.read_kernel(query, local, depth_state)
             entropies.append(
                 -(frontier.clamp_min(1e-12) * frontier.clamp_min(1e-12).log()).sum(-1).mean()
             )
@@ -136,21 +137,26 @@ class MultiLevelConvolutionDecoder(nn.Module):
                 nodes.shape[0], nodes.shape[1], 2, nodes.shape[2],
             )
             child_valid = masks[depth + 1].reshape(nodes.shape[0], nodes.shape[1], 2)
-            branch_query = self.branch(query)[:, None, None]
+            # Retain the C10 branch carrier and let accumulated multi-level
+            # evidence perturb it gradually.
+            branch_query = (self.branch(hidden) + gain * (query - base_query))[:, None, None]
             scores = (branch_query * children).sum(-1) / math.sqrt(nodes.shape[-1])
             scores = scores.masked_fill(~child_valid, -1e9)
             probability = F.softmax(scores, dim=-1)
             probability = probability * child_valid.to(probability.dtype)
             probability = probability / probability.sum(-1, keepdim=True).clamp_min(1e-9)
             frontier = (frontier[:, :, None] * probability).reshape(nodes.shape[0], -1)
-        return query, torch.stack(entropies)
+        # Preserve the inherited leaf-resolution carrier and add the complete
+        # root-to-leaf convolution as a trainable residual protocol.
+        return local + (query - base_query), torch.stack(entropies)
 
     def teacher(self, levels, masks, target, bos: int, mode: str = "native", ablate_depth: int = -1):
         hidden = levels[0].new_zeros((levels[0].shape[0], self.hidden))
         previous = torch.full((levels[0].shape[0],), bos, dtype=torch.long, device=levels[0].device)
         logits, diagnostics = [], []
+        tree = self.convolve(levels, masks, bypass_up=mode == "bypass_up")
         for step in range(target.shape[1]):
-            context, entropy = self.read(hidden, levels, masks, mode, ablate_depth)
+            context, entropy = self.read(hidden, tree, masks, mode, ablate_depth)
             hidden = self.cell(torch.cat((self.embedding(previous), context), dim=-1), hidden)
             logits.append(self.output(torch.cat((hidden, context), dim=-1)))
             diagnostics.append(entropy)
@@ -162,8 +168,9 @@ class MultiLevelConvolutionDecoder(nn.Module):
         previous = torch.full((levels[0].shape[0],), bos, dtype=torch.long, device=levels[0].device)
         done = torch.zeros(levels[0].shape[0], dtype=torch.bool, device=levels[0].device)
         output, diagnostics = [], []
+        tree = self.convolve(levels, masks)
         for _ in range(max_len):
-            context, entropy = self.read(hidden, levels, masks)
+            context, entropy = self.read(hidden, tree, masks)
             hidden = self.cell(torch.cat((self.embedding(previous), context), dim=-1), hidden)
             previous = self.output(torch.cat((hidden, context), dim=-1)).argmax(-1)
             output.append(previous)
@@ -182,11 +189,14 @@ class HStateConvolutionModel(nn.Module):
             base_model.decoder, dim, hidden, self.encoder.depths,
         )
 
-    def states(self, source, length):
-        return self.encoder.states(source, length)
+    def states(self, source, length, intervention: str = "native", pair_break_depth: int = -1):
+        return self.encoder.states(source, length, intervention, pair_break_depth)
 
-    def teacher(self, source, length, target, bos, mode: str = "native", ablate_depth: int = -1):
-        _, _, _, levels, masks = self.states(source, length)
+    def teacher(
+        self, source, length, target, bos, mode: str = "native", ablate_depth: int = -1,
+        intervention: str = "native", pair_break_depth: int = -1,
+    ):
+        _, _, _, levels, masks = self.states(source, length, intervention, pair_break_depth)
         return self.decoder.teacher(levels, masks, target, bos, mode, ablate_depth)
 
     def greedy(self, source, length, bos, eos, max_len):
@@ -195,18 +205,29 @@ class HStateConvolutionModel(nn.Module):
 
 
 @torch.no_grad()
-def evaluate(model, rows, pad, bos, device, batch_size, mode="native", ablate_depth=-1):
+def evaluate(
+    model, rows, pad, bos, device, batch_size, mode="native", ablate_depth=-1,
+    intervention="native", pair_break_depth=-1, runtime_mode=None,
+):
     model.eval()
     loss_sum = 0.0
     tokens = 0
-    for start in range(0, len(rows), batch_size):
-        source, length, target = c10.collate_rows(rows[start:start + batch_size], pad, device)
-        logits, _ = model.teacher(source, length, target, bos, mode, ablate_depth)
-        loss_sum += float(F.cross_entropy(
-            logits.reshape(-1, logits.shape[-1]), target.reshape(-1),
-            ignore_index=pad, reduction="sum",
-        ))
-        tokens += int(target.ne(pad).sum())
+    previous_mode = model.encoder.runtime_mode
+    model.encoder.runtime_mode = runtime_mode
+    try:
+        for start in range(0, len(rows), batch_size):
+            source, length, target = c10.collate_rows(rows[start:start + batch_size], pad, device)
+            logits, _ = model.teacher(
+                source, length, target, bos, mode, ablate_depth,
+                intervention, pair_break_depth,
+            )
+            loss_sum += float(F.cross_entropy(
+                logits.reshape(-1, logits.shape[-1]), target.reshape(-1),
+                ignore_index=pad, reduction="sum",
+            ))
+            tokens += int(target.ne(pad).sum())
+    finally:
+        model.encoder.runtime_mode = previous_mode
     nll = loss_sum / max(1, tokens)
     return {"nll": nll, "ppl": math.exp(min(20.0, nll)), "tokens": tokens}
 
@@ -369,6 +390,18 @@ def main():
         "native": final,
         "bypass_up": evaluate(model, valid_rows, pad, bos, args.device, args.batch_size, "bypass_up"),
         "leaf_only": evaluate(model, valid_rows, pad, bos, args.device, args.batch_size, "leaf_only"),
+        "source_shuffle": evaluate(
+            model, valid_rows, pad, bos, args.device, args.batch_size,
+            intervention="source_shuffle",
+        ),
+        "runtime_identity": evaluate(
+            model, valid_rows, pad, bos, args.device, args.batch_size,
+            runtime_mode="identity",
+        ),
+        "pair_break_depth_0": evaluate(
+            model, valid_rows, pad, bos, args.device, args.batch_size,
+            pair_break_depth=0,
+        ),
         "ablate_depth": {},
     }
     for depth in range(len(probe_after["level_widths"])):
@@ -390,8 +423,14 @@ def main():
     p1 = {
         "valid_nll_improved": final["nll"] < initial["nll"],
         "bottom_up_causal": abs(interventions["bypass_up"]["nll"] - native_nll) > 1e-4,
-        "two_nonleaf_depths_causal": sum(abs(value) > 1e-4 for value in nonleaf_deltas) >= 2,
+        "two_nonleaf_depths_helpful": sum(value > 1e-4 for value in nonleaf_deltas) >= 2,
     }
+    generation = c10.task_generation_metrics(
+        model, valid_rows, SimpleNamespace(
+            device=args.device, max_generation=min(96, args.max_target + 16),
+        ),
+        sp, pad, bos, eos, pieces, limit=min(32, len(valid_rows)),
+    )
     summary = {
         "claim": CLAIM,
         "mode": args.mode,
@@ -409,7 +448,13 @@ def main():
         "probe_before": probe_before,
         "probe_after": probe_after,
         "interventions": interventions,
+        "intervention_deltas": {
+            name: result["nll"] - native_nll
+            for name, result in interventions.items()
+            if name not in ("native", "ablate_depth")
+        },
         "nonleaf_ablation_deltas": nonleaf_deltas,
+        "generation": generation,
         "p0": p0,
         "p0_pass": all(p0.values()),
         "p1": p1,

@@ -4,7 +4,7 @@ Date: 2026-08-12
 
 Claim: `S3-HSTATE-MULTILEVEL-CONV-C11`
 
-Status: preregistered; smoke pending.
+Status: wiring and 40-step optimization smoke passed; formal run pending.
 
 ## 1. Problem inherited from C10
 
@@ -85,8 +85,8 @@ After a short WMT fine-tune from the C10 pretrained checkpoint:
 
 1. held-out NLL must remain finite and improve over its initial value;
 2. all H_state level gradients must remain non-zero;
-3. at least two non-leaf depth ablations must change held-out NLL by more than
-   `1e-4`;
+3. at least two non-leaf depth ablations must increase held-out NLL by more
+   than `1e-4`;
 4. bypassing bottom-up convolution must change held-out NLL by more than
    `1e-4`.
 
@@ -134,3 +134,38 @@ A positive result would show that a shared TreeHeap convolution can make every
 H_state depth trainable and causally useful for this finite WMT pipeline. It
 would not prove that higher levels have human-readable semantics, that the
 private protocol is unique, or that the model is product ready.
+
+## 8. Smoke result
+
+Taskd job `168` completed on `io` in `35.6` seconds using 512 WMT training rows,
+64 validation rows, 40 optimizer steps and 5,865 target tokens.
+
+| Observation | Result |
+|---|---:|
+| initial -> best valid NLL | `20.8235 -> 10.0273` |
+| unfolded widths after training | `1,2,4,8,16,32,64` |
+| direct gradient norm, root | `0.001809` |
+| direct gradient norm, leaf | `0.003638` |
+| bypass bottom-up convolution delta NLL | `+1.7831` |
+| leaf-only read delta NLL | `+5.1145` |
+| each non-leaf depth ablation delta NLL | `+0.0227 .. +0.0246` |
+
+All required encoder, Butterfly, FOLD, up-kernel and read-kernel parameter
+groups received finite non-zero gradients. No STOP parameter exists in the
+new Decoder. P0 passed. The first implementation also passed the original
+short P1 gate, but it replaced the inherited context with a randomly
+initialized readout and started at NLL `20.8235`; it is retained as wiring
+evidence, not as the formal initialization.
+
+A residual-preserving v2 smoke (taskd `169`) started at NLL `8.1906` and
+reached `7.8100` after 40 steps while retaining non-zero gradients at all
+levels. However, ablating each non-leaf depth *improved* NLL by about
+`0.0044--0.0055`. The corrected directional P1 gate therefore fails: the
+levels participate, but at 40 steps their contribution remains harmful. The
+formal run must reverse this sign rather than merely produce non-zero damage.
+
+The result proves wiring and short optimization only. Initial NLL is severely
+damaged by the newly initialized convolution/read kernels, and final smoke NLL
+remains far above C10 PT (`5.403696`). Formal training must determine whether
+the mandatory multi-level route can recover language quality without losing
+its depth causality.

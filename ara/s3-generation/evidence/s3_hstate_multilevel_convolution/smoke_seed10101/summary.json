@@ -1,0 +1,198 @@
+{
+  "claim": "S3-HSTATE-MULTILEVEL-CONV-C11",
+  "mode": "smoke",
+  "host": "io",
+  "source_checkpoint": "ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/pretrain/checkpoint_best.pt",
+  "source_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "trained_state_sha256": "4ebf654c9b2bd81969804ac4c24447554fd48e3c811741a02caf2ce3c7dce47c",
+  "config": {
+    "mode": "smoke",
+    "checkpoint": "ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/pretrain/checkpoint_best.pt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_hstate_multilevel_convolution/smoke_seed10101",
+    "wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "seed": 10101,
+    "steps": 40,
+    "batch_size": 8,
+    "train_rows": 512,
+    "eval_rows": 64,
+    "max_source": 64,
+    "max_target": 64,
+    "lr": 0.0005,
+    "log_every": 10
+  },
+  "rows": {
+    "train": 512,
+    "valid": 64
+  },
+  "stream_sha256": "cc25994f6eea796737cc15ebb5077d9313817cd2e016e10c821611bce269ac15",
+  "parameters": 35367949,
+  "initial": {
+    "nll": 20.823468017578126,
+    "ppl": 485165195.4097903,
+    "tokens": 1280
+  },
+  "final": {
+    "nll": 10.027304935455323,
+    "ppl": 22636.183288800738,
+    "tokens": 1280
+  },
+  "train_tokens": 5865,
+  "probe_before": {
+    "loss": 22.796113967895508,
+    "level_widths": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "level_grad_norms": [
+      5.302542686462402,
+      1.3458244800567627,
+      1.1372792720794678,
+      0.634612500667572
+    ],
+    "parameter_grad_norms": {
+      "encoder_embedding": 7.602272033691406,
+      "fold_predictor": 0.3360242545604706,
+      "fold_update": 6.855280662421137e-05,
+      "butterfly_forward": 0.46732601523399353,
+      "butterfly_backward": 1.1026545763015747,
+      "up_kernel": 21.052026748657227,
+      "read_kernel": 1817.401611328125,
+      "branch_kernel": 0.15081648528575897
+    },
+    "frontier_entropy": [
+      0.0,
+      0.6762247085571289,
+      0.9795944094657898,
+      1.2501459121704102
+    ],
+    "finite": true
+  },
+  "probe_after": {
+    "loss": 9.483159065246582,
+    "level_widths": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "level_grad_norms": [
+      0.001809358480386436,
+      0.0023455610498785973,
+      0.002199154580011964,
+      0.004991432651877403,
+      0.005956737324595451,
+      0.005764986388385296,
+      0.0036382286343723536
+    ],
+    "parameter_grad_norms": {
+      "encoder_embedding": 0.015719054266810417,
+      "fold_predictor": 0.0018189987167716026,
+      "fold_update": 4.3842312891229085e-08,
+      "butterfly_forward": 0.006721737794578075,
+      "butterfly_backward": 0.004832745995372534,
+      "up_kernel": 0.023412499576807022,
+      "read_kernel": 10.13029670715332,
+      "branch_kernel": 0.003939267713576555
+    },
+    "frontier_entropy": [
+      0.0,
+      0.6908069849014282,
+      1.0135098695755005,
+      1.6978965997695923,
+      2.1644744873046875,
+      2.7564163208007812,
+      3.3425545692443848
+    ],
+    "finite": true
+  },
+  "interventions": {
+    "native": {
+      "nll": 10.027304935455323,
+      "ppl": 22636.183288800738,
+      "tokens": 1280
+    },
+    "bypass_up": {
+      "nll": 11.810431003570557,
+      "ppl": 134649.58330343856,
+      "tokens": 1280
+    },
+    "leaf_only": {
+      "nll": 15.14179573059082,
+      "ppl": 3767023.520907421,
+      "tokens": 1280
+    },
+    "ablate_depth": {
+      "0": {
+        "nll": 10.050843524932862,
+        "ppl": 23175.32756932484,
+        "tokens": 1280
+      },
+      "1": {
+        "nll": 10.051054000854492,
+        "ppl": 23180.205931124914,
+        "tokens": 1280
+      },
+      "2": {
+        "nll": 10.051077938079834,
+        "ppl": 23180.760807578823,
+        "tokens": 1280
+      },
+      "3": {
+        "nll": 10.051928234100341,
+        "ppl": 23200.479698505016,
+        "tokens": 1280
+      },
+      "4": {
+        "nll": 10.051382637023925,
+        "ppl": 23187.82503709712,
+        "tokens": 1280
+      },
+      "5": {
+        "nll": 10.050025463104248,
+        "ppl": 23156.37647111666,
+        "tokens": 1280
+      },
+      "6": {
+        "nll": 10.065799903869628,
+        "ppl": 23524.55160403588,
+        "tokens": 1280
+      }
+    }
+  },
+  "nonleaf_ablation_deltas": [
+    0.023538589477539062,
+    0.02374906539916921,
+    0.023773002624510653,
+    0.02462329864501811,
+    0.02407770156860245,
+    0.02272052764892507
+  ],
+  "p0": {
+    "tree_widths_double": true,
+    "no_stop_parameter": true,
+    "all_level_gradients_nonzero": true,
+    "all_required_parameter_gradients_nonzero": true,
+    "finite": true
+  },
+  "p0_pass": true,
+  "p1": {
+    "valid_nll_improved": true,
+    "bottom_up_causal": true,
+    "two_nonleaf_depths_causal": true
+  },
+  "p1_pass": true,
+  "seconds": 30.84591841697693,
+  "not_proved": [
+    "human-readable hierarchy",
+    "private-protocol uniqueness",
+    "formal WMT improvement when mode=smoke",
+    "product readiness"
+  ]
+}
