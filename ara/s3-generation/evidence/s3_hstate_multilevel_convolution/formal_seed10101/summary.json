@@ -1,0 +1,342 @@
+{
+  "claim": "S3-HSTATE-MULTILEVEL-CONV-C11",
+  "mode": "formal",
+  "host": "io",
+  "source_checkpoint": "ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/pretrain/checkpoint_best.pt",
+  "source_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "trained_state_sha256": "2bc3d71fe2d21c526263982041ab5c7246e8506a10f4b92b1d28520947226fd4",
+  "config": {
+    "mode": "formal",
+    "checkpoint": "ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/pretrain/checkpoint_best.pt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_hstate_multilevel_convolution/formal_seed10101",
+    "wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "seed": 10101,
+    "steps": 25000,
+    "batch_size": 16,
+    "train_rows": 200000,
+    "eval_rows": 1000,
+    "max_source": 253,
+    "max_target": 253,
+    "lr": 0.0005,
+    "log_every": 500,
+    "resume": true
+  },
+  "rows": {
+    "train": 200000,
+    "valid": 1000
+  },
+  "stream_sha256": "a83dffba49a7cc43f904b2c3ec6512674f95d5c8ac7b554ff89e213e292df89b",
+  "parameters": 35366925,
+  "initial": {
+    "nll": 8.086231564510431,
+    "ppl": 3249.4192417520408,
+    "tokens": 20654
+  },
+  "final": {
+    "nll": 5.551338356116324,
+    "ppl": 257.5820618464628,
+    "tokens": 20654
+  },
+  "train_tokens": 20255181,
+  "probe_before": {
+    "loss": 10.584104537963867,
+    "level_widths": [
+      1,
+      2,
+      4
+    ],
+    "level_grad_norms": [
+      0.9382042288780212,
+      1.0596667528152466,
+      0.6068753004074097
+    ],
+    "parameter_grad_norms": {
+      "encoder_embedding": 1.4968317747116089,
+      "fold_predictor": 0.01911926455795765,
+      "fold_update": 1.0723245225108258e-07,
+      "butterfly_forward": 0.14445669949054718,
+      "butterfly_backward": 0.04937008023262024,
+      "up_kernel": 0.003123776987195015,
+      "read_kernel": 1.3186936378479004,
+      "branch_kernel": 0.03383036330342293
+    },
+    "frontier_entropy": [
+      0.0,
+      0.6897062659263611,
+      1.040978193283081
+    ],
+    "finite": true
+  },
+  "probe_after": {
+    "loss": 0.20688462257385254,
+    "level_widths": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "level_grad_norms": [
+      0.005732560995966196,
+      0.005781472194939852,
+      0.01121651753783226,
+      0.01188355591148138,
+      0.014762322418391705,
+      0.01601443812251091,
+      0.02067963220179081,
+      0.019809696823358536
+    ],
+    "parameter_grad_norms": {
+      "encoder_embedding": 0.10508176684379578,
+      "fold_predictor": 0.006686457432806492,
+      "fold_update": 2.737282400744334e-09,
+      "butterfly_forward": 0.10567129403352737,
+      "butterfly_backward": 0.10638831555843353,
+      "up_kernel": 0.0022949385456740856,
+      "read_kernel": 0.026418963447213173,
+      "branch_kernel": 0.04777178540825844
+    },
+    "frontier_entropy": [
+      0.0,
+      0.019827712327241898,
+      0.3088819682598114,
+      0.6855858564376831,
+      1.0961878299713135,
+      1.545371413230896,
+      2.0502281188964844,
+      2.568047285079956
+    ],
+    "finite": true
+  },
+  "interventions": {
+    "native": {
+      "nll": 5.551338356116324,
+      "ppl": 257.5820618464628,
+      "tokens": 20654
+    },
+    "bypass_up": {
+      "nll": 5.551477043097925,
+      "ppl": 257.61778760242606,
+      "tokens": 20654
+    },
+    "leaf_only": {
+      "nll": 5.987906421917365,
+      "ppl": 398.5792789742789,
+      "tokens": 20654
+    },
+    "source_shuffle": {
+      "nll": 6.865448284694021,
+      "ppl": 958.5754582067558,
+      "tokens": 20654
+    },
+    "runtime_identity": {
+      "nll": 5.874891676930013,
+      "ppl": 355.9860970752455,
+      "tokens": 20654
+    },
+    "pair_break_depth_0": {
+      "nll": 5.868051492915075,
+      "ppl": 353.55939566830284,
+      "tokens": 20654
+    },
+    "ablate_depth": {
+      "0": {
+        "nll": 5.5792001070606405,
+        "ppl": 264.85966165794036,
+        "tokens": 20654
+      },
+      "1": {
+        "nll": 5.579381737921906,
+        "ppl": 264.907772715496,
+        "tokens": 20654
+      },
+      "2": {
+        "nll": 5.579434380522538,
+        "ppl": 264.9217185166477,
+        "tokens": 20654
+      },
+      "3": {
+        "nll": 5.580573545832526,
+        "ppl": 265.2236801076744,
+        "tokens": 20654
+      },
+      "4": {
+        "nll": 5.573294321819094,
+        "ppl": 263.30006722492993,
+        "tokens": 20654
+      },
+      "5": {
+        "nll": 5.549253556646867,
+        "ppl": 257.04561428767727,
+        "tokens": 20654
+      },
+      "6": {
+        "nll": 5.539682875347239,
+        "ppl": 254.5972475912912,
+        "tokens": 20654
+      },
+      "7": {
+        "nll": 5.537120311918431,
+        "ppl": 253.94566121781034,
+        "tokens": 20654
+      }
+    }
+  },
+  "intervention_deltas": {
+    "bypass_up": 0.0001386869816002445,
+    "leaf_only": 0.43656806580104046,
+    "source_shuffle": 1.3141099285776967,
+    "runtime_identity": 0.3235533208136889,
+    "pair_break_depth_0": 0.316713136798751
+  },
+  "nonleaf_ablation_deltas": [
+    0.0278617509443162,
+    0.02804338180558208,
+    0.028096024406213616,
+    0.02923518971620176,
+    0.021955965702769475,
+    -0.002084799469457721,
+    -0.01165548076908518
+  ],
+  "generation": {
+    "token_bleu4": 1.3632509471515546,
+    "nonempty": 1.0,
+    "examples": [
+      {
+        "direction": "zh2en",
+        "source": "技能: Facebook营销 , 社交媒体营销 , 社交网络 , YouTube",
+        "reference": "Skills: Facebook Marketing , Social Media Marketing , Social Networking , YouTube",
+        "generation": "Google营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销营销",
+        "route": [
+          0.0,
+          0.5511837005615234,
+          1.1801602840423584,
+          1.7382804155349731,
+          2.3819828033447266
+        ]
+      },
+      {
+        "direction": "zh2en",
+        "source": "如果你想有一个峰与您的意见,以显示, 去获得 的gravatar !",
+        "reference": "In other words, if you want to create a site about beauty tips, why not focus on makeup for the face?",
+        "generation": "The best way to get the best of the most importantly, and the same time, the same time or the right to get the same time.",
+        "route": [
+          0.0,
+          0.02321331575512886,
+          0.5976495146751404,
+          1.1835927963256836,
+          1.783509373664856,
+          2.4174485206604004
+        ]
+      },
+      {
+        "direction": "en2zh",
+        "source": "The eyes of the Deinonychus glinted even in the dim light.",
+        "reference": "这个疑问不止一次的出现在田歌的脑海之中了。",
+        "generation": " ⁇ 的 ⁇ 子,在 ⁇ 下,可用 ⁇ 骨和头像一样。",
+        "route": [
+          0.0,
+          0.22374682128429413,
+          0.8265947699546814,
+          1.4387127161026,
+          2.101607322692871,
+          2.7709453105926514
+        ]
+      },
+      {
+        "direction": "en2zh",
+        "source": "After working at several graphics studios including Studio 109, he joined Nippon Design Center in 2006.",
+        "reference": "曾在IMAGE Studio 109等多家公司任职,2006年入职日本设计中心。",
+        "generation": " ⁇ 景湾公园,在香港,距离Sydneyer Fütte、M350 和其他10名员工。",
+        "route": [
+          0.0,
+          0.05548296496272087,
+          0.6454839706420898,
+          1.276111125946045,
+          1.918799877166748,
+          2.5327465534210205
+        ]
+      },
+      {
+        "direction": "en2zh",
+        "source": "If the CRC values are different, then it is absolutely certain that the information written to the file is not the same as the information read.",
+        "reference": "如果 CRC 数值不同,代表目前读取的文件数据与以前文件写入磁盘时的数据不同。",
+        "generation": "尤其是如果我们可能存在,如果我们无法使用,则可能将指向该文件。",
+        "route": [
+          0.0,
+          0.42420074343681335,
+          1.0880012512207031,
+          1.634562373161316,
+          2.2613306045532227,
+          2.8594539165496826
+        ]
+      },
+      {
+        "direction": "zh2en",
+        "source": "人权观察访问到三名罗兴亚男性和三名男童,最小的16岁,分别在貌夺镇(Maungdaw)不同地点被捕。",
+        "reference": "Human Rights Watch interviewed three Rohingya men and three boys, the youngest 16, who were taken into custody at different times and in different locations in Maungdaw township.",
+        "generation": "The number of the new of the cerebuging the number of the jariryy, the chicakamousy, and the new jamousy of the world.",
+        "route": [
+          0.0,
+          0.016540706157684326,
+          0.5856382846832275,
+          1.1802061796188354,
+          1.7403508424758911,
+          2.3463215827941895,
+          2.9542670249938965
+        ]
+      },
+      {
+        "direction": "zh2en",
+        "source": "速度就是金钱。",
+        "reference": "And speed is your currency.",
+        "generation": "The most popular is the best way of the best way.",
+        "route": [
+          0.0,
+          0.6105849146842957,
+          1.09769606590271,
+          1.695666790008545
+        ]
+      },
+      {
+        "direction": "zh2en",
+        "source": "Saucony Peregrine 8 924 kr",
+        "reference": "Saucony Guide ISO Womens 924 kr",
+        "generation": "954 and 6552 hotels with availability of 9",
+        "route": [
+          0.0,
+          0.3178158104419708,
+          0.8529748916625977,
+          1.5158251523971558,
+          2.182365894317627
+        ]
+      }
+    ]
+  },
+  "p0": {
+    "tree_widths_double": true,
+    "no_stop_parameter": true,
+    "all_level_gradients_nonzero": true,
+    "all_required_parameter_gradients_nonzero": true,
+    "finite": true
+  },
+  "p0_pass": true,
+  "p1": {
+    "valid_nll_improved": true,
+    "bottom_up_causal": true,
+    "two_nonleaf_depths_helpful": true
+  },
+  "p1_pass": true,
+  "seconds": 35879.10605430603,
+  "not_proved": [
+    "human-readable hierarchy",
+    "private-protocol uniqueness",
+    "formal WMT improvement when mode=smoke",
+    "product readiness"
+  ]
+}

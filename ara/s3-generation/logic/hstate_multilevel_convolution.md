@@ -4,7 +4,7 @@ Date: 2026-08-12
 
 Claim: `S3-HSTATE-MULTILEVEL-CONV-C11`
 
-Status: wiring and 40-step optimization smoke passed; formal run pending.
+Status: P0/P1 supported; formal P2 rejected for this implementation.
 
 ## 1. Problem inherited from C10
 
@@ -169,3 +169,86 @@ damaged by the newly initialized convolution/read kernels, and final smoke NLL
 remains far above C10 PT (`5.403696`). Formal training must determine whether
 the mandatory multi-level route can recover language quality without losing
 its depth causality.
+
+## 9. Formal result
+
+Taskd job `172` completed on `io` in `35,879` training seconds (about `9.97`
+hours). It used 200,000 WMT rows, 25,000 optimizer steps, 20,255,181 target
+tokens and 35,366,925 parameters. The checkpoint and full evidence were copied
+to NAS by task `173`.
+
+The original formal script selected the best checkpoint on 1,000 validation
+rows. Its final validation NLL was `5.551338`. Because the preregistration asks
+for a test result, a frozen post-hoc audit was run on a disjoint deterministic
+1,000-row test split. No parameters were updated during this audit.
+
+| Frozen test observation | Result |
+|---|---:|
+| native test NLL | `5.421573` |
+| C10 PT NLL on the same 1,000 test rows | `5.403696` |
+| paired-row delta from C10 PT | `+0.017877` |
+| token BLEU4, same first 32 test rows | `3.077426` |
+| C10 PT token BLEU4, same first 32 rows | `4.380892` |
+| forced leaf-only delta NLL | `+0.440891` |
+| source shuffle delta NLL | `+1.312386` |
+| runtime Identity delta NLL | `+0.327492` |
+| pair-break at depth 0 delta NLL | `+0.303098` |
+| bypass bottom-up `K_up` delta NLL | `+0.000340` |
+
+The per-depth ablation deltas on the independent test split were:
+
+```text
+depth 0  +0.027370
+depth 1  +0.027476
+depth 2  +0.027521
+depth 3  +0.029622
+depth 4  +0.023629
+depth 5  -0.000868
+depth 6  -0.011698
+depth 7  -0.014209
+depth 8  -0.000347
+```
+
+This separates two mechanisms that were combined in the C11 design:
+
+1. **Mandatory multi-level READ is supported.** Forcing leaf-only READ is
+   strongly harmful, gradients reach every unfolded level, and ablating each
+   of depths 0--4 independently increases held-out NLL by about `0.024--0.030`.
+   The Decoder therefore no longer behaves as the C10 leaf-only reader.
+2. **The extra bottom-up `K_up` convolution is not supported.** Removing it
+   changes test NLL by only `0.000340`, far below the preregistered `0.02`
+   threshold. The useful parent states mostly come from the inherited learned
+   FOLD plus the new root-to-leaf READ, not from this second upward pass.
+
+Depths 5--7 are mildly harmful under single-depth ablation. Thus the result is
+not evidence that every resolution is useful. It is evidence for a coarse
+causal band near root, alongside a remaining optimization/allocation problem
+in finer parent levels.
+
+P0 passes. P1 passes. Formal P2 fails because `K_up` is not materially causal
+and generation quality remains below C10. The implementation claim is
+therefore rejected as a complete product improvement, while the narrower
+claim that a no-STOP multi-level READ can induce causal parent-level use is
+supported for this seed and dataset split.
+
+The C11 training stream hash (`a83d...`) differs from the historical C10 PT
+stream hash (`f697...`). Both runs used 25,000 steps, batch size 16 and about
+20.2M target tokens, but C11 applied an additional maximum-length cleaning pass
+before scheduling. Therefore the training curves are budget-matched, not
+sample-for-sample paired. The final C10 comparison above avoids a test-set
+mismatch by loading both frozen checkpoints and scoring the exact same 1,000
+rows. The within-C11 intervention conclusions are paired on both checkpoint
+and rows and do not depend on the historical C10 stream.
+
+Evidence:
+
+```text
+evidence/s3_hstate_multilevel_convolution/formal_seed10101/
+  summary.json
+  trace.jsonl
+
+evidence/s3_hstate_multilevel_convolution/test_audit_seed10101/
+  summary.json
+```
+
+Large checkpoints are retained on `io` and NAS rather than Git.
