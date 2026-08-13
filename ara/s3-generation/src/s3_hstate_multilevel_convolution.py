@@ -81,7 +81,10 @@ class SharedReadKernel(nn.Module):
 
 
 class MultiLevelConvolutionDecoder(nn.Module):
-    def __init__(self, old_decoder: nn.Module, dim: int, hidden: int, depths: int):
+    def __init__(
+        self, old_decoder: nn.Module, dim: int, hidden: int, depths: int,
+        use_up: bool = True,
+    ):
         super().__init__()
         self.embedding = old_decoder.embedding
         self.query = old_decoder.query
@@ -98,10 +101,11 @@ class MultiLevelConvolutionDecoder(nn.Module):
         self.read_gain_logit = nn.Parameter(torch.tensor(-4.0))
         self.hidden = hidden
         self.depths = depths
+        self.use_up = use_up
 
     def convolve(self, levels, masks, bypass_up: bool = False):
         tree = list(levels)
-        if bypass_up:
+        if bypass_up or not self.use_up:
             return tree
         gain = torch.sigmoid(self.up_gain_logit)
         for depth in range(len(tree) - 2, -1, -1):
@@ -182,11 +186,11 @@ class MultiLevelConvolutionDecoder(nn.Module):
 
 
 class HStateConvolutionModel(nn.Module):
-    def __init__(self, base_model, dim: int, hidden: int):
+    def __init__(self, base_model, dim: int, hidden: int, use_up: bool = True):
         super().__init__()
         self.encoder = base_model.encoder
         self.decoder = MultiLevelConvolutionDecoder(
-            base_model.decoder, dim, hidden, self.encoder.depths,
+            base_model.decoder, dim, hidden, self.encoder.depths, use_up,
         )
 
     def states(self, source, length, intervention: str = "native", pair_break_depth: int = -1):

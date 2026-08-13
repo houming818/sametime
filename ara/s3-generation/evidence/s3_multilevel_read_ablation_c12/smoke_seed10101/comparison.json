@@ -1,0 +1,62 @@
+{
+  "claim": "S3-MULTILEVEL-READ-ABLATION-C12",
+  "arms": [
+    "c10",
+    "read",
+    "read_up"
+  ],
+  "p0": {
+    "one_parent_state": true,
+    "one_training_stream": true,
+    "one_row_set_per_split": true,
+    "matched_read_initialization": true,
+    "all_finite": true
+  },
+  "p0_pass": true,
+  "p1": {
+    "read_leaf_only_delta_ge_0_05": false,
+    "read_two_nonleaf_depths_ge_0_01": false,
+    "read_up_bypass_delta": -2.23447794240883e-05
+  },
+  "p1_pass": false,
+  "metrics": {
+    "c10": {
+      "test_nll": 7.568803488359152,
+      "token_bleu4": 0.19943095926759133,
+      "adjacent_repetition_rate": 0.12660393498716851,
+      "mean_max_token_share": 0.3427936417597417,
+      "parameters": 34448396,
+      "seconds": 8.913311958312988
+    },
+    "read": {
+      "test_nll": 7.684837580406428,
+      "token_bleu4": 0.19189156323090034,
+      "adjacent_repetition_rate": 0.15996578272027373,
+      "mean_max_token_share": 0.5386252047207082,
+      "parameters": 35366925,
+      "seconds": 17.093746185302734
+    },
+    "read_up": {
+      "test_nll": 7.646420296780404,
+      "token_bleu4": 0.20290062465704192,
+      "adjacent_repetition_rate": 0.17792985457656116,
+      "mean_max_token_share": 0.541886804735357,
+      "parameters": 35366925,
+      "seconds": 17.27607488632202
+    }
+  },
+  "delta_read_minus_c10": {
+    "test_nll": 0.11603409204727555,
+    "token_bleu4": -0.007539396036690987,
+    "adjacent_repetition_rate": 0.033361847733105215,
+    "mean_max_token_share": 0.1958315629609665,
+    "seconds": 8.180434226989746
+  },
+  "delta_read_up_minus_read": {
+    "test_nll": -0.038417283626023924,
+    "token_bleu4": 0.011009061426141581,
+    "adjacent_repetition_rate": 0.017964071856287428,
+    "mean_max_token_share": 0.0032616000146488133,
+    "seconds": 0.1823287010192871
+  }
+}
