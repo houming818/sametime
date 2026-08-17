@@ -1,0 +1,55 @@
+{
+  "claim": "LOCAL-PARALLEL-CLEANING-PILOT-001",
+  "model": "/home/nio/models/bge-reranker-v2-m3",
+  "rows": 100000,
+  "corpus_valid_rows": 14170275,
+  "sample_sha256": "5ac57e57d2448262f1dc688a41a72754041c44ec08c260e7319ca08048b29f82",
+  "seed": 14101,
+  "observed_quantiles": {
+    "0": 1.593661909282673e-05,
+    "0.01": 1.6314539607265033e-05,
+    "0.05": 0.00011323437502142042,
+    "0.1": 0.0011972112115472555,
+    "0.25": 0.05738753825426102,
+    "0.5": 0.9860979318618774,
+    "0.75": 0.9996330738067627,
+    "0.9": 0.9999257326126099,
+    "0.95": 0.9999637603759766,
+    "0.99": 0.9999788999557495,
+    "1": 0.9999802112579346
+  },
+  "shuffle_quantiles": {
+    "0": 1.593661909282673e-05,
+    "0.01": 1.6061610949691385e-05,
+    "0.05": 1.6061610949691385e-05,
+    "0.1": 1.6061610949691385e-05,
+    "0.25": 1.6187581422855146e-05,
+    "0.5": 1.6442494597868063e-05,
+    "0.75": 1.9373936083866283e-05,
+    "0.9": 8.750300185056403e-05,
+    "0.95": 0.000458312890259549,
+    "0.99": 0.013902058824896812,
+    "1": 0.9996471405029297
+  },
+  "shuffle_auc": 0.9779678884,
+  "candidate_thresholds_unvalidated": {
+    "reject": 1.6314539607265033e-05,
+    "gray": 0.0011972112115472555
+  },
+  "buckets": {
+    "clean_candidate": 89991,
+    "reject_candidate": 1221,
+    "gray": 8788
+  },
+  "flags": {
+    "mojibake": 1837,
+    "direction_suspect": 13167,
+    "length_ratio_suspect": 0,
+    "duplicate": 0,
+    "number_mismatch": 16548
+  },
+  "seconds": 628.2990005016327,
+  "pairs_scored_per_second": 318.31978061451696,
+  "max_cuda_memory_bytes": 2159980544,
+  "warning": "Observed rows are not ground-truth positives; thresholds require manual calibration before filtering."
+}

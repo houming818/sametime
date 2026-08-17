@@ -1,0 +1,36 @@
+{
+  "claim": "LOCAL-PARALLEL-CLEANING-PILOT-001",
+  "review_method": "blind DeepSeek review followed by Codex review of all low-confidence and non-default labels",
+  "judge_model": "deepseek-chat",
+  "threshold_sample": {
+    "rows": 400,
+    "reject_stratified_rows": 200,
+    "reject_labeled_mismatch": 200,
+    "reject_strict_precision": 1.0,
+    "reject_precision_wilson_95_lower": 0.9812,
+    "gray_lower_rows": 100,
+    "gray_lower_mismatch": 97,
+    "gray_upper_rows": 50,
+    "gray_upper_mismatch": 46,
+    "clean_lower_rows": 50,
+    "clean_lower_mismatch": 47,
+    "low_confidence_rows": 10
+  },
+  "high_score_control": {
+    "rows": 100,
+    "correct": 96,
+    "partial": 4,
+    "mismatch": 0,
+    "uncertain": 0
+  },
+  "codex_cross_review": {
+    "scope": "all low-confidence cases, all partial labels, and all high-control non-correct labels",
+    "finding": "Low-score partial labels were translation mismatches under the corpus-fidelity rubric. Several high-control partial labels were conservative judge errors, but none was rejected as mismatch."
+  },
+  "decision": "The model-assisted reject-precision gate passed for a non-destructive 1M shadow run. It does not authorize deleting or rewriting source rows.",
+  "limitations": [
+    "The calibration is model-assisted rather than an independent professional bilingual annotation.",
+    "The high-control set contains extreme high scores and does not estimate behavior across the full clean distribution.",
+    "Thresholds must remain reversible manifests until downstream training ablation confirms benefit."
+  ]
+}
