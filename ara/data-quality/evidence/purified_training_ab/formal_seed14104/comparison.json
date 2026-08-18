@@ -1,0 +1,26 @@
+{
+  "claim": "LOCAL-PARALLEL-PURIFICATION-AB-001",
+  "status": "supported for NLL and structural sensitivity; mixed generation result",
+  "matched_controls": {
+    "common_initial_hash_equal": true,
+    "train_rows_per_arm": 38000,
+    "valid_rows": 1024,
+    "test_rows": 1024,
+    "steps": 3000,
+    "seed": 14104
+  },
+  "metrics": {
+    "best_valid_nll": {"raw": 7.562916139356133, "purified": 7.160384940623042, "delta": -0.402531198733091},
+    "test_nll": {"raw": 7.578410875349086, "purified": 7.144149918836658, "delta": -0.434260956512428},
+    "test_perplexity": {"raw": 1955.51893158734, "purified": 1266.6740916228},
+    "source_shuffle_delta": {"raw": 1.2495690347140078, "purified": 1.3267605485408671},
+    "pair_break_depth_0_delta": {"raw": 0.1154180088219654, "purified": 0.17926352244427868},
+    "runtime_identity_delta": {"raw": -0.09397904111889233, "purified": 0.02939690469552314},
+    "adjacent_repetition_rate": {"raw": 0.03770100792490575, "purified": 0.057708704751569646},
+    "en2zh_sacrebleu": {"raw": 1.4259158281829099, "purified": 0.9393269184428309},
+    "zh2en_sacrebleu": {"raw": 0.6513101454710749, "purified": 0.9228675322017433},
+    "en2zh_chrf2": {"raw": 3.0640496728636433, "purified": 2.8209404871969532},
+    "zh2en_chrf2": {"raw": 14.636116343175818, "purified": 14.710736908308672}
+  },
+  "decision": "Repeat the matched battle with multiple seeds before promoting corpus purification. Do not claim product translation improvement from this run."
+}

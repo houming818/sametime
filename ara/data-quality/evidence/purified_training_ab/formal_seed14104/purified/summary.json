@@ -1,0 +1,299 @@
+{
+  "claim": "S3-BOUNDED-ANNEALING-FOLD-C13",
+  "scope": "matched formal route probe",
+  "arm": "ref_zero",
+  "config": {
+    "arm": "ref_zero",
+    "config_checkpoint": "ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/pretrain/checkpoint_best.pt",
+    "evidence_dir": "ara/data-quality/evidence/purified_training_ab/formal_seed14104/purified",
+    "wmt_data": "ara/data-quality/evidence/purified_training_ab/dataset_seed14102/purified_train.tsv",
+    "eval_wmt_data": "ara/data-quality/evidence/purified_training_ab/dataset_seed14102/shared_eval.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "seed": 14104,
+    "steps": 3000,
+    "train_rows": 38000,
+    "eval_rows": 1024,
+    "batch_size": 16,
+    "lr": 0.002,
+    "log_every": 500,
+    "generation_rows": 1024,
+    "save_checkpoint": true
+  },
+  "common_initial_base_hash": "2fb11ba5b5117423c23d9999533644846a61eac05a781a3e2f7d789e1a3b49b3",
+  "stream_sha256": "7d18949c5b80914b92fa71e4d85c10eadaa1cb3c708fc492b6c31c9f39eaa2c1",
+  "rows": {
+    "train": 38000,
+    "valid": 1024,
+    "test": 1024
+  },
+  "parameters": 34448396,
+  "initial_valid_nll": 10.382596057928723,
+  "best_valid_nll": 7.160384940623042,
+  "best_step": 2500,
+  "test_nll": 7.144149918836658,
+  "source_shuffle_delta": 1.3267605485408671,
+  "pair_break_depth_0_delta": 0.17926352244427868,
+  "runtime_identity_delta": 0.02939690469552314,
+  "generation": {
+    "evaluated_sentences": 1024,
+    "standard": {
+      "en2zh": {
+        "sentences": 515,
+        "sacrebleu": 0.9393269184428309,
+        "chrf2": 2.8209404871969532
+      },
+      "zh2en": {
+        "sentences": 509,
+        "sacrebleu": 0.9228675322017433,
+        "chrf2": 14.710736908308672
+      }
+    },
+    "adjacent_repetition_rate": 0.057708704751569646,
+    "nonempty_rate": 1.0,
+    "examples": [
+      {
+        "direction": "en2zh",
+        "source": "These paths are certainly not straight, simply because they must follow the curvature of the Earth's surface.",
+        "reference": "这些路径显然不是直的,因为它们沿着地球的弯曲的表面延伸。",
+        "generation": "魏, 在美国许多内斯堡,因此, 假设是第一个在头顶上,如其全球化,如为18家性,在马拉内"
+      },
+      {
+        "direction": "zh2en",
+        "source": "然而,罗马尼亚面临对这些资金吸收的问题,主要是由于国家,地区和地方层面的行政能力低下,或没有共同融资的可能性,没有能力启动或实施项目,或者根本缺乏政治意愿。 今天的节目到此结束。",
+        "reference": "However, Romania is faced with issues concerning the absorption of such funds, mainly because of a poor administrative capacity, at national, regional and local level. The main issues are the lack of adequate resources for co-financing, the lack of competences needed to start or implement projects or the lack of political will.",
+        "generation": "The company is not the same of the main equipment, the first time and the first time, and the first time, and the first time, and the public cloud, or the following a number of the pond and a long as well as a new direction of the new direction of the new direction of the new direction of the new direction of the new direction of the new direction of the new direction of"
+      },
+      {
+        "direction": "zh2en",
+        "source": "它能够解决与Outlook PST文件相关的所有类型的错误和损坏。",
+        "reference": "It is capable of resolving all kind of errors and damages related to Outlook PST file.",
+        "generation": "The application of the new Council of the Website and culture"
+      },
+      {
+        "direction": "zh2en",
+        "source": "其他平台 我们现在支持新版本的操作系统、Citrix Workspace 应用程序和 Microsoft Skype for Business 服务器。",
+        "reference": "Additional platforms We now support new versions of operating systems, Citrix Workspace apps, and the Microsoft Skype for Business server.",
+        "generation": "The United States was a new year of a global range of free education, and the United States, a broad portfolio of a new school, and also a new school, but also also also an area of"
+      },
+      {
+        "direction": "zh2en",
+        "source": "店的东西 Y h。 Language 此页使用机器翻译,已被翻译。",
+        "reference": "Shop stuff Y h. Language This page uses machine translation, has been translated.",
+        "generation": "The price we quote you can be transferred to use the use of the use of the use of the use of the Website, but the use of the use of the"
+      },
+      {
+        "direction": "zh2en",
+        "source": "子弹掉落系统已经变得更加提升让玩家精确的瞄准与环境.",
+        "reference": "Bullet-dropping-system has become much more enhanced allowing players to precise their aiming with the environment.",
+        "generation": "The kitchen is a difficult to stay."
+      },
+      {
+        "direction": "en2zh",
+        "source": "Â Irresistible appeal. This has always been a driving force in the development of the 911.",
+        "reference": "不可抗拒的吸引力。 这一直是在 911 的发展的驱动力。",
+        "generation": "魏 : 在4年成立月,是世界各人。"
+      },
+      {
+        "direction": "en2zh",
+        "source": "Progress Jan Ken Pon tenkaichi",
+        "reference": "进度 Jan Ken Pon tenkaichi",
+        "generation": "免责声明:  ⁇ "
+      },
+      {
+        "direction": "zh2en",
+        "source": "我们在 阿姆斯特丹 的所有主要城市提供折扣租车",
+        "reference": "We offer discount car rental, car hire in all major cities of Amsterdam",
+        "generation": "The hotel is only in a variety of international task."
+      },
+      {
+        "direction": "zh2en",
+        "source": "如果您将成员添加到文件或文件夹,而不是共享链接,请了解如何更改其权限 。",
+        "reference": "If you added members to a file or folder, instead of sharing a link, learn how to change its permissions.",
+        "generation": "The United States responded is not be found on the Website of its own rights to the Website."
+      },
+      {
+        "direction": "en2zh",
+        "source": "Scripture Read Before the Sermon by Mr. Kyu Dong Lee: Philippians 2:5-11.",
+        "reference": "宣道前李 ⁇ 东先生(Mr. Kyu Dong Lee)领读的经文:腓立比书 2:5-11。",
+        "generation": "尤其是,在现场通过的福音没有书上主的问题,请是在心。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "本网站及与其相关的所有计算机程序都有可能包含机密信息,或受到知识产权法或其他任何法律保护的信息。",
+        "reference": "The website and any computer program used in relation with the website may contain information that is confidential, or protected by intellectual property rights or by any other law.",
+        "generation": "The price we quote you are required to or your personal information about your personal data or personal information about your personal data or personal information about your personal data or personal information about your personal data or personal information about your personal data or personal information about"
+      },
+      {
+        "direction": "en2zh",
+        "source": "I was lucky to solve an unsolved problem that he proposed.",
+        "reference": "我很幸运,来解决一个悬而未决的问题,他建议。",
+        "generation": "我想在南世世世世世开的。"
+      },
+      {
+        "direction": "en2zh",
+        "source": "It is built on the globally distributed Akamai Intelligent PlatformTM for superior capacity, scalability, availability, and performance.",
+        "reference": "它基于全球分布的 Akamai Intelligent PlatformTM 而构建,提供出色的容量、可扩展性、可用性和性能。",
+        "generation": "科技、 ⁇ 、因、  ⁇ 、、都是本网站提供者的财产, 负责,又将上述系统,包括对性和和科学的、医疗、 ⁇ 、科学、以及、科学、"
+      },
+      {
+        "direction": "en2zh",
+        "source": "I worked with my fi More",
+        "reference": "I worked with my fi 更多",
+        "generation": "赌博 ⁇ 选项。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "教练 E. Fuertes Age 46 years Appointed: 22 十一月 2018",
+        "reference": "Coach E. Fuertes Age 46 years Appointed: 22 November 2018",
+        "generation": "The following the first time of the first name of the hotel's a busy machine that the first name of the hotel's a month and the first place of"
+      },
+      {
+        "direction": "en2zh",
+        "source": "\"One of the many challenges in the fight against online violence against women is that most states still fail to recognize violence against women in the digital space as a real form of violence and the urgent need for specialized legislative measures at the national level,\" she said.",
+        "reference": "她说 : \" 打击针对女性的网络暴力行为的诸多挑战之一是,大多数国家仍然未能认识到数字空间中对女性的暴力行为是一种真实的暴力形式,并且迫切需要在国家层面上采取专门的立法措施 。 \"",
+        "generation": "在这种情形下,在公司的中,由一些普遍,这会见和政治国。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "主要作用:拉里萨从\"Mimino » 。",
+        "reference": "The main role: Larissa from \"Mimino».",
+        "generation": "The following: City was passed the following-up-up-upment"
+      },
+      {
+        "direction": "zh2en",
+        "source": "从一开始基督就向他的门徒们阐明了神赐应许的真正含义,讲明了他们会像他一样认识神。",
+        "reference": "From the beginning Christ had declared to His disciples the true meaning of the divine promise, which made clear that they would recognize God as He is.",
+        "generation": "The signing of the \"m's they's would be transferred to the people."
+      },
+      {
+        "direction": "zh2en",
+        "source": "在液晶电视上观看国际和当地频道以及 Sky Cinema 和 Sky MGM,免费使用我们的健身中心。",
+        "reference": "View international and local channels as well Sky Cinema and Sky MGM on the LED TV and take advantage of free access to our fitness centre.",
+        "generation": "The hotel is a free free Wi-Fi in a variety of free education, which is not concerned with a new and free a free TV and free Wi-Fi in a variety of free education, which is a free to private"
+      },
+      {
+        "direction": "zh2en",
+        "source": "这条路有四个车道。",
+        "reference": "This street has four lanes.",
+        "generation": "The signing of the Website's pet pool."
+      },
+      {
+        "direction": "en2zh",
+        "source": "For certified divers, excursions are available from Na'ama Bay to Sharm El-Sheikh's best known dive sites, which include Ras Nusrani, White Knight and Ras Umm Sid, famous for its magnificent fan corals.",
+        "reference": "对于经过认证的潜水员来说,从Na'ama湾可以远足去沙姆沙伊赫最知名的潜水地点,包括Ras Nusrani, 白骑士和 Ras Umm Sid,它们因拥有宏伟的扇珊瑚而闻名。",
+        "generation": "欧盟,坐落于在日本、许多、海和韩国的国际机构及中国及水管理系统,包括用于 ⁇ 、农业、智慧、工业、智慧和工业等。"
+      },
+      {
+        "direction": "en2zh",
+        "source": "If your device is running Adobe XD on Windows 10, real-time preview through USB is not supported on Android.",
+        "reference": "如果您的设备在 Windows 10 上运行 Adobe XD,则不支持在通过 USB 与之连接的 Android 设备上进行实时预览。",
+        "generation": "免责声明:  ⁇ 节,但您的您的您的您的您的您的您的您的您的您的您的您的您的数据可为请求。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "在格鲁吉亚的主要宗教 这是格鲁吉亚的主要宗教?",
+        "reference": "THE MAIN RELIGION IN GEORGIA Which is the main religion in Georgia?",
+        "generation": "The United States Center"
+      }
+    ]
+  },
+  "closure": {
+    "mse": 6.204951713572639e-15,
+    "max_abs": 2.5331974029541016e-06,
+    "root_rms": 0.0458843931555748
+  },
+  "final_gradient_groups": {
+    "encoder_embedding": 0.003214860308931575,
+    "communication": 0.01662555371588679,
+    "decoder": 0.12823413551447982
+  },
+  "trace": [
+    {
+      "step": 1,
+      "train_nll": 10.444944381713867,
+      "valid_nll": 10.377339582651523,
+      "grad_norm": 3.6032629013061523,
+      "gradient_groups": {
+        "encoder_embedding": 0.06406297509087036,
+        "communication": 0.06996892569857241,
+        "decoder": 3.602013680274744
+      },
+      "seconds": 7.000145673751831
+    },
+    {
+      "step": 500,
+      "train_nll": 7.588072776794434,
+      "valid_nll": 7.539284902450392,
+      "grad_norm": 0.48385855555534363,
+      "gradient_groups": {
+        "encoder_embedding": 0.015926891477969957,
+        "communication": 0.06437576921016328,
+        "decoder": 0.4792923949855025
+      },
+      "seconds": 339.31671619415283
+    },
+    {
+      "step": 1000,
+      "train_nll": 2.2426846027374268,
+      "valid_nll": 7.502358501801728,
+      "grad_norm": 0.5295433402061462,
+      "gradient_groups": {
+        "encoder_embedding": 0.027789437804571316,
+        "communication": 0.11313205576075269,
+        "decoder": 0.516570464424547
+      },
+      "seconds": 696.4602410793304
+    },
+    {
+      "step": 1500,
+      "train_nll": 0.3256989121437073,
+      "valid_nll": 7.568298918945662,
+      "grad_norm": 0.42239633202552795,
+      "gradient_groups": {
+        "encoder_embedding": 0.007570232843970552,
+        "communication": 0.03574293029124798,
+        "decoder": 0.4208132718590025
+      },
+      "seconds": 1070.7948021888733
+    },
+    {
+      "step": 2000,
+      "train_nll": 5.95331335067749,
+      "valid_nll": 7.19629949726087,
+      "grad_norm": 0.6084544658660889,
+      "gradient_groups": {
+        "encoder_embedding": 0.024514658626233185,
+        "communication": 0.09619171816218886,
+        "decoder": 0.60030246697495
+      },
+      "seconds": 1403.2696089744568
+    },
+    {
+      "step": 2500,
+      "train_nll": 0.3123774230480194,
+      "valid_nll": 7.160384940623042,
+      "grad_norm": 0.24104802310466766,
+      "gradient_groups": {
+        "encoder_embedding": 0.014557158669507946,
+        "communication": 0.0544880715860876,
+        "decoder": 0.23435717628071068
+      },
+      "seconds": 1761.6987597942352
+    },
+    {
+      "step": 3000,
+      "train_nll": 0.0689813494682312,
+      "valid_nll": 7.189239660386667,
+      "grad_norm": 0.12934735417366028,
+      "gradient_groups": {
+        "encoder_embedding": 0.003214860308931575,
+        "communication": 0.01662555371588679,
+        "decoder": 0.12823413551447982
+      },
+      "seconds": 2137.1343297958374
+    }
+  ],
+  "seconds": 2226.4462628364563,
+  "finite": true
+}

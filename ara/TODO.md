@@ -62,3 +62,12 @@ and send the gray zone to API/human review.
   were still unusable as faithful translations.
 - Decision: proceed to a reversible 1M shadow manifest; source deletion remains
   forbidden until downstream matched-training evidence exists.
+
+### Purified training A/B result
+
+- One-seed matched screening completed (`io` tasks 213 and 214).
+- Purified test NLL: 7.1441 vs raw 7.5784.
+- Structural intervention deltas improved, but EN->ZH overlap and repetition
+  worsened while ZH->EN overlap improved.
+- Status: promising learning-signal evidence, not product-quality evidence.
+- Next: multi-seed confirmation before applying the filter to larger training.
