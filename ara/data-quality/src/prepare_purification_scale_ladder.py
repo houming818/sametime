@@ -17,11 +17,12 @@ def partition_slot(line: str) -> int:
     return int.from_bytes(digest, "big") % 1000
 
 
-def force_partition(row: dict, slot: int) -> str:
+def force_partition(row: dict, slot: int | str) -> str:
     base = f"{row['zh']}\t{row['en']}"
-    for nonce in range(10_000):
+    for nonce in range(1_000_000):
         line = f"{base}\tpartition_pad_{nonce}\n"
-        if partition_slot(line) == slot:
+        actual = partition_slot(line)
+        if (slot == "train" and actual >= 2) or actual == slot:
             return line
     raise RuntimeError(f"partition search failed slot={slot} source_line={row['line']}")
 
@@ -68,14 +69,14 @@ def main() -> None:
         raise RuntimeError(f"insufficient purified rows: {len(purified)} < {sizes[-1]}")
 
     args.output.mkdir(parents=True, exist_ok=True)
-    train_lines = [force_partition(row, 2) for row in purified[: sizes[-1]]]
+    train_lines = [force_partition(row, "train") for row in purified[: sizes[-1]]]
     hashes = {}
     for size in sizes:
         hashes[f"train_{size}"] = write_lines(args.output / f"purified_{size}.tsv", train_lines[:size])
     valid = eval_rows[: args.eval_rows]
     test = eval_rows[args.eval_rows :]
     filler = purified[sizes[-1]]
-    eval_lines = [force_partition(filler, 2)]
+    eval_lines = [force_partition(filler, "train")]
     eval_lines.extend(force_partition(row, 0) for row in valid)
     eval_lines.extend(force_partition(row, 1) for row in test)
     hashes["eval"] = write_lines(args.output / "shared_eval.tsv", eval_lines)
