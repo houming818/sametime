@@ -29,6 +29,9 @@ evaluation set is excluded from every training set.
 - Same seed, optimizer, learning rate, batch size, tokenizer, validation, and
   test rows.
 - Train each arm for one pass: `steps = ceil(rows / batch_size)`.
+- Each physical training TSV includes 1,000 extra candidates to absorb
+  tokenizer eligibility rejection, plus one valid/test loader sentinel. These
+  sentinels are discarded when the shared evaluation set replaces them.
 - Run serially on the protected `io` RTX 3090.
 
 ## Predict

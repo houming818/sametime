@@ -65,16 +65,19 @@ def main() -> None:
     eval_ids = {row["line"] for row in eval_rows}
     purified = [row for row in purified if row["line"] not in eval_ids]
     purified.sort(key=lambda row: stable_key(args.seed + 2, row))
-    if len(purified) < sizes[-1]:
-        raise RuntimeError(f"insufficient purified rows: {len(purified)} < {sizes[-1]}")
+    buffer_rows = 1_000
+    if len(purified) < sizes[-1] + buffer_rows:
+        raise RuntimeError(f"insufficient purified rows: {len(purified)} < {sizes[-1] + buffer_rows}")
 
     args.output.mkdir(parents=True, exist_ok=True)
-    train_lines = [force_partition(row, "train") for row in purified[: sizes[-1]]]
-    hashes = {}
-    for size in sizes:
-        hashes[f"train_{size}"] = write_lines(args.output / f"purified_{size}.tsv", train_lines[:size])
     valid = eval_rows[: args.eval_rows]
     test = eval_rows[args.eval_rows :]
+    train_lines = [force_partition(row, "train") for row in purified[: sizes[-1] + buffer_rows]]
+    loader_fillers = [force_partition(valid[0], 0), force_partition(test[0], 1)]
+    hashes = {}
+    for size in sizes:
+        physical_lines = train_lines[: size + buffer_rows] + loader_fillers
+        hashes[f"train_{size}"] = write_lines(args.output / f"purified_{size}.tsv", physical_lines)
     filler = purified[sizes[-1]]
     eval_lines = [force_partition(filler, "train")]
     eval_lines.extend(force_partition(row, 0) for row in valid)
@@ -88,6 +91,7 @@ def main() -> None:
         "thresholds": {"train": args.threshold, "eval": args.eval_threshold},
         "candidate_counts": {"purified": len(purified), "eval": len(eval_candidates)},
         "eval_rows": {"valid": len(valid), "test": len(test)},
+        "training_buffer_rows": buffer_rows,
         "nested": True,
         "training_eval_disjoint": not ({row["line"] for row in purified[: sizes[-1]]} & eval_ids),
         "sha256": hashes,
