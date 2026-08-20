@@ -1,0 +1,287 @@
+{
+  "claim": "S3-BOUNDED-ANNEALING-FOLD-C13",
+  "scope": "matched formal route probe",
+  "arm": "ref_zero",
+  "config": {
+    "arm": "ref_zero",
+    "config_checkpoint": "ara/s3-generation/evidence/s3_pretrain_task_posterior_pipeline/pilot_seed10101/pretrain/checkpoint_best.pt",
+    "evidence_dir": "ara/data-quality/evidence/purification_scale_ladder/formal_seed14108/500000",
+    "wmt_data": "ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/purified_500000.tsv",
+    "eval_wmt_data": "ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/shared_eval.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "seed": 14108,
+    "steps": 31250,
+    "train_rows": 500000,
+    "eval_rows": 1024,
+    "batch_size": 16,
+    "lr": 0.002,
+    "log_every": 6250,
+    "generation_rows": 1024,
+    "save_checkpoint": false
+  },
+  "common_initial_base_hash": "cfc3c41bb1a743d8f572460c8c2260806f91f162881155c91d5ae24ccc3d2027",
+  "stream_sha256": "beaac9c1f29ff53baa506838995556da95413669cafea58aec6172d8c663f042",
+  "rows": {
+    "train": 500000,
+    "valid": 1024,
+    "test": 1024
+  },
+  "parameters": 34448396,
+  "initial_valid_nll": 10.373610834568874,
+  "best_valid_nll": 5.3993612814477325,
+  "best_step": 31250,
+  "test_nll": 5.353595658449264,
+  "source_shuffle_delta": 2.8706772524185817,
+  "pair_break_depth_0_delta": 0.6794793040925011,
+  "runtime_identity_delta": 0.4318875737234249,
+  "generation": {
+    "evaluated_sentences": 1024,
+    "standard": {
+      "en2zh": {
+        "sentences": 520,
+        "sacrebleu": 8.083437757384685,
+        "chrf2": 9.156113738306027
+      },
+      "zh2en": {
+        "sentences": 504,
+        "sacrebleu": 3.5802678363111995,
+        "chrf2": 18.816182427498315
+      }
+    },
+    "adjacent_repetition_rate": 0.061984345250687536,
+    "nonempty_rate": 1.0,
+    "examples": [
+      {
+        "direction": "zh2en",
+        "source": "在 1944年至1945年冬天的旅行来自Poitiers巴黎意味着穿越河流卢瓦尔河步行桥,上升水是濒临冲毁。",
+        "reference": "During the winter of 1944-45 the trip from Poitiers to Paris meant crossing the Loire river by foot bridge that rising water was on the verge of washing away.",
+        "generation": "The first time in the first time, the first time in the heart of the world, the first time in the heart of the world, the first time in the heart of the world, the first time in the heart of the world is the first time in the"
+      },
+      {
+        "direction": "zh2en",
+        "source": "发展,职业生涯管理,人力资源 - LVMH集团 快速访问",
+        "reference": "Development, career management, human resources - LVMH Quick access",
+        "generation": "- Development and LVM Group, China"
+      },
+      {
+        "direction": "en2zh",
+        "source": "NEWS : Congratulations we have a new gas discovery",
+        "reference": "新闻中心 : 恭喜我们有一个新的天然气发现",
+        "generation": "生命 : 生日快乐"
+      },
+      {
+        "direction": "en2zh",
+        "source": "You can see that the appropriate missing values appear for subjects 2, 7, and 12.",
+        "reference": "您可以看到为试验对象 2、7 和 12 显示了适当的缺失值。",
+        "generation": "记得可以认为,这些可以认为,这些可以增加到它的移除。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "操作员可根据实际实时情况动态填写订单,从而确保准确性并将履行订单时间从数小时降低至数分钟。",
+        "reference": "Operators dynamically fill orders based on actual real-time conditions, ensuring accuracy and reducing fulfillment time from hours to minutes.",
+        "generation": "The real time we should be the same time to order to reduce the order to order to reduce the order to reduce the order to reduce the order to reduce the order of the order to reduce the order to reduce the order"
+      },
+      {
+        "direction": "zh2en",
+        "source": "伊斯坦布尔海峡海底公路隧道项目(Istanbul Strait Road Tube Crossing Project)中,长5.4公里的公路隧道最深处达到海平面以下约100米。 下载专题报道 水平定向钻进钻具",
+        "reference": "At its deepest point the 5.4 kilometer long road tunnel of the \"Istanbul Strait Road Tube Crossing Project\" is about 100 meters below the water level.",
+        "generation": "The 3-star hotel is a 3-star hotel in the area of the 3D, a street area is a very low-impsecond-year-old style."
+      },
+      {
+        "direction": "zh2en",
+        "source": "对于一些 Windows Media Center 功能,可能需要电视调谐器以及其他硬件。",
+        "reference": "For some Windows Media Center functionality a TV tuner and additional hardware may be required",
+        "generation": "The best Center of the Windows system and some of the most hardware and"
+      },
+      {
+        "direction": "zh2en",
+        "source": "Hotel Europa酒店位于维罗纳的历史中心,靠近罗马竞技场、位于Erbe广场的市场和朱丽叶的故居。",
+        "reference": "Book now Hotel Europa is set in the historic heart of Verona, near the Roman Arena, the market in Piazza Erbe, and Juliet's house.",
+        "generation": "The hotel is located in the heart of Rome, the building, the hotel, and the heart of the World."
+      },
+      {
+        "direction": "zh2en",
+        "source": "2A Smithfield Avenue, Coogee, 悉尼, 澳大利亚 (显示地图 )",
+        "reference": "2A Smithfield Avenue, Coogee, Sydney, Australia (Show map )",
+        "generation": "(Show map ) Smith, United States, United States,"
+      },
+      {
+        "direction": "en2zh",
+        "source": "Answer: In Study Guide 2, we learned that Satan falsely accused and challenged God, bringing the ugly malignancy of sin into the universe.",
+        "reference": "答案: 在第2课中,我们学到撒但如何错误地指控及挑战上帝,并将 ⁇ 竹难书的罪恶带给宇宙。",
+        "generation": "宇宙学家在宇宙中,以赛亚以宇宙在宇宙中将宇宙在宇宙宇宙宇宙宇宙宇宙宇宙宇宙宇宙宇宙宇宙宇宙宇宙宇宙宇宙宇宙上的宇宙宇宙上的宇宙宇宙上的宇宙宇宙上的族族族族族族族族"
+      },
+      {
+        "direction": "en2zh",
+        "source": "Japan Airlines (JAL)",
+        "reference": "日本航空 Japan Airlines (JAL)",
+        "generation": "(JAL)"
+      },
+      {
+        "direction": "zh2en",
+        "source": "尝试停止在指定的区域内列车的发动机。",
+        "reference": "Try to stop the engine of the train at the indicated region.",
+        "generation": "The most of the most of the most of the engine and the engine"
+      },
+      {
+        "direction": "en2zh",
+        "source": "Muhammad appears to have had two basic ideas in mind.",
+        "reference": "穆罕默德似乎对这个概念有两种基本设想。",
+        "generation": "在两个两个心目中。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "我利亚和我的母亲已经呼吁市长Hokanson,他已同意购买 4 垃圾桶此请求.",
+        "reference": "I'm Lia and my mother has called Mayor Hokanson and he has agreed to purchase 4 garbage cans for this request.",
+        "generation": "I have been moved to the first-time and the right to visit the website."
+      },
+      {
+        "direction": "zh2en",
+        "source": "保护记者委员会\"将此案称为针对麦盈湘的\"合法骚扰 \" , 并要求檢方撤销所有指控。",
+        "reference": "The Committee to Protect Journalists called the case against Mak \"legal harassment \" and asked prosecutors to drop all charges.",
+        "generation": "The \"Lind\" of the journalists for the first-party \"C\" and \"Lind\" and \"Lind\" in the \"Lind\" in the \"Little\""
+      },
+      {
+        "direction": "en2zh",
+        "source": "It is possible for people to be together for years and years and never experience one another.",
+        "reference": "人们可能在一起生活了很多年,却从未体验过彼此。",
+        "generation": "这是几年,一个未来到另一个经验,另一个将另一个人是经验。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "一旦扫描过程完成时,软件可以显示恢复结果。",
+        "reference": "Once the scanning process is completed, the software displays recovered results.",
+        "generation": "When you scanning process and the process."
+      },
+      {
+        "direction": "en2zh",
+        "source": "I don't think it does make a morally relevant difference.",
+        "reference": "I don't think it does make a morally道德 relevant相应 difference区别 .",
+        "generation": "我不能的它,它应该提醒。"
+      },
+      {
+        "direction": "en2zh",
+        "source": "So Akamai wants you to know that the company and our subsidiaries will not knowingly collect, use or disclose sensitive personal data, except with the individual's permission, or under one of the principles specified in applicable U.S. and international privacy laws, discussed below.",
+        "reference": "因此,Akamai 明确表示:公司及其子公司不会故意收集、使用或披露敏感的个人数据,除非经个人许可或是符合美国和国际隐私法中规定的原则,以下将详述。",
+        "generation": "知道我们的企业,我们的子公司,我们的隐私声明,并遵守我们的个人信息,并遵守我们的法律、法规、财产或类似信息。"
+      },
+      {
+        "direction": "en2zh",
+        "source": "It is hoped that business circles of BRICS countries will seize the opportunities and continue to actively participate in and promote economic cooperation among BRICS countries, so as to shore up confidence, push for reform and innovation, boost practical cooperation and make greater contribution to creating a bright future for common development of BRICS countries.",
+        "reference": "希望金砖国家工商界抓住机遇,继续 ⁇ 跃参与和推动金砖国家经济合作,以实际行动提振信心、推动改革创新、促进务实合作,为开创金砖国家共同发展的光明未来作出更大贡献。",
+        "generation": "发展中国家将进一步推动世界各国经济发展的全球经济合作,推动世界各国经济合作,各国人民合作,各国人民共同推动各国合作,共同推动各国合作,共同推动各国建立合作,加强在各国国家建立共同推动各国建立合作建立共同优先事项。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "锻炼 锻炼对每一个人来说都是非常重要的,但是,如果您想要增加您的体重,力量训练是一个非常好的主意。",
+        "reference": "Exercise Exercise is important to everybody, but if you want to increase you body weight, strength training is a very good idea.",
+        "generation": "The only is a great choice, but only one is a great way to the most important that you can take a lot of the most important."
+      },
+      {
+        "direction": "zh2en",
+        "source": "确定您的零部件符合质量与安全标准,为您的客户提供可靠且高利润的太阳能技术。",
+        "reference": "Make sure your components meet both quality and safety standards to ensure reliable and profitable solar technology for your customers.",
+        "generation": "The quality of the service is the core of the process of your own requirements and the customer standards for your own safety."
+      },
+      {
+        "direction": "en2zh",
+        "source": "For use with Nordson® Encore guns, the iControl® 2 Integrated Control System has closed-loop digital flow for consistent, repeatable coating performance. Industrial Coating Systems",
+        "reference": "iControl® 2 集成控制系统与诺信® Encore 喷枪结合使用,采用闭环数字流,可实现一致、可重复的喷涂性能。",
+        "generation": "控制器将将将将产品将应用于工业控制、工业板、软件、工业系统、工业系统、智能化系统、性能以及工业性能系统。"
+      },
+      {
+        "direction": "zh2en",
+        "source": "取证 长期以来,X射线分析方法作为刑事或民事法庭调查和建立事实的重要工具。",
+        "reference": "X-ray analytical methods have a long history as important tools used to investigate and establish facts in criminal or civil courts of law.",
+        "generation": "The XRF-based, and the most-or-based system for the context of the model."
+      }
+    ]
+  },
+  "closure": {
+    "mse": 1.4640928494390323e-15,
+    "max_abs": 1.1473894119262695e-06,
+    "root_rms": 0.04593117907643318
+  },
+  "final_gradient_groups": {
+    "encoder_embedding": 0.09021350198075376,
+    "communication": 1.0995676421629237,
+    "decoder": 0.5658957328492793
+  },
+  "trace": [
+    {
+      "step": 1,
+      "train_nll": 10.374534606933594,
+      "valid_nll": 10.362079837849029,
+      "grad_norm": 1.2435110807418823,
+      "gradient_groups": {
+        "encoder_embedding": 0.022695931776628975,
+        "communication": 0.0307324145567273,
+        "decoder": 1.2429239652350164
+      },
+      "seconds": 7.255812168121338
+    },
+    {
+      "step": 6250,
+      "train_nll": 2.7850589752197266,
+      "valid_nll": 6.312952325974745,
+      "grad_norm": 0.4342941641807556,
+      "gradient_groups": {
+        "encoder_embedding": 0.02414235556365417,
+        "communication": 0.07813876462565454,
+        "decoder": 0.42652421186316614
+      },
+      "seconds": 6182.6491022109985
+    },
+    {
+      "step": 12500,
+      "train_nll": 0.06932815909385681,
+      "valid_nll": 5.970968252094793,
+      "grad_norm": 0.3459731936454773,
+      "gradient_groups": {
+        "encoder_embedding": 0.019780098831462662,
+        "communication": 0.043411359224860294,
+        "decoder": 0.3426684250304605
+      },
+      "seconds": 12454.358202457428
+    },
+    {
+      "step": 18750,
+      "train_nll": 2.7831363677978516,
+      "valid_nll": 5.701308962560698,
+      "grad_norm": 0.5632038116455078,
+      "gradient_groups": {
+        "encoder_embedding": 0.054340603427212496,
+        "communication": 0.20230232801631576,
+        "decoder": 0.5227995721494807
+      },
+      "seconds": 18637.571794748306
+    },
+    {
+      "step": 25000,
+      "train_nll": 0.03569855913519859,
+      "valid_nll": 5.545073931366159,
+      "grad_norm": 0.25213006138801575,
+      "gradient_groups": {
+        "encoder_embedding": 0.0243335385368607,
+        "communication": 0.08459438947345263,
+        "decoder": 0.23626517620509027
+      },
+      "seconds": 24908.62650704384
+    },
+    {
+      "step": 31250,
+      "train_nll": 2.9412682056427,
+      "valid_nll": 5.3993612814477325,
+      "grad_norm": 1.2399296760559082,
+      "gradient_groups": {
+        "encoder_embedding": 0.09021350198075376,
+        "communication": 1.0995676421629237,
+        "decoder": 0.5658957328492793
+      },
+      "seconds": 31102.087005138397
+    }
+  ],
+  "seconds": 31176.519901275635,
+  "finite": true
+}

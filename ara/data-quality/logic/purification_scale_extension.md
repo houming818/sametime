@@ -25,6 +25,20 @@ does not stop expansion. The 500K boundary arm is therefore permitted. The
 small positive identity delta does not replicate the large 300K structural
 margin strongly enough to support a new structural scaling claim.
 
+Final execution update (taskd `242`, 2026-08-20): the preregistered 500K
+candidate-pool boundary arm completed normally after 31,250 steps. Test NLL was
+`5.3535957` (PPL `211.37`), improving by `0.2484269` over 400K. EN->ZH / ZH->EN
+BLEU was `8.0834 / 3.5803`, adjacent repetition was `0.06198`, source-shuffle
+delta was `+2.8707`, depth-0 pair-break delta was `+0.6795`, and
+runtime-identity delta was `+0.4319`. The final two marginal NLL gains
+(`0.1696`, `0.2484`) both exceed `0.05`, so the registered plateau condition
+was not reached. Nevertheless, automatic scaling stops here because 500K is
+the registered boundary and the score-`>=0.98` pool contains only 514,188
+eligible rows after evaluation exclusion. The result supports a resource
+planning conclusion that useful signal had not saturated within the tested
+pool; it does not license extrapolation beyond that pool or establish a general
+scaling law.
+
 ## Question
 
 Does the held-out NLL improvement observed from 40K through 200K purified
