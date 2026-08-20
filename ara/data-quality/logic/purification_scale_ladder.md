@@ -2,7 +2,7 @@
 
 Date: 2026-08-18
 
-Status: preregistered, pending evidence
+Status: completed, one-seed scaling evidence recorded
 
 ## Question
 
@@ -81,3 +81,44 @@ plateau is flagged if two consecutive increments improve test NLL by less than
 
 This is a one-seed scaling screen. It cannot by itself establish a final
 learning law.
+
+## Result
+
+All five arms completed from the same initial checkpoint and seed. Each arm
+used the same 1,024-row validation set and 1,024-row test set.
+
+| Purified rows | Test NLL | PPL | Repetition | EN->ZH BLEU | ZH->EN BLEU | Shuffle delta | Pair-break delta | Runtime identity delta | Gain from previous arm |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 40K | 7.2390 | 1392.73 | 0.1223 | 1.7427 | 0.7631 | +1.1336 | +0.1979 | -0.0328 | - |
+| 80K | 6.7582 | 861.13 | 0.0909 | 3.9104 | 1.2082 | +1.5239 | +0.3380 | -0.0208 | 0.4808 |
+| 120K | 6.5127 | 673.67 | 0.1004 | 4.6215 | 1.3190 | +1.8557 | +0.3657 | -0.0426 | 0.2455 |
+| 160K | 6.2796 | 533.55 | 0.0797 | 4.5340 | 1.6655 | +1.9451 | +0.4640 | -0.0326 | 0.2332 |
+| 200K | 6.1378 | 463.04 | 0.0672 | 4.6925 | 2.0782 | +2.1308 | +0.4825 | -0.0240 | 0.1417 |
+
+The four marginal NLL gains are `0.4808`, `0.2455`, `0.2332`, and `0.1417`.
+The last two are both above the preregistered `0.05` plateau threshold, so the
+screen has **not** reached its operational boundary by 200K rows.
+
+## Evidence-limited conclusion
+
+Increasing this high-confidence parallel subset from 40K to 200K consistently
+improved held-out NLL and PPL. Repetition also fell overall, although neither
+repetition nor BLEU was strictly monotonic at every intermediate arm. Source
+shuffle and pair-break interventions became more damaging as scale increased,
+which is compatible with stronger use of source and pair alignment.
+
+The runtime identity intervention remains slightly better than the native
+Butterfly route at every arm. This experiment therefore supports a purified
+data quantity effect, but it does **not** support a claim that the native
+TreeHeap route is already superior to the identity route. Generation BLEU also
+remains low, so the result is a training-signal milestone rather than a product
+quality milestone.
+
+The preregistered rule permits another scale test. Automatic expansion is held,
+however, until the next dataset release and teacher-calibration protocol are
+registered. This avoids mixing a scale change with a scorer or corpus-family
+change.
+
+Machine-readable aggregation and the plotted curves are stored beside the raw
+summaries in `formal_seed14108/comparison.json` and
+`formal_seed14108/scale_ladder.png`.
