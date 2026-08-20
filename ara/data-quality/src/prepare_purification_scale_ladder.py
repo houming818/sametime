@@ -44,6 +44,12 @@ def main() -> None:
     parser.add_argument("--threshold", type=float, default=0.98)
     parser.add_argument("--eval-threshold", type=float, default=0.9999)
     parser.add_argument("--eval-rows", type=int, default=1024, help="Rows per valid/test split")
+    parser.add_argument(
+        "--eval-filler-index",
+        type=int,
+        default=None,
+        help="Stable train sentinel index for shared_eval.tsv; defaults to the largest size",
+    )
     parser.add_argument("--seed", type=int, default=14106)
     args = parser.parse_args()
     sizes = [int(value) for value in args.sizes.split(",")]
@@ -78,7 +84,10 @@ def main() -> None:
     for size in sizes:
         physical_lines = train_lines[: size + buffer_rows] + loader_fillers
         hashes[f"train_{size}"] = write_lines(args.output / f"purified_{size}.tsv", physical_lines)
-    filler = purified[sizes[-1]]
+    filler_index = sizes[-1] if args.eval_filler_index is None else args.eval_filler_index
+    if filler_index < 0 or filler_index >= len(purified):
+        raise ValueError(f"invalid eval filler index: {filler_index}")
+    filler = purified[filler_index]
     eval_lines = [force_partition(filler, "train")]
     eval_lines.extend(force_partition(row, 0) for row in valid)
     eval_lines.extend(force_partition(row, 1) for row in test)
@@ -92,6 +101,7 @@ def main() -> None:
         "candidate_counts": {"purified": len(purified), "eval": len(eval_candidates)},
         "eval_rows": {"valid": len(valid), "test": len(test)},
         "training_buffer_rows": buffer_rows,
+        "eval_filler_index": filler_index,
         "nested": True,
         "training_eval_disjoint": not ({row["line"] for row in purified[: sizes[-1]]} & eval_ids),
         "sha256": hashes,
