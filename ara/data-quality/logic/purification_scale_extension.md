@@ -4,6 +4,16 @@ Date: 2026-08-20
 
 Status: preregistered, queued after smoke-proven 40K--200K ladder
 
+Partial execution update (taskd `240`, 2026-08-20): the 300K arm completed with
+the registered initialization, seed, 18,750 steps, and shared 1,024/1,024
+validation/test split. Test NLL was `5.7716216` (PPL `321.06`), an improvement
+of `0.3662023` over 200K. EN->ZH / ZH->EN BLEU was `5.8134 / 2.4467`, adjacent
+repetition was `0.07476`, source-shuffle delta was `+2.7220`, depth-0 pair-break
+delta was `+0.5841`, and runtime-identity delta was `+0.3394`. The NLL gain is
+well above the `0.05` stopping threshold. The positive identity delta is a new
+structural diagnostic, not yet a replicated structural claim. The 400K arm is
+running as taskd `241`.
+
 ## Question
 
 Does the held-out NLL improvement observed from 40K through 200K purified
