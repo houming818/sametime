@@ -14,6 +14,17 @@ well above the `0.05` stopping threshold. The positive identity delta is a new
 structural diagnostic, not yet a replicated structural claim. The 400K arm is
 running as taskd `241`.
 
+Execution update (taskd `241`, 2026-08-20): the 400K arm completed with the
+registered initialization, seed, 25,000 steps, and shared evaluation split.
+Test NLL was `5.6020225` (PPL `270.97`), an improvement of `0.1695991` over
+300K. EN->ZH / ZH->EN BLEU was `6.2769 / 2.3254`, adjacent repetition was
+`0.06513`, source-shuffle delta was `+2.4069`, depth-0 pair-break delta was
+`+0.5947`, and runtime-identity delta was `+0.0118`. The two extension gains
+(`0.3662`, `0.1696`) are both above `0.05`, so the preregistered plateau rule
+does not stop expansion. The 500K boundary arm is therefore permitted. The
+small positive identity delta does not replicate the large 300K structural
+margin strongly enough to support a new structural scaling claim.
+
 ## Question
 
 Does the held-out NLL improvement observed from 40K through 200K purified
@@ -29,8 +40,8 @@ small enough to stop before exhausting the local candidate pool?
 - Same C13 `ref_zero` architecture, tokenizer, initial checkpoint, optimizer,
   learning rate, batch size, and shared 1,024/1,024 validation/test rows as the
   completed 40K--200K ladder.
-- One pass per arm: 300K uses 18,750 steps and 400K uses 25,000 steps at batch
-  size 16.
+- One pass per arm: 300K uses 18,750 steps, 400K uses 25,000 steps, and the
+  conditional 500K boundary arm uses 31,250 steps at batch size 16.
 - Runs are serial on the protected `io` RTX 3090. Power and frequency limits
   must remain unchanged.
 

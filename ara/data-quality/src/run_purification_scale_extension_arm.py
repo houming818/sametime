@@ -22,7 +22,7 @@ EXPECTED_EXISTING_HASHES = {
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--rows", type=int, choices=(300000, 400000), required=True)
+    parser.add_argument("--rows", type=int, choices=(300000, 400000, 500000), required=True)
     parser.add_argument("--steps", type=int, required=True)
     args = parser.parse_args()
 
