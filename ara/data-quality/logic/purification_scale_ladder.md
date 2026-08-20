@@ -11,6 +11,27 @@ to improve TreeHeap learning, or does the benefit reach a visible boundary?
 
 ## Data and ladder
 
+### Dataset names
+
+To keep the source corpus, scored pool, accepted candidates, and training
+subsets distinct, this experiment uses the following stable names:
+
+| Name | Meaning |
+|---|---|
+| `WMT-Massive-ZHEN-14M` | immutable 14,170,275-row source corpus |
+| `NioScore-ZHEN-1M-v1` | deterministic one-million-row shadow sample scored by the local reranker |
+| `NioClean-ZHEN-S098-v1` | accepted candidate pool with local score `>= 0.98` |
+| `NioClean-ZHEN-S098-40K-v1` | nested 40K training subset |
+| `NioClean-ZHEN-S098-80K-v1` | nested 80K training subset |
+| `NioClean-ZHEN-S098-120K-v1` | nested 120K training subset |
+| `NioClean-ZHEN-S098-160K-v1` | nested 160K training subset |
+| `NioClean-ZHEN-S098-200K-v1` | nested 200K training subset |
+
+`NioClean` identifies the SameTime/Nio local purification pipeline, `ZHEN`
+identifies Chinese-English parallel data, and `S098` records the acceptance
+threshold. The suffix is part of the dataset identity: changing the scorer,
+threshold, ordering, deduplication, or source snapshot requires a new version.
+
 Score a deterministic one-million-row shadow sample with the local
 `bge-reranker-v2-m3`. No DeepSeek API is used. Construct nested purified
 training sets at an arithmetic progression:

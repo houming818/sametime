@@ -1,0 +1,76 @@
+{
+  "schema": "nio.dataset-release.v1",
+  "release_name": "NioClean-ZHEN-S098-v1",
+  "dataset_id": "NioClean-ZHEN-S098",
+  "version": "v1",
+  "created_at_utc": "2026-08-20T01:29:23.143340+00:00",
+  "release_root_sha256": "04a17619a78dbfba964cabffe7029aa8e8193533fc0c1bb8e88a54c95093f1c0",
+  "metadata": {
+    "parent": "WMT-Massive-ZHEN-14M",
+    "scored_pool": "NioScore-ZHEN-1M-v1",
+    "scorer": "BAAI/bge-reranker-v2-m3",
+    "acceptance_rule": "score>=0.98",
+    "sample_seed": "14105",
+    "dataset_seed": "14106",
+    "candidate_rows": "514188",
+    "policy": "non-destructive-shadow-filter"
+  },
+  "files": [
+    {
+      "logical_name": "evaluation/shared_eval.tsv",
+      "source_path": "/home/nio/log/holds/SameTime/ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/shared_eval.tsv",
+      "bytes": 429644,
+      "lines": 2049,
+      "sha256": "094965f1252eab5682595f991f135c5949bc0d9283424e2f38a1251176a968e7"
+    },
+    {
+      "logical_name": "metadata/dataset_summary.json",
+      "source_path": "/home/nio/log/holds/SameTime/ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/summary.json",
+      "bytes": 956,
+      "lines": 34,
+      "sha256": "a444deabac400872edd19889791d18f17ac05a252a14328aae7e62afafb7f6ba"
+    },
+    {
+      "logical_name": "scored_pool/manifest.jsonl",
+      "source_path": "/home/nio/log/holds/SameTime/ara/data-quality/evidence/local_parallel_cleaning_1m/seed14105/manifest.jsonl",
+      "bytes": 447449086,
+      "lines": 1000000,
+      "sha256": "e909c4af4bffe52a93c89fbaec8ec92f8d0bc568792c075b2dd9113eb80bf806"
+    },
+    {
+      "logical_name": "training/purified_120000.tsv",
+      "source_path": "/home/nio/log/holds/SameTime/ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/purified_120000.tsv",
+      "bytes": 27371699,
+      "lines": 121002,
+      "sha256": "3f2ba077db60f0645e195f5fa696572aab8d0b94aa65d5eceb944c638044520a"
+    },
+    {
+      "logical_name": "training/purified_160000.tsv",
+      "source_path": "/home/nio/log/holds/SameTime/ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/purified_160000.tsv",
+      "bytes": 36447630,
+      "lines": 161002,
+      "sha256": "f3c729d1802113077e5445cc04ecd15ebdc0465572867f066053f4449615fb3f"
+    },
+    {
+      "logical_name": "training/purified_200000.tsv",
+      "source_path": "/home/nio/log/holds/SameTime/ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/purified_200000.tsv",
+      "bytes": 45480409,
+      "lines": 201002,
+      "sha256": "72c4c5a76aecb5b3fc52f9b0157940ca781e0a6c24b17dfa2d531eecdcfde2ac"
+    },
+    {
+      "logical_name": "training/purified_40000.tsv",
+      "source_path": "/home/nio/log/holds/SameTime/ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/purified_40000.tsv",
+      "bytes": 9271459,
+      "lines": 41002,
+      "sha256": "826a6823ccd7d3b739e2a378682d9cf72c05eb866d997148467c3e507395cdae"
+    },
+    {
+      "logical_name": "training/purified_80000.tsv",
+      "source_path": "/home/nio/log/holds/SameTime/ara/data-quality/evidence/purification_scale_ladder/dataset_seed14106/purified_80000.tsv",
+      "bytes": 18314711,
+      "lines": 81002,
+      "sha256": "de897be34c8cabb4e3beee53619efddf2083d85c30848fcc28b8354eb2d5b95b"
+    }
+  ]
+}
