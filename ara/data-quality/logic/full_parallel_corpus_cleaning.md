@@ -8,7 +8,8 @@ shadow pass, and 40K--500K downstream scale screen.
 ## Scope
 
 Score all `14,170,275` valid rows of `WMT-Massive-ZHEN-14M` with the already
-calibrated `BAAI/bge-reranker-v2-m3`. This is a non-destructive shadow filter:
+calibrated local snapshot `/home/nio/models/bge-reranker-v2-m3`. This is a
+non-destructive shadow filter:
 the source corpus remains immutable and every observed score is retained.
 
 The previous `NioScore-ZHEN-1M-v1` was a deterministic one-million-row sample,

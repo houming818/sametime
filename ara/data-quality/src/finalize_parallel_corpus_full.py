@@ -28,7 +28,7 @@ def main() -> None:
     payload = {
         "dataset_id": "NioScore-ZHEN-14M-v1",
         "parent": "WMT-Massive-ZHEN-14M",
-        "scorer": "BAAI/bge-reranker-v2-m3",
+        "scorer": "/home/nio/models/bge-reranker-v2-m3",
         "acceptance_rule": "score>=0.98",
         "policy": "non-destructive-shadow-filter",
         "rows_scored": rows,

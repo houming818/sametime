@@ -106,7 +106,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", default="/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv")
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--model", default="BAAI/bge-reranker-v2-m3")
+    parser.add_argument("--model", default="/home/nio/models/bge-reranker-v2-m3")
     parser.add_argument("--threshold", type=float, default=0.98)
     parser.add_argument("--shard-rows", type=int, default=250_000)
     parser.add_argument("--max-rows", type=int, default=0)
