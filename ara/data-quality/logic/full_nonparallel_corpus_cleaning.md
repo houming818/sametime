@@ -118,3 +118,42 @@ Full artifacts are written under
 `ara/data-quality/evidence/full_nonparallel_cleaning/formal_seed15106/` on
 `io`. Large shards remain remote; compact summaries are pulled into the local
 ARA after each family completes.
+
+## Formal progress: 2026-08-23
+
+The medical family and its independent finalizer have completed:
+
+```text
+valid QA records: 792099
+shards:           8
+finite scores:    792099
+mean score:       0.768880
+median bin:       approximately 0.959
+hash audit:       pass
+all F1-F5 gates:  pass
+```
+
+Approximate score-view sizes derived from the registered 1000-bin histogram:
+
+| Score floor | Records | Fraction |
+|---:|---:|---:|
+| 0.90 | 476,619 | 60.17% |
+| 0.95 | 414,549 | 52.34% |
+| 0.98 | 331,730 | 41.88% |
+| 0.99 | 270,894 | 34.20% |
+
+These are candidate view sizes, not correctness rates. In particular, records
+below `0.98` are not declared wrong. The full medical distribution is broad
+and apparently bimodal: the approximate median is high while the mean is much
+lower. Later training should therefore compare nested score views rather than
+adopt one destructive threshold.
+
+Integrity flags over the 792,099 parsed QA records were: 498 too-short, 201
+URL/contact, 12 extreme-repetition, 5 low-CJK and zero mojibake. Physical CSV
+line counts are not a record denominator because quoted answers may contain
+embedded newlines; `792099` is the count of parsed, non-empty question-answer
+records yielded by the registered reader.
+
+At this checkpoint, QA task `287` is healthy at 4.5 million completed rows.
+Its final distribution and gates remain pending. Mono tasks `289-290` remain
+queued behind QA.
