@@ -1,0 +1,33 @@
+{
+  "claim": "NIO-LOCAL-JUDGE-C01",
+  "model": "/home/nio/models/Qwen3-8B",
+  "rows": 60,
+  "families": {
+    "mono": 20,
+    "qa": 20,
+    "medical": 20
+  },
+  "parsed_json": 60,
+  "parse_rate": 1.0,
+  "repeat_exact_6": true,
+  "medical_risk_all_unverified": true,
+  "source_hashes_unchanged": true,
+  "peak_gpu_bytes": 16637488128,
+  "runtime": {
+    "python": "3.10.12",
+    "torch": "2.12.0+cu130",
+    "transformers": "5.9.0",
+    "cuda": "13.0",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "bf16_supported": true
+  },
+  "gates": {
+    "P1_gpu_inference": true,
+    "P2_json_57_of_60": true,
+    "P3_repeat_exact": true,
+    "P4_medical_unverified": true,
+    "P5_source_unchanged": true
+  },
+  "seconds": 109.48240756988525,
+  "warning": "Calibration judge smoke only; no factual or medical correctness certification."
+}

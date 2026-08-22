@@ -1,0 +1,56 @@
+{
+  "claim": "NIO-QA-CLEAN-C01",
+  "family": "qa",
+  "status": "scorer_smoke",
+  "rows": 100000,
+  "rows_scanned": 600000,
+  "source_counts": {
+    "baike2018qa": 200000,
+    "belle_zh": 200000,
+    "webtext2019zh": 200000
+  },
+  "sample_sha256": "d51ab5fd7e4fccd83f2c0271c4035684b4a504aa79d6f87fef7ab00cb862e20c",
+  "seed": 15103,
+  "model": "/home/nio/models/bge-reranker-v2-m3",
+  "observed_quantiles": {
+    "0": 1.6061610949691385e-05,
+    "0.01": 0.00025514140725135803,
+    "0.05": 0.007039045449346304,
+    "0.1": 0.03448852524161339,
+    "0.25": 0.3826603591442108,
+    "0.5": 0.9203612804412842,
+    "0.75": 0.9914224743843079,
+    "0.9": 0.9985951781272888,
+    "0.95": 0.9994621872901917,
+    "0.99": 0.9998977184295654,
+    "1": 0.9999802112579346
+  },
+  "shuffle_quantiles": {
+    "0": 1.593661909282673e-05,
+    "0.01": 1.6061610949691385e-05,
+    "0.05": 1.6187581422855146e-05,
+    "0.1": 1.6442494597868063e-05,
+    "0.25": 2.1278065105434507e-05,
+    "0.5": 0.00013765462790615857,
+    "0.75": 0.0023967307060956955,
+    "0.9": 0.05592617020010948,
+    "0.95": 0.4211947023868561,
+    "0.99": 0.9685006141662598,
+    "1": 0.9997783303260803
+  },
+  "shuffle_auc": 0.95378260145,
+  "flags": {
+    "mojibake": 2,
+    "low_cjk_ratio": 1359,
+    "too_short": 2822,
+    "url_or_contact": 537,
+    "extreme_repetition": 149
+  },
+  "gates": {
+    "P0_complete_finite": true,
+    "P1_auc": true,
+    "P2_median_separation": true
+  },
+  "seconds": 886.5848708152771,
+  "warning": "Relation-score smoke only. It does not establish factual correctness or a filtering threshold."
+}

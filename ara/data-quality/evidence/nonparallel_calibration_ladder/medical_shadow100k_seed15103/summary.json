@@ -1,0 +1,54 @@
+{
+  "claim": "NIO-MEDICAL-CLEAN-C01",
+  "family": "medical",
+  "status": "scorer_smoke",
+  "rows": 100000,
+  "rows_scanned": 600000,
+  "source_counts": {
+    "medical": 600000
+  },
+  "sample_sha256": "176b2278fd8773b16c4f4404c526c7fe755084a342d01f2085614c5a5e322f72",
+  "seed": 15103,
+  "model": "/home/nio/models/bge-reranker-v2-m3",
+  "observed_quantiles": {
+    "0": 1.593661909282673e-05,
+    "0.01": 0.0006719278171658516,
+    "0.05": 0.030271869152784348,
+    "0.1": 0.14342747628688812,
+    "0.25": 0.6715782880783081,
+    "0.5": 0.9629528522491455,
+    "0.75": 0.9961456060409546,
+    "0.9": 0.9992357492446899,
+    "0.95": 0.9996429681777954,
+    "0.99": 0.9998984336853027,
+    "1": 0.9999799728393555
+  },
+  "shuffle_quantiles": {
+    "0": 1.593661909282673e-05,
+    "0.01": 1.6061610949691385e-05,
+    "0.05": 1.6061610949691385e-05,
+    "0.1": 1.6187581422855146e-05,
+    "0.25": 1.6442494597868063e-05,
+    "0.5": 1.967902426258661e-05,
+    "0.75": 0.00013658353418577462,
+    "0.9": 0.003389783203601837,
+    "0.95": 0.027272669598460197,
+    "0.99": 0.610046923160553,
+    "1": 0.9997305274009705
+  },
+  "shuffle_auc": 0.98786915205,
+  "flags": {
+    "mojibake": 0,
+    "low_cjk_ratio": 1,
+    "too_short": 71,
+    "url_or_contact": 27,
+    "extreme_repetition": 2
+  },
+  "gates": {
+    "P0_complete_finite": true,
+    "P1_auc": true,
+    "P2_median_separation": true
+  },
+  "seconds": 903.5548844337463,
+  "warning": "Relation-score smoke only. It does not establish factual correctness or a filtering threshold."
+}
