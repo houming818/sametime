@@ -2,8 +2,7 @@
 
 Date: 2026-08-21
 
-Status: preregistered for serial execution after the 100K calibration, 1M
-shadow pass, and 40K--500K downstream scale screen.
+Status: completed and structurally validated.
 
 ## Scope
 
@@ -40,3 +39,23 @@ This run produces `NioScore-ZHEN-14M-v1`. A later `NioClean` release must be a
 separate immutable manifest. No downstream quality claim is made until a
 matched training probe compares the full-pool release with the existing 1M
 sample release.
+
+## Result
+
+The formal run completed on 2026-08-22 in 50,703.6 seconds (14.08 hours).
+All 14,170,275 source rows were scored in 57 contiguous shards. The final
+shard contains 170,275 rows; every preceding shard contains 250,000 rows.
+
+- Rows accepted at `score >= 0.98`: 7,304,358 (51.5470%).
+- Completed shard indexes: 0 through 56, without gaps.
+- Every member records both manifest and accepted-candidate SHA-256 values.
+- Aggregate flags: 224,540 mojibake, 1,858,573 direction-suspect,
+  163 length-ratio-suspect, and 2,378,766 number-mismatch observations.
+- Task 252 completed without OOM, non-finite values, GPU failure, or row-count
+  mismatch; task 253 independently finalized the aggregate summary.
+
+The evidence supports successful, reproducible full-corpus scoring. It does
+not by itself prove that all 7,304,358 accepted pairs are correct translations:
+the reranker score is a compatibility signal, not a calibrated probability or
+human correction. The next valid claim requires a matched downstream training
+comparison against the earlier sample-derived dataset.
