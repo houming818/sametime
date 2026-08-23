@@ -2,7 +2,7 @@
 
 Date: 2026-08-22
 
-Status: 20K smoke passed; full queue running
+Status: executed; all registered full-corpus gates passed
 
 Claim: `NIO-NONPAR-FULL-C01`
 
@@ -154,6 +154,66 @@ line counts are not a record denominator because quoted answers may contain
 embedded newlines; `792099` is the count of parsed, non-empty question-answer
 records yielded by the registered reader.
 
-At this checkpoint, QA task `287` is healthy at 4.5 million completed rows.
-Its final distribution and gates remain pending. Mono tasks `289-290` remain
-queued behind QA.
+The remainder of the queue subsequently completed without manual restart.
+
+### Full QA result
+
+```text
+valid QA records: 8451252
+shards:           85
+finite scores:    8451252
+mean score:       0.714814
+median bin:       approximately 0.947
+hash audit:       pass
+all F1-F5 gates:  pass
+```
+
+Source composition was 1,422,653 `baike2018qa`, 2,917,412 BELLE and
+4,111,187 `webtext2019zh` records.
+
+| Score floor | Records | Fraction |
+|---:|---:|---:|
+| 0.90 | 4,774,996 | 56.50% |
+| 0.95 | 4,187,496 | 49.55% |
+| 0.98 | 3,381,543 | 40.01% |
+| 0.99 | 2,761,430 | 32.67% |
+
+Integrity flags were 137,480 too-short, 89,784 low-CJK, 50,611 URL/contact,
+11,660 extreme-repetition and 388 mojibake. Flags may overlap and remain
+metadata rather than automatic deletion commands.
+
+### Full monolingual result
+
+```text
+valid prose records: 2984702
+shards:              30
+news2016zh:           2186399
+wiki_zh:               798303
+hash audit:           pass
+all F1-F5 gates:      pass
+```
+
+The monolingual run intentionally produced no relation score. It recorded
+126,020 URL/contact, 11,232 low-CJK, 8,476 extreme-repetition and 5,713
+mojibake flags. The input reader already required at least 80 characters, so
+the registered `too_short` flag count is zero.
+
+## Final decision
+
+Taskd jobs `285-290` all reached `done` in their registered order. An empty
+taskd queue after `290` is normal queue exhaustion, not loss of the queued
+tasks.
+
+Across the three non-parallel families, 12,228,053 records now have immutable
+shadow metadata:
+
+```text
+QA relation-scored:       8451252
+medical relation-scored:   792099
+monolingual integrity:     2984702
+```
+
+`NIO-NONPAR-FULL-C01` is supported as a data-pipeline claim. It authorizes
+materializing nested, source/length-preserving training views. It does not yet
+show that any view improves a TreeHeap model; that requires the separately
+matched pretrain -> task-train -> proof comparison.
