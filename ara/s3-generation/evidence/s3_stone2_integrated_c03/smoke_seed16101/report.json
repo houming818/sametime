@@ -1,0 +1,488 @@
+{
+  "claim": "S3-STONE2-INTEGRATED-C03",
+  "mode": "smoke",
+  "claim_status": "open / smoke validates code only",
+  "contract": {
+    "claim": "S3-STONE2-INTEGRATED-C03",
+    "class": "HStateConvolutionModel",
+    "parameters": 35366925,
+    "trainable_parameters": 35366925,
+    "vocab": 32003,
+    "pad": 32000,
+    "dim": 256,
+    "hidden": 256,
+    "heap_width": 256,
+    "dynamic_width": true,
+    "communication": "xor_butterfly",
+    "fold": "reference_normalized_zero_origin",
+    "fold_invertible_with_saved_scale": true,
+    "read": "mandatory_multilevel_residual",
+    "learned_stop_present": false,
+    "extra_bottom_up_k_up_active": false,
+    "raw_leaf_decoder_bypass": false,
+    "parameter_memory_topology": "shared_tensor_kernels"
+  },
+  "hashes": {
+    "initial_state": "1ee8cd56e9dc0e83c7b9264cf28e52435671115cc8660a4733e893758c167d15",
+    "pretrained_state": "732c4d11f84977453c8919fb477902725ade00f4ed7d49bc4bd885d8424f7b4c",
+    "pretrain_stream": "4c64e37d1abbb161113c18ac7577cb5924db26df6ba13f2feb943293826b765b",
+    "task_stream_shared_by_PT_and_SC": "2d243366196db9eb16350ea67bd7c4208417598b7a1f8410d79c946fac1a6fdf"
+  },
+  "row_counts": {
+    "pretrain_train": 1536,
+    "pretrain_valid": 256,
+    "pretrain_train_scan": {
+      "documents": 315,
+      "raw_pieces": 478398,
+      "width_4": 253,
+      "target_pieces": 49152,
+      "width_8": 244,
+      "width_64": 216,
+      "width_128": 191,
+      "width_16": 238,
+      "width_256": 165,
+      "width_32": 229
+    },
+    "pretrain_valid_scan": {
+      "documents": 59,
+      "raw_pieces": 59910,
+      "width_16": 41,
+      "target_pieces": 8192,
+      "width_256": 27,
+      "width_8": 41,
+      "width_4": 42,
+      "width_32": 37,
+      "width_128": 33,
+      "width_64": 35
+    },
+    "task_train": 4096,
+    "task_valid": 256,
+    "task_test": 256,
+    "posterior": {
+      "documents": 43,
+      "tokens": 112945,
+      "selected": 64,
+      "per_length": {
+        "4": 22,
+        "8": 22,
+        "16": 20
+      },
+      "unique_documents": 8
+    }
+  },
+  "pretrain": {
+    "stage": "pretrain",
+    "parent_state_sha256": "1ee8cd56e9dc0e83c7b9264cf28e52435671115cc8660a4733e893758c167d15",
+    "state_sha256": "732c4d11f84977453c8919fb477902725ade00f4ed7d49bc4bd885d8424f7b4c",
+    "checkpoint_sha256": "e1fad3b534e5055bc995379047bf1131b8230ac7726288415aac1978e2f916bf",
+    "steps": 120,
+    "train_tokens": 61440,
+    "stream_sha256": "4c64e37d1abbb161113c18ac7577cb5924db26df6ba13f2feb943293826b765b",
+    "train_nll": 8.080350915590921,
+    "initial_valid": {
+      "nll": 10.387936651706696,
+      "ppl": 32465.609918025955,
+      "tokens": 8192
+    },
+    "best_valid": {
+      "nll": 8.331072479486465,
+      "ppl": 4150.866885514561,
+      "tokens": 8192
+    },
+    "finite_gradients": true,
+    "seconds": 38.96974158287048
+  },
+  "task": {
+    "PT": {
+      "stage": "task-PT",
+      "parent_state_sha256": "732c4d11f84977453c8919fb477902725ade00f4ed7d49bc4bd885d8424f7b4c",
+      "state_sha256": "9a3831c851a0a23c8a3983565d57d167582585934c61a17d7e3044b542a182bb",
+      "checkpoint_sha256": "24d2b03c7a5f7441e3169ed40741544f62b1ce7db3e37ade7021558c226cb202",
+      "steps": 160,
+      "train_tokens": 51642,
+      "stream_sha256": "2d243366196db9eb16350ea67bd7c4208417598b7a1f8410d79c946fac1a6fdf",
+      "train_nll": 8.333281657267428,
+      "initial_valid": {
+        "nll": 10.383096174760299,
+        "ppl": 32308.840606880087,
+        "tokens": 5280
+      },
+      "best_valid": {
+        "nll": 8.053352379076408,
+        "ppl": 3144.3182691660754,
+        "tokens": 5280
+      },
+      "finite_gradients": true,
+      "seconds": 108.32198095321655,
+      "test": {
+        "nll": 8.096240225031693,
+        "ppl": 3282.104872674106,
+        "tokens": 5226
+      },
+      "generation": {
+        "token_bleu4": 0.6950409134619064,
+        "nonempty": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The The the same of the world of the world of the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world",
+            "route": [
+              0.0,
+              0.6797513365745544,
+              1.3617082834243774,
+              1.939599871635437,
+              2.5257434844970703,
+              2.9474427700042725
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "generation": " ⁇ 。",
+            "route": [
+              0.0,
+              0.6930429935455322,
+              1.3860268592834473,
+              2.0790810585021973,
+              2.7720420360565186,
+              3.4649085998535156,
+              4.156015872955322,
+              4.615787029266357
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": "The The the world of the world of the world of the world of the world of the world of the world of the world of the world of",
+            "route": [
+              0.0,
+              0.6791653037071228,
+              1.116860032081604,
+              1.7962790727615356,
+              2.3013205528259277
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "。",
+            "route": [
+              0.0,
+              0.6923932433128357,
+              1.0514593124389648,
+              1.4105250835418701,
+              2.102656841278076,
+              2.6715142726898193
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "The, and the same of the world, and the world, and the world, and the world, and the world, and the world, and",
+            "route": [
+              0.0,
+              0.0795588567852974,
+              0.7492473721504211,
+              1.4194393157958984,
+              2.0892062187194824,
+              2.5751521587371826
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The The the same of the same of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of",
+            "route": [
+              0.0,
+              0.6859786510467529,
+              1.0709911584854126,
+              1.4565929174423218,
+              2.135871171951294,
+              2.717782974243164,
+              3.165879011154175
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+            "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+            "generation": " ⁇ 。",
+            "route": [
+              0.0,
+              0.6923977732658386,
+              1.0517839193344116,
+              1.4112414121627808,
+              2.066964864730835,
+              2.6497840881347656,
+              3.037963390350342
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": "The The the same of the same of the same of the same of the same of the same of the same of the same of the same of the",
+            "route": [
+              0.0,
+              0.6879444122314453,
+              1.0659477710723877,
+              1.444009780883789,
+              1.9091026782989502,
+              2.425114393234253
+            ]
+          }
+        ]
+      }
+    },
+    "SC": {
+      "stage": "task-SC",
+      "parent_state_sha256": "1ee8cd56e9dc0e83c7b9264cf28e52435671115cc8660a4733e893758c167d15",
+      "state_sha256": "0f093581e04576bd60eca3a1b6e134227d4fef5dc694ac9b87007b67def692d3",
+      "checkpoint_sha256": "1b63090d16701580bef113034e73a969adcbabf8951d96fb2d81b4a7e8208e58",
+      "steps": 160,
+      "train_tokens": 51642,
+      "stream_sha256": "2d243366196db9eb16350ea67bd7c4208417598b7a1f8410d79c946fac1a6fdf",
+      "train_nll": 8.440449607662678,
+      "initial_valid": {
+        "nll": 10.388090052749172,
+        "ppl": 32470.59055843997,
+        "tokens": 5280
+      },
+      "best_valid": {
+        "nll": 8.1938256928415,
+        "ppl": 3618.5392194525875,
+        "tokens": 5280
+      },
+      "finite_gradients": true,
+      "seconds": 108.29856848716736,
+      "test": {
+        "nll": 8.210026527518657,
+        "ppl": 3677.640023636556,
+        "tokens": 5226
+      },
+      "generation": {
+        "token_bleu4": 0.46672784508101706,
+        "nonempty": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The the same of the same of the same of the same of the same of the same of the same of the same of the same of the same of the same of the same of the same of the same of the same of the same of",
+            "route": [
+              0.0,
+              0.6858649849891663,
+              1.3708152770996094,
+              1.935623288154602,
+              2.5118188858032227,
+              2.868751287460327
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "generation": "就,并,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为",
+            "route": [
+              0.0,
+              0.6930699348449707,
+              1.3861467838287354,
+              2.0789928436279297,
+              2.7707698345184326,
+              3.463308334350586,
+              4.141295433044434,
+              4.689573764801025
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": "力,我,我,我,我,我,就,因为,因为,因为,因为,因为,因为,因为",
+            "route": [
+              0.0,
+              0.6909423470497131,
+              1.149255633354187,
+              1.8231639862060547,
+              2.3461101055145264
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "政府不,我,我,我,我,我,我,我,我,我,我,我,我,我,我,我,我",
+            "route": [
+              0.0,
+              0.6880108714103699,
+              1.068854570388794,
+              1.449662685394287,
+              2.1420280933380127,
+              2.5997183322906494
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "来了,我,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为,因为",
+            "route": [
+              0.0,
+              0.11654150485992432,
+              0.7841907739639282,
+              1.4518465995788574,
+              2.1194989681243896,
+              2.613334894180298
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The the same of the same of the same of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the",
+            "route": [
+              0.0,
+              0.680751383304596,
+              1.079241394996643,
+              1.4776630401611328,
+              2.16013503074646,
+              2.741035223007202,
+              3.27144455909729
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+            "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+            "generation": "就不,就就“,因为在就,就“,因为在就,就在就,就“,因为在就,就在就,就“,因为,因为,因为,因为,因为,在就,就在",
+            "route": [
+              0.0,
+              0.6867079138755798,
+              1.071645736694336,
+              1.4564160108566284,
+              1.928466558456421,
+              2.602862596511841,
+              3.1675782203674316
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": "过了,我,我,我,就,就,就,就,就,就,就,就,就,就,就",
+            "route": [
+              0.0,
+              0.6887900233268738,
+              1.0653325319290161,
+              1.4420281648635864,
+              1.8941223621368408,
+              2.499354362487793
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "proof": {
+    "contexts": 64,
+    "unigram_top1_id": 28568,
+    "unigram_top1": ",",
+    "native_unique_greedy_rate": 0.03125,
+    "native_greedy_differs_from_unigram_rate": 0.03125,
+    "nonempty_generation_rate": 1.0,
+    "severe_adjacent_repetition_rate": 0.0625,
+    "maximum_greedy_share": 0.96875,
+    "modes": {
+      "native": {
+        "model_js": 0.6757833930502327,
+        "unigram_js": 0.6660623842389687,
+        "model_candidate_mass": 0.008121929731483846,
+        "unigram_candidate_mass": 0.01474570034087388,
+        "greedy_in_empirical": 0.140625,
+        "entropy": 8.053830407559872,
+        "route": [
+          0.0,
+          0.21660849452018738,
+          0.6714863181114197,
+          1.364633560180664,
+          2.057779550552368
+        ],
+        "greedy_changed_from_native": 0.0
+      },
+      "wrong_source": {
+        "model_js": 0.6751198361346241,
+        "unigram_js": 0.6660623842389687,
+        "model_candidate_mass": 0.008441400514318076,
+        "unigram_candidate_mass": 0.01474570034087388,
+        "greedy_in_empirical": 0.140625,
+        "entropy": 8.053830407559872,
+        "route": [
+          0.0,
+          0.21660849452018738,
+          0.6714863181114197,
+          1.364633560180664,
+          2.057779550552368
+        ],
+        "greedy_changed_from_native": 0.0625
+      },
+      "identity": {
+        "model_js": 0.6775926009092765,
+        "unigram_js": 0.6660623842389687,
+        "model_candidate_mass": 0.007002683766820894,
+        "unigram_candidate_mass": 0.01474570034087388,
+        "greedy_in_empirical": 0.140625,
+        "entropy": 8.09888742864132,
+        "route": [
+          0.0,
+          0.21660849452018738,
+          0.6714863181114197,
+          1.364633560180664,
+          2.0577797889709473
+        ],
+        "greedy_changed_from_native": 0.015625
+      },
+      "pair_break_depth_0": {
+        "model_js": 0.6762614987720311,
+        "unigram_js": 0.6660623842389687,
+        "model_candidate_mass": 0.00755809212053471,
+        "unigram_candidate_mass": 0.01474570034087388,
+        "greedy_in_empirical": 0.125,
+        "entropy": 8.051907658576965,
+        "route": [
+          0.0,
+          0.2490997612476349,
+          0.7148079872131348,
+          1.4079551696777344,
+          2.0577802658081055
+        ],
+        "greedy_changed_from_native": 0.078125
+      }
+    }
+  },
+  "integrity": {
+    "architecture_parameter_count_frozen": true,
+    "pretrain_parent_is_initial": true,
+    "pt_parent_is_pretrained": true,
+    "sc_parent_is_initial": true,
+    "matched_task_stream_hash": true,
+    "finite_gradients": true,
+    "pretrain_checkpoint_reload": true,
+    "pt_checkpoint_reload": true,
+    "sc_checkpoint_reload": true
+  },
+  "p0_smoke_pass": true,
+  "seconds": 279.22475004196167,
+  "not_proved": [
+    "Bayesian or semantic reasoning",
+    "product-quality generation",
+    "architecture superiority",
+    "any C10 prediction when mode=smoke"
+  ]
+}

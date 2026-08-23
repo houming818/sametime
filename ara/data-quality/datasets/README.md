@@ -30,6 +30,14 @@ directories are append-only and must not be regenerated in place.
 | Release | Status | Purpose |
 |---|---|---|
 | `NioClean-ZHEN-S098-v1` | released | WMT Massive shadow-score pool and nested purified training sets |
+| `NioText-ZH-Integrity-2985K-v1` | released | monolingual pretraining view; 2,972,976 rows after deterministic integrity exclusions |
+| `NioClean-ZHEN-S098-7M-v2` | released | full score-0.98 bilingual view; 7,304,358 aligned pairs |
+| `NioQA-ZH-S090-v1` | released | broad Chinese QA view; 4,767,788 rows |
+| `NioQA-ZH-S095-v1` | released | middle Chinese QA view; 4,180,947 rows |
+| `NioQA-ZH-S098-v1` | released | narrow Chinese QA view; 3,375,921 rows |
+
+The five STONE-2 core views are bound by `releases/STONE2-CORE-v1.json`, whose
+root SHA-256 is `75caafdc24058eb96a957fd680b41789843eb3726e4febb4a110b7c96b38be29`.
 
 ## Completed evidence pools
 
@@ -56,14 +64,9 @@ are wrong.
 
 | Planned release | Parent pool | Expected role |
 |---|---|---|
-| `NioClean-ZHEN-S098-7M-v2` | `NioScore-ZHEN-14M-v1` | full high-relation bilingual training view |
-| `NioQA-ZH-S090-v1` | `NioScore-ZH-QA-8451K-v1` | broad QA task-training view, about 4.775M rows |
-| `NioQA-ZH-S095-v1` | `NioScore-ZH-QA-8451K-v1` | middle QA view, about 4.187M rows |
-| `NioQA-ZH-S098-v1` | `NioScore-ZH-QA-8451K-v1` | narrow QA view, about 3.382M rows |
 | `NioMedQA-ZH-S090-v1` | `NioScore-ZH-MedQA-792K-v1` | broad medical-relation view, about 477K rows |
 | `NioMedQA-ZH-S095-v1` | `NioScore-ZH-MedQA-792K-v1` | middle medical-relation view, about 415K rows |
 | `NioMedQA-ZH-S098-v1` | `NioScore-ZH-MedQA-792K-v1` | narrow medical-relation view, about 332K rows |
-| `NioText-ZH-Integrity-2985K-v1` | `NioAudit-ZH-Text-2985K-v1` | monolingual pretraining view with deterministic integrity policy |
 
 After these task-specific releases exist, two pipeline-level mixtures may be
 registered separately:

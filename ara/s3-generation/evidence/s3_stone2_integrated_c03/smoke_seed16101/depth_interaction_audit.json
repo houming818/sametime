@@ -1,0 +1,66 @@
+{
+  "diagnostic": "STONE-2-C03-D01",
+  "checkpoint": "ara/s3-generation/evidence/s3_stone2_integrated_c03/smoke_seed16101/task/PT/checkpoint_best.pt",
+  "checkpoint_sha256": "24d2b03c7a5f7441e3169ed40741544f62b1ce7db3e37ade7021558c226cb202",
+  "rows": 256,
+  "groups": {
+    "coarse": [
+      0,
+      1,
+      2
+    ],
+    "middle": [
+      3,
+      4,
+      5
+    ],
+    "fine": [
+      6,
+      7
+    ]
+  },
+  "nll": {
+    "none": 8.227307208324364,
+    "coarse": 8.130673816913031,
+    "middle": 8.131153035154755,
+    "fine": 8.178505665034203,
+    "coarse+middle": 8.09238531650641,
+    "coarse+fine": 8.106745466253468,
+    "fine+middle": 8.107316902940227,
+    "coarse+fine+middle": 8.096240225031693
+  },
+  "value_over_none": {
+    "none": 0.0,
+    "coarse": 0.09663339141133243,
+    "middle": 0.09615417316960873,
+    "fine": 0.04880154329016051,
+    "coarse+middle": 0.1349218918179531,
+    "coarse+fine": 0.12056174207089576,
+    "fine+middle": 0.11999030538413713,
+    "coarse+fine+middle": 0.13106698329267097
+  },
+  "shapley": {
+    "coarse": 0.05432467601146869,
+    "middle": 0.053799348547227524,
+    "fine": 0.022942958733974745
+  },
+  "shapley_sum": 0.13106698329267097,
+  "full_value": 0.13106698329267097,
+  "interactions": {
+    "coarse+middle": -0.05786567276298804,
+    "coarse+fine": -0.024873192630597174,
+    "middle+fine": -0.024965411075632105,
+    "coarse+middle+fine": -0.0028178481092133723
+  },
+  "repeat": {
+    "none": 8.227307208324364,
+    "all": 8.096240225031693,
+    "max_abs_delta": 0.0
+  },
+  "interpretation": {
+    "distributed_synergy_candidate": true,
+    "single_group_dominant": false,
+    "deterministic": true,
+    "formal_training_authorized": false
+  }
+}
