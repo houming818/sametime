@@ -1,66 +1,135 @@
 # SameTime
 
-SameTime is an open experiment notebook for learning and testing language-model
-systems. It contains WMT/NMT baselines, Semantic Prefix Routing experiments, and
-the public ARA research records used to track claims, failures, pivots, and
-evidence.
+[中文简介](README.zh.md) | English
 
-## Open Research Artifacts
+SameTime is an open research project exploring **TreeHeap**, a recursive,
+fixed-capacity neural architecture for language encoding, generation, and
+learned private protocols between an encoder and a decoder.
 
-The `ara/` directory is a public, lightweight mirror of the research record:
+The project was initiated by **Houming818** and has evolved through sustained
+human-AI collaboration: mathematical ideas are translated into falsifiable
+claims, implemented as experiments, reviewed by multiple agents, and preserved
+with both successful and negative evidence. TreeHeap is therefore not presented
+as a finished design revealed all at once. Its public development history is
+part of the research result.
 
-```text
-ara/
-├── PAPER.md
-├── index.yaml
-├── s1-echo/
-├── s2-translation/
-└── s3-generation/
-```
+## The Core Question
 
-Start from `ara/PAPER.md` for the current claim tree, evidence map, downgraded
-claims, and next proof queue.
+Can a language system organize information as a recursively computed TreeHeap,
+rather than merely storing a sequence and decorating it with tree-shaped
+indices?
 
-ARA means Agent-Native Research Artifact. The intended reading order is:
+The current candidate dataflow is:
 
 ```text
-logic/     current claims, predicts, and experiment designs
-trace/     why the route changed: dead ends, pivots, decisions
-evidence/  small summaries and pointers to reproducible evidence
-src/       small scripts and environment notes when they are safe to publish
+tokens
+-> WRITE into leaf states
+-> fixed-capacity XOR Butterfly communication
+-> bounded and reversible recursive FOLD
+-> multiresolution H_state (root + parent/detail levels + leaves)
+-> recursive READ by the decoder
+-> token probability distribution
+-> autoregressive generation
 ```
 
-Large checkpoints, raw logs, and local NAS artifacts are intentionally excluded
-from this public mirror. Public evidence files keep summaries and pointers, so
-humans and AI agents can study the reasoning process without downloading
-multi-GB experiment outputs.
+In this design:
 
-## Downloadable Checkpoint
+- **FOLD** combines two child states into a coarser parent state while retaining
+  recoverable detail;
+- **UNFOLD** provides the corresponding algebraic reconstruction path;
+- **Butterfly** allows distant addresses to interact through sparse, local
+  kernels without allocating an unbounded tree;
+- **H_state** is the runtime TreeHeap carrying multiple resolutions;
+- **READ** lets the decoder use the whole hierarchy rather than treating the
+  root as a sentence hash or the leaves as a flat bypass;
+- gradient learning is expected to form a private encoder-decoder protocol
+  inside these explicit structural constraints.
 
-The first executable fixed-root TreeHeap translation checkpoint is published as
-the **STONE-1 Candidate C08** release:
+The runtime state is a TreeHeap. In the current implementation, learned model
+parameters are still tensor collections shared by TreeHeap kernels; parameter
+memory itself has not yet been reorganized as a growing TreeHeap.
 
-- https://www.grepcode.cn/models/stone1-candidate-c08/sametime-stone1-candidate-c08.tar.gz
-- https://www.grepcode.cn/models/stone1-candidate-c08/sametime-stone1-candidate-c08.sha256
+## Why This Is Not Just a Tree-Shaped Array
 
-Public source and tagged CLI:
+Earlier experiments exposed several false shortcuts: flat `L x L` routing,
+geometry features that leaked the correct branch, leaf-only decoding, learned
+STOP gates collapsing to the finest level, and loss curves improving while
+generation collapsed to a fixed phrase. These failures changed the architecture
+and remain in the public record.
 
-- https://github.com/houming818/sametime/tree/stone1-candidate-c08
+A result counts as TreeHeap evidence only when the recursive state and its
+addresses causally affect output under controlled interventions. Merely placing
+tensors in a heap array is not enough.
 
-It is a research POC, not `STONE-1: COMPLETE`. The release includes the frozen
-encoder, EOS-tail decoder, tokenizer, model card, checksums, and CLI usage.
+## Current Research Status
 
-## Related Blog
+Evidence currently supports the following narrow statements:
 
-The SPR / TreeHeap notes are published here:
+- recursive TreeHeap operators and reversible FOLD/UNFOLD paths can be
+  implemented and numerically audited;
+- TreeHeap states can be trained on real WMT sequence-to-sequence data and can
+  produce nonempty language output;
+- Butterfly communication, recursive FOLD, and multilevel state interventions
+  can produce measurable causal effects;
+- pretraining and task training can be connected through one checkpoint and one
+  reproducible data pipeline.
 
-- https://www.grepcode.cn/spr/
-- https://www.lostmap.cn/spr/
+The following remain open:
 
-The blog is the human-readable explanation. The `ara/` directory is the
-machine-readable research trail.
+- learning a stable, complementary protocol across coarse, middle, and fine
+  resolutions;
+- preventing the decoder from collapsing onto a single convenient depth;
+- obtaining consistently useful long-form generation and stronger translation
+  quality at available compute scale;
+- demonstrating general reasoning, dialogue, memory, or a world model.
+
+SameTime does not claim that TreeHeap is complete, conscious, or superior to
+other architectures. Its present contribution is a new, testable architecture
+family and an unusually complete record of how that family is being discovered.
+
+## How to Read the Project
+
+For a concise technical history, start here:
+
+- [TreeHeap generation evolution map (Chinese)](ara/s3-generation/EVOLUTION.zh.md)
+- [ARA paper-style overview (Chinese)](ara/PAPER.zh.md)
+- [ARA paper-style overview (English)](ara/PAPER.md)
+- [Current claim registry](ara/s3-generation/logic/claims.md)
+
+The ARA directory follows this structure:
+
+```text
+logic/     claims, predictions, experiment contracts, and decisions
+src/       implementations and evaluation programs
+trace/     pivots, dead ends, and the reasons the route changed
+evidence/  machine-readable summaries, logs, hashes, and artifact pointers
+```
+
+Experiment IDs such as `C03`, `C12`, or `C13` are archive coordinates, not
+human-facing capability levels. Readable experiment names and their inheritance
+relationships are maintained in the evolution map.
+
+## Public Writing and Reproduction
+
+Human-readable SPR / TreeHeap articles:
+
+- <https://www.grepcode.cn/spr/>
+- <https://www.lostmap.cn/spr/>
+
+The first downloadable TreeHeap translation proof-of-concept is the historical
+**STONE-1 Candidate C08** release:
+
+- <https://www.grepcode.cn/models/stone1-candidate-c08/sametime-stone1-candidate-c08.tar.gz>
+- <https://www.grepcode.cn/models/stone1-candidate-c08/sametime-stone1-candidate-c08.sha256>
+- <https://github.com/houming818/sametime/tree/stone1-candidate-c08>
+
+It is preserved as a research checkpoint, not advertised as the final SameTime
+model. Large checkpoints, licensed corpora, and local NAS artifacts are not
+stored directly in Git. Evidence files retain hashes, summaries, commands, and
+artifact locations needed for audit.
 
 ## License
 
-SameTime is distributed under GPL-3.0. See `LICENSE`. Raw training corpora are
-not redistributed.
+SameTime source and original research materials are distributed under
+GPL-3.0. See [LICENSE](LICENSE). Third-party datasets and models retain their
+own licenses and are not relicensed or redistributed by this repository.
