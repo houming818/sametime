@@ -1,0 +1,353 @@
+{
+  "audit": "S3-STONE2-C03-D02-TASK-GRADIENT-GRAM",
+  "checkpoint": "ara/s3-generation/evidence/s3_stone2_integrated_c03/smoke_seed16101/task/PT/checkpoint_best.pt",
+  "checkpoint_sha256": "24d2b03c7a5f7441e3169ed40741544f62b1ce7db3e37ade7021558c226cb202",
+  "seed": 16301,
+  "rows": 24,
+  "batches": 3,
+  "batch_size": 8,
+  "selected_source_ids_sha256": "98cd0256c2aeebd281da7b8cf49104df1f00d17949d93e78a3262cebc0442a9f",
+  "groups": {
+    "coarse": [
+      0,
+      1,
+      2
+    ],
+    "middle": [
+      3,
+      4,
+      5
+    ],
+    "fine": [
+      6,
+      7
+    ]
+  },
+  "batch_results": [
+    {
+      "batch": 0,
+      "source_lengths": [
+        80,
+        90,
+        69,
+        127,
+        102,
+        68,
+        84,
+        86
+      ],
+      "native_loss": 8.529622077941895,
+      "untied_loss": 8.529622077941895,
+      "loss_abs_delta": 0.0,
+      "logits_max_abs_delta": 0.0,
+      "active_read_depths": 8,
+      "active_branch_depths": 7,
+      "read": {
+        "native_norm": 0.0015311090974137187,
+        "reconstructed_norm": 0.0015311090974137187,
+        "reconstruction_relative_error": 1.7668627094735712e-07,
+        "depth_norms": [
+          5.045466969022527e-05,
+          2.5534172110042164e-08,
+          8.845385309541598e-05,
+          0.0008531242492608726,
+          0.00024725907132960856,
+          2.691294412215939e-06,
+          0.0009932302637025714,
+          0.00020406734256539494
+        ],
+        "group_norms": {
+          "coarse": 0.00012878148118034005,
+          "middle": 0.000907610694412142,
+          "fine": 0.0011499497340992093
+        },
+        "pairs": {
+          "coarse:middle": {
+            "cosine": -0.1595914363861084,
+            "dot": -1.8653597777529285e-08
+          },
+          "coarse:fine": {
+            "cosine": 0.05338225141167641,
+            "dot": 7.905496701710035e-09
+          },
+          "middle:fine": {
+            "cosine": 0.09728068858385086,
+            "dot": 1.0153250684652448e-07
+          }
+        },
+        "cancellation_ratio": 0.7003063384672662
+      },
+      "branch": {
+        "native_norm": 0.07733174413442612,
+        "reconstructed_norm": 0.07733174413442612,
+        "reconstruction_relative_error": 3.102633741036698e-07,
+        "depth_norms": [
+          0.00522402161732316,
+          0.0027473350055515766,
+          0.005416044499725103,
+          0.004109601024538279,
+          0.007987892255187035,
+          0.005546117201447487,
+          0.06873222440481186
+        ],
+        "group_norms": {
+          "coarse": 0.008559786714613438,
+          "middle": 0.012188171036541462,
+          "fine": 0.06873222440481186
+        },
+        "pairs": {
+          "coarse:middle": {
+            "cosine": 0.19477850198745728,
+            "dot": 2.0320880139479414e-05
+          },
+          "coarse:fine": {
+            "cosine": 0.23964495956897736,
+            "dot": 0.0001409910764778033
+          },
+          "middle:fine": {
+            "cosine": 0.4247450530529022,
+            "dot": 0.00035581746487878263
+          }
+        },
+        "cancellation_ratio": 0.8642331997004037
+      }
+    },
+    {
+      "batch": 1,
+      "source_lengths": [
+        93,
+        92,
+        68,
+        75,
+        109,
+        65,
+        100,
+        68
+      ],
+      "native_loss": 8.410849571228027,
+      "untied_loss": 8.410849571228027,
+      "loss_abs_delta": 0.0,
+      "logits_max_abs_delta": 0.0,
+      "active_read_depths": 8,
+      "active_branch_depths": 7,
+      "read": {
+        "native_norm": 0.003975869622081518,
+        "reconstructed_norm": 0.0039758700877428055,
+        "reconstruction_relative_error": 1.9021145192255062e-07,
+        "depth_norms": [
+          0.0003797528625000268,
+          1.1436097793193767e-06,
+          0.00034287513699382544,
+          0.001239157048985362,
+          0.0002460330433677882,
+          7.196124897745904e-06,
+          0.0035420444328337908,
+          0.00041776965372264385
+        ],
+        "group_norms": {
+          "coarse": 0.0006664705579169095,
+          "middle": 0.0012794237118214369,
+          "fine": 0.003854089416563511
+        },
+        "pairs": {
+          "coarse:middle": {
+            "cosine": -0.5336389541625977,
+            "dot": -4.550329890662397e-07
+          },
+          "coarse:fine": {
+            "cosine": -0.016231542453169823,
+            "dot": -4.1692942431836855e-08
+          },
+          "middle:fine": {
+            "cosine": -0.013599726371467113,
+            "dot": -6.706043365056757e-08
+          }
+        },
+        "cancellation_ratio": 0.6854967708155522
+      },
+      "branch": {
+        "native_norm": 0.06754660606384277,
+        "reconstructed_norm": 0.06754660606384277,
+        "reconstruction_relative_error": 3.886709976086422e-07,
+        "depth_norms": [
+          0.006552556529641151,
+          0.002032706281170249,
+          0.0031051901169121265,
+          0.002609212649986148,
+          0.0055284746922552586,
+          0.00856960192322731,
+          0.06451332569122314
+        ],
+        "group_norms": {
+          "coarse": 0.007246274966746569,
+          "middle": 0.010590963065624237,
+          "fine": 0.06451332569122314
+        },
+        "pairs": {
+          "coarse:middle": {
+            "cosine": 0.09075628966093063,
+            "dot": 6.9650945988541935e-06
+          },
+          "coarse:fine": {
+            "cosine": -0.044786449521780014,
+            "dot": -2.0936828150297515e-05
+          },
+          "middle:fine": {
+            "cosine": 0.1930755078792572,
+            "dot": 0.00013192043115850538
+          }
+        },
+        "cancellation_ratio": 0.8202324672671336
+      }
+    },
+    {
+      "batch": 2,
+      "source_lengths": [
+        91,
+        118,
+        83,
+        94,
+        70,
+        66,
+        84,
+        78
+      ],
+      "native_loss": 8.170360565185547,
+      "untied_loss": 8.170360565185547,
+      "loss_abs_delta": 0.0,
+      "logits_max_abs_delta": 0.0,
+      "active_read_depths": 8,
+      "active_branch_depths": 7,
+      "read": {
+        "native_norm": 0.003692390164360404,
+        "reconstructed_norm": 0.003692390164360404,
+        "reconstruction_relative_error": 2.239367375977963e-07,
+        "depth_norms": [
+          0.0005770783754996955,
+          4.059882030560402e-07,
+          0.0004820725880563259,
+          0.0011160343419760466,
+          0.00024072251108009368,
+          2.679943099792581e-05,
+          0.00193334324285388,
+          0.001281082397326827
+        ],
+        "group_norms": {
+          "coarse": 0.0009800827829167247,
+          "middle": 0.0011679824674502015,
+          "fine": 0.0028834727127104998
+        },
+        "pairs": {
+          "coarse:middle": {
+            "cosine": 0.47965970635414124,
+            "dot": 5.490758212545188e-07
+          },
+          "coarse:fine": {
+            "cosine": 0.16787222027778625,
+            "dot": 4.7441392325708875e-07
+          },
+          "middle:fine": {
+            "cosine": 0.14068441092967987,
+            "dot": 4.738033396733954e-07
+          }
+        },
+        "cancellation_ratio": 0.7338492110078481
+      },
+      "branch": {
+        "native_norm": 0.061857983469963074,
+        "reconstructed_norm": 0.061857979744672775,
+        "reconstruction_relative_error": 3.957668752718746e-07,
+        "depth_norms": [
+          0.006489966530352831,
+          0.0019099945202469826,
+          0.0030214337166398764,
+          0.0027120024897158146,
+          0.00353115308098495,
+          0.009537558071315289,
+          0.05842345207929611
+        ],
+        "group_norms": {
+          "coarse": 0.00735803646966815,
+          "middle": 0.010594616644084454,
+          "fine": 0.05842345207929611
+        },
+        "pairs": {
+          "coarse:middle": {
+            "cosine": 0.05240324139595032,
+            "dot": 4.08512505600811e-06
+          },
+          "coarse:fine": {
+            "cosine": 0.040198542177677155,
+            "dot": 1.7280624888371676e-05
+          },
+          "middle:fine": {
+            "cosine": 0.16478238999843597,
+            "dot": 0.0001019960327539593
+          }
+        },
+        "cancellation_ratio": 0.809912728441967
+      }
+    }
+  ],
+  "aggregate": {
+    "read": {
+      "pairs": {
+        "coarse:middle": {
+          "cosine_mean": -0.07119022806485494,
+          "cosine_median": -0.1595914363861084,
+          "cosine_min": -0.5336389541625977,
+          "negative_fraction": 0.6666666666666666
+        },
+        "coarse:fine": {
+          "cosine_mean": 0.06834097641209762,
+          "cosine_median": 0.05338225141167641,
+          "cosine_min": -0.016231542453169823,
+          "negative_fraction": 0.3333333333333333
+        },
+        "middle:fine": {
+          "cosine_mean": 0.0747884577140212,
+          "cosine_median": 0.09728068858385086,
+          "cosine_min": -0.013599726371467113,
+          "negative_fraction": 0.3333333333333333
+        }
+      },
+      "cancellation_ratio_mean": 0.7065507734302221,
+      "cancellation_ratio_median": 0.7003063384672662,
+      "max_reconstruction_relative_error": 2.239367375977963e-07
+    },
+    "branch": {
+      "pairs": {
+        "coarse:middle": {
+          "cosine_mean": 0.1126460110147794,
+          "cosine_median": 0.09075628966093063,
+          "cosine_min": 0.05240324139595032,
+          "negative_fraction": 0.0
+        },
+        "coarse:fine": {
+          "cosine_mean": 0.07835235074162483,
+          "cosine_median": 0.040198542177677155,
+          "cosine_min": -0.044786449521780014,
+          "negative_fraction": 0.3333333333333333
+        },
+        "middle:fine": {
+          "cosine_mean": 0.2608676503101985,
+          "cosine_median": 0.1930755078792572,
+          "cosine_min": 0.16478238999843597,
+          "negative_fraction": 0.0
+        }
+      },
+      "cancellation_ratio_mean": 0.8314594651365015,
+      "cancellation_ratio_median": 0.8202324672671336,
+      "max_reconstruction_relative_error": 3.957668752718746e-07
+    }
+  },
+  "gates": {
+    "A0_exact_untie_and_finite": true,
+    "A0_full_depth_coverage": true,
+    "A1_read_conflict": true,
+    "A2_branch_conflict": false,
+    "A3_strong_cancellation": true
+  },
+  "decision": "register_grouped_read_matched_smoke",
+  "formal_training_authorized": false
+}

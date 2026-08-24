@@ -1,0 +1,170 @@
+{
+  "audit": "S3-STONE2-C03-D02-TASK-GRADIENT-GRAM",
+  "checkpoint": "ara/s3-generation/evidence/s3_stone2_integrated_c03/smoke_seed16101/task/PT/checkpoint_best.pt",
+  "checkpoint_sha256": "24d2b03c7a5f7441e3169ed40741544f62b1ce7db3e37ade7021558c226cb202",
+  "seed": 16301,
+  "rows": 2,
+  "batches": 1,
+  "batch_size": 2,
+  "selected_source_ids_sha256": "8b1b82ae6162688dcdc5576ef3bd8c59c77a72f74e5bc51a4fc44abc501c2685",
+  "groups": {
+    "coarse": [
+      0,
+      1,
+      2
+    ],
+    "middle": [
+      3,
+      4,
+      5
+    ],
+    "fine": [
+      6,
+      7
+    ]
+  },
+  "batch_results": [
+    {
+      "batch": 0,
+      "source_lengths": [
+        80,
+        90
+      ],
+      "native_loss": 8.031542778015137,
+      "untied_loss": 8.031542778015137,
+      "loss_abs_delta": 0.0,
+      "logits_max_abs_delta": 0.0,
+      "active_read_depths": 8,
+      "active_branch_depths": 7,
+      "read": {
+        "native_norm": 0.0013138633221387863,
+        "reconstructed_norm": 0.0013138633221387863,
+        "reconstruction_relative_error": 1.4577523188563646e-07,
+        "depth_norms": [
+          0.0002923704159911722,
+          5.033753680550035e-08,
+          0.00034582242369651794,
+          0.0014979983679950237,
+          0.00023861358931753784,
+          6.865741966066707e-07,
+          0.00043771517812274396,
+          0.00018278499192092568
+        ],
+        "group_norms": {
+          "coarse": 0.0005888915038667619,
+          "middle": 0.0015131961554288864,
+          "fine": 0.0004500034265220165
+        },
+        "pairs": {
+          "coarse:middle": {
+            "cosine": -0.5575458407402039,
+            "dot": -4.968337634636555e-07
+          },
+          "coarse:fine": {
+            "cosine": -0.02222915180027485,
+            "dot": -5.8907962952048365e-09
+          },
+          "middle:fine": {
+            "cosine": -0.07884136587381363,
+            "dot": -5.368651301296268e-08
+          }
+        },
+        "cancellation_ratio": 0.5148183501130162
+      },
+      "branch": {
+        "native_norm": 0.098636195063591,
+        "reconstructed_norm": 0.098636195063591,
+        "reconstruction_relative_error": 3.1824149004933133e-07,
+        "depth_norms": [
+          0.0049270582385361195,
+          0.0022224581334739923,
+          0.005457816645503044,
+          0.0036670544650405645,
+          0.0051950691267848015,
+          0.005770301911979914,
+          0.09452034533023834
+        ],
+        "group_norms": {
+          "coarse": 0.008579700253903866,
+          "middle": 0.009290114045143127,
+          "fine": 0.09452034533023834
+        },
+        "pairs": {
+          "coarse:middle": {
+            "cosine": 0.1911417841911316,
+            "dot": 1.523522223578766e-05
+          },
+          "coarse:fine": {
+            "cosine": 0.08245249837636948,
+            "dot": 6.686536653432995e-05
+          },
+          "middle:fine": {
+            "cosine": 0.2681262791156769,
+            "dot": 0.00023544295981992036
+          }
+        },
+        "cancellation_ratio": 0.8776230533788612
+      }
+    }
+  ],
+  "aggregate": {
+    "read": {
+      "pairs": {
+        "coarse:middle": {
+          "cosine_mean": -0.5575458407402039,
+          "cosine_median": -0.5575458407402039,
+          "cosine_min": -0.5575458407402039,
+          "negative_fraction": 1.0
+        },
+        "coarse:fine": {
+          "cosine_mean": -0.02222915180027485,
+          "cosine_median": -0.02222915180027485,
+          "cosine_min": -0.02222915180027485,
+          "negative_fraction": 1.0
+        },
+        "middle:fine": {
+          "cosine_mean": -0.07884136587381363,
+          "cosine_median": -0.07884136587381363,
+          "cosine_min": -0.07884136587381363,
+          "negative_fraction": 1.0
+        }
+      },
+      "cancellation_ratio_mean": 0.5148183501130162,
+      "cancellation_ratio_median": 0.5148183501130162,
+      "max_reconstruction_relative_error": 1.4577523188563646e-07
+    },
+    "branch": {
+      "pairs": {
+        "coarse:middle": {
+          "cosine_mean": 0.1911417841911316,
+          "cosine_median": 0.1911417841911316,
+          "cosine_min": 0.1911417841911316,
+          "negative_fraction": 0.0
+        },
+        "coarse:fine": {
+          "cosine_mean": 0.08245249837636948,
+          "cosine_median": 0.08245249837636948,
+          "cosine_min": 0.08245249837636948,
+          "negative_fraction": 0.0
+        },
+        "middle:fine": {
+          "cosine_mean": 0.2681262791156769,
+          "cosine_median": 0.2681262791156769,
+          "cosine_min": 0.2681262791156769,
+          "negative_fraction": 0.0
+        }
+      },
+      "cancellation_ratio_mean": 0.8776230533788612,
+      "cancellation_ratio_median": 0.8776230533788612,
+      "max_reconstruction_relative_error": 3.1824149004933133e-07
+    }
+  },
+  "gates": {
+    "A0_exact_untie_and_finite": true,
+    "A1_read_conflict": true,
+    "A2_branch_conflict": false,
+    "A3_strong_cancellation": true
+  },
+  "decision": "register_grouped_read_matched_smoke",
+  "formal_training_authorized": false
+}
