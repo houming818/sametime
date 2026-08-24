@@ -1,0 +1,475 @@
+{
+  "claim": "S3-STONE2-CONTINUOUS-DEPTH-READ-C05",
+  "checkpoint": "ara/s3-generation/evidence/s3_stone2_integrated_c03/smoke_seed16101/task/PT/checkpoint_best.pt",
+  "checkpoint_sha256": "24d2b03c7a5f7441e3169ed40741544f62b1ce7db3e37ade7021558c226cb202",
+  "seed": 16501,
+  "steps": 120,
+  "batch_size": 16,
+  "rank": 32,
+  "stream_sha256": "80f15f281a8f08795bd5e1f451bd75a714c78263b6fa7bd46f331b09979a16b8",
+  "train_rows": 4096,
+  "valid_rows": 256,
+  "test_rows": 256,
+  "initial_equivalence": {
+    "max_logits_abs_delta": 0.0,
+    "max_valid_nll_delta": 0.0,
+    "max_test_nll_delta": 0.0
+  },
+  "trainable_parameters": {
+    "shared": 525056,
+    "smooth_depth": 574208,
+    "shuffled_depth_control": 574208
+  },
+  "arms": {
+    "shared": {
+      "initial_valid": {
+        "nll": 8.053352379076408,
+        "ppl": 3144.3182691660754,
+        "tokens": 5280
+      },
+      "final_valid": {
+        "nll": 8.048662613377427,
+        "ppl": 3129.6066771242963,
+        "tokens": 5280
+      },
+      "train_nll": 6.930428952327953,
+      "train_tokens": 34387,
+      "finite_gradients": true,
+      "seconds": 78.03313064575195,
+      "gradient_seen": [
+        true
+      ],
+      "output_norm": 0.0,
+      "final_test": {
+        "nll": 8.091100892024254,
+        "ppl": 3265.280313306626,
+        "tokens": 5226
+      },
+      "generation": {
+        "token_bleu4": 1.072788273795949,
+        "nonempty": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The The the same of the world of the world of the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world",
+            "route": [
+              0.0,
+              0.6797964572906494,
+              1.361877202987671,
+              1.939542293548584,
+              2.5255539417266846,
+              2.9460372924804688
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "generation": " ⁇ 。",
+            "route": [
+              0.0,
+              0.6930435299873352,
+              1.3860207796096802,
+              2.0790746212005615,
+              2.772031307220459,
+              3.4648797512054443,
+              4.155679225921631,
+              4.610471725463867
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": "The The the world of the world of the world of the world of the world of the world of the world of the world of the world of",
+            "route": [
+              0.0,
+              0.6793057918548584,
+              1.1169761419296265,
+              1.796265721321106,
+              2.3018712997436523
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "。",
+            "route": [
+              0.0,
+              0.6924163699150085,
+              1.0512598752975464,
+              1.4101037979125977,
+              2.102240562438965,
+              2.668138027191162
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "The, and the same of the world, and the world, and the world, and the world, and the world, and the world, and",
+            "route": [
+              0.0,
+              0.08042394369840622,
+              0.7499144673347473,
+              1.4198862314224243,
+              2.0894415378570557,
+              2.5731558799743652
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The The the same of the same of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of",
+            "route": [
+              0.0,
+              0.6860970854759216,
+              1.0707613229751587,
+              1.456007480621338,
+              2.1354622840881348,
+              2.7171363830566406,
+              3.1625306606292725
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+            "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+            "generation": " ⁇ 。",
+            "route": [
+              0.0,
+              0.6924457550048828,
+              1.0513498783111572,
+              1.4103221893310547,
+              2.069580554962158,
+              2.6482677459716797,
+              3.0396032333374023
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": "The The the same of the same of the same of the same of the same of the same of the same of the same of the same of the",
+            "route": [
+              0.0,
+              0.6880975961685181,
+              1.065529704093933,
+              1.4430203437805176,
+              1.9091495275497437,
+              2.426804304122925
+            ]
+          }
+        ]
+      }
+    },
+    "smooth_depth": {
+      "initial_valid": {
+        "nll": 8.053352379076408,
+        "ppl": 3144.3182691660754,
+        "tokens": 5280
+      },
+      "final_valid": {
+        "nll": 8.079384104410808,
+        "ppl": 3227.2449784803266,
+        "tokens": 5280
+      },
+      "train_nll": 6.852387713731474,
+      "train_tokens": 34387,
+      "finite_gradients": true,
+      "seconds": 105.90678572654724,
+      "output_norm": 9.60836410522461,
+      "adapter_basis_gradient_seen": [
+        true,
+        true
+      ],
+      "final_test": {
+        "nll": 8.099643337922766,
+        "ppl": 3293.2932729728986,
+        "tokens": 5226
+      },
+      "generation": {
+        "token_bleu4": 0.6944093030642322,
+        "nonempty": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The the same of the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the",
+            "route": [
+              0.0,
+              0.6854967474937439,
+              1.3730852603912354,
+              1.935817003250122,
+              2.5098860263824463,
+              2.9245760440826416
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "generation": "围绕在货,在未来,在未来,在未来,在在未来,在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在在未来,在",
+            "route": [
+              0.0,
+              0.6930354833602905,
+              1.3854241371154785,
+              2.07846736907959,
+              2.7711610794067383,
+              3.4636240005493164,
+              4.151881217956543,
+              4.507566928863525
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": "The The the world of the world of the world of the world of the world of the world of the world of the world of the world of",
+            "route": [
+              0.0,
+              0.6867688894271851,
+              1.1216332912445068,
+              1.7954583168029785,
+              2.3190081119537354
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "在 本,因为在就它在在的 在在。",
+            "route": [
+              0.0,
+              0.6929057240486145,
+              1.043654203414917,
+              1.3942722082138062,
+              2.0864672660827637,
+              2.5990798473358154
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "The, and the same of the world, and the world, and the world, and the world, and the world, and the world, and",
+            "route": [
+              0.0,
+              0.11134050041437149,
+              0.7741891145706177,
+              1.4372944831848145,
+              2.09993314743042,
+              2.5673470497131348
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The the same of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the",
+            "route": [
+              0.0,
+              0.6914018392562866,
+              1.055236577987671,
+              1.419791340827942,
+              2.1067535877227783,
+              2.6764748096466064,
+              3.0665199756622314
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+            "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+            "generation": "好在在在的 在在在的 在在在的 在在在的 在在的 在在在的 在在的 在在的 在在的 在在的 在在的 ",
+            "route": [
+              0.0,
+              0.6927487254142761,
+              1.0468268394470215,
+              1.400970458984375,
+              2.0721259117126465,
+              2.6223840713500977,
+              2.9939701557159424
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": "The The the same of the same of the same of the same of the world of the same of the world of the same of the world of the",
+            "route": [
+              0.0,
+              0.6899280548095703,
+              1.0593088865280151,
+              1.428721308708191,
+              1.926337480545044,
+              2.4286794662475586
+            ]
+          }
+        ]
+      }
+    },
+    "shuffled_depth_control": {
+      "initial_valid": {
+        "nll": 8.053352379076408,
+        "ppl": 3144.3182691660754,
+        "tokens": 5280
+      },
+      "final_valid": {
+        "nll": 8.078317861846,
+        "ppl": 3223.8057863495515,
+        "tokens": 5280
+      },
+      "train_nll": 6.85587938213146,
+      "train_tokens": 34387,
+      "finite_gradients": true,
+      "seconds": 106.2592294216156,
+      "output_norm": 10.239166259765625,
+      "adapter_basis_gradient_seen": [
+        true,
+        true
+      ],
+      "final_test": {
+        "nll": 8.094042959406693,
+        "ppl": 3274.9011336221192,
+        "tokens": 5226
+      },
+      "generation": {
+        "token_bleu4": 0.7137186609487656,
+        "nonempty": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The the world of the world, and the same of the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world, and the world",
+            "route": [
+              0.0,
+              0.6864535808563232,
+              1.3748048543930054,
+              1.9348527193069458,
+              2.5061633586883545,
+              2.9293885231018066
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "generation": "围绕在货,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在未来,在,在,在,在,在,在,在,在,在,在,在,在",
+            "route": [
+              0.0,
+              0.6930499076843262,
+              1.3853034973144531,
+              2.078326940536499,
+              2.7707574367523193,
+              3.462985038757324,
+              4.147467613220215,
+              4.480223655700684
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": "The The the world of the world of the world of the world of the world of the world of the world of the world of the world of",
+            "route": [
+              0.0,
+              0.6864562630653381,
+              1.1201703548431396,
+              1.7954010963439941,
+              2.317432165145874
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "在 本,在在在的。",
+            "route": [
+              0.0,
+              0.6929033398628235,
+              1.042892336845398,
+              1.39278244972229,
+              2.0849788188934326,
+              2.581270933151245
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "The, and the same of the world, and the world, and the world, and the world, and the world, and the world, and",
+            "route": [
+              0.0,
+              0.11357823014259338,
+              0.7762706875801086,
+              1.439197301864624,
+              2.101633071899414,
+              2.5665996074676514
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The The the same of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of the world of",
+            "route": [
+              0.0,
+              0.6909522414207458,
+              1.0571798086166382,
+              1.4241019487380981,
+              2.1103389263153076,
+              2.680820941925049,
+              3.0762009620666504
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+            "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+            "generation": "在在在的 在在在的 在在在的 在在在的 在在在的 在在在的 在在在的 在在的 在在在的 在在的 在",
+            "route": [
+              0.0,
+              0.6927990317344666,
+              1.046165108680725,
+              1.3995963335037231,
+              2.0742743015289307,
+              2.617163896560669,
+              2.98122501373291
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": "The The the same of the same of the same of the world of the same of the world of the same of the world of the same of the",
+            "route": [
+              0.0,
+              0.6901264786720276,
+              1.0584932565689087,
+              1.426896572113037,
+              1.9245578050613403,
+              2.4234602451324463
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "gates": {
+    "G0_exact_initial_function": true,
+    "G1_finite_and_bases_receive_gradient": true,
+    "G2_smooth_beats_shared_valid_by_0_005": false,
+    "G3_smooth_beats_shuffled_valid_by_0_005": false,
+    "G4_smooth_test_not_worse_than_shared_by_0_01": true,
+    "G5_adapter_diverges": true
+  },
+  "decision": "continuous_depth_read_not_supported",
+  "formal_training_authorized": false
+}
