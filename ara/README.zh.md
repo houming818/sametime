@@ -13,6 +13,9 @@
 
 - ARA 的核心纪律是 claim 必须绑定 predict、experiment、evidence、decision 和 next step。
 - Blog 负责叙事，ARA 负责审计；聊天记录不能替代证据文件。
+- S3/STONE 生成航线的完整中间演化见
+  [`s3-generation/EVOLUTION.zh.md`](s3-generation/EVOLUTION.zh.md)。该文件按技术问题
+  组织成功、失败与勘误；`Cxx` 只作为 evidence 定位编号，不表示时间或能力等级。
 
 ## Reviewer 检查方式
 
