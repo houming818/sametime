@@ -1,0 +1,3748 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-PROBABILITY-EXPOSURE-D03",
+  "mode": "formal",
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12r1/formal_seed10103/read/checkpoint_best.pt",
+  "checkpoint_state_sha256": "e78643f646e8e9abc9ade6a9bef54f45fbd27a658109be9067aa9631c6c99137",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "seed": 10103,
+  "rows": 256,
+  "test_row_sha256": "179f19d18c29397ab0738eb24144dbc796adbdc329468bc2d4743d21d9668b6e",
+  "conditions": [
+    "native",
+    "runtime_identity",
+    "pair_break_depth_0",
+    "source_shuffle"
+  ],
+  "depth_count": 9,
+  "curves": {
+    "native": [
+      {
+        "depth": 0,
+        "width": 1,
+        "nll": 401.03567947522004,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.3651988602335978e-09,
+        "mean_true_probability": 1.021515378456095e-24,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0,
+        "js_from_previous": null,
+        "true_logp_improvement_fraction": null,
+        "top1_change_fraction": null
+      },
+      {
+        "depth": 1,
+        "width": 2,
+        "nll": 276.47522565956274,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 3.910059195004991e-05,
+        "mean_true_probability": 5.165325665443652e-22,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.02999905700707317,
+        "js_from_previous": 1.6889956088519303e-06,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 2,
+        "width": 4,
+        "nll": 188.83071346991005,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.0023657241007608025,
+        "mean_true_probability": 1.0528993954280517e-12,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.07152064212473516,
+        "js_from_previous": 0.0001981979828756537,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 3,
+        "width": 8,
+        "nll": 113.12416372726213,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.04868004020997463,
+        "mean_true_probability": 3.554933629204058e-08,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.19945105336609353,
+        "js_from_previous": 0.010708943552859564,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.015499425947187142
+      },
+      {
+        "depth": 4,
+        "width": 16,
+        "nll": 64.15199001237801,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.3176540758844267,
+        "mean_true_probability": 0.00027050890570869975,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.3685374980770305,
+        "js_from_previous": 0.10007656915872502,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.18312284730195177
+      },
+      {
+        "depth": 5,
+        "width": 32,
+        "nll": 31.295526439551416,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.1342272468330392,
+        "mean_true_probability": 0.0339019002045758,
+        "top1_accuracy": 0.04458476846536548,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.8168961542847053,
+        "js_from_previous": 0.3169674668967199,
+        "true_logp_improvement_fraction": 0.9992345962495216,
+        "top1_change_fraction": 0.5750095675468809
+      },
+      {
+        "depth": 6,
+        "width": 64,
+        "nll": 9.399752833311283,
+        "ppl": 12085.393254397402,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.131395298358904,
+        "mean_true_probability": 0.14239585712701588,
+        "top1_accuracy": 0.21909682357443552,
+        "active_fraction": 0.8859548411787218,
+        "mean_frontier_entropy": 2.2370539642228873,
+        "js_from_previous": 0.5520261081349287,
+        "true_logp_improvement_fraction": 0.8830845771144279,
+        "top1_change_fraction": 0.8281668580176043
+      },
+      {
+        "depth": 7,
+        "width": 128,
+        "nll": 5.311277036962498,
+        "ppl": 202.60880217817225,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.820786865561391,
+        "mean_true_probability": 0.1712287020692413,
+        "top1_accuracy": 0.26482969766551856,
+        "active_fraction": 0.1930730960581707,
+        "mean_frontier_entropy": 2.624243361439871,
+        "js_from_previous": 0.13223106039465768,
+        "true_logp_improvement_fraction": 0.19192499043245312,
+        "top1_change_fraction": 0.1924990432453119
+      },
+      {
+        "depth": 8,
+        "width": 256,
+        "nll": 5.311277036962498,
+        "ppl": 202.60880217817225,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.820786865561391,
+        "mean_true_probability": 0.1712287020692413,
+        "top1_accuracy": 0.26482969766551856,
+        "active_fraction": 0.0,
+        "mean_frontier_entropy": 2.624243361439871,
+        "js_from_previous": 6.24104193102407e-08,
+        "true_logp_improvement_fraction": 0.0,
+        "top1_change_fraction": 0.0
+      }
+    ],
+    "runtime_identity": [
+      {
+        "depth": 0,
+        "width": 1,
+        "nll": 403.90103606068215,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.69154319638868e-10,
+        "mean_true_probability": 1.2466734009795306e-24,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0,
+        "js_from_previous": null,
+        "true_logp_improvement_fraction": null,
+        "top1_change_fraction": null
+      },
+      {
+        "depth": 1,
+        "width": 2,
+        "nll": 278.3647279677335,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 2.8745409992673824e-05,
+        "mean_true_probability": 5.739740697890534e-22,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0228195042501589,
+        "js_from_previous": 1.2774919271454098e-06,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 2,
+        "width": 4,
+        "nll": 189.8128801791822,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.0016030573341658336,
+        "mean_true_probability": 8.798114585917449e-13,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0805708419715496,
+        "js_from_previous": 0.0001263275725738932,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 3,
+        "width": 8,
+        "nll": 113.77354747072928,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.03969542974798578,
+        "mean_true_probability": 1.6672523014501442e-08,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.21542559051440677,
+        "js_from_previous": 0.008499250180375697,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.012629161882893225
+      },
+      {
+        "depth": 4,
+        "width": 16,
+        "nll": 64.50837720950535,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.288862201853178,
+        "mean_true_probability": 0.00022530902417725653,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.38175316418991934,
+        "js_from_previous": 0.08411307722045672,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.14695752009184845
+      },
+      {
+        "depth": 5,
+        "width": 32,
+        "nll": 31.256002946598887,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.1275831975108401,
+        "mean_true_probability": 0.02999919370512316,
+        "top1_accuracy": 0.039992345962495214,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.824385320004311,
+        "js_from_previous": 0.3064529550883034,
+        "true_logp_improvement_fraction": 0.9992345962495216,
+        "top1_change_fraction": 0.5503252965939534
+      },
+      {
+        "depth": 6,
+        "width": 64,
+        "nll": 9.742490772082347,
+        "ppl": 17025.89623771463,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.155933723201525,
+        "mean_true_probability": 0.11445685306404832,
+        "top1_accuracy": 0.1729812476081133,
+        "active_fraction": 0.8859548411787218,
+        "mean_frontier_entropy": 2.264467079521731,
+        "js_from_previous": 0.551782445699318,
+        "true_logp_improvement_fraction": 0.8825105243015691,
+        "top1_change_fraction": 0.8245311902028319
+      },
+      {
+        "depth": 7,
+        "width": 128,
+        "nll": 5.856383331333865,
+        "ppl": 349.45798202213865,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.854725361417821,
+        "mean_true_probability": 0.1300239708977461,
+        "top1_accuracy": 0.19862227324913892,
+        "active_fraction": 0.1930730960581707,
+        "mean_frontier_entropy": 2.6886902030655766,
+        "js_from_previous": 0.13290462518352675,
+        "true_logp_improvement_fraction": 0.19211634137007272,
+        "top1_change_fraction": 0.1928817451205511
+      },
+      {
+        "depth": 8,
+        "width": 256,
+        "nll": 5.856383331333865,
+        "ppl": 349.45798202213865,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.854725361417821,
+        "mean_true_probability": 0.1300239708977461,
+        "top1_accuracy": 0.19862227324913892,
+        "active_fraction": 0.0,
+        "mean_frontier_entropy": 2.6886902030655766,
+        "js_from_previous": 7.530836386419334e-08,
+        "true_logp_improvement_fraction": 0.0,
+        "top1_change_fraction": 0.0
+      }
+    ],
+    "pair_break_depth_0": [
+      {
+        "depth": 0,
+        "width": 1,
+        "nll": 437.55876809611794,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.697429717081882e-10,
+        "mean_true_probability": 3.655203473078286e-29,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0,
+        "js_from_previous": null,
+        "true_logp_improvement_fraction": null,
+        "top1_change_fraction": null
+      },
+      {
+        "depth": 1,
+        "width": 2,
+        "nll": 287.693348163031,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.547883789083971e-05,
+        "mean_true_probability": 1.1434527647671278e-15,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.028907284967478693,
+        "js_from_previous": 5.707951734194533e-07,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 2,
+        "width": 4,
+        "nll": 190.43055325087303,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.0011076787668918302,
+        "mean_true_probability": 1.1121630366264037e-12,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.10742157161623593,
+        "js_from_previous": 6.76060987037308e-05,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 3,
+        "width": 8,
+        "nll": 113.64472951498517,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.03893508087262627,
+        "mean_true_probability": 7.355659038067758e-08,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.25183478416358196,
+        "js_from_previous": 0.007196905315692121,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.008610792192881744
+      },
+      {
+        "depth": 4,
+        "width": 16,
+        "nll": 64.83812296969928,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.2926759094376241,
+        "mean_true_probability": 0.00022843900537368922,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.425457956596576,
+        "js_from_previous": 0.09014423112493683,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.16016073478760046
+      },
+      {
+        "depth": 5,
+        "width": 32,
+        "nll": 31.612779210729705,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.275037100522216,
+        "mean_true_probability": 0.020654796446473965,
+        "top1_accuracy": 0.03482587064676617,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.8813639625114269,
+        "js_from_previous": 0.32020682244751586,
+        "true_logp_improvement_fraction": 0.9994259471871412,
+        "top1_change_fraction": 0.5698430922311519
+      },
+      {
+        "depth": 6,
+        "width": 64,
+        "nll": 9.80737283665058,
+        "ppl": 18167.19613583918,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.677247813502537,
+        "mean_true_probability": 0.10532284106651943,
+        "top1_accuracy": 0.18465365480290855,
+        "active_fraction": 0.8859548411787218,
+        "mean_frontier_entropy": 2.31473491185477,
+        "js_from_previous": 0.5513450317604126,
+        "true_logp_improvement_fraction": 0.8827018752391886,
+        "top1_change_fraction": 0.8266360505166476
+      },
+      {
+        "depth": 7,
+        "width": 128,
+        "nll": 5.7032853545149855,
+        "ppl": 299.85090102075867,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.5224148399566175,
+        "mean_true_probability": 0.12617394808284907,
+        "top1_accuracy": 0.2198622273249139,
+        "active_fraction": 0.1930730960581707,
+        "mean_frontier_entropy": 2.742959150627478,
+        "js_from_previous": 0.13227699315251204,
+        "true_logp_improvement_fraction": 0.19192499043245312,
+        "top1_change_fraction": 0.1926903941829315
+      },
+      {
+        "depth": 8,
+        "width": 256,
+        "nll": 5.7032853545149855,
+        "ppl": 299.85090102075867,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.5224148399566175,
+        "mean_true_probability": 0.12617394808284907,
+        "top1_accuracy": 0.2198622273249139,
+        "active_fraction": 0.0,
+        "mean_frontier_entropy": 2.742959150627478,
+        "js_from_previous": 7.927501928113262e-08,
+        "true_logp_improvement_fraction": 0.0,
+        "top1_change_fraction": 0.0
+      }
+    ],
+    "source_shuffle": [
+      {
+        "depth": 0,
+        "width": 1,
+        "nll": 322.09177052687284,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.899875746346647e-09,
+        "mean_true_probability": 5.535739032736863e-27,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0,
+        "js_from_previous": null,
+        "true_logp_improvement_fraction": null,
+        "top1_change_fraction": null
+      },
+      {
+        "depth": 1,
+        "width": 2,
+        "nll": 256.2220074507271,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.0355508684035144e-05,
+        "mean_true_probability": 3.820693411788911e-15,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.011095400176831145,
+        "js_from_previous": 3.659180115941676e-07,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 2,
+        "width": 4,
+        "nll": 191.3409828860505,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.0016191232462525373,
+        "mean_true_probability": 4.205576499018937e-13,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.036231984569339334,
+        "js_from_previous": 0.00014618687547624686,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 3,
+        "width": 8,
+        "nll": 113.07333664833884,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.04787040969440909,
+        "mean_true_probability": 2.7481409580732086e-09,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.1327563659742423,
+        "js_from_previous": 0.00998390236311228,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.012629161882893225
+      },
+      {
+        "depth": 4,
+        "width": 16,
+        "nll": 65.31593737947134,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.3086859760410339,
+        "mean_true_probability": 5.404881442730594e-06,
+        "top1_accuracy": 0.0,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.3018264679264575,
+        "js_from_previous": 0.10283804838636507,
+        "true_logp_improvement_fraction": 1.0,
+        "top1_change_fraction": 0.18694986605434366
+      },
+      {
+        "depth": 5,
+        "width": 32,
+        "nll": 31.702900007315808,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.2393114657133784,
+        "mean_true_probability": 0.010096953849444317,
+        "top1_accuracy": 0.015116724071947953,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.7424807116030004,
+        "js_from_previous": 0.31704399132244987,
+        "true_logp_improvement_fraction": 0.9992345962495216,
+        "top1_change_fraction": 0.5788365862992728
+      },
+      {
+        "depth": 6,
+        "width": 64,
+        "nll": 11.266367938935506,
+        "ppl": 78148.64044298786,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.275912816616661,
+        "mean_true_probability": 0.053030082049405,
+        "top1_accuracy": 0.08323765786452354,
+        "active_fraction": 0.8859548411787218,
+        "mean_frontier_entropy": 1.940695641828231,
+        "js_from_previous": 0.5371609608403727,
+        "true_logp_improvement_fraction": 0.8813624186758515,
+        "top1_change_fraction": 0.8094144661308841
+      },
+      {
+        "depth": 7,
+        "width": 128,
+        "nll": 7.392410932351837,
+        "ppl": 1623.6158259348176,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.064532192739727,
+        "mean_true_probability": 0.06428623756046638,
+        "top1_accuracy": 0.10065059318790662,
+        "active_fraction": 0.1930730960581707,
+        "mean_frontier_entropy": 2.3234488527025703,
+        "js_from_previous": 0.13253141469480476,
+        "true_logp_improvement_fraction": 0.19154228855721392,
+        "top1_change_fraction": 0.1926903941829315
+      },
+      {
+        "depth": 8,
+        "width": 256,
+        "nll": 7.392410932351837,
+        "ppl": 1623.6158259348176,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.064532192739727,
+        "mean_true_probability": 0.06428623756046638,
+        "top1_accuracy": 0.10065059318790662,
+        "active_fraction": 0.0,
+        "mean_frontier_entropy": 2.3234488527025703,
+        "js_from_previous": 7.741114076241229e-08,
+        "true_logp_improvement_fraction": 0.0,
+        "top1_change_fraction": 0.0
+      }
+    ]
+  },
+  "diagnostics": {
+    "native_nll_range": 395.7244024382575,
+    "native_adjacent_js_over_1e_4": 6,
+    "native_nll_deltas": [
+      -124.5604538156573,
+      -87.64451218965269,
+      -75.70654974264792,
+      -48.97217371488412,
+      -32.85646357282659,
+      -21.895773606240134,
+      -4.088475796348784,
+      0.0
+    ],
+    "full_depth_nll": 5.311277036962498,
+    "reference_full_depth_nll": 5.311276943529423,
+    "full_depth_reference_error": 9.343307549869451e-08,
+    "full_depth_max_abs_logit_error": 0.0
+  },
+  "examples": [
+    {
+      "direction": "zh2en",
+      "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+      "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+      "depths": [
+        {
+          "depth": 0,
+          "effective_depth": 0,
+          "saturated_at_leaf": false,
+          "width": 1,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.3955044056378985e-27
+                },
+                {
+                  "piece": "以",
+                  "probability": 5.194835552295049e-34
+                },
+                {
+                  "piece": "说",
+                  "probability": 4.048115127827576e-36
+                },
+                {
+                  "piece": "易",
+                  "probability": 1.7755376399981887e-39
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 5.608965221649153e-28
+                },
+                {
+                  "piece": "以",
+                  "probability": 8.984395732802752e-35
+                },
+                {
+                  "piece": "说",
+                  "probability": 9.389802813127391e-37
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.5161715225416415e-40
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 4.520414498531424e-27
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.5218130559917564e-34
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.0329128733773038e-36
+                },
+                {
+                  "piece": "易",
+                  "probability": 2.717802957274875e-39
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 1,
+          "effective_depth": 1,
+          "saturated_at_leaf": false,
+          "width": 2,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.7833988220924177e-25
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.5729387270996046e-31
+                },
+                {
+                  "piece": "说",
+                  "probability": 3.58246941475588e-34
+                },
+                {
+                  "piece": "易",
+                  "probability": 1.7940937687874305e-36
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.1434554844915703e-25
+                },
+                {
+                  "piece": "以",
+                  "probability": 7.096335381260138e-32
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.2926232941264829e-34
+                },
+                {
+                  "piece": "易",
+                  "probability": 3.7353473733016165e-37
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 8.1167042386502475e-25
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.6742943372448455e-31
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.788667951961426e-34
+                },
+                {
+                  "piece": "易",
+                  "probability": 3.636355614042134e-36
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 2,
+          "effective_depth": 2,
+          "saturated_at_leaf": false,
+          "width": 4,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 4.2606292294009084e-23
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.5494938163590045e-28
+                },
+                {
+                  "piece": "说",
+                  "probability": 4.0646493455282607e-32
+                },
+                {
+                  "piece": "易",
+                  "probability": 2.2489025274054288e-33
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.7834654118135797e-23
+                },
+                {
+                  "piece": "以",
+                  "probability": 7.302333708573661e-29
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.1121901099476982e-32
+                },
+                {
+                  "piece": "易",
+                  "probability": 7.666230691307328e-34
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.9649911730815504e-22
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.4063165731746116e-28
+                },
+                {
+                  "piece": "说",
+                  "probability": 4.7156513413250903e-32
+                },
+                {
+                  "piece": "易",
+                  "probability": 5.346976663715109e-33
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "effective_depth": 3,
+          "saturated_at_leaf": false,
+          "width": 8,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 7.312652003030329e-13
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.8309718297733132e-15
+                },
+                {
+                  "piece": "易",
+                  "probability": 2.900320117339953e-19
+                },
+                {
+                  "piece": "说",
+                  "probability": 8.347936468688419e-20
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 3.933339656585211e-13
+                },
+                {
+                  "piece": "以",
+                  "probability": 9.837429129763361e-14
+                },
+                {
+                  "piece": "说",
+                  "probability": 4.83055610629737e-17
+                },
+                {
+                  "piece": "易",
+                  "probability": 8.971317614390339e-19
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 7.769536750079631e-12
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.897131861669122e-14
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.2134425257520146e-17
+                },
+                {
+                  "piece": "易",
+                  "probability": 1.353284335941734e-18
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "effective_depth": 4,
+          "saturated_at_leaf": false,
+          "width": 16,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999986886978149
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.1329969993312261e-06
+                },
+                {
+                  "piece": "以",
+                  "probability": 9.403509437788671e-08
+                },
+                {
+                  "piece": "易",
+                  "probability": 1.4762148448088652e-10
+                },
+                {
+                  "piece": "亦",
+                  "probability": 9.968927072723233e-11
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999993443489075
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.5378209872760635e-07
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.8246187494241894e-07
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.3431798784324656e-08
+                },
+                {
+                  "piece": "说",
+                  "probability": 3.662173453378159e-09
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999992847442627
+                },
+                {
+                  "piece": "民",
+                  "probability": 4.126423789330147e-07
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.4918053870569565e-07
+                },
+                {
+                  "piece": "亦",
+                  "probability": 6.107724548343185e-09
+                },
+                {
+                  "piece": "说",
+                  "probability": 3.619989308312199e-10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 5,
+          "effective_depth": 5,
+          "saturated_at_leaf": false,
+          "width": 32,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.993916392326355
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.0036587268114089966
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.0023799436166882515
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.173890061385464e-05
+                },
+                {
+                  "piece": "易",
+                  "probability": 1.9647777662612498e-05
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.999932050704956
+                },
+                {
+                  "piece": "以",
+                  "probability": 5.598412099061534e-05
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.0162383659917396e-05
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.4050252730157808e-06
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.8490535441960674e-07
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9995866417884827
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.0003841019351966679
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.2126201656647027e-05
+                },
+                {
+                  "piece": "亦",
+                  "probability": 6.185945039760554e-06
+                },
+                {
+                  "piece": "易",
+                  "probability": 4.378531457405188e-07
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 6,
+          "effective_depth": 6,
+          "saturated_at_leaf": false,
+          "width": 64,
+          "teacher_forced_top1": "以 which which which which which which which which which which which which亦 which which which which民 which which which以 which亦亦 which which亦 which which which以 which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "以",
+                  "probability": 0.4004095494747162
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.3109886646270752
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.14276142418384552
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.12485691159963608
+                },
+                {
+                  "piece": "易",
+                  "probability": 0.012533405795693398
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.975951611995697
+                },
+                {
+                  "piece": "全面",
+                  "probability": 0.007710737641900778
+                },
+                {
+                  "piece": "“",
+                  "probability": 0.00545817706733942
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.0021149537060409784
+                },
+                {
+                  "piece": "82",
+                  "probability": 0.0015678077470511198
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.6464395523071289
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.24384312331676483
+                },
+                {
+                  "piece": "聚会",
+                  "probability": 0.05323147028684616
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.038047533482313156
+                },
+                {
+                  "piece": "坛",
+                  "probability": 0.0031687342561781406
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 7,
+          "effective_depth": 7,
+          "saturated_at_leaf": false,
+          "width": 128,
+          "teacher_forced_top1": "You or,4, page to the or the or without any of or its of these Terms of Use or be be a waiver of the right or provision.",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁You",
+                  "probability": 0.07928966730833054
+                },
+                {
+                  "piece": "▁If",
+                  "probability": 0.04851227253675461
+                },
+                {
+                  "piece": "▁Any",
+                  "probability": 0.03506002575159073
+                },
+                {
+                  "piece": "▁The",
+                  "probability": 0.022987082600593567
+                },
+                {
+                  "piece": "▁(",
+                  "probability": 0.01799243874847889
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁or",
+                  "probability": 0.03002890944480896
+                },
+                {
+                  "piece": "▁shall",
+                  "probability": 0.016355952247977257
+                },
+                {
+                  "piece": "▁(",
+                  "probability": 0.011448568664491177
+                },
+                {
+                  "piece": "▁中",
+                  "probability": 0.011236683465540409
+                },
+                {
+                  "piece": "▁Any",
+                  "probability": 0.01017332635819912
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": ",",
+                  "probability": 0.05267243832349777
+                },
+                {
+                  "piece": "▁Any",
+                  "probability": 0.015315860509872437
+                },
+                {
+                  "piece": "▁or",
+                  "probability": 0.013477828353643417
+                },
+                {
+                  "piece": "▁(",
+                  "probability": 0.013420432806015015
+                },
+                {
+                  "piece": "▁against",
+                  "probability": 0.01217576302587986
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 8,
+          "effective_depth": 7,
+          "saturated_at_leaf": true,
+          "width": 128,
+          "teacher_forced_top1": "You or,4, page to the or the or without any of or its of these Terms of Use or be be a waiver of the right or provision.",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁You",
+                  "probability": 0.07928966730833054
+                },
+                {
+                  "piece": "▁If",
+                  "probability": 0.04851227253675461
+                },
+                {
+                  "piece": "▁Any",
+                  "probability": 0.03506002575159073
+                },
+                {
+                  "piece": "▁The",
+                  "probability": 0.022987082600593567
+                },
+                {
+                  "piece": "▁(",
+                  "probability": 0.01799243874847889
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁or",
+                  "probability": 0.03002890944480896
+                },
+                {
+                  "piece": "▁shall",
+                  "probability": 0.016355952247977257
+                },
+                {
+                  "piece": "▁(",
+                  "probability": 0.011448568664491177
+                },
+                {
+                  "piece": "▁中",
+                  "probability": 0.011236683465540409
+                },
+                {
+                  "piece": "▁Any",
+                  "probability": 0.01017332635819912
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": ",",
+                  "probability": 0.05267243832349777
+                },
+                {
+                  "piece": "▁Any",
+                  "probability": 0.015315860509872437
+                },
+                {
+                  "piece": "▁or",
+                  "probability": 0.013477828353643417
+                },
+                {
+                  "piece": "▁(",
+                  "probability": 0.013420432806015015
+                },
+                {
+                  "piece": "▁against",
+                  "probability": 0.01217576302587986
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "en2zh",
+      "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+      "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+      "depths": [
+        {
+          "depth": 0,
+          "effective_depth": 0,
+          "saturated_at_leaf": false,
+          "width": 1,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "</s>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<unk>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<s>",
+                  "probability": 0.0
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "</s>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<unk>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<s>",
+                  "probability": 0.0
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "</s>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<unk>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<s>",
+                  "probability": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 1,
+          "effective_depth": 1,
+          "saturated_at_leaf": false,
+          "width": 2,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 4.3733460084744654e-38
+                },
+                {
+                  "piece": "以",
+                  "probability": 5.605193857299268e-45
+                },
+                {
+                  "piece": "<s>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 4.2626610861534553e-38
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.2229864679470793e-44
+                },
+                {
+                  "piece": "<s>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.0115100324757887e-37
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.6624670822171524e-44
+                },
+                {
+                  "piece": "<s>",
+                  "probability": 0.0
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 2,
+          "effective_depth": 2,
+          "saturated_at_leaf": false,
+          "width": 4,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.1742850117627e-23
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.6917403538977722e-28
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.652030453901461e-32
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.6369237527724077e-34
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 5.969742371153005e-25
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.5723107780173953e-31
+                },
+                {
+                  "piece": "以",
+                  "probability": 8.849067987997218e-32
+                },
+                {
+                  "piece": "亦",
+                  "probability": 4.977865927427141e-34
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 4.470979226436363e-24
+                },
+                {
+                  "piece": "说",
+                  "probability": 7.7284037483229905e-31
+                },
+                {
+                  "piece": "以",
+                  "probability": 7.870523601424977e-32
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.380620113246172e-34
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "effective_depth": 3,
+          "saturated_at_leaf": false,
+          "width": 8,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.6094361046946624e-13
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.4708231157951064e-16
+                },
+                {
+                  "piece": "说",
+                  "probability": 6.765214254508284e-20
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.2580442110096247e-20
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.018854930978641e-10
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.0713495228457167e-17
+                },
+                {
+                  "piece": "说",
+                  "probability": 7.771758643135779e-20
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.1693035409573204e-21
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 5.533522858675033e-12
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.88562178405405e-18
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.8846520240684914e-19
+                },
+                {
+                  "piece": "但",
+                  "probability": 8.910150855422181e-22
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "effective_depth": 4,
+          "saturated_at_leaf": false,
+          "width": 16,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999991059303284
+                },
+                {
+                  "piece": "民",
+                  "probability": 8.015783237169671e-07
+                },
+                {
+                  "piece": "以",
+                  "probability": 4.736405756489148e-08
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.5076545007163276e-11
+                },
+                {
+                  "piece": "说",
+                  "probability": 5.078736910191228e-12
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9997472167015076
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.00025282063870690763
+                },
+                {
+                  "piece": "以",
+                  "probability": 9.228838138142237e-09
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.443107855436665e-10
+                },
+                {
+                  "piece": "亦",
+                  "probability": 6.50553916292651e-11
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999397993087769
+                },
+                {
+                  "piece": "民",
+                  "probability": 6.020763248670846e-05
+                },
+                {
+                  "piece": "以",
+                  "probability": 7.540447710674414e-10
+                },
+                {
+                  "piece": "说",
+                  "probability": 4.8582908529493096e-11
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.746899318590735e-11
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 5,
+          "effective_depth": 5,
+          "saturated_at_leaf": false,
+          "width": 32,
+          "teacher_forced_top1": "which which民民 which民民 which which which which which which which which民 which民 which which which which which which which which which which which which which which which which which which which which which which which民 which which which which民民 which which民 which民 which民 which which民 which which which which民 which which which以 which which which which which which which which民 which which民 which民 which which which民 which民 which民 which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9582911133766174
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.021781552582979202
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.019815389066934586
+                },
+                {
+                  "piece": "亦",
+                  "probability": 7.549813744844869e-05
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.48199246218428e-05
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.599589467048645
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.3890160024166107
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.009107761085033417
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.001945659751072526
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.00032430756255052984
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "民",
+                  "probability": 0.8074641823768616
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.1922789067029953
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.00015983625780791044
+                },
+                {
+                  "piece": "但",
+                  "probability": 9.071759268408641e-05
+                },
+                {
+                  "piece": "亦",
+                  "probability": 4.473523404158186e-06
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 6,
+          "effective_depth": 6,
+          "saturated_at_leaf": false,
+          "width": 64,
+          "teacher_forced_top1": "民亦民民民民民以民民民民民民民民民亦民民以以以民以民民以民民但民但以但以但 which亦以 which民民民 which民但民民民民但民 which民以民民民民民但民民民民以民以民以以以以民民民民但以但民以以民民但民民以民以但",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "民",
+                  "probability": 0.5198932886123657
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.20646660029888153
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.1948109120130539
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.05709689110517502
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.004095905460417271
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "亦",
+                  "probability": 0.7105664014816284
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.21606583893299103
+                },
+                {
+                  "piece": "成绩",
+                  "probability": 0.026480045169591904
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.017667526379227638
+                },
+                {
+                  "piece": "旨在",
+                  "probability": 0.008303789421916008
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "民",
+                  "probability": 0.8950844407081604
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.08159693330526352
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.012162125669419765
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.004708544351160526
+                },
+                {
+                  "piece": "主",
+                  "probability": 0.0021953261457383633
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 7,
+          "effective_depth": 7,
+          "saturated_at_leaf": false,
+          "width": 128,
+          "teacher_forced_top1": "摘要芬县 é学会 18,,,采了:\"×8 传95年,为单者将,到300ildostern",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁",
+                  "probability": 0.2139948010444641
+                },
+                {
+                  "piece": "▁在",
+                  "probability": 0.03860984742641449
+                },
+                {
+                  "piece": "▁2007",
+                  "probability": 0.024974389001727104
+                },
+                {
+                  "piece": "▁已经",
+                  "probability": 0.01569547690451145
+                },
+                {
+                  "piece": "▁该",
+                  "probability": 0.011801266111433506
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "摘要",
+                  "probability": 0.015539278276264668
+                },
+                {
+                  "piece": "<unk>",
+                  "probability": 0.012388077564537525
+                },
+                {
+                  "piece": "委",
+                  "probability": 0.01219660509377718
+                },
+                {
+                  "piece": "・",
+                  "probability": 0.009890992194414139
+                },
+                {
+                  "piece": "土地",
+                  "probability": 0.009156286716461182
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "芬",
+                  "probability": 0.04778464511036873
+                },
+                {
+                  "piece": "工",
+                  "probability": 0.04675840213894844
+                },
+                {
+                  "piece": "斯",
+                  "probability": 0.0319548174738884
+                },
+                {
+                  "piece": "谢",
+                  "probability": 0.02515876479446888
+                },
+                {
+                  "piece": "德",
+                  "probability": 0.017711034044623375
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 8,
+          "effective_depth": 7,
+          "saturated_at_leaf": true,
+          "width": 128,
+          "teacher_forced_top1": "摘要芬县 é学会 18,,,采了:\"×8 传95年,为单者将,到300ildostern",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁",
+                  "probability": 0.2139948010444641
+                },
+                {
+                  "piece": "▁在",
+                  "probability": 0.03860984742641449
+                },
+                {
+                  "piece": "▁2007",
+                  "probability": 0.024974389001727104
+                },
+                {
+                  "piece": "▁已经",
+                  "probability": 0.01569547690451145
+                },
+                {
+                  "piece": "▁该",
+                  "probability": 0.011801266111433506
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "摘要",
+                  "probability": 0.015539278276264668
+                },
+                {
+                  "piece": "<unk>",
+                  "probability": 0.012388077564537525
+                },
+                {
+                  "piece": "委",
+                  "probability": 0.01219660509377718
+                },
+                {
+                  "piece": "・",
+                  "probability": 0.009890992194414139
+                },
+                {
+                  "piece": "土地",
+                  "probability": 0.009156286716461182
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "芬",
+                  "probability": 0.04778464511036873
+                },
+                {
+                  "piece": "工",
+                  "probability": 0.04675840213894844
+                },
+                {
+                  "piece": "斯",
+                  "probability": 0.0319548174738884
+                },
+                {
+                  "piece": "谢",
+                  "probability": 0.02515876479446888
+                },
+                {
+                  "piece": "德",
+                  "probability": 0.017711034044623375
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "en2zh",
+      "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+      "reference": "WOODROW WILSON ELEMENTARY SCHO",
+      "depths": [
+        {
+          "depth": 0,
+          "effective_depth": 0,
+          "saturated_at_leaf": false,
+          "width": 1,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.9994261774935797e-19
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.9718522986933192e-24
+                },
+                {
+                  "piece": "说",
+                  "probability": 4.272115182231585e-25
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.474179656623086e-26
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 3.1496129669178287e-19
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.74250158059788e-25
+                },
+                {
+                  "piece": "说",
+                  "probability": 8.252480389207043e-26
+                },
+                {
+                  "piece": "亦",
+                  "probability": 3.1476303156926626e-27
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 7.478451513163957e-19
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.86347397251772e-24
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.3211752707713537e-24
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.342176345331629e-25
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 1,
+          "effective_depth": 1,
+          "saturated_at_leaf": false,
+          "width": 2,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 6.257884708270691e-17
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.817535727577603e-21
+                },
+                {
+                  "piece": "说",
+                  "probability": 7.685511447906813e-23
+                },
+                {
+                  "piece": "亦",
+                  "probability": 6.398033100398312e-24
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 5.370814895879844e-17
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.299411651345573e-22
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.2839075686210179e-23
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.3168251168509938e-24
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.9906339669105026e-16
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.2656197971702057e-21
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.4128536360486997e-22
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.1354527813205207e-22
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 2,
+          "effective_depth": 2,
+          "saturated_at_leaf": false,
+          "width": 4,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.016632151997366e-14
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.3680252114453118e-18
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.2365951107645692e-20
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.2567195593840686e-21
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 7.120992435039747e-15
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.6519475379280198e-19
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.8958012306918976e-21
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.2142735732723726e-21
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 5.2586908894265705e-14
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.590872102792723e-18
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.72539781590149e-19
+                },
+                {
+                  "piece": "说",
+                  "probability": 4.110767758136037e-20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "effective_depth": 3,
+          "saturated_at_leaf": false,
+          "width": 8,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.2100941993234415e-12
+                },
+                {
+                  "piece": "以",
+                  "probability": 9.19112486450326e-16
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.6402124041259124e-18
+                },
+                {
+                  "piece": "亦",
+                  "probability": 8.780496352856246e-19
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 6.009260472041034e-13
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.0577824869417038e-16
+                },
+                {
+                  "piece": "亦",
+                  "probability": 4.371870808156609e-19
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.835080123933954e-19
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.3558158935833564e-11
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.9648197715951884e-15
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.1698226450741333e-16
+                },
+                {
+                  "piece": "但",
+                  "probability": 7.922572125271614e-18
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "effective_depth": 4,
+          "saturated_at_leaf": false,
+          "width": 16,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999991059303284
+                },
+                {
+                  "piece": "民",
+                  "probability": 7.001846711318649e-07
+                },
+                {
+                  "piece": "以",
+                  "probability": 9.257597355372127e-08
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.1544487027735926e-10
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.0315751858568376e-10
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.999998927116394
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.0293255172655336e-06
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.9753675079291497e-09
+                },
+                {
+                  "piece": "但",
+                  "probability": 8.044589439037964e-10
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.9273752038806435e-10
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999901056289673
+                },
+                {
+                  "piece": "民",
+                  "probability": 9.813836186367553e-06
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.0880749101715992e-07
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.080748290860356e-08
+                },
+                {
+                  "piece": "亦",
+                  "probability": 4.0578878035546495e-09
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 5,
+          "effective_depth": 5,
+          "saturated_at_leaf": false,
+          "width": 32,
+          "teacher_forced_top1": "which which which which以 which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9901536107063293
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.007798464503139257
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.001955625368282199
+                },
+                {
+                  "piece": "亦",
+                  "probability": 5.240231621428393e-05
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.6376477510202676e-05
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9996894598007202
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.0001236937678186223
+                },
+                {
+                  "piece": "但",
+                  "probability": 8.001639071153477e-05
+                },
+                {
+                  "piece": "以",
+                  "probability": 6.226645200513303e-05
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.538678927521687e-05
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9410699605941772
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.024949178099632263
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.024129696190357208
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.006915701553225517
+                },
+                {
+                  "piece": "说",
+                  "probability": 0.0016544205136597157
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 6,
+          "effective_depth": 6,
+          "saturated_at_leaf": false,
+          "width": 64,
+          "teacher_forced_top1": "which尝试但 which以 which但 which民亦以以以以 which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.27731388807296753
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.2567950189113617
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.23517827689647675
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.20727309584617615
+                },
+                {
+                  "piece": "旨在",
+                  "probability": 0.007150235585868359
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "尝试",
+                  "probability": 0.3481162488460541
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.29270192980766296
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.24738451838493347
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.04773053526878357
+                },
+                {
+                  "piece": "逊",
+                  "probability": 0.01849832572042942
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.5973237156867981
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.2816745340824127
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.03954111039638519
+                },
+                {
+                  "piece": "学",
+                  "probability": 0.019865233451128006
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.012859836220741272
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 7,
+          "effective_depth": 7,
+          "saturated_at_leaf": false,
+          "width": 128,
+          "teacher_forced_top1": "",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "</s>",
+                  "probability": 0.020144853740930557
+                },
+                {
+                  "piece": "▁",
+                  "probability": 0.01156671904027462
+                },
+                {
+                  "piece": "▁M",
+                  "probability": 0.009552455507218838
+                },
+                {
+                  "piece": "▁W",
+                  "probability": 0.008888663724064827
+                },
+                {
+                  "piece": "▁P",
+                  "probability": 0.008465072140097618
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "IL",
+                  "probability": 0.0694100484251976
+                },
+                {
+                  "piece": "AV",
+                  "probability": 0.02967369742691517
+                },
+                {
+                  "piece": "MS",
+                  "probability": 0.01795746199786663
+                },
+                {
+                  "piece": "AT",
+                  "probability": 0.01170440949499607
+                },
+                {
+                  "piece": "EL",
+                  "probability": 0.010645583271980286
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "S",
+                  "probability": 0.015347925946116447
+                },
+                {
+                  "piece": "-",
+                  "probability": 0.01303755771368742
+                },
+                {
+                  "piece": "IL",
+                  "probability": 0.008757147938013077
+                },
+                {
+                  "piece": "il",
+                  "probability": 0.005930004175752401
+                },
+                {
+                  "piece": "</s>",
+                  "probability": 0.004815398249775171
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 8,
+          "effective_depth": 7,
+          "saturated_at_leaf": true,
+          "width": 128,
+          "teacher_forced_top1": "",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "</s>",
+                  "probability": 0.020144853740930557
+                },
+                {
+                  "piece": "▁",
+                  "probability": 0.01156671904027462
+                },
+                {
+                  "piece": "▁M",
+                  "probability": 0.009552455507218838
+                },
+                {
+                  "piece": "▁W",
+                  "probability": 0.008888663724064827
+                },
+                {
+                  "piece": "▁P",
+                  "probability": 0.008465072140097618
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "IL",
+                  "probability": 0.0694100484251976
+                },
+                {
+                  "piece": "AV",
+                  "probability": 0.02967369742691517
+                },
+                {
+                  "piece": "MS",
+                  "probability": 0.01795746199786663
+                },
+                {
+                  "piece": "AT",
+                  "probability": 0.01170440949499607
+                },
+                {
+                  "piece": "EL",
+                  "probability": 0.010645583271980286
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "S",
+                  "probability": 0.015347925946116447
+                },
+                {
+                  "piece": "-",
+                  "probability": 0.01303755771368742
+                },
+                {
+                  "piece": "IL",
+                  "probability": 0.008757147938013077
+                },
+                {
+                  "piece": "il",
+                  "probability": 0.005930004175752401
+                },
+                {
+                  "piece": "</s>",
+                  "probability": 0.004815398249775171
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "en2zh",
+      "source": "By using the KMI website, you consent to the data practices described in this statement.",
+      "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+      "depths": [
+        {
+          "depth": 0,
+          "effective_depth": 0,
+          "saturated_at_leaf": false,
+          "width": 1,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.3362044590034322e-30
+                },
+                {
+                  "piece": "民",
+                  "probability": 4.626403460881564e-31
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.3815487629668713e-32
+                },
+                {
+                  "piece": "亦",
+                  "probability": 4.425934251134503e-35
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 4.2059515130048716e-30
+                },
+                {
+                  "piece": "民",
+                  "probability": 8.263074532608066e-31
+                },
+                {
+                  "piece": "说",
+                  "probability": 4.299549851021017e-32
+                },
+                {
+                  "piece": "亦",
+                  "probability": 3.000124003228749e-34
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.040891223027598e-30
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.974843399141682e-31
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.2882827399100983e-32
+                },
+                {
+                  "piece": "亦",
+                  "probability": 6.68091582920811e-35
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 1,
+          "effective_depth": 1,
+          "saturated_at_leaf": false,
+          "width": 2,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.1663005149726419e-27
+                },
+                {
+                  "piece": "民",
+                  "probability": 6.048492527613701e-29
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.522549375000194e-30
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.4886922812452396e-32
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 5.6610522858845974e-27
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.5867715145094562e-28
+                },
+                {
+                  "piece": "说",
+                  "probability": 7.358733062362273e-30
+                },
+                {
+                  "piece": "亦",
+                  "probability": 3.0765865697743888e-31
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 3.040713325943226e-28
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.487064800382769e-28
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.5174948401601293e-30
+                },
+                {
+                  "piece": "亦",
+                  "probability": 3.6566722844298956e-32
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 2,
+          "effective_depth": 2,
+          "saturated_at_leaf": false,
+          "width": 4,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 9.251197646960925e-25
+                },
+                {
+                  "piece": "民",
+                  "probability": 9.560376332952504e-27
+                },
+                {
+                  "piece": "说",
+                  "probability": 3.071115333821594e-28
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.350342609162467e-29
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 6.992956890805717e-24
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.6032249634922017e-26
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.1374073287609557e-27
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.582983333850545e-28
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.413098391977458e-25
+                },
+                {
+                  "piece": "民",
+                  "probability": 3.832902575145879e-26
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.0856444257803527e-28
+                },
+                {
+                  "piece": "亦",
+                  "probability": 2.2203677693812024e-29
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "effective_depth": 3,
+          "saturated_at_leaf": false,
+          "width": 8,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.4978737651258345e-12
+                },
+                {
+                  "piece": "民",
+                  "probability": 1.773063236488147e-14
+                },
+                {
+                  "piece": "说",
+                  "probability": 9.951025650055878e-16
+                },
+                {
+                  "piece": "亦",
+                  "probability": 5.811648693415813e-16
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999988079071045
+                },
+                {
+                  "piece": "以",
+                  "probability": 1.2334367056610063e-06
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.9979844384797616e-08
+                },
+                {
+                  "piece": "亦",
+                  "probability": 3.2270459637828708e-09
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.8426113412850498e-10
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999997615814209
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.4956352717708796e-07
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.9738199458506642e-08
+                },
+                {
+                  "piece": "亦",
+                  "probability": 5.043663708903523e-09
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.186360232274808e-09
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "effective_depth": 4,
+          "saturated_at_leaf": false,
+          "width": 16,
+          "teacher_forced_top1": "which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9999996423721313
+                },
+                {
+                  "piece": "以",
+                  "probability": 4.103227695395617e-07
+                },
+                {
+                  "piece": "民",
+                  "probability": 3.6073226628019484e-09
+                },
+                {
+                  "piece": "亦",
+                  "probability": 1.1825919132846252e-09
+                },
+                {
+                  "piece": "说",
+                  "probability": 6.431379040439111e-11
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9995818734169006
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.000406350358389318
+                },
+                {
+                  "piece": "亦",
+                  "probability": 6.074026259739185e-06
+                },
+                {
+                  "piece": "民",
+                  "probability": 5.693104412785033e-06
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.840135060466764e-08
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.999962329864502
+                },
+                {
+                  "piece": "以",
+                  "probability": 2.3808661353541538e-05
+                },
+                {
+                  "piece": "民",
+                  "probability": 9.455920007894747e-06
+                },
+                {
+                  "piece": "亦",
+                  "probability": 4.237410394125618e-06
+                },
+                {
+                  "piece": "说",
+                  "probability": 6.797073837105927e-08
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 5,
+          "effective_depth": 5,
+          "saturated_at_leaf": false,
+          "width": 32,
+          "teacher_forced_top1": "which which which which which which which which which which which which亦 which which which which which which which which which which which which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以 which以以 which以 which以 which以 which以",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9973899722099304
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.00253763934597373
+                },
+                {
+                  "piece": "亦",
+                  "probability": 4.417180753080174e-05
+                },
+                {
+                  "piece": "民",
+                  "probability": 2.7731361115002073e-05
+                },
+                {
+                  "piece": "说",
+                  "probability": 2.2610180394622148e-07
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.7750961184501648
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.21800462901592255
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.006289184093475342
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.00059119937941432
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.0432338967802934e-05
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁which",
+                  "probability": 0.9935067296028137
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.005787422880530357
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.0005634473054669797
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.00013984282850287855
+                },
+                {
+                  "piece": "说",
+                  "probability": 1.5339627452704008e-06
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 6,
+          "effective_depth": 6,
+          "saturated_at_leaf": false,
+          "width": 64,
+          "teacher_forced_top1": "以于亦亦亦亦亦亦亦民以亦亦民于亦于以但以以以以以以以亦以亦以亦以亦以亦以亦以亦以亦以以以以以以以以以以以以以以以以以以亦以亦以亦以亦以亦以亦以亦以亦以亦以亦以亦以亦以亦以亦以亦以亦以亦以",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "以",
+                  "probability": 0.5356752872467041
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.4188211262226105
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.0200260691344738
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.014855141751468182
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.004525009077042341
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "于",
+                  "probability": 0.6986497044563293
+                },
+                {
+                  "piece": "亦",
+                  "probability": 0.2531954050064087
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.037031110376119614
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.007453481201082468
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.0020575078669935465
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "亦",
+                  "probability": 0.44118064641952515
+                },
+                {
+                  "piece": "以",
+                  "probability": 0.22759078443050385
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.1883615106344223
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.11196061968803406
+                },
+                {
+                  "piece": "民",
+                  "probability": 0.013451934792101383
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 7,
+          "effective_depth": 7,
+          "saturated_at_leaf": false,
+          "width": 128,
+          "teacher_forced_top1": "然而使用您的个人信息 服务器",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁然而",
+                  "probability": 0.053707510232925415
+                },
+                {
+                  "piece": "▁",
+                  "probability": 0.028708120808005333
+                },
+                {
+                  "piece": "▁本",
+                  "probability": 0.021461697295308113
+                },
+                {
+                  "piece": "▁我们",
+                  "probability": 0.021382613107562065
+                },
+                {
+                  "piece": "▁在",
+                  "probability": 0.020283320918679237
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "使用",
+                  "probability": 0.04325084388256073
+                },
+                {
+                  "piece": "就",
+                  "probability": 0.020697422325611115
+                },
+                {
+                  "piece": "要",
+                  "probability": 0.0204720888286829
+                },
+                {
+                  "piece": "还",
+                  "probability": 0.016508860513567924
+                },
+                {
+                  "piece": "已",
+                  "probability": 0.010599332861602306
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "您的个人信息",
+                  "probability": 0.028686122968792915
+                },
+                {
+                  "piece": "我们的服务时",
+                  "probability": 0.02364802546799183
+                },
+                {
+                  "piece": "我们的网站",
+                  "probability": 0.018621254712343216
+                },
+                {
+                  "piece": "服务时",
+                  "probability": 0.017993254587054253
+                },
+                {
+                  "piece": "以下",
+                  "probability": 0.01247415877878666
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 8,
+          "effective_depth": 7,
+          "saturated_at_leaf": true,
+          "width": 128,
+          "teacher_forced_top1": "然而使用您的个人信息 服务器",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁然而",
+                  "probability": 0.053707510232925415
+                },
+                {
+                  "piece": "▁",
+                  "probability": 0.028708120808005333
+                },
+                {
+                  "piece": "▁本",
+                  "probability": 0.021461697295308113
+                },
+                {
+                  "piece": "▁我们",
+                  "probability": 0.021382613107562065
+                },
+                {
+                  "piece": "▁在",
+                  "probability": 0.020283320918679237
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "使用",
+                  "probability": 0.04325084388256073
+                },
+                {
+                  "piece": "就",
+                  "probability": 0.020697422325611115
+                },
+                {
+                  "piece": "要",
+                  "probability": 0.0204720888286829
+                },
+                {
+                  "piece": "还",
+                  "probability": 0.016508860513567924
+                },
+                {
+                  "piece": "已",
+                  "probability": 0.010599332861602306
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "您的个人信息",
+                  "probability": 0.028686122968792915
+                },
+                {
+                  "piece": "我们的服务时",
+                  "probability": 0.02364802546799183
+                },
+                {
+                  "piece": "我们的网站",
+                  "probability": 0.018621254712343216
+                },
+                {
+                  "piece": "服务时",
+                  "probability": 0.017993254587054253
+                },
+                {
+                  "piece": "以下",
+                  "probability": 0.01247415877878666
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finite": true
+}

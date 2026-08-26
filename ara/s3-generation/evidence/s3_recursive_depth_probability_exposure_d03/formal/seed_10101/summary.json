@@ -1,0 +1,3748 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-PROBABILITY-EXPOSURE-D03",
+  "mode": "formal",
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+  "checkpoint_state_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "seed": 10101,
+  "rows": 256,
+  "test_row_sha256": "179f19d18c29397ab0738eb24144dbc796adbdc329468bc2d4743d21d9668b6e",
+  "conditions": [
+    "native",
+    "runtime_identity",
+    "pair_break_depth_0",
+    "source_shuffle"
+  ],
+  "depth_count": 9,
+  "curves": {
+    "native": [
+      {
+        "depth": 0,
+        "width": 1,
+        "nll": 325.26585858268754,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.00015924328410924933,
+        "mean_true_probability": 0.00019135093761975364,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0,
+        "js_from_previous": null,
+        "true_logp_improvement_fraction": null,
+        "top1_change_fraction": null
+      },
+      {
+        "depth": 1,
+        "width": 2,
+        "nll": 225.33755071547313,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.008601117317765822,
+        "mean_true_probability": 0.00019135095711794454,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.05317804185403429,
+        "js_from_previous": 0.0017013961666951934,
+        "true_logp_improvement_fraction": 0.9998086490623804,
+        "top1_change_fraction": 0.002104860313815538
+      },
+      {
+        "depth": 2,
+        "width": 4,
+        "nll": 154.60669048088883,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.042363796450683854,
+        "mean_true_probability": 0.00019135976250036222,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.15995455892251179,
+        "js_from_previous": 0.01261114439841895,
+        "true_logp_improvement_fraction": 0.9971297359357061,
+        "top1_change_fraction": 0.026789131266743208
+      },
+      {
+        "depth": 3,
+        "width": 8,
+        "nll": 94.69668325664347,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.14660274552468636,
+        "mean_true_probability": 0.0001928732066201551,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.4277408496201198,
+        "js_from_previous": 0.036750749725858414,
+        "true_logp_improvement_fraction": 0.9946421737466513,
+        "top1_change_fraction": 0.0776884806735553
+      },
+      {
+        "depth": 4,
+        "width": 16,
+        "nll": 54.48444374338494,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.48499399996150555,
+        "mean_true_probability": 0.0006843020066094377,
+        "top1_accuracy": 0.000574052812858783,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.7654550043595872,
+        "js_from_previous": 0.12896405318391949,
+        "true_logp_improvement_fraction": 0.9988518943742825,
+        "top1_change_fraction": 0.2663605051664753
+      },
+      {
+        "depth": 5,
+        "width": 32,
+        "nll": 25.231625626655635,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.6662240026556483,
+        "mean_true_probability": 0.03458802140851365,
+        "top1_accuracy": 0.04860313815537696,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 1.34851514522116,
+        "js_from_previous": 0.3166553630164607,
+        "true_logp_improvement_fraction": 0.9992345962495216,
+        "top1_change_fraction": 0.5384615384615384
+      },
+      {
+        "depth": 6,
+        "width": 64,
+        "nll": 8.322549626510625,
+        "ppl": 4115.639987400776,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.367806669308954,
+        "mean_true_probability": 0.1358580167347924,
+        "top1_accuracy": 0.22081898201301187,
+        "active_fraction": 0.8859548411787218,
+        "mean_frontier_entropy": 2.393035916409819,
+        "js_from_previous": 0.5339182630632391,
+        "true_logp_improvement_fraction": 0.8800229621125144,
+        "top1_change_fraction": 0.8019517795637199
+      },
+      {
+        "depth": 7,
+        "width": 128,
+        "nll": 5.2862959816863695,
+        "ppl": 197.61011666219215,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.930995726558015,
+        "mean_true_probability": 0.1645317745537216,
+        "top1_accuracy": 0.2634902411021814,
+        "active_fraction": 0.1930730960581707,
+        "mean_frontier_entropy": 2.687975572891907,
+        "js_from_previous": 0.13060018141722762,
+        "true_logp_improvement_fraction": 0.19211634137007272,
+        "top1_change_fraction": 0.19230769230769232
+      },
+      {
+        "depth": 8,
+        "width": 256,
+        "nll": 5.2862959816863695,
+        "ppl": 197.61011666219215,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.930995726558015,
+        "mean_true_probability": 0.1645317745537216,
+        "top1_accuracy": 0.2634902411021814,
+        "active_fraction": 0.0,
+        "mean_frontier_entropy": 2.687975572891907,
+        "js_from_previous": 6.425033013749895e-08,
+        "true_logp_improvement_fraction": 0.0,
+        "top1_change_fraction": 0.0
+      }
+    ],
+    "runtime_identity": [
+      {
+        "depth": 0,
+        "width": 1,
+        "nll": 327.2624320180946,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 3.513621702021834e-05,
+        "mean_true_probability": 0.0001913509376362974,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0,
+        "js_from_previous": null,
+        "true_logp_improvement_fraction": null,
+        "top1_change_fraction": null
+      },
+      {
+        "depth": 1,
+        "width": 2,
+        "nll": 226.26995543616053,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.001184213649257559,
+        "mean_true_probability": 0.00019135094071149187,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.03959593174560655,
+        "js_from_previous": 8.844722936762563e-05,
+        "true_logp_improvement_fraction": 0.9998086490623804,
+        "top1_change_fraction": 0.0
+      },
+      {
+        "depth": 2,
+        "width": 4,
+        "nll": 155.89019408665806,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.01704549787850165,
+        "mean_true_probability": 0.00019135153709521474,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.16213250912973992,
+        "js_from_previous": 0.0020263122005093107,
+        "true_logp_improvement_fraction": 0.9980864906238041,
+        "top1_change_fraction": 0.001722158438576349
+      },
+      {
+        "depth": 3,
+        "width": 8,
+        "nll": 95.3689281114709,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.11890082750747454,
+        "mean_true_probability": 0.00019229534243696226,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.43456784455291714,
+        "js_from_previous": 0.02370603008080278,
+        "true_logp_improvement_fraction": 0.9971297359357061,
+        "top1_change_fraction": 0.04190585533869116
+      },
+      {
+        "depth": 4,
+        "width": 16,
+        "nll": 54.78363733185784,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.4338731931809762,
+        "mean_true_probability": 0.0010048814385023063,
+        "top1_accuracy": 0.0007654037504783774,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.7939018799890927,
+        "js_from_previous": 0.09069847757224146,
+        "true_logp_improvement_fraction": 0.9994259471871412,
+        "top1_change_fraction": 0.19211634137007272
+      },
+      {
+        "depth": 5,
+        "width": 32,
+        "nll": 25.221878443008816,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.6794717017143475,
+        "mean_true_probability": 0.03410078978990177,
+        "top1_accuracy": 0.04707233065442021,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 1.3969859310461104,
+        "js_from_previous": 0.3134940414195128,
+        "true_logp_improvement_fraction": 0.999043245311902,
+        "top1_change_fraction": 0.5365480290853425
+      },
+      {
+        "depth": 6,
+        "width": 64,
+        "nll": 8.531959927862191,
+        "ppl": 5074.381516747343,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.500992183342228,
+        "mean_true_probability": 0.12010948606323019,
+        "top1_accuracy": 0.1890547263681592,
+        "active_fraction": 0.8859548411787218,
+        "mean_frontier_entropy": 2.478856439659799,
+        "js_from_previous": 0.5314285817680493,
+        "true_logp_improvement_fraction": 0.879257558362036,
+        "top1_change_fraction": 0.8061615001913509
+      },
+      {
+        "depth": 7,
+        "width": 128,
+        "nll": 5.553877435239667,
+        "ppl": 258.23691409126155,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.211787916169603,
+        "mean_true_probability": 0.13792728675173654,
+        "top1_accuracy": 0.2194795254496747,
+        "active_fraction": 0.1930730960581707,
+        "mean_frontier_entropy": 2.806943987595638,
+        "js_from_previous": 0.1295665543619674,
+        "true_logp_improvement_fraction": 0.19211634137007272,
+        "top1_change_fraction": 0.19192499043245312
+      },
+      {
+        "depth": 8,
+        "width": 256,
+        "nll": 5.553877435239667,
+        "ppl": 258.23691409126155,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.211787916169603,
+        "mean_true_probability": 0.13792728675173654,
+        "top1_accuracy": 0.2194795254496747,
+        "active_fraction": 0.0,
+        "mean_frontier_entropy": 2.806943987595638,
+        "js_from_previous": 7.761981645545767e-08,
+        "true_logp_improvement_fraction": 0.0,
+        "top1_change_fraction": 0.0
+      }
+    ],
+    "pair_break_depth_0": [
+      {
+        "depth": 0,
+        "width": 1,
+        "nll": 354.33773029384326,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 2.8194753225198257e-06,
+        "mean_true_probability": 0.00019135093761960198,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0,
+        "js_from_previous": null,
+        "true_logp_improvement_fraction": null,
+        "top1_change_fraction": null
+      },
+      {
+        "depth": 1,
+        "width": 2,
+        "nll": 234.53076414800995,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.003393102814262638,
+        "mean_true_probability": 0.00019135100650246665,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.07449898424843833,
+        "js_from_previous": 0.0005258047912398193,
+        "true_logp_improvement_fraction": 0.9998086490623804,
+        "top1_change_fraction": 0.000574052812858783
+      },
+      {
+        "depth": 2,
+        "width": 4,
+        "nll": 157.27208804609765,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.02495923742478135,
+        "mean_true_probability": 0.00019135524690380506,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.22757455538936927,
+        "js_from_previous": 0.0042466120931904106,
+        "true_logp_improvement_fraction": 0.9961729812476081,
+        "top1_change_fraction": 0.007462686567164179
+      },
+      {
+        "depth": 3,
+        "width": 8,
+        "nll": 95.92146973403715,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.12106294959065013,
+        "mean_true_probability": 0.00019146669706340843,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.5298846048091592,
+        "js_from_previous": 0.0273555979885409,
+        "true_logp_improvement_fraction": 0.9959816303099885,
+        "top1_change_fraction": 0.05568312284730195
+      },
+      {
+        "depth": 4,
+        "width": 16,
+        "nll": 55.26114474390368,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.4939065689425609,
+        "mean_true_probability": 0.000501079045865501,
+        "top1_accuracy": 0.0003827018752391887,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.9002958137871341,
+        "js_from_previous": 0.11637721817200548,
+        "true_logp_improvement_fraction": 0.9988518943742825,
+        "top1_change_fraction": 0.24071947952544967
+      },
+      {
+        "depth": 5,
+        "width": 32,
+        "nll": 25.750143740946335,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.7738780661465061,
+        "mean_true_probability": 0.02407806439666629,
+        "top1_accuracy": 0.040949100650593186,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 1.4812770862484452,
+        "js_from_previous": 0.3213849788509563,
+        "true_logp_improvement_fraction": 0.9988518943742825,
+        "top1_change_fraction": 0.5648679678530425
+      },
+      {
+        "depth": 6,
+        "width": 64,
+        "nll": 8.717804393045665,
+        "ppl": 6110.747548503882,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.816762615427221,
+        "mean_true_probability": 0.10618961849590279,
+        "top1_accuracy": 0.18771526980482203,
+        "active_fraction": 0.8859548411787218,
+        "mean_frontier_entropy": 2.477780671672624,
+        "js_from_previous": 0.53344657121569,
+        "true_logp_improvement_fraction": 0.879257558362036,
+        "top1_change_fraction": 0.8084577114427861
+      },
+      {
+        "depth": 7,
+        "width": 128,
+        "nll": 5.632577708522068,
+        "ppl": 279.3813539409684,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.534952962987048,
+        "mean_true_probability": 0.1280641676227206,
+        "top1_accuracy": 0.2261768082663605,
+        "active_fraction": 0.1930730960581707,
+        "mean_frontier_entropy": 2.781161346610734,
+        "js_from_previous": 0.13060096622734357,
+        "true_logp_improvement_fraction": 0.19211634137007272,
+        "top1_change_fraction": 0.1926903941829315
+      },
+      {
+        "depth": 8,
+        "width": 256,
+        "nll": 5.632577708522068,
+        "ppl": 279.3813539409684,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.534952962987048,
+        "mean_true_probability": 0.1280641676227206,
+        "top1_accuracy": 0.2261768082663605,
+        "active_fraction": 0.0,
+        "mean_frontier_entropy": 2.781161346610734,
+        "js_from_previous": 7.7981281776372e-08,
+        "true_logp_improvement_fraction": 0.0,
+        "top1_change_fraction": 0.0
+      }
+    ],
+    "source_shuffle": [
+      {
+        "depth": 0,
+        "width": 1,
+        "nll": 260.1628172239763,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.00029981862040826755,
+        "mean_true_probability": 0.00019135091713135878,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.0,
+        "js_from_previous": null,
+        "true_logp_improvement_fraction": null,
+        "top1_change_fraction": null
+      },
+      {
+        "depth": 1,
+        "width": 2,
+        "nll": 208.10145168837303,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.006178267777018942,
+        "mean_true_probability": 0.00019135012348023853,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.019260083641350793,
+        "js_from_previous": 0.0010086456096187694,
+        "true_logp_improvement_fraction": 0.9998086490623804,
+        "top1_change_fraction": 0.001722158438576349
+      },
+      {
+        "depth": 2,
+        "width": 4,
+        "nll": 156.2684638705511,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.031631772716706454,
+        "mean_true_probability": 0.0001913151314326557,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.08928578911820363,
+        "js_from_previous": 0.007927719832817648,
+        "true_logp_improvement_fraction": 0.9975124378109452,
+        "top1_change_fraction": 0.014734022196708763
+      },
+      {
+        "depth": 3,
+        "width": 8,
+        "nll": 95.446717546582,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.1266845965261118,
+        "mean_true_probability": 0.0001785839476586714,
+        "top1_accuracy": 0.00019135093761959434,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.3403106022282574,
+        "js_from_previous": 0.02825989992326782,
+        "true_logp_improvement_fraction": 0.9977037887485649,
+        "top1_change_fraction": 0.061040949100650596
+      },
+      {
+        "depth": 4,
+        "width": 16,
+        "nll": 55.23260320524032,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 0.45125965409656615,
+        "mean_true_probability": 0.0005686422534686242,
+        "top1_accuracy": 0.0007654037504783774,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 0.6416679357506058,
+        "js_from_previous": 0.10197681907123868,
+        "true_logp_improvement_fraction": 0.9984691924990432,
+        "top1_change_fraction": 0.2091465748182166
+      },
+      {
+        "depth": 5,
+        "width": 32,
+        "nll": 25.93365851663968,
+        "ppl": 485165195.4097903,
+        "tokens": 5226,
+        "mean_vocab_entropy": 1.7543043858513174,
+        "mean_true_probability": 0.013103684525031103,
+        "top1_accuracy": 0.01817833907386146,
+        "active_fraction": 1.0,
+        "mean_frontier_entropy": 1.1602759304696282,
+        "js_from_previous": 0.308436199572184,
+        "true_logp_improvement_fraction": 0.9992345962495216,
+        "top1_change_fraction": 0.5248756218905473
+      },
+      {
+        "depth": 6,
+        "width": 64,
+        "nll": 9.949027965500397,
+        "ppl": 20931.86599393866,
+        "tokens": 5226,
+        "mean_vocab_entropy": 4.674562170274679,
+        "mean_true_probability": 0.0555946870403663,
+        "top1_accuracy": 0.0912743972445465,
+        "active_fraction": 0.8859548411787218,
+        "mean_frontier_entropy": 2.0754002316719813,
+        "js_from_previous": 0.5427749356325156,
+        "true_logp_improvement_fraction": 0.8767699961729812,
+        "top1_change_fraction": 0.8237657864523537
+      },
+      {
+        "depth": 7,
+        "width": 128,
+        "nll": 7.050240652067562,
+        "ppl": 1153.1362140091187,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.336595934558726,
+        "mean_true_probability": 0.06720587543906538,
+        "top1_accuracy": 0.10983543819364715,
+        "active_fraction": 0.1930730960581707,
+        "mean_frontier_entropy": 2.3938998584769213,
+        "js_from_previous": 0.13010232111808712,
+        "true_logp_improvement_fraction": 0.19096823574435515,
+        "top1_change_fraction": 0.19192499043245312
+      },
+      {
+        "depth": 8,
+        "width": 256,
+        "nll": 7.050240652067562,
+        "ppl": 1153.1362140091187,
+        "tokens": 5226,
+        "mean_vocab_entropy": 5.336595934558726,
+        "mean_true_probability": 0.06720587543906538,
+        "top1_accuracy": 0.10983543819364715,
+        "active_fraction": 0.0,
+        "mean_frontier_entropy": 2.3938998584769213,
+        "js_from_previous": 8.037738498659116e-08,
+        "true_logp_improvement_fraction": 0.0,
+        "top1_change_fraction": 0.0
+      }
+    ]
+  },
+  "diagnostics": {
+    "native_nll_range": 319.9795626010012,
+    "native_adjacent_js_over_1e_4": 7,
+    "native_nll_deltas": [
+      -99.92830786721441,
+      -70.7308602345843,
+      -59.91000722424536,
+      -40.21223951325853,
+      -29.2528181167293,
+      -16.90907600014501,
+      -3.0362536448242556,
+      0.0
+    ],
+    "full_depth_nll": 5.2862959816863695,
+    "reference_full_depth_nll": 5.286296040082042,
+    "full_depth_reference_error": 5.839567229770637e-08,
+    "full_depth_max_abs_logit_error": 0.0
+  },
+  "examples": [
+    {
+      "direction": "zh2en",
+      "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+      "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+      "depths": [
+        {
+          "depth": 0,
+          "effective_depth": 0,
+          "saturated_at_leaf": false,
+          "width": 1,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.483764536815973e-14
+                },
+                {
+                  "piece": "华",
+                  "probability": 4.268237071522597e-18
+                },
+                {
+                  "piece": "于",
+                  "probability": 3.1367596141745204e-19
+                },
+                {
+                  "piece": "漫",
+                  "probability": 2.1099299124841277e-22
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 5.462103818830617e-15
+                },
+                {
+                  "piece": "华",
+                  "probability": 5.03873720055196e-18
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.3269270793300037e-20
+                },
+                {
+                  "piece": "漫",
+                  "probability": 6.448880471107871e-23
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 5.036688297335723e-15
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.0570048299511956e-18
+                },
+                {
+                  "piece": "于",
+                  "probability": 4.550483077719875e-20
+                },
+                {
+                  "piece": "审",
+                  "probability": 1.7746858634350542e-23
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 1,
+          "effective_depth": 1,
+          "saturated_at_leaf": false,
+          "width": 2,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 9.941971291366203e-13
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.512070427090455e-17
+                },
+                {
+                  "piece": "于",
+                  "probability": 6.0702769193392756e-18
+                },
+                {
+                  "piece": "漫",
+                  "probability": 7.380103809610979e-21
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.4985046041640924e-13
+                },
+                {
+                  "piece": "华",
+                  "probability": 3.378813103108424e-17
+                },
+                {
+                  "piece": "于",
+                  "probability": 5.608798439065076e-19
+                },
+                {
+                  "piece": "漫",
+                  "probability": 2.274558064722944e-21
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.0754460704295458e-13
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.3495885963624237e-17
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.0201574033658566e-18
+                },
+                {
+                  "piece": "审",
+                  "probability": 1.2197888848248944e-21
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 2,
+          "effective_depth": 2,
+          "saturated_at_leaf": false,
+          "width": 4,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.937276893406505e-11
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.4664582154140195e-16
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.2343730407509134e-16
+                },
+                {
+                  "piece": "漫",
+                  "probability": 2.7165867596796744e-19
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.0066041750134147e-11
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.8224766187079446e-16
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.2440014727118674e-17
+                },
+                {
+                  "piece": "审",
+                  "probability": 1.093004149684893e-19
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 7.907076902957666e-12
+                },
+                {
+                  "piece": "华",
+                  "probability": 5.940688736625187e-17
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.5306150054681224e-17
+                },
+                {
+                  "piece": "审",
+                  "probability": 6.942046728661368e-20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "effective_depth": 3,
+          "saturated_at_leaf": false,
+          "width": 8,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.999993085861206
+                },
+                {
+                  "piece": "但",
+                  "probability": 6.951855084480485e-06
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.746074756476702e-10
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.427843954182606e-10
+                },
+                {
+                  "piece": "漫",
+                  "probability": 9.120940114293319e-12
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999908804893494
+                },
+                {
+                  "piece": "但",
+                  "probability": 9.12338600755902e-06
+                },
+                {
+                  "piece": "于",
+                  "probability": 7.72057795472847e-09
+                },
+                {
+                  "piece": "华",
+                  "probability": 4.489993710166118e-09
+                },
+                {
+                  "piece": "漫",
+                  "probability": 7.606733298803903e-11
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.999997615814209
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.3722727746644523e-06
+                },
+                {
+                  "piece": "于",
+                  "probability": 9.567003439459043e-11
+                },
+                {
+                  "piece": "华",
+                  "probability": 8.104061172131694e-11
+                },
+                {
+                  "piece": "审",
+                  "probability": 8.395758589220537e-13
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "effective_depth": 4,
+          "saturated_at_leaf": false,
+          "width": 16,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9902946352958679
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.009702805429697037
+                },
+                {
+                  "piece": "华",
+                  "probability": 8.548518053430598e-07
+                },
+                {
+                  "piece": "于",
+                  "probability": 7.124104399736098e-07
+                },
+                {
+                  "piece": "▁existing",
+                  "probability": 2.492243993401644e-07
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9987688064575195
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.0010392311960458755
+                },
+                {
+                  "piece": "华",
+                  "probability": 0.00015399606490973383
+                },
+                {
+                  "piece": "68",
+                  "probability": 2.7112328098155558e-05
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 4.277701009414159e-06
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9978028535842896
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.002185217337682843
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.1286869266768917e-05
+                },
+                {
+                  "piece": "于",
+                  "probability": 3.366010616900894e-07
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 8.083664937430513e-08
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 5,
+          "effective_depth": 5,
+          "saturated_at_leaf": false,
+          "width": 32,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial但 commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.6213351488113403
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.37670934200286865
+                },
+                {
+                  "piece": "▁others",
+                  "probability": 0.0008002871763892472
+                },
+                {
+                  "piece": "▁existing",
+                  "probability": 0.0003111396508757025
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.00018546210776548833
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9912810921669006
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.0037870260421186686
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.0024346355348825455
+                },
+                {
+                  "piece": "华",
+                  "probability": 0.0020389610435813665
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.00010257420217385516
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.976463794708252
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.022670553997159004
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.0002441618125885725
+                },
+                {
+                  "piece": "华",
+                  "probability": 0.0002261843328597024
+                },
+                {
+                  "piece": "公布",
+                  "probability": 9.172201680485159e-05
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 6,
+          "effective_depth": 6,
+          "saturated_at_leaf": false,
+          "width": 64,
+          "teacher_forced_top1": "但68 commercial commercial但 commercial但 commercial但 commercial commercial commercial政府 commercial2) commercial但 commercial commercial commercial commercial commercial但 commercial commercial commercial It commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.4321970045566559
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.08064186573028564
+                },
+                {
+                  "piece": "·",
+                  "probability": 0.048917729407548904
+                },
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.04814133420586586
+                },
+                {
+                  "piece": "仁",
+                  "probability": 0.041439831256866455
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "68",
+                  "probability": 0.740204930305481
+                },
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.05052919685840607
+                },
+                {
+                  "piece": "建立",
+                  "probability": 0.03195637837052345
+                },
+                {
+                  "piece": "院",
+                  "probability": 0.024663709104061127
+                },
+                {
+                  "piece": "▁‘",
+                  "probability": 0.02323034405708313
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.5058203339576721
+                },
+                {
+                  "piece": "·",
+                  "probability": 0.1311056911945343
+                },
+                {
+                  "piece": "仁",
+                  "probability": 0.0706796944141388
+                },
+                {
+                  "piece": "院",
+                  "probability": 0.06715025752782822
+                },
+                {
+                  "piece": "▁others",
+                  "probability": 0.03947160765528679
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 7,
+          "effective_depth": 7,
+          "saturated_at_leaf": false,
+          "width": 128,
+          "teacher_forced_top1": "You or,AL, requested of any or do any any any any or change of the Terms of Use or be be a waiver of a sites or a.",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁You",
+                  "probability": 0.10484353452920914
+                },
+                {
+                  "piece": "▁If",
+                  "probability": 0.04544628784060478
+                },
+                {
+                  "piece": "▁The",
+                  "probability": 0.0400208905339241
+                },
+                {
+                  "piece": "▁In",
+                  "probability": 0.02122373878955841
+                },
+                {
+                  "piece": "▁To",
+                  "probability": 0.01963437721133232
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁or",
+                  "probability": 0.05651145055890083
+                },
+                {
+                  "piece": "▁In",
+                  "probability": 0.0252697616815567
+                },
+                {
+                  "piece": "▁Not",
+                  "probability": 0.022684181109070778
+                },
+                {
+                  "piece": "s",
+                  "probability": 0.016874903813004494
+                },
+                {
+                  "piece": "S",
+                  "probability": 0.01666731759905815
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": ",",
+                  "probability": 0.061567727476358414
+                },
+                {
+                  "piece": "▁or",
+                  "probability": 0.024981165304780006
+                },
+                {
+                  "piece": "▁IN",
+                  "probability": 0.020978692919015884
+                },
+                {
+                  "piece": "▁27",
+                  "probability": 0.0168222077190876
+                },
+                {
+                  "piece": "▁failure",
+                  "probability": 0.016539622098207474
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 8,
+          "effective_depth": 7,
+          "saturated_at_leaf": true,
+          "width": 128,
+          "teacher_forced_top1": "You or,AL, requested of any or do any any any any or change of the Terms of Use or be be a waiver of a sites or a.",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁EN",
+              "top": [
+                {
+                  "piece": "▁You",
+                  "probability": 0.10484353452920914
+                },
+                {
+                  "piece": "▁If",
+                  "probability": 0.04544628784060478
+                },
+                {
+                  "piece": "▁The",
+                  "probability": 0.0400208905339241
+                },
+                {
+                  "piece": "▁In",
+                  "probability": 0.02122373878955841
+                },
+                {
+                  "piece": "▁To",
+                  "probability": 0.01963437721133232
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "TI",
+              "top": [
+                {
+                  "piece": "▁or",
+                  "probability": 0.05651145055890083
+                },
+                {
+                  "piece": "▁In",
+                  "probability": 0.0252697616815567
+                },
+                {
+                  "piece": "▁Not",
+                  "probability": 0.022684181109070778
+                },
+                {
+                  "piece": "s",
+                  "probability": 0.016874903813004494
+                },
+                {
+                  "piece": "S",
+                  "probability": 0.01666731759905815
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RE",
+              "top": [
+                {
+                  "piece": ",",
+                  "probability": 0.061567727476358414
+                },
+                {
+                  "piece": "▁or",
+                  "probability": 0.024981165304780006
+                },
+                {
+                  "piece": "▁IN",
+                  "probability": 0.020978692919015884
+                },
+                {
+                  "piece": "▁27",
+                  "probability": 0.0168222077190876
+                },
+                {
+                  "piece": "▁failure",
+                  "probability": 0.016539622098207474
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "en2zh",
+      "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+      "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+      "depths": [
+        {
+          "depth": 0,
+          "effective_depth": 0,
+          "saturated_at_leaf": false,
+          "width": 1,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.9578704842718093e-36
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.5168718265597515e-38
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.5743791434966647e-38
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "于",
+                  "probability": 7.47157166797182e-36
+                },
+                {
+                  "piece": "但",
+                  "probability": 5.515620056862697e-38
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.409302055679295e-38
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.8786141193268182e-36
+                },
+                {
+                  "piece": "但",
+                  "probability": 4.130000160535825e-38
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.4485874581266413e-38
+                },
+                {
+                  "piece": "<pad>",
+                  "probability": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 1,
+          "effective_depth": 1,
+          "saturated_at_leaf": false,
+          "width": 2,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "于",
+                  "probability": 8.934883159413798e-25
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.428867001457209e-25
+                },
+                {
+                  "piece": "华",
+                  "probability": 4.619852187490081e-27
+                },
+                {
+                  "piece": "审",
+                  "probability": 1.0488412630059171e-33
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "于",
+                  "probability": 5.815990915535101e-25
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.0303497172366296e-25
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.0203590599325198e-27
+                },
+                {
+                  "piece": "审",
+                  "probability": 8.569802893070689e-34
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 4.870561729618867e-24
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.7115375872351162e-24
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.6218089045040136e-25
+                },
+                {
+                  "piece": "审",
+                  "probability": 5.874834606003765e-33
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 2,
+          "effective_depth": 2,
+          "saturated_at_leaf": false,
+          "width": 4,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 4.089428906048137e-15
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.8638787457642813e-16
+                },
+                {
+                  "piece": "华",
+                  "probability": 4.786913643588766e-18
+                },
+                {
+                  "piece": "审",
+                  "probability": 1.340943985427812e-21
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 5.490179572900308e-15
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.8441944941634794e-16
+                },
+                {
+                  "piece": "华",
+                  "probability": 3.655275971695796e-18
+                },
+                {
+                  "piece": "审",
+                  "probability": 2.660007417969043e-22
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.821430155480753e-13
+                },
+                {
+                  "piece": "于",
+                  "probability": 5.396491376186878e-15
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.2784236509173633e-16
+                },
+                {
+                  "piece": "审",
+                  "probability": 2.8541539879747607e-21
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "effective_depth": 3,
+          "saturated_at_leaf": false,
+          "width": 8,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.197240262484911e-08
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.3861434222661728e-10
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.4560437924804326e-11
+                },
+                {
+                  "piece": "审",
+                  "probability": 6.814789075930416e-13
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 8.207437396379191e-09
+                },
+                {
+                  "piece": "于",
+                  "probability": 3.073510890239106e-10
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.2226328283126975e-10
+                },
+                {
+                  "piece": "漫",
+                  "probability": 1.3451211498816118e-11
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999998807907104
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.21121942697755e-07
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.125479376362648e-09
+                },
+                {
+                  "piece": "华",
+                  "probability": 8.15217227057019e-10
+                },
+                {
+                  "piece": "漫",
+                  "probability": 3.421704586337171e-11
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "effective_depth": 4,
+          "saturated_at_leaf": false,
+          "width": 16,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999468326568604
+                },
+                {
+                  "piece": "但",
+                  "probability": 5.258293458609842e-05
+                },
+                {
+                  "piece": "于",
+                  "probability": 4.2747623751893116e-07
+                },
+                {
+                  "piece": "华",
+                  "probability": 6.760096482594236e-08
+                },
+                {
+                  "piece": "审",
+                  "probability": 6.37163424244136e-08
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9998241066932678
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.0001698939740890637
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.4807632144074887e-06
+                },
+                {
+                  "piece": "漫",
+                  "probability": 1.9992435227322858e-06
+                },
+                {
+                  "piece": "审",
+                  "probability": 9.115223633671121e-07
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9998518824577332
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.00014316948363557458
+                },
+                {
+                  "piece": "漫",
+                  "probability": 2.7408188998379046e-06
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.6345836684195092e-06
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.697079821700754e-07
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 5,
+          "effective_depth": 5,
+          "saturated_at_leaf": false,
+          "width": 32,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial但 commercial commercial但 commercial但 commercial但 commercial但但但 commercial commercial但 commercial commercial但 commercial commercial commercial commercial commercial commercial commercial但 commercial但 commercial但 commercial commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial但 commercial但但但 commercial commercial commercial但 commercial但 commercial但 commercial但但但但但 commercial commercial但但 commercial但 commercial但但但 commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9333527088165283
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.06526769697666168
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.0004287284391466528
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.00020528821914922446
+                },
+                {
+                  "piece": "审",
+                  "probability": 0.00020240798767190427
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9096601605415344
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.08494757860898972
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.003264081897214055
+                },
+                {
+                  "piece": "审",
+                  "probability": 0.0010341223096475005
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.00035239983117207885
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.8355208039283752
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.1608230024576187
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.0020068935118615627
+                },
+                {
+                  "piece": "漫",
+                  "probability": 0.0010801214957609773
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.00021215695596765727
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 6,
+          "effective_depth": 6,
+          "saturated_at_leaf": false,
+          "width": 64,
+          "teacher_forced_top1": "但 commercial但 commercial但 commercial但于建立建立但 同时但但建立但2)但建立但审建立但公布但但但建立建立公布公布于 It建立建立 commercial公布但 commercial从但 commercial但但但 commercial但审但2)但但但公布但 established但标志但但建立但2)但丰但但SM但 commercial审但2)但但SM但但公布但但但但建立但但但但2)2)但但公布",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.46305549144744873
+                },
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.2037021517753601
+                },
+                {
+                  "piece": "更为",
+                  "probability": 0.0537196509540081
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.03649706393480301
+                },
+                {
+                  "piece": "▁others",
+                  "probability": 0.030812082812190056
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.49810874462127686
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.16374550759792328
+                },
+                {
+                  "piece": "漫",
+                  "probability": 0.08363573998212814
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.05247184634208679
+                },
+                {
+                  "piece": "·",
+                  "probability": 0.041764359921216965
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.8067935109138489
+                },
+                {
+                  "piece": "标志",
+                  "probability": 0.1425422877073288
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.027556713670492172
+                },
+                {
+                  "piece": "华",
+                  "probability": 0.003591872053220868
+                },
+                {
+                  "piece": "▁that",
+                  "probability": 0.0031809357460588217
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 7,
+          "effective_depth": 7,
+          "saturated_at_leaf": false,
+          "width": 128,
+          "teacher_forced_top1": "建设仔的的西,,,兴发展商威为高G8由1953年,了第二态,,从事少数ief-, 年,月,在德在了道果家林晓果在后、先生道委员 ⁇ 的诉讼。人的。,,中在「 ⁇ 先的的,ilom,it在在ief))的途径人(并整合人委员会威制度公5公, ",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁",
+                  "probability": 0.09217836707830429
+                },
+                {
+                  "piece": "▁公司",
+                  "probability": 0.019321376457810402
+                },
+                {
+                  "piece": "▁2006",
+                  "probability": 0.018209928646683693
+                },
+                {
+                  "piece": "▁接下来",
+                  "probability": 0.01523538026958704
+                },
+                {
+                  "piece": "▁[",
+                  "probability": 0.013678804971277714
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "建设",
+                  "probability": 0.0748625099658966
+                },
+                {
+                  "piece": "顺",
+                  "probability": 0.04112260043621063
+                },
+                {
+                  "piece": "许",
+                  "probability": 0.029801858589053154
+                },
+                {
+                  "piece": "承",
+                  "probability": 0.01544672716408968
+                },
+                {
+                  "piece": "柏",
+                  "probability": 0.01394443865865469
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "仔",
+                  "probability": 0.038354694843292236
+                },
+                {
+                  "piece": "联",
+                  "probability": 0.026568179950118065
+                },
+                {
+                  "piece": "德",
+                  "probability": 0.0189660657197237
+                },
+                {
+                  "piece": "西亚",
+                  "probability": 0.01809445396065712
+                },
+                {
+                  "piece": "人",
+                  "probability": 0.015054902993142605
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 8,
+          "effective_depth": 7,
+          "saturated_at_leaf": true,
+          "width": 128,
+          "teacher_forced_top1": "建设仔的的西,,,兴发展商威为高G8由1953年,了第二态,,从事少数ief-, 年,月,在德在了道果家林晓果在后、先生道委员 ⁇ 的诉讼。人的。,,中在「 ⁇ 先的的,ilom,it在在ief))的途径人(并整合人委员会威制度公5公, ",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁",
+              "top": [
+                {
+                  "piece": "▁",
+                  "probability": 0.09217836707830429
+                },
+                {
+                  "piece": "▁公司",
+                  "probability": 0.019321376457810402
+                },
+                {
+                  "piece": "▁2006",
+                  "probability": 0.018209928646683693
+                },
+                {
+                  "piece": "▁接下来",
+                  "probability": 0.01523538026958704
+                },
+                {
+                  "piece": "▁[",
+                  "probability": 0.013678804971277714
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "<unk>",
+              "top": [
+                {
+                  "piece": "建设",
+                  "probability": 0.0748625099658966
+                },
+                {
+                  "piece": "顺",
+                  "probability": 0.04112260043621063
+                },
+                {
+                  "piece": "许",
+                  "probability": 0.029801858589053154
+                },
+                {
+                  "piece": "承",
+                  "probability": 0.01544672716408968
+                },
+                {
+                  "piece": "柏",
+                  "probability": 0.01394443865865469
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "石",
+              "top": [
+                {
+                  "piece": "仔",
+                  "probability": 0.038354694843292236
+                },
+                {
+                  "piece": "联",
+                  "probability": 0.026568179950118065
+                },
+                {
+                  "piece": "德",
+                  "probability": 0.0189660657197237
+                },
+                {
+                  "piece": "西亚",
+                  "probability": 0.01809445396065712
+                },
+                {
+                  "piece": "人",
+                  "probability": 0.015054902993142605
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "en2zh",
+      "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+      "reference": "WOODROW WILSON ELEMENTARY SCHO",
+      "depths": [
+        {
+          "depth": 0,
+          "effective_depth": 0,
+          "saturated_at_leaf": false,
+          "width": 1,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 7.541968438662394e-11
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.9975384193959833e-11
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.2437234639254332e-14
+                },
+                {
+                  "piece": "漫",
+                  "probability": 7.798222477376823e-19
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.534071563697893e-10
+                },
+                {
+                  "piece": "华",
+                  "probability": 9.304423204126167e-11
+                },
+                {
+                  "piece": "于",
+                  "probability": 6.142031056931979e-14
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 4.3343418822590198e-19
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.113576661437854e-10
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.557738049135949e-11
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.1953620155503242e-14
+                },
+                {
+                  "piece": "漫",
+                  "probability": 6.787837385767668e-19
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 1,
+          "effective_depth": 1,
+          "saturated_at_leaf": false,
+          "width": 2,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.6394379187545383e-09
+                },
+                {
+                  "piece": "华",
+                  "probability": 8.456275957247072e-11
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.7916870515433808e-13
+                },
+                {
+                  "piece": "漫",
+                  "probability": 2.5607566235841012e-17
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 6.677080666150914e-09
+                },
+                {
+                  "piece": "华",
+                  "probability": 3.4910441204516474e-10
+                },
+                {
+                  "piece": "于",
+                  "probability": 9.760394532529193e-13
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 1.7901803112203222e-17
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.0932612027356754e-09
+                },
+                {
+                  "piece": "华",
+                  "probability": 9.081400909050075e-11
+                },
+                {
+                  "piece": "于",
+                  "probability": 3.512934572142551e-13
+                },
+                {
+                  "piece": "漫",
+                  "probability": 2.189629634052997e-17
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 2,
+          "effective_depth": 2,
+          "saturated_at_leaf": false,
+          "width": 4,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.388470304344082e-08
+                },
+                {
+                  "piece": "华",
+                  "probability": 3.7442010603072617e-10
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.5715211210419753e-12
+                },
+                {
+                  "piece": "漫",
+                  "probability": 8.815043294713534e-16
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999997615814209
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.310516862280565e-07
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.969920004896153e-09
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.081362686368049e-11
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 1.2398620524771376e-15
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999998807907104
+                },
+                {
+                  "piece": "但",
+                  "probability": 8.480872537575124e-08
+                },
+                {
+                  "piece": "华",
+                  "probability": 3.2352470702434744e-10
+                },
+                {
+                  "piece": "于",
+                  "probability": 6.169700601105221e-12
+                },
+                {
+                  "piece": "漫",
+                  "probability": 8.258758112373416e-16
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "effective_depth": 3,
+          "saturated_at_leaf": false,
+          "width": 8,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999992847442627
+                },
+                {
+                  "piece": "但",
+                  "probability": 7.272219590959139e-07
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.6850648654198608e-09
+                },
+                {
+                  "piece": "于",
+                  "probability": 3.7298438643196263e-11
+                },
+                {
+                  "piece": "漫",
+                  "probability": 2.845651909640437e-14
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999891519546509
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.0843208656297065e-05
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.7182744116439608e-08
+                },
+                {
+                  "piece": "于",
+                  "probability": 6.570299859731676e-10
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 1.378463722291265e-13
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.999997615814209
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.3684028747084085e-06
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.2189009801488737e-09
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.2402744109518693e-10
+                },
+                {
+                  "piece": "漫",
+                  "probability": 3.8896562701415047e-14
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "effective_depth": 4,
+          "saturated_at_leaf": false,
+          "width": 16,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9973405003547668
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.002654791111126542
+                },
+                {
+                  "piece": "华",
+                  "probability": 4.151613211433869e-06
+                },
+                {
+                  "piece": "于",
+                  "probability": 4.310328165502142e-07
+                },
+                {
+                  "piece": "68",
+                  "probability": 3.452061037023668e-08
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9223235249519348
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.07759246975183487
+                },
+                {
+                  "piece": "华",
+                  "probability": 6.04854867560789e-05
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.9598894141381606e-05
+                },
+                {
+                  "piece": "68",
+                  "probability": 2.6203006200375967e-06
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9920293688774109
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.007963268086314201
+                },
+                {
+                  "piece": "华",
+                  "probability": 6.551073511218419e-06
+                },
+                {
+                  "piece": "于",
+                  "probability": 8.55898406371125e-07
+                },
+                {
+                  "piece": "漫",
+                  "probability": 3.323844310898494e-08
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 5,
+          "effective_depth": 5,
+          "saturated_at_leaf": false,
+          "width": 32,
+          "teacher_forced_top1": "commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.8310272097587585
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.1668219119310379
+                },
+                {
+                  "piece": "华",
+                  "probability": 0.0010840067407116294
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.00044210601481609046
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.00016009819228202105
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.8651090860366821
+                },
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.12488777935504913
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.006208598613739014
+                },
+                {
+                  "piece": "更为",
+                  "probability": 0.001691325567662716
+                },
+                {
+                  "piece": "谷",
+                  "probability": 0.0007249839836731553
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9391273260116577
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.057120852172374725
+                },
+                {
+                  "piece": "华",
+                  "probability": 0.0032391147688031197
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.00019113153393846005
+                },
+                {
+                  "piece": "更为",
+                  "probability": 5.825781772728078e-05
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 6,
+          "effective_depth": 6,
+          "saturated_at_leaf": false,
+          "width": 64,
+          "teacher_forced_top1": "但但 commercial但但但但但 commercial commercial建立 commercial commercial commercial建立 commercial建立 commercial建立建立建立建立建立建立建立建立建立建立建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立 commercial建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立公布建立",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.3591741919517517
+                },
+                {
+                  "piece": "▁同时",
+                  "probability": 0.15274761617183685
+                },
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.1455347239971161
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.046932052820920944
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.04392876476049423
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.98795086145401
+                },
+                {
+                  "piece": "建立",
+                  "probability": 0.0018499443540349603
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.0011279273312538862
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.0009570021065883338
+                },
+                {
+                  "piece": "政府",
+                  "probability": 0.0008606306510046124
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.444840669631958
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.3418286144733429
+                },
+                {
+                  "piece": "政府",
+                  "probability": 0.029772697016596794
+                },
+                {
+                  "piece": "谷",
+                  "probability": 0.02467937394976616
+                },
+                {
+                  "piece": "OC",
+                  "probability": 0.02325299009680748
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 7,
+          "effective_depth": 7,
+          "saturated_at_leaf": false,
+          "width": 128,
+          "teacher_forced_top1": "MS ELL",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁",
+                  "probability": 0.05715698003768921
+                },
+                {
+                  "piece": "▁创建",
+                  "probability": 0.015328126959502697
+                },
+                {
+                  "piece": "▁第",
+                  "probability": 0.01224401406943798
+                },
+                {
+                  "piece": "▁产品",
+                  "probability": 0.010987544432282448
+                },
+                {
+                  "piece": "▁H",
+                  "probability": 0.010783563368022442
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "MS",
+                  "probability": 0.04518989101052284
+                },
+                {
+                  "piece": "are",
+                  "probability": 0.02024589478969574
+                },
+                {
+                  "piece": "AR",
+                  "probability": 0.012033692561089993
+                },
+                {
+                  "piece": "ACK",
+                  "probability": 0.01189934927970171
+                },
+                {
+                  "piece": "inning",
+                  "probability": 0.009845799766480923
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁EL",
+                  "probability": 0.03559614717960358
+                },
+                {
+                  "piece": "S",
+                  "probability": 0.020845137536525726
+                },
+                {
+                  "piece": "O",
+                  "probability": 0.01780715584754944
+                },
+                {
+                  "piece": "K",
+                  "probability": 0.014292455278337002
+                },
+                {
+                  "piece": "MS",
+                  "probability": 0.013701560907065868
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 8,
+          "effective_depth": 7,
+          "saturated_at_leaf": true,
+          "width": 128,
+          "teacher_forced_top1": "MS ELL",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁W",
+              "top": [
+                {
+                  "piece": "▁",
+                  "probability": 0.05715698003768921
+                },
+                {
+                  "piece": "▁创建",
+                  "probability": 0.015328126959502697
+                },
+                {
+                  "piece": "▁第",
+                  "probability": 0.01224401406943798
+                },
+                {
+                  "piece": "▁产品",
+                  "probability": 0.010987544432282448
+                },
+                {
+                  "piece": "▁H",
+                  "probability": 0.010783563368022442
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "OOD",
+              "top": [
+                {
+                  "piece": "MS",
+                  "probability": 0.04518989101052284
+                },
+                {
+                  "piece": "are",
+                  "probability": 0.02024589478969574
+                },
+                {
+                  "piece": "AR",
+                  "probability": 0.012033692561089993
+                },
+                {
+                  "piece": "ACK",
+                  "probability": 0.01189934927970171
+                },
+                {
+                  "piece": "inning",
+                  "probability": 0.009845799766480923
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "RO",
+              "top": [
+                {
+                  "piece": "▁EL",
+                  "probability": 0.03559614717960358
+                },
+                {
+                  "piece": "S",
+                  "probability": 0.020845137536525726
+                },
+                {
+                  "piece": "O",
+                  "probability": 0.01780715584754944
+                },
+                {
+                  "piece": "K",
+                  "probability": 0.014292455278337002
+                },
+                {
+                  "piece": "MS",
+                  "probability": 0.013701560907065868
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "en2zh",
+      "source": "By using the KMI website, you consent to the data practices described in this statement.",
+      "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+      "depths": [
+        {
+          "depth": 0,
+          "effective_depth": 0,
+          "saturated_at_leaf": false,
+          "width": 1,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.326081001332054e-13
+                },
+                {
+                  "piece": "华",
+                  "probability": 5.2684087290238296e-14
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.120985111243108e-15
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 2.093286714432392e-22
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.7671152356072556e-13
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.0293694946449973e-14
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.7030636078699279e-15
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 5.772013201968e-23
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.449805224132018e-13
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.9299877451403602e-13
+                },
+                {
+                  "piece": "于",
+                  "probability": 5.127649471475468e-15
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 1.2989539670501797e-21
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 1,
+          "effective_depth": 1,
+          "saturated_at_leaf": false,
+          "width": 2,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 9.927083460814501e-12
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.3172357587440684e-13
+                },
+                {
+                  "piece": "于",
+                  "probability": 3.349060192039434e-14
+                },
+                {
+                  "piece": "公布",
+                  "probability": 1.192146835198845e-20
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 4.442377021796062e-12
+                },
+                {
+                  "piece": "华",
+                  "probability": 4.649141924846674e-14
+                },
+                {
+                  "piece": "于",
+                  "probability": 2.373100529290146e-14
+                },
+                {
+                  "piece": "公布",
+                  "probability": 8.627820137529125e-21
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 7.493355762278053e-12
+                },
+                {
+                  "piece": "华",
+                  "probability": 8.1683157416787e-13
+                },
+                {
+                  "piece": "于",
+                  "probability": 7.413680265392145e-14
+                },
+                {
+                  "piece": "公布",
+                  "probability": 1.780684112352091e-19
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 2,
+          "effective_depth": 2,
+          "saturated_at_leaf": false,
+          "width": 4,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.740863092043355e-10
+                },
+                {
+                  "piece": "华",
+                  "probability": 9.630210040870169e-13
+                },
+                {
+                  "piece": "于",
+                  "probability": 5.379519529488674e-13
+                },
+                {
+                  "piece": "公布",
+                  "probability": 2.472641994653472e-18
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.073222691272413e-10
+                },
+                {
+                  "piece": "于",
+                  "probability": 3.370323497283584e-13
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.065651930104398e-13
+                },
+                {
+                  "piece": "公布",
+                  "probability": 1.2940744375024586e-18
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 1.0
+                },
+                {
+                  "piece": "但",
+                  "probability": 2.5044344376112804e-10
+                },
+                {
+                  "piece": "华",
+                  "probability": 3.186422913720177e-12
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.1541339715523402e-12
+                },
+                {
+                  "piece": "公布",
+                  "probability": 3.2587571016192126e-17
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 3,
+          "effective_depth": 3,
+          "saturated_at_leaf": false,
+          "width": 8,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999879002571106
+                },
+                {
+                  "piece": "但",
+                  "probability": 1.2199884622532409e-05
+                },
+                {
+                  "piece": "华",
+                  "probability": 5.326442220621175e-08
+                },
+                {
+                  "piece": "于",
+                  "probability": 3.5408739051945304e-08
+                },
+                {
+                  "piece": "公布",
+                  "probability": 6.257068474457839e-11
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9999411106109619
+                },
+                {
+                  "piece": "但",
+                  "probability": 3.776161611313e-05
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.9022822016268037e-05
+                },
+                {
+                  "piece": "华",
+                  "probability": 2.0389743440318853e-06
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 2.9801624279457428e-08
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9992203712463379
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.0007400366594083607
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.609544960956555e-05
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.2214822163514327e-05
+                },
+                {
+                  "piece": "68",
+                  "probability": 1.0707984074542765e-05
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 4,
+          "effective_depth": 4,
+          "saturated_at_leaf": false,
+          "width": 16,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9957285523414612
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.004255699925124645
+                },
+                {
+                  "piece": "于",
+                  "probability": 1.0382424079580233e-05
+                },
+                {
+                  "piece": "华",
+                  "probability": 3.8005862279533176e-06
+                },
+                {
+                  "piece": "公布",
+                  "probability": 5.190919978304009e-07
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9956989884376526
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.0028909780085086823
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.0013901152415201068
+                },
+                {
+                  "piece": "华",
+                  "probability": 1.0428955647512339e-05
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 4.3822687985084485e-06
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9918783903121948
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.007819443009793758
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.00013258046237751842
+                },
+                {
+                  "piece": "华",
+                  "probability": 9.65637736953795e-05
+                },
+                {
+                  "piece": "于",
+                  "probability": 6.110726098995656e-05
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 5,
+          "effective_depth": 5,
+          "saturated_at_leaf": false,
+          "width": 32,
+          "teacher_forced_top1": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial但但 commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.5930586457252502
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.40138307213783264
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.0017630892107263207
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.0012016803957521915
+                },
+                {
+                  "piece": "▁others",
+                  "probability": 0.0008024209528230131
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.9065580368041992
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.04872783273458481
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.04430478811264038
+                },
+                {
+                  "piece": "▁which",
+                  "probability": 0.00017151246720459312
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.00010767135972855613
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "▁commercial",
+                  "probability": 0.8478982448577881
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.1399424970149994
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.0038037665653973818
+                },
+                {
+                  "piece": "华",
+                  "probability": 0.0031575860921293497
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.0015193207655102015
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 6,
+          "effective_depth": 6,
+          "saturated_at_leaf": false,
+          "width": 64,
+          "teacher_forced_top1": "但但旨在68但但 commercial于但但但 commercial但旨在旨在但公布但但 commercial旨在但旨在但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但但",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.6717792749404907
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.11547037959098816
+                },
+                {
+                  "piece": "旨在",
+                  "probability": 0.08173128217458725
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.022382648661732674
+                },
+                {
+                  "piece": "▁同时",
+                  "probability": 0.011724602431058884
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "但",
+                  "probability": 0.9440044164657593
+                },
+                {
+                  "piece": "于",
+                  "probability": 0.027485337108373642
+                },
+                {
+                  "piece": "关于",
+                  "probability": 0.004952576011419296
+                },
+                {
+                  "piece": "旨在",
+                  "probability": 0.0045453631319105625
+                },
+                {
+                  "piece": "公布",
+                  "probability": 0.0030410841573029757
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "旨在",
+                  "probability": 0.35136812925338745
+                },
+                {
+                  "piece": "但",
+                  "probability": 0.32157430052757263
+                },
+                {
+                  "piece": "68",
+                  "probability": 0.13955335319042206
+                },
+                {
+                  "piece": "▁同时",
+                  "probability": 0.04051470011472702
+                },
+                {
+                  "piece": "2)",
+                  "probability": 0.018853379413485527
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 7,
+          "effective_depth": 7,
+          "saturated_at_leaf": false,
+          "width": 128,
+          "teacher_forced_top1": "我们使用网站 Technology",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁我们",
+                  "probability": 0.03172970563173294
+                },
+                {
+                  "piece": "▁您",
+                  "probability": 0.03131648525595665
+                },
+                {
+                  "piece": "▁但是",
+                  "probability": 0.029879435896873474
+                },
+                {
+                  "piece": "▁然而",
+                  "probability": 0.023363621905446053
+                },
+                {
+                  "piece": "▁",
+                  "probability": 0.02129494398832321
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "使用",
+                  "probability": 0.11218367516994476
+                },
+                {
+                  "piece": "与",
+                  "probability": 0.026078199967741966
+                },
+                {
+                  "piece": "希望",
+                  "probability": 0.01776764914393425
+                },
+                {
+                  "piece": "通过",
+                  "probability": 0.01573048159480095
+                },
+                {
+                  "piece": "已",
+                  "probability": 0.014828439801931381
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "网站",
+                  "probability": 0.04598041623830795
+                },
+                {
+                  "piece": "使用",
+                  "probability": 0.024327998980879784
+                },
+                {
+                  "piece": "其他",
+                  "probability": 0.020340310409665108
+                },
+                {
+                  "piece": "您的个人信息",
+                  "probability": 0.01693449728190899
+                },
+                {
+                  "piece": "您",
+                  "probability": 0.01582278683781624
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "depth": 8,
+          "effective_depth": 7,
+          "saturated_at_leaf": true,
+          "width": 128,
+          "teacher_forced_top1": "我们使用网站 Technology",
+          "positions": [
+            {
+              "position": 0,
+              "target": "▁您",
+              "top": [
+                {
+                  "piece": "▁我们",
+                  "probability": 0.03172970563173294
+                },
+                {
+                  "piece": "▁您",
+                  "probability": 0.03131648525595665
+                },
+                {
+                  "piece": "▁但是",
+                  "probability": 0.029879435896873474
+                },
+                {
+                  "piece": "▁然而",
+                  "probability": 0.023363621905446053
+                },
+                {
+                  "piece": "▁",
+                  "probability": 0.02129494398832321
+                }
+              ]
+            },
+            {
+              "position": 1,
+              "target": "在使用",
+              "top": [
+                {
+                  "piece": "使用",
+                  "probability": 0.11218367516994476
+                },
+                {
+                  "piece": "与",
+                  "probability": 0.026078199967741966
+                },
+                {
+                  "piece": "希望",
+                  "probability": 0.01776764914393425
+                },
+                {
+                  "piece": "通过",
+                  "probability": 0.01573048159480095
+                },
+                {
+                  "piece": "已",
+                  "probability": 0.014828439801931381
+                }
+              ]
+            },
+            {
+              "position": 2,
+              "target": "▁Gerber",
+              "top": [
+                {
+                  "piece": "网站",
+                  "probability": 0.04598041623830795
+                },
+                {
+                  "piece": "使用",
+                  "probability": 0.024327998980879784
+                },
+                {
+                  "piece": "其他",
+                  "probability": 0.020340310409665108
+                },
+                {
+                  "piece": "您的个人信息",
+                  "probability": 0.01693449728190899
+                },
+                {
+                  "piece": "您",
+                  "probability": 0.01582278683781624
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finite": true
+}
