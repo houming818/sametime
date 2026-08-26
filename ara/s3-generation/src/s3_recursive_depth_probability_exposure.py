@@ -65,9 +65,10 @@ def self_test(output: Path) -> None:
         torch.ones(3, 2 ** depth, dtype=torch.bool)
         for depth in range(depths)
     ]
-    expected, _ = decoder.read(state, tree, masks)
-    actual, _ = read_capped(decoder, state, tree, masks, depths - 1)
-    error = float((expected - actual).abs().max())
+    with torch.no_grad():
+        expected, _ = decoder.read(state, tree, masks)
+        actual, _ = read_capped(decoder, state, tree, masks, depths - 1)
+    error = float((expected - actual).abs().max().detach())
     result = {
         "claim": CLAIM,
         "self_test": "native_read_equals_full_depth_capped_read",
@@ -186,6 +187,7 @@ def empty_depth_metric():
         "improved_true_logp": 0,
         "top1_changed": 0,
         "transition_tokens": 0,
+        "active_tokens": 0,
     }
 
 
@@ -202,6 +204,7 @@ def finalize_metric(metric, depth: int, width: int):
         "mean_vocab_entropy": metric["entropy_sum"] / tokens,
         "mean_true_probability": metric["true_probability_sum"] / tokens,
         "top1_accuracy": metric["top1_correct"] / tokens,
+        "active_fraction": metric["active_tokens"] / tokens,
         "mean_frontier_entropy": metric["frontier_entropy_sum"] / tokens,
         "js_from_previous": (
             metric["js_from_previous_sum"] / transitions
@@ -305,6 +308,8 @@ def probe_checkpoint(checkpoint_path: Path, output: Path, args, sp, pieces, pad,
                 metric["entropy_sum"] += float(entropy[valid].sum())
                 metric["true_probability_sum"] += float(true_probability[valid].sum())
                 metric["top1_correct"] += int((top1.eq(target) & valid).sum())
+                if depth < len(tree):
+                    metric["active_tokens"] += int(valid.sum())
                 metric["frontier_entropy_sum"] += float(frontier_entropy[valid].sum())
                 if previous_log_probs is not None:
                     log_midpoint = torch.logaddexp(previous_log_probs, log_probs) - math.log(2.0)
@@ -351,7 +356,9 @@ def probe_checkpoint(checkpoint_path: Path, output: Path, args, sp, pieces, pad,
                             })
                         example["depths"].append({
                             "depth": depth,
-                            "width": int(levels[depth].shape[1]),
+                            "effective_depth": min(depth, len(levels) - 1),
+                            "saturated_at_leaf": depth >= len(levels),
+                            "width": int(levels[min(depth, len(levels) - 1)].shape[1]),
                             "teacher_forced_top1": sp.decode(predicted_ids),
                             "positions": positions,
                         })

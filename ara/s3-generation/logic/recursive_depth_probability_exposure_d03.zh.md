@@ -50,6 +50,11 @@ query residual。它不是完整状态删除一层，也不是把 TreeHeap 改�
 三个 seed 使用相同 WMT test row hash。正式探针固定前 256 条 test rows；smoke
 只用 seed `10101` 的 32 条。探针没有 optimizer、没有 backward、没有参数更新。
 
+不同长度句子的实际 TreeHeap 深度可以不同。若某条句子在累计深度 `d` 之前已经
+到达 leaf，则后续深度保持其完整 READ 结果，不虚构新的节点；报告同时记录每个
+累计深度仍对应真实节点层、而非 leaf 饱和复制的 token 比例 `active_fraction`，
+避免把短树饱和误读为深层无效。
+
 ## 4. 逐层记录
 
 每个累计深度记录：
@@ -61,6 +66,7 @@ query residual。它不是完整状态删除一层，也不是把 TreeHeap 改�
 - 正确 token 对数概率得到改善的 token 比例；
 - top-1 token 改变比例；
 - 当前 frontier 地址熵；
+- 该累计深度仍对应真实节点层的 token 比例；
 - 固定样本的 teacher-forced top-1 文本与若干位置 top-5 概率。
 
 同时运行四个冻结条件：
