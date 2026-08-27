@@ -1,0 +1,758 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-PRESSURE-PROTOCOL-D07",
+  "mode": "smoke",
+  "decision": "smoke_blocks_formal",
+  "host": "io",
+  "config": {
+    "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_recursive_depth_pressure_protocol_d07/smoke_seed10701",
+    "wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "mode": "smoke",
+    "seed": 10701,
+    "steps": 120,
+    "batch_size": 8,
+    "train_rows": 2048,
+    "eval_rows": 128,
+    "max_slots": 32,
+    "max_generation": 64,
+    "lr": 0.001,
+    "log_every": 30,
+    "self_test": false
+  },
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+  "source_state_sha256_before": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "source_state_sha256_after": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "protocol_state_sha256": "c797af8796fca62cf15bdc28093699020a4e8a90812521d8d07e99939551381a",
+  "rows": {
+    "train": 2048,
+    "valid": 128,
+    "test": 128
+  },
+  "row_sha256": {
+    "train": "7f8cf12128d6ab68e717c47f61db5ba3048e60f581e30877dc391c7b85dab052",
+    "valid": "5f5b45ddd6325c3c05d1967cf8ea8d771721d4c0a9f558966f6a2766c47ee50d",
+    "test": "22a526dc5e0863ef5cf199da0552f7f8f78997e4105c3dc9cd0d34cc7db63b7c"
+  },
+  "initial_valid": {
+    "5": {
+      "nll": 21.864704781126854,
+      "ppl": 485165195.4097903,
+      "tokens": 2157,
+      "mean_budget": 4.2265625,
+      "slot_variance": 0.9995953565163885
+    },
+    "6": {
+      "nll": 23.47308918365351,
+      "ppl": 485165195.4097903,
+      "tokens": 2157,
+      "mean_budget": 7.90625,
+      "slot_variance": 0.9994977528869871
+    },
+    "7": {
+      "nll": 25.017753448981512,
+      "ppl": 485165195.4097903,
+      "tokens": 2157,
+      "mean_budget": 15.265625,
+      "slot_variance": 0.9995157872398166
+    }
+  },
+  "final_valid": {
+    "5": {
+      "nll": 8.290868144594635,
+      "ppl": 3987.294240346271,
+      "tokens": 2157,
+      "mean_budget": 4.2265625,
+      "slot_variance": 0.8365425174389534
+    },
+    "6": {
+      "nll": 8.006205580441224,
+      "ppl": 2999.514077730589,
+      "tokens": 2157,
+      "mean_budget": 7.90625,
+      "slot_variance": 0.8362193496067597
+    },
+    "7": {
+      "nll": 7.987430464630056,
+      "ppl": 2943.7232322065115,
+      "tokens": 2157,
+      "mean_budget": 15.265625,
+      "slot_variance": 0.8362312476276409
+    }
+  },
+  "final_test": {
+    "5": {
+      "native": {
+        "nll": 8.201847328750077,
+        "ppl": 3647.682555936338,
+        "tokens": 2056,
+        "mean_budget": 3.9765625,
+        "slot_variance": 0.8367096223922578
+      },
+      "shuffle": {
+        "nll": 8.261619122575693,
+        "ppl": 3872.358851049818,
+        "tokens": 2056,
+        "mean_budget": 3.9765625,
+        "slot_variance": 0.5786073978129098
+      },
+      "zero": {
+        "nll": 6.300298638844768,
+        "ppl": 544.734564738346,
+        "tokens": 2056,
+        "mean_budget": 3.9765625,
+        "slot_variance": 0.0
+      },
+      "generation": {
+        "token_bleu4": 0.28163287021297173,
+        "adjacent_repetition_rate": 0.15615615615615616,
+        "nonempty_rate": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾圆铺,  ⁇ 湾圆铺,  ⁇ 湾厂  ⁇ 具中心  ⁇ 木厂  ⁇ 具中心  ⁇ 木厂",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.6752605438232422,
+              1.3464229106903076,
+              1.8101342916488647
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 州市湾湾, 显示地图",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              1.9341711565701303e-10,
+              0.688238799571991,
+              1.0221474170684814
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆湾开发区  ⁇ 具湾的圆铺,  ⁇ 湾厂  ⁇ 具中心  ⁇ 木厂",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.5919364094734192,
+              0.8381398320198059,
+              1.0843430757522583
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾开发区  ⁇ 具湾的圆铺,  ⁇ 湾厂 ",
+            "budget": 4,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              1.9341711565701303e-10,
+              0.6931312680244446,
+              1.3862650394439697
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆湾湾湾开发区  ⁇ 具中心",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              8.289307434905524e-11,
+              0.6107687950134277,
+              0.872996985912323,
+              1.13522207736969
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+            "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+            "generation": "结婚的,我也把房子里视为一个大房子,我最有必要的资金支持最黄的资金支持最黄黄的。",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306047126743e-11,
+              0.6775620579719543,
+              1.3528449535369873,
+              1.8250833749771118
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Click HERE 0 responses",
+            "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+            "generation": " ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾湾湾,  ⁇ 湾湾湾湾湾开发区",
+            "budget": 2,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              8.289306741016134e-11,
+              1.9341711565701303e-10,
+              4.1446529541744326e-10,
+              0.6931374669075012
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+            "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆湾湾湾开发区  ⁇ 具中心",
+            "budget": 4,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              8.289307434905524e-11,
+              1.9341712953480084e-10,
+              0.6931442022323608,
+              1.3862879276275635
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+            "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾圆铺,  ⁇ 湾圆铺,  ⁇ 湾厂  ⁇ 具中心  ⁇ 木厂  ⁇ 具中心",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.676203191280365,
+              1.3485320806503296,
+              1.8132871389389038
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "阅读关于 Bodega Hotel 在你自己的语言",
+            "reference": "Read about Zephyr Hotel in your own language",
+            "generation": " ⁇ 湾湾,  ⁇ 湾湾,  ⁇ 湾湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾开发区  ⁇ 具湾的圆铺,  ⁇ 湾厂  ⁇ 具湾厂  ⁇ 木厂,  ⁇ ",
+            "budget": 2,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              1.9341711565701303e-10,
+              4.1446532317301887e-10,
+              0.6931310892105103
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "GLAMIRA Ring Carlotta",
+            "reference": "GLAMIRA 戒指 Jill",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾",
+            "budget": 2,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              1.9341711565701303e-10,
+              4.1446532317301887e-10,
+              0.6931456327438354
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "上奥地利州市镇列表",
+            "reference": "Municipalities in the district of Zell am See",
+            "generation": " ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾湾湾湾湾,  ⁇ 湾湾湾湾湾开发区",
+            "budget": 2,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              8.289306741016134e-11,
+              1.9341712953480084e-10,
+              4.144653509285945e-10,
+              0.6931342482566833
+            ]
+          }
+        ]
+      }
+    },
+    "6": {
+      "native": {
+        "nll": 7.823022270944795,
+        "ppl": 2497.441959828579,
+        "tokens": 2056,
+        "mean_budget": 7.4296875,
+        "slot_variance": 0.8362114934455065
+      },
+      "shuffle": {
+        "nll": 7.879444582453034,
+        "ppl": 2642.4045142177974,
+        "tokens": 2056,
+        "mean_budget": 7.4296875,
+        "slot_variance": 0.5478002592368778
+      },
+      "zero": {
+        "nll": 6.300298698217489,
+        "ppl": 544.7345970807203,
+        "tokens": 2056,
+        "mean_budget": 7.4296875,
+        "slot_variance": 0.0
+      },
+      "generation": {
+        "token_bleu4": 0.2864582006341925,
+        "adjacent_repetition_rate": 0.16766467065868262,
+        "nonempty_rate": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾圆铺,  ⁇ 湾圆铺,  ⁇ 湾厂  ⁇ 具中心  ⁇ 木厂  ⁇ 具中心  ⁇ 木厂",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              0.6184883713722229,
+              1.2189942598342896,
+              1.613269329071045,
+              2.007545232772827
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 州市湾湾, 显示地图",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              8.289306741016134e-11,
+              0.6835161447525024,
+              1.011396050453186,
+              1.7045390605926514
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "结婚的,我也把房子里视为由一个大 ⁇ 湾,一个大 ⁇ ,就是最具的房子,就是最具价值。",
+            "budget": 9,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.47458720207214355,
+              0.7350383996963501,
+              0.995489239692688,
+              1.2559401988983154
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾开发区 ",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.6931458115577698,
+              1.3862872123718262,
+              2.079430103302002
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 州市",
+            "budget": 9,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              0.622267484664917,
+              0.9119322896003723,
+              1.2015964984893799,
+              1.491258978843689
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+            "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+            "generation": "结婚的,我也把房子里视为一个大房子,我最有必要的资金支持最黄的资金支持最黄黄的。",
+            "budget": 14,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.6631879210472107,
+              1.3205476999282837,
+              1.7717154026031494,
+              2.4648618698120117
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Click HERE 0 responses",
+            "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾湾湾,  ⁇ 湾湾湾湾湾6公里,  ⁇ 湾",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              1.9341711565701303e-10,
+              0.687762975692749,
+              1.0202007293701172
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+            "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆湾湾湾开发区  ⁇ 具中心",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289307434905524e-11,
+              0.6797073483467102,
+              1.3565126657485962,
+              1.8313097953796387
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+            "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾圆铺,  ⁇ 湾圆铺,  ⁇ 湾厂  ⁇ 具中心  ⁇ 木厂  ⁇ 具中心",
+            "budget": 14,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              0.6626774668693542,
+              1.3175556659698486,
+              1.7613039016723633,
+              2.4544506072998047
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "阅读关于 Bodega Hotel 在你自己的语言",
+            "reference": "Read about Zephyr Hotel in your own language",
+            "generation": " ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾开发区  ⁇ 具湾的开发区混凝土 ⁇ 具及 ⁇ 具丰富",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              1.9341711565701303e-10,
+              0.6818655729293823,
+              1.0054913759231567
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "GLAMIRA Ring Carlotta",
+            "reference": "GLAMIRA 戒指 Jill",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 州市",
+            "budget": 4,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              1.9341711565701303e-10,
+              0.6931363940238953,
+              1.3862751722335815
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "上奥地利州市镇列表",
+            "reference": "Municipalities in the district of Zell am See",
+            "generation": " ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾湾湾开发区  ⁇ 具湾的圆铺,  ⁇ 湾厂",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              1.9341711565701303e-10,
+              0.6808134317398071,
+              1.0074845552444458
+            ]
+          }
+        ]
+      }
+    },
+    "7": {
+      "native": {
+        "nll": 7.81344928073512,
+        "ppl": 2473.6480435717713,
+        "tokens": 2056,
+        "mean_budget": 14.3203125,
+        "slot_variance": 0.8362319688845843
+      },
+      "shuffle": {
+        "nll": 7.880559364645397,
+        "ppl": 2645.351862235579,
+        "tokens": 2056,
+        "mean_budget": 14.3203125,
+        "slot_variance": 0.535584620741669
+      },
+      "zero": {
+        "nll": 6.300298727903849,
+        "ppl": 544.734613251908,
+        "tokens": 2056,
+        "mean_budget": 14.3203125,
+        "slot_variance": 0.0
+      },
+      "generation": {
+        "token_bleu4": 0.27376060718364087,
+        "adjacent_repetition_rate": 0.1343065693430657,
+        "nonempty_rate": 1.0,
+        "examples": [
+          {
+            "direction": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾圆铺,  ⁇ 湾圆铺,  ⁇ 湾厂  ⁇ 具中心  ⁇ 木厂  ⁇ 具中心  ⁇ 木厂",
+            "budget": 25,
+            "route": [
+              0.0,
+              0.5343535542488098,
+              1.0379931926727295,
+              1.3641870021820068,
+              1.6903809309005737,
+              2.0165748596191406
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾圆 ⁇ 湾 圆 ⁇ 湾 圆 ⁇   ⁇  圆黄  ⁇  粉 ⁇   ⁇   ⁇  ",
+            "budget": 11,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              0.4945020079612732,
+              0.6837612390518188,
+              1.3263487815856934,
+              1.6964162588119507
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆湾开发区  ⁇ 具湾的圆铺,  ⁇ 具厂和 ⁇ 湾,  ⁇ 湾厂",
+            "budget": 18,
+            "route": [
+              0.0,
+              0.4492897391319275,
+              0.6454920172691345,
+              0.8416949510574341,
+              1.0378985404968262,
+              1.7310450077056885
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾开发区  ⁇ 具湾的圆铺",
+            "budget": 15,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              0.6916041374206543,
+              1.3828012943267822,
+              2.0738449096679688,
+              2.6673264503479004
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+            "reference": "We need to have black and white and Asian and Hispanic",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆湾湾湾开发区  ⁇ 具中心",
+            "budget": 17,
+            "route": [
+              0.0,
+              0.44242140650749207,
+              0.6353335976600647,
+              0.8282563090324402,
+              1.0211856365203857,
+              1.2141131162643433
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+            "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+            "generation": "结婚的,我也把房子里视为一个大房子,我最有必要的资金支持最黄的资金支持最黄黄的。",
+            "budget": 28,
+            "route": [
+              0.0,
+              0.6368511915206909,
+              1.260702133178711,
+              1.6826990842819214,
+              2.3758461475372314,
+              3.0689926147460938
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Click HERE 0 responses",
+            "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾湾湾开发区  ⁇ 具湾的圆铺, ",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.643235981464386,
+              0.9342878460884094,
+              1.2253391742706299
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+            "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆湾湾湾开发区  ⁇ 具中心",
+            "budget": 14,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.6693665981292725,
+              1.3326811790466309,
+              1.791273593902588,
+              2.484419107437134
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+            "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾,  ⁇ 湾湾圆 ⁇ 湾圆铺,  ⁇ 湾圆铺,  ⁇ 湾厂  ⁇ 具中心  ⁇ 木厂  ⁇ 具中心",
+            "budget": 28,
+            "route": [
+              0.0,
+              0.6405686140060425,
+              1.2683584690093994,
+              1.6849772930145264,
+              2.3781239986419678,
+              3.071270704269409
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "阅读关于 Bodega Hotel 在你自己的语言",
+            "reference": "Read about Zephyr Hotel in your own language",
+            "generation": " ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾开发区  ⁇ 具湾的开发区混凝土 ⁇ 具及混凝土开发区,",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.6681966781616211,
+              0.9803017973899841,
+              1.6734380722045898
+            ]
+          },
+          {
+            "direction": "en2zh",
+            "source": "GLAMIRA Ring Carlotta",
+            "reference": "GLAMIRA 戒指 Jill",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾, ",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.6906363368034363,
+              1.3812434673309326,
+              1.88845956325531
+            ]
+          },
+          {
+            "direction": "zh2en",
+            "source": "上奥地利州市镇列表",
+            "reference": "Municipalities in the district of Zell am See",
+            "generation": " ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾,  ⁇ 湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾,  ⁇ 湾湾湾湾湾,  ⁇ 湾湾湾湾湾湾湾开发区  ⁇ 具湾的圆铺, ",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.6448907852172852,
+              0.941687285900116,
+              1.2384834289550781
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "nll_improvements": {
+    "5": 13.573836636532219,
+    "6": 15.466883603212287,
+    "7": 17.030322984351457
+  },
+  "causal_nll_deltas": {
+    "5": {
+      "shuffle": 0.05977179382561637,
+      "zero": -1.901548689905309
+    },
+    "6": {
+      "shuffle": 0.05642231150823829,
+      "zero": -1.5227235727273065
+    },
+    "7": {
+      "shuffle": 0.0671100839102774,
+      "zero": -1.513150552831271
+    }
+  },
+  "first_step_gradients": {
+    "compressor_read": 181.08988818180828,
+    "compressor_slot": 380.3607323685047,
+    "reconstructor_read": 9.400242155778262,
+    "reconstructor_output": 12.817498988033766
+  },
+  "gates": {
+    "P0": true,
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": true
+  },
+  "contracts": {
+    "target_enters_compressor": false,
+    "target_length_enters_budget": false,
+    "source_frozen": true,
+    "transformer_or_self_attention": false,
+    "flat_length_route_table": false,
+    "protocol": "depth_limited_slots_to_recursive_fold_to_recursive_read"
+  },
+  "seconds": 65.09767031669617
+}
