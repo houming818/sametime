@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd /home/nio/log/holds/SameTime
+
+runner="ara/s3-generation/src/s3_recursive_depth_length_pressure.py"
+root="ara/s3-generation/evidence/s3_recursive_depth_length_pressure_d06"
+seed10101="ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt"
+seed10102="ara/s3-generation/evidence/s3_multilevel_read_ablation_c12r1/formal_seed10102/read/checkpoint_best.pt"
+seed10103="ara/s3-generation/evidence/s3_multilevel_read_ablation_c12r1/formal_seed10103/read/checkpoint_best.pt"
+
+test -f "$runner"
+test -f "$seed10101"
+test -f "$seed10102"
+test -f "$seed10103"
+mkdir -p "$root"
+nvidia-smi --query-gpu=power.limit,temperature.gpu,memory.used,utilization.gpu --format=csv,noheader
+
+python3 "$runner" --evidence-dir "$root/self_test" --self-test
+
+python3 "$runner" \
+  --checkpoint "$seed10101" \
+  --evidence-dir "$root/smoke" \
+  --baseline-root "ara/s3-generation/evidence/s3_recursive_depth_free_generation_length_d05/smoke_256" \
+  --mode smoke \
+  --eval-rows 16 \
+  --batch-size 4 \
+  --samples 3 \
+  --device cuda \
+  2>&1 | tee "$root/smoke.log"
+
+python3 - "$root/smoke/summary.json" <<'PY'
+import json
+import pathlib
+import sys
+row = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+if not row["gates"]["P0"]:
+    raise SystemExit("D06 smoke P0 failed")
+PY
+
+python3 "$runner" \
+  --checkpoint "$seed10101" \
+  --checkpoint "$seed10102" \
+  --checkpoint "$seed10103" \
+  --evidence-dir "$root/formal" \
+  --mode formal \
+  --eval-rows 128 \
+  --batch-size 8 \
+  --samples 8 \
+  --device cuda \
+  2>&1 | tee "$root/formal.log"
