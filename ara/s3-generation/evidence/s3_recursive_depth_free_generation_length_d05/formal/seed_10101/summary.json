@@ -1,0 +1,961 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-FREE-LENGTH-D05",
+  "mode": "formal",
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+  "checkpoint_state_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "seed": 10101,
+  "test_rows": 128,
+  "test_row_sha256": "f8fc7061ac388886bbf1ee0b7770275ba694371a4d5fece7e56f42c9f4fa304e",
+  "depth_count": 9,
+  "depths": [
+    5,
+    6,
+    7
+  ],
+  "generation_contract": {
+    "max_output": 256,
+    "samples_per_row": 8,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "target_read_during_generation": false,
+    "teacher_forcing": false,
+    "target_grouping": false
+  },
+  "metrics": {
+    "5": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 223.0859375,
+        "median_length": 256.0,
+        "stdev_length": 81.73824718114582,
+        "p25_length": 256.0,
+        "p75_length": 256.0,
+        "min_length": 1,
+        "max_length": 256,
+        "eos_hit_rate": 0.140625,
+        "cap_rate": 0.859375,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.43423505821929853,
+        "mean_max_token_share": 0.579944803283945,
+        "mean_unique_token_fraction": 0.13062736111043255,
+        "token_bleu4": 0.2699573648855506,
+        "max_output": 256
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 218.5849609375,
+        "median_length": 256.0,
+        "stdev_length": 83.34730968447091,
+        "p25_length": 256.0,
+        "p75_length": 256.0,
+        "min_length": 1,
+        "max_length": 256,
+        "eos_hit_rate": 0.1953125,
+        "cap_rate": 0.8046875,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.2901928574955006,
+        "mean_max_token_share": 0.43643994954971305,
+        "mean_unique_token_fraction": 0.17922023927895578,
+        "token_bleu4": 0.1901031700461988,
+        "max_output": 256
+      }
+    },
+    "6": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 35.65625,
+        "median_length": 14.0,
+        "stdev_length": 63.23733043810041,
+        "p25_length": 5.0,
+        "p75_length": 31.0,
+        "min_length": 0,
+        "max_length": 256,
+        "eos_hit_rate": 0.9296875,
+        "cap_rate": 0.0703125,
+        "nonempty_rate": 0.96875,
+        "adjacent_repetition_rate": 0.16148648648648647,
+        "mean_max_token_share": 0.25904032282005757,
+        "mean_unique_token_fraction": 0.666134133216301,
+        "token_bleu4": 4.140495570235149,
+        "max_output": 256
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 31.5712890625,
+        "median_length": 13.0,
+        "stdev_length": 59.97581540499944,
+        "p25_length": 6.0,
+        "p75_length": 28.0,
+        "min_length": 0,
+        "max_length": 256,
+        "eos_hit_rate": 0.9384765625,
+        "cap_rate": 0.0615234375,
+        "nonempty_rate": 0.98828125,
+        "adjacent_repetition_rate": 0.10151036178433438,
+        "mean_max_token_share": 0.1955243656836507,
+        "mean_unique_token_fraction": 0.8516054007084045,
+        "token_bleu4": 3.3192077536943247,
+        "max_output": 256
+      }
+    },
+    "7": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 21.7578125,
+        "median_length": 13.0,
+        "stdev_length": 28.28364868108151,
+        "p25_length": 5.0,
+        "p75_length": 30.0,
+        "min_length": 0,
+        "max_length": 256,
+        "eos_hit_rate": 0.9921875,
+        "cap_rate": 0.0078125,
+        "nonempty_rate": 0.96875,
+        "adjacent_repetition_rate": 0.07252912438932732,
+        "mean_max_token_share": 0.23808935640526172,
+        "mean_unique_token_fraction": 0.7076951960926404,
+        "token_bleu4": 7.273409159833196,
+        "max_output": 256
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 17.671875,
+        "median_length": 12.0,
+        "stdev_length": 18.966761376402008,
+        "p25_length": 6.0,
+        "p75_length": 25.0,
+        "min_length": 0,
+        "max_length": 256,
+        "eos_hit_rate": 0.998046875,
+        "cap_rate": 0.001953125,
+        "nonempty_rate": 0.98828125,
+        "adjacent_repetition_rate": 0.01024350269257785,
+        "mean_max_token_share": 0.183449867886449,
+        "mean_unique_token_fraction": 0.8991064960682373,
+        "token_bleu4": 5.99049001638711,
+        "max_output": 256
+      }
+    }
+  },
+  "paired": {
+    "greedy": {
+      "pairs": 128,
+      "monotonic_fraction": 0.1328125,
+      "strict_monotonic_fraction": 0.0,
+      "median_l5_over_l7": 13.624649859943977,
+      "median_l6_over_l7": 1.0,
+      "valid_l5_over_l7_pairs": 124,
+      "valid_l6_over_l7_pairs": 124
+    },
+    "sample": {
+      "pairs": 1024,
+      "monotonic_fraction": 0.126953125,
+      "strict_monotonic_fraction": 0.0,
+      "median_l5_over_l7": 16.0,
+      "median_l6_over_l7": 1.0,
+      "valid_l5_over_l7_pairs": 1012,
+      "valid_l6_over_l7_pairs": 1012
+    }
+  },
+  "gates": {
+    "P0": true,
+    "P1": false,
+    "P2": false,
+    "P3": false
+  },
+  "examples": [
+    {
+      "row_index": 0,
+      "direction": "zh2en",
+      "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+      "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+      "reference_length": 32,
+      "depths": {
+        "5": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial但 commercial commercial commercial commercial commercial commercial commercial commercial但 commercial但 commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial但 commercial commercial",
+            "但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但对华·华但仁·华但仁华但 commercial·华但SM但商业发展的但SM院但院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "旨在院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院 This commercial commercial commercial commercial president regarding commercial commercial commercial commercial commercial commercial commercial commercial president regarding commercial commercial commercial银行 commercial commercial president regarding commercial commercial commercial which但 which president commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial president但 which但 commercial which但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial relationship president但 which请 which cannot2) that commercial发展的 president但 commercial commercial commercial president但 commercial commercial commercial commercial commercial president regarding commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial relationship commercial interpret但 relationship commercial commercial relationship commercial commercial commercial commercial commercial commercial发展的 president但 which Alarm commercial2) relationship发展的但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial relationship president但 which但SM但 commercial commercial commercial commercial commercial relationship commercial president但 which但SM commercial commercial president但 which但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial president但 president但 commercial commercial commercial commercial银行但 commercial commercial commercial commercial commercial commercial2) president regarding president但 commercial commercial commercial2)但 commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但6890 commercial·政府 commercial·华但·华但90 commercial·华但·华·华 commercial审·华院SM院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院SM院SM院但院院院院院院院院院院院院院院院院院SM院SM院院院院院院院院院院院院院院院院院但院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院但SM院院院院院院院院但院院院院院院院院院院院院院院院院院院院院院院院院SM院SM院院院",
+            "commercial· commercial commercial·华 relationship··政府但建立·建立但SM但政策但SM院但对华·华华··华但仁·华华但 commercial仁·华华·华·华华但对发展的 relationship发展的政策但发展的但SM commercial发展的但但SM但发展的但SM但SM但SM但商业发展的但SM院但但对发展的但SM但院院院院发展的但SM commercial发展的但SM但银行但银行但至但SMSM院但院院发展的但SM院院院院院院院院院院院院院院院发展的但SM院院但SM院发展的但SM院SM院但SM院院院院院院院院院院院院院院院院院院院院院院院SM院但院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院"
+          ]
+        },
+        "7": {
+          "greedy_length": 41,
+          "greedy_eos": true,
+          "greedy": "You agree to do not agree to any law, and to use the same time, or all that, or any other applicable law, regulation, or otherwise arising from your failure to comply with this Terms.",
+          "sample_lengths": [
+            33,
+            28,
+            14,
+            88,
+            10,
+            34,
+            35,
+            52
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "No is no obligation or to be changed or in any other way or claim in accordance with the law, no, or any other law, or without any notice.",
+            "All your failure or exercise any of any other applicable law or regulation, such as free and a personal, or use any of the rights.",
+            "Termination, or write to any other or, within the Service."
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 1,
+      "direction": "en2zh",
+      "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+      "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+      "reference_length": 92,
+      "depths": {
+        "5": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial commercial但但 commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial但但 commercial commercial但但 commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial",
+            "commercial commercial commercial commercial commercial但但 commercial commercial commercial commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial但 commercial commercial但但 commercial但但 commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial但 commercial commercial但但 commercial commercial但但",
+            "commercial commercial commercial commercial commercial commercial但 commercial commercial但但 commercial commercial commercial但但 commercial commercial commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial但但 commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但"
+          ]
+        },
+        "6": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但很快 commercial但但很快 commercial但但对 commercial但但对 commercial但但对华但但很快 commercial但但对 commercial但但对华但但很快但 commercial嘉 commercial嘉但从2015公布但公布 commercial·华郎但很快于建立但漫 commercial但但对华但但很快但 commercial但但对建立但丰郎但但很快但漫但很快漫但很快漫但很快漫但很快漫但很快漫但很快漫但很快漫但很快漫但很快漫但很快漫但很快漫但很快漫但但很快漫但很快漫但很快漫但但很快但很快但漫审但很快但很快但SM但很快但很快但漫但很快漫但但很快但漫审但很快但很快但漫审但很快但很快但漫审但很快但很快但漫审但很快但很快但漫审但很快但很快但漫审但很快但很快但漫审但很快但很快但漫审但很快但很快但很快但SM但很快但但很快但但很快但很快但很快但SM但很快但但很快但但很快但SM但很快但很快但漫但很快但很快但漫但很快但很快但漫但很快但很快但",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但 commercial commercial commercial但于建立但但对华但但对发展的但政府于但对华但但很快但漫但公布 commercial commercial但于嘉 commercial但但对华但但 commercial嘉但很快但很快 commercial但但很快漫但很快 commercial但但很快漫 commercial但很快从但但很快但 commercial commercial但很快但从但很快但 commercial对但很快漫但人在公布但很快但漫但很快丰于但对建立但丰审但但很快但很快但从但但对丰郎但但很快但于建立丰华但但很快但 commercial但但对九但丰郎但但很快但漫但很快但很快但漫但很快但很快但漫很快但很快于但但很快但漫但很快但于嘉 commercial但但对建立但但对公布但很快但但对SM但很快但公布为建立但SM但但对丰郎但但很快但很快但漫但很快但很快于SM但很快于但但很快但 commercial但但对漫但公布但很快但 commercial但但对嘉但但很快但从但但很快但从但但很快但政府于但对建立但丰郎但但很快但公布但SM但很快但于",
+            "但于建立但漫 commercial commercial建立但对 commercial但但从但但漫 commercial但但很快但但审但但很快于建立但漫 commercial但很快于 commercial但很快但 commercial审但很快但但很快但政府于建立但审但但对华但但于但但很快但漫但但很快但政府于SM但很快但SM从但但很快但很快但从但很快但很快但很快但漫审但很快但但审但但很快但公布但很快但漫人在但很快但很快但 commercial但但对SM但很快但但对SM但很快但政府于2015公布但很快但很快但公布但嘉丰丰2)但但很快但漫但但对发展的但但对但但很快但 commercial2)但对建立但但对丰郎但但很快但漫但很快丰丰2)但但很快但 commercial但很快但从但很快但漫但很快 commercial但但很快但从但很快但从但很快但公布但很快但漫但很快但很快但漫但很快但公布但很快但漫但很快但很快但漫但很快但很快但从但很快但从但很快但 commercial但但对SM但很快但公布但很快但漫",
+            "但很快 commercial但但很快 commercial但但对建立但对华但但很快但从建立但丰 commercial但但从但但很快但 commercial commercial但但对 commercial但但对建立但但审但但很快但很快但但对但但很快但公布但很快但很快但很快但很快但于对但对 commercial但但很快但公布但很快但漫但公布 commercial嘉但很快但从但但很快公布但从但但很快但从但很快但从但很快 commercial commercial但但对 commercial但但对公布但对但但很快但很快但漫但很快但很快但很快但很快但公布但公布但很快但漫但公布公布公布但公布为建立但审但但很快但但很快但很快但很快但很快于SM但很快但但很快但但很快但很快但很快但SM但很快但公布但公布但很快但漫但公布但很快但漫但很快 commercial但但很快但很快但SM但很快但很快但很快但SM但很快但但对 commercial但但对大多数但但很快但公布但很快但 commercial但但对公布但很快但但很快但很快漫但公布但很快但但很快但但很快但很快但但"
+          ]
+        },
+        "7": {
+          "greedy_length": 58,
+          "greedy_eos": true,
+          "greedy": "建设库特·马林(Pilo)的土地,其收入与其收入,同时,在当地法律上,在当地法律上,在当地法律上,把国务院专利行政部门可以把地方行政处罚决定的,不能执行,并无权。",
+          "sample_lengths": [
+            62,
+            99,
+            83,
+            72,
+            121,
+            57,
+            64,
+            62
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "其 map中,中信各部企业代表中泰人民在北京东南部,北中,由 ⁇ 州市 ⁇ 市三级市人民政府重点扶贫穷路控股,改为由东华商部行人、直线、 ⁇ -武、中东、 ⁇ 、瓜和 ⁇ 。",
+            "土库(二楼)已经建设,曼 ⁇ 罗技已成功,后于吉前, 就国的繁荣发展前景所置发,在多边登记、公证、信中介于中日,由国商 ⁇ 南桑代 ⁇ 在全国各地有1号,可以在60周年内政界, 3988、8号、瓜果和石英,视为无 ⁇ ,无 ⁇ 条无新的政界,无滞流通。",
+            "该项目后,建立了一个跨式数据,以及建筑面积和再现,  ⁇ 管拉街(Gainan Street ) , 烟雾报警系统以及其前台人行径,以及由行政复发、行政机关的代表人、监察、投票反对。 第三条中村的专家小组,新泽西州国家主席以及特拉维夫区, 禁止社会文化。"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 2,
+      "direction": "en2zh",
+      "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+      "reference": "WOODROW WILSON ELEMENTARY SCHO",
+      "reference_length": 12,
+      "depths": {
+        "5": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但但 commercial发展的但但 commercial发展的但但 commercial发展的但 commercial commercial commercial commercial但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但但 commercial发展的但 commercial commercial但 同时建立但但 commercial发展的但但 commercial commercial但但 commercial发展的但 commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但但 commercial发展的但但 commercial发展的但但 commercial发展的但 commercial commercial但 commercial commercial但但 commercial发展的但 commercial commercial但 commercial commercial但但 commercial发展的但 commercial commercial但 commercial commercial但但 commercial发展的但 commercial commercial但 commercial commercial但但 commercial发展的但 commercial commercial但 commercial发展的但 commercial commercial但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但",
+          "sample_lengths": [
+            251,
+            256,
+            256,
+            112,
+            256,
+            256,
+            256,
+            219
+          ],
+          "sample_eos": [
+            true,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            true
+          ],
+          "samples": [
+            "同时但 commercial commercial commercial commercial commercial commercial commercial commercial commercial·但 commercial commercial commercial commercial commercial commercial commercial commercial commercial但但但·华华华·华·华 commercial· commercial·但建立但所但 同时·华 commercial·华华但 commercial· commercial commercial commercial commercial commercial审 commercial·但 commercial commercial审但68 同时·华·华华但 commercial·华·政府 which但 which但旨在 commercial commercial·但 commercial commercial但建立为68审但审漫 commercial审但很快但 commercial发展的但但 commercial发展的但但审但政府顺更为 commercial·但对更为 commercial commercial审但 commercial发展的但但 commercial发展的但但对发展的但但 commercial但但SM commercial commercial发展的但但对运华 同时为建立但但 commercial但但68至68但 commercial但但 commercial发展的但但对公布为但华但但 commercial发展的但但对运但公布为但审但但2)但但公布但但公布但但公布但公布但但审但公布但公布为68 commercial但但但很快但·建立但·华但公布为特定但公布为但公布但 commercial但但公布为建立但但公布为6868 commercial审但对发展的但但审但但",
+            "但但 commercial发展的但但 commercial·谷但 commercial commercial commercial commercial commercial commercial commercial发展的但 commercial commercial发展的 同时但 commercial发展的但建立为但 commercial发展的但但 commercial发展的但但 commercial commercial commercial发展的但建立为但 commercial但但建立但但 commercial发展的但 commercial commercial但 commercial但但 commercial发展的但政府公布 commercial但但 commercial但但对 commercial但所但政府 commercial2) relationship但旨在但 commercial68但 commercial发展的但但 commercial·但 commercial发展的但但 commercial发展的但 commercial commercial commercial commercial但 relationship commercial·政府但发展的但但 commercial发展的但68对特定建立但但旨在但对政策但但对68政府性能和发展的但很快 commercial发展的但但 commercial发展的但发展的但但对特定建立但但 commercial但但对发展的但但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial但但对发展的但但对象但对 commercial68至但但 commercial但但6890但68对运院运院68但68所6868发展的但很快 commercial2)但但发展的但但对华但 commercial·华2)但6868对特定建立但但 commercial对但 commercial发展的但对公布对但很快公布旨在但数的 commercial但但但对但对建立旨在但公布为",
+            "但但68 commercial commercial发展的但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但但 commercial commercial commercial· commercial·但 commercial commercial commercial commercial commercial·华 commercial· commercial建立但但 commercial· commercial commercial commercial commercial commercial·但 commercial审但 commercial审 commercial·但 commercial commercial commercial commercial· commercial华华但 同时 commercial commercial·但 commercial commercial华但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial建立但但 commercial但但·华华·华华 同时 commercial commercial建立但但政府 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial但但 commercial发展的但SM但但 commercial但华·华但但 commercial·华 同时审但公布为院但 commercial审但 commercial审但很快但 commercial发展的但但 commercial发展的但但 commercial发展的但但 commercial·但 commercial commercial commercial但建立但但 commercial但但对更为但 commercial发展的但对发展的但公布但但 commercial但但对发展的但但 commercial commercial但 commercial审但对发展的但所但对2015公布旨在但对 commercial审但但但审但但对服务但但对所建立但但90但很快 commercial2)但但很快但从建立但但公布为"
+          ]
+        },
+        "7": {
+          "greedy_length": 3,
+          "greedy_eos": true,
+          "greedy": "综合服务",
+          "sample_lengths": [
+            10,
+            5,
+            4,
+            8,
+            7,
+            8,
+            4,
+            4
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "创建,请参阅 Talk的所有程序或Adword Directory,",
+            "上海\"玩具拉斯堡",
+            "BANGIS 更多"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 3,
+      "direction": "en2zh",
+      "source": "By using the KMI website, you consent to the data practices described in this statement.",
+      "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+      "reference_length": 19,
+      "depths": {
+        "5": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但 commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但 commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但但 commercial但但对但对但对但对但对但对但对 commercial但但对但对但对但对但对但对但对 commercial但但对但对但对但对但对 commercial但但但但但对但对但对但对但对华但 commercial但但但但但 commercial但但对但对但对但对但对华但 commercial但但但但但很快但 commercial但但对但对但对但对但对但对但 commercial但但对但但对但对但对但对但对华但但 commercial但但但但对但对但对华但但但对但对但对华但但但对但对但对华但但但对但对但对华但但但对但对但对华但但但对但对但对华但但但对但对但对华但但但对但对但对华但但但对但对但对华但但但对但对但公布但但对但对但对华但但但对但公布但很快但公布但但公布但公布但但公布但公布但但公布但公布但但公布但公布但公布但",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但所公布但但 commercial但但所于但于但 commercial但但但对但政府但对但 commercial于但对 commercial但但但 commercial·但但但对但对但对但对但 commercial对但 commercial但但对但所但 同时但公布但政府 commercial对但对但公布但但对旨在但 commercial但但但所但但但对但对但政府但公布但 commercial但但对但对但对华但 commercial但但对但对但对旨在但 commercial上但68但68但68 commercial但但但对但对仁但 commercial但但对但很快但公布但 commercial上但但但对但对但对但对2015公布但 commercial但但对但对但对华但仁但 commercial但但对但公布但2015政府但对仁但 commercial于但于2015公布但 commercial但但但很快但2015旨在旨在对但对仁但公布但政府公布对但公布但68 commercial但公布但 commercial但但但但对但对华于2015公布但很快 commercial但但但公布但对华但政府但对华但公布为但但所但公布旨在但68旨在但很快 commercial对但对公布对2015公布",
+            "但但公布但于 commercial但但公布旨在但 commercial上但但 commercial但但对但很快 commercial公布但这是于 commercial但但 commercial但但对但对但68 commercial上但但 commercial但但对但68 commercial但但上 commercial但但 commercial但但对但但 commercial但但 commercial但但对但很快但 commercial但但 commercial但但上但但但所但公布于但公布但很快但政府但于2015 commercial但但但但顺但但政府但对仁·华但但公布但公布但政府所但对华于公布但68仁但所但政府但于2015公布但很快但 commercial于但68旨在但很快但很快但 commercial但但对但但对但上 commercial68但68但68 commercial但对但对但对2015年旨在很快 commercial对但很快但政府但很快但对华但仁但 commercial于但对但对2015公布但公布但所但公布但2015公布旨在但上但政府但对公布对68旨在但公布但但很快但公布但很快但2015上 commercial但但很快但公布但 commercial但但对但但对但公布但68但 commercial但但公布但但公布但公布对2015 commercial但",
+            "但但于但 commercial但但 commercial但但对但对但对但对但对但对所但所但政府所于公布旨在但对但 commercial于但公布但但对 commercial但但但所但公布于但对但政府 commercial对但所但对华但但但 commercial但但对但但于但 commercial但但但但于上 commercial但但但旨在但公布但很快但 commercial但但政府但但很快但 commercial但但上但但对但很快但 commercial但但上 commercial但对华但但但很快但仁但 commercial但但上但但政府但但很快但 commercial但但但很快但2015公布但很快 commercial但但但对但对华华但对2015公布但 commercial但但对但68但但很快但很快但很快但很快但 commercial但但但但但很快但公布但很快但公布但但政府但公布但公布但所但公布但公布对公布对产业但对2015公布但但公布但 commercial但但对但68公布旨在但对公布对但对2015 commercial但但对 commercial68但但很快但公布但但对但682)但很快但很快但公布但很快但很快但很快但 commercial但"
+          ]
+        },
+        "7": {
+          "greedy_length": 13,
+          "greedy_eos": true,
+          "greedy": "我们使用此网站使用,数据将视为自动收集数据。",
+          "sample_lengths": [
+            10,
+            12,
+            19,
+            7,
+            13,
+            16,
+            14,
+            5
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "然而,该隐私执行并不意味着您的外部同意",
+            "想法、诚语、问、鲍主管、法院",
+            "同时,使用服务 您的数据将共享数据存储空间,以便保存数据或拒绝向您提供服务。"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 4,
+      "direction": "en2zh",
+      "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+      "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "公布但 commercial·华·华·华·华华·华· commercial·华华·华华·华华·华·华·华 commercial· commercial·华华·华·华·华·华·华 commercial· commercial·华华·华·华·华·华·华 commercial· commercial·华华·华·华·华·华·华 commercial· commercial·华华·华·华·华·华·华 commercial· commercial· commercial· commercial·华华·华·华·华·华·华·华·华 commercial· commercial· commercial· commercial·华华·华·华·华·华·华·华·华·华·华 commercial· commercial· commercial· commercial·华华·华·华·华·华·华·华·华·华·华 commercial· commercial· commercial· commercial·华华·华·华·华·华·华·华·华·华·华 commercial· commercial· commercial· commercial·华华·华·华·华·华·华·华·华·华·华 commercial· commercial· commercial· commercial·华华·华·华·华·华·华·华·华 commercial",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但68 commercial·建立但政府于建立推动建立对运 commercial发展的 同时2)发展的漫 commercial commercial commercial发展的 同时· commercial·华华·华于·华华·华华·华华 同时2)68公布公布对华但68至68至公布为68至68至公布公布公布付费数的审但 commercial审·2)但2)公布对对68902)发展的2)公布对·康华但对2015 commercial审更为 commercial·华2)·华·华于68旨在2)公布对 commercial发展的但对建立对服务但但对对对服务但对对特定2)但对发展的2)公布对特定公布但对人民对华2)旨在对华丰2)公布数的公布公布公布但公布公布公布但公布为68至682)发展的旨在于·华华2)公布公布公布为68至公布公布公布公布公布公布但公布为68至但审郎但对公布审 commercial· commercial·但2)但公布为68至2)公布但公布为6868至但 commercial发展的但对对华但2)公布特定公布但公布但 commercial但对对发展的2)公布为华但·华华2)公布公布公布公布数的华2)公布数的公布旨在 commercial银行···华·公布",
+            "但 commercial发展的但对建立对华但华但 commercial对更为 commercial发展的但政府 commercial对华 commercial commercial·华华· commercial发展的 同时 commercial·政府 commercial commercial·华华但公布公布公布 commercial·华·华 commercial·华·华华·华·华·华华· commercial公布但公布 commercial·华 commercial· commercial·华·华华·华华· commercial2) 同时公布为68·建立·华华·华 commercial·华2)· commercial发展的 同时· commercial华·华华·华华·华·华华华2)公布旨在· 同时审 同时公布运华2)· commercial2)但公布为68至公布公布公布公布但公布为682) relationship commercial2)公布旨在推动发展的2)发展的建立但 commercial2)但对华华·华华但2)公布对2015·华 relationship·华 commercial·华· commercial审·2) relationship·华但2)公布于建立公布公布公布公布但但公布公布公布为特定公布但公布为特定2)但对建立人民华·华但6870公布数的公布于建立但公布为68至华·华2)公布对建立人民·华·公布但公布为特定·公布但公布为特定·华华2)公布公布公布",
+            "但但 commercial对发展的但 commercial commercial commercial·华·公布更为 commercial commercial·华·华但·华华·华于· commercial commercial commercial·华华·华华·公布 commercial·华华· commercial审 同时 commercial68华·华华·华华·华华·华华·华·华 commercial· commercial·华·华华·华· commercial commercial2)·建立 同时·华华·华华·华· commercial华华·华2)公布公布公布数的华·公布但公布为·华公布审狐公布为特定建立但·华华2)发展的 同时2)发展的 同时公布 commercial2) 同时·华华2) relationship公布旨在推动建立公布公布公布但公布为但数的华但 commercial·华··华华·华华···2) relationship·2) 同时2)发展的2)公布数的华·华但公布为68·建立公布数的公布但公布为68至2)公布但公布为68 commercial·2) relationship发展的 同时2)发展的但公布为但公布公布公布公布但公布公布公布为但公布但对·政府公布对2015公布公布公布公布公布旨在但公布为68至但对对对 commercial审但对发展的2)但对至华但公布为但审"
+          ]
+        },
+        "7": {
+          "greedy_length": 9,
+          "greedy_eos": true,
+          "greedy": " ⁇ 子路, 英国 (显示地图 )",
+          "sample_lengths": [
+            15,
+            3,
+            3,
+            12,
+            7,
+            14,
+            7,
+            3
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "Country of vigs, Infrastructure for Ha  Mand Road Road, 西班牙",
+            "第10间客房",
+            "第12章"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 5,
+      "direction": "zh2en",
+      "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+      "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+      "reference_length": 57,
+      "depths": {
+        "5": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但但但但但但但但但但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但但但但 commercial但但但 commercial但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但但但但但但但但但但但 commercial commercial commercial commercial commercial commercial commercial commercial但但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但但但但但 commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但很快但院院院院院院院院院院院所审院院院院院院院院院院所审院院院院院院所顺院院院院院院院院院所审院所审院所审院所审院所审院院所顺院所审院院所顺院所审院院所审漫院院所审但审但顺但发展的顺但发展的顺但发展的顺但发展的顺但发展的顺但发展的但SM但政府顺但发展的顺但发展的但SM但政府顺但发展的但SM但政府顺但发展的但SM但政府顺但发展的但SM但政府顺但发展的但SM但政府顺但发展的但SM但政府顺但发展的但SM但政府顺但发展的但SM但政府顺但发展的但SM但政府顺但发展的但象但SM但SM但很快但SM但SM但SM但SM但SM但SM但SM但SM但SM但SM但政府顺但发展的但公布但SM但政府顺但发展的但公布但SM但政府顺但发展的但公布但SM但政府顺但发展的但公布但SM但政府顺但发展的但公布但但顺但发展的但公布但SM",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "公布但公布但公布但院所仁华·政府公布公布但政府公布公布公布公布公布公布 commercial·华但公布但公布公布公布公布但院所审漫院院所审院所审但审但顺但发展的顺但公布但审但公布院院院所审院所审但院所·院院院院所审院院院院院所审院院院顺但发展的顺所公布审但审但审郎但顺但发展的顺但公布但顺顺顺但发展的顺更为顺顺审但审但顺更为顺但发展的顺更为丰审但院所审审但审但SM但很快顺顺但公布丰院所顺2015公布丰院所审漫院院所审但审但审但顺审但审顺但审但顺但发展的顺但公布公布审但审但顺但发展的顺方向发展的顺丰顺但公布丰顺公布公布数的公布审丰顺但产业顺方向发展的但公布丰顺2)公布丰丰公布但公布公布公布公布公布公布公布公布公布公布公布公布但公布但公布公布公布公布公布丰湖但公布公布公布公布公布公布公布公布但公布公布公布旨在但公布公布公布",
+            "但但审但审更为但政府但审更为顺但院院所顺院所审院院院所审院院院院所 which但院院所院所审但院所审 commercial院所公布院院院所审但审但审但审更为顺所审审但审但审院所审但院所审郎但顺但审更为顺但公布但审但审但顺但发展的顺但发展的但政府顺旨在发展的但所希望政府顺审但审更为顺审但顺顺更为顺但发展的但顺更为但数的顺更为丰审更为但顺顺服务更为更为旨在但审但很快但审更为更为但政府顺院丰华丰审院所顺审但审但公布公布但公布公布但公布但公布公布公布但审但顺但公布为 president但公布方向·用的发展的但公布公布公布公布但公布但审但审更为顺审但顺顺SM但院院所审但审丰顺但公布审但审丰华但公布丰院但审郎但公布但审但公布但审但审但公布审但顺但SM但SM但公布但审但但顺顺旨在但审但审但审",
+            "但·华但政府但公布为院院院院院院院院所审院所审院院所审院顺院院院院所顺院所审审审但院所公布审但顺但 commercial院但审但审但公布但所顺审但审但公布丰顺审但审但审但对公布审但审但顺更为顺但审但顺但发展的顺但上发展的但发展的但发展的顺更为丰审更为旨在很快但院院院院所院院院所审但院院院院所审漫院院所审院院院院所湖院院院院所公布院院院院院院院院院所顺院院院院院院院院院院院院院所旨在院院所SM院所审院院所公布院院院院所顺2)公布公布但公布产业但公布公布公布公布旨在但SM但公布但审但顺但公布为院审院所审但审但顺审漫但公布但顺但发展的但政府顺但发展的但政府顺政府公布标志丰顺但SM2) relationship丰审但顺丰顺丰顺审但很快但数的但SM但SM但数的丰顺"
+          ]
+        },
+        "7": {
+          "greedy_length": 62,
+          "greedy_eos": true,
+          "greedy": "The first-time of the port of the portion of the port of the price of the port port of the Piraeus and the Greek mainland port of the port of Piraeus and the Greek mainland port of the Greek port of Piraeus and the Greek mainland port of Greek port of Piraeus and the Greek Guirmed.",
+          "sample_lengths": [
+            52,
+            28,
+            29,
+            68,
+            56,
+            53,
+            64,
+            43
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "The file of the port of Carmilt To requested to confirm that the confirm Amestone portalys and the scales of the events of the Regulations along the South port of heaven Ferries and the car ferry port of the river to the File of the Barcelona.",
+            "The table that which has been collected to the fifth of the district and the local Malta will port facilities within the sea to the five services.",
+            "The intuitive portor of the port of Buraninaese unit and flang port of Greek port ofe island and the ability to view."
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 6,
+      "direction": "en2zh",
+      "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+      "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+      "reference_length": 36,
+      "depths": {
+        "5": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但 commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但但 commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但但 commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但6868 同时 commercial commercial但但对但对华但政府但对性能和发展的但政府对2015 commercial但但对但对但对2015公布但但对华但但对但对但对但对但对2015公布但但对华但公布但但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对但对公布但公布但公布但公布关于公布关于公布关于公布关于公布关于建立公布关于公布关于公布关于建立公布关于公布关于公布关于建立公布关于公布关于公布关于建立公布关于公布关于公布关于关于关于建立公布但公布关于但关于公布关于公布关于建立公布关于公布关于",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但公布为68至68至68至公布但但顺但 commercial发展的但发展的但发展的但公布但但对但公布但 commercial但但对华但但对但对华但公布但公布但但对 commercial但但对仁2)但对性能和发展的但对2015 commercial但但对2015 relationship发展的但2)公布关于建立发展的但公布但审但但审但很快 commercial但 relationship但公布但公布但2015公布但公布但对华郎但华但关于发展的旨在但关于建立关于但公布关于发展的但公布 commercial发展的但但对发展的但公布但公布但关于公布关于公布关于公布关于建立但公布但公布但公布为特定建立但审但但审但对2015审但但对但对但对2015华·关于关于发展的但公布但 commercial但对2015 relationship发展的但公布但但公布但 commercial但政府公布关于但关于公布关于公布关于公布关于建立公布公布关于但关于公布关于公布关于公布公布但关于公布关于公布关于公布关于公布关于公布关于建立公布关于但关于公布关于公布关于公布关于公布关于公布关于建立公布关于但关于公布关于公布关于建立公布关于建立关于建立关于但关于关于关于建立关于但关于但",
+            "但6868 同时2)68至但很快但足以对运68至2015 commercial审ate但对但审更为但但审但对2015公布但政府公布旨在推动发展的但公布但但对 commercial但ate但2015 commercial但对华但审但很快 commercial但华但关于发展的但公布但公布但公布为68至公布但公布但关于发展的但关于公布关于但关于公布公布公布公布但公布但公布关于公布关于但公布公布关于但公布为68 commercial发展的但公布但公布但政府关于公布关于但公布公布关于建立公布但关于但公布但公布关于公布关于公布关于建立公布关于公布关于建立公布关于但关于公布关于但关于公布关于公布关于公布关于公布关于建立公布但公布关于但关于但关于公布关于公布关于但公布关于但公布为特定建立但关于关于关于建立的人但关于公布关于但关于公布关于公布关于建立但公布关于但关于公布关于公布关于建立公布但公布但公布关于但公布关于但关于关于关于建立关于但关于公布关于公布关于建立公布公布关于关于但关于建立关于但关于公布关于公布关于建立关于但关于但公布关于发展的建立发展的但公布关于但关于但关于关于关于关于关于",
+            "但 commercial commercial但人民但政府于公布对院院但从但 commercial但但对但对但大多数但对对建立但但对但公布但公布但政府但对华但 commercial但但对但对但对建立但但审但但对2015公布但 commercial但但对华但但政府关于公布公布关于但关于建立关于但公布关于建立为但审但顺但 commercial发展的但但对2015 relationship公布但公布对2015审但审但顺但发展的但对2015公布但公布但公布但公布但但对发展的但但对华但但对但对华但公布但公布但公布但但对特定但但对但对但对2015年公布为华·华但关于建立关于但关于但关于公布关于公布关于公布关于公布关于公布关于建立但公布关于但公布关于公布关于但关于建立公布关于公布关于但公布关于但公布关于但关于公布关于公布关于公布关于公布关于公布关于公布关于建立公布但关于关于关于建立公布但关于关于关于发展的但关于公布关于关于建立关于但关于关于关于建立关于但关于发展的但关于但关于关于关于关于关于但关于但关于公布关于公布关于但关于但公布关于但"
+          ]
+        },
+        "7": {
+          "greedy_length": 35,
+          "greedy_eos": true,
+          "greedy": "顺手,从开头来,是高开的,是开往的,是让人们的更往外走,而是去往外卖的。",
+          "sample_lengths": [
+            41,
+            24,
+            61,
+            35,
+            37,
+            32,
+            45,
+            20
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "省选择的金哈重尼,以满足印拉-贝宁,红利是谁益的,它是在新西兰的南大大山灯,更更放卖大肚子。",
+            "该区是高商度的品牌,是企业市中,开创出租车 – 巨大且领先的全球传统。",
+            "动力更令人需求,可能有老化地所成为西方,认为有市场问题,如从到最复杂的高你的地、要是物质的能源、带任何热力,是你们的能源,是让美国最好的日本 人所保持更快的世界,从而人口,更多城市"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 7,
+      "direction": "zh2en",
+      "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+      "reference": "We need to have black and white and Asian and Hispanic",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 256,
+          "greedy_eos": false,
+          "greedy": "但政府公布公布公布公布公布为院 commercial commercial发展的但公布为 commercial审但 commercial发展的 同时 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial嘉 commercial嘉 commercial commercial commercial嘉 commercial嘉 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial嘉 commercial嘉 commercial commercial commercial嘉 commercial嘉 commercial commercial commercial嘉 commercial嘉 commercial commercial commercial嘉 commercial嘉 commercial commercial commercial commercial commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial commercial commercial commercial commercial commercial commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉 commercial嘉",
+          "sample_lengths": [
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256,
+            256
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但政府公布公布旨在但对发展的但公布为68 commercial发展的但政府 commercial commercial审 同时审但 commercial发展的但对建立人民但公布为 commercial2)但审但SM但对对华但 commercial对人民发展的但建立但仁 commercial commercial对但审但公布为 penet于嘉嘉 commercial院 commercial审但 commercial但但 commercial对发展的 同时2)发展的但公布为嘉 commercial2)但 commercial审但对公布审但审但对服务但 commercial·华为但2)发展的 同时公布但公布为嘉 commercial commercial commercial2)但2)但2)为人民2)公布为68公布审但 commercial2)但2)发展的但2)为人民2)发展的标志政府于嘉华但 commercial但为68公布但公布为68902)公布于嘉嘉 commercial commercial嘉 commercial2)为682) relationship发展的但政府 commercial审但华2)但2)公布为院公布公布为嘉 commercial审旨在但对发展的 同时2)发展的 同时公布为2)为嘉嘉 commercial审旨在但 commercial发展的但 commercial2)但2)但公布为68为嘉审2)但 commercial对但对2015公布为院公布为建立数的丰公布数的公布公布公布公布关于公布公布为但 commercial嘉公布为院院整合公布为嘉 commercial审但",
+            "公布但 commercial· commercial发展的 同时2)公布 commercial commercial commercial commercial commercial·华华· commercial commercial·华华 同时为人民·华华 同时2)发展的 同时但公布 commercial发展的 同时为建立人民· commercial发展的 同时2)发展的但SM commercial发展的但公布对公布为 commercial· commercial嘉于建立 commercial嘉 commercial2)但公布为6870 commercial审 同时2)发展的标志建立标志但公布但2)但 commercial对2015年公布为院68702)· commercial审2)但审为2)审但公布但公布为SM发展的但政府 commercial发展的但但公布为68为嘉康但2)于但审但公布公布公布公布公布但公布为公布但公布公布公布为院公布公布为嘉 commercial审但嘉华仁·华为公布 commercial·嘉公布但公布为郎审审 commercial· commercial审但SM但但但公布为嘉·华为2)但2)为2015丰公布为682) commercial审但·嘉2)公布为2)公布公布为院发展的标志对 commercial审丰审2)但2)但审但于公布为68公布审但 commercial但 commercial对发展的但发展的但但对发展的 同时2)为但审但于建立公布旨在对 commercial审但2)但审但 commercial对",
+            "公布但 commercial·华为68公布·华 commercial·政府 commercial commercial·政府 commercial发展的 同时为建立发展的但 commercial·政府 commercial2)旨在发展的旨在对对建立康华但但 commercial发展的 同时建立发展的但但对发展的旨在为68仁发展的但发展的但政府公布公布公布数的 commercial2)旨在为68为华·康 commercial嘉公布旨在 commercial公布为68公布数的 commercial嘉华但公布为682)数的公布数的 commercial嘉华·公布为68为华·康丰为682)发展的但公布公布公布为 commercial嘉·公布 commercial嘉公布 commercial发展的但但旨在为2)公布为68审但公布公布为2)审但公布但审2)审2)但2)公布公布公布但但政府公布公布但公布为院公布为嘉 commercial审2)但 commercial2)但2)为公布仁湖为68审郎但对华 commercial但政策但公布为嘉审但数的公布数的公布为2)为2)审但审但 commercial2)但2)公布但但对所公布为标志数的公布旨在为建立为嘉丰公布为68湖仁2)发展的但关于建立为华数的公布数的丰为2)为2)于·嘉 commercial2)·政府审2)·嘉华2)旨在公布为"
+          ]
+        },
+        "7": {
+          "greedy_length": 48,
+          "greedy_eos": true,
+          "greedy": " ⁇ 子和老子宫和格格丽尔,梅伦和 ⁇ 和格丽尔和戈尔巴和坦白格的马格和德甲和尼德和西和亚尼和伯尔多。",
+          "sample_lengths": [
+            12,
+            9,
+            19,
+            25,
+            9,
+            18,
+            35,
+            26
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "Swzinaacrom看, 娱乐 & 91 2012",
+            "第四 Dongia to create long- 18",
+            "我们享有只老的和难和获得因和父和画人的或兽产品。"
+          ]
+        }
+      }
+    }
+  ]
+}

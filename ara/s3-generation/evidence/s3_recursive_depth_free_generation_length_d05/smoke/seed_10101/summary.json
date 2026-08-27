@@ -1,0 +1,721 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-FREE-LENGTH-D05",
+  "mode": "smoke",
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+  "checkpoint_state_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "seed": 10101,
+  "test_rows": 16,
+  "test_row_sha256": "11eaab2e0fb22a405539c185ef1559696bbf661d53acf6e4076fd328bae74d16",
+  "depth_count": 9,
+  "depths": [
+    5,
+    6,
+    7
+  ],
+  "generation_contract": {
+    "max_output": 64,
+    "samples_per_row": 3,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "target_read_during_generation": false,
+    "teacher_forcing": false,
+    "target_grouping": false
+  },
+  "metrics": {
+    "5": {
+      "greedy": {
+        "count": 16,
+        "mean_length": 52.0625,
+        "median_length": 64.0,
+        "stdev_length": 21.14967124448983,
+        "p25_length": 55.0,
+        "p75_length": 64.0,
+        "min_length": 3,
+        "max_length": 64,
+        "eos_hit_rate": 0.25,
+        "cap_rate": 0.75,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.576499388004896,
+        "mean_max_token_share": 0.609312996031746,
+        "mean_unique_token_fraction": 0.24186197916666666,
+        "token_bleu4": 1.3721762927550536,
+        "max_output": 64
+      },
+      "sample": {
+        "count": 48,
+        "mean_length": 51.625,
+        "median_length": 64.0,
+        "stdev_length": 21.959835495740855,
+        "p25_length": 55.75,
+        "p75_length": 64.0,
+        "min_length": 2,
+        "max_length": 64,
+        "eos_hit_rate": 0.25,
+        "cap_rate": 0.75,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.49135802469135803,
+        "mean_max_token_share": 0.5080040738856026,
+        "mean_unique_token_fraction": 0.3433141749470722,
+        "token_bleu4": 1.144120522651795,
+        "max_output": 64
+      }
+    },
+    "6": {
+      "greedy": {
+        "count": 16,
+        "mean_length": 29.4375,
+        "median_length": 22.0,
+        "stdev_length": 25.082286453790452,
+        "p25_length": 7.0,
+        "p75_length": 64.0,
+        "min_length": 0,
+        "max_length": 64,
+        "eos_hit_rate": 0.6875,
+        "cap_rate": 0.3125,
+        "nonempty_rate": 0.9375,
+        "adjacent_repetition_rate": 0.22587719298245615,
+        "mean_max_token_share": 0.33199190132783885,
+        "mean_unique_token_fraction": 0.5150891426282052,
+        "token_bleu4": 3.911073695866576,
+        "max_output": 64
+      },
+      "sample": {
+        "count": 48,
+        "mean_length": 27.979166666666668,
+        "median_length": 18.5,
+        "stdev_length": 24.213881679157147,
+        "p25_length": 5.0,
+        "p75_length": 61.0,
+        "min_length": 2,
+        "max_length": 64,
+        "eos_hit_rate": 0.75,
+        "cap_rate": 0.25,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.14671814671814673,
+        "mean_max_token_share": 0.262175753909218,
+        "mean_unique_token_fraction": 0.7333162398464453,
+        "token_bleu4": 2.9405080167775517,
+        "max_output": 64
+      }
+    },
+    "7": {
+      "greedy": {
+        "count": 16,
+        "mean_length": 20.625,
+        "median_length": 14.5,
+        "stdev_length": 19.306329920520884,
+        "p25_length": 4.0,
+        "p75_length": 29.75,
+        "min_length": 0,
+        "max_length": 64,
+        "eos_hit_rate": 0.9375,
+        "cap_rate": 0.0625,
+        "nonempty_rate": 0.9375,
+        "adjacent_repetition_rate": 0.01904761904761905,
+        "mean_max_token_share": 0.23805826015124137,
+        "mean_unique_token_fraction": 0.6834027884480602,
+        "token_bleu4": 4.97927379311322,
+        "max_output": 64
+      },
+      "sample": {
+        "count": 48,
+        "mean_length": 18.645833333333332,
+        "median_length": 12.0,
+        "stdev_length": 17.849474295869022,
+        "p25_length": 4.75,
+        "p75_length": 28.0,
+        "min_length": 2,
+        "max_length": 64,
+        "eos_hit_rate": 0.9791666666666666,
+        "cap_rate": 0.020833333333333332,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.009445100354191263,
+        "mean_max_token_share": 0.19002794832705538,
+        "mean_unique_token_fraction": 0.9148968088955848,
+        "token_bleu4": 3.4666832994355827,
+        "max_output": 64
+      }
+    }
+  },
+  "paired": {
+    "greedy": {
+      "pairs": 16,
+      "monotonic_fraction": 0.3125,
+      "strict_monotonic_fraction": 0.0,
+      "median_l5_over_l7": 1.8285714285714285,
+      "median_l6_over_l7": 1.0,
+      "valid_l5_over_l7_pairs": 15,
+      "valid_l6_over_l7_pairs": 15
+    },
+    "sample": {
+      "pairs": 48,
+      "monotonic_fraction": 0.2708333333333333,
+      "strict_monotonic_fraction": 0.0,
+      "median_l5_over_l7": 2.9333333333333336,
+      "median_l6_over_l7": 1.0,
+      "valid_l5_over_l7_pairs": 48,
+      "valid_l6_over_l7_pairs": 48
+    }
+  },
+  "gates": {
+    "P0": true,
+    "P1": false,
+    "P2": false,
+    "P3": false
+  },
+  "examples": [
+    {
+      "row_index": 0,
+      "direction": "zh2en",
+      "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+      "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+      "reference_length": 32,
+      "depths": {
+        "5": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "但对华·华但仁·华但仁华但 commercial·华但SM但商业发展的但SM院但院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院院",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "旨在 commercial·院院院院院院建立院院院院院院院院 This president commercial commercial commercial2) relationship发展的 relationship which commercial which Alarm relationship commercial commercial commercial commercial commercial which Alarm commercial commercial2) relationship commercial commercial commercial commercial commercial commercial relationship发展的 relationship发展的 relationship发展的 relationship commercial commercial commercial commercial commercial relationship发展的 relationship",
+            "但但对建立发展的但 commercial·发展的但SM院发展的但SM但院院院院发展的院发展的但SM院发展的但SM院院院院院院院院院院院院院院院院院SM院院院院院院院院院院院院院院院院院",
+            "commercial commercial··华但华华·华但仁华·华华·华华·华但政府审郎但902) relationship commercial·康华·华华·华·华2) relationship院发展的标志发展的政策但政府请公布至建立发展的但SM commercial发展的但SM院但对发展的"
+          ]
+        },
+        "7": {
+          "greedy_length": 41,
+          "greedy_eos": true,
+          "greedy": "You agree to do not agree to any law, and to use the same time, or all that, or any other applicable law, regulation, or otherwise arising from your failure to comply with this Terms.",
+          "sample_lengths": [
+            28,
+            58,
+            10
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "No person or agree to be a law of any country or right from all or copies of any sites, that I will have been performed?",
+            "All of your monexes or available (EN) through the contract or if you do not withdraw at the same time of their trademark nor over the country, we be obliged to comply with the law; no any reason or you shall become a waiver of any of a other party.",
+            "Term or have been any other law to apply."
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 1,
+      "direction": "en2zh",
+      "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+      "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+      "reference_length": 92,
+      "depths": {
+        "5": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial但但 commercial commercial但但",
+            "commercial commercial但 commercial commercial commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial但但 commercial commercial",
+            "commercial commercial但但 commercial commercial但但 commercial commercial commercial commercial commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial但但 commercial commercial但"
+          ]
+        },
+        "6": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "但很快 commercial但但很快 commercial但但对 commercial但但对 commercial但但对华但但很快 commercial但但对 commercial但但对华但但很快但 commercial嘉 commercial嘉但从2015公布但公布 commercial·华郎但很快于建立但漫 commercial但但对华但但很快但",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial但很快于 commercial但对建立但所但但审但但审但但于但但很快但漫 commercial但对 commercial但但很快 commercial但但很快但从68但对建立但丰审但但很快但漫很快但很快但 commercial发展的但很快漫但但很快但很快",
+            "commercial但很快 commercial commercial但于建立 commercial标志但对但但很快 commercial但但很快但从嘉 commercial2)但对建立但丰审但但很快但但对发展的但很快但从但但很快但丰但很快但但很快但但很快但漫很快但很快但 commercial但但对",
+            "commercial commercial但但对华但但于 commercial但但对华但但于 commercial但但从但但很快 commercial commercial但从但但很快但 commercial但很快但 commercial上但对建立但但对但对2015但但很快但很快于2015但从建立审丰但但很快但 commercial"
+          ]
+        },
+        "7": {
+          "greedy_length": 58,
+          "greedy_eos": true,
+          "greedy": "建设库特·马林(Pilo)的土地,其收入与其收入,同时,在当地法律上,在当地法律上,在当地法律上,把国务院专利行政部门可以把地方行政处罚决定的,不能执行,并无权。",
+          "sample_lengths": [
+            64,
+            54,
+            60
+          ],
+          "sample_eos": [
+            false,
+            true,
+            true
+          ],
+          "samples": [
+            "设计师、公示、法文、英本,乃至290年,由Banin部门,代表当地加入了对贸易报的,对哈萨克斯坦,并指出, 该等有5个亚国的新葡京多国的作品《禁止您为马兰国家涉藏的公",
+            "该建设项目将投递于2000年交付,并由浙江省—多前总理继发、继任、陈民、郭 ⁇ 、分散性、行政当局可以执行性、行政处置、公用调查、行政流程和复议。",
+            "公司建设商码头物流是艾米,拥有总共计,其利润长,施加农产品经理 Zoho、印第安纳在、German, [12] 、泄额及河北、农业周、全国各地有望的农民合作,促进了社会福利。"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 2,
+      "direction": "en2zh",
+      "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+      "reference": "WOODROW WILSON ELEMENTARY SCHO",
+      "reference_length": 12,
+      "depths": {
+        "5": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "但但 commercial发展的但但 commercial发展的但但 commercial发展的但 commercial commercial commercial commercial但但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但但 commercial发展的但 commercial commercial但 同时建立但但 commercial",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial但·谷但· commercial·华但公布为68 commercial·华华但公布为 commercial审但 commercial发展的但 commercial commercial但政府 commercial发展的 同时但 commercial commercial但但 commercial commercial commercial commercial commercial commercial但但 commercial commercial commercial·政府 commercial commercial commercial审更为 commercial建立但但 commercial commercial但·",
+            "commercial但 commercial commercial commercial commercial commercial commercial发展的但但 commercial commercial发展的 同时建立 commercial但 commercial发展的但政府但 commercial commercial但但 commercial commercial但华华但 commercial commercial华但但公布为但 commercial·但 commercial commercial发展的 同时建立但但 commercial commercial但但 commercial68但 commercial审但 commercial发展的但",
+            "但但 commercial commercial commercial但 commercial commercial commercial·但 commercial commercial commercial commercial但但 commercial commercial commercial commercial commercial发展的但更为 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial发展的但但 commercial但但·建立但但 commercial上但 commercial审但 commercial·华·华华但 commercial但 同时建立审"
+          ]
+        },
+        "7": {
+          "greedy_length": 3,
+          "greedy_eos": true,
+          "greedy": "综合服务",
+          "sample_lengths": [
+            4,
+            3,
+            7
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "它的层面是。",
+            "27 剂",
+            "DMF'6, @ Java 112"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 3,
+      "direction": "en2zh",
+      "source": "By using the KMI website, you consent to the data practices described in this statement.",
+      "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+      "reference_length": 19,
+      "depths": {
+        "5": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "但 commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial但 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "但但 commercial但但对但对但对但对但对但对但对 commercial但但对但对但对但对但对但对但对 commercial但但对但对但对但对但对 commercial但但但但但对但对但对但对但对华但 commercial",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但所·但但旨在但政府于上 commercial但但更为旨在但公布但 commercial对但公布但对华但但 commercial但但 commercial对但对但对华于但 commercial上但但 commercial但但对但对但 commercial政府但对但公布但 commercial对但对但对",
+            "但公布但 commercial对但但所但但 commercial于但 commercial但但公布但 本对 commercial但但对但对但但对 commercial但对但公布但政府 commercial但但对但对但对华但仁华 commercial但但对但公布但于上 commercial但但对但更为 commercial",
+            "但但 commercial但但对但对但对但对但对但政府所公布于公布于但公布但所公布但但公布但公布旨在但公布但 commercial但但于但公布但公布但于但 commercial上但政府但于很快 commercial但但但所但但很快但 commercial但"
+          ]
+        },
+        "7": {
+          "greedy_length": 13,
+          "greedy_eos": true,
+          "greedy": "我们使用此网站使用,数据将视为自动收集数据。",
+          "sample_lengths": [
+            8,
+            4,
+            20
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "我们视力网使用大数据.",
+            "我放受用户",
+            "当您使用此列表,我们的网站,时译稿种会在本网站中交付或推荐版中。"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 4,
+      "direction": "en2zh",
+      "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+      "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "公布但 commercial·华·华·华·华华·华· commercial··华·华华· commercial commercial·华·华华· commercial commercial·华·华华· commercial commercial·华·华华· commercial commercial·华·华华· commercial commercial·华·华华· commercial",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial··华但 同时为 同时2)发展的 同时建立 commercial仁华华但但 commercial发展的 同时 commercial· commercial68建立但对仁·华·华·华华·华华但对人民· commercial发展的 同时对建立华但审但对对 commercial68902) relationship性能和·华·",
+            "68但68至6870建立审但公布公布对 commercial68·建立 同时2)但68 commercial对发展的 同时建立发展的 同时建立但漫68至6868至686868至但68902)68至68至68至68至68至682)发展的标志SM68至但68公布于",
+            "commercial commercial·建立·华华·华·华·华华·华华·华·华华·华华·华·华华·公布 commercial·华·华·华·· commercial· 同时 commercial commercial·政府 commercial对华·华华· commercial2) 同时2)公布 commercial· commercial建立"
+          ]
+        },
+        "6": {
+          "greedy_length": 9,
+          "greedy_eos": true,
+          "greedy": " ⁇ 子路, 英国 (显示地图 )",
+          "sample_lengths": [
+            20,
+            4,
+            14
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "荣幸正在有什么帮助,并维他们在突尼斯的圣玛丽玛丽亚美术馆 (显示地图 )",
+            "经济火车,曼",
+            "离安休姆路往莱诸塞河畔《战争AIN》"
+          ]
+        },
+        "7": {
+          "greedy_length": 9,
+          "greedy_eos": true,
+          "greedy": " ⁇ 子路, 英国 (显示地图 )",
+          "sample_lengths": [
+            20,
+            4,
+            14
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "荣幸正在有什么帮助,并维他们在突尼斯的圣玛丽玛丽亚美术馆 (显示地图 )",
+            "经济火车,曼",
+            "离安休姆路往莱诸塞河畔《战争AIN》"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 5,
+      "direction": "zh2en",
+      "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+      "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+      "reference_length": 57,
+      "depths": {
+        "5": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "但很快但院院院院院院院所审院院院院院院院院所审院院院院院院所审院院院院院院所顺院院院院院院院院院所审院所审院所审院所审院所审院所审",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但很快但院院院所·院院院院院院院院院所公布 This院院院所审 commercial commercial commercial commercial commercial· commercial发展的 relationship更为但顺顺但公布但SM但政府但审更为顺但政府所审但审但政府公布公布但公布 This commercial relationship但",
+            "更为但很快但漫院院院院所审院但审但所审但审但顺但政府顺院院院院院所审院院院院所审审但审但顺审但但顺但政府但审但顺审但顺更为发展的但政府顺审但审但",
+            "但 others·华华·华但仁但政府公布公布但公布但公布公布公布公布公布公布公布公布但但公布公布公布但公布公布院院院院院院院所顺院所审院所审但审但对院院院院院所审院院院院院院"
+          ]
+        },
+        "6": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "The first-time of the port of the port of the port of the port of the port of the Piraeus and the Greek port of the port of Piraeus and the Greek mainland port of the Greek port of Piraeus and the Greek mainland port of Piraeus and the Greek mainland port of Greek port of Guangan and the Greek",
+          "sample_lengths": [
+            24,
+            57,
+            35
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "The units will only be easily, which takes to set the centre port of the port quarter that are currently a city.",
+            "Since the date of The re- portional add the to need to enter the port of the Set of the world port of the port port of Piraeus and the and delivered to Ansikost with the ship, and in the south of Sweden, the country of seven historic places.",
+            "The cluster of the graph that the types of Timor's own motion which will confirm the lively, it and digital source is in the river and one of these fish."
+          ]
+        },
+        "7": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "The first-time of the port of the port of the port of the port of the port of the Piraeus and the Greek port of the port of Piraeus and the Greek mainland port of the Greek port of Piraeus and the Greek mainland port of Piraeus and the Greek mainland port of Greek port of Guangan and the Greek",
+          "sample_lengths": [
+            24,
+            57,
+            35
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "The units will only be easily, which takes to set the centre port of the port quarter that are currently a city.",
+            "Since the date of The re- portional add the to need to enter the port of the Set of the world port of the port port of Piraeus and the and delivered to Ansikost with the ship, and in the south of Sweden, the country of seven historic places.",
+            "The cluster of the graph that the types of Timor's own motion which will confirm the lively, it and digital source is in the river and one of these fish."
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 6,
+      "direction": "en2zh",
+      "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+      "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+      "reference_length": 36,
+      "depths": {
+        "5": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "但6868 同时 commercial但但对但对华但政府但对性能和发展的但政府对2015 commercial但但对但对但对2015公布但但对但公布但对但对2015公布但但对但公布但对但对2015公布但公布但但对但公布但对但对",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但从但68足以对建立旨在为人民但的人但对的人但更为 commercial但ate commercial但政府顺建立但对但公布但但对但审但华但公布但公布但 同时顺但审但但对但对但公布但很快但很快但 commercial发展的但但关于但关于",
+            "但政府于68ate但 commercial6890 同时于68902)顺更为但政府审但对对但90但很快但政府对2015华·旨在但对2015公布但公布关于发展的但公布为6890·华弱但2)公布为湖但审郎但顺但公布但审但",
+            "但6868至上689068至68至68至68至9068902)顺更为但ate顺但对发展的但愿但政府对2015公布但 commercial发展的但对华但顺更为但政府但公布但审但华2)但对但对2015 relationship顺但发展的但但对"
+          ]
+        },
+        "6": {
+          "greedy_length": 35,
+          "greedy_eos": true,
+          "greedy": "顺手,从开头来,是高开的,是开往的,是让人们的更往外走,而是去往外卖的。",
+          "sample_lengths": [
+            29,
+            60,
+            28
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "尚到现在,要听大家玩的经验,要让人们更更快的即可做出一个更令人惊叹的感到深刻的感。",
+            "作为一个独特的主子,有很多,不仅能给他们的朋友的点,让往外来到世界各地,还有多种工艺,如休闲的,则一般,但如果取材的成本,是从不论去比较还是成就了,也可能从为大中开尝到另一个高性。",
+            "契国令人不深的来说,我认为我们为大量的世人,应光收款馆拥有好意,彼此 ⁇ 益。"
+          ]
+        },
+        "7": {
+          "greedy_length": 35,
+          "greedy_eos": true,
+          "greedy": "顺手,从开头来,是高开的,是开往的,是让人们的更往外走,而是去往外卖的。",
+          "sample_lengths": [
+            29,
+            60,
+            28
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "尚到现在,要听大家玩的经验,要让人们更更快的即可做出一个更令人惊叹的感到深刻的感。",
+            "作为一个独特的主子,有很多,不仅能给他们的朋友的点,让往外来到世界各地,还有多种工艺,如休闲的,则一般,但如果取材的成本,是从不论去比较还是成就了,也可能从为大中开尝到另一个高性。",
+            "契国令人不深的来说,我认为我们为大量的世人,应光收款馆拥有好意,彼此 ⁇ 益。"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 7,
+      "direction": "zh2en",
+      "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+      "reference": "We need to have black and white and Asian and Hispanic",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "greedy_length": 64,
+          "greedy_eos": false,
+          "greedy": "但政府公布公布公布 commercial·政府 commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial commercial发展的 同时建立发展的标志但建立但SM但数的华·华于华·嘉 commercial审但SM但但对人民对人民服务但政府公布为",
+          "sample_lengths": [
+            64,
+            64,
+            64
+          ],
+          "sample_eos": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但政府公布为院公布为68公布但华·政府 commercial审但审但 commercial审但 commercial但 commercial嘉 commercial commercial commercial commercial·康但 every commercial发展的但公布为6870·华 commercial嘉 commercial公布但 commercial commercial commercial发展的建立发展的但发展的标志发展的 commercial发展的2)发展的标志发展的但",
+            "但政府公布公布公布公布公布为 commercial·建立审但 commercial commercial commercial·华为更为 commercial commercial commercial commercial发展的建立但但对建立但 every发展的但政府对公布 commercial院方向发展的旨在但 commercial嘉旨在但对 commercial嘉但旨在为院数的嘉郎2) commercial commercial审但对的人",
+            "但 commercial68 commercial·政府于建立弱但但公布公布公布为6870·建立发展的标志但SM但 commercial对仁 commercial仁发展的但公布为68为但 commercial发展的但发展的但公布对政府政府发展的 同时公布为院 commercial commercial审但 commercial对人民但数的 commercial commercial嘉但数的"
+          ]
+        },
+        "6": {
+          "greedy_length": 26,
+          "greedy_eos": true,
+          "greedy": " ⁇ 和爱我们和他们说,我们和同种和和老子,以及老子和马老城的嘴。",
+          "sample_lengths": [
+            3,
+            7,
+            18
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "Â Â Â",
+            "做学习圣性服务,但他",
+            "因於Kina经济和平衡,与专利之前和分辨率,选择和阿."
+          ]
+        },
+        "7": {
+          "greedy_length": 26,
+          "greedy_eos": true,
+          "greedy": " ⁇ 和爱我们和他们说,我们和同种和和老子,以及老子和马老城的嘴。",
+          "sample_lengths": [
+            3,
+            7,
+            18
+          ],
+          "sample_eos": [
+            true,
+            true,
+            true
+          ],
+          "samples": [
+            "Â Â Â",
+            "做学习圣性服务,但他",
+            "因於Kina经济和平衡,与专利之前和分辨率,选择和阿."
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+=== taskd run 322 2026-08-27T11:15:37Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s3-generation/src/s3_recursive_depth_free_generation_length.py", "--checkpoint", "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt", "--checkpoint", "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12r1/formal_seed10102/read/checkpoint_best.pt", "--checkpoint", "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12r1/formal_seed10103/read/checkpoint_best.pt", "--evidence-dir", "ara/s3-generation/evidence/s3_recursive_depth_free_generation_length_d05/formal", "--mode", "formal", "--eval-rows", "128", "--batch-size", "8", "--samples", "8", "--max-output", "256", "--device", "cuda"] ===
+{"event": "checkpoint_complete", "seed": 10101, "medians": {"5": 256.0, "6": 13.0, "7": 12.0}, "cap_rates": {"5": 0.8046875, "6": 0.0615234375, "7": 0.001953125}, "gates": {"P0": true, "P1": false, "P2": false, "P3": false}}
+{"event": "checkpoint_complete", "seed": 10102, "medians": {"5": 256.0, "6": 14.0, "7": 13.0}, "cap_rates": {"5": 0.875, "6": 0.0693359375, "7": 0.0068359375}, "gates": {"P0": true, "P1": false, "P2": false, "P3": false}}
+{"event": "checkpoint_complete", "seed": 10103, "medians": {"5": 256.0, "6": 11.0, "7": 11.0}, "cap_rates": {"5": 0.875, "6": 0.0625, "7": 0.0}, "gates": {"P0": true, "P1": false, "P2": false, "P3": false}}
+{"event": "D05_complete", "P0": true, "P1": false, "P2": false, "P3": false, "P4": false, "decision": "inconclusive_length_censored"}
+=== status=done exit=0 elapsed=151.8s 2026-08-27T11:18:09Z ===
