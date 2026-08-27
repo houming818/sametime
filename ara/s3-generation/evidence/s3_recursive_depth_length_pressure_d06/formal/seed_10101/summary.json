@@ -1,0 +1,1038 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-LENGTH-PRESSURE-D06",
+  "mode": "formal",
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+  "checkpoint_state_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "seed": 10101,
+  "test_rows": 128,
+  "test_row_sha256": "f8fc7061ac388886bbf1ee0b7770275ba694371a4d5fece7e56f42c9f4fa304e",
+  "depth_count": 9,
+  "depths": [
+    5,
+    6,
+    7
+  ],
+  "pressure_contract": {
+    "budget_from_target": false,
+    "source_special_tokens_removed": 2,
+    "min_budget": 2,
+    "max_output": 128,
+    "onset": 0.85,
+    "sharpness": 20.0,
+    "probability_mixture": "P'=(1-g)P+g*delta_EOS",
+    "hard_wall": true,
+    "samples_per_row": 8,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "target_read_during_generation": false,
+    "teacher_forcing": false
+  },
+  "baseline": {
+    "path": "ara/s3-generation/evidence/s3_recursive_depth_free_generation_length_d05/formal/seed_10101/summary.json",
+    "test_row_sha256": "f8fc7061ac388886bbf1ee0b7770275ba694371a4d5fece7e56f42c9f4fa304e",
+    "depth7_sample_bleu4": 5.99049001638711,
+    "depth7_sample_repetition": 0.01024350269257785
+  },
+  "metrics": {
+    "5": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 3.5546875,
+        "median_length": 3.0,
+        "stdev_length": 3.0893177689165854,
+        "p25_length": 1.0,
+        "p75_length": 5.0,
+        "min_length": 1,
+        "max_length": 27,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.3761467889908257,
+        "mean_max_token_share": 0.7290023561507937,
+        "mean_unique_token_fraction": 0.7346746858465608,
+        "token_bleu4": 0.02618268727433362,
+        "max_output": 128,
+        "mean_budget": 5.109375,
+        "median_budget": 4.0,
+        "mean_length_over_budget": 0.6461054516230298,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 3.6923828125,
+        "median_length": 3.0,
+        "stdev_length": 3.065384576762692,
+        "p25_length": 1.0,
+        "p75_length": 5.0,
+        "min_length": 1,
+        "max_length": 26,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.2640551323902793,
+        "mean_max_token_share": 0.6667379843558088,
+        "mean_unique_token_fraction": 0.7896672941104412,
+        "token_bleu4": 0.021203034676922167,
+        "max_output": 128,
+        "mean_budget": 5.109375,
+        "median_budget": 4.0,
+        "mean_length_over_budget": 0.6685513332424954,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    },
+    "6": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 6.515625,
+        "median_length": 5.0,
+        "stdev_length": 5.7946424272231845,
+        "p25_length": 3.0,
+        "p75_length": 9.0,
+        "min_length": 0,
+        "max_length": 50,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.96875,
+        "adjacent_repetition_rate": 0.056338028169014086,
+        "mean_max_token_share": 0.3396524834908276,
+        "mean_unique_token_fraction": 0.8600357167637789,
+        "token_bleu4": 1.3025637270348644,
+        "max_output": 128,
+        "mean_budget": 9.7265625,
+        "median_budget": 8.0,
+        "mean_length_over_budget": 0.62498930188209,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 7.2099609375,
+        "median_length": 6.0,
+        "stdev_length": 5.965547111726143,
+        "p25_length": 3.0,
+        "p75_length": 10.0,
+        "min_length": 0,
+        "max_length": 53,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9892578125,
+        "adjacent_repetition_rate": 0.03626373626373627,
+        "mean_max_token_share": 0.2882650175985413,
+        "mean_unique_token_fraction": 0.9286956016034669,
+        "token_bleu4": 0.8754491771376057,
+        "max_output": 128,
+        "mean_budget": 9.7265625,
+        "median_budget": 8.0,
+        "mean_length_over_budget": 0.7105481120788892,
+        "median_length_over_budget": 0.75,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    },
+    "7": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 11.5390625,
+        "median_length": 9.0,
+        "stdev_length": 9.26595106403513,
+        "p25_length": 4.0,
+        "p75_length": 17.0,
+        "min_length": 0,
+        "max_length": 58,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.96875,
+        "adjacent_repetition_rate": 0.025129342202512936,
+        "mean_max_token_share": 0.2500565095289696,
+        "mean_unique_token_fraction": 0.7765461578896655,
+        "token_bleu4": 3.976565933043081,
+        "max_output": 128,
+        "mean_budget": 18.921875,
+        "median_budget": 15.0,
+        "mean_length_over_budget": 0.5845141019580026,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 12.333984375,
+        "median_length": 9.0,
+        "stdev_length": 10.230916750822278,
+        "p25_length": 5.0,
+        "p75_length": 18.0,
+        "min_length": 0,
+        "max_length": 95,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9892578125,
+        "adjacent_repetition_rate": 0.009468881811138849,
+        "mean_max_token_share": 0.1993839791072909,
+        "mean_unique_token_fraction": 0.9199279961894687,
+        "token_bleu4": 2.7206632877842165,
+        "max_output": 128,
+        "mean_budget": 18.921875,
+        "median_budget": 15.0,
+        "mean_length_over_budget": 0.6392834972847506,
+        "median_length_over_budget": 0.7126984126984127,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    }
+  },
+  "paired": {
+    "greedy": {
+      "pairs": 128,
+      "monotonic_fraction": 0.9609375,
+      "strict_monotonic_fraction": 0.8125,
+      "median_l5_over_l7": 0.2857142857142857,
+      "median_l6_over_l7": 0.5370879120879121
+    },
+    "sample": {
+      "pairs": 1024,
+      "monotonic_fraction": 0.9580078125,
+      "strict_monotonic_fraction": 0.8154296875,
+      "median_l5_over_l7": 0.2857142857142857,
+      "median_l6_over_l7": 0.5555555555555556
+    }
+  },
+  "gates": {
+    "P0": true,
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": false
+  },
+  "examples": [
+    {
+      "row_index": 0,
+      "direction": "zh2en",
+      "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+      "source_encoded_length": 27,
+      "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+      "reference_length": 32,
+      "depths": {
+        "5": {
+          "budget": 7,
+          "greedy_length": 5,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            5,
+            6,
+            5,
+            5,
+            6,
+            5,
+            6,
+            5
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial",
+            "但 commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "budget": 13,
+          "greedy_length": 10,
+          "greedy_hard_wall": false,
+          "greedy": "但对华·华但仁·华但",
+          "sample_lengths": [
+            9,
+            10,
+            8,
+            11,
+            9,
+            10,
+            11,
+            10
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但 commercial commercial commercial发展的但·华但",
+            "但 commercial commercial commercial commercial发展的但SM院发展的",
+            "但SM院但院院院院"
+          ]
+        },
+        "7": {
+          "budget": 25,
+          "greedy_length": 18,
+          "greedy_hard_wall": false,
+          "greedy": "You agree to do not agree to any law, and to use the same time, or",
+          "sample_lengths": [
+            17,
+            21,
+            19,
+            20,
+            19,
+            19,
+            18,
+            21
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "Anyone, which is any obligation, within a minority or professional it, or",
+            "Nothing, I agree not liable for any loss or damage arising from or failure to comply with the laws of",
+            "Nothing in the Vestrtha of these terms of use or these Terms of Use or"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 1,
+      "direction": "en2zh",
+      "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+      "source_encoded_length": 127,
+      "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+      "reference_length": 92,
+      "depths": {
+        "5": {
+          "budget": 32,
+          "greedy_length": 27,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial",
+          "sample_lengths": [
+            26,
+            25,
+            25,
+            23,
+            24,
+            26,
+            24,
+            24
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial commercial但但 commercial commercial但 commercial commercial commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial commercial但",
+            "commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial",
+            "commercial commercial commercial commercial但但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial commercial但 commercial commercial但但 commercial"
+          ]
+        },
+        "6": {
+          "budget": 63,
+          "greedy_length": 50,
+          "greedy_hard_wall": false,
+          "greedy": "但很快 commercial但但很快 commercial但但对 commercial但但对 commercial但但对华但但很快 commercial但但对 commercial但但对华但但很快但 commercial嘉 commercial嘉但从2015公布但公布 commercial·华郎但",
+          "sample_lengths": [
+            46,
+            47,
+            52,
+            45,
+            51,
+            53,
+            47,
+            48
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但很快 commercial但但 commercial commercial但于建立于建立但但对更为但很快但SM但很快于建立但但对审但但对华但但对发展的但政府于2015公布但审但但审",
+            "但政府于公布于建立但漫 commercial审但但对公布但审审但但对于但很快但于对但对2015丰丰但很快于 commercial但于2015公布但很快但 commercial但但对九",
+            "但很快 commercial但但 commercial commercial但于建立但华 commercial但但对华但但很快于建立但SM但很快但于嘉 commercial但但对 commercial但但对华但但于2015公布但公布但很快公布但对建立但"
+          ]
+        },
+        "7": {
+          "budget": 125,
+          "greedy_length": 58,
+          "greedy_hard_wall": false,
+          "greedy": "建设库特·马林(Pilo)的土地,其收入与其收入,同时,在当地法律上,在当地法律上,在当地法律上,把国务院专利行政部门可以把地方行政处罚决定的,不能执行,并无权。",
+          "sample_lengths": [
+            92,
+            61,
+            75,
+            61,
+            95,
+            87,
+            64,
+            45
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "会计入 继位,外商士、土耳其、法国和德国、希腊政府,其所属列宁与德国的,瑞士,并希望在当地政府下同胞内合作,使在达成的共识,并于2001年1月20日,为阿兰为阿塞拜疆(Williamin)均属登记管理,且在其经营的实际做法,在推向社会保险,对于因珠海中市场。",
+            "2011年1月25日,在星期天前途的异象,在九十年代期内,是两国政变,在9月2日,由国土实行部、 ⁇ 带动、执行、横 ⁇ 、发改、发改、连贯的联席。",
+            "此次收购PCT(Ba)的报告中,有17%的登上,其设计了劳资运动,该统治着草于首都,以及田地、小幅部、阿塞拜疆(Yurrent)的污秽公关,和非洲人赤字被归 ⁇ ,但后来发生冲突与防暴警察之间的冲突。"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 2,
+      "direction": "en2zh",
+      "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+      "source_encoded_length": 13,
+      "reference": "WOODROW WILSON ELEMENTARY SCHO",
+      "reference_length": 12,
+      "depths": {
+        "5": {
+          "budget": 3,
+          "greedy_length": 2,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial",
+          "sample_lengths": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial",
+            "commercial commercial",
+            "commercial commercial"
+          ]
+        },
+        "6": {
+          "budget": 6,
+          "greedy_length": 5,
+          "greedy_hard_wall": false,
+          "greedy": "但但 commercial发展的但",
+          "sample_lengths": [
+            4,
+            5,
+            5,
+            4,
+            4,
+            5,
+            5,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但谷但",
+            "但但 commercial发展的但",
+            "68但仁·政府"
+          ]
+        },
+        "7": {
+          "budget": 11,
+          "greedy_length": 3,
+          "greedy_hard_wall": false,
+          "greedy": "综合服务",
+          "sample_lengths": [
+            4,
+            2,
+            3,
+            4,
+            8,
+            2,
+            2,
+            3
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "51 al Kit",
+            "服务服务",
+            "Hundred (1)"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 3,
+      "direction": "en2zh",
+      "source": "By using the KMI website, you consent to the data practices described in this statement.",
+      "source_encoded_length": 20,
+      "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+      "reference_length": 19,
+      "depths": {
+        "5": {
+          "budget": 5,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial commercial commercial",
+          "sample_lengths": [
+            4,
+            3,
+            4,
+            4,
+            3,
+            4,
+            4,
+            3
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但 commercial commercial commercial",
+            "但 commercial commercial",
+            "commercial commercial但 commercial"
+          ]
+        },
+        "6": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "但但 commercial但但对但",
+          "sample_lengths": [
+            7,
+            8,
+            7,
+            6,
+            8,
+            6,
+            6,
+            6
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但 commercial但但但但",
+            "但但于于公布但 commercial但",
+            "但很快但 commercial但但 commercial"
+          ]
+        },
+        "7": {
+          "budget": 18,
+          "greedy_length": 13,
+          "greedy_hard_wall": false,
+          "greedy": "我们使用此网站使用,数据将视为自动收集数据。",
+          "sample_lengths": [
+            13,
+            9,
+            14,
+            10,
+            11,
+            9,
+            8,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "要使用由我们的网站双方完成,即“按本数据协议",
+            "这一aspediaelage不应使用izzals",
+            "我对两语幅拍摄在线服务具有的信息使用\"摄影、"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 4,
+      "direction": "en2zh",
+      "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+      "source_encoded_length": 17,
+      "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "budget": 4,
+          "greedy_length": 3,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial commercial",
+          "sample_lengths": [
+            3,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            2
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial",
+            "commercial commercial",
+            "commercial commercial"
+          ]
+        },
+        "6": {
+          "budget": 8,
+          "greedy_length": 6,
+          "greedy_hard_wall": false,
+          "greedy": "公布但 commercial·华·",
+          "sample_lengths": [
+            7,
+            6,
+            5,
+            5,
+            7,
+            7,
+            7,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial68但68至68至",
+            "但但对更为 commercial commercial",
+            "commercial commercial commercial·华"
+          ]
+        },
+        "7": {
+          "budget": 15,
+          "greedy_length": 9,
+          "greedy_hard_wall": false,
+          "greedy": " ⁇ 子路, 英国 (显示地图 )",
+          "sample_lengths": [
+            11,
+            9,
+            11,
+            6,
+            6,
+            12,
+            5,
+            12
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "Coriday Road, Jennale Road Road,",
+            "Decca to Tegeh Leger Road",
+            "天气gonving Road, Mammillen Road"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 5,
+      "direction": "zh2en",
+      "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+      "source_encoded_length": 39,
+      "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+      "reference_length": 57,
+      "depths": {
+        "5": {
+          "budget": 10,
+          "greedy_length": 8,
+          "greedy_hard_wall": false,
+          "greedy": "但但但但但但但但",
+          "sample_lengths": [
+            7,
+            8,
+            7,
+            8,
+            7,
+            7,
+            7,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但但但 commercial commercial commercial commercial",
+            "但但但但但但但但",
+            "但但但 commercial但 commercial commercial"
+          ]
+        },
+        "6": {
+          "budget": 19,
+          "greedy_length": 15,
+          "greedy_hard_wall": false,
+          "greedy": "但很快但院院院院院院院院院院院所",
+          "sample_lengths": [
+            13,
+            16,
+            16,
+            14,
+            16,
+            15,
+            16,
+            11
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "标志ak但公布公布公布公布公布旨在但公布但公布",
+            "标志但 commercial·思但更为顺更为政府审院所审院顺",
+            "更为但很快公布但院院所标志院院院院所审院"
+          ]
+        },
+        "7": {
+          "budget": 37,
+          "greedy_length": 26,
+          "greedy_hard_wall": false,
+          "greedy": "The first-time of the port of the portion of the port of the price of the port port of the Piraeus and the",
+          "sample_lengths": [
+            27,
+            29,
+            30,
+            30,
+            31,
+            16,
+            31,
+            30
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "When using the URL to move the port of the variety of the complex guide to the state, including the has found in a street se",
+            "The original of the application of the prime date to 5 stars in the port above-water , along the port port of the island and they find",
+            "This starts to be making the original source of the trade port of your island in the region of Paris and the cash flow named industry, the mission of"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 6,
+      "direction": "en2zh",
+      "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+      "source_encoded_length": 37,
+      "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+      "reference_length": 36,
+      "depths": {
+        "5": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "但但 commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            8,
+            8,
+            7,
+            8,
+            7,
+            6,
+            6,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但 commercial commercial commercial commercial commercial commercial commercial",
+            "但但 commercial commercial commercial commercial但 commercial",
+            "但 commercial commercial commercial commercial commercial但"
+          ]
+        },
+        "6": {
+          "budget": 18,
+          "greedy_length": 13,
+          "greedy_hard_wall": false,
+          "greedy": "但6868 同时 commercial commercial但但对但对华但",
+          "sample_lengths": [
+            12,
+            12,
+            15,
+            13,
+            15,
+            13,
+            14,
+            16
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但 commercial commercial但ate但对建立旨在但审但",
+            "但公布但 commercial commercial但更为华但但政府于",
+            "但政府公布为更为 commercial commercial但但顺但对发展的但从"
+          ]
+        },
+        "7": {
+          "budget": 35,
+          "greedy_length": 26,
+          "greedy_hard_wall": false,
+          "greedy": "顺手,从开头来,是高开的,是开往的,是让人们的更往外",
+          "sample_lengths": [
+            25,
+            22,
+            26,
+            27,
+            20,
+            24,
+            28,
+            29
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "使用 树力 实施实现高模拟机,就可以节省了高度最高的6 % , 万豪金的一个表带",
+            "论空的首度为减少门信,让人们提供了更轻印的纯粹的更深入",
+            "钨益戒指、宝石及\"材质和\"塑料并具有相近的高乳化身时的比例的,从而创造"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 7,
+      "direction": "zh2en",
+      "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+      "source_encoded_length": 19,
+      "reference": "We need to have black and white and Asian and Hispanic",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "budget": 5,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial commercial commercial",
+          "sample_lengths": [
+            3,
+            3,
+            4,
+            4,
+            4,
+            3,
+            4,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial",
+            "commercial commercial commercial",
+            "commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "但政府公布公布公布公布公布",
+          "sample_lengths": [
+            7,
+            7,
+            7,
+            8,
+            7,
+            7,
+            7,
+            8
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但政府公布 commercial·政府 commercial",
+            "公布但公布为68 commercial commercial",
+            "但政府于公布公布公布公布"
+          ]
+        },
+        "7": {
+          "budget": 17,
+          "greedy_length": 11,
+          "greedy_hard_wall": false,
+          "greedy": " ⁇ 子和老子宫和格格丽",
+          "sample_lengths": [
+            13,
+            13,
+            11,
+            4,
+            11,
+            13,
+            4,
+            9
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "5 hours of simple Gigans as yos U.x",
+            "Even in the world, we can do I collect more and to",
+            "空气实力和威紧和冒险和硬化了"
+          ]
+        }
+      }
+    }
+  ]
+}

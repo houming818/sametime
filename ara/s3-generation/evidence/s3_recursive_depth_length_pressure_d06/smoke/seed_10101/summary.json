@@ -1,0 +1,798 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-LENGTH-PRESSURE-D06",
+  "mode": "smoke",
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+  "checkpoint_state_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "seed": 10101,
+  "test_rows": 16,
+  "test_row_sha256": "11eaab2e0fb22a405539c185ef1559696bbf661d53acf6e4076fd328bae74d16",
+  "depth_count": 9,
+  "depths": [
+    5,
+    6,
+    7
+  ],
+  "pressure_contract": {
+    "budget_from_target": false,
+    "source_special_tokens_removed": 2,
+    "min_budget": 2,
+    "max_output": 128,
+    "onset": 0.85,
+    "sharpness": 20.0,
+    "probability_mixture": "P'=(1-g)P+g*delta_EOS",
+    "hard_wall": true,
+    "samples_per_row": 3,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "target_read_during_generation": false,
+    "teacher_forcing": false
+  },
+  "baseline": {
+    "path": "ara/s3-generation/evidence/s3_recursive_depth_free_generation_length_d05/smoke_256/seed_10101/summary.json",
+    "test_row_sha256": "11eaab2e0fb22a405539c185ef1559696bbf661d53acf6e4076fd328bae74d16",
+    "depth7_sample_bleu4": 3.6090712210659337,
+    "depth7_sample_repetition": 0.008342022940563087
+  },
+  "metrics": {
+    "5": {
+      "greedy": {
+        "count": 16,
+        "mean_length": 5.0625,
+        "median_length": 4.0,
+        "stdev_length": 6.036024664462531,
+        "p25_length": 1.75,
+        "p75_length": 5.25,
+        "min_length": 1,
+        "max_length": 27,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.46153846153846156,
+        "mean_max_token_share": 0.7012648809523809,
+        "mean_unique_token_fraction": 0.6908647486772487,
+        "token_bleu4": 0.07272093138268247,
+        "max_output": 128,
+        "mean_budget": 6.8125,
+        "median_budget": 5.0,
+        "mean_length_over_budget": 0.6747085813492063,
+        "median_length_over_budget": 0.7321428571428572,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 48,
+        "mean_length": 5.083333333333333,
+        "median_length": 4.0,
+        "stdev_length": 5.544642058379924,
+        "p25_length": 1.75,
+        "p75_length": 6.0,
+        "min_length": 1,
+        "max_length": 26,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.336734693877551,
+        "mean_max_token_share": 0.6520488101873971,
+        "mean_unique_token_fraction": 0.7500461027499071,
+        "token_bleu4": 0.024436136625572598,
+        "max_output": 128,
+        "mean_budget": 6.8125,
+        "median_budget": 5.0,
+        "mean_length_over_budget": 0.6909184854497354,
+        "median_length_over_budget": 0.75,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    },
+    "6": {
+      "greedy": {
+        "count": 16,
+        "mean_length": 9.125,
+        "median_length": 6.5,
+        "stdev_length": 11.19640009110071,
+        "p25_length": 4.25,
+        "p75_length": 9.25,
+        "min_length": 0,
+        "max_length": 50,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9375,
+        "adjacent_repetition_rate": 0.08396946564885496,
+        "mean_max_token_share": 0.3384027777777778,
+        "mean_unique_token_fraction": 0.7160565476190476,
+        "token_bleu4": 0.5453677795335198,
+        "max_output": 128,
+        "mean_budget": 13.0625,
+        "median_budget": 9.0,
+        "mean_length_over_budget": 0.6376563403701562,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 48,
+        "mean_length": 9.5,
+        "median_length": 6.5,
+        "stdev_length": 10.795446570969942,
+        "p25_length": 3.75,
+        "p75_length": 11.0,
+        "min_length": 1,
+        "max_length": 50,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0784313725490196,
+        "mean_max_token_share": 0.3289960410640558,
+        "mean_unique_token_fraction": 0.8602050618227088,
+        "token_bleu4": 0.2114836445339479,
+        "max_output": 128,
+        "mean_budget": 13.0625,
+        "median_budget": 9.0,
+        "mean_length_over_budget": 0.69646061936358,
+        "median_length_over_budget": 0.6794871794871795,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    },
+    "7": {
+      "greedy": {
+        "count": 16,
+        "mean_length": 13.9375,
+        "median_length": 10.5,
+        "stdev_length": 13.589834206126284,
+        "p25_length": 3.75,
+        "p75_length": 17.25,
+        "min_length": 0,
+        "max_length": 58,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9375,
+        "adjacent_repetition_rate": 0.009615384615384616,
+        "mean_max_token_share": 0.2481829911200474,
+        "mean_unique_token_fraction": 0.7249619133683536,
+        "token_bleu4": 2.1572123751435703,
+        "max_output": 128,
+        "mean_budget": 25.5,
+        "median_budget": 17.5,
+        "mean_length_over_budget": 0.5417633993810465,
+        "median_length_over_budget": 0.6,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 48,
+        "mean_length": 16.041666666666668,
+        "median_length": 11.0,
+        "stdev_length": 18.585341819712532,
+        "p25_length": 4.75,
+        "p75_length": 21.0,
+        "min_length": 2,
+        "max_length": 98,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.004155124653739612,
+        "mean_max_token_share": 0.18121429075619946,
+        "mean_unique_token_fraction": 0.932996516681209,
+        "token_bleu4": 1.6613525974693364,
+        "max_output": 128,
+        "mean_budget": 25.5,
+        "median_budget": 17.5,
+        "mean_length_over_budget": 0.6383998708649444,
+        "median_length_over_budget": 0.7230113636363636,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    }
+  },
+  "paired": {
+    "greedy": {
+      "pairs": 16,
+      "monotonic_fraction": 0.875,
+      "strict_monotonic_fraction": 0.8125,
+      "median_l5_over_l7": 0.3333333333333333,
+      "median_l6_over_l7": 0.5625
+    },
+    "sample": {
+      "pairs": 48,
+      "monotonic_fraction": 0.8958333333333334,
+      "strict_monotonic_fraction": 0.75,
+      "median_l5_over_l7": 0.2857142857142857,
+      "median_l6_over_l7": 0.5086206896551724
+    }
+  },
+  "gates": {
+    "P0": true,
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": false
+  },
+  "examples": [
+    {
+      "row_index": 0,
+      "direction": "zh2en",
+      "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+      "source_encoded_length": 27,
+      "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+      "reference_length": 32,
+      "depths": {
+        "5": {
+          "budget": 7,
+          "greedy_length": 5,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial commercial commercial commercial",
+          "sample_lengths": [
+            6,
+            6,
+            5
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial commercial commercial commercial",
+            "commercial commercial commercial commercial commercial commercial",
+            "但 commercial commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "budget": 13,
+          "greedy_length": 10,
+          "greedy_hard_wall": false,
+          "greedy": "但对华·华但仁·华但",
+          "sample_lengths": [
+            11,
+            8,
+            9
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但对华但 commercial仁·华但华华",
+            "但政府于院院院院院",
+            "但政府但于建立坛院 commercial院"
+          ]
+        },
+        "7": {
+          "budget": 25,
+          "greedy_length": 18,
+          "greedy_hard_wall": false,
+          "greedy": "You agree to do not agree to any law, and to use the same time, or",
+          "sample_lengths": [
+            21,
+            15,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "Any property, use any of a specific political or依 event, any or otherwise to be liable for any",
+            "Nothing in these terms of any kind of the event or non-cience",
+            "Nothing in any serious circumstances here."
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 1,
+      "direction": "en2zh",
+      "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+      "source_encoded_length": 127,
+      "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+      "reference_length": 92,
+      "depths": {
+        "5": {
+          "budget": 32,
+          "greedy_length": 27,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但 commercial commercial但但 commercial commercial",
+          "sample_lengths": [
+            23,
+            25,
+            26
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial commercial commercial commercial但 commercial commercial但 commercial commercial commercial commercial但但 commercial commercial但 commercial commercial但 commercial",
+            "commercial commercial commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial但 commercial commercial commercial commercial但但 commercial commercial但但 commercial",
+            "commercial commercial但 commercial commercial但 commercial commercial commercial commercial commercial但 commercial commercial但 commercial commercial但但 commercial commercial但但 commercial commercial commercial"
+          ]
+        },
+        "6": {
+          "budget": 63,
+          "greedy_length": 50,
+          "greedy_hard_wall": false,
+          "greedy": "但很快 commercial但但很快 commercial但但对 commercial但但对 commercial但但对华但但很快 commercial但但对 commercial但但对华但但很快但 commercial嘉 commercial嘉但从2015公布但公布 commercial·华郎但",
+          "sample_lengths": [
+            50,
+            50,
+            44
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但于建立但 commercial上但对于但对 commercial但但对建立但 rather但但对 commercial但但对华但但很快但于建立但丰审但但很快但很快于但对 commercial但但对华但但",
+            "但 commercial·建立但于 commercial但但对 commercial但但对华但但很快但于嘉 commercial但但对华但但但很快 commercial但但很快于建立但丰 commercial但但很快但 commercial但但对SM但很快",
+            "commercial commercial但于建立但但对公布但公布但从建立但但审但但于 commercial但很快但 commercial发展的但对建立但但对华但但很快但于建立但但对但对"
+          ]
+        },
+        "7": {
+          "budget": 125,
+          "greedy_length": 58,
+          "greedy_hard_wall": false,
+          "greedy": "建设库特·马林(Pilo)的土地,其收入与其收入,同时,在当地法律上,在当地法律上,在当地法律上,把国务院专利行政部门可以把地方行政处罚决定的,不能执行,并无权。",
+          "sample_lengths": [
+            91,
+            32,
+            98
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "14 建设商 ⁇ 与Carthne Gran a Mornal结构在该地区的间关系 , \" 比利时鲁利奥市(Bamly、墨西哥、前、康宁、四)地、阿塞拜疆(Article Pesge ) , 以及(German)的农业装备制造了一系列地方,有5分,农业和农产品。 种植了一份手稿,如尚新,在该地区的间存居中",
+            "9 建设库的执行方案,并由定乡搭建花卉、自由贸易企业、货运、糖浆和底座的沿海市。",
+            "29 Shampoo, 刚刚从1808年1月10日,由阿塞拜疆政府注册,并发掘爱尔兰(Sur')成立于1959年,由其领导干业的专家。 便受托友人(NEV)的陪同日本、韩国国家、韩国、孟加拉、希腊、 ⁇ 卡、列宁、列支敦士、 ⁇ 、布劳、 ⁇ 印、 ⁇ 、亚美尼亚、毛泽东时期、林"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 2,
+      "direction": "en2zh",
+      "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+      "source_encoded_length": 13,
+      "reference": "WOODROW WILSON ELEMENTARY SCHO",
+      "reference_length": 12,
+      "depths": {
+        "5": {
+          "budget": 3,
+          "greedy_length": 2,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial",
+          "sample_lengths": [
+            2,
+            2,
+            2
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial",
+            "commercial commercial",
+            "commercial commercial"
+          ]
+        },
+        "6": {
+          "budget": 6,
+          "greedy_length": 5,
+          "greedy_hard_wall": false,
+          "greedy": "但但 commercial发展的但",
+          "sample_lengths": [
+            4,
+            5,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "同时但 commercial·",
+            "同时但政府但 commercial",
+            "但但 commercial但"
+          ]
+        },
+        "7": {
+          "budget": 11,
+          "greedy_length": 3,
+          "greedy_hard_wall": false,
+          "greedy": "综合服务",
+          "sample_lengths": [
+            2,
+            7,
+            8
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "Rescue",
+            "为 在这数据库 - 解决方案 情况",
+            "与凯罗尔 ech 的帮助"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 3,
+      "direction": "en2zh",
+      "source": "By using the KMI website, you consent to the data practices described in this statement.",
+      "source_encoded_length": 20,
+      "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+      "reference_length": 19,
+      "depths": {
+        "5": {
+          "budget": 5,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "commercial commercial commercial commercial",
+          "sample_lengths": [
+            3,
+            4,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "commercial commercial commercial",
+            "但 commercial commercial commercial",
+            "commercial commercial但 commercial"
+          ]
+        },
+        "6": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "但但 commercial但但对但",
+          "sample_lengths": [
+            7,
+            6,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但公布但 commercial于但于",
+            "但但对但公布但",
+            "但但对但对所但"
+          ]
+        },
+        "7": {
+          "budget": 18,
+          "greedy_length": 13,
+          "greedy_hard_wall": false,
+          "greedy": "我们使用此网站使用,数据将视为自动收集数据。",
+          "sample_lengths": [
+            15,
+            14,
+            14
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "希望使用上述请求的方式网站,识别信息并遵守他人对您提供的相关",
+            "但是,该目的是对ARIP也可能使用,因为您对网站的",
+            "但每一件事,于一定请求,无论您数据中的适用性"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 4,
+      "direction": "en2zh",
+      "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+      "source_encoded_length": 17,
+      "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "budget": 4,
+          "greedy_length": 3,
+          "greedy_hard_wall": false,
+          "greedy": "公布但 commercial",
+          "sample_lengths": [
+            3,
+            3,
+            3
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "公布但68",
+            "commercial68 同时",
+            "但华·"
+          ]
+        },
+        "6": {
+          "budget": 8,
+          "greedy_length": 5,
+          "greedy_hard_wall": false,
+          "greedy": " ⁇ 子路,",
+          "sample_lengths": [
+            4,
+            6,
+            5
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "土地 机场 显示地图",
+            "加州狂朗 的旅",
+            "类型: Leoneache"
+          ]
+        },
+        "7": {
+          "budget": 15,
+          "greedy_length": 9,
+          "greedy_hard_wall": false,
+          "greedy": " ⁇ 子路, 英国 (显示地图 )",
+          "sample_lengths": [
+            4,
+            8,
+            10
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "土地 机场 显示地图",
+            "加州狂朗 的旅店:",
+            "类型: Leoneache, 俄罗斯联邦 (显示地图 )"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 5,
+      "direction": "zh2en",
+      "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+      "source_encoded_length": 39,
+      "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+      "reference_length": 57,
+      "depths": {
+        "5": {
+          "budget": 10,
+          "greedy_length": 8,
+          "greedy_hard_wall": false,
+          "greedy": "但很快但院院院院院",
+          "sample_lengths": [
+            8,
+            8,
+            8
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "公布但 others·华但政府 existing",
+            "更为更为但政府但对·华",
+            "公布但 同时·华华·华"
+          ]
+        },
+        "6": {
+          "budget": 19,
+          "greedy_length": 14,
+          "greedy_hard_wall": false,
+          "greedy": "The first-time of the port of the port of the port of",
+          "sample_lengths": [
+            16,
+            14,
+            17
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "These types of svikidong or impulses to the power that",
+            "Each-al has been performed at the rocks port of the rest",
+            "Shell confirm that the date of your portion port of a few departure of the"
+          ]
+        },
+        "7": {
+          "budget": 37,
+          "greedy_length": 24,
+          "greedy_hard_wall": false,
+          "greedy": "The first-time of the port of the port of the port of the port of the port of the Piraeus and the",
+          "sample_lengths": [
+            28,
+            30,
+            30
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "These types of svikidong or Turkish surrey, South Guam can be used to check in the port of the port",
+            "Each-al has been performed at the function of the specific ruins are connected to the See: Breakat port of island and hat the",
+            "Shell confirm that the date of your portion port of Barcelona port has been given to a Aegegean and the king to see the Greek"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 6,
+      "direction": "en2zh",
+      "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+      "source_encoded_length": 37,
+      "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+      "reference_length": 36,
+      "depths": {
+        "5": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "但6868 同时 commercial但但",
+          "sample_lengths": [
+            8,
+            7,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但68谷但愿但公布但",
+            "但68谷 同时但对华",
+            "但68 commercial·华但但"
+          ]
+        },
+        "6": {
+          "budget": 18,
+          "greedy_length": 12,
+          "greedy_hard_wall": false,
+          "greedy": "顺手,从开头来,是高开",
+          "sample_lengths": [
+            12,
+            15,
+            12
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "一个顺金的最高西了踏板的农民,",
+            "消息为面板,但文起的店不仅还在能为更多的",
+            "在另一条方面,我们拥有良好的良好的样式和利益"
+          ]
+        },
+        "7": {
+          "budget": 35,
+          "greedy_length": 26,
+          "greedy_hard_wall": false,
+          "greedy": "顺手,从开头来,是高开的,是开往的,是让人们的更往外",
+          "sample_lengths": [
+            26,
+            29,
+            28
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "一个顺金的最高西了踏板的不仅提供帮助,让你从4 个角落交给谷,率,从后面",
+            "消息为面板,但文可以被收纳到你们、或收纳到好看,以独特的房子,以至该目的为",
+            "在另一条方面,我们拥有良好的良好的行为,以独特的角色为创造者力,在舒适、磨好、创造、休闲"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 7,
+      "direction": "zh2en",
+      "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+      "source_encoded_length": 19,
+      "reference": "We need to have black and white and Asian and Hispanic",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "budget": 5,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "但政府公布公布",
+          "sample_lengths": [
+            4,
+            3,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但足以公布但",
+            "公布但公布",
+            "公布但 commercial·"
+          ]
+        },
+        "6": {
+          "budget": 9,
+          "greedy_length": 6,
+          "greedy_hard_wall": false,
+          "greedy": " ⁇ 和爱我们和",
+          "sample_lengths": [
+            5,
+            7,
+            6
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "对多, adding,",
+            "Pômeian Restaurants,",
+            "我们可从ect屋和"
+          ]
+        },
+        "7": {
+          "budget": 17,
+          "greedy_length": 10,
+          "greedy_hard_wall": false,
+          "greedy": " ⁇ 和爱我们和他们说,我们和",
+          "sample_lengths": [
+            8,
+            11,
+            13
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "对多, adding, UX.",
+            "Pômeian Restaurants and Primecolor Asia?",
+            "我们可从福音和南部监控办公室以及交付一个地区警"
+          ]
+        }
+      }
+    }
+  ]
+}

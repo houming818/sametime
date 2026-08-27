@@ -1,0 +1,1038 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-LENGTH-PRESSURE-D06",
+  "mode": "formal",
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12r1/formal_seed10103/read/checkpoint_best.pt",
+  "checkpoint_state_sha256": "e78643f646e8e9abc9ade6a9bef54f45fbd27a658109be9067aa9631c6c99137",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "seed": 10103,
+  "test_rows": 128,
+  "test_row_sha256": "f8fc7061ac388886bbf1ee0b7770275ba694371a4d5fece7e56f42c9f4fa304e",
+  "depth_count": 9,
+  "depths": [
+    5,
+    6,
+    7
+  ],
+  "pressure_contract": {
+    "budget_from_target": false,
+    "source_special_tokens_removed": 2,
+    "min_budget": 2,
+    "max_output": 128,
+    "onset": 0.85,
+    "sharpness": 20.0,
+    "probability_mixture": "P'=(1-g)P+g*delta_EOS",
+    "hard_wall": true,
+    "samples_per_row": 8,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "target_read_during_generation": false,
+    "teacher_forcing": false
+  },
+  "baseline": {
+    "path": "ara/s3-generation/evidence/s3_recursive_depth_free_generation_length_d05/formal/seed_10103/summary.json",
+    "test_row_sha256": "f8fc7061ac388886bbf1ee0b7770275ba694371a4d5fece7e56f42c9f4fa304e",
+    "depth7_sample_bleu4": 6.28820127986265,
+    "depth7_sample_repetition": 0.010742730135210224
+  },
+  "metrics": {
+    "5": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 3.625,
+        "median_length": 3.0,
+        "stdev_length": 3.122498999199199,
+        "p25_length": 1.0,
+        "p75_length": 5.0,
+        "min_length": 0,
+        "max_length": 26,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.984375,
+        "adjacent_repetition_rate": 0.4408284023668639,
+        "mean_max_token_share": 0.7313895089285715,
+        "mean_unique_token_fraction": 0.6895923954517704,
+        "token_bleu4": 0.0275148627980032,
+        "max_output": 128,
+        "mean_budget": 5.109375,
+        "median_budget": 4.0,
+        "mean_length_over_budget": 0.6507506924499112,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 3.7041015625,
+        "median_length": 3.0,
+        "stdev_length": 3.0652638633868143,
+        "p25_length": 1.0,
+        "p75_length": 5.0,
+        "min_length": 1,
+        "max_length": 26,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.38280967858432646,
+        "mean_max_token_share": 0.7186234853471182,
+        "mean_unique_token_fraction": 0.7275681165622572,
+        "token_bleu4": 0.021622711151034275,
+        "max_output": 128,
+        "mean_budget": 5.109375,
+        "median_budget": 4.0,
+        "mean_length_over_budget": 0.670097116831736,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    },
+    "6": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 6.421875,
+        "median_length": 5.0,
+        "stdev_length": 5.894395345103262,
+        "p25_length": 2.75,
+        "p75_length": 9.0,
+        "min_length": 0,
+        "max_length": 50,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9375,
+        "adjacent_repetition_rate": 0.08262108262108261,
+        "mean_max_token_share": 0.3326448528493565,
+        "mean_unique_token_fraction": 0.8134818037609858,
+        "token_bleu4": 0.766864899520147,
+        "max_output": 128,
+        "mean_budget": 9.7265625,
+        "median_budget": 8.0,
+        "mean_length_over_budget": 0.5981772159198278,
+        "median_length_over_budget": 0.6464285714285715,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 7.146484375,
+        "median_length": 6.0,
+        "stdev_length": 5.951958329229201,
+        "p25_length": 3.0,
+        "p75_length": 10.0,
+        "min_length": 0,
+        "max_length": 52,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9853515625,
+        "adjacent_repetition_rate": 0.050245680773498176,
+        "mean_max_token_share": 0.2975967235743344,
+        "mean_unique_token_fraction": 0.9152071549306835,
+        "token_bleu4": 0.8029782820645708,
+        "max_output": 128,
+        "mean_budget": 9.7265625,
+        "median_budget": 8.0,
+        "mean_length_over_budget": 0.7020948068942635,
+        "median_length_over_budget": 0.75,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    },
+    "7": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 11.59375,
+        "median_length": 8.0,
+        "stdev_length": 11.523371292182683,
+        "p25_length": 4.0,
+        "p75_length": 16.25,
+        "min_length": 0,
+        "max_length": 95,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9296875,
+        "adjacent_repetition_rate": 0.018315018315018316,
+        "mean_max_token_share": 0.24544724976524265,
+        "mean_unique_token_fraction": 0.7521856291158051,
+        "token_bleu4": 3.3880066798703594,
+        "max_output": 128,
+        "mean_budget": 18.921875,
+        "median_budget": 15.0,
+        "mean_length_over_budget": 0.5558290333423125,
+        "median_length_over_budget": 0.625,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 11.8349609375,
+        "median_length": 9.0,
+        "stdev_length": 9.815440860977622,
+        "p25_length": 5.0,
+        "p75_length": 17.0,
+        "min_length": 0,
+        "max_length": 90,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9873046875,
+        "adjacent_repetition_rate": 0.008282319049333813,
+        "mean_max_token_share": 0.20191970720155342,
+        "mean_unique_token_fraction": 0.9290875141015071,
+        "token_bleu4": 2.783582351101631,
+        "max_output": 128,
+        "mean_budget": 18.921875,
+        "median_budget": 15.0,
+        "mean_length_over_budget": 0.6159944040625418,
+        "median_length_over_budget": 0.6760731319554849,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    }
+  },
+  "paired": {
+    "greedy": {
+      "pairs": 128,
+      "monotonic_fraction": 0.9453125,
+      "strict_monotonic_fraction": 0.765625,
+      "median_l5_over_l7": 0.3,
+      "median_l6_over_l7": 0.5263157894736842
+    },
+    "sample": {
+      "pairs": 1024,
+      "monotonic_fraction": 0.9501953125,
+      "strict_monotonic_fraction": 0.765625,
+      "median_l5_over_l7": 0.2857142857142857,
+      "median_l6_over_l7": 0.5714285714285714
+    }
+  },
+  "gates": {
+    "P0": true,
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": false
+  },
+  "examples": [
+    {
+      "row_index": 0,
+      "direction": "zh2en",
+      "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+      "source_encoded_length": 27,
+      "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+      "reference_length": 32,
+      "depths": {
+        "5": {
+          "budget": 7,
+          "greedy_length": 5,
+          "greedy_hard_wall": false,
+          "greedy": "which which which which which",
+          "sample_lengths": [
+            5,
+            6,
+            5,
+            5,
+            6,
+            5,
+            6,
+            5
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which which which which",
+            "which which which which which which",
+            "which which which which which"
+          ]
+        },
+        "6": {
+          "budget": 13,
+          "greedy_length": 10,
+          "greedy_hard_wall": false,
+          "greedy": "以 which which which which which which which which which",
+          "sample_lengths": [
+            11,
+            9,
+            9,
+            10,
+            9,
+            10,
+            11,
+            11
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "以 which which which which which which which which which which",
+            "which以 which which以 which which which which",
+            "民 which which以 which which以 which which"
+          ]
+        },
+        "7": {
+          "budget": 25,
+          "greedy_length": 19,
+          "greedy_hard_wall": false,
+          "greedy": "You shall not be liable for any loss or damage or any claim or any damage of any kind",
+          "sample_lengths": [
+            16,
+            17,
+            22,
+            19,
+            21,
+            17,
+            22,
+            18
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "By the does not be liable for any claim or no without any damage, or",
+            "According to the event, or the pause or non-crant, or no",
+            "According to the Rights, or not any any local or other rules, unless references shall continue or any liability of"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 1,
+      "direction": "en2zh",
+      "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+      "source_encoded_length": 127,
+      "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+      "reference_length": 92,
+      "depths": {
+        "5": {
+          "budget": 32,
+          "greedy_length": 26,
+          "greedy_hard_wall": false,
+          "greedy": "which which which which which which which which which which which which which which which which which which which which which which which which which which",
+          "sample_lengths": [
+            25,
+            25,
+            25,
+            22,
+            24,
+            26,
+            24,
+            24
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which which which which which which which which which which which which which which which which which which which which which which which which",
+            "which which which which which which which which which which which which which which which which which which which which which which which which which",
+            "which which which which which which which which which which which which which which which which which which which which which which which which which"
+          ]
+        },
+        "6": {
+          "budget": 63,
+          "greedy_length": 50,
+          "greedy_hard_wall": false,
+          "greedy": "民成绩民民亦亦民民但亦但民以但民以民成绩以民民但亦亦民以民成绩以民民民民但亦民民以民以民以民以民以 which which民民",
+          "sample_lengths": [
+            48,
+            52,
+            44,
+            46,
+            50,
+            46,
+            46,
+            48
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "民成绩民民亦亦民民但亦但民以但民以民成绩以民民民民但亦 which民成绩以民民以民成绩民以亦亦民成绩以民以民机但民以",
+            "民民民成绩以民以民以民成绩民民亦亦民民但亦但民以民以民以民成绩以民民民民但亦 which民成绩以民机但民以民机但亦但民以民",
+            "但亦民民但亦但民以民成绩以民以民以民机亦民以成绩以 which民成绩民民民民民民民但亦但民亦亦民以成绩以综合"
+          ]
+        },
+        "7": {
+          "budget": 125,
+          "greedy_length": 95,
+          "greedy_hard_wall": false,
+          "greedy": "摘要: 土地, 土地上, 土地上, é-roére-to-largor  ⁇ а  ⁇ а  ⁇   ⁇   ⁇   ⁇ кий  ⁇ у ⁇   ⁇ ку ⁇   ⁇ а  ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ 自 ⁇   ⁇ 自 ⁇   ⁇ 自 ⁇  到  ⁇ а  ⁇   ⁇   ⁇ ",
+          "sample_lengths": [
+            78,
+            75,
+            88,
+            34,
+            16,
+            47,
+            36,
+            90
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "人员的歌曲 柏利、尼塔基 (Kos)的着眼于2016年4月8日,他动漫于他们的青年大桥,便带了一张一份一支力量,该人身在苏黎世(双向)和审结,他决定通过基克拉(二)提出一行,确保他对夫妇和家家成员。",
+            "国内军用,如江 ⁇ 、岩石、山、 ⁇ 、 ⁇ 、武、罗、 ⁇ 、石膏、 ⁇ 水、农村、媒体、农业等人身权利,其特点是改善并创造出自己的机会,可以获得出具、放映、脱机以及以后他勤奋进场、最有名的程序、都与朋友。",
+            "摘要: 10 稀有广泛的防风雨,  ⁇ 用图为2  ⁇ 发科, 制作能够被 ⁇ 人 — —  ⁇ 用刀片,尖刀片,田纳舞剧场, Mercedes 告诉阿兰 找人,他们喜欢他、完成他和把地上一种人身的农业刀片 果子,  ⁇ d军机,指明日,"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 2,
+      "direction": "en2zh",
+      "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+      "source_encoded_length": 13,
+      "reference": "WOODROW WILSON ELEMENTARY SCHO",
+      "reference_length": 12,
+      "depths": {
+        "5": {
+          "budget": 3,
+          "greedy_length": 2,
+          "greedy_hard_wall": false,
+          "greedy": "which which",
+          "sample_lengths": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which",
+            "which which",
+            "which which"
+          ]
+        },
+        "6": {
+          "budget": 6,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "which which which which",
+          "sample_lengths": [
+            4,
+            5,
+            5,
+            4,
+            5,
+            5,
+            5,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "但 which which which",
+            "which但 which which which",
+            "which which which which which"
+          ]
+        },
+        "7": {
+          "budget": 11,
+          "greedy_length": 0,
+          "greedy_hard_wall": false,
+          "greedy": "",
+          "sample_lengths": [
+            1,
+            2,
+            5,
+            8,
+            2,
+            5,
+            5,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "Other",
+            "人:",
+            "PAPOT WAI"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 3,
+      "direction": "en2zh",
+      "source": "By using the KMI website, you consent to the data practices described in this statement.",
+      "source_encoded_length": 20,
+      "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+      "reference_length": 19,
+      "depths": {
+        "5": {
+          "budget": 5,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "which which which which",
+          "sample_lengths": [
+            4,
+            4,
+            4,
+            4,
+            3,
+            4,
+            3,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which which which",
+            "which which which which",
+            "which which which which"
+          ]
+        },
+        "6": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "以 which which以 which亦亦",
+          "sample_lengths": [
+            7,
+            8,
+            7,
+            8,
+            8,
+            7,
+            6,
+            6
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which于民亦亦亦以",
+            "which以 which以 which which以 which",
+            "以亦亦于以 which以"
+          ]
+        },
+        "7": {
+          "budget": 18,
+          "greedy_length": 12,
+          "greedy_hard_wall": false,
+          "greedy": "然而,他们将数据处理在收集和使用过程中,即",
+          "sample_lengths": [
+            15,
+            7,
+            11,
+            4,
+            8,
+            10,
+            14,
+            11
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "因此,除了根据本公司规定,本公司也被规定的声明另有规定的日期。",
+            "“我能典,在数据库上",
+            "如果您此设计方案 ( 表彰数据Avg All)"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 4,
+      "direction": "en2zh",
+      "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+      "source_encoded_length": 17,
+      "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "budget": 4,
+          "greedy_length": 3,
+          "greedy_hard_wall": false,
+          "greedy": "which which which",
+          "sample_lengths": [
+            3,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            2
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which which",
+            "which which",
+            "which which"
+          ]
+        },
+        "6": {
+          "budget": 8,
+          "greedy_length": 6,
+          "greedy_hard_wall": false,
+          "greedy": "which which以 which which以",
+          "sample_lengths": [
+            7,
+            6,
+            6,
+            5,
+            7,
+            6,
+            5,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which民 which which which which",
+            "民 which于 which which which",
+            "which以 which which以 which"
+          ]
+        },
+        "7": {
+          "budget": 15,
+          "greedy_length": 10,
+          "greedy_hard_wall": false,
+          "greedy": " ⁇ ,  ⁇ , 英国 (显示地图 )",
+          "sample_lengths": [
+            1,
+            12,
+            13,
+            7,
+            5,
+            10,
+            9,
+            10
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "洛杉矶",
+            "无空房 192 Cheo Road, 中国, M (Show",
+            "有关酒店 » Basber Road Road, 英国 (显示地图 )"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 5,
+      "direction": "zh2en",
+      "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+      "source_encoded_length": 39,
+      "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+      "reference_length": 57,
+      "depths": {
+        "5": {
+          "budget": 10,
+          "greedy_length": 8,
+          "greedy_hard_wall": false,
+          "greedy": "which which which which which which which which",
+          "sample_lengths": [
+            7,
+            8,
+            7,
+            8,
+            7,
+            7,
+            7,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which which which which which which",
+            "which which which which which which which which",
+            "which which which which which which which"
+          ]
+        },
+        "6": {
+          "budget": 19,
+          "greedy_length": 16,
+          "greedy_hard_wall": false,
+          "greedy": "which which which which which which which which which which which which which which which which",
+          "sample_lengths": [
+            13,
+            14,
+            15,
+            14,
+            13,
+            17,
+            16,
+            14
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which which which which which which which which which which which which",
+            "which which which which which which which which which which which which which which",
+            "which which which which which which which which which which which which which which which"
+          ]
+        },
+        "7": {
+          "budget": 37,
+          "greedy_length": 27,
+          "greedy_hard_wall": false,
+          "greedy": "The original terminal has been used to the beach, the latest port and the name of the port of the port of the port of the",
+          "sample_lengths": [
+            28,
+            29,
+            27,
+            21,
+            25,
+            32,
+            30,
+            28
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "When an administrator on the-c. 6. recovered's the application or view all a port model of the port of the port dialog.",
+            "The First name of the date of the shores the right port in the photo port of the text on the original terminal in the port connection on",
+            "This uses the right to the beach the port of the next location port in the location of the window so the next trip to display the"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 6,
+      "direction": "en2zh",
+      "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+      "source_encoded_length": 37,
+      "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+      "reference_length": 36,
+      "depths": {
+        "5": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "which which which which which which which",
+          "sample_lengths": [
+            8,
+            8,
+            7,
+            8,
+            8,
+            6,
+            6,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which which which which which which which",
+            "which which which which which which which which",
+            "which which which which which which which"
+          ]
+        },
+        "6": {
+          "budget": 18,
+          "greedy_length": 14,
+          "greedy_hard_wall": false,
+          "greedy": "以 which民 which which民 which民 which which民 which民 which",
+          "sample_lengths": [
+            16,
+            12,
+            15,
+            15,
+            15,
+            13,
+            15,
+            16
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "以 which民成绩民以 which以 which民旅民民 which说 which",
+            "但 which民以民以民民但亦但亦",
+            "以民以民民成绩以民民民民成绩民以 which"
+          ]
+        },
+        "7": {
+          "budget": 35,
+          "greedy_length": 26,
+          "greedy_hard_wall": false,
+          "greedy": "硬质合金 钨合金结构由钢质焊接,从而满足他们的美观、市场上的高清晰度和品牌美观、",
+          "sample_lengths": [
+            26,
+            28,
+            26,
+            21,
+            26,
+            21,
+            26,
+            24
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "让将更多的购朋友,一个在云中,主人,从而使你的脚,将拖把他们的组织成为他们的",
+            "硬质合金师将打造一个极低的 80-S系列强大的智能,从卡格中获得的美益团队为他们的食物。",
+            "钨合金合金的钢材面(即是他们的现金流动 ) , 以撒或拉作为抛光热量的和应用"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 7,
+      "direction": "zh2en",
+      "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+      "source_encoded_length": 19,
+      "reference": "We need to have black and white and Asian and Hispanic",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "budget": 5,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "which which which which",
+          "sample_lengths": [
+            3,
+            3,
+            4,
+            4,
+            4,
+            3,
+            4,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "which which which",
+            "which which which",
+            "which which which which"
+          ]
+        },
+        "6": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "以 which which民 which亦 which",
+          "sample_lengths": [
+            7,
+            6,
+            7,
+            8,
+            7,
+            6,
+            7,
+            8
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "以 which which民 which亦 which",
+            "民 which民亦亦 which",
+            "以 which which民 which亦 which"
+          ]
+        },
+        "7": {
+          "budget": 17,
+          "greedy_length": 9,
+          "greedy_hard_wall": false,
+          "greedy": "环保,他们和自己的爱格,",
+          "sample_lengths": [
+            14,
+            12,
+            11,
+            15,
+            5,
+            13,
+            14,
+            11
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "现在,我们亚洲已经有自己的责任也是进一步由欧洲人。",
+            "霍黑 laws和中美8W和uterry, saying",
+            "阅读全文ing of human edble and main, ping"
+          ]
+        }
+      }
+    }
+  ]
+}

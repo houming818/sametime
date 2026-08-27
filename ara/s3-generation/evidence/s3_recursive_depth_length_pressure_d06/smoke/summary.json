@@ -1,0 +1,79 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-LENGTH-PRESSURE-D06",
+  "mode": "smoke",
+  "seeds": [
+    10101
+  ],
+  "test_row_sha256": "11eaab2e0fb22a405539c185ef1559696bbf661d53acf6e4076fd328bae74d16",
+  "pressure_contract": {
+    "budget_from_target": false,
+    "source_special_tokens_removed": 2,
+    "min_budget": 2,
+    "max_output": 128,
+    "onset": 0.85,
+    "sharpness": 20.0,
+    "probability_mixture": "P'=(1-g)P+g*delta_EOS",
+    "hard_wall": true,
+    "samples_per_row": 3,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "target_read_during_generation": false,
+    "teacher_forcing": false
+  },
+  "seed_results": [
+    {
+      "seed": 10101,
+      "gates": {
+        "P0": true,
+        "P1": true,
+        "P2": true,
+        "P3": true,
+        "P4": false
+      },
+      "sample_median_lengths": {
+        "5": 4.0,
+        "6": 6.5,
+        "7": 11.0
+      },
+      "sample_median_budgets": {
+        "5": 5.0,
+        "6": 9.0,
+        "7": 17.5
+      },
+      "sample_pre_wall_eos": {
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0
+      },
+      "paired_sample": {
+        "pairs": 48,
+        "monotonic_fraction": 0.8958333333333334,
+        "strict_monotonic_fraction": 0.75,
+        "median_l5_over_l7": 0.2857142857142857,
+        "median_l6_over_l7": 0.5086206896551724
+      },
+      "depth7_safety": {
+        "baseline_bleu4": 3.6090712210659337,
+        "pressure_bleu4": 1.6613525974693364,
+        "baseline_repetition": 0.008342022940563087,
+        "pressure_repetition": 0.004155124653739612
+      }
+    }
+  ],
+  "gate_pass_counts": {
+    "P0": 1,
+    "P1": 1,
+    "P2": 1,
+    "P3": 1,
+    "P4": 0
+  },
+  "gates": {
+    "P0": true,
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": false,
+    "P5": true
+  },
+  "decision": "partial_hard_capacity_coupling_only"
+}

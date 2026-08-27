@@ -1,0 +1,1038 @@
+{
+  "claim": "S3-RECURSIVE-DEPTH-LENGTH-PRESSURE-D06",
+  "mode": "formal",
+  "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12r1/formal_seed10102/read/checkpoint_best.pt",
+  "checkpoint_state_sha256": "21f9d123d1135b73dbb3f2803da014aac64ff0a9c789c2d4396c6e52766f701d",
+  "parent_state_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "seed": 10102,
+  "test_rows": 128,
+  "test_row_sha256": "f8fc7061ac388886bbf1ee0b7770275ba694371a4d5fece7e56f42c9f4fa304e",
+  "depth_count": 9,
+  "depths": [
+    5,
+    6,
+    7
+  ],
+  "pressure_contract": {
+    "budget_from_target": false,
+    "source_special_tokens_removed": 2,
+    "min_budget": 2,
+    "max_output": 128,
+    "onset": 0.85,
+    "sharpness": 20.0,
+    "probability_mixture": "P'=(1-g)P+g*delta_EOS",
+    "hard_wall": true,
+    "samples_per_row": 8,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "target_read_during_generation": false,
+    "teacher_forcing": false
+  },
+  "baseline": {
+    "path": "ara/s3-generation/evidence/s3_recursive_depth_free_generation_length_d05/formal/seed_10102/summary.json",
+    "test_row_sha256": "f8fc7061ac388886bbf1ee0b7770275ba694371a4d5fece7e56f42c9f4fa304e",
+    "depth7_sample_bleu4": 5.171602323755027,
+    "depth7_sample_repetition": 0.09248059431401495
+  },
+  "metrics": {
+    "5": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 3.703125,
+        "median_length": 3.0,
+        "stdev_length": 3.1951119283015736,
+        "p25_length": 1.0,
+        "p75_length": 5.0,
+        "min_length": 1,
+        "max_length": 27,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.6502890173410405,
+        "mean_max_token_share": 0.8274987599206349,
+        "mean_unique_token_fraction": 0.6175667576058201,
+        "token_bleu4": 0.029004716641304242,
+        "max_output": 128,
+        "mean_budget": 5.109375,
+        "median_budget": 4.0,
+        "mean_length_over_budget": 0.6671998520143051,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 3.71484375,
+        "median_length": 3.0,
+        "stdev_length": 3.1419438112553726,
+        "p25_length": 1.0,
+        "p75_length": 5.0,
+        "min_length": 0,
+        "max_length": 29,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.998046875,
+        "adjacent_repetition_rate": 0.5801581595974119,
+        "mean_max_token_share": 0.7932652064732143,
+        "mean_unique_token_fraction": 0.6381478990308462,
+        "token_bleu4": 0.02202927970045846,
+        "max_output": 128,
+        "mean_budget": 5.109375,
+        "median_budget": 4.0,
+        "mean_length_over_budget": 0.6699021498521011,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    },
+    "6": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 6.5078125,
+        "median_length": 5.0,
+        "stdev_length": 5.890930653542252,
+        "p25_length": 3.0,
+        "p75_length": 9.0,
+        "min_length": 0,
+        "max_length": 51,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9609375,
+        "adjacent_repetition_rate": 0.11408450704225352,
+        "mean_max_token_share": 0.3443470961738425,
+        "mean_unique_token_fraction": 0.826552669527164,
+        "token_bleu4": 0.9857556756659798,
+        "max_output": 128,
+        "mean_budget": 9.7265625,
+        "median_budget": 8.0,
+        "mean_length_over_budget": 0.6180182672757958,
+        "median_length_over_budget": 0.6666666666666666,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 7.263671875,
+        "median_length": 6.0,
+        "stdev_length": 5.974131130744786,
+        "p25_length": 3.0,
+        "p75_length": 10.0,
+        "min_length": 0,
+        "max_length": 53,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9931640625,
+        "adjacent_repetition_rate": 0.06478741629029747,
+        "mean_max_token_share": 0.3022337068917384,
+        "mean_unique_token_fraction": 0.9106059132880399,
+        "token_bleu4": 0.8784112124947595,
+        "max_output": 128,
+        "mean_budget": 9.7265625,
+        "median_budget": 8.0,
+        "mean_length_over_budget": 0.7173313410248782,
+        "median_length_over_budget": 0.75,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    },
+    "7": {
+      "greedy": {
+        "count": 128,
+        "mean_length": 11.59375,
+        "median_length": 9.0,
+        "stdev_length": 8.49488586959825,
+        "p25_length": 5.0,
+        "p75_length": 17.0,
+        "min_length": 0,
+        "max_length": 36,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.9609375,
+        "adjacent_repetition_rate": 0.024981631153563555,
+        "mean_max_token_share": 0.234231787626332,
+        "mean_unique_token_fraction": 0.7756761668836473,
+        "token_bleu4": 3.126322854514236,
+        "max_output": 128,
+        "mean_budget": 18.921875,
+        "median_budget": 15.0,
+        "mean_length_over_budget": 0.5954633368822164,
+        "median_length_over_budget": 0.637330754352031,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      },
+      "sample": {
+        "count": 1024,
+        "mean_length": 12.5205078125,
+        "median_length": 10.0,
+        "stdev_length": 9.771189381524977,
+        "p25_length": 5.0,
+        "p75_length": 18.0,
+        "min_length": 0,
+        "max_length": 85,
+        "eos_hit_rate": 1.0,
+        "cap_rate": 0.0,
+        "nonempty_rate": 0.994140625,
+        "adjacent_repetition_rate": 0.012200288062357028,
+        "mean_max_token_share": 0.19437271244056925,
+        "mean_unique_token_fraction": 0.9255568840907913,
+        "token_bleu4": 2.72018096860782,
+        "max_output": 128,
+        "mean_budget": 18.921875,
+        "median_budget": 15.0,
+        "mean_length_over_budget": 0.6569774947162106,
+        "median_length_over_budget": 0.7142857142857143,
+        "hard_wall_rate": 0.0,
+        "pre_wall_eos_rate": 1.0
+      }
+    }
+  },
+  "paired": {
+    "greedy": {
+      "pairs": 128,
+      "monotonic_fraction": 0.953125,
+      "strict_monotonic_fraction": 0.875,
+      "median_l5_over_l7": 0.30434782608695654,
+      "median_l6_over_l7": 0.5
+    },
+    "sample": {
+      "pairs": 1024,
+      "monotonic_fraction": 0.96875,
+      "strict_monotonic_fraction": 0.828125,
+      "median_l5_over_l7": 0.2777777777777778,
+      "median_l6_over_l7": 0.5555555555555556
+    }
+  },
+  "gates": {
+    "P0": true,
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": false
+  },
+  "examples": [
+    {
+      "row_index": 0,
+      "direction": "zh2en",
+      "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+      "source_encoded_length": 27,
+      "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+      "reference_length": 32,
+      "depths": {
+        "5": {
+          "budget": 7,
+          "greedy_length": 5,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向方向",
+          "sample_lengths": [
+            5,
+            6,
+            5,
+            5,
+            6,
+            5,
+            6,
+            5
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向方向方向",
+            "方向方向方向方向方向方向",
+            "方向方向方向方向方向"
+          ]
+        },
+        "6": {
+          "budget": 13,
+          "greedy_length": 11,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向方向方向方向方向方向方向方向",
+          "sample_lengths": [
+            11,
+            9,
+            9,
+            10,
+            11,
+            9,
+            10,
+            11
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向方向方向方向方向方向方向方向方向",
+            "方向方向方向方向方向凡方向凡方向",
+            "方向方向方向方向方向方向方向凡方向"
+          ]
+        },
+        "7": {
+          "budget": 25,
+          "greedy_length": 19,
+          "greedy_hard_wall": false,
+          "greedy": "You agree to indemnify and hold of the Member States, and to be liable for any loss or",
+          "sample_lengths": [
+            6,
+            20,
+            22,
+            22,
+            20,
+            21,
+            20,
+            17
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "Nothing in the existing articles.",
+            "Term of the local authorities of any obligation, account or/ for any damage to act or any law",
+            "Termby of Law, law or any of no violation of any law or any other applicable law rights to the"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 1,
+      "direction": "en2zh",
+      "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+      "source_encoded_length": 127,
+      "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+      "reference_length": 92,
+      "depths": {
+        "5": {
+          "budget": 32,
+          "greedy_length": 27,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向",
+          "sample_lengths": [
+            29,
+            25,
+            25,
+            27,
+            24,
+            27,
+            24,
+            24
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向",
+            "方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向",
+            "方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向"
+          ]
+        },
+        "6": {
+          "budget": 63,
+          "greedy_length": 51,
+          "greedy_hard_wall": false,
+          "greedy": "方向凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡方向凡用的凡用的方向用的方向往方向往方向凡方向方向",
+          "sample_lengths": [
+            45,
+            47,
+            50,
+            53,
+            47,
+            49,
+            48,
+            48
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡方向凡用的凡凡凡方向凡用的方向凡方向往方向凡方向往方向凡方向方向",
+            "方向往方向凡方向凡用的凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡方向凡凡凡方向方向方向方向方向往方向凡方向方向方向方向方向方向同样方向往方向",
+            "方向凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡凡用的方向用的方向往方向凡凡方向方向方向建立方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向方向"
+          ]
+        },
+        "7": {
+          "budget": 125,
+          "greedy_length": 36,
+          "greedy_hard_wall": false,
+          "greedy": "建设单位为“十二个月”的由温哥华,他又于2007年温哥华台处,并由其同于1962年温哥华台处。",
+          "sample_lengths": [
+            57,
+            85,
+            48,
+            84,
+            40,
+            37,
+            69,
+            52
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "她们已经从2007年他推出了以\"第三名\"为中心的多名旅客为5位数位而为5人,由其同博雅虎同仁的股东会因被打长的原因被委任为例,从1986年左右。",
+            "17世纪,在1998年在墨西哥公司前沿地区的青森地区,后者正在与当地人、前沿地区的统一地区,制定了其前身后,其支柱是代表人争夺得克萨斯的国民党。 土地提案是将木制人其利兹是罗布提案,但其后又该金马提督为该亚地区之人,以一种",
+            "上一页项目将 Gartner,确保雅虎公司(Academ ⁇ )自 ⁇ 开始传播媒介,在2002年为8月18日发布的资料,将照片描述为在您的字符置于胆清算的周边环境。"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 2,
+      "direction": "en2zh",
+      "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+      "source_encoded_length": 13,
+      "reference": "WOODROW WILSON ELEMENTARY SCHO",
+      "reference_length": 12,
+      "depths": {
+        "5": {
+          "budget": 3,
+          "greedy_length": 2,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向",
+          "sample_lengths": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向",
+            "方向方向",
+            "方向方向"
+          ]
+        },
+        "6": {
+          "budget": 6,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向凡",
+          "sample_lengths": [
+            4,
+            5,
+            5,
+            4,
+            4,
+            5,
+            5,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向凡",
+            "方向方向方向凡凡",
+            "方向方向方向凡凡"
+          ]
+        },
+        "7": {
+          "budget": 11,
+          "greedy_length": 5,
+          "greedy_hard_wall": false,
+          "greedy": "HMSYARO",
+          "sample_lengths": [
+            6,
+            2,
+            9,
+            9,
+            8,
+            7,
+            6,
+            9
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "Crea Age Alamma",
+            "电子产品",
+            "4 Sldploto(UKMS)"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 3,
+      "direction": "en2zh",
+      "source": "By using the KMI website, you consent to the data practices described in this statement.",
+      "source_encoded_length": 20,
+      "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+      "reference_length": 19,
+      "depths": {
+        "5": {
+          "budget": 5,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向",
+          "sample_lengths": [
+            4,
+            4,
+            4,
+            4,
+            3,
+            4,
+            3,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向方向",
+            "方向方向方向方向",
+            "方向方向方向方向"
+          ]
+        },
+        "6": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "方向凡凡方向方向凡方向",
+          "sample_lengths": [
+            7,
+            8,
+            6,
+            8,
+            8,
+            6,
+            7,
+            6
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向凡凡方向方向凡方向",
+            "方向方向凡凡方向凡方向凡",
+            "方向凡方向凡方向凡"
+          ]
+        },
+        "7": {
+          "budget": 18,
+          "greedy_length": 11,
+          "greedy_hard_wall": false,
+          "greedy": "本网站使用cookies,使用我们的网站,请用于",
+          "sample_lengths": [
+            16,
+            9,
+            8,
+            12,
+            9,
+            15,
+            7,
+            11
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "如果您使用手机登录网站,请登录一些浏览电子网站分析使用网站链接",
+            "When around you to the 提供,QS",
+            "在你进入TUNORM."
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 4,
+      "direction": "en2zh",
+      "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+      "source_encoded_length": 17,
+      "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "budget": 4,
+          "greedy_length": 3,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向",
+          "sample_lengths": [
+            3,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            2
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向",
+            "方向方向",
+            "方向方向"
+          ]
+        },
+        "6": {
+          "budget": 8,
+          "greedy_length": 6,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向方向方向",
+          "sample_lengths": [
+            7,
+            6,
+            6,
+            6,
+            6,
+            7,
+            5,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向凡方向方向凡",
+            "方向方向方向方向凡方向",
+            "方向方向方向方向方向凡"
+          ]
+        },
+        "7": {
+          "budget": 15,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": " ⁇ , 英国 (显示地图 )",
+          "sample_lengths": [
+            6,
+            10,
+            11,
+            8,
+            13,
+            9,
+            6,
+            11
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "0.2 公里 (WestG)",
+            "电光爵通道 (显示地图 ) ) , R",
+            "Certified in Stone, Black (Pke ) :"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 5,
+      "direction": "zh2en",
+      "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+      "source_encoded_length": 39,
+      "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+      "reference_length": 57,
+      "depths": {
+        "5": {
+          "budget": 10,
+          "greedy_length": 8,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向方向方向方向方向",
+          "sample_lengths": [
+            7,
+            8,
+            7,
+            8,
+            7,
+            7,
+            7,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向方向方向方向方向",
+            "方向方向方向方向方向方向方向方向",
+            "方向方向方向方向方向方向方向"
+          ]
+        },
+        "6": {
+          "budget": 19,
+          "greedy_length": 15,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向凡方向凡方向方向凡方向凡方向凡方向",
+          "sample_lengths": [
+            16,
+            14,
+            17,
+            17,
+            15,
+            15,
+            15,
+            15
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向凡方向凡方向凡方向凡方向方向方向方向方向,",
+            "方向方向凡方向凡方向凡凡方向凡方向凡方向凡",
+            "方向方向方向凡方向凡方向方向凡方向凡方向凡方向凡凡方向"
+          ]
+        },
+        "7": {
+          "budget": 37,
+          "greedy_length": 25,
+          "greedy_hard_wall": false,
+          "greedy": "The number of the number of the image of the number of the port of the port of the city are the next to the",
+          "sample_lengths": [
+            30,
+            21,
+            29,
+            28,
+            31,
+            29,
+            30,
+            31
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "In a private language information are applied to the section called from the number of the land port of the argue that the image, will the noise during",
+            "The value of the string of the portval can be applied to with a flexible itself shows a field.",
+            "The tool's logistics or the page is applied to the includes a large number of the image-defined place to the whole system, the sc"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 6,
+      "direction": "en2zh",
+      "source": "Tungsten ring is rich of texture and has high cost-performance, which make them become a good choice for many couples to express their feelings, to consolidate the love.",
+      "source_encoded_length": 37,
+      "reference": "女士钨钢戒指不朽不坏、富有质感以及性价比极高的特性使其成为许多情侣用以表达心意、巩固爱情的绝佳之选。",
+      "reference_length": 36,
+      "depths": {
+        "5": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向方向方向方向",
+          "sample_lengths": [
+            8,
+            8,
+            7,
+            8,
+            8,
+            6,
+            7,
+            7
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向方向方向方向方向方向",
+            "方向方向方向方向方向方向方向方向",
+            "方向方向方向方向方向方向方向"
+          ]
+        },
+        "6": {
+          "budget": 18,
+          "greedy_length": 15,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向凡方向方向凡凡凡方向方向凡方向方向凡方向",
+          "sample_lengths": [
+            16,
+            14,
+            15,
+            15,
+            15,
+            14,
+            14,
+            15
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向凡凡方向凡凡方向凡方向凡宾方向凡凡方向凡",
+            "方向方向凡方向凡凡方向往方向凡方向往方向方向",
+            "方向凡凡方向方向凡方向方向凡凡方向凡方向凡方向"
+          ]
+        },
+        "7": {
+          "budget": 35,
+          "greedy_length": 22,
+          "greedy_hard_wall": false,
+          "greedy": "玩家可以轻松的辅助自足轻、地、足迹、速度和时间,例如,我们",
+          "sample_lengths": [
+            26,
+            24,
+            29,
+            27,
+            25,
+            24,
+            24,
+            24
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "请注意,FK dox3是万变,换不是一个来自外邦的孙利,这言了很低",
+            "创新量大系列, 重点关注的一大风气,使成为前所未有的腰力,可以提升的是",
+            " ⁇ 体力重、石贴土可以变平,但不是给最大的脸料负责,石料是凝黏度的身"
+          ]
+        }
+      }
+    },
+    {
+      "row_index": 7,
+      "direction": "zh2en",
+      "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+      "source_encoded_length": 19,
+      "reference": "We need to have black and white and Asian and Hispanic",
+      "reference_length": 13,
+      "depths": {
+        "5": {
+          "budget": 5,
+          "greedy_length": 4,
+          "greedy_hard_wall": false,
+          "greedy": "方向方向方向方向",
+          "sample_lengths": [
+            3,
+            3,
+            4,
+            4,
+            4,
+            3,
+            4,
+            4
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向方向方向",
+            "方向方向方向",
+            "方向方向方向方向"
+          ]
+        },
+        "6": {
+          "budget": 9,
+          "greedy_length": 7,
+          "greedy_hard_wall": false,
+          "greedy": "方向凡凡方向凡凡方向",
+          "sample_lengths": [
+            7,
+            6,
+            7,
+            8,
+            7,
+            6,
+            7,
+            8
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "方向凡凡凡凡凡凡",
+            "方向凡凡凡凡方向",
+            "方向凡凡方向方向凡方向"
+          ]
+        },
+        "7": {
+          "budget": 17,
+          "greedy_length": 11,
+          "greedy_hard_wall": false,
+          "greedy": "需要对白色的和颜色的东西,他们",
+          "sample_lengths": [
+            14,
+            13,
+            6,
+            14,
+            10,
+            4,
+            12,
+            13
+          ],
+          "sample_hard_wall": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "samples": [
+            "这种需要对绝营的对救口发出和治理和人的染",
+            "李恩嘴,纯洁性,我们已受10个",
+            "World的问题 in Koreais."
+          ]
+        }
+      }
+    }
+  ]
+}
