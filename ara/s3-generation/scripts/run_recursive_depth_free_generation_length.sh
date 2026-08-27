@@ -27,7 +27,7 @@ python3 "$runner" \
   --eval-rows 16 \
   --batch-size 4 \
   --samples 3 \
-  --max-output 64 \
+  --max-output 256 \
   --device cuda \
   2>&1 | tee "$root/smoke.log"
 
@@ -52,7 +52,7 @@ python3 "$runner" \
   --eval-rows 128 \
   --batch-size 8 \
   --samples 8 \
-  --max-output 64 \
+  --max-output 256 \
   --device cuda \
   2>&1 | tee "$root/formal.log"
 

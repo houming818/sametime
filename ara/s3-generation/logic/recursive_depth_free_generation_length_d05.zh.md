@@ -22,7 +22,7 @@ depth 6：中间状态
 depth 7：完整状态
 ```
 
-所有深度统一最多生成 64 个 token。Decoder 从 BOS 开始逐 token 生成，只有生成 EOS
+所有深度统一最多生成 256 个 token。Decoder 从 BOS 开始逐 token 生成，只有生成 EOS
 才自然停止。实验不能把 depth 5 或 depth 6 的 `max_output` 预先缩短。
 
 若 TreeHeap 已经形成“深度对应分辨率”的私有协议，则冻结模型应当表现出稳定的长度
@@ -52,7 +52,7 @@ median(L5 / L7) ~= 1/4
 1. 各深度自由生成长度的均值、中位数和四分位数；
 2. 同一句、同一采样编号下的配对比值 `L5/L7` 与 `L6/L7`；
 3. 满足 `L5 <= L6 <= L7` 的配对比例；
-4. EOS 命中率与 64-token 触顶率；
+4. EOS 命中率与 256-token 触顶率；
 5. greedy 与随机采样是否给出相同方向；
 6. 重复率、非空率、BLEU 和可读样例只作为退化诊断，不作为长度 Claim 的主判据。
 
@@ -60,7 +60,7 @@ median(L5 / L7) ~= 1/4
 
 ### P0：实现与证据合同
 
-- 三个深度使用同一输入、同一 checkpoint、同一 `max_output=64`；
+- 三个深度使用同一输入、同一 checkpoint、同一 `max_output=256`；
 - 生成过程不读取 target，不使用 teacher forcing，不按目标长度分组；
 - checkpoint 哈希与 test-row 哈希完整，所有长度统计有限；
 - depth `5/6/7` 均是该 TreeHeap 的合法 READ 深度。
@@ -91,7 +91,11 @@ median(L5) < median(L6) < median(L7)
 ### P3：EOS 可观测性
 
 三个深度的随机采样触顶率均不超过 `10%`。若任一深度大量触顶，则该深度的真实长度
-被右删失，长度比例判为 `inconclusive`，不能把 64 当作真实长度。
+被右删失，长度比例判为 `inconclusive`，不能把 256 当作真实长度。
+
+第一次 smoke 使用共同上限 64，观察到 depth 5/6/7 触顶率分别为
+`75%/25%/2.08%`。这说明 64 不能测量浅层自然长度。该结果只用于测量窗口预检，
+在三 seed 正式实验前将所有深度的共同上限统一扩大到 256；Predict 和配对判据不变。
 
 ### P4：跨 seed 复现
 
