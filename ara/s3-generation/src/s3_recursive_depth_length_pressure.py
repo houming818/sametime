@@ -355,8 +355,10 @@ def aggregate(summaries, output: Path, args):
         decision = "invalid_contract"
     elif p1 and p2 and p3 and p4 and p5:
         decision = "supported_depth_length_pressure_board"
+    elif p1 and p2 and p3:
+        decision = "supported_soft_pressure_coupling_with_quality_cost"
     elif p1 and p2:
-        decision = "partial_hard_capacity_coupling_only"
+        decision = "partial_capacity_coupling_soft_pressure_not_proven"
     else:
         decision = "not_supported_depth_length_pressure_board"
     result = {
