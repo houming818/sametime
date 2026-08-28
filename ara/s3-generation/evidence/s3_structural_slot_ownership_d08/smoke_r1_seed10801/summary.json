@@ -1,0 +1,2521 @@
+{
+  "claim": "S3-STRUCTURAL-SLOT-OWNERSHIP-D08R1",
+  "decision": "smoke_supports_multiseed",
+  "host": "io",
+  "config": {
+    "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_structural_slot_ownership_d08/smoke_r1_seed10801",
+    "wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "seed": 10801,
+    "steps": 600,
+    "batch_size": 8,
+    "train_rows": 2048,
+    "eval_rows": 128,
+    "max_slots": 32,
+    "max_generation": 64,
+    "lr": 0.001,
+    "log_every": 120,
+    "self_test": false
+  },
+  "checkpoint_parent_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "source_state_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "rows": {
+    "train": 2048,
+    "valid": 128,
+    "test": 128
+  },
+  "row_sha256": {
+    "train": "7f8cf12128d6ab68e717c47f61db5ba3048e60f581e30877dc391c7b85dab052",
+    "valid": "5f5b45ddd6325c3c05d1967cf8ea8d771721d4c0a9f558966f6a2766c47ee50d",
+    "test": "22a526dc5e0863ef5cf199da0552f7f8f78997e4105c3dc9cd0d34cc7db63b7c"
+  },
+  "initialization_match": true,
+  "quality_nll_margins": {
+    "5": {
+      "vs_free": 0.14118161925082084,
+      "vs_random": 0.0279986607889251
+    },
+    "6": {
+      "vs_free": 0.21118811225148892,
+      "vs_random": 0.06638665700237123
+    },
+    "7": {
+      "vs_free": 0.20265316499346486,
+      "vs_random": 0.053731332029350654
+    }
+  },
+  "gates": {
+    "P0_contracts": true,
+    "P1_ownership": true,
+    "P2_quality": true,
+    "P3_input_causality": true,
+    "P4_rate_direction": true,
+    "P5_trainability": true
+  },
+  "arms": {
+    "free": {
+      "claim": "S3-STRUCTURAL-SLOT-OWNERSHIP-D08R1",
+      "arm": "free",
+      "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+      "initial_trainable_sha256": "aa691d04565c0f1bb2c4131fd466755f6804985a20f30cf6f8d57a17bf22d619",
+      "source_sha256_before": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+      "source_sha256_after": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+      "language_sha256_before": "96dec69fd5c153f085c5b838f94653fc7f2f82c6a5521679bc210b7120057e01",
+      "language_sha256_after": "96dec69fd5c153f085c5b838f94653fc7f2f82c6a5521679bc210b7120057e01",
+      "protocol_gain_initial": 0.01798621006309986,
+      "protocol_gain_final": 0.021976472809910774,
+      "initial_valid": {
+        "5": {
+          "nll": 6.1946365009815425,
+          "ppl": 490.1132569265595,
+          "tokens": 2157,
+          "mean_budget": 4.2265625,
+          "slot_variance": 0.00032335295825645797,
+          "between_slot_variance": 9.647420808001073e-06,
+          "route": {
+            "route_pair_overlap": 0.7990828767746693,
+            "route_pair_cosine": 0.8539436647700859,
+            "argmax_coverage": 0.44700520833333335,
+            "owner_leaf_coverage": null
+          }
+        },
+        "6": {
+          "nll": 6.2037809369295465,
+          "ppl": 494.61562062583005,
+          "tokens": 2157,
+          "mean_budget": 7.90625,
+          "slot_variance": 0.00032332169514134705,
+          "between_slot_variance": 1.1742616536025707e-05,
+          "route": {
+            "route_pair_overlap": 0.9128562357562394,
+            "route_pair_cosine": 0.9649073154878655,
+            "argmax_coverage": 0.329404493076368,
+            "owner_leaf_coverage": null
+          }
+        },
+        "7": {
+          "nll": 6.200326154670839,
+          "ppl": 492.90977970596015,
+          "tokens": 2157,
+          "mean_budget": 15.265625,
+          "slot_variance": 0.00032331682875096616,
+          "between_slot_variance": 1.3252913465322536e-05,
+          "route": {
+            "route_pair_overlap": 0.8125030886335649,
+            "route_pair_cosine": 0.9210619873584709,
+            "argmax_coverage": 0.12911573834099543,
+            "owner_leaf_coverage": null
+          }
+        }
+      },
+      "final_valid": {
+        "5": {
+          "nll": 6.078821202588955,
+          "ppl": 436.51432935570443,
+          "tokens": 2157,
+          "mean_budget": 4.2265625,
+          "slot_variance": 0.0005450099809184771,
+          "between_slot_variance": 1.1791745934675284e-06,
+          "route": {
+            "route_pair_overlap": 0.9749120568289948,
+            "route_pair_cosine": 0.9886310221022145,
+            "argmax_coverage": 0.29964657738095235,
+            "owner_leaf_coverage": null
+          }
+        },
+        "6": {
+          "nll": 6.068986223315441,
+          "ppl": 432.24226225482744,
+          "tokens": 2157,
+          "mean_budget": 7.90625,
+          "slot_variance": 0.0005457138490997625,
+          "between_slot_variance": 8.665124121287615e-07,
+          "route": {
+            "route_pair_overlap": 0.9455646522277689,
+            "route_pair_cosine": 0.9674781400371776,
+            "argmax_coverage": 0.18504900047868797,
+            "owner_leaf_coverage": null
+          }
+        },
+        "7": {
+          "nll": 6.075151849356746,
+          "ppl": 434.91553914724955,
+          "tokens": 2157,
+          "mean_budget": 15.265625,
+          "slot_variance": 0.0005457277892157145,
+          "between_slot_variance": 1.1263639148788654e-06,
+          "route": {
+            "route_pair_overlap": 0.9477045933061115,
+            "route_pair_cosine": 0.9707678142113797,
+            "argmax_coverage": 0.10286655309764953,
+            "owner_leaf_coverage": null
+          }
+        }
+      },
+      "final_test": {
+        "5": {
+          "native": {
+            "nll": 5.983720831370076,
+            "ppl": 396.91447583449786,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0005432256561304019,
+            "between_slot_variance": 9.006391692928731e-07,
+            "route": {
+              "route_pair_overlap": 0.9824532594271879,
+              "route_pair_cosine": 0.9925634332654967,
+              "argmax_coverage": 0.32101004464285715,
+              "owner_leaf_coverage": null
+            }
+          },
+          "shuffle": {
+            "nll": 6.094066456598067,
+            "ppl": 443.22008679549975,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0003757034765796262,
+            "between_slot_variance": 5.258341486825426e-05,
+            "route": {
+              "route_pair_overlap": 0.9824532594271879,
+              "route_pair_cosine": 0.9925634332654967,
+              "argmax_coverage": 0.32101004464285715,
+              "owner_leaf_coverage": null
+            }
+          },
+          "zero": {
+            "nll": 6.021747425836348,
+            "ppl": 412.298427541715,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.9824532594271879,
+              "route_pair_cosine": 0.9925634332654967,
+              "argmax_coverage": 0.32101004464285715,
+              "owner_leaf_coverage": null
+            }
+          },
+          "generation": {
+            "token_bleu4": 0.6200886992358101,
+            "adjacent_repetition_rate": 0.0,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  8.289306047126743e-11,
+                  0.6931408047676086,
+                  1.386279582977295,
+                  1.9068148136138916
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6931369304656982,
+                  1.0386137962341309
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  8.289306047126743e-11,
+                  0.6930670738220215,
+                  1.037912130355835,
+                  1.3827570676803589
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  8.289306047126743e-11,
+                  1.9341711565701303e-10,
+                  0.6931473016738892,
+                  1.3862946033477783
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  8.289306047126743e-11,
+                  0.6930464506149292,
+                  1.0429357290267944,
+                  1.3928250074386597
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,我喜欢你,你喜欢你。",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6930750608444214,
+                  1.386142611503601,
+                  1.901099681854248
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6931471824645996
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6931471824645996,
+                  1.3862943649291992
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,我喜欢你,你喜欢你。",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6930893063545227,
+                  1.386169195175171,
+                  1.9015697240829468
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": " ⁇ 子",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6931471824645996
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6931471824645996
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": " ⁇ 子:",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341715729037645e-10,
+                  4.1446532317301887e-10,
+                  0.6931471824645996
+                ]
+              }
+            ]
+          }
+        },
+        "6": {
+          "native": {
+            "nll": 5.981839666106821,
+            "ppl": 396.16851596695284,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.000544647772506729,
+            "between_slot_variance": 7.019017514535431e-07,
+            "route": {
+              "route_pair_overlap": 0.9627904874175306,
+              "route_pair_cosine": 0.9849387214561665,
+              "argmax_coverage": 0.19376593458624705,
+              "owner_leaf_coverage": null
+            }
+          },
+          "shuffle": {
+            "nll": 6.116477877249514,
+            "ppl": 453.26542327870345,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.0003566708459863312,
+            "between_slot_variance": 5.5622794857128e-05,
+            "route": {
+              "route_pair_overlap": 0.9627904874175306,
+              "route_pair_cosine": 0.9849387214561665,
+              "argmax_coverage": 0.19376593458624705,
+              "owner_leaf_coverage": null
+            }
+          },
+          "zero": {
+            "nll": 6.022222615401569,
+            "ppl": 412.4943940091626,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.9627904874175306,
+              "route_pair_cosine": 0.9849387214561665,
+              "argmax_coverage": 0.19376593458624705,
+              "owner_leaf_coverage": null
+            }
+          },
+          "generation": {
+            "token_bleu4": 0.6200886992358101,
+            "adjacent_repetition_rate": 0.0,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 13,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  0.6931107640266418,
+                  1.3862152099609375,
+                  1.9073867797851562,
+                  2.428558349609375
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 6,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931177973747253,
+                  1.0375630855560303,
+                  1.7307101488113403
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 9,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  0.6928669810295105,
+                  1.0355842113494873,
+                  1.3783016204833984,
+                  1.7210190296173096
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 8,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  8.289306047126743e-11,
+                  0.6931473016738892,
+                  1.3862946033477783,
+                  2.0794413089752197
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 9,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  0.6928420066833496,
+                  1.0450074672698975,
+                  1.3971729278564453,
+                  1.7493383884429932
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,我喜欢你,你喜欢你。",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6929959654808044,
+                  1.3859846591949463,
+                  1.8988248109817505,
+                  2.5919718742370605
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6931320428848267,
+                  1.0381672382354736
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931424736976624,
+                  1.3862847089767456,
+                  1.9052592515945435
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,我喜欢你,你喜欢你。",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6930127739906311,
+                  1.3860228061676025,
+                  1.899329662322998,
+                  2.5924763679504395
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": " ⁇ 子",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6931296586990356,
+                  1.037982702255249
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6931471228599548,
+                  1.3862943649291992
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": " ⁇ 子:",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341715729037645e-10,
+                  0.6931371092796326,
+                  1.0385023355484009
+                ]
+              }
+            ]
+          }
+        },
+        "7": {
+          "native": {
+            "nll": 5.989443263191194,
+            "ppl": 399.192303000755,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0005446927231182637,
+            "between_slot_variance": 9.227344633061345e-07,
+            "route": {
+              "route_pair_overlap": 0.9646832407515281,
+              "route_pair_cosine": 0.985151946024443,
+              "argmax_coverage": 0.10433578363306532,
+              "owner_leaf_coverage": null
+            }
+          },
+          "shuffle": {
+            "nll": 6.1251241483577035,
+            "ppl": 457.2014705573833,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0003487330399857618,
+            "between_slot_variance": 5.5746333050808033e-05,
+            "route": {
+              "route_pair_overlap": 0.9646832407515281,
+              "route_pair_cosine": 0.985151946024443,
+              "argmax_coverage": 0.10433578363306532,
+              "owner_leaf_coverage": null
+            }
+          },
+          "zero": {
+            "nll": 6.022541803144759,
+            "ppl": 412.6260781787334,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.9646832407515281,
+              "route_pair_cosine": 0.985151946024443,
+              "argmax_coverage": 0.10433578363306532,
+              "owner_leaf_coverage": null
+            }
+          },
+          "generation": {
+            "token_bleu4": 0.6252013746676642,
+            "adjacent_repetition_rate": 0.0,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 25,
+                "route": [
+                  0.0,
+                  0.693029522895813,
+                  1.386046290397644,
+                  1.9077718257904053,
+                  2.429497718811035,
+                  2.951223373413086
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 11,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.693051815032959,
+                  1.0358853340148926,
+                  1.729024887084961,
+                  2.246269702911377
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 18,
+                "route": [
+                  0.0,
+                  0.6925269961357117,
+                  1.032214641571045,
+                  1.371902346611023,
+                  1.711590051651001,
+                  2.4047372341156006
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 15,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  0.6931451559066772,
+                  1.386290192604065,
+                  2.079434394836426,
+                  2.685973882675171
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 17,
+                "route": [
+                  0.0,
+                  0.6923801898956299,
+                  1.0474953651428223,
+                  1.4026105403900146,
+                  1.7577255964279175,
+                  2.1128406524658203
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,我喜欢你,你喜欢你,你喜欢你。",
+                "budget": 28,
+                "route": [
+                  0.0,
+                  0.692840576171875,
+                  1.3856717348098755,
+                  1.8954757452011108,
+                  2.588623046875,
+                  3.2817702293395996
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6930798292160034,
+                  1.0363388061523438,
+                  1.379597783088684
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6931377649307251,
+                  1.3862749338150024,
+                  1.9048779010772705,
+                  2.598024845123291
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,我喜欢你,你喜欢你。",
+                "budget": 28,
+                "route": [
+                  0.0,
+                  0.6929059624671936,
+                  1.385791301727295,
+                  1.8966704607009888,
+                  2.589817523956299,
+                  3.2829647064208984
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": " ⁇ 子",
+                "budget": 6,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931192874908447,
+                  1.0374916791915894,
+                  1.7306387424468994
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931412220001221,
+                  1.386282205581665,
+                  1.905033826828003
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": " ⁇ 子:",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.693101167678833,
+                  1.0369255542755127,
+                  1.3807499408721924
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "causal_nll_deltas": {
+        "5": {
+          "shuffle": 0.11034562522799085,
+          "zero": 0.0380265944662721
+        },
+        "6": {
+          "shuffle": 0.13463821114269248,
+          "zero": 0.04038294929474784
+        },
+        "7": {
+          "shuffle": 0.13568088516650967,
+          "zero": 0.033098539953565265
+        }
+      },
+      "first_step_gradients": {
+        "compressor_read": 1.815739129341092,
+        "compressor_slot": 3.3014787170544517,
+        "reconstructor_read": 3.7467826382879528,
+        "protocol_gain": 0.018834756687283516
+      },
+      "seconds": 138.79818654060364
+    },
+    "subheap": {
+      "claim": "S3-STRUCTURAL-SLOT-OWNERSHIP-D08R1",
+      "arm": "subheap",
+      "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+      "initial_trainable_sha256": "aa691d04565c0f1bb2c4131fd466755f6804985a20f30cf6f8d57a17bf22d619",
+      "source_sha256_before": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+      "source_sha256_after": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+      "language_sha256_before": "96dec69fd5c153f085c5b838f94653fc7f2f82c6a5521679bc210b7120057e01",
+      "language_sha256_after": "96dec69fd5c153f085c5b838f94653fc7f2f82c6a5521679bc210b7120057e01",
+      "protocol_gain_initial": 0.01798621006309986,
+      "protocol_gain_final": 0.02343767322599888,
+      "initial_valid": {
+        "5": {
+          "nll": 6.19433899350226,
+          "ppl": 489.96746625491136,
+          "tokens": 2157,
+          "mean_budget": 4.2265625,
+          "slot_variance": 0.00032335497067067186,
+          "between_slot_variance": 1.4258489379415096e-05,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "6": {
+          "nll": 6.203304455243829,
+          "ppl": 494.38000147969365,
+          "tokens": 2157,
+          "mean_budget": 7.90625,
+          "slot_variance": 0.00032332763738429594,
+          "between_slot_variance": 2.1448764087494965e-05,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "7": {
+          "nll": 6.200202980801968,
+          "ppl": 492.8490698404004,
+          "tokens": 2157,
+          "mean_budget": 15.265625,
+          "slot_variance": 0.0003233287948638414,
+          "between_slot_variance": 3.1284501559980527e-05,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        }
+      },
+      "final_valid": {
+        "5": {
+          "nll": 5.981283118009678,
+          "ppl": 395.94809047762635,
+          "tokens": 2157,
+          "mean_budget": 4.2265625,
+          "slot_variance": 0.0006544468523700641,
+          "between_slot_variance": 0.00020489582880856005,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "6": {
+          "nll": 5.909534976059052,
+          "ppl": 368.53473807958693,
+          "tokens": 2157,
+          "mean_budget": 7.90625,
+          "slot_variance": 0.0006538721112325811,
+          "between_slot_variance": 0.0003149647729259186,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "7": {
+          "nll": 5.924625486923027,
+          "ppl": 374.1382894366791,
+          "tokens": 2157,
+          "mean_budget": 15.265625,
+          "slot_variance": 0.0006532960036416247,
+          "between_slot_variance": 0.00036410917448392865,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        }
+      },
+      "final_test": {
+        "5": {
+          "native": {
+            "nll": 5.842539212119255,
+            "ppl": 344.6533785473039,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0006551055579745674,
+            "between_slot_variance": 0.00015086611221981627,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "shuffle": {
+            "nll": 6.1724206056112445,
+            "ppl": 479.34500811738985,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0004531226904721655,
+            "between_slot_variance": 0.00015307392800967268,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "zero": {
+            "nll": 6.065571796105529,
+            "ppl": 430.7689192559144,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "generation": {
+            "token_bleu4": 1.1765628454428987,
+            "adjacent_repetition_rate": 0.0,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": "The requested page is not to the same time for the first time, but there is no more.",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631019000606827e-11,
+                  8.289306047126743e-11,
+                  0.6930680871009827,
+                  1.386092185974121,
+                  1.9033293724060059
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6931275129318237,
+                  1.0401101112365723
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子。",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289307434905524e-11,
+                  0.6931325197219849,
+                  1.040936827659607,
+                  1.388597846031189
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631019000606827e-11,
+                  8.289307434905524e-11,
+                  1.9341714341258864e-10,
+                  0.6923357844352722,
+                  1.385372519493103
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": "The hotel's recreational facilities, which is a private bathroom.",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306047126743e-11,
+                  0.6927849054336548,
+                  1.034949779510498,
+                  1.3775118589401245
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,我相信,你喜欢你的手臂上,就 ⁇ 子就好了。",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  0.6931395530700684,
+                  1.3860903978347778,
+                  1.9024511575698853
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6931310892105103
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": "The requested URL /uploads/system.",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341715729037645e-10,
+                  0.6931182146072388,
+                  1.3862285614013672
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,我喜欢自己的手臂,然后来,然后来。",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306047126743e-11,
+                  0.6927816271781921,
+                  1.3857916593551636,
+                  1.9025903940200806
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": "Hooray to the World",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6931374073028564
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子:",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341715729037645e-10,
+                  4.1446532317301887e-10,
+                  0.6931408047676086
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": "Hooray to the World",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6930869221687317
+                ]
+              }
+            ]
+          }
+        },
+        "6": {
+          "native": {
+            "nll": 5.770651553855332,
+            "ppl": 320.7466482953494,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.0006543095378342675,
+            "between_slot_variance": 0.0002943210876367175,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "shuffle": {
+            "nll": 6.1780638639101255,
+            "ppl": 482.0577228883761,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.00042879955050461477,
+            "between_slot_variance": 0.00026079616644381076,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "zero": {
+            "nll": 6.063370463449203,
+            "ppl": 429.8216965253004,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "generation": {
+            "token_bleu4": 1.0387862655933908,
+            "adjacent_repetition_rate": 0.0,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": "The hotel is also in the world, and the same time.",
+                "budget": 13,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  0.6930806636810303,
+                  1.3861714601516724,
+                  1.9042189121246338,
+                  2.422595739364624
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子:",
+                "budget": 6,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.693138062953949,
+                  1.0391737222671509,
+                  1.7322876453399658
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子。",
+                "budget": 9,
+                "route": [
+                  0.0,
+                  2.7631019000606827e-11,
+                  0.6931071281433105,
+                  1.0417335033416748,
+                  1.3902267217636108,
+                  1.7388737201690674
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 8,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  8.289306047126743e-11,
+                  0.6930344700813293,
+                  1.3852531909942627,
+                  2.0782785415649414
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": "The hotel's top-class recreational facilities, which is a wonderful part of the world.",
+                "budget": 9,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6927842497825623,
+                  1.0373493432998657,
+                  1.3818382024765015,
+                  1.7264025211334229
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,我相信,你喜欢你的手臂上,就 ⁇ 子就好了。",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  0.6928544044494629,
+                  1.3855361938476562,
+                  1.9068862199783325,
+                  2.5998382568359375
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6930224895477295,
+                  1.0374318361282349
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": "The requested URL /uploads/system.",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931195855140686,
+                  1.385787010192871,
+                  1.900375247001648
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,我喜欢自己的手臂,然后来,并让它。",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6920197606086731,
+                  1.3848901987075806,
+                  1.8980903625488281,
+                  2.5907540321350098
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": "Hooray to the World",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  1.9341714341258864e-10,
+                  0.6930627226829529,
+                  1.0369805097579956
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子:",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341715729037645e-10,
+                  0.6931352019309998,
+                  1.3862608671188354
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": "Hooray to the World",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  1.9341714341258864e-10,
+                  0.692926287651062,
+                  1.033806324005127
+                ]
+              }
+            ]
+          }
+        },
+        "7": {
+          "native": {
+            "nll": 5.786790098197729,
+            "ppl": 325.9650275629234,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0006536131147944629,
+            "between_slot_variance": 0.0003657173989495277,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "shuffle": {
+            "nll": 6.1458695407971335,
+            "ppl": 466.7853615611223,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0004187353139639733,
+            "between_slot_variance": 0.000308360831184018,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "zero": {
+            "nll": 6.06246612786319,
+            "ppl": 429.43316917552505,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "generation": {
+            "token_bleu4": 1.162889058294695,
+            "adjacent_repetition_rate": 0.0,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": "The hotel's recreational facilities, which is a private bathroom.",
+                "budget": 25,
+                "route": [
+                  0.0,
+                  0.6929833889007568,
+                  1.3859668970108032,
+                  1.9039326906204224,
+                  2.4221835136413574,
+                  2.9404351711273193
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子:",
+                "budget": 11,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6930614113807678,
+                  1.0357935428619385,
+                  1.728859782218933,
+                  2.2452120780944824
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": " ⁇ 子,我喜欢在嘴巴里的 ⁇ 子,然后将其射到外圈。",
+                "budget": 18,
+                "route": [
+                  0.0,
+                  0.6928998231887817,
+                  1.0434950590133667,
+                  1.3936800956726074,
+                  1.7440650463104248,
+                  2.4370205402374268
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 15,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  0.6929225921630859,
+                  1.3853340148925781,
+                  2.0780582427978516,
+                  2.68735408782959
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": "The requested URL /images/sysherst.",
+                "budget": 17,
+                "route": [
+                  0.0,
+                  0.692531943321228,
+                  1.0314242839813232,
+                  1.3701674938201904,
+                  1.7088440656661987,
+                  2.047637462615967
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,我相信,你喜欢你的手臂上,就 ⁇ 子就好了。",
+                "budget": 28,
+                "route": [
+                  0.0,
+                  0.6930475831031799,
+                  1.3859338760375977,
+                  1.9061940908432007,
+                  2.598788022994995,
+                  3.291632652282715
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931414604187012,
+                  1.0405043363571167,
+                  1.3878247737884521
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": "The requested URL /uploads/system.",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.693084716796875,
+                  1.3849836587905884,
+                  1.8967245817184448,
+                  2.589736223220825
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,我相信,你喜欢你的手臂,就去见我的意思。",
+                "budget": 28,
+                "route": [
+                  0.0,
+                  0.691960334777832,
+                  1.3845281600952148,
+                  1.9007837772369385,
+                  2.5934505462646484,
+                  3.2861390113830566
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": "Hooray to the World",
+                "budget": 6,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  0.6929705142974854,
+                  1.0365962982177734,
+                  1.7296632528305054
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子:",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931296586990356,
+                  1.3862522840499878,
+                  1.9045451879501343
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": "Hooray to the World",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  0.6926894783973694,
+                  1.0309776067733765,
+                  1.3692244291305542
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "causal_nll_deltas": {
+        "5": {
+          "shuffle": 0.3298813934919895,
+          "zero": 0.22303258398627435
+        },
+        "6": {
+          "shuffle": 0.4074123100547933,
+          "zero": 0.29271890959387115
+        },
+        "7": {
+          "shuffle": 0.3590794425994046,
+          "zero": 0.275676029665461
+        }
+      },
+      "first_step_gradients": {
+        "compressor_read": 1.8123214638629648,
+        "compressor_slot": 3.2895024979660326,
+        "reconstructor_read": 3.7416303967569924,
+        "protocol_gain": 0.01860794983804226
+      },
+      "seconds": 143.5280406475067
+    },
+    "random": {
+      "claim": "S3-STRUCTURAL-SLOT-OWNERSHIP-D08R1",
+      "arm": "random",
+      "checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+      "initial_trainable_sha256": "aa691d04565c0f1bb2c4131fd466755f6804985a20f30cf6f8d57a17bf22d619",
+      "source_sha256_before": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+      "source_sha256_after": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+      "language_sha256_before": "96dec69fd5c153f085c5b838f94653fc7f2f82c6a5521679bc210b7120057e01",
+      "language_sha256_after": "96dec69fd5c153f085c5b838f94653fc7f2f82c6a5521679bc210b7120057e01",
+      "protocol_gain_initial": 0.01798621006309986,
+      "protocol_gain_final": 0.02325175702571869,
+      "initial_valid": {
+        "5": {
+          "nll": 6.194648838175852,
+          "ppl": 490.1193035863433,
+          "tokens": 2157,
+          "mean_budget": 4.2265625,
+          "slot_variance": 0.0003233560001178061,
+          "between_slot_variance": 1.4942617017510429e-05,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "6": {
+          "nll": 6.203568374994567,
+          "ppl": 494.5104953456509,
+          "tokens": 2157,
+          "mean_budget": 7.90625,
+          "slot_variance": 0.00032332875000187767,
+          "between_slot_variance": 2.2292764221276684e-05,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "7": {
+          "nll": 6.200384218713781,
+          "ppl": 492.9384008714976,
+          "tokens": 2157,
+          "mean_budget": 15.265625,
+          "slot_variance": 0.00032332865378324673,
+          "between_slot_variance": 3.105474931430763e-05,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        }
+      },
+      "final_valid": {
+        "5": {
+          "nll": 6.011349313282337,
+          "ppl": 408.03351403867947,
+          "tokens": 2157,
+          "mean_budget": 4.2265625,
+          "slot_variance": 0.0006369449201252326,
+          "between_slot_variance": 0.00022275441252617156,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "6": {
+          "nll": 5.961595021523311,
+          "ppl": 388.22886404907644,
+          "tokens": 2157,
+          "mean_budget": 7.90625,
+          "slot_variance": 0.0006368109307981888,
+          "between_slot_variance": 0.0002948705666767637,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "7": {
+          "nll": 5.968009966415667,
+          "ppl": 390.7273360296213,
+          "tokens": 2157,
+          "mean_budget": 15.265625,
+          "slot_variance": 0.0006364767357958187,
+          "between_slot_variance": 0.0003209010000091439,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        }
+      },
+      "final_test": {
+        "5": {
+          "native": {
+            "nll": 5.87053787290818,
+            "ppl": 354.43957244959245,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0006373535847219833,
+            "between_slot_variance": 0.00020015719987043212,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "shuffle": {
+            "nll": 6.120474255038607,
+            "ppl": 455.080467534456,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0004411257557841164,
+            "between_slot_variance": 0.00018161772971581058,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "zero": {
+            "nll": 6.015249823781767,
+            "ppl": 409.6281609911535,
+            "tokens": 2056,
+            "mean_budget": 3.9765625,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "generation": {
+            "token_bleu4": 0.9435705644210838,
+            "adjacent_repetition_rate": 0.02336448598130841,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": "The hotel is also in the world, and the name of the property.",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6927551627159119,
+                  1.3839457035064697,
+                  1.909123420715332
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.693105936050415,
+                  1.0399997234344482
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  8.289306047126743e-11,
+                  0.6925647258758545,
+                  1.0304940938949585,
+                  1.3685543537139893
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  8.289306047126743e-11,
+                  1.9341711565701303e-10,
+                  0.6927103996276855,
+                  1.3858035802841187
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": " ⁇ 子,就好了,就好好好好象个小儿。",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289305353237353e-11,
+                  0.6930165886878967,
+                  1.04023277759552,
+                  1.3873424530029297
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,我听见了,就好像了。",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6925925612449646,
+                  1.3856395483016968,
+                  1.9028164148330688
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子测试",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341715729037645e-10,
+                  4.1446532317301887e-10,
+                  0.6930777430534363
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": " ⁇ 子包,  ⁇ 子",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341715729037645e-10,
+                  0.6929627656936646,
+                  1.38605797290802
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,就 ⁇ 了,就好好好事了。",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931085586547852,
+                  1.386155366897583,
+                  1.9079233407974243
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": "Hooray to the World",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6930351853370667
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6930504441261292
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": "Hooray to the World",
+                "budget": 2,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  1.9341714341258864e-10,
+                  4.1446529541744326e-10,
+                  0.6930961012840271
+                ]
+              }
+            ]
+          }
+        },
+        "6": {
+          "native": {
+            "nll": 5.8370382108577035,
+            "ppl": 342.76264510859,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.0006373170923453265,
+            "between_slot_variance": 0.00029408188584056916,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "shuffle": {
+            "nll": 6.14806440182697,
+            "ppl": 467.81101573294654,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.0004176562756335656,
+            "between_slot_variance": 0.00024668272664030155,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "zero": {
+            "nll": 6.015293314299231,
+            "ppl": 409.64597631923886,
+            "tokens": 2056,
+            "mean_budget": 7.4296875,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "generation": {
+            "token_bleu4": 1.089862552314023,
+            "adjacent_repetition_rate": 0.07936507936507936,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": "The hotel is a very good area, and to the extent of the first thing, and the hormone.",
+                "budget": 13,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6929730176925659,
+                  1.3855676651000977,
+                  1.90283203125,
+                  2.4199185371398926
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 6,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6930909156799316,
+                  1.040420413017273,
+                  1.7335467338562012
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": " ⁇ 子,  ⁇ 化门,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子",
+                "budget": 9,
+                "route": [
+                  0.0,
+                  2.7631015531159875e-11,
+                  0.6930898427963257,
+                  1.0374515056610107,
+                  1.38187837600708,
+                  1.7262840270996094
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": "The hotel is a welcoming, but the property of the world.",
+                "budget": 8,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306047126743e-11,
+                  0.6919463276863098,
+                  1.3850725889205933,
+                  2.078004837036133
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": "The hotel is a very good area.",
+                "budget": 9,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6911250352859497,
+                  1.0563678741455078,
+                  1.4224278926849365,
+                  1.7887654304504395
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,就 ⁇ 了,就好好好事了。",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6931383609771729,
+                  1.3860503435134888,
+                  1.902076244354248,
+                  2.5951271057128906
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6931250095367432,
+                  1.0412876605987549
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": " ⁇ 子 /  ⁇ 化网",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6930360794067383,
+                  1.3860567808151245,
+                  1.9050788879394531
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,就 ⁇ 了,就好好好了,叫我 ⁇ 子,就好好好好好,叫我好好好好,好好好好好友啊!",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.7631019000606827e-11,
+                  0.6930543184280396,
+                  1.3859307765960693,
+                  1.9026883840560913,
+                  2.5957083702087402
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": "Hooray to the World",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  1.9341714341258864e-10,
+                  0.6926320791244507,
+                  1.0289905071258545
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 4,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  1.9341714341258864e-10,
+                  0.6931140422821045,
+                  1.3862186670303345
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": "Hooray to the World",
+                "budget": 3,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  1.9341714341258864e-10,
+                  0.6924088597297668,
+                  1.0269092321395874
+                ]
+              }
+            ]
+          }
+        },
+        "7": {
+          "native": {
+            "nll": 5.84052143022708,
+            "ppl": 343.95864434775217,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0006366969419043988,
+            "between_slot_variance": 0.0003173831507865543,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "shuffle": {
+            "nll": 6.13625754271036,
+            "ppl": 462.3201159040256,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0004079576367573557,
+            "between_slot_variance": 0.0002668616005507829,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "zero": {
+            "nll": 6.015396622832183,
+            "ppl": 409.68829843016215,
+            "tokens": 2056,
+            "mean_budget": 14.3203125,
+            "slot_variance": 0.0,
+            "between_slot_variance": 0.0,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "generation": {
+            "token_bleu4": 0.8904751763801011,
+            "adjacent_repetition_rate": 0.043478260869565216,
+            "nonempty_rate": 1.0,
+            "examples": [
+              {
+                "direction": "zh2en",
+                "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+                "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+                "generation": "The hotel is also in the world, and the largest online ferry ticket price and there are no hidden extras or surprises such as added fuel surcharges or booking fees and we do not charge you anything else",
+                "budget": 25,
+                "route": [
+                  0.0,
+                  0.6930570006370544,
+                  1.3855957984924316,
+                  1.8984155654907227,
+                  2.411130666732788,
+                  2.92388653755188
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+                "reference": "WOODROW WILSON ELEMENTARY SCHO",
+                "generation": " ⁇ 子,  ⁇ 子",
+                "budget": 11,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6929358243942261,
+                  1.0332069396972656,
+                  1.726261019706726,
+                  2.2410402297973633
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "By using the KMI website, you consent to the data practices described in this statement.",
+                "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+                "generation": "The requested is the first to the same time for the first time, but the most difficult thing is to be found in the heart of the world.",
+                "budget": 18,
+                "route": [
+                  0.0,
+                  0.6928625106811523,
+                  1.0365744829177856,
+                  1.3810884952545166,
+                  1.725507378578186,
+                  2.418273687362671
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+                "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+                "generation": "The hotel is a welcoming in the heart of the world.",
+                "budget": 15,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6928900480270386,
+                  1.3849149942398071,
+                  2.07710337638855,
+                  2.6809823513031006
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "We need to have black黑色 and white白色 and Asian亚洲 and Hispanic西班牙",
+                "reference": "We need to have black and white and Asian and Hispanic",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,  ⁇ 子,",
+                "budget": 17,
+                "route": [
+                  0.0,
+                  0.6930056810379028,
+                  1.035740852355957,
+                  1.378490686416626,
+                  1.7210872173309326,
+                  2.0637683868408203
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Chad turned to look at her, nose to nose, “Even if this isn't the real me?” “Always.”",
+                "reference": "还得把她接来,宁愿不再和她有那种关系,也要看着她,给她幸福。",
+                "generation": " ⁇ 子,就好了,就好好好好象了。",
+                "budget": 28,
+                "route": [
+                  0.0,
+                  0.6931307315826416,
+                  1.386115312576294,
+                  1.9029933214187622,
+                  2.5959742069244385,
+                  3.289008617401123
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Click HERE 0 responses",
+                "reference": "Davec369 说 纯粹spamming拿karma 0 responses",
+                "generation": " ⁇ 子测试",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306047126743e-11,
+                  0.6931064128875732,
+                  1.0402263402938843,
+                  1.387343406677246
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "TC1313-CR3EUNTR Datasheet(数据表) 2 Page - Microchip Technology",
+                "reference": "详细搜索 TC1303B-CP1EUN Datasheet(数据表) 2 Page - Microchip Technology",
+                "generation": " ⁇ 子 /  ⁇ 化网",
+                "budget": 14,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  0.6930694580078125,
+                  1.386007308959961,
+                  1.9083341360092163,
+                  2.601456642150879
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "Example: \"Poor Bob. He made quads against the big full house, but he was all-in on the second bet.\"",
+                "reference": "例 : \" 可怜的鲍勃,他对大满堂四边形,但他在第二次投注 。 \"",
+                "generation": " ⁇ 子,就 ⁇ 了,就好好好了,叫本王的,就好好好,叫本王的父,就好好,好好好友!",
+                "budget": 28,
+                "route": [
+                  0.0,
+                  0.6930436491966248,
+                  1.386054277420044,
+                  1.906592607498169,
+                  2.5995519161224365,
+                  3.2925126552581787
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "阅读关于 Bodega Hotel 在你自己的语言",
+                "reference": "Read about Zephyr Hotel in your own language",
+                "generation": "Hooray to the World",
+                "budget": 6,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  0.6927630305290222,
+                  1.0466570854187012,
+                  1.7397693395614624
+                ]
+              },
+              {
+                "direction": "en2zh",
+                "source": "GLAMIRA Ring Carlotta",
+                "reference": "GLAMIRA 戒指 Jill",
+                "generation": " ⁇ 子,  ⁇ 子,  ⁇ 子",
+                "budget": 7,
+                "route": [
+                  0.0,
+                  2.7631020735330303e-11,
+                  8.289306741016134e-11,
+                  0.6930385828018188,
+                  1.386130690574646,
+                  1.9055495262145996
+                ]
+              },
+              {
+                "direction": "zh2en",
+                "source": "上奥地利州市镇列表",
+                "reference": "Municipalities in the district of Zell am See",
+                "generation": "Hooray to the World",
+                "budget": 5,
+                "route": [
+                  0.0,
+                  2.763102247005378e-11,
+                  8.289306741016134e-11,
+                  0.6923115253448486,
+                  1.0495645999908447,
+                  1.4068081378936768
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "causal_nll_deltas": {
+        "5": {
+          "shuffle": 0.2499363821304268,
+          "zero": 0.14471195087358701
+        },
+        "6": {
+          "shuffle": 0.3110261909692662,
+          "zero": 0.1782551034415274
+        },
+        "7": {
+          "shuffle": 0.29573611248328024,
+          "zero": 0.17487519260510354
+        }
+      },
+      "first_step_gradients": {
+        "compressor_read": 1.7957878054084124,
+        "compressor_slot": 3.277836675454527,
+        "reconstructor_read": 3.750286758157853,
+        "protocol_gain": 0.017828593030571938
+      },
+      "seconds": 143.8302710056305
+    }
+  },
+  "contracts": {
+    "target_enters_compressor": false,
+    "target_length_enters_budget": false,
+    "source_frozen": true,
+    "language_backbone_frozen": true,
+    "bounded_protocol_gain": true,
+    "transformer_or_self_attention": false,
+    "flat_length_route_table": false,
+    "matched_arms": [
+      "free",
+      "subheap",
+      "random"
+    ]
+  }
+}
