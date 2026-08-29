@@ -1,0 +1,123 @@
+# D09：结构槽位协议的第一档规模训练
+
+日期：2026-08-29
+
+Claim：`S3-STRUCTURAL-SLOT-OWNERSHIP-D09-SCALE`
+
+状态：预注册，等待执行。
+
+## 1. 依据
+
+D08R1 在三个 seed、三个递归深度上正式支持：相邻 subheap ownership 相对自由读取和
+同容量稳定随机分组均降低 Test NLL，并通过 shuffle/zero 输入因果门。但中型训练的
+BLEU4 中位数只有 `2.79--3.66`，因此只证明结构机制，没有证明生成产品。
+
+D09 不增加新算子，不同时更换语料。它只扩大已支持 arm 的数据暴露和训练步数，回答：
+结构协议继续学习后，能否把机制收益转成可测生成收益。
+
+## 2. 固定模型与初始化
+
+```text
+source checkpoint: C12 formal seed10101 READ
+protocol warm start: D08R1 formal seed10811 subheap final
+warm-start rule: 使用第一个预注册 seed，不按测试结果挑选
+ownership: adjacent recursive subheap
+max slots: 32
+depth schedule: balanced 5 / 6 / 7
+source TreeHeap: frozen
+language backbone: frozen
+trainable: compressor READ/slot、reconstructor READ/K_up、bounded gain
+loss: 完整目标 token cross entropy
+```
+
+保持语言骨架冻结是为了让本阶只检验结构协议能否继续生长。若本阶 BLEU 不提高，不能用
+“全模型还没解冻”事后解释成通过；应先记录失败，再为联合训练另开 Claim。
+
+## 3. 规模与资源
+
+```text
+seed: 10901
+WMT train / valid / test: 200000 / 1000 / 1000
+batch: 16
+maximum steps: 25000
+wake interval: 2500 steps
+learning rate: 0.0005
+single RTX 3090
+power limit: <= 270.5 W
+```
+
+训练行仍来自 D08 使用的原始 WMT massive 固定切分，并限制 source 长度不超过 34 pieces。
+本阶不声称覆盖长句，也不把高置信清洗语料混入，避免同时改变两个变量。
+
+## 4. Wake、恢复与停止
+
+每个 wake 记录：
+
+- 三个深度的 valid NLL/PPL、slot 方差、槽间方差和 route 指标；
+- 固定样例的生成、BLEU4、非空率与相邻重复率；
+- trainable checkpoint/optimizer、step、数据哈希和 checkpoint SHA-256；
+- wall time 与 GPU 状态。
+
+保存 `checkpoint_latest.pt` 和 valid mean NLL 最低的 `checkpoint_best.pt`。中断后必须从
+latest 的 optimizer 和 step 继续。step >= 10000 后，连续三个 wake 没有相对历史最佳改善
+至少 `0.005` NLL，则提前停止，不把平台时间消耗在平台期。
+
+OOM、CUDA 错误、NaN/Inf、冻结哈希改变、数据哈希改变或 checkpoint 重载失败立即停止。
+
+## 5. 预注册门
+
+### S0：合同
+
+- source、语言骨架训练前后哈希不变；
+- warm-start trainable 哈希与 D08R1 seed10811 checkpoint 一致；
+- 训练/验证/测试行数与 SHA-256 完整；
+- 无 Transformer、自注意力、flat `L x L` 路由和 target 输入 compressor。
+
+### S1：规模学习
+
+best 三深度 mean valid NLL 相对 step 0 改善至少 `0.10`。
+
+### S2：输入因果
+
+best checkpoint 至少两个深度同时满足：
+
+```text
+NLL(shuffle) - NLL(native) >= 0.10
+NLL(zero)    - NLL(native) >= 0.10
+```
+
+### S3：结构与数值
+
+- owner coverage 与 argmax coverage 均为 `1.0`；
+- route overlap 小于 `0.05`；
+- slot variance 大于 `1e-4`，between-slot variance 大于 `1e-8`；
+- 全程梯度和 loss 有限。
+
+### S4：生成趋势
+
+best checkpoint 三深度 BLEU4 中位数同时满足：
+
+```text
+BLEU4 >= 5.0
+BLEU4 - initial BLEU4 >= 0.5
+```
+
+且非空率 `1.0`、严重相邻重复率不高于 `0.10`。
+
+### S5：重载
+
+重新构造模型并加载 best trainable state 后，固定 valid 子集的 NLL 差小于 `1e-9`，state
+SHA-256 完全一致。
+
+## 6. 决策
+
+- S0/S2/S3/S5 任一失败：结构或证据失效，停止；
+- S1 失败：当前规模训练没有继续学习，停止扩容；
+- S1 通过但 S4 失败：机制继续优化但没有转成生成收益，不进入更大规模；
+- S0--S5 全通过：允许设计下一档长度/语料扩展，不自动启动全量训练。
+
+Evidence：
+
+```text
+ara/s3-generation/evidence/s3_structural_slot_ownership_d09_scale/
+```
