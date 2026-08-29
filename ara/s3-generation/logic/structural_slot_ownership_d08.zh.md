@@ -1,6 +1,6 @@
 # D08：TreeHeap 协议槽位的结构覆盖
 
-状态：D08 smoke 与 D08R1 复验通过；允许执行预注册三 seed 中型验证。
+状态：D08R1 三 seed 中型验证正式支持（结构机制）；不代表产品生成质量通过。
 
 Claim：`S3-STRUCTURAL-SLOT-OWNERSHIP-D08`
 
@@ -205,3 +205,32 @@ device: single RTX 3090, serial queue, power limit <= 270.5 W
 
 任一 seed 出现 OOM、CUDA 错误、NaN/Inf、冻结哈希变化或 evidence 损坏，停止后续队列。
 本阶段仍只验证结构协议，不以 BLEU 单独升级为产品训练。
+
+## 12. 三 seed 正式结果
+
+任务 333 完整运行 `6347` 秒，seeds `10811/10812/10813` 均通过 P0--P5，远程与
+本地独立聚合结论均为 `formal_supported`。
+
+| depth | vs free 中位数 | vs stable-random 中位数 | shuffle delta 中位数 | zero delta 中位数 | BLEU4 中位数 |
+|---:|---:|---:|---:|---:|---:|
+| 5 | 0.0327 | 0.0619 | 1.1906 | 0.5828 | 3.6594 |
+| 6 | 0.0503 | 0.0632 | 1.1642 | 0.6232 | 2.7888 |
+| 7 | 0.0320 | 0.0592 | 0.9898 | 0.6068 | 3.6300 |
+
+正式门的复算结果：
+
+```text
+implementation_all: true
+quality_seed_passes: 3 / 3
+causality_seed_passes: 3 / 3
+median_quality_depths: 3 / 3
+median_causality_depths: 3 / 3
+```
+
+因此当前证据支持：在相同初始化、数据、训练步数与参数量下，把协议槽位绑定到互不重叠
+的相邻递归 source subheap，比允许所有槽自由读取、或绑定到同容量但离散的随机 leaf
+集合，更稳定地降低 Test NLL；打乱或清空 subheap 协议会产生远高于门槛的损失。这是
+TreeHeap 递归邻接参与私有协议的三 seed 因果证据。
+
+边界同样明确：BLEU4 仍低，尚未证明可用翻译、对话或长文本生成。本结果允许把
+`subheap ownership` 纳入下一版候选架构，但产品训练仍需独立 claim、数据规模和生成门。
