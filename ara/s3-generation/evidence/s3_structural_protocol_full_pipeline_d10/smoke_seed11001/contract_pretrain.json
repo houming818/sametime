@@ -1,0 +1,60 @@
+{
+  "claim": "S3-STRUCTURAL-PROTOCOL-FULL-PIPELINE-D10",
+  "stage": "pretrain",
+  "mode": "smoke",
+  "data": {
+    "text": {
+      "path": "/home/nio/datasets/nio/releases/NioText-ZH-Integrity-2985K-v1/data.jsonl",
+      "bytes": 5147059454,
+      "expected_rows": 2972976,
+      "expected_sha256": "04a90d88b51755561645d0fec962fc8bd5e642d099423348417de9318e22c94e"
+    },
+    "parallel": {
+      "path": "/home/nio/datasets/nio/releases/NioClean-ZHEN-S098-7M-v2/pairs.tsv",
+      "bytes": 1535169936,
+      "expected_rows": 7304358,
+      "expected_sha256": "299134867398720cc6d407eadd6de4fb237812319d113fbe12071758e79d92c8"
+    }
+  },
+  "source_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "parent_sha256": "62f8f7ad9c7694ab62ce32c0c1f1043db4b1a5e702da0baa620d2c7b61c98447",
+  "warm_claim": "S3-STRUCTURAL-SLOT-OWNERSHIP-D09-SCALE",
+  "warm_sha256": "0a2e272ce38b05d0ebc12371fddbde19cc218b1523ead0b4c8793088cfbf8d83",
+  "tokenizer": {
+    "path": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "size": 756882,
+    "mtime_ns": 1783834472338015914,
+    "sampled_sha256": "ead14a15f20c56814e9a8367c40ee65201e8cfe5ac8656f244dc1106a17cafbe"
+  },
+  "config": {
+    "stage": "pretrain",
+    "mode": "smoke",
+    "source_checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+    "warm_start": "ara/s3-generation/evidence/s3_structural_slot_ownership_d09_scale/formal_seed10901/checkpoint_best.pt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_structural_protocol_full_pipeline_d10/smoke_seed11001",
+    "text_data": "/home/nio/datasets/nio/releases/NioText-ZH-Integrity-2985K-v1/data.jsonl",
+    "parallel_data": "/home/nio/datasets/nio/releases/NioClean-ZHEN-S098-7M-v2/pairs.tsv",
+    "eval_wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "seed": 11001,
+    "ownership_seed": 11002,
+    "max_slots": 32,
+    "batch_size": 16,
+    "eval_batch": 16,
+    "eval_rows": 128,
+    "generation_examples": 16,
+    "max_generation": 64,
+    "lr": 0.0002,
+    "wake_every": 50,
+    "log_every": 20,
+    "min_delta": 0.005,
+    "patience": 3,
+    "min_steps": 0,
+    "max_lines": 4096,
+    "max_steps": 0,
+    "resume": true,
+    "wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "expected_rows": 2972976
+  }
+}
