@@ -130,4 +130,17 @@ ara/s3-generation/evidence/s3_structural_protocol_full_pipeline_d10/
 - taskd `#341`：增加分阶段 contract 和 A→B 硬门后，从 smoke checkpoint 重载复验
   通过；若 Stage A 未达到 `stage_supported`，Stage B 不会启动。
 - taskd `#342`：2026-08-29 启动正式任务。两份 release 的全文件 SHA-256 校验通过，
-  当前正在 Stage A。正式结果必须等待任务完成或触发预注册停止门后再登记。
+  Stage A 在 step `130000` 达到最佳 NLL `5.1932`，随后三个 wake 上升为
+  `5.4114 / 5.6024 / 5.7324`，旧规则于 step `160000`、物理行 `2,565,259`
+  主动停止，并由 A→B 硬门阻止任务训练。除 `data_cursor_complete` 外，其余门均通过。
+
+## 9. 停止规则修正
+
+上述停止只证明固定验证集 NLL 在 `130k--160k` 局部恶化，不能证明后续必然继续恶化。
+一次顺序流式训练可能跨越数据来源或领域边界，完整曲线也可能先升后降。因此，“连续三个
+wake 未刷新全局最佳”不足以作为不可恢复的数学或实验结论。
+
+收到该反例后，后续续跑将 plateau 从硬停止降为告警，继续从 latest checkpoint 完成剩余
+release 暴露；NaN/Inf、OOM、CUDA/GPU 故障、哈希变化、冻结底座变化和结构门崩溃仍是
+硬停止条件。该修正发生在观察中间结果之后，必须标为探索性 continuation，不能冒充原始
+预注册结果。最终同时报告完整曲线、全局 best 和 release 结束状态。

@@ -386,7 +386,7 @@ def run_stage(args, model, warm, config, sp, pad, bos, eos, pieces, valid_rows, 
             append_jsonl(output / "wakes.jsonl", wake)
             write_json(output / "wake_latest.json", wake)
             print(json.dumps(wake, ensure_ascii=False), flush=True)
-            if step >= args.min_steps and stale >= args.patience:
+            if args.stop_on_plateau and step >= args.min_steps and stale >= args.patience:
                 break
         if args.max_steps and step >= args.max_steps:
             break
@@ -477,6 +477,7 @@ def main() -> None:
     parser.add_argument("--min-delta", type=float, default=0.005)
     parser.add_argument("--patience", type=int, default=3)
     parser.add_argument("--min-steps", type=int, default=30000)
+    parser.add_argument("--stop-on-plateau", action="store_true")
     parser.add_argument("--max-lines", type=int, default=0)
     parser.add_argument("--max-steps", type=int, default=0)
     parser.add_argument("--resume", action="store_true")
