@@ -13,6 +13,12 @@ Status: running / first formal cycle complete
 - Schedule: one incremental scan every 900 seconds, 192 cycles (48 hours)
 - Limits: `CPUQuota=50%`, `MemoryMax=2G`, `Nice=10`
 
+On cycle 29 the first service instance stopped because SQLite attempted to use
+the nearly full root-backed `/tmp` filesystem.  No evidence was corrupted.  The
+runner now sets `TMPDIR=/home/nio/treeheap-observer/tmp` and SQLite uses memory
+for temporary sorting; the remaining cycles resume under the original CPU and
+memory limits.  Root filesystem cleanup remains a separate maintenance task.
+
 The input snapshot contains ARA JSON, JSONL, and Dreams text only.  It excludes
 checkpoints, tensors, datasets, archives, and other binary artifacts.
 

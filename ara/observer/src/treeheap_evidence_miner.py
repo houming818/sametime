@@ -60,6 +60,7 @@ def connect_database(path: Path) -> sqlite3.Connection:
         """
         PRAGMA journal_mode=WAL;
         PRAGMA synchronous=NORMAL;
+        PRAGMA temp_store=MEMORY;
         CREATE TABLE IF NOT EXISTS files (
             path TEXT PRIMARY KEY,
             bytes INTEGER NOT NULL,
