@@ -4,7 +4,8 @@
 
 Claim：`S3-STRUCTURAL-PROTOCOL-FULL-PIPELINE-D10`
 
-状态：端到端 smoke 已通过；正式长训练运行中。
+状态：端到端 smoke 已通过；正式长训练在 Stage B 因 CUDA allocator 内部断言停止，
+Claim 尚未完成。
 
 ## 1. 为什么不是把 D09 直接放大
 
@@ -144,3 +145,18 @@ wake 未刷新全局最佳”不足以作为不可恢复的数学或实验结论
 release 暴露；NaN/Inf、OOM、CUDA/GPU 故障、哈希变化、冻结底座变化和结构门崩溃仍是
 硬停止条件。该修正发生在观察中间结果之后，必须标为探索性 continuation，不能冒充原始
 预注册结果。最终同时报告完整曲线、全局 best 和 release 结束状态。
+
+## 10. Stage B 异常停止
+
+- taskd `#343` 完成 Stage A continuation 后进入 Stage B；训练推进到 step `299000`、
+  数据 cursor `4,784,986 / 7,304,358`。
+- 进程随后在 PyTorch `CUDACachingAllocator.cpp:3252` 的 `free_block` 中触发
+  `INTERNAL ASSERT FAILED`，没有生成 Stage B summary，也没有执行最终 proof/reload。
+- `dmesg` 未观察到 NVIDIA Xid，退出前日志没有 OOM 或 NaN/Inf。当前证据只能定位为
+  allocator/autograd 释放路径故障，不能进一步归因为 GPU 硬件、模型公式或某个输入样本。
+- 最近的持久 checkpoint 与完整 wake 位于 step `275000`、cursor `4,400,986`。
+  该 wake 的 external valid mean NLL 为 `4.1514`；depth `5/6/7` 的固定探针 BLEU4
+  分别为 `10.544 / 10.228 / 8.890`，相邻重复率为
+  `0.0168 / 0.0164 / 0.0062`。
+- step `275000--299000` 的训练 trace 被保留，但没有 checkpoint，因此不能视为可重载
+  结果。根据预注册硬停止规则，不自动恢复；先审计 PyTorch/CUDA allocator 和恢复路径。
