@@ -2,7 +2,7 @@
 
 Claim：`S3-STRUCTURAL-PROTOCOL-FULL-PIPELINE-D10-RECOVERY-R1`
 
-状态：预注册，等待 canary。
+状态：taskd `#344` canary 通过；taskd `#345` 正式分段恢复运行中。
 
 ## 1. 问题
 
@@ -53,3 +53,21 @@ Canary 全部通过后，从 canary latest 继续完成剩余 Stage B。每个�
 - step `275000--299000` 的旧 trace 不是可恢复参数，必须从 275000 重新计算；
 - 分段恢复是运行时可靠性措施，不是新的 TreeHeap 算法收益；
 - 只有完整跑完 Stage B 及最终 proof/reload，D10 主 Claim 才能重新判定。
+
+## 6. Canary 结果
+
+taskd `#344` 从原始 step `275000`、cursor `4,400,986` 恢复，运行 2,000 step 后
+到达 step `277000`、cursor `4,432,986`，退出码为 0。
+
+- 恢复前 checkpoint SHA-256：
+  `2f51fc10cf51e86bbb55699e4fb6de559d20b3cc72b65ba27683443a8700e1fe`；
+- 恢复后 checkpoint SHA-256：
+  `7e1b9a358fb64e705640d30397b0abf9f2eac640aa3d95ee97fadde2cabf2122`；
+- 144 个 checkpoint 张量全部有限，模型与 optimizer 状态均可重载；
+- 固定 valid mean NLL 从 step 275000 的 `4.15140285` 变为 `4.14703905`，
+  差值 `-0.00436380`；
+- owner leaf coverage、argmax coverage 等注册结构门保持通过；
+- 没有观察到 OOM、allocator 断言、NaN/Inf 或 GPU Xid。
+
+Canary 支持“持久 checkpoint 可以继续训练”，不支持“原 allocator 故障已经被根治”。
+taskd `#345` 因此采用每 25,000 step 退出并重启 Python/CUDA 进程的方式继续 Stage B。
