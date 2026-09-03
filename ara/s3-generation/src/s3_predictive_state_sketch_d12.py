@@ -161,7 +161,7 @@ def forward_batch(model, predictor, sketcher, source, lengths, target, bos, pad,
     target_state = sketcher(target, pad)
     return {
         "logits": logits, "route": route, "budgets": budgets, "slots": slots,
-        "entropy": entropy, "convolved": convolved, "predictions": predictions,
+        "entropy": entropy, "tree": tree, "convolved": convolved, "predictions": predictions,
         "states": states, "target_state": target_state, "masks": masks,
     }
 

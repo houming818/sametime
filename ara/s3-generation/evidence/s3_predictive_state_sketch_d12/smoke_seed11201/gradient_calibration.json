@@ -1,0 +1,583 @@
+{
+  "claim": "S3-PREDICTIVE-STATE-SKETCH-D12",
+  "audit": "post-smoke gradient calibration",
+  "source_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "warm_start_sha256": "0b1086bff2aaa91d08d0640604f43b2f58f97470853b5d340cd6af348700c9df",
+  "checkpoint_model_sha256": "15e77b51000ca326d9e68f60864e2dec66fb7abd9e3a26da225d1817e171006e",
+  "checkpoint_predictor_sha256": "b2b473ffd98891199bdd94f2c32874aa37b1f4ce27f59e9d57ae81d3937ff52d",
+  "sketch_sha256": "bbe5c3aade95ee50f67647b789044a9bfb2b31878b9b82d4fad7a06422a45a86",
+  "batches": [
+    {
+      "batch": 0,
+      "depth": 5,
+      "ce": 3.554772138595581,
+      "predictive_loss": 1.0743054151535034,
+      "tree_all": {
+        "ce_norm": 0.09138084287786663,
+        "predictive_norm": 0.010434570989157503,
+        "predictive_to_ce_ratio": 0.11418772973131398,
+        "cosine": 0.0030158038030543978
+      },
+      "tree_by_level": [
+        {
+          "ce_norm": 0.006971283014694648,
+          "predictive_norm": 0.0010583327124309256,
+          "predictive_to_ce_ratio": 0.15181318993936757,
+          "cosine": 0.007708067665127419
+        },
+        {
+          "ce_norm": 0.011135459067745273,
+          "predictive_norm": 0.002196014034676787,
+          "predictive_to_ce_ratio": 0.19720911561138177,
+          "cosine": 0.005452998605104917
+        },
+        {
+          "ce_norm": 0.015648224220953993,
+          "predictive_norm": 0.003404985895814978,
+          "predictive_to_ce_ratio": 0.21759567397145801,
+          "cosine": -0.0008899681485582915
+        },
+        {
+          "ce_norm": 0.023715880293312192,
+          "predictive_norm": 0.004512473377512257,
+          "predictive_to_ce_ratio": 0.19027222779433411,
+          "cosine": 0.004151538937617306
+        },
+        {
+          "ce_norm": 0.034962783716733094,
+          "predictive_norm": 0.005472825902141292,
+          "predictive_to_ce_ratio": 0.15653289928175862,
+          "cosine": 0.01409166258514597
+        },
+        {
+          "ce_norm": 0.07841017194835072,
+          "predictive_norm": 0.006405431887739039,
+          "predictive_to_ce_ratio": 0.08169133836306772,
+          "cosine": -0.0008119960192486203
+        }
+      ],
+      "parameter_groups": {
+        "compressor": {
+          "ce_norm": 4.7159569826339105,
+          "predictive_norm": 0.5621998333564105,
+          "predictive_to_ce_ratio": 0.11921224799688825,
+          "cosine": 0.02349451828444698
+        },
+        "up_kernel": {
+          "ce_norm": 0.35459552417436824,
+          "predictive_norm": 0.04270820989823443,
+          "predictive_to_ce_ratio": 0.1204420444890702,
+          "cosine": -0.015835459927646636
+        },
+        "protocol_gain": {
+          "ce_norm": 3.0266719477367587e-05,
+          "predictive_norm": 3.396109241293743e-05,
+          "predictive_to_ce_ratio": 1.122060566832569,
+          "cosine": -1.0
+        }
+      }
+    },
+    {
+      "batch": 1,
+      "depth": 6,
+      "ce": 3.0567617416381836,
+      "predictive_loss": 1.033311367034912,
+      "tree_all": {
+        "ce_norm": 0.08289451639551292,
+        "predictive_norm": 0.0063550885121323765,
+        "predictive_to_ce_ratio": 0.07666476370777618,
+        "cosine": 0.0018749923208416198
+      },
+      "tree_by_level": [
+        {
+          "ce_norm": 0.0055709897328624376,
+          "predictive_norm": 0.0007615889049483212,
+          "predictive_to_ce_ratio": 0.13670621226526802,
+          "cosine": -0.001141767052377592
+        },
+        {
+          "ce_norm": 0.008425643753254015,
+          "predictive_norm": 0.0014565225860428527,
+          "predictive_to_ce_ratio": 0.17286781030592924,
+          "cosine": 0.0007694153626499733
+        },
+        {
+          "ce_norm": 0.017456802792503143,
+          "predictive_norm": 0.002115180052737176,
+          "predictive_to_ce_ratio": 0.1211665204607538,
+          "cosine": 0.011758128458036787
+        },
+        {
+          "ce_norm": 0.027405417752887736,
+          "predictive_norm": 0.0026993247059685687,
+          "predictive_to_ce_ratio": 0.09849602477539822,
+          "cosine": 0.0018862982487726037
+        },
+        {
+          "ce_norm": 0.03643677986763646,
+          "predictive_norm": 0.0032577619928739134,
+          "predictive_to_ce_ratio": 0.08940861417250245,
+          "cosine": 0.004839731180934232
+        },
+        {
+          "ce_norm": 0.06622716690389462,
+          "predictive_norm": 0.0039130960334855325,
+          "predictive_to_ce_ratio": 0.05908596451308285,
+          "cosine": -0.0006368330363224086
+        }
+      ],
+      "parameter_groups": {
+        "compressor": {
+          "ce_norm": 2.0219701163417407,
+          "predictive_norm": 0.2655467622099753,
+          "predictive_to_ce_ratio": 0.131330705663651,
+          "cosine": -0.15102620225777103
+        },
+        "up_kernel": {
+          "ce_norm": 0.394932800432008,
+          "predictive_norm": 0.024938647877708883,
+          "predictive_to_ce_ratio": 0.0631465602513366,
+          "cosine": 0.017976230943568088
+        },
+        "protocol_gain": {
+          "ce_norm": 0.0006884810863994062,
+          "predictive_norm": 1.2270104889466893e-05,
+          "predictive_to_ce_ratio": 0.017821992690658577,
+          "cosine": -1.0
+        }
+      }
+    },
+    {
+      "batch": 2,
+      "depth": 7,
+      "ce": 3.7499802112579346,
+      "predictive_loss": 0.9425828456878662,
+      "tree_all": {
+        "ce_norm": 0.08996458586733183,
+        "predictive_norm": 0.005170255519990099,
+        "predictive_to_ce_ratio": 0.05746989740623633,
+        "cosine": 0.005700352940413746
+      },
+      "tree_by_level": [
+        {
+          "ce_norm": 0.0058954301527808185,
+          "predictive_norm": 0.0006330827282134769,
+          "predictive_to_ce_ratio": 0.10738533267413197,
+          "cosine": 0.023152805186792275
+        },
+        {
+          "ce_norm": 0.01642111069121524,
+          "predictive_norm": 0.0012072490142717796,
+          "predictive_to_ce_ratio": 0.07351810952212985,
+          "cosine": 0.015089200117578258
+        },
+        {
+          "ce_norm": 0.023924717809945397,
+          "predictive_norm": 0.0017383930257051858,
+          "predictive_to_ce_ratio": 0.07266096258751038,
+          "cosine": 0.004456783965333706
+        },
+        {
+          "ce_norm": 0.032810238016174796,
+          "predictive_norm": 0.002217037598708307,
+          "predictive_to_ce_ratio": 0.06757151830521167,
+          "cosine": 0.0067444664261678035
+        },
+        {
+          "ce_norm": 0.04303893563045324,
+          "predictive_norm": 0.002639477656166006,
+          "predictive_to_ce_ratio": 0.06132767034086177,
+          "cosine": 0.003498450832829429
+        },
+        {
+          "ce_norm": 0.06548254665248752,
+          "predictive_norm": 0.0031574023968223256,
+          "predictive_to_ce_ratio": 0.0482174649312052,
+          "cosine": 0.005767831379889395
+        }
+      ],
+      "parameter_groups": {
+        "compressor": {
+          "ce_norm": 2.358133290930956,
+          "predictive_norm": 0.24731178002998094,
+          "predictive_to_ce_ratio": 0.10487608184876858,
+          "cosine": -0.021674063135669764
+        },
+        "up_kernel": {
+          "ce_norm": 0.4584956818063053,
+          "predictive_norm": 0.02197408720647457,
+          "predictive_to_ce_ratio": 0.04792648672263325,
+          "cosine": -0.007889895606358376
+        },
+        "protocol_gain": {
+          "ce_norm": 0.00039757159538567066,
+          "predictive_norm": 8.06768269967506e-08,
+          "predictive_to_ce_ratio": 0.00020292402156770975,
+          "cosine": 1.0
+        }
+      }
+    },
+    {
+      "batch": 3,
+      "depth": 5,
+      "ce": 4.370719909667969,
+      "predictive_loss": 1.0420728921890259,
+      "tree_all": {
+        "ce_norm": 0.0704271623104224,
+        "predictive_norm": 0.00854404120451527,
+        "predictive_to_ce_ratio": 0.12131741396672532,
+        "cosine": 0.004808365780174978
+      },
+      "tree_by_level": [
+        {
+          "ce_norm": 0.005090446274805017,
+          "predictive_norm": 0.0009890731725054854,
+          "predictive_to_ce_ratio": 0.19429989417644344,
+          "cosine": 0.0023130517752486565
+        },
+        {
+          "ce_norm": 0.008000479327097982,
+          "predictive_norm": 0.0018980197807226269,
+          "predictive_to_ce_ratio": 0.2372382582495962,
+          "cosine": 0.013266552505580165
+        },
+        {
+          "ce_norm": 0.011016898993320203,
+          "predictive_norm": 0.0027866026574351163,
+          "predictive_to_ce_ratio": 0.2529389312840843,
+          "cosine": 0.007684704816608769
+        },
+        {
+          "ce_norm": 0.015647152468336794,
+          "predictive_norm": 0.003611875221760378,
+          "predictive_to_ce_ratio": 0.23083274922189725,
+          "cosine": 0.005359603087868324
+        },
+        {
+          "ce_norm": 0.023499907522786717,
+          "predictive_norm": 0.0044055682193429105,
+          "predictive_to_ce_ratio": 0.18747172579598645,
+          "cosine": -0.00010106164179760139
+        },
+        {
+          "ce_norm": 0.06286186269100413,
+          "predictive_norm": 0.005310373522888481,
+          "predictive_to_ce_ratio": 0.08447687191503511,
+          "cosine": 0.006446273123406694
+        }
+      ],
+      "parameter_groups": {
+        "compressor": {
+          "ce_norm": 3.5771464269979965,
+          "predictive_norm": 0.5050211284444671,
+          "predictive_to_ce_ratio": 0.14117988702751808,
+          "cosine": -0.07387112707872635
+        },
+        "up_kernel": {
+          "ce_norm": 0.21949810755687385,
+          "predictive_norm": 0.03455480297956563,
+          "predictive_to_ce_ratio": 0.15742642779101038,
+          "cosine": -0.07941170684615112
+        },
+        "protocol_gain": {
+          "ce_norm": 0.0002069276524707675,
+          "predictive_norm": 6.462307737820083e-07,
+          "predictive_to_ce_ratio": 0.00312297929283908,
+          "cosine": 1.0
+        }
+      }
+    },
+    {
+      "batch": 4,
+      "depth": 6,
+      "ce": 3.959357976913452,
+      "predictive_loss": 1.0362755060195923,
+      "tree_all": {
+        "ce_norm": 0.09095822600825425,
+        "predictive_norm": 0.006966041085004621,
+        "predictive_to_ce_ratio": 0.07658505877601954,
+        "cosine": 0.012673661846574315
+      },
+      "tree_by_level": [
+        {
+          "ce_norm": 0.00566110590368416,
+          "predictive_norm": 0.0008348603944428468,
+          "predictive_to_ce_ratio": 0.1474730218170857,
+          "cosine": 0.04413227645913248
+        },
+        {
+          "ce_norm": 0.009058075336244519,
+          "predictive_norm": 0.0015904539601398952,
+          "predictive_to_ce_ratio": 0.17558409497610758,
+          "cosine": 0.03746002620268506
+        },
+        {
+          "ce_norm": 0.017121125026083567,
+          "predictive_norm": 0.0023056861926662115,
+          "predictive_to_ce_ratio": 0.13466908215164375,
+          "cosine": 0.028807618097477936
+        },
+        {
+          "ce_norm": 0.027542035595456704,
+          "predictive_norm": 0.002965557933401538,
+          "predictive_to_ce_ratio": 0.10767388354877924,
+          "cosine": 0.026186681531707307
+        },
+        {
+          "ce_norm": 0.040257447810427914,
+          "predictive_norm": 0.003574334639396894,
+          "predictive_to_ce_ratio": 0.08878691605658696,
+          "cosine": 0.015839366824189717
+        },
+        {
+          "ce_norm": 0.07407390416745518,
+          "predictive_norm": 0.004290990786593869,
+          "predictive_to_ce_ratio": 0.057928508491916934,
+          "cosine": 0.005432650048054541
+        }
+      ],
+      "parameter_groups": {
+        "compressor": {
+          "ce_norm": 2.6720380204813723,
+          "predictive_norm": 0.2864336900421442,
+          "predictive_to_ce_ratio": 0.10719671196540186,
+          "cosine": -0.023973993535891403
+        },
+        "up_kernel": {
+          "ce_norm": 0.4758414726105411,
+          "predictive_norm": 0.02758486223711862,
+          "predictive_to_ce_ratio": 0.0579706978582252,
+          "cosine": 0.05494680434354744
+        },
+        "protocol_gain": {
+          "ce_norm": 0.000226970951189287,
+          "predictive_norm": 8.666628673381638e-06,
+          "predictive_to_ce_ratio": 0.03818386726570101,
+          "cosine": -1.0
+        }
+      }
+    },
+    {
+      "batch": 5,
+      "depth": 7,
+      "ce": 3.1166467666625977,
+      "predictive_loss": 1.0106408596038818,
+      "tree_all": {
+        "ce_norm": 0.09473153525989578,
+        "predictive_norm": 0.0062151489397282355,
+        "predictive_to_ce_ratio": 0.0656080250644834,
+        "cosine": 0.01368923081346999
+      },
+      "tree_by_level": [
+        {
+          "ce_norm": 0.006779539872272338,
+          "predictive_norm": 0.0007480312317236188,
+          "predictive_to_ce_ratio": 0.11033657826587821,
+          "cosine": 0.007620075925320437
+        },
+        {
+          "ce_norm": 0.021326855013642156,
+          "predictive_norm": 0.0014361480191519406,
+          "predictive_to_ce_ratio": 0.06733988758461008,
+          "cosine": 0.015957084551899828
+        },
+        {
+          "ce_norm": 0.02803408564658728,
+          "predictive_norm": 0.0020936162916425994,
+          "predictive_to_ce_ratio": 0.0746810977905914,
+          "cosine": 0.02372067295152319
+        },
+        {
+          "ce_norm": 0.03438600183646627,
+          "predictive_norm": 0.002669580163322068,
+          "predictive_to_ce_ratio": 0.07763566628124195,
+          "cosine": 0.024332753758891865
+        },
+        {
+          "ce_norm": 0.04406123999648603,
+          "predictive_norm": 0.0031780313707948852,
+          "predictive_to_ce_ratio": 0.07212759720444407,
+          "cosine": 0.014642023021712906
+        },
+        {
+          "ce_norm": 0.06755417764045862,
+          "predictive_norm": 0.0037942369018903674,
+          "predictive_to_ce_ratio": 0.05616583658355386,
+          "cosine": 0.007242042258994434
+        }
+      ],
+      "parameter_groups": {
+        "compressor": {
+          "ce_norm": 2.89312446327302,
+          "predictive_norm": 0.2388739107595158,
+          "predictive_to_ce_ratio": 0.08256606785913227,
+          "cosine": -0.29774066909800884
+        },
+        "up_kernel": {
+          "ce_norm": 0.4411089099037533,
+          "predictive_norm": 0.02395228728464393,
+          "predictive_to_ce_ratio": 0.05430016657308088,
+          "cosine": 0.03283887296863506
+        },
+        "protocol_gain": {
+          "ce_norm": 0.0009234752506017685,
+          "predictive_norm": 4.352151336206589e-06,
+          "predictive_to_ce_ratio": 0.0047127969410881085,
+          "cosine": -1.0
+        }
+      }
+    },
+    {
+      "batch": 6,
+      "depth": 5,
+      "ce": 3.7211713790893555,
+      "predictive_loss": 0.9743154048919678,
+      "tree_all": {
+        "ce_norm": 0.08127601221292233,
+        "predictive_norm": 0.007674169651143523,
+        "predictive_to_ce_ratio": 0.0944210898418486,
+        "cosine": 0.013413668641771058
+      },
+      "tree_by_level": [
+        {
+          "ce_norm": 0.006419997253320058,
+          "predictive_norm": 0.0008806653617574148,
+          "predictive_to_ce_ratio": 0.13717534868133857,
+          "cosine": 0.006225822632932642
+        },
+        {
+          "ce_norm": 0.00974088712748948,
+          "predictive_norm": 0.0016825520389798362,
+          "predictive_to_ce_ratio": 0.17273088343581708,
+          "cosine": 0.02506672132452208
+        },
+        {
+          "ce_norm": 0.012641190699679486,
+          "predictive_norm": 0.00250679460316349,
+          "predictive_to_ce_ratio": 0.19830367745556193,
+          "cosine": 0.030053084053348906
+        },
+        {
+          "ce_norm": 0.02136824933579548,
+          "predictive_norm": 0.0032614977737204917,
+          "predictive_to_ce_ratio": 0.15263289577293185,
+          "cosine": 0.02309784226440445
+        },
+        {
+          "ce_norm": 0.029827648164310563,
+          "predictive_norm": 0.003962266610034054,
+          "predictive_to_ce_ratio": 0.13283872024395788,
+          "cosine": 0.02325083437407266
+        },
+        {
+          "ce_norm": 0.07045281071380818,
+          "predictive_norm": 0.004760817512973345,
+          "predictive_to_ce_ratio": 0.06757455756183568,
+          "cosine": 0.007782715526379366
+        }
+      ],
+      "parameter_groups": {
+        "compressor": {
+          "ce_norm": 4.097671621991351,
+          "predictive_norm": 0.4946179337269772,
+          "predictive_to_ce_ratio": 0.12070706961301284,
+          "cosine": 0.16989889221424015
+        },
+        "up_kernel": {
+          "ce_norm": 0.32511421489511294,
+          "predictive_norm": 0.0302964283936496,
+          "predictive_to_ce_ratio": 0.09318703091288615,
+          "cosine": 0.04613127805326165
+        },
+        "protocol_gain": {
+          "ce_norm": 0.00016748957568779588,
+          "predictive_norm": 5.027834959037136e-06,
+          "predictive_to_ce_ratio": 0.03001879333916952,
+          "cosine": 1.0
+        }
+      }
+    },
+    {
+      "batch": 7,
+      "depth": 6,
+      "ce": 3.225067615509033,
+      "predictive_loss": 0.9830589294433594,
+      "tree_all": {
+        "ce_norm": 0.06206579124523355,
+        "predictive_norm": 0.006491384218871299,
+        "predictive_to_ce_ratio": 0.10458876119411135,
+        "cosine": 0.01599405532443908
+      },
+      "tree_by_level": [
+        {
+          "ce_norm": 0.004910969501659372,
+          "predictive_norm": 0.0007728081476446146,
+          "predictive_to_ce_ratio": 0.15736366258912618,
+          "cosine": 0.007022233473148551
+        },
+        {
+          "ce_norm": 0.007345760370409071,
+          "predictive_norm": 0.0014731270881672108,
+          "predictive_to_ce_ratio": 0.20054113037792645,
+          "cosine": 0.011178397193631852
+        },
+        {
+          "ce_norm": 0.01150711877464548,
+          "predictive_norm": 0.0021357820288987494,
+          "predictive_to_ce_ratio": 0.18560528232355455,
+          "cosine": 0.021013434849144783
+        },
+        {
+          "ce_norm": 0.017684788705883078,
+          "predictive_norm": 0.002755368709044844,
+          "predictive_to_ce_ratio": 0.1558044461186146,
+          "cosine": 0.01864796815711115
+        },
+        {
+          "ce_norm": 0.026575200470857208,
+          "predictive_norm": 0.003329623820665838,
+          "predictive_to_ce_ratio": 0.1252906379508654,
+          "cosine": 0.02094550411855265
+        },
+        {
+          "ce_norm": 0.05121208658021494,
+          "predictive_norm": 0.004016306367940294,
+          "predictive_to_ce_ratio": 0.07842497027824555,
+          "cosine": 0.014671980536607043
+        }
+      ],
+      "parameter_groups": {
+        "compressor": {
+          "ce_norm": 1.8272989308253866,
+          "predictive_norm": 0.28970633530595974,
+          "predictive_to_ce_ratio": 0.15854348208648056,
+          "cosine": -0.05071598491305197
+        },
+        "up_kernel": {
+          "ce_norm": 0.27368135862057813,
+          "predictive_norm": 0.02540710565774289,
+          "predictive_to_ce_ratio": 0.09283462266411202,
+          "cosine": -0.003614178130963145
+        },
+        "protocol_gain": {
+          "ce_norm": 0.00016749730275478214,
+          "predictive_norm": 1.2563083373606787e-06,
+          "predictive_to_ce_ratio": 0.0075004690624775475,
+          "cosine": 1.0
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "tree_ratio_min": 0.05746989740623633,
+    "tree_ratio_median": 0.0944210898418486,
+    "tree_ratio_max": 0.12131741396672532,
+    "tree_cosine_mean": 0.008896266433842398,
+    "suggested_loss_weights": {
+      "0.01": 0.10590854243209419,
+      "0.05": 0.529542712160471,
+      "0.2": 2.118170848641884
+    }
+  },
+  "interpretation": "Suggested weights target auxiliary/CE TreeHeap gradient-norm ratios; they are calibration observations, not authorized training settings."
+}
