@@ -1,0 +1,1070 @@
+{
+  "claim": "S3-STRUCTURAL-PROTOCOL-CAPACITY-LADDER-D11",
+  "mode": "smoke",
+  "arm": "treeheap-106m",
+  "host": "io",
+  "parameters": {
+    "total": 105965594,
+    "trainable": 70598669,
+    "groups": {
+      "extra_logit_gain": {
+        "total": 1,
+        "trainable": 1
+      },
+      "protocol_gain_logit": {
+        "total": 1,
+        "trainable": 1
+      },
+      "frozen_source": {
+        "total": 35366925,
+        "trainable": 0
+      },
+      "compressor": {
+        "total": 996096,
+        "trainable": 996096
+      },
+      "reconstructor": {
+        "total": 26385157,
+        "trainable": 26385157
+      },
+      "extra": {
+        "total": 43217414,
+        "trainable": 43217414
+      }
+    }
+  },
+  "step": 50,
+  "cursor": 801,
+  "processed_tokens": 18890,
+  "initial_valid": {
+    "per_depth": {
+      "5": {
+        "nll": 4.357096564150003,
+        "ppl": 78.03024938594311,
+        "tokens": 1308,
+        "mean_budget": 4.625,
+        "slot_variance": 1.0734587863118898,
+        "between_slot_variance": 0.4881231435574591,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "6": {
+        "nll": 4.239493553791571,
+        "ppl": 69.3727093949861,
+        "tokens": 1308,
+        "mean_budget": 8.71875,
+        "slot_variance": 1.3583536904463578,
+        "between_slot_variance": 0.8210399989038706,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "7": {
+        "nll": 4.223395274684334,
+        "ppl": 68.26486924176844,
+        "tokens": 1308,
+        "mean_budget": 17.078125,
+        "slot_variance": 1.5189631346153714,
+        "between_slot_variance": 1.1303508402779698,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      }
+    },
+    "mean_nll": 4.273328464208636
+  },
+  "best_valid": {
+    "per_depth": {
+      "5": {
+        "nll": 4.361035664876302,
+        "ppl": 78.33822457238787,
+        "tokens": 1308,
+        "mean_budget": 4.625,
+        "slot_variance": 1.0724217996037406,
+        "between_slot_variance": 0.5035800209734589,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "6": {
+        "nll": 4.228341432157277,
+        "ppl": 68.60335444539625,
+        "tokens": 1308,
+        "mean_budget": 8.71875,
+        "slot_variance": 1.3463748385601089,
+        "between_slot_variance": 0.8217024467885494,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "7": {
+        "nll": 4.209299933290628,
+        "ppl": 67.30940224058375,
+        "tokens": 1308,
+        "mean_budget": 17.078125,
+        "slot_variance": 1.5137820668878192,
+        "between_slot_variance": 1.1365681430324912,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      }
+    },
+    "mean_nll": 4.266225676774735
+  },
+  "initial_generation": {
+    "per_depth": {
+      "5": {
+        "token_bleu4": 9.780720966701852,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": " ⁇ 依未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306741016134e-11,
+              0.6209248304367065,
+              1.2885630130767822,
+              1.9661097526550293
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "You agree that any information that is untrue, inaccurate, not current or incomplete, or the Company has the right to suspend or terminate your account and refuse any and all related to the Service.",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289307434905524e-11,
+              0.647788405418396,
+              1.303372859954834,
+              1.8315197229385376
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在 ⁇ 洲的 ⁇ 洲,在1950年,他被 ⁇ 押了,并被判处死刑,被判处死刑,并被判处死刑。",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289307434905524e-11,
+              0.4987735152244568,
+              1.109886646270752,
+              1.7654509544372559
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The hotel is located in the city of the city of the city, and the second floor of the city, and the second half of the town of the city.",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306741016134e-11,
+              0.589465320110321,
+              1.2474223375320435,
+              1.9236055612564087
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 木 ⁇ 的 ⁇ 子",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341714341258864e-10,
+              0.6626342535018921,
+              1.0481059551239014
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "Worthy of the Wolten",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341715729037645e-10,
+              0.6748842000961304,
+              1.0518642663955688
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "使用本网站,您同意,本网站的数据收集,以书面声明。",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306047126743e-11,
+              0.601794958114624,
+              0.904384434223175,
+              1.305480718612671
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you are solely responsible for the use of the Website, and you agree to be bound by the following terms and conditions of this information.",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306047126743e-11,
+              0.6477743983268738,
+              1.0045491456985474,
+              1.389394760131836
+            ]
+          }
+        ]
+      },
+      "6": {
+        "token_bleu4": 11.227819602261997,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.018018018018018018,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "倘本使用协议之任何规定因未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.6137349009513855,
+              1.262590765953064,
+              1.925478219985962,
+              2.607086420059204
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "You agree that any termination of your access to the Service is under any provision of the Terms of Use, or any other terms of conditions, including, without limitation, the right to change or otherwise.",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.6391904354095459,
+              1.265447974205017,
+              1.791893482208252,
+              2.3430733680725098
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "该项目在伦敦建设的土地,在1550年,被封锁了,被封锁了,被封锁了,被封锁了,被封锁了,并被封锁了。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.4572039544582367,
+              1.0815788507461548,
+              1.7076789140701294,
+              2.366424322128296
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company's first construction project was named after the construction of the company's construction, the company's second largest in the country's name, the company's name was the most widely used in the country.",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              0.5156364440917969,
+              1.109830617904663,
+              1.7488715648651123,
+              2.420520067214966
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇  ⁇  ⁇  ⁇ 的 ⁇ 子 ⁇ 子 ⁇ 子",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.5781035423278809,
+              0.9703701138496399,
+              1.6408026218414307
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "WILOs in the WILD in the WILO",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306741016134e-11,
+              0.6586071252822876,
+              1.0011181831359863,
+              1.6689674854278564
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "通过使用本网站,您同意您同意,我们同意您按照以下方式进行处理。",
+            "budget": 9,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5539010763168335,
+              0.8327178955078125,
+              1.2444593906402588,
+              1.6764236688613892
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you will be solely responsible for the following terms and conditions of this website, you agree that the data is collected and you may be subject to the following terms.",
+            "budget": 10,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5989851355552673,
+              0.933146595954895,
+              1.327732801437378,
+              1.997144103050232
+            ]
+          }
+        ]
+      },
+      "7": {
+        "token_bleu4": 16.371264180857025,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "申诉方对本使用条款的任何权利或规定,不构成任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5826771855354309,
+              1.213104009628296,
+              1.881216287612915,
+              2.537562608718872,
+              3.199312210083008
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "Any failure to exercise or enforce any right or provision of the Terms of Service shall not constitute a waiver of such right or provision.",
+            "budget": 25,
+            "route": [
+              0.0,
+              0.6375919580459595,
+              1.2530262470245361,
+              1.788718581199646,
+              2.3568058013916016,
+              2.931004762649536
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在 ⁇ 德 ⁇ 的土地上,在1550年,被 ⁇ 押,其中一名被拘留者被拘留,被拘留者,并被拘留。",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.49431219696998596,
+              1.1056021451950073,
+              1.7409244775772095,
+              2.35844349861145,
+              2.9960970878601074
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company has been named after the project, the company's construction of the company's name, the company's name, the company's name and the company's name, the company's name was the most commonplace.",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5099280476570129,
+              1.0828136205673218,
+              1.7172726392745972,
+              2.365840196609497,
+              3.0198442935943604
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ ",
+            "budget": 11,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5198153257369995,
+              0.9462096691131592,
+              1.5981264114379883,
+              2.170698404312134
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "In the world, we have been certified by the WELIL® WILSON",
+            "budget": 12,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.616051971912384,
+              0.9799429774284363,
+              1.617222785949707,
+              2.2787089347839355
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "在本文中,您同意您已同意我们按照以下方式进行处理。",
+            "budget": 18,
+            "route": [
+              0.0,
+              0.5405266284942627,
+              0.8394922018051147,
+              1.2407759428024292,
+              1.6543018817901611,
+              2.308393716812134
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you will be solely responsible for the availability of such data, and you agree to be bound by the following terms and conditions of this Agreement.",
+            "budget": 19,
+            "route": [
+              0.0,
+              0.6195734739303589,
+              0.991952121257782,
+              1.4001014232635498,
+              2.035828113555908,
+              2.608701229095459
+            ]
+          }
+        ]
+      }
+    },
+    "bleu4_median": 11.227819602261997,
+    "nonempty_min": 1.0,
+    "repetition_max": 0.018018018018018018
+  },
+  "best_generation": {
+    "per_depth": {
+      "5": {
+        "token_bleu4": 9.54815547965479,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289305353237353e-11,
+              0.6302320957183838,
+              1.2965025901794434,
+              1.9701488018035889
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The failure of any person or any other person or any other party, or any other person or any other terms of conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions, conditions",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.6666301488876343,
+              1.3021979331970215,
+              1.8246941566467285
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "住在伦敦,在阿斯塔纳德的15个工作日, 615  ⁇ , 6  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ , ",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.5234326720237732,
+              1.1016114950180054,
+              1.7446249723434448
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company was a residential property, in the construction of the construction of the construction of the company, and the number of people in the field of the company, the second half of the country's name was the second half of the country's most popular.",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              8.289306741016134e-11,
+              0.5578066110610962,
+              1.1572381258010864,
+              1.823990821838379
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 木 ⁇ 的 ⁇ 子 ⁇ ",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341715729037645e-10,
+              0.6639569401741028,
+              1.037276268005371
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "WOODS of Wolves",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341714341258864e-10,
+              0.6777850389480591,
+              1.048311471939087
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "使用本网站,您同意,本网站的数据收集、使用、储存和分享数据。",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306047126743e-11,
+              0.6022766828536987,
+              0.9125915765762329,
+              1.3171054124832153
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you will be solely responsible for the availability of the data that you have to be aware that the information you provide to you.",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.651461660861969,
+              1.0307613611221313,
+              1.4184097051620483
+            ]
+          }
+        ]
+      },
+      "6": {
+        "token_bleu4": 13.554643979578547,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.020202020202020204,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "倘本使用协议之任何规定因任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.6427311301231384,
+              1.2926713228225708,
+              1.9597129821777344,
+              2.639805555343628
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The failure of the Company reserves the right to use any provision of these Terms of Service or any third party for any reason, including, without limitation, the right to change or otherwise constitute a waiver of such right or provision.",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.6274217367172241,
+              1.2575664520263672,
+              1.7854362726211548,
+              2.341790199279785
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在 ⁇ 洲的土地建设中,在1550年,被 ⁇ 押了,并被判处死刑,被拘留者被判处死刑。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5080538988113403,
+              1.1417018175125122,
+              1.7818597555160522,
+              2.4414350986480713
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company's first construction project was built in the sixth century, and was built in the middle of the country's name, the company's name was the most popular country.",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5364405512809753,
+              1.1467341184616089,
+              1.792312502861023,
+              2.4685657024383545
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇  ⁇  ⁇  ⁇ 的 ⁇ 子 ⁇ 子 ⁇ 子",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.5898544192314148,
+              0.9655048251152039,
+              1.6391139030456543
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "WILD in the WILD in the WILO",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306047126743e-11,
+              0.6502910852432251,
+              0.9703336954116821,
+              1.6357227563858032
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "通过使用I网站I网站,您同意您同意,我们同意我们按照以下方式进行处理。",
+            "budget": 9,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5239061713218689,
+              0.8061922192573547,
+              1.2087681293487549,
+              1.6601301431655884
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you will be solely responsible for the availability of the data that is not to be disclosed to any third party.",
+            "budget": 10,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.589722752571106,
+              0.9946224689483643,
+              1.3988691568374634,
+              2.0634541511535645
+            ]
+          }
+        ]
+      },
+      "7": {
+        "token_bleu4": 14.332071562903318,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.005235602094240838,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "申诉方对本使用条款行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5862820148468018,
+              1.225008249282837,
+              1.8837287425994873,
+              2.536839008331299,
+              3.200256824493408
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The failure of the Company shall not constitute a waiver of such right or provision.",
+            "budget": 25,
+            "route": [
+              0.0,
+              0.6219835877418518,
+              1.2454288005828857,
+              1.777985692024231,
+              2.346630334854126,
+              2.9262521266937256
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在 ⁇ 建项目中,在1550年,他已收到土地,并被封禁了,而该报告被称作“被封锁 ” 。",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5065863728523254,
+              1.158961534500122,
+              1.7978627681732178,
+              2.444810628890991,
+              3.10545015335083
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company has been named after the project, the company's construction of the company's first position, the company's most famous for the company's name, the company's name was the most commonplace.",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5308060050010681,
+              1.1279810667037964,
+              1.768174409866333,
+              2.419750690460205,
+              3.0731537342071533
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇  EL ELEMENTARY",
+            "budget": 11,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5058650374412537,
+              0.9012923836708069,
+              1.5496793985366821,
+              2.118821859359741
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "In the world, we have been certified by the EL WILSON",
+            "budget": 12,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.609117329120636,
+              0.9805400967597961,
+              1.6252598762512207,
+              2.2858359813690186
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "在本文中,您同意您已同意我们按照以下方式进行处理。",
+            "budget": 18,
+            "route": [
+              0.0,
+              0.5351693034172058,
+              0.8305215835571289,
+              1.2334544658660889,
+              1.651436686515808,
+              2.306061267852783
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you will be solely responsible for the availability of such external sites or resources, and that you do not agree to the terms of this Agreement.",
+            "budget": 19,
+            "route": [
+              0.0,
+              0.5910300612449646,
+              0.9742335081100464,
+              1.383751392364502,
+              2.0243704319000244,
+              2.5951342582702637
+            ]
+          }
+        ]
+      }
+    },
+    "bleu4_median": 13.554643979578547,
+    "nonempty_min": 1.0,
+    "repetition_max": 0.020202020202020204
+  },
+  "causal": {
+    "5": {
+      "native": {
+        "nll": 4.489806967315443,
+        "ppl": 89.10424418700683,
+        "tokens": 1322,
+        "mean_budget": 4.75,
+        "slot_variance": 1.0601087979678894,
+        "between_slot_variance": 0.48044375563040376,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle": {
+        "nll": 5.7647398055591665,
+        "ppl": 318.85606866535755,
+        "tokens": 1322,
+        "mean_budget": 4.75,
+        "slot_variance": 0.88045580319798,
+        "between_slot_variance": 0.44964047661051154,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "zero": {
+        "nll": 6.393567984114977,
+        "ppl": 597.9863837932985,
+        "tokens": 1322,
+        "mean_budget": 4.75,
+        "slot_variance": 0.0,
+        "between_slot_variance": 0.0,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle_delta": 1.274932838243724,
+      "zero_delta": 1.9037610167995345
+    },
+    "6": {
+      "native": {
+        "nll": 4.341799829803328,
+        "ppl": 76.84572417102395,
+        "tokens": 1322,
+        "mean_budget": 9.0625,
+        "slot_variance": 1.3543777798633825,
+        "between_slot_variance": 0.83529894053936,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle": {
+        "nll": 5.581621686557417,
+        "ppl": 265.5018175861465,
+        "tokens": 1322,
+        "mean_budget": 9.0625,
+        "slot_variance": 1.0886882597723577,
+        "between_slot_variance": 0.750083026709035,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "zero": {
+        "nll": 6.319987333127482,
+        "ppl": 555.5659551237037,
+        "tokens": 1322,
+        "mean_budget": 9.0625,
+        "slot_variance": 0.0,
+        "between_slot_variance": 0.0,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle_delta": 1.239821856754089,
+      "zero_delta": 1.978187503324154
+    },
+    "7": {
+      "native": {
+        "nll": 4.333886450970948,
+        "ppl": 76.24001460949152,
+        "tokens": 1322,
+        "mean_budget": 17.71875,
+        "slot_variance": 1.5092048535109004,
+        "between_slot_variance": 1.1283091586083174,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle": {
+        "nll": 5.428037888704377,
+        "ppl": 227.70203009906723,
+        "tokens": 1322,
+        "mean_budget": 17.71875,
+        "slot_variance": 1.1874848987585989,
+        "between_slot_variance": 0.9890713944332674,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "zero": {
+        "nll": 6.312407800902397,
+        "ppl": 551.3709432608414,
+        "tokens": 1322,
+        "mean_budget": 17.71875,
+        "slot_variance": 0.0,
+        "between_slot_variance": 0.0,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle_delta": 1.0941514377334292,
+      "zero_delta": 1.978521349931449
+    }
+  },
+  "extra_logit_gain": -0.00046424189349636436,
+  "gates": {
+    "steps_complete": true,
+    "finite": true,
+    "input_causality": true,
+    "structure": true,
+    "nonempty": true,
+    "repetition": true,
+    "source_frozen": true,
+    "trainable_updated": true,
+    "reload": true
+  },
+  "passed": true,
+  "reload_nll_delta": 0.0,
+  "stage_counts": {
+    "rows": 801,
+    "excluded": 1,
+    "source_truncated": 168,
+    "target_truncated": 16
+  },
+  "seconds": 106.27827286720276
+}

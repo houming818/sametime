@@ -1,0 +1,1430 @@
+{
+  "claim": "S3-STRUCTURAL-PROTOCOL-CAPACITY-LADDER-D11",
+  "mode": "formal",
+  "arm": "treeheap-106m",
+  "host": "io",
+  "parameters": {
+    "total": 105965594,
+    "trainable": 70598669,
+    "groups": {
+      "extra_logit_gain": {
+        "total": 1,
+        "trainable": 1
+      },
+      "protocol_gain_logit": {
+        "total": 1,
+        "trainable": 1
+      },
+      "frozen_source": {
+        "total": 35366925,
+        "trainable": 0
+      },
+      "compressor": {
+        "total": 996096,
+        "trainable": 996096
+      },
+      "reconstructor": {
+        "total": 26385157,
+        "trainable": 26385157
+      },
+      "extra": {
+        "total": 43217414,
+        "trainable": 43217414
+      }
+    }
+  },
+  "step": 25000,
+  "cursor": 400488,
+  "processed_tokens": 9536085,
+  "initial_valid": {
+    "per_depth": {
+      "5": {
+        "nll": 4.187335003352254,
+        "ppl": 65.84707468945986,
+        "tokens": 20998,
+        "mean_budget": 4.666015625,
+        "slot_variance": 1.066286766467055,
+        "between_slot_variance": 0.4750924465188291,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "6": {
+        "nll": 4.0292938171380905,
+        "ppl": 56.221194781004094,
+        "tokens": 20998,
+        "mean_budget": 8.8564453125,
+        "slot_variance": 1.3743729546752579,
+        "between_slot_variance": 0.8539213002368342,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "7": {
+        "nll": 4.001134629544332,
+        "ppl": 54.66013386493136,
+        "tokens": 20998,
+        "mean_budget": 17.2568359375,
+        "slot_variance": 1.5163676021610837,
+        "between_slot_variance": 1.137668316543568,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      }
+    },
+    "mean_nll": 4.072587816678225
+  },
+  "best_valid": {
+    "per_depth": {
+      "5": {
+        "nll": 4.116881603353965,
+        "ppl": 61.367575132210405,
+        "tokens": 20998,
+        "mean_budget": 4.666015625,
+        "slot_variance": 1.1930969133372356,
+        "between_slot_variance": 0.5439217602543067,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "6": {
+        "nll": 3.962895982071767,
+        "ppl": 52.609461609326246,
+        "tokens": 20998,
+        "mean_budget": 8.8564453125,
+        "slot_variance": 1.5062350151279102,
+        "between_slot_variance": 0.9371593249670696,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "7": {
+        "nll": 3.935621007804315,
+        "ppl": 51.19393191846774,
+        "tokens": 20998,
+        "mean_budget": 17.2568359375,
+        "slot_variance": 1.635898551587068,
+        "between_slot_variance": 1.230055954772979,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      }
+    },
+    "mean_nll": 4.005132864410016
+  },
+  "initial_generation": {
+    "per_depth": {
+      "5": {
+        "token_bleu4": 5.700438201644107,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.019311502938706968,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": " ⁇ 依未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306741016134e-11,
+              0.6209248304367065,
+              1.2885630130767822,
+              1.9661097526550293
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "You agree that any information that is untrue, inaccurate, not current or incomplete, or the Company has the right to suspend or terminate your account and refuse any and all related to the Service.",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289307434905524e-11,
+              0.647788405418396,
+              1.303372859954834,
+              1.8315197229385376
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在 ⁇ 洲的 ⁇ 洲,在1950年,他被 ⁇ 押了,并被判处死刑,被判处死刑,并被判处死刑。",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289307434905524e-11,
+              0.4987735152244568,
+              1.109886646270752,
+              1.7654509544372559
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The hotel is located in the city of the city of the city, and the second floor of the city, and the second half of the town of the city.",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306741016134e-11,
+              0.589465320110321,
+              1.2474223375320435,
+              1.9236055612564087
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 木 ⁇ 的 ⁇ 子",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341714341258864e-10,
+              0.6626342535018921,
+              1.0481059551239014
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "Worthy of the Wolten",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341715729037645e-10,
+              0.6748842000961304,
+              1.0518642663955688
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "使用本网站,您同意,本网站的数据收集,以书面声明。",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306047126743e-11,
+              0.601794958114624,
+              0.904384434223175,
+              1.305480718612671
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you are solely responsible for the use of the Website, and you agree to be bound by the following terms and conditions of this information.",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306047126743e-11,
+              0.6477743983268738,
+              1.0045491456985474,
+              1.389394760131836
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "欧盟委员会(英国)",
+            "budget": 4,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306741016134e-11,
+              1.9341714341258864e-10,
+              0.5751799941062927,
+              1.228043794631958
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "reference": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "generation": "The Folkata, the United Kingdom, Cyprus",
+            "budget": 4,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306047126743e-11,
+              1.9341714341258864e-10,
+              0.5685563087463379,
+              1.2320493459701538
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "reference": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "generation": "这里的功能将显示出一个新图表,然后点击\"搜索\"按钮,并返回\"图表\"页面。",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306047126743e-11,
+              0.47569555044174194,
+              1.0510163307189941,
+              1.6768832206726074
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The graph is available in the graphical map of the port of the port of the port of the port of the port of the port of the city of the shore of the chart, the only two-dimensional charts.",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289307434905524e-11,
+              0.5506896376609802,
+              1.1409598588943481,
+              1.7994883060455322
+            ]
+          }
+        ]
+      },
+      "6": {
+        "token_bleu4": 7.118544874766681,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.013626040878122634,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "倘本使用协议之任何规定因未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.6137349009513855,
+              1.262590765953064,
+              1.925478219985962,
+              2.607086420059204
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "You agree that any termination of your access to the Service is under any provision of the Terms of Use, or any other terms of conditions, including, without limitation, the right to change or otherwise.",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.6391904354095459,
+              1.265447974205017,
+              1.791893482208252,
+              2.3430733680725098
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "该项目在伦敦建设的土地,在1550年,被封锁了,被封锁了,被封锁了,被封锁了,被封锁了,并被封锁了。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.4572039544582367,
+              1.0815788507461548,
+              1.7076789140701294,
+              2.366424322128296
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company's first construction project was named after the construction of the company's construction, the company's second largest in the country's name, the company's name was the most widely used in the country.",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              0.5156364440917969,
+              1.109830617904663,
+              1.7488715648651123,
+              2.420520067214966
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇  ⁇  ⁇  ⁇ 的 ⁇ 子 ⁇ 子 ⁇ 子",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.5781035423278809,
+              0.9703701138496399,
+              1.6408026218414307
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "WILOs in the WILD in the WILO",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306741016134e-11,
+              0.6586071252822876,
+              1.0011181831359863,
+              1.6689674854278564
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "通过使用本网站,您同意您同意,我们同意您按照以下方式进行处理。",
+            "budget": 9,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5539010763168335,
+              0.8327178955078125,
+              1.2444593906402588,
+              1.6764236688613892
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you will be solely responsible for the following terms and conditions of this website, you agree that the data is collected and you may be subject to the following terms.",
+            "budget": 10,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5989851355552673,
+              0.933146595954895,
+              1.327732801437378,
+              1.997144103050232
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "申明, Road, 温德米尔, 英国 (显示地图 )",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306741016134e-11,
+              0.48954102396965027,
+              1.080786108970642,
+              1.73500394821167
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "reference": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "generation": "The Sedo, the West, the United Kingdom,",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.6193364262580872,
+              1.24118971824646,
+              1.798102855682373
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "reference": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "generation": "这函数将返回给图表上,而不是用于对搜索和搜索的属性,然后点击图表的图表。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5011792182922363,
+              1.0541722774505615,
+              1.6945292949676514,
+              2.3540024757385254
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "This is used to confirm the map of the port of the port of the Mediterranean Sea and the largest pop-up menu. Click on the menu shows the map shows the map of the chart.",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5159814953804016,
+              1.1024715900421143,
+              1.7275869846343994,
+              2.3942785263061523
+            ]
+          }
+        ]
+      },
+      "7": {
+        "token_bleu4": 8.655632453562125,
+        "nonempty_rate": 0.953125,
+        "adjacent_repetition_rate": 0.05862068965517241,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "申诉方对本使用条款的任何权利或规定,不构成任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5826771855354309,
+              1.213104009628296,
+              1.881216287612915,
+              2.537562608718872,
+              3.199312210083008
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "Any failure to exercise or enforce any right or provision of the Terms of Service shall not constitute a waiver of such right or provision.",
+            "budget": 25,
+            "route": [
+              0.0,
+              0.6375919580459595,
+              1.2530262470245361,
+              1.788718581199646,
+              2.3568058013916016,
+              2.931004762649536
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在 ⁇ 德 ⁇ 的土地上,在1550年,被 ⁇ 押,其中一名被拘留者被拘留,被拘留者,并被拘留。",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.49431219696998596,
+              1.1056021451950073,
+              1.7409244775772095,
+              2.35844349861145,
+              2.9960970878601074
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company has been named after the project, the company's construction of the company's name, the company's name, the company's name and the company's name, the company's name was the most commonplace.",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5099280476570129,
+              1.0828136205673218,
+              1.7172726392745972,
+              2.365840196609497,
+              3.0198442935943604
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ ",
+            "budget": 11,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5198153257369995,
+              0.9462096691131592,
+              1.5981264114379883,
+              2.170698404312134
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "In the world, we have been certified by the WELIL® WILSON",
+            "budget": 12,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.616051971912384,
+              0.9799429774284363,
+              1.617222785949707,
+              2.2787089347839355
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "在本文中,您同意您已同意我们按照以下方式进行处理。",
+            "budget": 18,
+            "route": [
+              0.0,
+              0.5405266284942627,
+              0.8394922018051147,
+              1.2407759428024292,
+              1.6543018817901611,
+              2.308393716812134
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you will be solely responsible for the availability of such data, and you agree to be bound by the following terms and conditions of this Agreement.",
+            "budget": 19,
+            "route": [
+              0.0,
+              0.6195734739303589,
+              0.991952121257782,
+              1.4001014232635498,
+              2.035828113555908,
+              2.608701229095459
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "budget": 15,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              0.4619332253932953,
+              0.9746142029762268,
+              1.5327553749084473,
+              2.1322734355926514
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "reference": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "generation": "Too, Jennon, Dad, Dad, United Kingdom (Show map )",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.6391110420227051,
+              1.158936858177185,
+              1.6735771894454956,
+              2.239259719848633
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "reference": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "generation": "这函数的记录是根据图表的顺序,而不是在搜索工具中,并点击此属性, 单击此处 图表。",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5003210306167603,
+              1.092573642730713,
+              1.710984230041504,
+              2.358112335205078,
+              2.9914073944091797
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The feature is used to confirm the map of the port of the port of the city of the Baltic Sea and the largest city of Barcelona. Click on the map of the sea.",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5114249587059021,
+              1.1201213598251343,
+              1.7170796394348145,
+              2.356003522872925,
+              3.0188491344451904
+            ]
+          }
+        ]
+      }
+    },
+    "bleu4_median": 7.118544874766681,
+    "nonempty_min": 0.953125,
+    "repetition_max": 0.05862068965517241
+  },
+  "best_generation": {
+    "per_depth": {
+      "5": {
+        "token_bleu4": 8.436651538604872,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.01334604385128694,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ ",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.6518699526786804,
+              1.3319892883300781,
+              2.0202553272247314
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The failure of any exercise or enforce any right or provision of these Terms shall not constitute a waiver of such right or provision.",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.6500704288482666,
+              1.2989660501480103,
+              1.8491448163986206
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "工厂在1950年,在施工期间,在工厂内完成,在1550年,其销售团队已经完成了15,000美元。",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306047126743e-11,
+              0.5640084147453308,
+              1.1862107515335083,
+              1.8553916215896606
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company was built in the construction of the construction of the construction of the company's construction, and the company was a small group of the company's oldest and the second half of the company.",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306741016134e-11,
+              0.5332000255584717,
+              1.1770094633102417,
+              1.836376428604126
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 德 ⁇ 的 ⁇ 子",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341714341258864e-10,
+              0.661241888999939,
+              1.0487468242645264
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "Widely on the WILD",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341715729037645e-10,
+              0.6645113229751587,
+              1.0370439291000366
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "使用本网站即表示您同意使用此信息,以声明此声明。",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.6107531785964966,
+              0.9437258243560791,
+              1.3349645137786865
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that you may not use the Services, and you may be able to use the Website for any purpose, including, but not limited to.",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306047126743e-11,
+              0.6420105695724487,
+              1.0035781860351562,
+              1.4037367105484009
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "riggrigerm Road, 温德米尔, 英国 (显示地图 )",
+            "budget": 4,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306741016134e-11,
+              1.9341714341258864e-10,
+              0.453130841255188,
+              1.0399823188781738
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "reference": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "generation": "Ledghe Road, Kiev, United Kingdom (Show map )",
+            "budget": 4,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341714341258864e-10,
+              0.5141693949699402,
+              1.1571385860443115
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "reference": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "generation": "这就需要提供相应的建议,包括图表,用于评估和评估并确定如何将图表标记为图表。",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306741016134e-11,
+              0.47698912024497986,
+              1.0412439107894897,
+              1.6742546558380127
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "The camera is displayed on the map of the port of the port of the port of the port of the port of the port of the port of the port of the city of the port of the city.",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306741016134e-11,
+              0.5845638513565063,
+              1.1523150205612183,
+              1.8043349981307983
+            ]
+          }
+        ]
+      },
+      "6": {
+        "token_bleu4": 8.721194317940466,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.009950248756218905,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ ",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              0.6383100748062134,
+              1.306909441947937,
+              1.984667181968689,
+              2.6724796295166016
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The failure of any failure to exercise or enforce any right or provision of the Terms shall not constitute a waiver of such right or provision.",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              0.6319032907485962,
+              1.2347774505615234,
+              1.7840811014175415,
+              2.3615357875823975
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "建设项目在阿拉斯加诺在布宜诺斯艾利斯的土地上,有一个土地,156号,被卖了。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.49046993255615234,
+              1.084259271621704,
+              1.7311639785766602,
+              2.4037182331085205
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company was built in the construction of the construction of the company's construction project, was built in June, 1901, the company was one of the oldest and most widely used in the field of the company.",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.4849247634410858,
+              1.0815067291259766,
+              1.7107253074645996,
+              2.3793492317199707
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 鹿 ⁇ 子 ⁇ 子 ⁇ 子",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.6200529336929321,
+              0.9937477111816406,
+              1.6665794849395752
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "WWD in the WILD in the WILO",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306047126743e-11,
+              0.621964156627655,
+              0.9197130799293518,
+              1.5836560726165771
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "通过使用I网站,您同意将数据收集和使用在数据中。",
+            "budget": 9,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5550647974014282,
+              0.8739826679229736,
+              1.2575401067733765,
+              1.6950749158859253
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that the Company shall not be responsible or liable for any content or information that is accurate, that the information is provided.",
+            "budget": 10,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.5748160481452942,
+              0.9891114234924316,
+              1.4147858619689941,
+              2.0789153575897217
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "Raygrig Road, 温德米尔, 英国 (显示地图 )",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306047126743e-11,
+              0.450916588306427,
+              0.9312979578971863,
+              1.557982325553894
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "reference": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "generation": "The Flood, Wong, United Kingdom",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.63719642162323,
+              1.2495378255844116,
+              1.772570013999939
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "reference": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "generation": "这功能包括对图表和图表的图表,然后点击搜索和查看图表,图表图表。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.5491645336151123,
+              1.1126166582107544,
+              1.7550245523452759,
+              2.416250467300415
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "This is used to confirm the number of ports and the sea to the coast of the sea. Click here to view the map. Click here to show the map of the sea.",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5384348630905151,
+              1.123842716217041,
+              1.7472563982009888,
+              2.414005756378174
+            ]
+          }
+        ]
+      },
+      "7": {
+        "token_bleu4": 6.3824659926882505,
+        "nonempty_rate": 0.984375,
+        "adjacent_repetition_rate": 0.04868673926969891,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ ",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.6038933992385864,
+              1.2661268711090088,
+              1.943506121635437,
+              2.627817153930664,
+              3.2796223163604736
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The failure of any exercise or enforce any right or provision of the Terms shall not constitute a waiver of such right or provision.",
+            "budget": 25,
+            "route": [
+              0.0,
+              0.6485331654548645,
+              1.2338180541992188,
+              1.7850394248962402,
+              2.358382225036621,
+              2.9370124340057373
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "建设项目在阿拉斯加诺项目建设中,在墨西哥湾的土地上,其数量为156 % ,  ⁇ 押于1995年,被捕。",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.4971678853034973,
+              1.074131965637207,
+              1.7048081159591675,
+              2.3532161712646484,
+              3.008779764175415
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company has been named after the construction of the company's construction project, was built in June 619, since the 19th century was the most widely used in the field of the company.",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.49308812618255615,
+              1.1006507873535156,
+              1.7139778137207031,
+              2.3610286712646484,
+              3.022360324859619
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ ",
+            "budget": 11,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              0.6041954755783081,
+              1.026342749595642,
+              1.6889821290969849,
+              2.2499969005584717
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "In the world, we can help you in the ELFWIL ELEMENT",
+            "budget": 12,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              0.6473952531814575,
+              0.9881511926651001,
+              1.6419090032577515,
+              2.312124729156494
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "通过使用IWC网站,您就同意了以下信息。",
+            "budget": 18,
+            "route": [
+              0.0,
+              0.5503482222557068,
+              0.8915730118751526,
+              1.2782056331634521,
+              1.6989184617996216,
+              2.3484466075897217
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that the Company shall not be responsible or liable for any third party for any purpose, or any other breach of security, and (b) ensure that you are solely responsible for any of the following terms.",
+            "budget": 19,
+            "route": [
+              0.0,
+              0.6019244194030762,
+              0.9906319975852966,
+              1.4001001119613647,
+              2.0531303882598877,
+              2.605353355407715
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "reference": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "generation": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "budget": 15,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              0.4464770555496216,
+              0.9166482090950012,
+              1.48943030834198,
+              2.0816586017608643
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "Rayrigg Road, 温德米尔, 英国 (显示地图 )",
+            "reference": "Rayrigg Road, Windermere, United Kingdom (Show map )",
+            "generation": "To do so, Judea, Lud, United Kingdom (Show map )",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.6540717482566833,
+              1.2107255458831787,
+              1.7200020551681519,
+              2.2733731269836426
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "reference": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "generation": "这类功能将方便用户查看图表,然后将其搜索到搜索栏,并点击图表。",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.4960881769657135,
+              1.0733107328414917,
+              1.7014353275299072,
+              2.343395471572876,
+              2.9753193855285645
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "此功能用于确认已检索的港口周围以外的海图的追加。 点击图廓,显示弹出菜单。 菜单里显示其海图的图号和图名。",
+            "reference": "This function is convenient to confirm the charts other than those for the port and its approaches targeted to search and retrieve. Click the frame of a chart on the Map to show a pop-up menu. The chart number and title of the chart will be shown on the menu.",
+            "generation": "This feature is used to confirm the number of ports and the sea in the world. Click here to view the map. Click here to show the map of the sea.",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.504173219203949,
+              1.0955923795700073,
+              1.692083716392517,
+              2.3346948623657227,
+              2.9961533546447754
+            ]
+          }
+        ]
+      }
+    },
+    "bleu4_median": 8.436651538604872,
+    "nonempty_min": 0.984375,
+    "repetition_max": 0.04868673926969891
+  },
+  "causal": {
+    "5": {
+      "native": {
+        "nll": 4.1069382737139035,
+        "ppl": 60.760400773451245,
+        "tokens": 20280,
+        "mean_budget": 4.505859375,
+        "slot_variance": 1.1848809719075868,
+        "between_slot_variance": 0.5326852940488607,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle": {
+        "nll": 5.606091410920935,
+        "ppl": 272.07871312504363,
+        "tokens": 20280,
+        "mean_budget": 4.505859375,
+        "slot_variance": 0.9897350857815256,
+        "between_slot_variance": 0.5030306149565149,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "zero": {
+        "nll": 6.394205277723203,
+        "ppl": 598.3675981533313,
+        "tokens": 20280,
+        "mean_budget": 4.505859375,
+        "slot_variance": 0.0,
+        "between_slot_variance": 0.0,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle_delta": 1.4991531372070312,
+      "zero_delta": 2.2872670040092995
+    },
+    "6": {
+      "native": {
+        "nll": 3.953815050896338,
+        "ppl": 52.133881333308885,
+        "tokens": 20280,
+        "mean_budget": 8.5,
+        "slot_variance": 1.5017845095199525,
+        "between_slot_variance": 0.9228296671935823,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle": {
+        "nll": 5.36546930918797,
+        "ppl": 213.8915924192457,
+        "tokens": 20280,
+        "mean_budget": 8.5,
+        "slot_variance": 1.2143392704371805,
+        "between_slot_variance": 0.8365757405335899,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "zero": {
+        "nll": 6.330299380451029,
+        "ppl": 561.3246183175213,
+        "tokens": 20280,
+        "mean_budget": 8.5,
+        "slot_variance": 0.0,
+        "between_slot_variance": 0.0,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle_delta": 1.4116542582916325,
+      "zero_delta": 2.376484329554691
+    },
+    "7": {
+      "native": {
+        "nll": 3.9334471813555534,
+        "ppl": 51.082766066658095,
+        "tokens": 20280,
+        "mean_budget": 16.544921875,
+        "slot_variance": 1.632276837193232,
+        "between_slot_variance": 1.2208938375115395,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle": {
+        "nll": 5.221527629303039,
+        "ppl": 185.2169108452741,
+        "tokens": 20280,
+        "mean_budget": 16.544921875,
+        "slot_variance": 1.3044546317431671,
+        "between_slot_variance": 1.0870134849756141,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "zero": {
+        "nll": 6.285089099289633,
+        "ppl": 536.512091354181,
+        "tokens": 20280,
+        "mean_budget": 16.544921875,
+        "slot_variance": 0.0,
+        "between_slot_variance": 0.0,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "shuffle_delta": 1.2880804479474857,
+      "zero_delta": 2.3516419179340793
+    }
+  },
+  "extra_logit_gain": -0.4141809046268463,
+  "gates": {
+    "steps_complete": true,
+    "finite": true,
+    "input_causality": true,
+    "structure": true,
+    "nonempty": false,
+    "repetition": true,
+    "source_frozen": true,
+    "trainable_updated": true,
+    "reload": true
+  },
+  "passed": false,
+  "reload_nll_delta": 0.0,
+  "stage_counts": {
+    "rows": 400488,
+    "excluded": 488,
+    "source_truncated": 86970,
+    "target_truncated": 10835
+  },
+  "seconds": 24307.826805830002
+}

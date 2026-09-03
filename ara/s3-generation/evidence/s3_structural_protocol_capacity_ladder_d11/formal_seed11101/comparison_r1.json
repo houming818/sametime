@@ -1,0 +1,108 @@
+{
+  "claim": "S3-STRUCTURAL-PROTOCOL-CAPACITY-LADDER-D11-R1",
+  "mode": "formal-fixed-budget-recovery",
+  "decision": "first_scale_rung_not_supported",
+  "experiment_valid": true,
+  "contract": {
+    "same_source": true,
+    "same_warm_start": true,
+    "same_data": true,
+    "same_seed": true,
+    "same_steps": true,
+    "same_cursor": true,
+    "initial_function_parity": true,
+    "parameter_order": true
+  },
+  "base_safety": {
+    "steps_complete": true,
+    "finite": true,
+    "input_causality": true,
+    "structure": true,
+    "source_frozen": true,
+    "trainable_updated": true,
+    "reload": true
+  },
+  "scale_safety": {
+    "steps_complete": true,
+    "finite": true,
+    "input_causality": true,
+    "structure": true,
+    "source_frozen": true,
+    "trainable_updated": true,
+    "reload": true
+  },
+  "quality_gates": {
+    "nll_gain_ge_0_03": false,
+    "bleu_noninferior": true,
+    "repetition_noninferior": true,
+    "nonempty_noninferior": true
+  },
+  "metrics": {
+    "initial_nll_delta": 0.0,
+    "base_nll": 4.009855287402123,
+    "scale_nll": 4.005132864410016,
+    "nll_gain": 0.004722422992107234,
+    "base_bleu4": 8.450974330885712,
+    "scale_bleu4": 8.436651538604872,
+    "bleu4_gain": -0.014322792280839991,
+    "base_repetition": 0.04808317089018843,
+    "scale_repetition": 0.04868673926969891,
+    "repetition_delta": 0.0006035683795104774,
+    "base_nonempty": 0.984375,
+    "scale_nonempty": 0.984375,
+    "nonempty_delta": 0.0,
+    "base_parameters": {
+      "total": 62748179,
+      "trainable": 27381254,
+      "groups": {
+        "protocol_gain_logit": {
+          "total": 1,
+          "trainable": 1
+        },
+        "frozen_source": {
+          "total": 35366925,
+          "trainable": 0
+        },
+        "compressor": {
+          "total": 996096,
+          "trainable": 996096
+        },
+        "reconstructor": {
+          "total": 26385157,
+          "trainable": 26385157
+        }
+      }
+    },
+    "scale_parameters": {
+      "total": 105965594,
+      "trainable": 70598669,
+      "groups": {
+        "extra_logit_gain": {
+          "total": 1,
+          "trainable": 1
+        },
+        "protocol_gain_logit": {
+          "total": 1,
+          "trainable": 1
+        },
+        "frozen_source": {
+          "total": 35366925,
+          "trainable": 0
+        },
+        "compressor": {
+          "total": 996096,
+          "trainable": 996096
+        },
+        "reconstructor": {
+          "total": 26385157,
+          "trainable": 26385157
+        },
+        "extra": {
+          "total": 43217414,
+          "trainable": 43217414
+        }
+      }
+    }
+  },
+  "next": "analyze the completed rung; do not automatically start 150M"
+}
