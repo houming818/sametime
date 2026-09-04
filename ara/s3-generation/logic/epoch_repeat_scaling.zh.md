@@ -4,7 +4,7 @@
 
 Claim：`S3-EPOCH-REPEAT-SCALING-E01`
 
-状态：预注册；等待真实 checkpoint 冒烟后进入正式配对续训。
+状态：真实 checkpoint 冒烟通过；正式配对续训待入队。
 
 ## 1. 问题
 
@@ -105,3 +105,14 @@ P2 是曲线解释，不是运行中止门。NLL、BLEU、重复率和某个 wak
 
 完成本轮只产生一条完整 repeat scaling curve，不自动启动 150M，也不自动开始第三遍语料。
 
+## 6. 真实 checkpoint 冒烟
+
+`io` taskd 任务 `361` 已完成。63M 与 106M 均从 D11 的
+`step=25,000/cursor=400,488` 恢复，使用 `batch=64` 各训练 20 steps，最终同步到
+`step=25,020/cursor=401,768`。
+
+两臂的 optimizer state 均成功加载；loss 与梯度有限；source encoder 哈希不变；模型哈希
+发生变化；route 的 owner/argmax coverage 均为 `1.0`；保存后 reload NLL 差为 `0`。
+106M 没有出现 OOM 或 CUDA 故障。因此冒烟授权按本文件固定合同进入完整配对续训。
+
+冒烟 evidence：`../evidence/s3_epoch_repeat_scaling_e01/smoke_seed11301/`。

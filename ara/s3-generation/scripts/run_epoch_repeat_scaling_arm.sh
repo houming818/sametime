@@ -23,6 +23,42 @@ test -f "$warm_start"
 test -f "$d11_checkpoint"
 mkdir -p "$output"
 
+# A requeued task resumes the last completed E01 segment. The immutable D11
+# checkpoint is used only for the first segment.
+if [[ -f "$output/checkpoint_latest.pt" && -f "$output/summary.json" ]]; then
+  resume="$output/checkpoint_latest.pt"
+  expected_cursor="$(python3 - "$output/summary.json" <<'PY'
+import json, sys
+x = json.load(open(sys.argv[1], encoding="utf-8"))
+assert all(x["gates"].values()), x["gates"]
+print(x["cursor"])
+PY
+)"
+  already_complete="$(python3 - "$output/summary.json" <<'PY'
+import json, sys
+print("yes" if json.load(open(sys.argv[1], encoding="utf-8"))["completed"] else "no")
+PY
+)"
+  if [[ "$already_complete" == "yes" ]]; then
+    echo "$arm is already complete at cursor $expected_cursor"
+    exit 0
+  fi
+else
+  resume="$d11_checkpoint"
+  expected_cursor=400488
+fi
+
+if [[ "$arm" == "treeheap-106m" ]]; then
+  base_summary="$root/treeheap-63m/summary.json"
+  test -f "$base_summary"
+  python3 - "$base_summary" <<'PY'
+import json, sys
+x = json.load(open(sys.argv[1], encoding="utf-8"))
+assert x["completed"] and x["cursor"] == 7_304_358
+assert all(x["gates"].values()), x["gates"]
+PY
+fi
+
 power_limit="$(nvidia-smi --query-gpu=power.limit --format=csv,noheader,nounits | head -n1)"
 python3 - "$power_limit" <<'PY'
 import sys
@@ -31,12 +67,10 @@ PY
 
 nvidia-smi \
   --query-gpu=timestamp,name,pstate,power.limit,power.draw,temperature.gpu,memory.used,memory.total,utilization.gpu \
-  --format=csv,noheader --loop=10 > "$output/gpu_samples.csv" &
+  --format=csv,noheader --loop=10 >> "$output/gpu_samples.csv" &
 sampler=$!
 trap 'kill "$sampler" 2>/dev/null || true; wait "$sampler" 2>/dev/null || true' EXIT
 
-resume="$d11_checkpoint"
-expected_cursor=400488
 segment=0
 while true; do
   segment=$((segment + 1))
@@ -85,4 +119,3 @@ kill "$sampler" 2>/dev/null || true
 wait "$sampler" 2>/dev/null || true
 trap - EXIT
 sendme -s "Epoch Repeat Scaling $arm completed" -f "$output/summary.json" || true
-
