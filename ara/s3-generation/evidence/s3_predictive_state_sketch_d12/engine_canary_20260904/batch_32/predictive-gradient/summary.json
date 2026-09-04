@@ -1,0 +1,367 @@
+{
+  "claim": "S3-PREDICTIVE-STATE-SKETCH-D12",
+  "mode": "pilot",
+  "arm": "predictive-gradient",
+  "host": "io",
+  "step": 300,
+  "cursor": 9614,
+  "processed_tokens": 228103,
+  "initial": {
+    "nll": 4.286704153825019,
+    "ppl": 72.72637811135415,
+    "tokens": 1308,
+    "predictive_mse_by_level": [
+      1.0258305072784424,
+      1.025873064994812,
+      1.0327796936035156,
+      1.0249273777008057,
+      1.025731086730957,
+      1.0169894695281982
+    ],
+    "predictive_mse_mean": 1.0253552198410034,
+    "shuffle_gap_by_level": [
+      -0.0006514787673950195,
+      -0.00459742546081543,
+      -0.0019423961639404297,
+      -0.0011258125305175781,
+      -0.004629373550415039,
+      -0.0031871795654296875
+    ],
+    "shuffle_gap_mean": -0.0026889443397521973,
+    "reverse_order_gap_by_level": [
+      0.014140963554382324,
+      -0.006652355194091797,
+      -0.0026388168334960938,
+      -0.0017566680908203125,
+      -0.002491593360900879,
+      0.012938976287841797
+    ],
+    "reverse_order_gap_mean": 0.00225675106048584,
+    "retrieval_at_1": 0.109375,
+    "level_geometry": {
+      "0": {
+        "effective_rank": 33.367462158203125,
+        "dimension_std_mean": 0.6970123648643494,
+        "mean_pair_cosine": 0.4689467251300812
+      },
+      "1": {
+        "effective_rank": 33.940853118896484,
+        "dimension_std_mean": 0.7127443552017212,
+        "mean_pair_cosine": 0.44432875514030457
+      },
+      "2": {
+        "effective_rank": 34.56603240966797,
+        "dimension_std_mean": 0.7285463809967041,
+        "mean_pair_cosine": 0.4194851219654083
+      },
+      "3": {
+        "effective_rank": 34.88195037841797,
+        "dimension_std_mean": 0.7337321043014526,
+        "mean_pair_cosine": 0.41366615891456604
+      },
+      "4": {
+        "effective_rank": 33.27355194091797,
+        "dimension_std_mean": 0.7123085260391235,
+        "mean_pair_cosine": 0.4473330080509186
+      },
+      "5": {
+        "effective_rank": 34.228336334228516,
+        "dimension_std_mean": 0.6847415566444397,
+        "mean_pair_cosine": 0.47960159182548523
+      }
+    }
+  },
+  "final": {
+    "nll": 4.285859834163561,
+    "ppl": 72.66499971554755,
+    "tokens": 1308,
+    "predictive_mse_by_level": [
+      1.001941204071045,
+      1.003357172012329,
+      1.0048248767852783,
+      1.0020978450775146,
+      1.003756046295166,
+      1.0051275491714478
+    ],
+    "predictive_mse_mean": 1.003517508506775,
+    "shuffle_gap_by_level": [
+      0.01533496379852295,
+      0.01142895221710205,
+      0.012515068054199219,
+      0.013366937637329102,
+      0.011284708976745605,
+      0.011046171188354492
+    ],
+    "shuffle_gap_mean": 0.012496134266257286,
+    "reverse_order_gap_by_level": [
+      0.016821861267089844,
+      0.015601277351379395,
+      0.01709306240081787,
+      0.01923656463623047,
+      0.013869166374206543,
+      0.012606143951416016
+    ],
+    "reverse_order_gap_mean": 0.01587134599685669,
+    "retrieval_at_1": 0.140625,
+    "level_geometry": {
+      "0": {
+        "effective_rank": 34.6120719909668,
+        "dimension_std_mean": 0.7093877196311951,
+        "mean_pair_cosine": 0.4504849910736084
+      },
+      "1": {
+        "effective_rank": 35.18640899658203,
+        "dimension_std_mean": 0.7258326411247253,
+        "mean_pair_cosine": 0.42414525151252747
+      },
+      "2": {
+        "effective_rank": 35.822933197021484,
+        "dimension_std_mean": 0.7423447966575623,
+        "mean_pair_cosine": 0.3972416818141937
+      },
+      "3": {
+        "effective_rank": 35.982975006103516,
+        "dimension_std_mean": 0.7479041814804077,
+        "mean_pair_cosine": 0.39180222153663635
+      },
+      "4": {
+        "effective_rank": 34.84088134765625,
+        "dimension_std_mean": 0.7214095592498779,
+        "mean_pair_cosine": 0.4338865578174591
+      },
+      "5": {
+        "effective_rank": 35.97602081298828,
+        "dimension_std_mean": 0.6974339485168457,
+        "mean_pair_cosine": 0.4594250023365021
+      }
+    }
+  },
+  "generation": {
+    "per_depth": {
+      "5": {
+        "token_bleu4": 11.249536838519575,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "通知我们未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306741016134e-11,
+              0.5332496762275696,
+              1.167787790298462,
+              1.8230403661727905
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "You agree that any person or any person or any person or any other person or any person or entity; and that the right to use the Site;",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289306047126743e-11,
+              0.5578955411911011,
+              1.0742015838623047,
+              1.6295617818832397
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "住在伦敦,在里约热内卢,在156年,他已成功地完成,直到最后一个被拘留者。",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.2969639301300049,
+              0.8506324291229248,
+              1.4894691705703735
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The hotel was built in the construction of the construction of the construction of the city, in the middle of the city, and the second half of the 19th century, the second half of the country's second was the second largest city.",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.763101726588335e-11,
+              8.289306741016134e-11,
+              0.4187736511230469,
+              0.9624318480491638,
+              1.61076819896698
+            ]
+          }
+        ]
+      },
+      "6": {
+        "token_bleu4": 12.293140504888802,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "通知我们未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              0.45704469084739685,
+              1.0476690530776978,
+              1.6694258451461792,
+              2.323758602142334
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "You agree that any termination of your access to the Service is under any provision of the Terms of Use, or any other person or the right to use any person or entity;",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5662451982498169,
+              1.0929546356201172,
+              1.643180251121521,
+              2.2550840377807617
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在项目建设中,在意大利,1550年,中国已经建了一个名为\"Costo de \" , \"Aprisan\"被称作\"三大 \" 。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.41358503699302673,
+              0.9357163906097412,
+              1.5163458585739136,
+              2.1403274536132812
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The Peak-Alden Project is a sign of a contract with a number of property, which is a registered capital of the 19th century, and the one of the most people's people.",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.3513011038303375,
+              0.8404003381729126,
+              1.4159835577011108,
+              2.058147430419922
+            ]
+          }
+        ]
+      },
+      "7": {
+        "token_bleu4": 12.467879379264515,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "申诉方可执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃;",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5100827813148499,
+              1.099555492401123,
+              1.7241352796554565,
+              2.3358519077301025,
+              2.9593284130096436
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "The failure of the Company shall not be responsible or liable for any loss or damage of any failure or to use any device, any person or entity; or (b) any provision of the Terms of Service or any of the Service.",
+            "budget": 25,
+            "route": [
+              0.0,
+              0.5649811625480652,
+              1.1122934818267822,
+              1.6495507955551147,
+              2.221889019012451,
+              2.8260228633880615
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在项目建设中,在意大利的15个项目中,他已收到土地的156个案,而建有15个城市,被拘留者,并被拘留。",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.36515700817108154,
+              0.9044555425643921,
+              1.4978418350219727,
+              2.0964457988739014,
+              2.7105705738067627
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company has been a sign of the construction of the project, the company's first floor, the number of people in the country, in 1903, the one of the most people's name.",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.3924531638622284,
+              0.885440468788147,
+              1.4824724197387695,
+              2.071579933166504,
+              2.6894562244415283
+            ]
+          }
+        ]
+      }
+    },
+    "bleu4_median": 12.293140504888802,
+    "nonempty_min": 1.0,
+    "repetition_max": 0.0
+  },
+  "first_aux_level_grad_norms": [
+    0.0005171997472643852,
+    0.0005485937581397593,
+    0.0005699823959730566,
+    0.000578006322029978,
+    0.0005754278390668333,
+    0.0014358543558046222
+  ],
+  "model_sha256": "deb8eafa9970c5a6376a808c8939fe98c088bf70e807ca23ecea9e420040b901",
+  "predictor_sha256": "6e9d21cbc0b285d49f5199823f675a073ea7dea79829ca2a9aa28320bb327b1f",
+  "sketch_sha256": "bbe5c3aade95ee50f67647b789044a9bfb2b31878b9b82d4fad7a06422a45a86",
+  "gates": {
+    "steps_complete": true,
+    "finite": true,
+    "source_frozen": true,
+    "model_updated": true,
+    "predictor_updated": true,
+    "reload": true
+  },
+  "seconds": 173.48055768013
+}

@@ -1,0 +1,42 @@
+{
+  "claim": "S3-PREDICTIVE-STATE-SKETCH-D12",
+  "mode": "pilot",
+  "source_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "contract": {
+    "same_model_initialization": true,
+    "same_predictor_initialization": true,
+    "same_fixed_target": true,
+    "same_data_seed_steps": true
+  },
+  "metrics": {
+    "initial_nll_delta": 0.0,
+    "initial_predictive_mse_delta": 0.0,
+    "probe_final_nll": 4.251939126110952,
+    "predictive_final_nll": 4.251531245147052,
+    "predictive_minus_probe_nll": -0.000407880963900098,
+    "probe_final_predictive_mse": 0.9962658286094666,
+    "predictive_final_predictive_mse": 0.9962670207023621,
+    "predictive_mse_gain": -1.1920928955078125e-06,
+    "probe_retrieval_at_1": 0.109375,
+    "predictive_retrieval_at_1": 0.109375,
+    "probe_reverse_order_gap": 0.02089741826057434,
+    "predictive_reverse_order_gap": 0.02088436484336853,
+    "active_aux_levels": 6
+  },
+  "gates": {
+    "matched_initial_function": true,
+    "matched_initial_predictor": true,
+    "fixed_target_match": true,
+    "arm_safety": true,
+    "probe_blocks_aux_gradient": true,
+    "predictive_gradient_reaches_levels": true,
+    "heldout_predictive_mse_better": false,
+    "token_nll_not_destroyed": true
+  },
+  "decision": "mechanism_open",
+  "not_proved": [
+    "The fixed sketch is not yet a learned private protocol or a proof of semantic reasoning.",
+    "A 500-step paired smoke cannot establish final BLEU or long-training advantage.",
+    "This first rung supervises collective states at every convolved level, not each node independently."
+  ]
+}

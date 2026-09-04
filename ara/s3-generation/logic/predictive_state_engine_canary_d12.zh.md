@@ -4,7 +4,7 @@
 
 Claim：`S3-PREDICTIVE-STATE-ENGINE-CANARY-D12-E1`
 
-状态：预注册，排在 D12-R1 之后运行。
+状态：正式 canary 完成；当前计算图推荐 `batch=64`。
 
 ## 1. 目的
 
@@ -49,3 +49,28 @@ target_tokens_per_second = delta(processed_target_tokens) / delta(train_elapsed_
 
 该结果只适用于当前 TreeHeap-63M/D12 计算图；模型宽度、序列长度或结构变化后需要重新
 校准。
+
+## 5. 正式结果
+
+`io.grepcode.cn` 上 taskd 任务 `360` 完成全部三档，每档两臂各 300 steps。所有有限值、
+冻结 source、模型更新、预测头更新和重载检查均通过；功率上限始终为 270W，没有 OOM
+或 CUDA/NVIDIA 异常。总墙钟时间为 1,079.2 秒。
+
+| batch | 合计 target token/s | 相对 batch 16 | 峰值显存 | 峰值温度 | 峰值功耗 |
+|---:|---:|---:|---:|---:|---:|
+| 16 | 814.03 | 1.00x | 2.65 GiB | 73°C | 232.38W |
+| 32 | 1,342.57 | 1.65x | 3.23 GiB | 74°C | 236.24W |
+| 64 | 2,189.63 | 2.69x | 5.08 GiB | 74°C | 240.49W |
+
+`batch=64` 相对 `batch=32` 又提高约 `63.1%` 吞吐，相对 `batch=16` 提高约 `169%`，且
+只使用约五分之一显存。依预注册规则，当前 D12/TreeHeap-63M 计算图的默认 micro-batch
+更新为 `64`。
+
+GPU 利用率采样均值没有随 batch 同步升高，三档约为 `29-31%`，但 token/s 明显增加。
+这说明当前 `nvidia-smi utilization` 更适合判断空闲区间，不能单独代表本计算图的有效
+吞吐；训练调度应优先用 token/s，并把利用率、显存、功耗和温度作为并列约束。
+
+本档仍未找到硬件饱和点。`batch=64` 峰值显存只有 5.08 GiB，后续可预注册相邻的
+`96/128` 阶梯，但不能把本结果外推成更大 batch 必然继续提速。
+
+正式 evidence：`../evidence/s3_predictive_state_sketch_d12/engine_canary_20260904/`。

@@ -1,0 +1,194 @@
+{
+  "claim": "S3-PREDICTIVE-STATE-ENGINE-CANARY-D12-E1",
+  "results": [
+    {
+      "batch_size": 16,
+      "exit_code": 0,
+      "eligible": true,
+      "arms": {
+        "probe-only": {
+          "step_start": 50,
+          "step_end": 300,
+          "tokens": 94200,
+          "seconds": 115.57438278198242,
+          "target_tokens_per_second": 815.0595117405671,
+          "steps_per_second": 2.1631091075917386,
+          "final_nll": 4.280236713747731,
+          "final_predictive_mse": 1.0156100988388062,
+          "gates": {
+            "steps_complete": true,
+            "finite": true,
+            "source_frozen": true,
+            "model_updated": true,
+            "predictor_updated": true,
+            "reload": true
+          }
+        },
+        "predictive-gradient": {
+          "step_start": 50,
+          "step_end": 300,
+          "tokens": 94200,
+          "seconds": 115.86774897575378,
+          "target_tokens_per_second": 812.995858059796,
+          "steps_per_second": 2.157632319691603,
+          "final_nll": 4.279907833181025,
+          "final_predictive_mse": 1.0154578685760498,
+          "gates": {
+            "steps_complete": true,
+            "finite": true,
+            "source_frozen": true,
+            "model_updated": true,
+            "predictor_updated": true,
+            "reload": true
+          }
+        }
+      },
+      "gpu": {
+        "samples": 146,
+        "utilization_mean": 30.910958904109588,
+        "utilization_active_mean": 32.61594202898551,
+        "utilization_max": 44.0,
+        "memory_max_gib": 2.65234375,
+        "power_mean_watts": 216.0292465753425,
+        "power_max_watts": 232.38,
+        "power_limit_max_watts": 270.0,
+        "temperature_max_celsius": 73.0
+      },
+      "combined_target_tokens_per_second": 814.0263770004034,
+      "safety": {
+        "finite": true,
+        "arm_gates": true,
+        "memory_headroom": true,
+        "temperature": true,
+        "power_limit": true
+      }
+    },
+    {
+      "batch_size": 32,
+      "exit_code": 0,
+      "eligible": true,
+      "arms": {
+        "probe-only": {
+          "step_start": 50,
+          "step_end": 300,
+          "tokens": 190125,
+          "seconds": 141.4174313545227,
+          "target_tokens_per_second": 1344.4240796834383,
+          "steps_per_second": 1.767816015362838,
+          "final_nll": 4.28652039507478,
+          "final_predictive_mse": 1.0035496950149536,
+          "gates": {
+            "steps_complete": true,
+            "finite": true,
+            "source_frozen": true,
+            "model_updated": true,
+            "predictor_updated": true,
+            "reload": true
+          }
+        },
+        "predictive-gradient": {
+          "step_start": 50,
+          "step_end": 300,
+          "tokens": 190125,
+          "seconds": 141.8083372116089,
+          "target_tokens_per_second": 1340.7180687570728,
+          "steps_per_second": 1.7629428911993066,
+          "final_nll": 4.285859834163561,
+          "final_predictive_mse": 1.003517508506775,
+          "gates": {
+            "steps_complete": true,
+            "finite": true,
+            "source_frozen": true,
+            "model_updated": true,
+            "predictor_updated": true,
+            "reload": true
+          }
+        }
+      },
+      "gpu": {
+        "samples": 177,
+        "utilization_mean": 29.372881355932204,
+        "utilization_active_mean": 32.92993630573248,
+        "utilization_max": 49.0,
+        "memory_max_gib": 3.232421875,
+        "power_mean_watts": 220.67542372881357,
+        "power_max_watts": 236.24,
+        "power_limit_max_watts": 270.0,
+        "temperature_max_celsius": 74.0
+      },
+      "combined_target_tokens_per_second": 1342.5685167174815,
+      "safety": {
+        "finite": true,
+        "arm_gates": true,
+        "memory_headroom": true,
+        "temperature": true,
+        "power_limit": true
+      }
+    },
+    {
+      "batch_size": 64,
+      "exit_code": 0,
+      "eligible": true,
+      "arms": {
+        "probe-only": {
+          "step_start": 50,
+          "step_end": 300,
+          "tokens": 384525,
+          "seconds": 175.5178849697113,
+          "target_tokens_per_second": 2190.802379292324,
+          "steps_per_second": 1.4243562702635226,
+          "final_nll": 4.251939126110952,
+          "final_predictive_mse": 0.9962658286094666,
+          "gates": {
+            "steps_complete": true,
+            "finite": true,
+            "source_frozen": true,
+            "model_updated": true,
+            "predictor_updated": true,
+            "reload": true
+          }
+        },
+        "predictive-gradient": {
+          "step_start": 50,
+          "step_end": 300,
+          "tokens": 384525,
+          "seconds": 175.70622944831848,
+          "target_tokens_per_second": 2188.4539962375247,
+          "steps_per_second": 1.4228294624780733,
+          "final_nll": 4.251531245147052,
+          "final_predictive_mse": 0.9962670207023621,
+          "gates": {
+            "steps_complete": true,
+            "finite": true,
+            "source_frozen": true,
+            "model_updated": true,
+            "predictor_updated": true,
+            "reload": true
+          }
+        }
+      },
+      "gpu": {
+        "samples": 217,
+        "utilization_mean": 28.84331797235023,
+        "utilization_active_mean": 32.82631578947368,
+        "utilization_max": 55.0,
+        "memory_max_gib": 5.083984375,
+        "power_mean_watts": 220.41834101382497,
+        "power_max_watts": 240.49,
+        "power_limit_max_watts": 270.0,
+        "temperature_max_celsius": 74.0
+      },
+      "combined_target_tokens_per_second": 2189.627558102888,
+      "safety": {
+        "finite": true,
+        "arm_gates": true,
+        "memory_headroom": true,
+        "temperature": true,
+        "power_limit": true
+      }
+    }
+  ],
+  "recommended_batch": 64,
+  "decision": "supported",
+  "selection_rule": "highest safe combined target tokens per second"
+}
