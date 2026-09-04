@@ -4,7 +4,7 @@
 
 Claim：`S3-EPOCH-REPEAT-SCALING-E01`
 
-状态：真实 checkpoint 冒烟通过；正式配对续训待入队。
+状态：真实 checkpoint 冒烟通过；正式配对续训运行中。
 
 ## 1. 问题
 
@@ -116,3 +116,16 @@ P2 是曲线解释，不是运行中止门。NLL、BLEU、重复率和某个 wak
 106M 没有出现 OOM 或 CUDA 故障。因此冒烟授权按本文件固定合同进入完整配对续训。
 
 冒烟 evidence：`../evidence/s3_epoch_repeat_scaling_e01/smoke_seed11301/`。
+
+## 7. 正式启航
+
+`2026-09-04` 已在 `io` 依次提交：
+
+```text
+taskd 362: treeheap-63m pass-2 completion
+taskd 363: treeheap-106m pass-2 completion (depends on 362)
+taskd 364: paired curve comparison
+```
+
+63M 首批状态为有限值，3090 功率限制 `270W`，训练中观测约 `210W / 67C / 7.2GiB`。
+预计两臂和最终汇总共需约 `2.5--3.5` 天；实际时间以 segment 吞吐为准。
