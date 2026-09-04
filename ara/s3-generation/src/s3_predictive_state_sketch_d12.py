@@ -300,6 +300,7 @@ def train_arm(arm, source_cpu, config, warm_path, warm, valid_rows, test_rows, e
         0, args.max_lines, excluded,
     )
     trace = output / "trace.jsonl"
+    progress = output / "progress.jsonl"
     started = time.time()
     first_aux_level_grad = None
     step = cursor = processed_tokens = 0
@@ -358,6 +359,23 @@ def train_arm(arm, source_cpu, config, warm_path, warm, valid_rows, test_rows, e
             }
             append_jsonl(trace, event)
             print(json.dumps(event, ensure_ascii=False), flush=True)
+        if args.checkpoint_every > 0 and (
+            step % args.checkpoint_every == 0 or step == args.steps
+        ):
+            receipt = save_checkpoint(
+                output / "checkpoint_latest.pt",
+                model, predictor, optimizer, arm, step, cursor, run,
+            )
+            checkpoint_event = {
+                "event": "checkpoint", "arm": arm, "step": step,
+                "cursor": cursor, "tokens": processed_tokens,
+                "model_sha256": receipt["trainable_state_sha256"],
+                "predictor_sha256": receipt["predictor_state_sha256"],
+                "elapsed_seconds": time.time() - started,
+            }
+            append_jsonl(progress, checkpoint_event)
+            write_json(output / "progress_latest.json", checkpoint_event)
+            print(json.dumps(checkpoint_event, ensure_ascii=False), flush=True)
         if step >= args.steps:
             break
     final = evaluate_predictive(model, predictor, sketcher, valid_rows, args, args.pad, bos)
@@ -437,6 +455,7 @@ def main() -> None:
     parser.add_argument("--steps", type=int, default=500)
     parser.add_argument("--max-lines", type=int, default=50000)
     parser.add_argument("--log-every", type=int, default=50)
+    parser.add_argument("--checkpoint-every", type=int, default=0)
     args = parser.parse_args()
     if args.mode == "smoke":
         args.steps = min(args.steps, 500)
