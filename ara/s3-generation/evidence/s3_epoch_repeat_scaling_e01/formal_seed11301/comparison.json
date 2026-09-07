@@ -1,0 +1,214 @@
+{
+  "claim": "S3-EPOCH-REPEAT-SCALING-E01",
+  "mode": "complete-second-pass-paired",
+  "experiment_valid": true,
+  "matched_contract": {
+    "target_cursor": true,
+    "source": true,
+    "warm_start": true,
+    "parallel_data": true,
+    "start_cursor": true,
+    "batch": true,
+    "direction": true
+  },
+  "safety": {
+    "treeheap-63m": true,
+    "treeheap-106m": true
+  },
+  "metrics": {
+    "base_nll": 3.8286860091431083,
+    "scale_nll": 3.7759189326547347,
+    "nll_gain_63m_minus_106m": 0.05276707648837364,
+    "base_bleu4": 6.538086668594639,
+    "scale_bleu4": 5.642578529479787,
+    "bleu4_gain": -0.8955081391148516,
+    "base_repetition": 0.015676567656765675,
+    "scale_repetition": 0.048398576512455514,
+    "base_nonempty": 0.96875,
+    "scale_nonempty": 0.953125,
+    "scale_extra_logit_gain": -0.9999591112136841
+  },
+  "curves": {
+    "treeheap-63m": [
+      {
+        "step": 35000,
+        "cursor": 1040488,
+        "nll": 3.936345310261444,
+        "bleu4": 9.542071879614413,
+        "repetition": 0.07429048414023372,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 45000,
+        "cursor": 1680488,
+        "nll": 3.913011176845712,
+        "bleu4": 5.821245719954735,
+        "repetition": 0.053883834849545134,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 55000,
+        "cursor": 2320488,
+        "nll": 3.9042572516594465,
+        "bleu4": 7.789390980112763,
+        "repetition": 0.06331045003813883,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 65000,
+        "cursor": 2960488,
+        "nll": 3.8719688033052377,
+        "bleu4": 6.578154472279578,
+        "repetition": 0.028544243577545196,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 75000,
+        "cursor": 3600488,
+        "nll": 3.8787356627745546,
+        "bleu4": 8.657941127626525,
+        "repetition": 0.02727272727272727,
+        "nonempty": 0.96875
+      },
+      {
+        "step": 85000,
+        "cursor": 4240488,
+        "nll": 3.859616687359362,
+        "bleu4": 6.453563698932141,
+        "repetition": 0.018333333333333333,
+        "nonempty": 0.96875
+      },
+      {
+        "step": 95000,
+        "cursor": 4880488,
+        "nll": 3.853502819961028,
+        "bleu4": 6.768467050921073,
+        "repetition": 0.019216555801921657,
+        "nonempty": 0.96875
+      },
+      {
+        "step": 105000,
+        "cursor": 5520488,
+        "nll": 3.858315526422903,
+        "bleu4": 6.377443430301068,
+        "repetition": 0.015570934256055362,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 115000,
+        "cursor": 6160488,
+        "nll": 3.850511225290926,
+        "bleu4": 6.711720926094476,
+        "repetition": 0.019148936170212766,
+        "nonempty": 0.9375
+      },
+      {
+        "step": 125000,
+        "cursor": 6800488,
+        "nll": 3.836587216205611,
+        "bleu4": 6.196756791240925,
+        "repetition": 0.01694915254237288,
+        "nonempty": 0.9375
+      },
+      {
+        "step": 132873,
+        "cursor": 7304358,
+        "nll": 3.8286860091431083,
+        "bleu4": 6.538086668594639,
+        "repetition": 0.015676567656765675,
+        "nonempty": 0.96875
+      }
+    ],
+    "treeheap-106m": [
+      {
+        "step": 35000,
+        "cursor": 1040488,
+        "nll": 3.9210998436328013,
+        "bleu4": 8.820807862287431,
+        "repetition": 0.04528763769889841,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 45000,
+        "cursor": 1680488,
+        "nll": 3.8885861851054266,
+        "bleu4": 9.67905857563961,
+        "repetition": 0.053929121725731895,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 55000,
+        "cursor": 2320488,
+        "nll": 3.872036430886213,
+        "bleu4": 9.093282572154784,
+        "repetition": 0.059113300492610835,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 65000,
+        "cursor": 2960488,
+        "nll": 3.835052288702285,
+        "bleu4": 9.563187446341459,
+        "repetition": 0.056210335448776065,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 75000,
+        "cursor": 3600488,
+        "nll": 3.8277769133859727,
+        "bleu4": 8.777096006582063,
+        "repetition": 0.06530291109362707,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 85000,
+        "cursor": 4240488,
+        "nll": 3.810051101213199,
+        "bleu4": 7.931446197584734,
+        "repetition": 0.045425463851567496,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 95000,
+        "cursor": 4880488,
+        "nll": 3.7941790936004325,
+        "bleu4": 5.980114833574663,
+        "repetition": 0.04608294930875576,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 105000,
+        "cursor": 5520488,
+        "nll": 3.8034320461540734,
+        "bleu4": 5.896318131881047,
+        "repetition": 0.057208237986270026,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 115000,
+        "cursor": 6160488,
+        "nll": 3.79851226995577,
+        "bleu4": 6.877117600641298,
+        "repetition": 0.049399198931909215,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 125000,
+        "cursor": 6800488,
+        "nll": 3.7870116019001436,
+        "bleu4": 6.18010359845459,
+        "repetition": 0.006798096532970768,
+        "nonempty": 0.953125
+      },
+      {
+        "step": 132873,
+        "cursor": 7304358,
+        "nll": 3.7759189326547347,
+        "bleu4": 5.642578529479787,
+        "repetition": 0.048398576512455514,
+        "nonempty": 0.953125
+      }
+    ]
+  },
+  "interpretation_rule": "Interpret the complete curves; temporary metric reversals are observations, not failed runs. Completion does not automatically authorize 150M."
+}

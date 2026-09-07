@@ -65,11 +65,12 @@ def main() -> None:
     for name in CASES:
         case = args.root / name
         summary = read_json(case / "summary.json")
+        contract = read_json(case / "contract.json")
         if not all(summary["gates"].values()):
             raise RuntimeError(f"failed gates for {name}: {summary['gates']}")
         rate = steady_rate(case / "trace.jsonl")
         rows[name] = {
-            "batch_size": int(summary["initial_valid"]["count"] * 0 + summary["segment_examples"] // (summary["step"] - summary["start_step"])),
+            "batch_size": int(contract["config"]["batch_size"]),
             "prefetch_batches": 0 if name == "b64-raw" else 2,
             **rate,
             "peak_memory_mib": peak_memory(case / "gpu_samples.csv"),

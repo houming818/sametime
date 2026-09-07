@@ -1,0 +1,64 @@
+{
+  "claim": "S3-EPOCH-REPEAT-THROUGHPUT-E02",
+  "status": "complete",
+  "cases": {
+    "b64-raw": {
+      "batch_size": 64,
+      "prefetch_batches": 0,
+      "start_step": 25025,
+      "end_step": 25200,
+      "seconds": 248.88245820999146,
+      "tokens": 267986,
+      "examples": 11200,
+      "tokens_per_second": 1076.7572850549802,
+      "examples_per_second": 45.0011627197532,
+      "peak_memory_mib": 9662.0,
+      "reload_nll_delta": 0.0,
+      "speedup_vs_b64_raw": 1.0
+    },
+    "b64-prefetch2": {
+      "batch_size": 64,
+      "prefetch_batches": 2,
+      "start_step": 25025,
+      "end_step": 25200,
+      "seconds": 249.75882863998413,
+      "tokens": 267986,
+      "examples": 11200,
+      "tokens_per_second": 1072.9790873030138,
+      "examples_per_second": 44.843259639659365,
+      "peak_memory_mib": 9662.0,
+      "reload_nll_delta": 0.0,
+      "speedup_vs_b64_raw": 0.9964911333274392
+    },
+    "b96-prefetch2": {
+      "batch_size": 96,
+      "prefetch_batches": 2,
+      "start_step": 25025,
+      "end_step": 25200,
+      "seconds": 289.5728039741516,
+      "tokens": 399754,
+      "examples": 16800,
+      "tokens_per_second": 1380.4956629686938,
+      "examples_per_second": 58.01649799094957,
+      "peak_memory_mib": 9638.0,
+      "reload_nll_delta": 0.0,
+      "speedup_vs_b64_raw": 1.282086206547657
+    },
+    "b128-prefetch2": {
+      "batch_size": 128,
+      "prefetch_batches": 2,
+      "start_step": 25025,
+      "end_step": 25200,
+      "seconds": 334.8478446006775,
+      "tokens": 532982,
+      "examples": 22400,
+      "tokens_per_second": 1591.7139936666076,
+      "examples_per_second": 66.8960555105651,
+      "peak_memory_mib": 12012.0,
+      "reload_nll_delta": 0.0,
+      "speedup_vs_b64_raw": 1.4782477126080769
+    }
+  },
+  "selection": "b128-prefetch2",
+  "selection_rule": "highest steady token/s among finite reload-safe cases below 23000 MiB"
+}

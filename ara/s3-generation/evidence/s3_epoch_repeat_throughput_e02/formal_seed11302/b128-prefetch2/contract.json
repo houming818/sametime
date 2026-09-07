@@ -1,0 +1,79 @@
+{
+  "claim": "S3-EPOCH-REPEAT-SCALING-E01",
+  "mode": "formal",
+  "arm": "treeheap-106m",
+  "corpus_pass": 2,
+  "direction_flip": 0,
+  "source_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "warm_start_sha256": "0b1086bff2aaa91d08d0640604f43b2f58f97470853b5d340cd6af348700c9df",
+  "parallel_sha256": "299134867398720cc6d407eadd6de4fb237812319d113fbe12071758e79d92c8",
+  "resume_claim": "S3-STRUCTURAL-PROTOCOL-CAPACITY-LADDER-D11",
+  "resume_trainable_sha256": "266947cc7b3bb1ee08cce53905781af8053d6c99c540efc33bf267085b50bbca",
+  "parameters": {
+    "total": 105965594,
+    "trainable": 70598669,
+    "groups": {
+      "extra_logit_gain": {
+        "total": 1,
+        "trainable": 1
+      },
+      "protocol_gain_logit": {
+        "total": 1,
+        "trainable": 1
+      },
+      "frozen_source": {
+        "total": 35366925,
+        "trainable": 0
+      },
+      "compressor": {
+        "total": 996096,
+        "trainable": 996096
+      },
+      "reconstructor": {
+        "total": 26385157,
+        "trainable": 26385157
+      },
+      "extra": {
+        "total": 43217414,
+        "trainable": 43217414
+      }
+    }
+  },
+  "config": {
+    "mode": "formal",
+    "arm": "treeheap-106m",
+    "extra_dim": 384,
+    "source_checkpoint": "ara/s3-generation/evidence/s3_multilevel_read_ablation_c12/formal_seed10101/read/checkpoint_best.pt",
+    "warm_start": "ara/s3-generation/evidence/s3_structural_protocol_full_pipeline_d10_recovery_r1/formal_seed11001/task/checkpoint_best.pt",
+    "resume_checkpoint": "ara/s3-generation/evidence/s3_structural_protocol_capacity_ladder_d11/formal_seed11101/treeheap-106m/checkpoint_latest.pt",
+    "evidence_dir": "ara/s3-generation/evidence/s3_epoch_repeat_throughput_e02/formal_seed11302/b128-prefetch2",
+    "parallel_data": "/home/nio/datasets/nio/releases/NioClean-ZHEN-S098-7M-v2/pairs.tsv",
+    "eval_wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "device": "cuda",
+    "seed": 11101,
+    "ownership_seed": 11102,
+    "max_slots": 32,
+    "batch_size": 128,
+    "eval_batch": 16,
+    "eval_rows": 32,
+    "generation_examples": 8,
+    "max_generation": 64,
+    "lr": 0.0001,
+    "max_segment_steps": 200,
+    "target_cursor": 7304358,
+    "expected_start_cursor": 400488,
+    "corpus_pass": 2,
+    "direction_flip": 0,
+    "log_every": 25,
+    "wmt_data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "pad": 32000,
+    "vocab": 32003
+  },
+  "start": {
+    "step": 25000,
+    "cursor": 400488,
+    "byte_offset": 0,
+    "nll": 4.202704037852
+  }
+}

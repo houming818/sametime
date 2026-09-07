@@ -4,7 +4,7 @@
 
 Claim：`S3-EPOCH-REPEAT-THROUGHPUT-E02`
 
-状态：预注册；CPU smoke 通过后排在 E01 配对汇总之后执行。
+状态：完成；`batch=128 + prefetch=2` 在本次有界探针中吞吐最高。
 
 ## 1. 问题
 
@@ -51,3 +51,29 @@ SentencePiece 编码；batch 顺序与内容不变，GPU 计算和优化器语�
 
 E02 排在 E01 的任务 364 之后，避免与正式配对训练争用 GPU，也避免中途修改 E01 的
 `batch=64` 合同。
+
+## 5. 结果
+
+四个 case 均完成 200 steps，有限值、source frozen、optimizer、模型更新、游标与 reload
+门全部通过。3090 保持 270W 限制，所有峰值显存均低于 23,000 MiB。
+
+| case | token/s | 相对 b64-raw | 峰值显存 MiB |
+|---|---:|---:|---:|
+| `b64-raw` | 1076.76 | 1.000x | 9662 |
+| `b64-prefetch2` | 1072.98 | 0.996x | 9662 |
+| `b96-prefetch2` | 1380.50 | 1.282x | 9638 |
+| `b128-prefetch2` | 1591.71 | 1.478x | 12012 |
+
+同 batch 的后台预取没有产生收益：`b64-prefetch2` 比 raw 慢约 `0.35%`，属于测量噪声
+量级。这说明当前数据读取与 SentencePiece 编码不是主要瓶颈。更大的 batch 才是主要收益
+来源；在本次 106M 探针中，`batch=128` 比 `batch=64` 提高约 `47.8%` token/s，且仍保留
+约 11 GiB 显存余量。
+
+因此，后续新预注册实验可把 `batch=128` 作为候选默认值，但不能回溯修改已经完成的 E01
+合同。E02 只测吞吐，不证明更大 batch 的长期优化轨迹与 batch64 等价；涉及模型质量时仍需
+保持每个比较内部的 batch、样本数或 token 预算一致。
+
+任务 365 最初仅因汇总器错误读取不存在的 `initial_valid.count` 字段而返回失败。四个 GPU
+case 当时已经完整结束；修复为从 `contract.json` 读取 batch 后，只重跑汇总，没有重复训练。
+
+正式 evidence：`../evidence/s3_epoch_repeat_throughput_e02/formal_seed11302/`。
