@@ -6,7 +6,7 @@ cd /home/nio/log/holds/SameTime
 mode="${1:?mode is required: smoke or formal}"
 case "$mode" in
   smoke)
-    output="ara/s3-generation/evidence/s3_fold_focus_training_f02/smoke_seed11401"
+    output="ara/s3-generation/evidence/s3_fold_focus_training_f02/smoke_r1_seed11401"
     timeout_label="smoke"
     ;;
   formal)

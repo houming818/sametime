@@ -65,11 +65,12 @@ class FocusModel(nn.Module):
 
     def __init__(self, base: nn.Module, initial_scale: float = NATIVE_SCALE):
         super().__init__()
+        if not math.isclose(initial_scale, NATIVE_SCALE, rel_tol=0.0, abs_tol=0.0):
+            raise ValueError("F02 requires the native scale as its exact origin")
         self.base = base
         for parameter in self.base.parameters():
             parameter.requires_grad_(False)
-        initial_logit = math.log(initial_scale / (1.0 - initial_scale))
-        self.focus_logits = nn.Parameter(torch.full((len(DEPTHS),), initial_logit))
+        self.focus_coordinates = nn.Parameter(torch.zeros(len(DEPTHS)))
         self.base.eval()
 
     @property
@@ -77,7 +78,13 @@ class FocusModel(nn.Module):
         return self.base.compressor
 
     def scales(self) -> torch.Tensor:
-        return torch.sigmoid(self.focus_logits)
+        coordinate = torch.tanh(self.focus_coordinates)
+        displacement = torch.where(
+            coordinate >= 0.0,
+            (1.0 - NATIVE_SCALE) * coordinate,
+            NATIVE_SCALE * coordinate,
+        )
+        return NATIVE_SCALE + displacement
 
     def scale(self, depth: int) -> torch.Tensor:
         return self.scales()[DEPTHS.index(depth)]
@@ -178,7 +185,7 @@ def save_focus_checkpoint(path: Path, model, optimizer, step: int, cursor: int, 
         "claim": CLAIM,
         "step": step,
         "cursor": cursor,
-        "focus_logits": model.focus_logits.detach().cpu(),
+        "focus_coordinates": model.focus_coordinates.detach().cpu(),
         "focus_scales": [float(value) for value in model.scales().detach().cpu()],
         "optimizer_state_dict": optimizer.state_dict(),
         "run": run,
@@ -250,14 +257,14 @@ def main() -> None:
         row["generation"] for row in focus_direct["rows"]
     ]
 
-    optimizer = torch.optim.AdamW([model.focus_logits], lr=args.lr, weight_decay=0.0)
+    optimizer = torch.optim.AdamW([model.focus_coordinates], lr=args.lr, weight_decay=0.0)
     latest = output / "focus_checkpoint_latest.pt"
     start_step = start_cursor = 0
     if args.resume and latest.is_file():
         saved = torch.load(latest, map_location="cpu", weights_only=False)
         if saved.get("claim") != CLAIM:
             raise RuntimeError("resume claim mismatch")
-        model.focus_logits.data.copy_(saved["focus_logits"].to(args.device))
+        model.focus_coordinates.data.copy_(saved["focus_coordinates"].to(args.device))
         optimizer.load_state_dict(saved["optimizer_state_dict"])
         start_step, start_cursor = int(saved["step"]), int(saved["cursor"])
 
@@ -307,14 +314,14 @@ def main() -> None:
         ) / max(1, tokens)
         optimizer.zero_grad(set_to_none=True)
         loss.backward()
-        gradient = model.focus_logits.grad.detach().clone()
+        gradient = model.focus_coordinates.grad.detach().clone()
         finite = finite and bool(torch.isfinite(loss)) and bool(torch.isfinite(gradient).all())
         for index, value in enumerate(gradient):
             if abs(float(value)) > 1e-12:
                 nonzero_gradient_depths.add(DEPTHS[index])
         if not finite:
             raise RuntimeError(f"non-finite focus state at step {step}")
-        grad_norm = float(torch.nn.utils.clip_grad_norm_([model.focus_logits], 1.0))
+        grad_norm = float(torch.nn.utils.clip_grad_norm_([model.focus_coordinates], 1.0))
         optimizer.step()
         if step == start_step + 1 or step % args.log_every == 0:
             event = {
@@ -370,7 +377,7 @@ def main() -> None:
     reload_base = reload_runtime[3]
     reload_model = FocusModel(reload_base).to(args.device)
     saved = torch.load(latest, map_location="cpu", weights_only=False)
-    reload_model.focus_logits.data.copy_(saved["focus_logits"].to(args.device))
+    reload_model.focus_coordinates.data.copy_(saved["focus_coordinates"].to(args.device))
     reload_nll = d10.valid_summary(
         reload_model, valid_rows[: min(32, len(valid_rows))], args, args.pad, bos
     )["mean_nll"]
