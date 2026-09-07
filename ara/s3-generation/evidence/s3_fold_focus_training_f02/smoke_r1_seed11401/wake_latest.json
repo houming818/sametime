@@ -1,0 +1,253 @@
+{
+  "event": "wake",
+  "step": 30,
+  "cursor": 1924,
+  "focus_scales": [
+    0.7096976041793823,
+    0.706274688243866,
+    0.7032833695411682
+  ],
+  "valid": {
+    "per_depth": {
+      "5": {
+        "nll": 4.088605804909989,
+        "ppl": 59.656660674082104,
+        "tokens": 1308,
+        "mean_budget": 4.625,
+        "slot_variance": 1.2526714740781346,
+        "between_slot_variance": 0.5814474113285542,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "6": {
+        "nll": 4.003253855107392,
+        "ppl": 54.7760938471784,
+        "tokens": 1308,
+        "mean_budget": 8.71875,
+        "slot_variance": 1.6951377982086338,
+        "between_slot_variance": 1.0357476356439292,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "7": {
+        "nll": 3.989407250640589,
+        "ppl": 54.022857856548875,
+        "tokens": 1308,
+        "mean_budget": 17.078125,
+        "slot_variance": 2.052218151560919,
+        "between_slot_variance": 1.5560788493603468,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      }
+    },
+    "mean_nll": 4.0270889702193235
+  },
+  "direct": {
+    "count": 6,
+    "per_depth": {
+      "5": {
+        "scale": 0.7096976041793823,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 5.5,
+        "mean_character_f2_diagnostic": 0.32753846136559833,
+        "mean_repetition": 0.0
+      },
+      "6": {
+        "scale": 0.706274688243866,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 8.5,
+        "mean_character_f2_diagnostic": 0.09768186449112638,
+        "mean_repetition": 0.0
+      },
+      "7": {
+        "scale": 0.7032833695411682,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 11.0,
+        "mean_character_f2_diagnostic": 0.3110765041847363,
+        "mean_repetition": 0.0
+      }
+    },
+    "formed_rate": 1.0,
+    "eos_rate": 1.0,
+    "mean_character_f2_diagnostic": 0.24543227668048703,
+    "rows": [
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 5,
+        "scale": 0.7096976041793823,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放在桌子上。",
+        "output_pieces": 5,
+        "reference_pieces": 8,
+        "length_ratio": 0.625,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.39524198608521993,
+        "formed": true,
+        "budget": 3,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          8.289306741016134e-11,
+          1.9341715729037645e-10,
+          0.6755151152610779,
+          1.0299557447433472
+        ]
+      },
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 6,
+        "scale": 0.706274688243866,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放进的胸前",
+        "output_pieces": 6,
+        "reference_pieces": 8,
+        "length_ratio": 0.75,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.015723270440251572,
+        "formed": true,
+        "budget": 6,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306741016134e-11,
+          0.6583998203277588,
+          1.0606606006622314,
+          1.6742900609970093
+        ]
+      },
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 7,
+        "scale": 0.7032833695411682,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放进餐后,把孩子放在桌子上。",
+        "output_pieces": 12,
+        "reference_pieces": 8,
+        "length_ratio": 1.5,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.38818615585042626,
+        "formed": true,
+        "budget": 11,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          0.6158983111381531,
+          1.046411395072937,
+          1.6712981462478638,
+          2.231595039367676
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 5,
+        "scale": 0.7096976041793823,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The windows of the house.",
+        "output_pieces": 6,
+        "reference_pieces": 8,
+        "length_ratio": 0.75,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.25983493664597673,
+        "formed": true,
+        "budget": 2,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306741016134e-11,
+          1.9341714341258864e-10,
+          4.1446529541744326e-10,
+          0.6699582934379578
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 6,
+        "scale": 0.706274688243866,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The front of the former ducks were opened.",
+        "output_pieces": 11,
+        "reference_pieces": 8,
+        "length_ratio": 1.375,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.1796404585420012,
+        "formed": true,
+        "budget": 4,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          8.289306741016134e-11,
+          1.9341714341258864e-10,
+          0.649100661277771,
+          1.3030757904052734
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 7,
+        "scale": 0.7032833695411682,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The front of the house was a big window.",
+        "output_pieces": 10,
+        "reference_pieces": 8,
+        "length_ratio": 1.25,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.23396685251904636,
+        "formed": true,
+        "budget": 7,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306047126743e-11,
+          0.6796254515647888,
+          1.2807881832122803,
+          1.8441710472106934
+        ]
+      }
+    ]
+  },
+  "nonzero_gradient_depths": [
+    5,
+    6,
+    7
+  ],
+  "elapsed_seconds": 54.081891775131226
+}

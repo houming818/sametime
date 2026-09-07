@@ -2,7 +2,7 @@
 
 日期：2026-09-08
 Claim：`S3-FOLD-FOCUS-TRAINING-F02`
-状态：初始 smoke 保留为失败记录；已修正零点参数化，等待 smoke r1。
+状态：初始 smoke 保留为失败记录；smoke r1 通过；正式 taskd `372` 运行中。
 
 ## 1. F01 留下的问题
 
@@ -103,3 +103,15 @@ F02 不证明样本级调焦已经解决，不把三个标量称为新的完整 
 不放宽 `1e-9` 的 P0 门槛。r1 改用上述以 `sqrt(0.5)` 为绝对零点的双侧有界坐标，
 `theta=0` 不经过逆函数往返。失败 evidence 保留在
 `evidence/s3_fold_focus_training_f02/smoke_seed11401/`，r1 写入独立目录。
+
+Smoke r1 taskd `371` 完成 30/30 steps，P0 与全部安全门通过。三层都收到非零有限梯度，
+基座哈希不变，checkpoint reload NLL 误差为零。30 步尺度从共同的 `0.70710677` 分化为：
+
+```text
+depth 5: 0.70969760
+depth 6: 0.70627469
+depth 7: 0.70328337
+```
+
+valid mean NLL 改善 `0.00102895`。两个 smoke 标本的 formed rate 保持 `1.0`，字符 F2
+尚未变化；该结果只授权固定 5,000-step 正式训练，不提前支持 P2--P4。

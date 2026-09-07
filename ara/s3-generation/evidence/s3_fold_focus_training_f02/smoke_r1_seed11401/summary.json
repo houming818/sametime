@@ -1,0 +1,888 @@
+{
+  "claim": "S3-FOLD-FOCUS-TRAINING-F02",
+  "mode": "smoke",
+  "host": "io",
+  "step": 30,
+  "cursor": 1924,
+  "focus_scales": [
+    0.7096976041793823,
+    0.706274688243866,
+    0.7032833695411682
+  ],
+  "initial_valid": {
+    "per_depth": {
+      "5": {
+        "nll": 4.088953817291727,
+        "ppl": 59.67742554365612,
+        "tokens": 1308,
+        "mean_budget": 4.625,
+        "slot_variance": 1.2526714740781346,
+        "between_slot_variance": 0.5814474113285542,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "6": {
+        "nll": 4.003621349276388,
+        "ppl": 54.7962274415303,
+        "tokens": 1308,
+        "mean_budget": 8.71875,
+        "slot_variance": 1.6951377982086338,
+        "between_slot_variance": 1.0357476356439292,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "7": {
+        "nll": 3.991778592450903,
+        "ppl": 54.1511165305722,
+        "tokens": 1308,
+        "mean_budget": 17.078125,
+        "slot_variance": 2.052218151560919,
+        "between_slot_variance": 1.5560788493603468,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      }
+    },
+    "mean_nll": 4.028117919673005
+  },
+  "final_valid": {
+    "per_depth": {
+      "5": {
+        "nll": 4.088605804909989,
+        "ppl": 59.656660674082104,
+        "tokens": 1308,
+        "mean_budget": 4.625,
+        "slot_variance": 1.2526714740781346,
+        "between_slot_variance": 0.5814474113285542,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "6": {
+        "nll": 4.003253855107392,
+        "ppl": 54.7760938471784,
+        "tokens": 1308,
+        "mean_budget": 8.71875,
+        "slot_variance": 1.6951377982086338,
+        "between_slot_variance": 1.0357476356439292,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      },
+      "7": {
+        "nll": 3.989407250640589,
+        "ppl": 54.022857856548875,
+        "tokens": 1308,
+        "mean_budget": 17.078125,
+        "slot_variance": 2.052218151560919,
+        "between_slot_variance": 1.5560788493603468,
+        "route": {
+          "route_pair_overlap": 0.0,
+          "route_pair_cosine": 0.0,
+          "argmax_coverage": 1.0,
+          "owner_leaf_coverage": 1.0
+        }
+      }
+    },
+    "mean_nll": 4.0270889702193235
+  },
+  "nll_improvement": 0.0010289494536817045,
+  "initial_direct": {
+    "count": 6,
+    "per_depth": {
+      "5": {
+        "scale": 0.7071067690849304,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 5.5,
+        "mean_character_f2_diagnostic": 0.32753846136559833,
+        "mean_repetition": 0.0
+      },
+      "6": {
+        "scale": 0.7071067690849304,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 8.5,
+        "mean_character_f2_diagnostic": 0.09768186449112638,
+        "mean_repetition": 0.0
+      },
+      "7": {
+        "scale": 0.7071067690849304,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 11.0,
+        "mean_character_f2_diagnostic": 0.3110765041847363,
+        "mean_repetition": 0.0
+      }
+    },
+    "formed_rate": 1.0,
+    "eos_rate": 1.0,
+    "mean_character_f2_diagnostic": 0.24543227668048703,
+    "rows": [
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 5,
+        "scale": 0.7071067690849304,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放在桌子上。",
+        "output_pieces": 5,
+        "reference_pieces": 8,
+        "length_ratio": 0.625,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.39524198608521993,
+        "formed": true,
+        "budget": 3,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          8.289306741016134e-11,
+          1.9341715729037645e-10,
+          0.675390362739563,
+          1.0300498008728027
+        ]
+      },
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 6,
+        "scale": 0.7071067690849304,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放进的胸前",
+        "output_pieces": 6,
+        "reference_pieces": 8,
+        "length_ratio": 0.75,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.015723270440251572,
+        "formed": true,
+        "budget": 6,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306741016134e-11,
+          0.6583354473114014,
+          1.0606350898742676,
+          1.6742106676101685
+        ]
+      },
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 7,
+        "scale": 0.7071067690849304,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放进餐后,把孩子放在桌子上。",
+        "output_pieces": 12,
+        "reference_pieces": 8,
+        "length_ratio": 1.5,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.38818615585042626,
+        "formed": true,
+        "budget": 11,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          0.614423394203186,
+          1.0459390878677368,
+          1.6705666780471802,
+          2.2310216426849365
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 5,
+        "scale": 0.7071067690849304,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The windows of the house.",
+        "output_pieces": 6,
+        "reference_pieces": 8,
+        "length_ratio": 0.75,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.25983493664597673,
+        "formed": true,
+        "budget": 2,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306741016134e-11,
+          1.9341714341258864e-10,
+          4.1446529541744326e-10,
+          0.6700360178947449
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 6,
+        "scale": 0.7071067690849304,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The front of the former ducks were opened.",
+        "output_pieces": 11,
+        "reference_pieces": 8,
+        "length_ratio": 1.375,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.1796404585420012,
+        "formed": true,
+        "budget": 4,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          8.289306741016134e-11,
+          1.9341714341258864e-10,
+          0.649057149887085,
+          1.303025484085083
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 7,
+        "scale": 0.7071067690849304,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The front of the house was a big window.",
+        "output_pieces": 10,
+        "reference_pieces": 8,
+        "length_ratio": 1.25,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.23396685251904636,
+        "formed": true,
+        "budget": 7,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306047126743e-11,
+          0.6796730160713196,
+          1.2803423404693604,
+          1.8437446355819702
+        ]
+      }
+    ]
+  },
+  "final_direct": {
+    "count": 6,
+    "per_depth": {
+      "5": {
+        "scale": 0.7096976041793823,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 5.5,
+        "mean_character_f2_diagnostic": 0.32753846136559833,
+        "mean_repetition": 0.0
+      },
+      "6": {
+        "scale": 0.706274688243866,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 8.5,
+        "mean_character_f2_diagnostic": 0.09768186449112638,
+        "mean_repetition": 0.0
+      },
+      "7": {
+        "scale": 0.7032833695411682,
+        "formed_rate": 1.0,
+        "eos_rate": 1.0,
+        "mean_output_pieces": 11.0,
+        "mean_character_f2_diagnostic": 0.3110765041847363,
+        "mean_repetition": 0.0
+      }
+    },
+    "formed_rate": 1.0,
+    "eos_rate": 1.0,
+    "mean_character_f2_diagnostic": 0.24543227668048703,
+    "rows": [
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 5,
+        "scale": 0.7096976041793823,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放在桌子上。",
+        "output_pieces": 5,
+        "reference_pieces": 8,
+        "length_ratio": 0.625,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.39524198608521993,
+        "formed": true,
+        "budget": 3,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          8.289306741016134e-11,
+          1.9341715729037645e-10,
+          0.6755151152610779,
+          1.0299557447433472
+        ]
+      },
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 6,
+        "scale": 0.706274688243866,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放进的胸前",
+        "output_pieces": 6,
+        "reference_pieces": 8,
+        "length_ratio": 0.75,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.015723270440251572,
+        "formed": true,
+        "budget": 6,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306741016134e-11,
+          0.6583998203277588,
+          1.0606606006622314,
+          1.6742900609970093
+        ]
+      },
+      {
+        "specimen_id": "simple-en-01",
+        "category": "simple_svo",
+        "direction": "en2zh",
+        "depth": 7,
+        "scale": 0.7032833695411682,
+        "source": "The child put the red apple on the table.",
+        "reference": "孩子把红苹果放在桌子上。",
+        "generation": "放进餐后,把孩子放在桌子上。",
+        "output_pieces": 12,
+        "reference_pieces": 8,
+        "length_ratio": 1.5,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.38818615585042626,
+        "formed": true,
+        "budget": 11,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          0.6158983111381531,
+          1.046411395072937,
+          1.6712981462478638,
+          2.231595039367676
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 5,
+        "scale": 0.7096976041793823,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The windows of the house.",
+        "output_pieces": 6,
+        "reference_pieces": 8,
+        "length_ratio": 0.75,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.25983493664597673,
+        "formed": true,
+        "budget": 2,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306741016134e-11,
+          1.9341714341258864e-10,
+          4.1446529541744326e-10,
+          0.6699582934379578
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 6,
+        "scale": 0.706274688243866,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The front of the former ducks were opened.",
+        "output_pieces": 11,
+        "reference_pieces": 8,
+        "length_ratio": 1.375,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.1796404585420012,
+        "formed": true,
+        "budget": 4,
+        "route_depth_mass": [
+          0.0,
+          2.7631020735330303e-11,
+          8.289306741016134e-11,
+          1.9341714341258864e-10,
+          0.649100661277771,
+          1.3030757904052734
+        ]
+      },
+      {
+        "specimen_id": "simple-zh-01",
+        "category": "simple_svo",
+        "direction": "zh2en",
+        "depth": 7,
+        "scale": 0.7032833695411682,
+        "source": "女孩离开前关上了窗户。",
+        "reference": "The girl closed the window before leaving.",
+        "generation": "The front of the house was a big window.",
+        "output_pieces": 10,
+        "reference_pieces": 8,
+        "length_ratio": 1.25,
+        "eos_reached": true,
+        "adjacent_repetition_rate": 0.0,
+        "character_f2_diagnostic": 0.23396685251904636,
+        "formed": true,
+        "budget": 7,
+        "route_depth_mass": [
+          0.0,
+          2.763102247005378e-11,
+          8.289306047126743e-11,
+          0.6796254515647888,
+          1.2807881832122803,
+          1.8441710472106934
+        ]
+      }
+    ]
+  },
+  "final_generation": {
+    "per_depth": {
+      "5": {
+        "token_bleu4": 2.4732915093874692,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ ",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.6363375782966614,
+              1.2603965997695923,
+              1.9362640380859375
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "Any failure to act with respect to any of the foregoing, or any other person authorized to act on behalf of the owner of the owner of the Site.",
+            "budget": 7,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306741016134e-11,
+              0.665798008441925,
+              1.3250000476837158,
+              1.8657044172286987
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": " ⁇ 在1989年,在阿拉斯加共和国的第6号,第6号线,第6号线,第6号线,第5号决议,第八号决议,第八号决议,第5号决议,第八号决议,第5号决议,第八",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631015531159875e-11,
+              8.289306047126743e-11,
+              0.5302755832672119,
+              1.1118494272232056,
+              1.7378921508789062
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company was built in the construction of the city's construction site, and was built in the middle of the city's most popular locomotives, was built in the middle of the city.",
+            "budget": 8,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              8.289307434905524e-11,
+              0.6088213324546814,
+              1.2479891777038574,
+              1.9158318042755127
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 木家具",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341715729037645e-10,
+              0.6726288795471191,
+              1.004111647605896
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "WOODS OF ELEMENTARY",
+            "budget": 3,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              1.9341714341258864e-10,
+              0.6811615228652954,
+              1.0211602449417114
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "在网站上,您就该网站使用以下数据。",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306741016134e-11,
+              0.6340976357460022,
+              1.0250548124313354,
+              1.423325538635254
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "The information you provide to us in this website, you agree to the terms of this website.",
+            "budget": 5,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.6395446062088013,
+              1.025081753730774,
+              1.4362642765045166
+            ]
+          }
+        ]
+      },
+      "6": {
+        "token_bleu4": 4.9563856621537585,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": "倘本服务条款任何规定不构成,或,或部分以上规定,或以上任何部分或本服务条款之规定或部分条款与该等条款或部分条款。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.6672569513320923,
+              1.335394263267517,
+              1.988839030265808,
+              2.6672351360321045
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "If any provision of these Terms of Service is a cause of a person or entity, you must be authorized to act in respect of the rights of the owner of the Site;",
+            "budget": 13,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.6370523571968079,
+              1.273432731628418,
+              1.836932897567749,
+              2.4110052585601807
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "建设项目在阿诺德尔托尔市内,在156号召开了,在15号州内被送往前,被称作“被封锁 ” 。",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5338373780250549,
+              1.155177354812622,
+              1.8012295961380005,
+              2.464505434036255
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company's first construction project was built in the construction of the company's construction site, was founded in 1986, was one of the most widely used in China.",
+            "budget": 16,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5370020866394043,
+              1.154098629951477,
+              1.8023719787597656,
+              2.473926544189453
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 鹿 ELEMENTARY",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.763102247005378e-11,
+              8.289306741016134e-11,
+              0.5939154624938965,
+              0.9798235893249512,
+              1.6440775394439697
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "WOODWILL WILSON",
+            "budget": 6,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              8.289306047126743e-11,
+              0.5677790641784668,
+              0.9446200132369995,
+              1.582791805267334
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "在使用本页上,我同意了以下数据,以了解该信息,在这种情况下,我们会在以下情况下。",
+            "budget": 9,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.6039730906486511,
+              0.9341413378715515,
+              1.3259395360946655,
+              1.7516427040100098
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "The Company is a collection of use of the website, which indicates that the information you provide to us, you agree to the terms of this website.",
+            "budget": 10,
+            "route": [
+              0.0,
+              2.7631019000606827e-11,
+              0.5851820111274719,
+              0.9798698425292969,
+              1.429488182067871,
+              2.1075525283813477
+            ]
+          }
+        ]
+      },
+      "7": {
+        "token_bleu4": 13.250004498558619,
+        "nonempty_rate": 1.0,
+        "adjacent_repetition_rate": 0.0,
+        "examples": [
+          {
+            "kind": "en2zh",
+            "source": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "reference": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "generation": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ ",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.6228858232498169,
+              1.257317304611206,
+              1.9283719062805176,
+              2.6037590503692627,
+              3.253603458404541
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "谢文网未行使或执行本使用协议任何权利或规定,不构成对前述权利或权利之放弃; 4 ) .",
+            "reference": "ENTIRE AGREEMENT The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "generation": "Any failure to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.",
+            "budget": 25,
+            "route": [
+              0.0,
+              0.5893378853797913,
+              1.252789855003357,
+              1.8014752864837646,
+              2.375775098800659,
+              2.9587595462799072
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer Paulo dos Remédios, brought a suit of confirming their eligibility as the heirs to the court, claiming that Vong Tam Kuong, who also named \"Choi Lan\", was their grandfather and requested to inherit the title of the parcel with a description no.",
+            "reference": " ⁇ 石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄 ⁇ 胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称",
+            "generation": "建设项目在阿拉斯加建设项目中,阿拔斯已经有156名,被判处15名被判处死刑。",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.49173444509506226,
+              1.086129903793335,
+              1.7348132133483887,
+              2.388012170791626,
+              3.052757978439331
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "疊石塘山建筑项目地段的物业标示编号为6150,自1903年起登记的业权人一直是Chui Lan。 1991年7月,路环居民黄潭胜和黄德兴委托律师李伯乐向法院提起确认继承人资格的诉讼,声称他们是祖父Vong Tam Kuong(又名Choi Lan)的唯一继承人,要求继承标示编号6150的土地。",
+            "reference": "The parcel in relation to the construction project at Alto de Coloane has a land description number 6150. The registered parcel owner was \"Chui Lan\" starting from 1903. In July 1991, residents in Coloane Vong Tam Seng and Vong Tak Heng, represented by lawyer",
+            "generation": "The company's name was built in the city of the company, was founded in June 1, 1903 was a registered capital of the company.",
+            "budget": 32,
+            "route": [
+              0.0,
+              0.5327683687210083,
+              1.1444804668426514,
+              1.7836272716522217,
+              2.436917781829834,
+              3.0939295291900635
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "reference": "WOODROW WILSON ELEMENTARY SCHO",
+            "generation": " ⁇ 鹿 ⁇  ELEMENTARY",
+            "budget": 11,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.5868362188339233,
+              0.9439004063606262,
+              1.567913293838501,
+              2.141632080078125
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "WOODROW WILSON ELEMENTARY SCHO",
+            "reference": "NEIL ARMSTRONG ELEMENTARY SCHO",
+            "generation": "WILW WILSON ELEMENTO OO",
+            "budget": 12,
+            "route": [
+              0.0,
+              2.7631020735330303e-11,
+              0.6070201992988586,
+              0.90399169921875,
+              1.5091809034347534,
+              2.1540489196777344
+            ]
+          },
+          {
+            "kind": "en2zh",
+            "source": "By using the KMI website, you consent to the data practices described in this statement.",
+            "reference": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "generation": "在使用本页上,您还同意我们按照本《隐私声明》中所述的方式来处理。",
+            "budget": 18,
+            "route": [
+              0.0,
+              0.5608567595481873,
+              0.937456488609314,
+              1.3695743083953857,
+              1.812059998512268,
+              2.468864917755127
+            ]
+          },
+          {
+            "kind": "zh2en",
+            "source": "您在使用 Gerber Technology 网站时 ,即表明您同意本声明中所述的数据管理和收集方法。",
+            "reference": "By using the KMI website, you consent to the data practices described in this statement.",
+            "generation": "You agree that the Company may use your information to the Site, and you agree to the following terms and conditions of use, and you agree to the following terms and conditions.",
+            "budget": 19,
+            "route": [
+              0.0,
+              0.5752066373825073,
+              1.016095519065857,
+              1.4678274393081665,
+              2.114905595779419,
+              2.6996469497680664
+            ]
+          }
+        ]
+      }
+    },
+    "bleu4_median": 4.9563856621537585,
+    "nonempty_min": 1.0,
+    "repetition_max": 0.0
+  },
+  "base_state_sha256_before": "e587931ef0e475467e045aed85d4fbfd6b716610f45cdfec1e297f8023ca31c7",
+  "base_state_sha256_after": "e587931ef0e475467e045aed85d4fbfd6b716610f45cdfec1e297f8023ca31c7",
+  "reload_nll_delta": 0.0,
+  "gates": {
+    "step0_function": true,
+    "finite": true,
+    "all_depths_received_gradient": true,
+    "base_frozen": true,
+    "step_complete": true,
+    "scale_in_open_unit_interval": true,
+    "reload": true
+  },
+  "seconds": 71.00186777114868
+}
