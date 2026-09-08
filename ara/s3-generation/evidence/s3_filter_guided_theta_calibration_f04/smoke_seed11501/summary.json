@@ -1,0 +1,2256 @@
+{
+  "claim": "S3-FILTER-GUIDED-THETA-CALIBRATION-F04",
+  "mode": "smoke",
+  "host": "io",
+  "initial": {
+    "train": {
+      "mean": {
+        "loss": 2.165960669517517,
+        "positive_coverage": 0.631261924902598,
+        "negative_activation": 0.008359646579871574,
+        "eos_coverage": 0.5861770212650299,
+        "expected_repetition": 0.08118469019730885
+      },
+      "per_depth": {
+        "5": {
+          "loss": 2.3407833576202393,
+          "positive_coverage": 0.5554202795028687,
+          "negative_activation": 0.008299735374748707,
+          "eos_coverage": 0.9477457404136658,
+          "expected_repetition": 0.0707615539431572,
+          "rows": [
+            {
+              "id": "train-push-atomic",
+              "positive": {
+                "push": 0.5924626588821411
+              },
+              "negative": {
+                "like": 0.00452423095703125,
+                "want": 0.0002886652946472168
+              }
+            },
+            {
+              "id": "train-stone-atomic",
+              "positive": {
+                "stone": 0.999948263168335
+              },
+              "negative": {
+                "push": 3.635883331298828e-05,
+                "like": 0.002476036548614502,
+                "want": 0.00016039609909057617
+              }
+            },
+            {
+              "id": "train-push-stone",
+              "positive": {
+                "push": 0.02381056547164917,
+                "stone": 0.9999943971633911
+              },
+              "negative": {
+                "like": 0.0023658275604248047,
+                "want": 0.00023627281188964844
+              }
+            },
+            {
+              "id": "train-like-atomic",
+              "positive": {
+                "like": 0.9992278814315796
+              },
+              "negative": {
+                "push": 6.371736526489258e-05,
+                "want": 0.004659831523895264
+              }
+            },
+            {
+              "id": "train-apple-atomic",
+              "positive": {
+                "apple": 0.00020039081573486328
+              },
+              "negative": {
+                "push": 0.00046122074127197266,
+                "like": 0.008465230464935303,
+                "want": 0.002162337303161621
+              }
+            },
+            {
+              "id": "train-like-apple",
+              "positive": {
+                "like": 0.6893092393875122,
+                "apple": 2.5093555450439453e-05
+              },
+              "negative": {
+                "push": 0.00014829635620117188,
+                "want": 0.009968280792236328
+              }
+            },
+            {
+              "id": "train-want-atomic",
+              "positive": {
+                "want": 0.7991182208061218
+              },
+              "negative": {
+                "push": 0.0035654306411743164,
+                "like": 0.0714261531829834
+              }
+            },
+            {
+              "id": "train-want-apple",
+              "positive": {
+                "want": 0.6956062316894531,
+                "apple": 0.3099200129508972
+              },
+              "negative": {
+                "push": 0.0009242892265319824,
+                "like": 0.03746265172958374
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "train-push-atomic",
+              "source": "推，推，推，推，推，推，推，推。",
+              "generation": "For more, pushing, push, and push.",
+              "output_pieces": 11,
+              "budget": 4
+            },
+            {
+              "id": "train-stone-atomic",
+              "source": "石头，石头，石头，石头。",
+              "generation": "The stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone",
+              "output_pieces": 56,
+              "budget": 3
+            },
+            {
+              "id": "train-push-stone",
+              "source": "推石头。推石头。推石头。推石头。",
+              "generation": "The stone stone is stone stone.",
+              "output_pieces": 7,
+              "budget": 3
+            },
+            {
+              "id": "train-like-atomic",
+              "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+              "generation": "I love, like, like, like.",
+              "output_pieces": 9,
+              "budget": 5
+            },
+            {
+              "id": "train-apple-atomic",
+              "source": "苹果，苹果，苹果，苹果。",
+              "generation": "Apple is a smart choice.",
+              "output_pieces": 6,
+              "budget": 2
+            },
+            {
+              "id": "train-like-apple",
+              "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+              "generation": "Apple.com. iPhone.",
+              "output_pieces": 6,
+              "budget": 4
+            },
+            {
+              "id": "train-want-atomic",
+              "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+              "generation": "To do so, you want to be.",
+              "output_pieces": 9,
+              "budget": 4
+            },
+            {
+              "id": "train-want-apple",
+              "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+              "generation": "Apple wants to Apple. Apple wants to Apple.",
+              "output_pieces": 10,
+              "budget": 3
+            }
+          ]
+        },
+        "6": {
+          "loss": 1.709344744682312,
+          "positive_coverage": 0.6433892846107483,
+          "negative_activation": 0.010420124046504498,
+          "eos_coverage": 0.4315645396709442,
+          "expected_repetition": 0.08844705671072006,
+          "rows": [
+            {
+              "id": "train-push-atomic",
+              "positive": {
+                "push": 0.9999999403953552
+              },
+              "negative": {
+                "like": 0.0019661784172058105,
+                "want": 2.6941299438476562e-05
+              }
+            },
+            {
+              "id": "train-stone-atomic",
+              "positive": {
+                "stone": 1.0
+              },
+              "negative": {
+                "push": 2.6464462280273438e-05,
+                "like": 0.0012837648391723633,
+                "want": 0.00024300813674926758
+              }
+            },
+            {
+              "id": "train-push-stone",
+              "positive": {
+                "push": 0.030872583389282227,
+                "stone": 0.9999557733535767
+              },
+              "negative": {
+                "like": 0.003169119358062744,
+                "want": 0.0003936886787414551
+              }
+            },
+            {
+              "id": "train-like-atomic",
+              "positive": {
+                "like": 0.999901533126831
+              },
+              "negative": {
+                "push": 3.904104232788086e-05,
+                "want": 0.0025319457054138184
+              }
+            },
+            {
+              "id": "train-apple-atomic",
+              "positive": {
+                "apple": 0.2323569655418396
+              },
+              "negative": {
+                "push": 0.0001557469367980957,
+                "like": 0.007190287113189697,
+                "want": 0.0035150647163391113
+              }
+            },
+            {
+              "id": "train-like-apple",
+              "positive": {
+                "like": 0.7656893134117126,
+                "apple": 3.337860107421875e-05
+              },
+              "negative": {
+                "push": 4.887580871582031e-05,
+                "want": 0.008446753025054932
+              }
+            },
+            {
+              "id": "train-want-atomic",
+              "positive": {
+                "want": 0.8928275108337402
+              },
+              "negative": {
+                "push": 0.0038756132125854492,
+                "like": 0.11992889642715454
+              }
+            },
+            {
+              "id": "train-want-apple",
+              "positive": {
+                "want": 0.6584076881408691,
+                "apple": 0.4972373843193054
+              },
+              "negative": {
+                "push": 0.0002218484878540039,
+                "like": 0.03449898958206177
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "train-push-atomic",
+              "source": "推，推，推，推，推，推，推，推。",
+              "generation": "For more, pushing, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push,",
+              "output_pieces": 64,
+              "budget": 8
+            },
+            {
+              "id": "train-stone-atomic",
+              "source": "石头，石头，石头，石头。",
+              "generation": "stone stones, stones stones stones stones stone stones stones stone stones stones stone stones stones stones stone stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones",
+              "output_pieces": 64,
+              "budget": 5
+            },
+            {
+              "id": "train-push-stone",
+              "source": "推石头。推石头。推石头。推石头。",
+              "generation": "The stone stone stones stones. stone stone stones. stone stone stones. stone stone stones stones. stone stone stones stones stone stones. stone stone stones stones are stone stones.",
+              "output_pieces": 34,
+              "budget": 6
+            },
+            {
+              "id": "train-like-atomic",
+              "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+              "generation": "F love, likes, love, like, like, like, like love.",
+              "output_pieces": 16,
+              "budget": 9
+            },
+            {
+              "id": "train-apple-atomic",
+              "source": "苹果，苹果，苹果，苹果。",
+              "generation": "Apple Apple apple Apple, Apple Watch. Apple.",
+              "output_pieces": 11,
+              "budget": 4
+            },
+            {
+              "id": "train-like-apple",
+              "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+              "generation": "Apple love Apple like Apple. iPhone. Apple iPhone. Apple iPhone.",
+              "output_pieces": 14,
+              "budget": 7
+            },
+            {
+              "id": "train-want-atomic",
+              "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+              "generation": "To make your stay, want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to know.",
+              "output_pieces": 59,
+              "budget": 8
+            },
+            {
+              "id": "train-want-apple",
+              "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+              "generation": "Apple apple Apple. Apple iOS app. Apple iPhone app. Apple. Apple iPhone app. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone app",
+              "output_pieces": 64,
+              "budget": 6
+            }
+          ]
+        },
+        "7": {
+          "loss": 2.44775390625,
+          "positive_coverage": 0.6949762105941772,
+          "negative_activation": 0.006359080318361521,
+          "eos_coverage": 0.37922078371047974,
+          "expected_repetition": 0.08434545993804932,
+          "rows": [
+            {
+              "id": "train-push-atomic",
+              "positive": {
+                "push": 0.9999999403953552
+              },
+              "negative": {
+                "like": 0.004224538803100586,
+                "want": 7.092952728271484e-06
+              }
+            },
+            {
+              "id": "train-stone-atomic",
+              "positive": {
+                "stone": 1.0
+              },
+              "negative": {
+                "push": 3.039836883544922e-06,
+                "like": 0.00021219253540039062,
+                "want": 3.421306610107422e-05
+              }
+            },
+            {
+              "id": "train-push-stone",
+              "positive": {
+                "push": 0.7791051864624023,
+                "stone": 0.9999570250511169
+              },
+              "negative": {
+                "like": 0.007773935794830322,
+                "want": 0.0003102421760559082
+              }
+            },
+            {
+              "id": "train-like-atomic",
+              "positive": {
+                "like": 0.9999809861183167
+              },
+              "negative": {
+                "push": 8.380413055419922e-05,
+                "want": 0.013445675373077393
+              }
+            },
+            {
+              "id": "train-apple-atomic",
+              "positive": {
+                "apple": 3.820657730102539e-05
+              },
+              "negative": {
+                "push": 5.924701690673828e-05,
+                "like": 0.0021721720695495605,
+                "want": 0.001208484172821045
+              }
+            },
+            {
+              "id": "train-like-apple",
+              "positive": {
+                "like": 0.8334489464759827,
+                "apple": 4.118680953979492e-05
+              },
+              "negative": {
+                "push": 0.00010961294174194336,
+                "want": 0.008762776851654053
+              }
+            },
+            {
+              "id": "train-want-atomic",
+              "positive": {
+                "want": 0.9999427199363708
+              },
+              "negative": {
+                "push": 0.002273738384246826,
+                "like": 0.045073509216308594
+              }
+            },
+            {
+              "id": "train-want-apple",
+              "positive": {
+                "want": 0.9918334484100342,
+                "apple": 0.04039055109024048
+              },
+              "negative": {
+                "push": 0.0025893449783325195,
+                "like": 0.02611982822418213
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "train-push-atomic",
+              "source": "推，推，推，推，推，推，推，推。",
+              "generation": "For instance, pushing, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push,",
+              "output_pieces": 64,
+              "budget": 16
+            },
+            {
+              "id": "train-stone-atomic",
+              "source": "石头，石头，石头，石头。",
+              "generation": "stones, stones, stones, stones stones stones stones stones stones stone stones stones stone stones stones stone stones stones stone stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stone stones stones stone stones",
+              "output_pieces": 56,
+              "budget": 9
+            },
+            {
+              "id": "train-push-stone",
+              "source": "推石头。推石头。推石头。推石头。",
+              "generation": "stone stones stones stones. stones. stones pushed stones stones. stones pushed stones stones. stones. stones stone stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones.",
+              "output_pieces": 38,
+              "budget": 12
+            },
+            {
+              "id": "train-like-atomic",
+              "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+              "generation": "I love, like, like, like, like, like, like, like, like, like, like,",
+              "output_pieces": 23,
+              "budget": 17
+            },
+            {
+              "id": "train-apple-atomic",
+              "source": "苹果，苹果，苹果，苹果。",
+              "generation": "Apple Apple Apple Apple, Apple, Apple, iPhone.",
+              "output_pieces": 11,
+              "budget": 8
+            },
+            {
+              "id": "train-like-apple",
+              "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+              "generation": "Apple love Apple iPhone. Apple Music. iPhone. Apple Music. Apple iPhone.",
+              "output_pieces": 16,
+              "budget": 13
+            },
+            {
+              "id": "train-want-atomic",
+              "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+              "generation": "Here, you want to study more, want, want, want, want to want, want, want to want, want, want to want to know, want to want to want to know, want to want to want to know, want to want to know, want to want to know, want to want to",
+              "output_pieces": 64,
+              "budget": 16
+            },
+            {
+              "id": "train-want-apple",
+              "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+              "generation": "Apple's Apple apple Apple. Apple wants to Apple App Store. Apple wants to want to Apple wants to want to Apple.",
+              "output_pieces": 27,
+              "budget": 12
+            }
+          ]
+        }
+      }
+    },
+    "test": {
+      "mean": {
+        "loss": 2.4725871880849204,
+        "positive_coverage": 0.27173252900441486,
+        "negative_activation": 0.022519323974847794,
+        "eos_coverage": 0.5491447746753693,
+        "expected_repetition": 0.02903310675173998
+      },
+      "per_depth": {
+        "5": {
+          "loss": 2.4417240619659424,
+          "positive_coverage": 0.22494536638259888,
+          "negative_activation": 0.012117385864257812,
+          "eos_coverage": 0.9874874353408813,
+          "expected_repetition": 0.07133346050977707,
+          "rows": [
+            {
+              "id": "test-sisyphus-push-stone",
+              "positive": {
+                "push": 0.0009171962738037109,
+                "stone": 0.4387460947036743
+              },
+              "negative": {
+                "like": 0.0016404390335083008,
+                "want": 8.445978164672852e-05
+              }
+            },
+            {
+              "id": "test-ming-like-apple",
+              "positive": {
+                "like": 0.48555392026901245,
+                "apple": 0.08750903606414795
+              },
+              "negative": {
+                "push": 0.0007902979850769043,
+                "want": 0.008866369724273682
+              }
+            },
+            {
+              "id": "test-ming-want-apple",
+              "positive": {
+                "want": 0.16728311777114868,
+                "apple": 0.16966283321380615
+              },
+              "negative": {
+                "push": 0.002443552017211914,
+                "like": 0.058879196643829346
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "test-sisyphus-push-stone",
+              "source": "西西弗每天都推着石头上山顶。",
+              "generation": "The first day of the hill is the corner of the hill",
+              "output_pieces": 12,
+              "budget": 3
+            },
+            {
+              "id": "test-ming-like-apple",
+              "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+              "generation": "The small apples like the apple.",
+              "output_pieces": 9,
+              "budget": 4
+            },
+            {
+              "id": "test-ming-want-apple",
+              "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+              "generation": "The apple is small.",
+              "output_pieces": 6,
+              "budget": 4
+            }
+          ]
+        },
+        "6": {
+          "loss": 2.311837673187256,
+          "positive_coverage": 0.2987460494041443,
+          "negative_activation": 0.036509811878204346,
+          "eos_coverage": 0.33615705370903015,
+          "expected_repetition": 0.00828248355537653,
+          "rows": [
+            {
+              "id": "test-sisyphus-push-stone",
+              "positive": {
+                "push": 0.0021438002586364746,
+                "stone": 0.11229515075683594
+              },
+              "negative": {
+                "like": 0.004725039005279541,
+                "want": 0.00010335445404052734
+              }
+            },
+            {
+              "id": "test-ming-like-apple",
+              "positive": {
+                "like": 0.7926087975502014,
+                "apple": 0.0850415825843811
+              },
+              "negative": {
+                "push": 0.00013840198516845703,
+                "want": 0.006269931793212891
+              }
+            },
+            {
+              "id": "test-ming-want-apple",
+              "positive": {
+                "want": 0.376064658164978,
+                "apple": 0.42432212829589844
+              },
+              "negative": {
+                "push": 0.0009818673133850098,
+                "like": 0.20684027671813965
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "test-sisyphus-push-stone",
+              "source": "西西弗每天都推着石头上山顶。",
+              "generation": "The daily air-conditioned and every day in the morning, the mountain is up to the top of the mountain.",
+              "output_pieces": 23,
+              "budget": 6
+            },
+            {
+              "id": "test-ming-like-apple",
+              "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+              "generation": "Small love of the app. iPhone 5s small apples like small. iPhone 5s. iPhone. Apple",
+              "output_pieces": 22,
+              "budget": 8
+            },
+            {
+              "id": "test-ming-want-apple",
+              "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+              "generation": "Little time. The apple wants to be apple. iPhone small apples. Apple is small. iPhone 5 Apple Store apple.",
+              "output_pieces": 28,
+              "budget": 8
+            }
+          ]
+        },
+        "7": {
+          "loss": 2.6641998291015625,
+          "positive_coverage": 0.29150617122650146,
+          "negative_activation": 0.018930774182081223,
+          "eos_coverage": 0.3237898349761963,
+          "expected_repetition": 0.007483376190066338,
+          "rows": [
+            {
+              "id": "test-sisyphus-push-stone",
+              "positive": {
+                "push": 0.00028449296951293945,
+                "stone": 0.20061397552490234
+              },
+              "negative": {
+                "like": 0.00838923454284668,
+                "want": 8.851289749145508e-05
+              }
+            },
+            {
+              "id": "test-ming-like-apple",
+              "positive": {
+                "like": 0.7017165422439575,
+                "apple": 0.04528325796127319
+              },
+              "negative": {
+                "push": 0.00028395652770996094,
+                "want": 0.0074593424797058105
+              }
+            },
+            {
+              "id": "test-ming-want-apple",
+              "positive": {
+                "want": 0.41509711742401123,
+                "apple": 0.38604170083999634
+              },
+              "negative": {
+                "push": 0.0010418295860290527,
+                "like": 0.09632176160812378
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "test-sisyphus-push-stone",
+              "source": "西西弗每天都推着石头上山顶。",
+              "generation": "The daily breakfast is in every corner of the West, and the half of the day.",
+              "output_pieces": 18,
+              "budget": 12
+            },
+            {
+              "id": "test-ming-like-apple",
+              "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+              "generation": "Small memories of small children Ming apples like Apple. iPhone small. Ming small love: small.",
+              "output_pieces": 21,
+              "budget": 15
+            },
+            {
+              "id": "test-ming-want-apple",
+              "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+              "generation": "Little small children want to grow in the apple. Every day the apple wants to store the apple. Every small apple wants to be apple.",
+              "output_pieces": 33,
+              "budget": 15
+            }
+          ]
+        }
+      }
+    }
+  },
+  "initial_filter_regret": {
+    "per_depth": [
+      {
+        "depth": 5,
+        "native_loss": 2.3407833576202393,
+        "filtered_loss": 2.274261713027954,
+        "regret": 0.06652164459228516,
+        "filter_abs_mean": 0.07669934630393982
+      },
+      {
+        "depth": 6,
+        "native_loss": 1.709344744682312,
+        "filtered_loss": 1.5493483543395996,
+        "regret": 0.1599963903427124,
+        "filter_abs_mean": 0.10163187980651855
+      },
+      {
+        "depth": 7,
+        "native_loss": 2.44775390625,
+        "filtered_loss": 2.25439453125,
+        "regret": 0.193359375,
+        "filter_abs_mean": 0.16074275970458984
+      }
+    ],
+    "mean_regret": 0.13995913664499918
+  },
+  "arms": {
+    "direct-theta": {
+      "train_state": {
+        "nonzero_gradient": true,
+        "inner_first": null
+      },
+      "train": {
+        "mean": {
+          "loss": 2.10881769657135,
+          "positive_coverage": 0.629189113775889,
+          "negative_activation": 0.008548093183586994,
+          "eos_coverage": 0.6159077187379202,
+          "expected_repetition": 0.07842947791020076
+        },
+        "per_depth": {
+          "5": {
+            "loss": 2.401829957962036,
+            "positive_coverage": 0.5417526364326477,
+            "negative_activation": 0.0080938208848238,
+            "eos_coverage": 0.9465163350105286,
+            "expected_repetition": 0.07195991277694702,
+            "rows": [
+              {
+                "id": "train-push-atomic",
+                "positive": {
+                  "push": 0.5909045934677124
+                },
+                "negative": {
+                  "like": 0.004548609256744385,
+                  "want": 0.00029408931732177734
+                }
+              },
+              {
+                "id": "train-stone-atomic",
+                "positive": {
+                  "stone": 0.999948263168335
+                },
+                "negative": {
+                  "push": 3.62396240234375e-05,
+                  "like": 0.0024880170822143555,
+                  "want": 0.00016260147094726562
+                }
+              },
+              {
+                "id": "train-push-stone",
+                "positive": {
+                  "push": 0.024496793746948242,
+                  "stone": 0.9999907612800598
+                },
+                "negative": {
+                  "like": 0.0024130940437316895,
+                  "want": 0.000232696533203125
+                }
+              },
+              {
+                "id": "train-like-atomic",
+                "positive": {
+                  "like": 0.9990482330322266
+                },
+                "negative": {
+                  "push": 5.9664249420166016e-05,
+                  "want": 0.004549384117126465
+                }
+              },
+              {
+                "id": "train-apple-atomic",
+                "positive": {
+                  "apple": 0.0002008676528930664
+                },
+                "negative": {
+                  "push": 0.00045609474182128906,
+                  "like": 0.00843733549118042,
+                  "want": 0.002167642116546631
+                }
+              },
+              {
+                "id": "train-like-apple",
+                "positive": {
+                  "like": 0.700486958026886,
+                  "apple": 2.4318695068359375e-05
+                },
+                "negative": {
+                  "push": 0.00015115737915039062,
+                  "want": 0.01006394624710083
+                }
+              },
+              {
+                "id": "train-want-atomic",
+                "positive": {
+                  "want": 0.8005324006080627
+                },
+                "negative": {
+                  "push": 0.0034042000770568848,
+                  "like": 0.07098168134689331
+                }
+              },
+              {
+                "id": "train-want-apple",
+                "positive": {
+                  "want": 0.6845002174377441,
+                  "apple": 0.15914559364318848
+                },
+                "negative": {
+                  "push": 0.0009289979934692383,
+                  "like": 0.034313321113586426
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "train-push-atomic",
+                "source": "推，推，推，推，推，推，推，推。",
+                "generation": "For more, pushing, push, and push.",
+                "output_pieces": 11,
+                "budget": 4
+              },
+              {
+                "id": "train-stone-atomic",
+                "source": "石头，石头，石头，石头。",
+                "generation": "The stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone",
+                "output_pieces": 56,
+                "budget": 3
+              },
+              {
+                "id": "train-push-stone",
+                "source": "推石头。推石头。推石头。推石头。",
+                "generation": "The stone stone is stone stone in stone.",
+                "output_pieces": 9,
+                "budget": 3
+              },
+              {
+                "id": "train-like-atomic",
+                "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+                "generation": "I love, like, like, like.",
+                "output_pieces": 9,
+                "budget": 5
+              },
+              {
+                "id": "train-apple-atomic",
+                "source": "苹果，苹果，苹果，苹果。",
+                "generation": "Apple is a smart choice.",
+                "output_pieces": 6,
+                "budget": 2
+              },
+              {
+                "id": "train-like-apple",
+                "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+                "generation": "Apple.com. iPhone.",
+                "output_pieces": 6,
+                "budget": 4
+              },
+              {
+                "id": "train-want-atomic",
+                "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+                "generation": "To do so, you want to be.",
+                "output_pieces": 9,
+                "budget": 4
+              },
+              {
+                "id": "train-want-apple",
+                "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+                "generation": "Apple wants to Apple. Apple wants to Apple.",
+                "output_pieces": 10,
+                "budget": 3
+              }
+            ]
+          },
+          "6": {
+            "loss": 1.6436058282852173,
+            "positive_coverage": 0.6479656100273132,
+            "negative_activation": 0.01081693172454834,
+            "eos_coverage": 0.45747652649879456,
+            "expected_repetition": 0.08494298905134201,
+            "rows": [
+              {
+                "id": "train-push-atomic",
+                "positive": {
+                  "push": 0.9999998807907104
+                },
+                "negative": {
+                  "like": 0.002234041690826416,
+                  "want": 3.641843795776367e-05
+                }
+              },
+              {
+                "id": "train-stone-atomic",
+                "positive": {
+                  "stone": 1.0
+                },
+                "negative": {
+                  "push": 3.427267074584961e-05,
+                  "like": 0.0013549327850341797,
+                  "want": 0.00036025047302246094
+                }
+              },
+              {
+                "id": "train-push-stone",
+                "positive": {
+                  "push": 0.03175133466720581,
+                  "stone": 0.9999609589576721
+                },
+                "negative": {
+                  "like": 0.003137052059173584,
+                  "want": 0.0004125833511352539
+                }
+              },
+              {
+                "id": "train-like-atomic",
+                "positive": {
+                  "like": 0.9999576807022095
+                },
+                "negative": {
+                  "push": 4.076957702636719e-05,
+                  "want": 0.0029382705688476562
+                }
+              },
+              {
+                "id": "train-apple-atomic",
+                "positive": {
+                  "apple": 0.2410450577735901
+                },
+                "negative": {
+                  "push": 0.00017189979553222656,
+                  "like": 0.007484734058380127,
+                  "want": 0.003570735454559326
+                }
+              },
+              {
+                "id": "train-like-apple",
+                "positive": {
+                  "like": 0.7702667117118835,
+                  "apple": 4.2498111724853516e-05
+                },
+                "negative": {
+                  "push": 5.7578086853027344e-05,
+                  "want": 0.008520007133483887
+                }
+              },
+              {
+                "id": "train-want-atomic",
+                "positive": {
+                  "want": 0.9420889019966125
+                },
+                "negative": {
+                  "push": 0.004161715507507324,
+                  "like": 0.12600785493850708
+                }
+              },
+              {
+                "id": "train-want-apple",
+                "positive": {
+                  "want": 0.6442762017250061,
+                  "apple": 0.4982326030731201
+                },
+                "negative": {
+                  "push": 0.0002194046974182129,
+                  "like": 0.033962249755859375
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "train-push-atomic",
+                "source": "推，推，推，推，推，推，推，推。",
+                "generation": "For more, pushing, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push,",
+                "output_pieces": 64,
+                "budget": 8
+              },
+              {
+                "id": "train-stone-atomic",
+                "source": "石头，石头，石头，石头。",
+                "generation": "stone stones, stones stones stones stones stone stones stones stone stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones",
+                "output_pieces": 64,
+                "budget": 5
+              },
+              {
+                "id": "train-push-stone",
+                "source": "推石头。推石头。推石头。推石头。",
+                "generation": "The stone stone stones stones. stone stone stones. stone stone stones. stone stone stones stones. stone stone stones stones stone stones. stone stone stones stones are stone stones.",
+                "output_pieces": 34,
+                "budget": 6
+              },
+              {
+                "id": "train-like-atomic",
+                "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+                "generation": "I love, like, like, like, like love.",
+                "output_pieces": 12,
+                "budget": 9
+              },
+              {
+                "id": "train-apple-atomic",
+                "source": "苹果，苹果，苹果，苹果。",
+                "generation": "Apple Apple apple Apple, Apple Watch. Apple.",
+                "output_pieces": 11,
+                "budget": 4
+              },
+              {
+                "id": "train-like-apple",
+                "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+                "generation": "Apple love Apple like Apple. iPhone. Apple iPhone. Apple iPhone.",
+                "output_pieces": 14,
+                "budget": 7
+              },
+              {
+                "id": "train-want-atomic",
+                "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+                "generation": "To make your way, want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to know.",
+                "output_pieces": 45,
+                "budget": 8
+              },
+              {
+                "id": "train-want-apple",
+                "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+                "generation": "Apple apple Apple. Apple iOS app. Apple iPhone app. Apple. Apple iPhone app. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone app",
+                "output_pieces": 64,
+                "budget": 6
+              }
+            ]
+          },
+          "7": {
+            "loss": 2.281017303466797,
+            "positive_coverage": 0.6978490948677063,
+            "negative_activation": 0.0067335269413888454,
+            "eos_coverage": 0.44373029470443726,
+            "expected_repetition": 0.07838553190231323,
+            "rows": [
+              {
+                "id": "train-push-atomic",
+                "positive": {
+                  "push": 0.9999999403953552
+                },
+                "negative": {
+                  "like": 0.005108475685119629,
+                  "want": 8.881092071533203e-06
+                }
+              },
+              {
+                "id": "train-stone-atomic",
+                "positive": {
+                  "stone": 1.0
+                },
+                "negative": {
+                  "push": 1.1682510375976562e-05,
+                  "like": 0.000943601131439209,
+                  "want": 0.0001112222671508789
+                }
+              },
+              {
+                "id": "train-push-stone",
+                "positive": {
+                  "push": 0.8437143564224243,
+                  "stone": 0.9999719858169556
+                },
+                "negative": {
+                  "like": 0.007501363754272461,
+                  "want": 0.0003794431686401367
+                }
+              },
+              {
+                "id": "train-like-atomic",
+                "positive": {
+                  "like": 0.9999872446060181
+                },
+                "negative": {
+                  "push": 7.367134094238281e-05,
+                  "want": 0.010860443115234375
+                }
+              },
+              {
+                "id": "train-apple-atomic",
+                "positive": {
+                  "apple": 4.13060188293457e-05
+                },
+                "negative": {
+                  "push": 5.3763389587402344e-05,
+                  "like": 0.002260446548461914,
+                  "want": 0.0013115406036376953
+                }
+              },
+              {
+                "id": "train-like-apple",
+                "positive": {
+                  "like": 0.798229455947876,
+                  "apple": 7.75456428527832e-05
+                },
+                "negative": {
+                  "push": 0.00025719404220581055,
+                  "want": 0.008165955543518066
+                }
+              },
+              {
+                "id": "train-want-atomic",
+                "positive": {
+                  "want": 0.9999831914901733
+                },
+                "negative": {
+                  "push": 0.0024900436401367188,
+                  "like": 0.057337284088134766
+                }
+              },
+              {
+                "id": "train-want-apple",
+                "positive": {
+                  "want": 0.9925585389137268,
+                  "apple": 0.04177659749984741
+                },
+                "negative": {
+                  "push": 0.002042412757873535,
+                  "like": 0.022286057472229004
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "train-push-atomic",
+                "source": "推，推，推，推，推，推，推，推。",
+                "generation": "For instance, pushing, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push,",
+                "output_pieces": 64,
+                "budget": 16
+              },
+              {
+                "id": "train-stone-atomic",
+                "source": "石头，石头，石头，石头。",
+                "generation": "stones, stones, stones, stones stones stones stones stones stone stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stone stones stones stone stones",
+                "output_pieces": 50,
+                "budget": 9
+              },
+              {
+                "id": "train-push-stone",
+                "source": "推石头。推石头。推石头。推石头。",
+                "generation": "stone stones stones stones. stones. stones pushed stones. stones pushed stones stones. stones. stones stone stones stones stones stones stones stones stones stones stones stones stones stones. stones pushed stones stones stones stones stones stones stones stones stones stones",
+                "output_pieces": 45,
+                "budget": 12
+              },
+              {
+                "id": "train-like-atomic",
+                "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+                "generation": "I love, like, like, like, like, like, like, like, like, like,",
+                "output_pieces": 21,
+                "budget": 17
+              },
+              {
+                "id": "train-apple-atomic",
+                "source": "苹果，苹果，苹果，苹果。",
+                "generation": "Apple Apple Apple Apple, Apple, Apple, iPhone.",
+                "output_pieces": 11,
+                "budget": 8
+              },
+              {
+                "id": "train-like-apple",
+                "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+                "generation": "Apple love Apple iPhone. Apple Music. iPhone. Apple loves to buy your Apple iPhone.",
+                "output_pieces": 18,
+                "budget": 13
+              },
+              {
+                "id": "train-want-atomic",
+                "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+                "generation": "Here, you want to study, want, want, want, want to want, want, want to want, want to want to know, want to want to want to know, want to want to want to know, want to want to know, want to want to know, want to want to know, want",
+                "output_pieces": 64,
+                "budget": 16
+              },
+              {
+                "id": "train-want-apple",
+                "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+                "generation": "Apple's Apple apple Apple. Apple wants to Apple App Store. Apple wants to want to Apple.",
+                "output_pieces": 22,
+                "budget": 12
+              }
+            ]
+          }
+        }
+      },
+      "test": {
+        "mean": {
+          "loss": 2.418750286102295,
+          "positive_coverage": 0.2727223088343938,
+          "negative_activation": 0.024497410592933495,
+          "eos_coverage": 0.6510593295097351,
+          "expected_repetition": 0.02935485386600097
+        },
+        "per_depth": {
+          "5": {
+            "loss": 2.426607608795166,
+            "positive_coverage": 0.22842155396938324,
+            "negative_activation": 0.012294749729335308,
+            "eos_coverage": 0.978706955909729,
+            "expected_repetition": 0.0663858950138092,
+            "rows": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "positive": {
+                  "push": 0.0009478330612182617,
+                  "stone": 0.4393584728240967
+                },
+                "negative": {
+                  "like": 0.0016761422157287598,
+                  "want": 8.487701416015625e-05
+                }
+              },
+              {
+                "id": "test-ming-like-apple",
+                "positive": {
+                  "like": 0.5031223297119141,
+                  "apple": 0.08842974901199341
+                },
+                "negative": {
+                  "push": 0.0008189678192138672,
+                  "want": 0.009174823760986328
+                }
+              },
+              {
+                "id": "test-ming-want-apple",
+                "positive": {
+                  "want": 0.1686062216758728,
+                  "apple": 0.17006468772888184
+                },
+                "negative": {
+                  "push": 0.002484738826751709,
+                  "like": 0.05952894687652588
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "source": "西西弗每天都推着石头上山顶。",
+                "generation": "The first day of the hill is the corner of the hill",
+                "output_pieces": 12,
+                "budget": 3
+              },
+              {
+                "id": "test-ming-like-apple",
+                "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+                "generation": "The small apples like the apple.",
+                "output_pieces": 9,
+                "budget": 4
+              },
+              {
+                "id": "test-ming-want-apple",
+                "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+                "generation": "The apple is small.",
+                "output_pieces": 6,
+                "budget": 4
+              }
+            ]
+          },
+          "6": {
+            "loss": 2.3246631622314453,
+            "positive_coverage": 0.30167096853256226,
+            "negative_activation": 0.039955805987119675,
+            "eos_coverage": 0.37157630920410156,
+            "expected_repetition": 0.008686224929988384,
+            "rows": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "positive": {
+                  "push": 0.0020624399185180664,
+                  "stone": 0.11458885669708252
+                },
+                "negative": {
+                  "like": 0.0045781731605529785,
+                  "want": 0.00010848045349121094
+                }
+              },
+              {
+                "id": "test-ming-like-apple",
+                "positive": {
+                  "like": 0.7904053330421448,
+                  "apple": 0.08523160219192505
+                },
+                "negative": {
+                  "push": 0.00013703107833862305,
+                  "want": 0.006199896335601807
+                }
+              },
+              {
+                "id": "test-ming-want-apple",
+                "positive": {
+                  "want": 0.3481561541557312,
+                  "apple": 0.46958136558532715
+                },
+                "negative": {
+                  "push": 0.0009996891021728516,
+                  "like": 0.22771155834197998
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "source": "西西弗每天都推着石头上山顶。",
+                "generation": "The daily air-conditioned and every day in the morning, the mountain is up to the top of the mountain.",
+                "output_pieces": 23,
+                "budget": 6
+              },
+              {
+                "id": "test-ming-like-apple",
+                "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+                "generation": "Small love of the app. iPhone 5s small apples like small. iPhone 5s. iPhone. Apple",
+                "output_pieces": 22,
+                "budget": 8
+              },
+              {
+                "id": "test-ming-want-apple",
+                "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+                "generation": "Little time. The apple wants to be apple. iPhone small apples. Apple is a small apple. iPhone. Apple",
+                "output_pieces": 27,
+                "budget": 8
+              }
+            ]
+          },
+          "7": {
+            "loss": 2.5049800872802734,
+            "positive_coverage": 0.28807440400123596,
+            "negative_activation": 0.021241676062345505,
+            "eos_coverage": 0.6028947234153748,
+            "expected_repetition": 0.012992441654205322,
+            "rows": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "positive": {
+                  "push": 0.0005995035171508789,
+                  "stone": 0.14072191715240479
+                },
+                "negative": {
+                  "like": 0.01276928186416626,
+                  "want": 0.00013297796249389648
+                }
+              },
+              {
+                "id": "test-ming-like-apple",
+                "positive": {
+                  "like": 0.6883021593093872,
+                  "apple": 0.04933440685272217
+                },
+                "negative": {
+                  "push": 0.0002799034118652344,
+                  "want": 0.007256984710693359
+                }
+              },
+              {
+                "id": "test-ming-want-apple",
+                "positive": {
+                  "want": 0.4441336393356323,
+                  "apple": 0.40535473823547363
+                },
+                "negative": {
+                  "push": 0.001112520694732666,
+                  "like": 0.10589838027954102
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "source": "西西弗每天都推着石头上山顶。",
+                "generation": "The daily breakfast is about every day in the West, and the camp is a stone.",
+                "output_pieces": 18,
+                "budget": 12
+              },
+              {
+                "id": "test-ming-like-apple",
+                "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+                "generation": "Small memories of small children Ming apples like Apple. iPhone small.",
+                "output_pieces": 15,
+                "budget": 15
+              },
+              {
+                "id": "test-ming-want-apple",
+                "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+                "generation": "Little small children want to grow in the apple. Every day the apple wants to store the apple.",
+                "output_pieces": 23,
+                "budget": 15
+              }
+            ]
+          }
+        }
+      },
+      "filter_regret": {
+        "per_depth": [
+          {
+            "depth": 5,
+            "native_loss": 2.401829957962036,
+            "filtered_loss": 2.2828569412231445,
+            "regret": 0.1189730167388916,
+            "filter_abs_mean": 0.07799143344163895
+          },
+          {
+            "depth": 6,
+            "native_loss": 1.6436058282852173,
+            "filtered_loss": 1.5608179569244385,
+            "regret": 0.08278787136077881,
+            "filter_abs_mean": 0.10634824633598328
+          },
+          {
+            "depth": 7,
+            "native_loss": 2.281017303466797,
+            "filtered_loss": 2.2071526050567627,
+            "regret": 0.07386469841003418,
+            "filter_abs_mean": 0.15548311173915863
+          }
+        ],
+        "mean_regret": 0.09187519550323486
+      },
+      "valid": {
+        "per_depth": {
+          "5": {
+            "nll": 4.260305141695299,
+            "ppl": 70.83159382961749,
+            "tokens": 573,
+            "mean_budget": 4.4375,
+            "slot_variance": 1.2141857971857022,
+            "between_slot_variance": 0.5448167729191482,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "6": {
+            "nll": 4.202533608747818,
+            "ppl": 66.85550232904309,
+            "tokens": 573,
+            "mean_budget": 8.21875,
+            "slot_variance": 1.6347985939743586,
+            "between_slot_variance": 0.9669867036864161,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "7": {
+            "nll": 4.180544868189627,
+            "ppl": 65.40147869282777,
+            "tokens": 573,
+            "mean_budget": 16.0625,
+            "slot_variance": 2.035629741382446,
+            "between_slot_variance": 1.5178893879055977,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          }
+        },
+        "mean_nll": 4.214461206210914
+      },
+      "theta_finite": true,
+      "reload_test_loss_delta": 0.0,
+      "gains": {
+        "base": {
+          "mean": 0.965507447719574,
+          "min": 0.9260680675506592,
+          "max": 1.0303705930709839
+        },
+        "extra": {
+          "mean": 0.9995914697647095,
+          "min": 0.9419781565666199,
+          "max": 1.060700535774231
+        }
+      }
+    },
+    "filter-guided-theta": {
+      "train_state": {
+        "nonzero_gradient": true,
+        "inner_first": {
+          "native_loss": 2.3407833576202393,
+          "filtered_loss": 2.274261713027954,
+          "regret": 0.06652164459228516,
+          "filter_abs_mean": 0.07669934630393982
+        }
+      },
+      "train": {
+        "mean": {
+          "loss": 2.1201456785202026,
+          "positive_coverage": 0.6304417451222738,
+          "negative_activation": 0.008518257644027472,
+          "eos_coverage": 0.6060584783554077,
+          "expected_repetition": 0.07827521612246831
+        },
+        "per_depth": {
+          "5": {
+            "loss": 2.4152462482452393,
+            "positive_coverage": 0.5405953526496887,
+            "negative_activation": 0.008070535026490688,
+            "eos_coverage": 0.9430121183395386,
+            "expected_repetition": 0.07094738632440567,
+            "rows": [
+              {
+                "id": "train-push-atomic",
+                "positive": {
+                  "push": 0.5887032747268677
+                },
+                "negative": {
+                  "like": 0.004548966884613037,
+                  "want": 0.0002943277359008789
+                }
+              },
+              {
+                "id": "train-stone-atomic",
+                "positive": {
+                  "stone": 0.9999531507492065
+                },
+                "negative": {
+                  "push": 3.629922866821289e-05,
+                  "like": 0.0024803876876831055,
+                  "want": 0.00016129016876220703
+                }
+              },
+              {
+                "id": "train-push-stone",
+                "positive": {
+                  "push": 0.02452695369720459,
+                  "stone": 0.9999950528144836
+                },
+                "negative": {
+                  "like": 0.0022200942039489746,
+                  "want": 0.00022071599960327148
+                }
+              },
+              {
+                "id": "train-like-atomic",
+                "positive": {
+                  "like": 0.9990317225456238
+                },
+                "negative": {
+                  "push": 6.073713302612305e-05,
+                  "want": 0.004493117332458496
+                }
+              },
+              {
+                "id": "train-apple-atomic",
+                "positive": {
+                  "apple": 0.00020039081573486328
+                },
+                "negative": {
+                  "push": 0.0004597902297973633,
+                  "like": 0.008457660675048828,
+                  "want": 0.002164185047149658
+                }
+              },
+              {
+                "id": "train-like-apple",
+                "positive": {
+                  "like": 0.6877708435058594,
+                  "apple": 2.1457672119140625e-05
+                },
+                "negative": {
+                  "push": 0.0001500248908996582,
+                  "want": 0.009697556495666504
+                }
+              },
+              {
+                "id": "train-want-atomic",
+                "positive": {
+                  "want": 0.8005900382995605
+                },
+                "negative": {
+                  "push": 0.00344163179397583,
+                  "like": 0.07115310430526733
+                }
+              },
+              {
+                "id": "train-want-apple",
+                "positive": {
+                  "want": 0.6863642930984497,
+                  "apple": 0.15939176082611084
+                },
+                "negative": {
+                  "push": 0.0009265542030334473,
+                  "like": 0.03430318832397461
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "train-push-atomic",
+                "source": "推，推，推，推，推，推，推，推。",
+                "generation": "For more, pushing, push, and push.",
+                "output_pieces": 11,
+                "budget": 4
+              },
+              {
+                "id": "train-stone-atomic",
+                "source": "石头，石头，石头，石头。",
+                "generation": "The stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone, stone",
+                "output_pieces": 56,
+                "budget": 3
+              },
+              {
+                "id": "train-push-stone",
+                "source": "推石头。推石头。推石头。推石头。",
+                "generation": "The stone stone is stone stone in stone.",
+                "output_pieces": 9,
+                "budget": 3
+              },
+              {
+                "id": "train-like-atomic",
+                "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+                "generation": "I love, like, like, like.",
+                "output_pieces": 9,
+                "budget": 5
+              },
+              {
+                "id": "train-apple-atomic",
+                "source": "苹果，苹果，苹果，苹果。",
+                "generation": "Apple is a smart choice.",
+                "output_pieces": 6,
+                "budget": 2
+              },
+              {
+                "id": "train-like-apple",
+                "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+                "generation": "Apple.com. iPhone.",
+                "output_pieces": 6,
+                "budget": 4
+              },
+              {
+                "id": "train-want-atomic",
+                "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+                "generation": "To do so, you want to be.",
+                "output_pieces": 9,
+                "budget": 4
+              },
+              {
+                "id": "train-want-apple",
+                "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+                "generation": "Apple wants to Apple. Apple wants to Apple.",
+                "output_pieces": 10,
+                "budget": 3
+              }
+            ]
+          },
+          "6": {
+            "loss": 1.6639925241470337,
+            "positive_coverage": 0.6491222381591797,
+            "negative_activation": 0.010803120210766792,
+            "eos_coverage": 0.4466273784637451,
+            "expected_repetition": 0.08479025959968567,
+            "rows": [
+              {
+                "id": "train-push-atomic",
+                "positive": {
+                  "push": 0.9999998807907104
+                },
+                "negative": {
+                  "like": 0.0022127628326416016,
+                  "want": 3.5822391510009766e-05
+                }
+              },
+              {
+                "id": "train-stone-atomic",
+                "positive": {
+                  "stone": 1.0
+                },
+                "negative": {
+                  "push": 3.3795833587646484e-05,
+                  "like": 0.0013331770896911621,
+                  "want": 0.0003528594970703125
+                }
+              },
+              {
+                "id": "train-push-stone",
+                "positive": {
+                  "push": 0.03249484300613403,
+                  "stone": 0.9999573826789856
+                },
+                "negative": {
+                  "like": 0.003197789192199707,
+                  "want": 0.00040972232818603516
+                }
+              },
+              {
+                "id": "train-like-atomic",
+                "positive": {
+                  "like": 0.9999731183052063
+                },
+                "negative": {
+                  "push": 3.600120544433594e-05,
+                  "want": 0.0031518936157226562
+                }
+              },
+              {
+                "id": "train-apple-atomic",
+                "positive": {
+                  "apple": 0.24321389198303223
+                },
+                "negative": {
+                  "push": 0.00017452239990234375,
+                  "like": 0.0075070858001708984,
+                  "want": 0.003556668758392334
+                }
+              },
+              {
+                "id": "train-like-apple",
+                "positive": {
+                  "like": 0.7685699462890625,
+                  "apple": 3.3974647521972656e-05
+                },
+                "negative": {
+                  "push": 4.953145980834961e-05,
+                  "want": 0.008299171924591064
+                }
+              },
+              {
+                "id": "train-want-atomic",
+                "positive": {
+                  "want": 0.9413790106773376
+                },
+                "negative": {
+                  "push": 0.0041953325271606445,
+                  "like": 0.12527227401733398
+                }
+              },
+              {
+                "id": "train-want-apple",
+                "positive": {
+                  "want": 0.6554337739944458,
+                  "apple": 0.49928927421569824
+                },
+                "negative": {
+                  "push": 0.0002219676971435547,
+                  "like": 0.03441578149795532
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "train-push-atomic",
+                "source": "推，推，推，推，推，推，推，推。",
+                "generation": "For more, pushing, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push,",
+                "output_pieces": 64,
+                "budget": 8
+              },
+              {
+                "id": "train-stone-atomic",
+                "source": "石头，石头，石头，石头。",
+                "generation": "stone stones, stones stones stones stones stone stones stones stone stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones stones",
+                "output_pieces": 64,
+                "budget": 5
+              },
+              {
+                "id": "train-push-stone",
+                "source": "推石头。推石头。推石头。推石头。",
+                "generation": "The stone stone stones stones. stone stone stones. stone stone stones. stone stone stones stones. stone stone stones stones stone stones. stone stone stones stones are stone stones.",
+                "output_pieces": 34,
+                "budget": 6
+              },
+              {
+                "id": "train-like-atomic",
+                "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+                "generation": "I love, like, like, like, like, like love.",
+                "output_pieces": 14,
+                "budget": 9
+              },
+              {
+                "id": "train-apple-atomic",
+                "source": "苹果，苹果，苹果，苹果。",
+                "generation": "Apple Apple apple Apple, Apple Watch. Apple.",
+                "output_pieces": 11,
+                "budget": 4
+              },
+              {
+                "id": "train-like-apple",
+                "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+                "generation": "Apple love Apple like Apple. iPhone. Apple iPhone. Apple iPhone.",
+                "output_pieces": 14,
+                "budget": 7
+              },
+              {
+                "id": "train-want-atomic",
+                "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+                "generation": "To make your way, want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to want to know.",
+                "output_pieces": 45,
+                "budget": 8
+              },
+              {
+                "id": "train-want-apple",
+                "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+                "generation": "Apple apple Apple. Apple iOS app. Apple iPhone app. Apple. Apple iPhone app. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone apple Apple. Apple iPhone app",
+                "output_pieces": 64,
+                "budget": 6
+              }
+            ]
+          },
+          "7": {
+            "loss": 2.281198263168335,
+            "positive_coverage": 0.7016076445579529,
+            "negative_activation": 0.006681117694824934,
+            "eos_coverage": 0.42853593826293945,
+            "expected_repetition": 0.0790880024433136,
+            "rows": [
+              {
+                "id": "train-push-atomic",
+                "positive": {
+                  "push": 0.9999999403953552
+                },
+                "negative": {
+                  "like": 0.00492328405380249,
+                  "want": 8.702278137207031e-06
+                }
+              },
+              {
+                "id": "train-stone-atomic",
+                "positive": {
+                  "stone": 1.0
+                },
+                "negative": {
+                  "push": 1.1563301086425781e-05,
+                  "like": 0.0009459257125854492,
+                  "want": 0.00011026859283447266
+                }
+              },
+              {
+                "id": "train-push-stone",
+                "positive": {
+                  "push": 0.8473955392837524,
+                  "stone": 0.9999653100967407
+                },
+                "negative": {
+                  "like": 0.007336020469665527,
+                  "want": 0.0003681778907775879
+                }
+              },
+              {
+                "id": "train-like-atomic",
+                "positive": {
+                  "like": 0.9999885559082031
+                },
+                "negative": {
+                  "push": 7.361173629760742e-05,
+                  "want": 0.011080682277679443
+                }
+              },
+              {
+                "id": "train-apple-atomic",
+                "positive": {
+                  "apple": 4.220008850097656e-05
+                },
+                "negative": {
+                  "push": 5.245208740234375e-05,
+                  "like": 0.0022129416465759277,
+                  "want": 0.001290738582611084
+                }
+              },
+              {
+                "id": "train-like-apple",
+                "positive": {
+                  "like": 0.8269703984260559,
+                  "apple": 6.335973739624023e-05
+                },
+                "negative": {
+                  "push": 0.00022619962692260742,
+                  "want": 0.010338127613067627
+                }
+              },
+              {
+                "id": "train-want-atomic",
+                "positive": {
+                  "want": 0.9999837279319763
+                },
+                "negative": {
+                  "push": 0.0025423169136047363,
+                  "like": 0.05633050203323364
+                }
+              },
+              {
+                "id": "train-want-apple",
+                "positive": {
+                  "want": 0.9911036491394043,
+                  "apple": 0.05217069387435913
+                },
+                "negative": {
+                  "push": 0.0018759369850158691,
+                  "like": 0.020532667636871338
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "train-push-atomic",
+                "source": "推，推，推，推，推，推，推，推。",
+                "generation": "For instance, pushing, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push, push,",
+                "output_pieces": 64,
+                "budget": 16
+              },
+              {
+                "id": "train-stone-atomic",
+                "source": "石头，石头，石头，石头。",
+                "generation": "stones, stones, stones, stones stones stones stones stones stone stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stones stone stones stones stone stones",
+                "output_pieces": 51,
+                "budget": 9
+              },
+              {
+                "id": "train-push-stone",
+                "source": "推石头。推石头。推石头。推石头。",
+                "generation": "stone stones stones stones. stones. stones pushed stones. stones pushed stones stones. stones. stones stone stones stones stones stones stones stones stones stones stones stones stones. stones pushed stones stones stones stones stones stones stones stones stones stones.",
+                "output_pieces": 45,
+                "budget": 12
+              },
+              {
+                "id": "train-like-atomic",
+                "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+                "generation": "I love, like, like, like, like, like, like, like, like, like,",
+                "output_pieces": 21,
+                "budget": 17
+              },
+              {
+                "id": "train-apple-atomic",
+                "source": "苹果，苹果，苹果，苹果。",
+                "generation": "Apple Apple Apple Apple, Apple, Apple, iPhone.",
+                "output_pieces": 11,
+                "budget": 8
+              },
+              {
+                "id": "train-like-apple",
+                "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+                "generation": "Apple Loi loves Apple. iPhone. Apple loves to buy a Apple Loi. Apple iPhone.",
+                "output_pieces": 20,
+                "budget": 13
+              },
+              {
+                "id": "train-want-atomic",
+                "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+                "generation": "Here, you want to study, want, want, want, want to want, want, want to want, want to want to know, want to want to want to know, want to want to want to know, want to want to know, want to want to know, want to want to know, want",
+                "output_pieces": 64,
+                "budget": 16
+              },
+              {
+                "id": "train-want-apple",
+                "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+                "generation": "Apple apple Apple. Apple wants to Apple App Store. Apple wants to want to Apple.",
+                "output_pieces": 19,
+                "budget": 12
+              }
+            ]
+          }
+        }
+      },
+      "test": {
+        "mean": {
+          "loss": 2.4071172078450522,
+          "positive_coverage": 0.2750648707151413,
+          "negative_activation": 0.02338424666474263,
+          "eos_coverage": 0.6141404410203298,
+          "expected_repetition": 0.027195057831704617
+        },
+        "per_depth": {
+          "5": {
+            "loss": 2.374467134475708,
+            "positive_coverage": 0.24194185435771942,
+            "negative_activation": 0.013601730577647686,
+            "eos_coverage": 0.9738773107528687,
+            "expected_repetition": 0.06282535940408707,
+            "rows": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "positive": {
+                  "push": 0.0009505152702331543,
+                  "stone": 0.45098966360092163
+                },
+                "negative": {
+                  "like": 0.0016755461692810059,
+                  "want": 8.45193862915039e-05
+                }
+              },
+              {
+                "id": "test-ming-like-apple",
+                "positive": {
+                  "like": 0.5548712015151978,
+                  "apple": 0.1072806715965271
+                },
+                "negative": {
+                  "push": 0.0008666515350341797,
+                  "want": 0.015927135944366455
+                }
+              },
+              {
+                "id": "test-ming-want-apple",
+                "positive": {
+                  "want": 0.16791707277297974,
+                  "apple": 0.16964197158813477
+                },
+                "negative": {
+                  "push": 0.0025581717491149902,
+                  "like": 0.06049835681915283
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "source": "西西弗每天都推着石头上山顶。",
+                "generation": "The first day of the hill is the corner of the hill",
+                "output_pieces": 12,
+                "budget": 3
+              },
+              {
+                "id": "test-ming-like-apple",
+                "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+                "generation": "The small apples like the apple.",
+                "output_pieces": 9,
+                "budget": 4
+              },
+              {
+                "id": "test-ming-want-apple",
+                "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+                "generation": "The apple is small.",
+                "output_pieces": 6,
+                "budget": 4
+              }
+            ]
+          },
+          "6": {
+            "loss": 2.320047378540039,
+            "positive_coverage": 0.2959669828414917,
+            "negative_activation": 0.03592821955680847,
+            "eos_coverage": 0.3536745011806488,
+            "expected_repetition": 0.008058243431150913,
+            "rows": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "positive": {
+                  "push": 0.0020825862884521484,
+                  "stone": 0.11297917366027832
+                },
+                "negative": {
+                  "like": 0.004589438438415527,
+                  "want": 0.00010788440704345703
+                }
+              },
+              {
+                "id": "test-ming-like-apple",
+                "positive": {
+                  "like": 0.7743064165115356,
+                  "apple": 0.08285766839981079
+                },
+                "negative": {
+                  "push": 0.00011938810348510742,
+                  "want": 0.004891932010650635
+                }
+              },
+              {
+                "id": "test-ming-want-apple",
+                "positive": {
+                  "want": 0.38003313541412354,
+                  "apple": 0.42354297637939453
+                },
+                "negative": {
+                  "push": 0.0009810924530029297,
+                  "like": 0.20487958192825317
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "source": "西西弗每天都推着石头上山顶。",
+                "generation": "The daily air-conditioned and every day in the morning, the mountain is up to the top of the mountain.",
+                "output_pieces": 23,
+                "budget": 6
+              },
+              {
+                "id": "test-ming-like-apple",
+                "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+                "generation": "Small love of the app. iPhone 5s small apples like small. small. iPhone 5s. iPhone. Apple",
+                "output_pieces": 24,
+                "budget": 8
+              },
+              {
+                "id": "test-ming-want-apple",
+                "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+                "generation": "Little time. The apple wants to be apple. iPhone small apples. Apple is small. iPhone 5 Apple Store apple.",
+                "output_pieces": 28,
+                "budget": 8
+              }
+            ]
+          },
+          "7": {
+            "loss": 2.526837110519409,
+            "positive_coverage": 0.28728577494621277,
+            "negative_activation": 0.02062278985977173,
+            "eos_coverage": 0.5148695111274719,
+            "expected_repetition": 0.01070157065987587,
+            "rows": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "positive": {
+                  "push": 0.0005993247032165527,
+                  "stone": 0.139754056930542
+                },
+                "negative": {
+                  "like": 0.012891411781311035,
+                  "want": 0.00013142824172973633
+                }
+              },
+              {
+                "id": "test-ming-like-apple",
+                "positive": {
+                  "like": 0.7016001343727112,
+                  "apple": 0.05058342218399048
+                },
+                "negative": {
+                  "push": 0.0002598762512207031,
+                  "want": 0.007222592830657959
+                }
+              },
+              {
+                "id": "test-ming-want-apple",
+                "positive": {
+                  "want": 0.43047261238098145,
+                  "apple": 0.4007049798965454
+                },
+                "negative": {
+                  "push": 0.0010927319526672363,
+                  "like": 0.1021386981010437
+                }
+              }
+            ],
+            "outputs": [
+              {
+                "id": "test-sisyphus-push-stone",
+                "source": "西西弗每天都推着石头上山顶。",
+                "generation": "The daily breakfast is about every day in the West, and the camp is a stone.",
+                "output_pieces": 18,
+                "budget": 12
+              },
+              {
+                "id": "test-ming-like-apple",
+                "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+                "generation": "Small memories of small children Ming apples like Apple. iPhone small. Ming small love.",
+                "output_pieces": 19,
+                "budget": 15
+              },
+              {
+                "id": "test-ming-want-apple",
+                "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+                "generation": "Little small children want to grow in the apple. Every day the apple wants to store the apple.",
+                "output_pieces": 23,
+                "budget": 15
+              }
+            ]
+          }
+        }
+      },
+      "filter_regret": {
+        "per_depth": [
+          {
+            "depth": 5,
+            "native_loss": 2.4152462482452393,
+            "filtered_loss": 2.2923741340637207,
+            "regret": 0.12287211418151855,
+            "filter_abs_mean": 0.07683394104242325
+          },
+          {
+            "depth": 6,
+            "native_loss": 1.6639925241470337,
+            "filtered_loss": 1.5768465995788574,
+            "regret": 0.08714592456817627,
+            "filter_abs_mean": 0.10097569227218628
+          },
+          {
+            "depth": 7,
+            "native_loss": 2.281198263168335,
+            "filtered_loss": 1.5860097408294678,
+            "regret": 0.6951885223388672,
+            "filter_abs_mean": 0.15630558133125305
+          }
+        ],
+        "mean_regret": 0.301735520362854
+      },
+      "valid": {
+        "per_depth": {
+          "5": {
+            "nll": 4.256028420013907,
+            "ppl": 70.52931366136751,
+            "tokens": 573,
+            "mean_budget": 4.4375,
+            "slot_variance": 1.2141857971857022,
+            "between_slot_variance": 0.5448167729191482,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "6": {
+            "nll": 4.2058971997539,
+            "ppl": 67.08075551280425,
+            "tokens": 573,
+            "mean_budget": 8.21875,
+            "slot_variance": 1.6347985939743586,
+            "between_slot_variance": 0.9669867036864161,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          },
+          "7": {
+            "nll": 4.18174181766743,
+            "ppl": 65.47980782725321,
+            "tokens": 573,
+            "mean_budget": 16.0625,
+            "slot_variance": 2.035629741382446,
+            "between_slot_variance": 1.5178893879055977,
+            "route": {
+              "route_pair_overlap": 0.0,
+              "route_pair_cosine": 0.0,
+              "argmax_coverage": 1.0,
+              "owner_leaf_coverage": 1.0
+            }
+          }
+        },
+        "mean_nll": 4.214555812478412
+      },
+      "theta_finite": true,
+      "reload_test_loss_delta": 0.0,
+      "gains": {
+        "base": {
+          "mean": 0.9754928946495056,
+          "min": 0.9348202347755432,
+          "max": 1.0327273607254028
+        },
+        "extra": {
+          "mean": 1.0001609325408936,
+          "min": 0.943756103515625,
+          "max": 1.0473222732543945
+        }
+      }
+    }
+  },
+  "gates": {
+    "P0_strict_origin": true,
+    "P1_filter_local_direction": true,
+    "P2_finite_gradient_frozen_reload": true,
+    "P3_native_train_conservation": false,
+    "P4_heldout_increment": false,
+    "P5_filter_regret_absorbed": false
+  },
+  "frozen_exact": true,
+  "seconds": 175.75381350517273,
+  "claim_boundary": "lexical conservation under controlled probes; no full-sentence or role-binding claim"
+}
