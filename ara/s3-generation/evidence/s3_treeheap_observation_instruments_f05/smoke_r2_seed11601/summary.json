@@ -1,0 +1,268 @@
+{
+  "claim": "S3-TREEHEAP-OBSERVATION-INSTRUMENTS-F05",
+  "host": "io",
+  "checkpoint": "ara/s3-generation/evidence/s3_epoch_repeat_scaling_e01/formal_seed11301/treeheap-106m/checkpoint_latest.pt",
+  "checkpoint_sha256": "9b4a67b9057242d3897a593ddf5b2ab6f0f7155e1487175b43bfed368d82d14d",
+  "checkpoint_state_sha256": "e587931ef0e475467e045aed85d4fbfd6b716610f45cdfec1e297f8023ca31c7",
+  "runtime_source_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "theta_checkpoint": "ara/s3-generation/evidence/s3_filter_guided_theta_calibration_f04/smoke_r1_seed11501/filter-guided-theta.theta.pt",
+  "theta_checkpoint_sha256": "3bd45913db3adfc24b939309d0f76c673a3c4e7df055f3f46008956dcc3c0774",
+  "specimens": "ara/s3-generation/data/filter_guided_theta_specimens_f04.json",
+  "specimens_sha256": "9bb1957c49c216b06414d2c4f54fa282cf4bcd62c3580e1a1e2865772708d1ba",
+  "sentence_id": "test-sisyphus-push-stone",
+  "source": "西西弗每天都推着石头上山顶。",
+  "source_pieces": 14,
+  "depth": 7,
+  "observation_source_width_mode": "fixed_32",
+  "batch_width_audit": {
+    "original_dynamic_width": true,
+    "single_source_width": 14,
+    "single_true_length": 14,
+    "batch_source_width": 17,
+    "batch_true_lengths": [
+      14,
+      17,
+      17
+    ],
+    "dynamic": {
+      "step0_logit_max_abs_delta": 7.97856330871582,
+      "fixed_history_logit_max_abs_delta": 8.045382499694824,
+      "local_argmax_changes": 12,
+      "single_text": "The whole of the day of the week was a rush of the mountain.",
+      "batch_text": "The daily day the day in the Western west west dayush of the day,"
+    },
+    "fixed_32": {
+      "step0_logit_max_abs_delta": 5.841255187988281e-06,
+      "fixed_history_logit_max_abs_delta": 6.198883056640625e-06,
+      "local_argmax_changes": 0,
+      "single_text": "The Westin is a mountainous stone, which is a stone's throw from the mountain of the hillside of",
+      "batch_text": "The Westin is a mountainous stone, which is a stone's throw from the mountain of the hillside of"
+    },
+    "dynamic_equal_batch": {
+      "step0_logit_max_abs_delta": 7.9785637855529785,
+      "fixed_history_logit_max_abs_delta": 8.045381546020508,
+      "local_argmax_changes": 12,
+      "single_text": "The whole of the day of the week was a rush of the mountain.",
+      "batch_text": "The daily day the day in the Western west west dayush of the day,"
+    },
+    "fixed_32_equal_batch": {
+      "step0_logit_max_abs_delta": 0.0,
+      "fixed_history_logit_max_abs_delta": 0.0,
+      "local_argmax_changes": 0,
+      "single_text": "The Westin is a mountainous stone, which is a stone's throw from the mountain of the hillside of",
+      "batch_text": "The Westin is a mountainous stone, which is a stone's throw from the mountain of the hillside of"
+    }
+  },
+  "budget": 12,
+  "baseline_generation": "The Westin is a mountainous stone, which is a stone's throw from the mountain of the hillside of",
+  "reader_parity": {
+    "logit_max_abs_delta": 0.0,
+    "token_exact": true
+  },
+  "parameter_tensors": 118,
+  "parameter_count": 105996484,
+  "active_filter_coordinates": {
+    "base": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      16,
+      17,
+      18,
+      24,
+      28
+    ],
+    "extra": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      16,
+      17,
+      18,
+      24,
+      28
+    ]
+  },
+  "impulses": {
+    "count": 132,
+    "max_off_path_ratio": 0.0,
+    "max_root_response": 1.2707903385162354
+  },
+  "route_interventions": [
+    {
+      "label": "base-coord0-eps+0.1",
+      "channel": "base",
+      "coord": 0,
+      "merge": 0,
+      "node": 0,
+      "max_route_js": 7.450103294104338e-05,
+      "max_route_delta": 0.011743426322937012,
+      "branch_flips": 1,
+      "logit_max_abs_delta": 0.12181854248046875,
+      "local_argmax_changes": 1
+    },
+    {
+      "label": "base-coord28-eps+0.1",
+      "channel": "base",
+      "coord": 28,
+      "merge": 3,
+      "node": 0,
+      "max_route_js": 3.5698831197805703e-06,
+      "max_route_delta": 0.002365320920944214,
+      "branch_flips": 0,
+      "logit_max_abs_delta": 0.09103524684906006,
+      "local_argmax_changes": 1
+    },
+    {
+      "label": "extra-coord0-eps+0.1",
+      "channel": "extra",
+      "coord": 0,
+      "merge": 0,
+      "node": 0,
+      "max_route_js": 3.9195947465486825e-06,
+      "max_route_delta": 0.0021754205226898193,
+      "branch_flips": 0,
+      "logit_max_abs_delta": 0.0030198097229003906,
+      "local_argmax_changes": 0
+    },
+    {
+      "label": "extra-coord28-eps+0.1",
+      "channel": "extra",
+      "coord": 28,
+      "merge": 3,
+      "node": 0,
+      "max_route_js": 5.541915015783161e-08,
+      "max_route_delta": 0.00010836124420166016,
+      "branch_flips": 0,
+      "logit_max_abs_delta": 0.010098934173583984,
+      "local_argmax_changes": 0
+    }
+  ],
+  "spectra": [
+    {
+      "intervention": "baseline",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.0013051033020019531,
+          "best_any_piece_rank": 3,
+          "max_any_piece_probability": 0.08577457070350647,
+          "best_single_token_surface": "pushed",
+          "best_single_token_surface_rank": 438,
+          "best_single_token_surface_probability": 0.0002657097647897899
+        },
+        "stone": {
+          "phrase_coverage": 0.12310177087783813,
+          "best_any_piece_rank": 1,
+          "max_any_piece_probability": 0.9916824102401733,
+          "best_single_token_surface": "stone",
+          "best_single_token_surface_rank": 1,
+          "best_single_token_surface_probability": 0.030557475984096527
+        }
+      }
+    },
+    {
+      "intervention": "base-coord0-eps+0.1",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.0012633800506591797,
+          "best_any_piece_rank": 3,
+          "max_any_piece_probability": 0.08534234017133713,
+          "best_single_token_surface": "pushed",
+          "best_single_token_surface_rank": 449,
+          "best_single_token_surface_probability": 0.0002559838176239282
+        },
+        "stone": {
+          "phrase_coverage": 0.12467092275619507,
+          "best_any_piece_rank": 1,
+          "max_any_piece_probability": 0.9917383790016174,
+          "best_single_token_surface": "stone",
+          "best_single_token_surface_rank": 1,
+          "best_single_token_surface_probability": 0.03114517219364643
+        }
+      }
+    },
+    {
+      "intervention": "base-coord28-eps+0.1",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.0013118982315063477,
+          "best_any_piece_rank": 3,
+          "max_any_piece_probability": 0.08812220394611359,
+          "best_single_token_surface": "pushed",
+          "best_single_token_surface_rank": 434,
+          "best_single_token_surface_probability": 0.00026676891138777137
+        },
+        "stone": {
+          "phrase_coverage": 0.12381726503372192,
+          "best_any_piece_rank": 1,
+          "max_any_piece_probability": 0.9917380213737488,
+          "best_single_token_surface": "stone",
+          "best_single_token_surface_rank": 1,
+          "best_single_token_surface_probability": 0.030353974550962448
+        }
+      }
+    },
+    {
+      "intervention": "extra-coord0-eps+0.1",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.0013051033020019531,
+          "best_any_piece_rank": 3,
+          "max_any_piece_probability": 0.0857306644320488,
+          "best_single_token_surface": "pushed",
+          "best_single_token_surface_rank": 438,
+          "best_single_token_surface_probability": 0.00026566218002699316
+        },
+        "stone": {
+          "phrase_coverage": 0.12310254573822021,
+          "best_any_piece_rank": 1,
+          "max_any_piece_probability": 0.9916791319847107,
+          "best_single_token_surface": "stone",
+          "best_single_token_surface_rank": 1,
+          "best_single_token_surface_probability": 0.030553949996829033
+        }
+      }
+    },
+    {
+      "intervention": "extra-coord28-eps+0.1",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.0013051629066467285,
+          "best_any_piece_rank": 3,
+          "max_any_piece_probability": 0.0856829434633255,
+          "best_single_token_surface": "pushed",
+          "best_single_token_surface_rank": 438,
+          "best_single_token_surface_probability": 0.0002655480639077723
+        },
+        "stone": {
+          "phrase_coverage": 0.12313950061798096,
+          "best_any_piece_rank": 1,
+          "max_any_piece_probability": 0.9916685819625854,
+          "best_single_token_surface": "stone",
+          "best_single_token_surface_rank": 1,
+          "best_single_token_surface_probability": 0.03055393509566784
+        }
+      }
+    }
+  ],
+  "frozen_model": true,
+  "frozen_theta": true,
+  "gates": {
+    "O0_reader_parity": true,
+    "O1_topology_locality": true,
+    "O2_ancestor_transport": true,
+    "O3_route_observed": true,
+    "O4_spectrum_observed": true,
+    "O5_frozen_exact": true,
+    "O6_dynamic_width_isolated": false,
+    "O7_equal_batch_width_isolated": true
+  },
+  "seconds": 6.652003526687622,
+  "claim_boundary": "observation instruments only; no path law, semantic coordinate, or quality claim"
+}

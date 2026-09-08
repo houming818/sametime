@@ -2,7 +2,7 @@
 
 日期：2026-09-08
 Claim：`S3-TREEHEAP-OBSERVATION-INSTRUMENTS-F05`
-状态：初始 smoke 已完成；FOLD 路径局部性得到支持，同时发现 token 子片段误读风险与动态宽度批依赖；r1 待验证。
+状态：初始 smoke、r1 与等 batch r2 已完成。FOLD 路径局部性得到支持；动态 source heap width 的批依赖得到隔离确认。
 
 ## 1. 动机
 
@@ -151,3 +151,31 @@ phrase coverage 为 `0.123102`。因此当前标本是“stone 已进入强候�
 两组第一条输入及 Decoder 历史相同，batch size 都为 3；动态模式只让 heap width 从 16 变成
 32，固定模式都使用 32。r2 预注册 `O7`：动态模式差异大于 `1e-6`，固定模式差异不超过
 `1e-6`。O7 只定位动态宽度依赖，不覆盖 O6 记录。
+
+## 12. r2 结果与结论
+
+taskd `393` 完成等 batch r2，耗时 8.3 秒。窄组和宽组的 batch size 都为 3，第一条句子、
+真实长度和固定 Decoder 历史完全相同；差别只有同组最长长度使动态 source heap width 分别取
+16 与 32。
+
+| source width 策略 | step-0 logits 最大差 | 固定历史全轨迹最大差 | argmax 变化数 |
+|---|---:|---:|---:|
+| dynamic，16 vs 32 | 7.978564 | 8.045382 | 12 |
+| fixed 32 vs 32 | 0 | 0 | 0 |
+
+O7 通过。结合源码可以把问题定位为：`raw_leaf()` 用 batch 内 `length.max()` 决定整批 TreeHeap
+宽度。宽度从 16 变成 32 时，较短句虽然没有新增有效 token，却增加了 pass-through root 和一层
+root-to-leaf 读出位置；后续 compressor 的逐层 READ 与 depth embedding 因而改变。同一句的隐态
+和生成结果依赖与它同批的最长句。
+
+这不是 F04 internal-node 退火 FOLD 的 off-path 串扰。F05 对两个通道、11 个有效 internal
+node、六档正负脉冲的观察仍满足：卷积前非祖先响应严格为 0，修正只沿自身到祖先传播。进入
+READ 后，base 通道可以因为很小的连续概率变化发生离散 branch flip；这是另一层读出行为。
+
+因此 F05 得到三项工程结论：
+
+1. 参数地图、路径脉冲、READ 路由和整词 token 光谱已经可以稳定复现，模型与 theta 不被修改；
+2. 当前 FOLD 路径拓扑在固定标本上符合局部递归，但这不等于已经知道最优退火参数规律；
+3. 在继续 F04 theta 训练之前，应先消除动态宽度的跨样本依赖。候选修复是按每条样本所需的
+   2 次幂宽度分桶运行，或统一固定 32；二者会改变短句所见的分辨率层数，必须另开配对 Claim，
+   不能直接替换现有训练合同。
