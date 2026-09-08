@@ -344,21 +344,107 @@ def spectrum_summary(label, logits, concepts, concepts_raw, sp) -> dict:
     result = {"intervention": label, "concepts": {}}
     for concept in ("push", "stone"):
         coverage = f04.concept_coverage(probability, concepts[concept])
-        best_rank = probability.shape[-1]
-        max_probability = 0.0
+        best_piece_rank = probability.shape[-1]
+        max_piece_probability = 0.0
+        best_surface_rank = probability.shape[-1]
+        best_surface_probability = 0.0
+        best_surface = None
         for surface in concepts_raw[concept]:
-            for token_id in sp.encode(surface, out_type=int):
+            token_ids = sp.encode(surface, out_type=int)
+            for token_id in token_ids:
                 values = probability[:, token_id]
-                max_probability = max(max_probability, float(values.max().cpu()))
+                max_piece_probability = max(max_piece_probability, float(values.max().cpu()))
                 for step in range(probability.shape[0]):
                     rank = 1 + int((probability[step] > probability[step, token_id]).sum().cpu())
-                    best_rank = min(best_rank, rank)
+                    best_piece_rank = min(best_piece_rank, rank)
+            if len(token_ids) == 1:
+                token_id = token_ids[0]
+                values = probability[:, token_id]
+                local_probability = float(values.max().cpu())
+                local_rank = min(
+                    1 + int((probability[step] > probability[step, token_id]).sum().cpu())
+                    for step in range(probability.shape[0])
+                )
+                if local_rank < best_surface_rank or (
+                    local_rank == best_surface_rank and local_probability > best_surface_probability
+                ):
+                    best_surface_rank = local_rank
+                    best_surface_probability = local_probability
+                    best_surface = surface
         result["concepts"][concept] = {
             "phrase_coverage": float(coverage.cpu()),
-            "best_piece_rank": best_rank,
-            "max_piece_probability": max_probability,
+            "best_any_piece_rank": best_piece_rank,
+            "max_any_piece_probability": max_piece_probability,
+            "best_single_token_surface": best_surface,
+            "best_single_token_surface_rank": best_surface_rank if best_surface is not None else None,
+            "best_single_token_surface_probability": (
+                best_surface_probability if best_surface is not None else None
+            ),
         }
     return result
+
+
+@torch.no_grad()
+def context_case(model, theta, single_source, single_lengths, batch_source, batch_lengths, bos, depth, steps):
+    single_logits, single_tokens, _ = f04.decode_logits(
+        model, theta, single_source, single_lengths, bos, depth, steps,
+    )
+    _, batch_tokens, _ = f04.decode_logits(
+        model, theta, batch_source, batch_lengths, bos, depth, steps,
+    )
+    fixed_prefixes = batch_tokens.clone()
+    fixed_prefixes[0] = single_tokens[0]
+    batch_logits, batch_fixed_tokens, _ = f04.decode_logits(
+        model, theta, batch_source, batch_lengths, bos, depth, steps,
+        prefixes=fixed_prefixes,
+    )
+    return {
+        "step0_logit_max_abs_delta": float(
+            (single_logits[0, 0] - batch_logits[0, 0]).abs().max().cpu()
+        ),
+        "fixed_history_logit_max_abs_delta": float(
+            (single_logits[0] - batch_logits[0]).abs().max().cpu()
+        ),
+        "local_argmax_changes": int((single_tokens[0] != batch_fixed_tokens[0]).sum().cpu()),
+        "single_tokens": single_tokens[0].detach().cpu().tolist(),
+        "batch_tokens": batch_fixed_tokens[0].detach().cpu().tolist(),
+    }
+
+
+def batch_width_audit(model, theta, test_rows, sp, pieces, eos, bos, device, depth, steps):
+    single_source, single_lengths = f04.encode_rows(
+        [test_rows[0]], sp, pieces, eos, pieces, device,
+    )
+    batch_source, batch_lengths = f04.encode_rows(
+        test_rows, sp, pieces, eos, pieces, device,
+    )
+    encoder = model.frozen_source.encoder
+    original = bool(encoder.dynamic_width)
+    try:
+        encoder.dynamic_width = True
+        dynamic = context_case(
+            model, theta, single_source, single_lengths, batch_source, batch_lengths,
+            bos, depth, steps,
+        )
+        encoder.dynamic_width = False
+        fixed = context_case(
+            model, theta, single_source, single_lengths, batch_source, batch_lengths,
+            bos, depth, steps,
+        )
+    finally:
+        encoder.dynamic_width = original
+    for case in (dynamic, fixed):
+        case["single_text"] = sp.decode(f04.clean(case.pop("single_tokens"), eos, pieces))
+        case["batch_text"] = sp.decode(f04.clean(case.pop("batch_tokens"), eos, pieces))
+    return {
+        "original_dynamic_width": original,
+        "single_source_width": int(single_source.shape[1]),
+        "single_true_length": int(single_lengths[0]),
+        "batch_source_width": int(batch_source.shape[1]),
+        "batch_true_lengths": batch_lengths.detach().cpu().tolist(),
+        "dynamic": dynamic,
+        "fixed_32": fixed,
+    }
 
 
 def selected_route_coords(active: list[int]) -> list[int]:
@@ -409,8 +495,14 @@ def main() -> None:
         parameter.requires_grad_(False)
     expected_theta = {name: value.detach().cpu().clone() for name, value in theta.state_dict().items()}
 
+    test_rows = [row for row in all_rows if row["split"] == "test"]
+    batch_audit = batch_width_audit(
+        model, theta, test_rows, sp, pieces, eos, bos, args.device, args.depth, args.steps,
+    )
     source, lengths = f04.encode_rows([specimen], sp, pieces, eos, pieces, args.device)
     concepts = f04.compile_concepts(concepts_raw, sp, args.device)
+    original_dynamic_width = bool(model.frozen_source.encoder.dynamic_width)
+    model.frozen_source.encoder.dynamic_width = False
     baseline_trees = protocol_trees(model, theta, source, lengths, args.depth)
 
     atlas = parameter_atlas(model, "model") + parameter_atlas(theta, "f04-guided-theta")
@@ -478,6 +570,7 @@ def main() -> None:
 
     max_off_path_ratio = max(row["off_path_ratio"] for row in impulse_summary)
     transport_rows = [row for row in impulse_summary if row["merge"] < 4]
+    model.frozen_source.encoder.dynamic_width = original_dynamic_width
     frozen_model = f04.frozen_exact(model, expected_model)
     frozen_theta = tensor_equal_state(theta, expected_theta)
     gates = {
@@ -490,6 +583,11 @@ def main() -> None:
         "O3_route_observed": bool(route_rows),
         "O4_spectrum_observed": bool(spectrum_detail),
         "O5_frozen_exact": frozen_model and frozen_theta,
+        "O6_dynamic_width_isolated": (
+            batch_audit["dynamic"]["step0_logit_max_abs_delta"] > 1e-6
+            and batch_audit["fixed_32"]["fixed_history_logit_max_abs_delta"] <= 1e-6
+            and batch_audit["fixed_32"]["local_argmax_changes"] == 0
+        ),
     }
     clean_ids = f04.clean(baseline_tokens[0].tolist(), eos, pieces)
     summary = {
@@ -507,6 +605,8 @@ def main() -> None:
         "source": specimen["source"],
         "source_pieces": int(lengths[0].cpu()),
         "depth": args.depth,
+        "observation_source_width_mode": "fixed_32",
+        "batch_width_audit": batch_audit,
         "budget": int(baseline_trees["budgets"][0].cpu()),
         "baseline_generation": sp.decode(clean_ids),
         "reader_parity": {
