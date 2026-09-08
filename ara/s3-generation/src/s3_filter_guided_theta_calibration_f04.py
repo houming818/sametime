@@ -65,12 +65,22 @@ class RadialAnnealingFold(nn.Module):
         self.head = nn.Parameter(torch.zeros(max_merges, rank))
         self.bias = nn.Parameter(torch.zeros(max_merges))
         self.last_gain_rows: list[torch.Tensor] = []
+        self.last_log_gain_rows: list[torch.Tensor] = []
+        self.last_gain_masks: list[torch.Tensor] = []
 
-    def forward(self, slots: torch.Tensor, slot_mask: torch.Tensor):
+    def forward(
+        self,
+        slots: torch.Tensor,
+        slot_mask: torch.Tensor,
+        filter_u: torch.Tensor | None = None,
+    ):
         levels = [slots]
         masks = [slot_mask]
         node, valid = slots, slot_mask
         gain_rows = []
+        log_gain_rows = []
+        gain_masks = []
+        filter_cursor = 0
         merge = 0
         while node.shape[1] > 1:
             if merge >= self.max_merges:
@@ -88,20 +98,35 @@ class RadialAnnealingFold(nn.Module):
             raw = self.bias[merge] + (
                 hidden * self.head[merge][None, None]
             ).sum(-1) / math.sqrt(self.rank)
-            gain = torch.exp(self.log_limit * torch.tanh(raw))
+            log_gain = self.log_limit * torch.tanh(raw)
+            gain = torch.exp(log_gain)
+            filter_gain = 1.0
+            if filter_u is not None:
+                width = native.shape[1]
+                local_filter = filter_u[:, filter_cursor:filter_cursor + width]
+                if local_filter.shape[1] != width:
+                    raise RuntimeError("filter coordinate count does not cover recursive parents")
+                filter_gain = torch.exp(self.log_limit * torch.tanh(local_filter))
+                filter_cursor += width
             parent = torch.where(
                 both[:, :, None],
-                native * gain[:, :, None],
+                native * gain[:, :, None] * filter_gain[:, :, None],
                 torch.where(left_valid[:, :, None], left, right),
             )
             valid = left_valid | right_valid
             parent = parent * valid[:, :, None]
             gain_rows.append(gain[both])
+            log_gain_rows.append(log_gain)
+            gain_masks.append(both)
             levels.append(parent)
             masks.append(valid)
             node = parent
             merge += 1
+        if filter_u is not None and filter_cursor != filter_u.shape[1]:
+            raise RuntimeError(f"unused recursive filter coordinates: {filter_u.shape[1] - filter_cursor}")
         self.last_gain_rows = gain_rows
+        self.last_log_gain_rows = log_gain_rows
+        self.last_gain_masks = gain_masks
         return list(reversed(levels)), list(reversed(masks))
 
     def gain_summary(self) -> dict:
@@ -114,6 +139,11 @@ class RadialAnnealingFold(nn.Module):
             "min": float(values.min().cpu()),
             "max": float(values.max().cpu()),
         }
+
+    def gain_vector(self) -> tuple[torch.Tensor, torch.Tensor]:
+        if not self.last_log_gain_rows:
+            raise RuntimeError("gain_vector requested before FOLD")
+        return torch.cat(self.last_log_gain_rows, dim=1), torch.cat(self.last_gain_masks, dim=1)
 
 
 class AnnealingTheta(nn.Module):
@@ -138,27 +168,11 @@ class FoldRouter:
         self.theta = theta
         self.filter_u = filter_u
         self.calls = 0
-        self.filter_log_limit = math.log(1.5)
 
     def __call__(self, slots: torch.Tensor, slot_mask: torch.Tensor):
-        levels, masks = self.theta.choose(slots.shape[-1])(slots, slot_mask)
-        if self.filter_u is not None:
-            cursor = 0
-            filtered = []
-            for level_index, level in enumerate(levels):
-                if level_index == len(levels) - 1:
-                    filtered.append(level)
-                    continue
-                width = level.shape[1]
-                local = self.filter_u[:, cursor:cursor + width]
-                if local.shape[1] != width:
-                    raise RuntimeError("filter coordinate count does not cover internal nodes")
-                weight = torch.exp(self.filter_log_limit * torch.tanh(local))
-                filtered.append(level * weight[:, :, None])
-                cursor += width
-            if cursor != self.filter_u.shape[1]:
-                raise RuntimeError(f"unused filter coordinates: {self.filter_u.shape[1] - cursor}")
-            levels = filtered
+        levels, masks = self.theta.choose(slots.shape[-1])(
+            slots, slot_mask, self.filter_u,
+        )
         self.calls += 1
         return levels, masks
 
@@ -440,6 +454,22 @@ def theta_finite(theta: AnnealingTheta) -> bool:
     return all(bool(torch.isfinite(parameter).all()) for parameter in theta.parameters())
 
 
+def absorption_loss(theta: AnnealingTheta, filter_u: torch.Tensor) -> torch.Tensor:
+    """Move native recursive gains toward the local causal-filter correction."""
+    correction = math.log(1.5) * torch.tanh(filter_u)
+    losses = []
+    for fold in (theta.base, theta.extra):
+        current, valid = fold.gain_vector()
+        if current.shape != correction.shape:
+            raise RuntimeError(
+                f"theta/filter shape mismatch: {tuple(current.shape)} != {tuple(correction.shape)}"
+            )
+        target = current.detach() + correction
+        squared = (current - target).square()
+        losses.append((squared * valid.to(squared.dtype)).sum() / valid.sum().clamp_min(1))
+    return torch.stack(losses).mean()
+
+
 def train_arm(
     name: str,
     model,
@@ -460,10 +490,9 @@ def train_arm(
     for step in range(1, args.outer_steps + 1):
         depth = DEPTHS[(step - 1) % len(DEPTHS)]
         filter_metrics = None
-        prefixes = None
-        corrected = None
+        filter_u = None
         if name == "filter-guided-theta":
-            filter_u, before, after, prefixes = find_filter(
+            filter_u, before, after, _ = find_filter(
                 model, theta, train_source, train_lengths, train_rows, concepts,
                 bos, eos, depth, args.behavior_steps, args.inner_steps, args.inner_lr,
             )
@@ -474,23 +503,15 @@ def train_arm(
             }
             if inner_first is None:
                 inner_first = filter_metrics
-            with torch.no_grad():
-                corrected, _, _ = decode_logits(
-                    model, theta, train_source, train_lengths, bos, depth,
-                    args.behavior_steps, filter_u=filter_u, prefixes=prefixes,
-                )
         logits, _, _ = decode_logits(
             model, theta, train_source, train_lengths, bos, depth,
-            args.behavior_steps, prefixes=prefixes,
+            args.behavior_steps,
         )
         behavioral, metrics = behavior_loss(logits, train_rows, concepts, eos)
-        distillation = logits.new_tensor(0.0)
-        if corrected is not None:
-            distillation = F.kl_div(
-                F.log_softmax(logits, dim=-1), F.softmax(corrected, dim=-1),
-                reduction="batchmean",
-            ) / logits.shape[1]
-        loss = behavioral + args.distill_weight * distillation
+        absorption = logits.new_tensor(0.0)
+        if filter_u is not None:
+            absorption = absorption_loss(theta, filter_u)
+        loss = behavioral + args.absorb_weight * absorption
         optimizer.zero_grad(set_to_none=True)
         loss.backward()
         gradients = [parameter.grad for parameter in theta.parameters() if parameter.grad is not None]
@@ -505,7 +526,7 @@ def train_arm(
             event = {
                 "event": "train", "arm": name, "step": step, "depth": depth,
                 "loss": float(loss.detach().cpu()), "behavior": metrics,
-                "distillation": float(distillation.detach().cpu()), "grad_norm": grad_norm,
+                "absorption": float(absorption.detach().cpu()), "grad_norm": grad_norm,
                 "filter": filter_metrics, "gains": theta.gain_summary(),
                 "elapsed_seconds": time.time() - started,
             }
@@ -554,7 +575,7 @@ def main() -> None:
     parser.add_argument("--inner-steps", type=int, default=5)
     parser.add_argument("--outer-lr", type=float, default=2e-3)
     parser.add_argument("--inner-lr", type=float, default=0.15)
-    parser.add_argument("--distill-weight", type=float, default=0.10)
+    parser.add_argument("--absorb-weight", type=float, default=1.0)
     parser.add_argument("--behavior-steps", type=int, default=24)
     parser.add_argument("--generation-steps", type=int, default=64)
     parser.add_argument("--eval-rows", type=int, default=64)
