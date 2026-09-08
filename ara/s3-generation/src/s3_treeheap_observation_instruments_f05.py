@@ -418,6 +418,9 @@ def batch_width_audit(model, theta, test_rows, sp, pieces, eos, bos, device, dep
     batch_source, batch_lengths = f04.encode_rows(
         test_rows, sp, pieces, eos, pieces, device,
     )
+    narrow_source, narrow_lengths = f04.encode_rows(
+        [test_rows[0]] * len(test_rows), sp, pieces, eos, pieces, device,
+    )
     encoder = model.frozen_source.encoder
     original = bool(encoder.dynamic_width)
     try:
@@ -426,14 +429,22 @@ def batch_width_audit(model, theta, test_rows, sp, pieces, eos, bos, device, dep
             model, theta, single_source, single_lengths, batch_source, batch_lengths,
             bos, depth, steps,
         )
+        dynamic_equal_batch = context_case(
+            model, theta, narrow_source, narrow_lengths, batch_source, batch_lengths,
+            bos, depth, steps,
+        )
         encoder.dynamic_width = False
         fixed = context_case(
             model, theta, single_source, single_lengths, batch_source, batch_lengths,
             bos, depth, steps,
         )
+        fixed_equal_batch = context_case(
+            model, theta, narrow_source, narrow_lengths, batch_source, batch_lengths,
+            bos, depth, steps,
+        )
     finally:
         encoder.dynamic_width = original
-    for case in (dynamic, fixed):
+    for case in (dynamic, fixed, dynamic_equal_batch, fixed_equal_batch):
         case["single_text"] = sp.decode(f04.clean(case.pop("single_tokens"), eos, pieces))
         case["batch_text"] = sp.decode(f04.clean(case.pop("batch_tokens"), eos, pieces))
     return {
@@ -444,6 +455,8 @@ def batch_width_audit(model, theta, test_rows, sp, pieces, eos, bos, device, dep
         "batch_true_lengths": batch_lengths.detach().cpu().tolist(),
         "dynamic": dynamic,
         "fixed_32": fixed,
+        "dynamic_equal_batch": dynamic_equal_batch,
+        "fixed_32_equal_batch": fixed_equal_batch,
     }
 
 
@@ -587,6 +600,11 @@ def main() -> None:
             batch_audit["dynamic"]["step0_logit_max_abs_delta"] > 1e-6
             and batch_audit["fixed_32"]["fixed_history_logit_max_abs_delta"] <= 1e-6
             and batch_audit["fixed_32"]["local_argmax_changes"] == 0
+        ),
+        "O7_equal_batch_width_isolated": (
+            batch_audit["dynamic_equal_batch"]["step0_logit_max_abs_delta"] > 1e-6
+            and batch_audit["fixed_32_equal_batch"]["fixed_history_logit_max_abs_delta"] <= 1e-6
+            and batch_audit["fixed_32_equal_batch"]["local_argmax_changes"] == 0
         ),
     }
     clean_ids = f04.clean(baseline_tokens[0].tolist(), eos, pieces)
