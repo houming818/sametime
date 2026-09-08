@@ -100,7 +100,7 @@ class RadialAnnealingFold(nn.Module):
             ).sum(-1) / math.sqrt(self.rank)
             log_gain = self.log_limit * torch.tanh(raw)
             gain = torch.exp(log_gain)
-            filter_gain = 1.0
+            filter_gain = torch.ones_like(gain)
             if filter_u is not None:
                 width = native.shape[1]
                 local_filter = filter_u[:, filter_cursor:filter_cursor + width]
