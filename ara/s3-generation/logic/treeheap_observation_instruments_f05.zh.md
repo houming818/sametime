@@ -2,7 +2,7 @@
 
 日期：2026-09-08
 Claim：`S3-TREEHEAP-OBSERVATION-INSTRUMENTS-F05`
-状态：预注册，等待 smoke。
+状态：初始 smoke 已完成；FOLD 路径局部性得到支持，同时发现 token 子片段误读风险与动态宽度批依赖；r1 待验证。
 
 ## 1. 动机
 
@@ -96,3 +96,37 @@ O0--O5 是仪器可信度门，不是模型质量门。无论路由是否跳转�
 F05 不训练退火 theta，不寻找最优滤镜，不宣称找到语言语义坐标，也不以一次脉冲决定正式架构。
 它回答的是：当前 TreeHeap 在一个固定标本上，局部变化经过 FOLD、卷积、READ 和 logits 时实际
 留下了什么轨迹。
+
+## 8. 初始 smoke 结果
+
+taskd `391` 在 RTX 3090 上完成，耗时 7.3 秒。参数地图展开了完整模型的 `112` 个 tensor、
+`105,965,594` 个参数，以及 F04 guided theta 的 `6` 个 tensor、`30,890` 个参数。模型和
+theta 在观察前后逐 tensor 不变，复制 READ 与原 READ 的 logits/token 一致，O0/O5 通过。
+
+depth 7 的协议预算为 12，base/extra 各有 11 个有效 internal node。两个通道共执行 132 次
+单点正负脉冲；所有卷积前响应的 off-path energy ratio 都为 `0`，每个非 root 有效脉冲均改变
+自身并传到更高祖先，因此 O1/O2 通过。当前 FOLD 构树没有观察到跨兄弟子树跳跃。
+
+进入 READ 后出现了不同现象。base 的 leaf-near `coord 0, epsilon=0.1` 在 Decoder step 22、
+tree depth 5 发生一次 frontier argmax 翻转，但未改变局部输出 token；base 的高层 `coord 28`
+在 step 18、depth 3 翻转一次，并改变一个局部 argmax token。两种 extra 脉冲均无分支翻转。
+这说明可见的离散跳转发生在 READ 路由，不发生在 FOLD 的卷积前构树阶段；它目前只是
+固定标本上的存在性观察，不代表翻转必然有害。
+
+## 9. smoke 后发现的仪器问题与 r1
+
+初始 token 光谱把任意子片段的最佳 rank 汇总为概念最佳值。`pushes` 被 SentencePiece 切成
+`[▁p, us, hes]`，其中 `▁p` 曾达到 rank 2，但完整单 token `▁push` 的最好 rank 只有 165。
+因此“push 已接近输出”是错误读法。r1 将分别报告完整单 token surface、任意 piece 与 phrase
+coverage，禁止用公共子片段替代整词。
+
+此外，固定句单独编码时 source width 为 14、动态 heap width 为 16；与另外两条测试句组成
+batch 时 source width 为 17、动态 heap width 为 32。同一句的 step-0 logits 最大差已经明显
+非零，贪心文本也不同。源码显示动态宽度改变会增加一个 pass-through root 层，使后续
+compressor 看到的 root-to-leaf 层数与 depth embedding 对齐发生变化。这是初始 smoke 之外发现
+的异常，尚需正式隔离。
+
+r1 保留初始 evidence，新增 batch/width 检测器：比较动态宽度下 single/batch，以及固定 32
+宽度下 single/batch；所有比较固定第一条句子的 Decoder 历史。若动态宽度不一致而固定宽度恢复
+到 `1e-6` 以内，才把异常定位为 max-length/heap-width 依赖。r1 的路径、READ 和 token 观察统一
+使用固定 32 宽度，保证固定标本不因同 batch 的其他句子改变观察坐标系。

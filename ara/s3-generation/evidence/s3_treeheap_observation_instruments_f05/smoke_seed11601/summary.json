@@ -1,0 +1,196 @@
+{
+  "claim": "S3-TREEHEAP-OBSERVATION-INSTRUMENTS-F05",
+  "host": "io",
+  "checkpoint": "ara/s3-generation/evidence/s3_epoch_repeat_scaling_e01/formal_seed11301/treeheap-106m/checkpoint_latest.pt",
+  "checkpoint_sha256": "9b4a67b9057242d3897a593ddf5b2ab6f0f7155e1487175b43bfed368d82d14d",
+  "checkpoint_state_sha256": "e587931ef0e475467e045aed85d4fbfd6b716610f45cdfec1e297f8023ca31c7",
+  "runtime_source_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "theta_checkpoint": "ara/s3-generation/evidence/s3_filter_guided_theta_calibration_f04/smoke_r1_seed11501/filter-guided-theta.theta.pt",
+  "theta_checkpoint_sha256": "3bd45913db3adfc24b939309d0f76c673a3c4e7df055f3f46008956dcc3c0774",
+  "specimens": "ara/s3-generation/data/filter_guided_theta_specimens_f04.json",
+  "specimens_sha256": "9bb1957c49c216b06414d2c4f54fa282cf4bcd62c3580e1a1e2865772708d1ba",
+  "sentence_id": "test-sisyphus-push-stone",
+  "source": "西西弗每天都推着石头上山顶。",
+  "source_pieces": 14,
+  "depth": 7,
+  "budget": 12,
+  "baseline_generation": "The whole of the day of the week was a rush of the mountain.",
+  "reader_parity": {
+    "logit_max_abs_delta": 0.0,
+    "token_exact": true
+  },
+  "parameter_tensors": 118,
+  "parameter_count": 105996484,
+  "active_filter_coordinates": {
+    "base": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      16,
+      17,
+      18,
+      24,
+      28
+    ],
+    "extra": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      16,
+      17,
+      18,
+      24,
+      28
+    ]
+  },
+  "impulses": {
+    "count": 132,
+    "max_off_path_ratio": 0.0,
+    "max_root_response": 1.6875598430633545
+  },
+  "route_interventions": [
+    {
+      "label": "base-coord0-eps+0.1",
+      "channel": "base",
+      "coord": 0,
+      "merge": 0,
+      "node": 0,
+      "max_route_js": 2.324825618416071e-05,
+      "max_route_delta": 0.0058393776416778564,
+      "branch_flips": 1,
+      "logit_max_abs_delta": 0.08642458915710449,
+      "local_argmax_changes": 0
+    },
+    {
+      "label": "base-coord28-eps+0.1",
+      "channel": "base",
+      "coord": 28,
+      "merge": 3,
+      "node": 0,
+      "max_route_js": 1.136166974902153e-05,
+      "max_route_delta": 0.004294872283935547,
+      "branch_flips": 1,
+      "logit_max_abs_delta": 0.1895003318786621,
+      "local_argmax_changes": 1
+    },
+    {
+      "label": "extra-coord0-eps+0.1",
+      "channel": "extra",
+      "coord": 0,
+      "merge": 0,
+      "node": 0,
+      "max_route_js": 8.651913958601654e-07,
+      "max_route_delta": 0.0010106265544891357,
+      "branch_flips": 0,
+      "logit_max_abs_delta": 0.004119873046875,
+      "local_argmax_changes": 0
+    },
+    {
+      "label": "extra-coord28-eps+0.1",
+      "channel": "extra",
+      "coord": 28,
+      "merge": 3,
+      "node": 0,
+      "max_route_js": 6.862501322757453e-08,
+      "max_route_delta": 0.00016555190086364746,
+      "branch_flips": 0,
+      "logit_max_abs_delta": 0.012440681457519531,
+      "local_argmax_changes": 0
+    }
+  ],
+  "spectra": [
+    {
+      "intervention": "baseline",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.0033358335494995117,
+          "best_piece_rank": 2,
+          "max_piece_probability": 0.015948418527841568
+        },
+        "stone": {
+          "phrase_coverage": 0.08481824398040771,
+          "best_piece_rank": 4,
+          "max_piece_probability": 0.026892079040408134
+        }
+      }
+    },
+    {
+      "intervention": "base-coord0-eps+0.1",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.003328979015350342,
+          "best_piece_rank": 2,
+          "max_piece_probability": 0.015926092863082886
+        },
+        "stone": {
+          "phrase_coverage": 0.08480805158615112,
+          "best_piece_rank": 4,
+          "max_piece_probability": 0.026784181594848633
+        }
+      }
+    },
+    {
+      "intervention": "base-coord28-eps+0.1",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.0033072829246520996,
+          "best_piece_rank": 2,
+          "max_piece_probability": 0.015867311507463455
+        },
+        "stone": {
+          "phrase_coverage": 0.08661514520645142,
+          "best_piece_rank": 4,
+          "max_piece_probability": 0.027220262214541435
+        }
+      }
+    },
+    {
+      "intervention": "extra-coord0-eps+0.1",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.0033354759216308594,
+          "best_piece_rank": 2,
+          "max_piece_probability": 0.015945687890052795
+        },
+        "stone": {
+          "phrase_coverage": 0.08481264114379883,
+          "best_piece_rank": 4,
+          "max_piece_probability": 0.026885394006967545
+        }
+      }
+    },
+    {
+      "intervention": "extra-coord28-eps+0.1",
+      "concepts": {
+        "push": {
+          "phrase_coverage": 0.00333559513092041,
+          "best_piece_rank": 2,
+          "max_piece_probability": 0.01592857763171196
+        },
+        "stone": {
+          "phrase_coverage": 0.08482968807220459,
+          "best_piece_rank": 4,
+          "max_piece_probability": 0.026877716183662415
+        }
+      }
+    }
+  ],
+  "frozen_model": true,
+  "frozen_theta": true,
+  "gates": {
+    "O0_reader_parity": true,
+    "O1_topology_locality": true,
+    "O2_ancestor_transport": true,
+    "O3_route_observed": true,
+    "O4_spectrum_observed": true,
+    "O5_frozen_exact": true
+  },
+  "seconds": 4.859909772872925,
+  "claim_boundary": "observation instruments only; no path law, semantic coordinate, or quality claim"
+}
