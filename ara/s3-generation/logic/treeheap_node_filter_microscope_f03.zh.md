@@ -2,7 +2,7 @@
 
 日期：2026-09-08  
 Claim：`S3-TREEHEAP-NODE-FILTER-MICROSCOPE-F03`  
-状态：预注册，等待 smoke 与正式扫描。
+状态：smoke 与正式扫描完成；P0--P4 全部通过，但没有恢复完整标本语义。
 
 ## 1. 问题
 
@@ -81,3 +81,95 @@ reference: Every day, Sisyphus pushes the stone to the top of the mountain.
 F03 是单 checkpoint、单句、单 depth 的显微镜实验。它不证明滤镜可泛化，不训练滤镜，
 不把单节点幅度变化解释成向量旋转，也不授权替换默认 TreeHeap。它先回答更小的问题：
 一棵固定 TreeHeap 的哪些节点，在什么权重附近，会让 Decoder 读出另一幅文本。
+
+## 7. 实验结果
+
+### 7.1 合同与规模
+
+Smoke taskd `373` 完成 12 次代表性 Decode，身份滤镜与覆盖门通过。正式 taskd `376` 用时
+`114.00` 秒，完成全部 `775 = 25 * 31` 次粗扫和 `408 = 8 * 51` 次精扫。
+
+运行态完整 TreeHeap 的层宽为：
+
+```text
+[1, 2, 4, 8, 16, 32]
+```
+
+完整滤镜有 63 个坐标。当前句子的 leaf budget 为 12，mask 有效节点按层累计为 25 个：
+root 1 个、internal 12 个、leaf 12 个。所有 25 个坐标在 `w=1` 时都逐 token 复现原生输出。
+
+原生输出是：
+
+```text
+The whole of the day of the week, the chambers of the air.
+```
+
+它没有命中预注册的六个语义槽，因此这个标本的起点本来就是失焦译文。
+
+### 7.2 节点响应
+
+25 个有效节点中，19 个在 `0..1.5` 粗扫里至少产生一次不同 token 序列：
+
+| 分辨率带 | 有效节点 | 发生换相 |
+|---|---:|---:|
+| root | 1 | 1 |
+| internal | 12 | 9 |
+| leaf | 12 | 9 |
+
+全部粗扫合计出现 43 种不同 token 序列。最敏感的是 leaf `index=34`，31 档中出现 10 种
+输出和 9 次相邻换相；其次是 leaf `index=35/37`，各出现 6 种输出。节点响应明显不均匀，
+但不是只有某一分辨率带有效。
+
+一个值得继续观察的例子来自 internal `index=3`、`level=2`、`position=0`：
+
+```text
+w = 0.20..0.40
+The whole of the day of the week is a stone's throwing from the top of the hill.
+```
+
+它相对原生输出引出了 `stone` 和 `top`，但仍缺少 `Sisyphus`、`push` 和准确的频率关系。
+这只能记作语义偏转，不能记作翻译成功。粗扫的 775 个单元中，671 个不命中语义槽，99 个
+命中一个，只有 5 个命中两个；没有输出恢复完整六槽语义。
+
+### 7.3 精扫边界
+
+八个预定敏感节点都在 0.001 网格上解析出离散 Decode 边界。部分边界如下：
+
+| 节点 | 边界括区间 | 边界后的可见变化 |
+|---|---:|---|
+| root `0` | `[0.674, 0.675]` | `...rush of the mountain` 回到原生输出 |
+| internal `3` | `[1.396, 1.397]` | 转为重复 `chambers` 的句子 |
+| internal `8` | `[1.364, 1.365]` | 出现 `stroll from the top of the hill` |
+| leaf `34` | `[1.247, 1.248]` | `day of the day` 重复出现 |
+| leaf `35` | `[1.177, 1.178]` | 出现 `mountainous Peak` |
+| leaf `37` | `[1.246, 1.247]` | 出现 `mountainous Peak`，同时产生错误内容 |
+
+这些边界不是连续语义距离的直接测量。它们是连续 hidden-state 幅度经过离散 greedy
+argmax 和 EOS 决策以后表现出的换相点。边界可复现并不表示边界两侧的语义变化也连续。
+
+### 7.4 判定
+
+| 门 | 结果 | 证据 |
+|---|---|---|
+| P0 身份滤镜 | 通过 | TreeHeap 张量逐元素相等，原生与全 1 滤镜 token 完全一致 |
+| P1 完整覆盖 | 通过 | 25 个有效节点、31 档、775 条粗扫全部完成且数值有限 |
+| P2 节点焦距效应 | 通过 | 19/25 节点产生不同于原生的直接 Decode |
+| P3 跨分辨率效应 | 通过 | root、internal、leaf 三类都发生换相 |
+| P4 精扫解析 | 通过 | 8/8 预定区间在 0.001 网格内解析出边界 |
+
+GPU 采样保持 270 W 功率限制，峰值功耗约 169 W、峰值温度 65 C、峰值显存 870 MiB；
+日志中没有 OOM、CUDA/Xid、NaN/Inf。正式 evidence 位于：
+
+```text
+ara/s3-generation/evidence/s3_treeheap_node_filter_microscope_f03/formal/
+```
+
+### 7.5 当前结论
+
+F03 支持：**逐节点幅度数组确实构成一个可操作、跨分辨率、具有不同敏感度的 TreeHeap
+读出滤镜。** 它比 F02 的三个全局标量提供了更细的因果坐标，也显示同一输出附近存在
+可解析的离散换相边界。
+
+F03 不支持：**手工单坐标扫描已经找到正确焦距。** 当前最好看的偏转只恢复了部分
+`stone/top/mountain` 信息，没有恢复人物和动作。下一阶梯如果训练 `W`，应先加入多句标本、
+身份邻域正则和冻结基座审计；不能从这一个句子的扫描结果直接给 63 个坐标指定固定权重。
