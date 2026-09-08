@@ -97,7 +97,7 @@ F05 不训练退火 theta，不寻找最优滤镜，不宣称找到语言语义�
 它回答的是：当前 TreeHeap 在一个固定标本上，局部变化经过 FOLD、卷积、READ 和 logits 时实际
 留下了什么轨迹。
 
-## 8. 初始 smoke 结果
+## 9. 初始 smoke 结果
 
 taskd `391` 在 RTX 3090 上完成，耗时 7.3 秒。参数地图展开了完整模型的 `112` 个 tensor、
 `105,965,594` 个参数，以及 F04 guided theta 的 `6` 个 tensor、`30,890` 个参数。模型和
@@ -113,7 +113,7 @@ tree depth 5 发生一次 frontier argmax 翻转，但未改变局部输出 toke
 这说明可见的离散跳转发生在 READ 路由，不发生在 FOLD 的卷积前构树阶段；它目前只是
 固定标本上的存在性观察，不代表翻转必然有害。
 
-## 9. smoke 后发现的仪器问题与 r1
+## 10. smoke 后发现的仪器问题与 r1
 
 初始 token 光谱把任意子片段的最佳 rank 汇总为概念最佳值。`pushes` 被 SentencePiece 切成
 `[▁p, us, hes]`，其中 `▁p` 曾达到 rank 2，但完整单 token `▁push` 的最好 rank 只有 165。
@@ -130,3 +130,24 @@ r1 保留初始 evidence，新增 batch/width 检测器：比较动态宽度下 
 宽度下 single/batch；所有比较固定第一条句子的 Decoder 历史。若动态宽度不一致而固定宽度恢复
 到 `1e-6` 以内，才把异常定位为 max-length/heap-width 依赖。r1 的路径、READ 和 token 观察统一
 使用固定 32 宽度，保证固定标本不因同 batch 的其他句子改变观察坐标系。
+
+## 11. r1 smoke 结果与等 batch 对照
+
+taskd `392` 完成 r1，耗时 8.3 秒。O0--O5 再次通过：固定 32 宽度下 132 个卷积前
+脉冲仍全部严格保持 off-path energy ratio `0`，base leaf-near 脉冲在 READ 中观察到一次
+branch flip，extra 未翻转，模型和 theta 均未改变。
+
+修正后的 token 光谱显示：`push` 概念的 phrase coverage 为 `0.001305`；完整单 token
+surface 中最好的是 `pushed`，最佳 rank 仅 `438`、概率 `0.000266`。此前 rank 2/3 来自
+`pushes` 的公共子片段 `▁p`，不能作为 push 接近成形的证据。`stone` 则达到完整 token rank 1，
+phrase coverage 为 `0.123102`。因此当前标本是“stone 已进入强候选，push 仍远离输出边界”。
+
+动态宽度 single/batch 的 step-0 logits 最大差为 `7.97856`，固定 Decoder 历史下全轨迹最大差
+为 `8.04538`，并改变 12 个局部 argmax。固定 32 后两值降至 `5.84e-6` 和 `6.20e-6`，文本
+完全相同且 argmax 变化为 0。由于预注册门是 `1e-6`，O6 仍严格记为失败，不能在看到结果后
+放宽。剩余量级可能来自 batch=1 与 batch=3 使用不同浮点矩阵内核。
+
+为分离该数值因素，r2 新增同 batch size 对照：窄组由目标句复制成三条，宽组保持三条测试句，
+两组第一条输入及 Decoder 历史相同，batch size 都为 3；动态模式只让 heap width 从 16 变成
+32，固定模式都使用 32。r2 预注册 `O7`：动态模式差异大于 `1e-6`，固定模式差异不超过
+`1e-6`。O7 只定位动态宽度依赖，不覆盖 O6 记录。
