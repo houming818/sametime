@@ -1,0 +1,88 @@
+{
+  "concepts": {
+    "push": ["push", "pushes", "pushed", "pushing"],
+    "stone": ["stone", "stones", "rock", "rocks", "boulder", "boulders"],
+    "like": ["like", "likes", "liked", "love", "loves", "loved"],
+    "apple": ["apple", "apples"],
+    "want": ["want", "wants", "wanted", "wanting"]
+  },
+  "rows": [
+    {
+      "id": "train-push-atomic",
+      "split": "train",
+      "source": "推，推，推，推，推，推，推，推。",
+      "positive": ["push"],
+      "negative": ["like", "want"]
+    },
+    {
+      "id": "train-stone-atomic",
+      "split": "train",
+      "source": "石头，石头，石头，石头。",
+      "positive": ["stone"],
+      "negative": ["push", "like", "want"]
+    },
+    {
+      "id": "train-push-stone",
+      "split": "train",
+      "source": "推石头。推石头。推石头。推石头。",
+      "positive": ["push", "stone"],
+      "negative": ["like", "want"]
+    },
+    {
+      "id": "train-like-atomic",
+      "split": "train",
+      "source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+      "positive": ["like"],
+      "negative": ["push", "want"]
+    },
+    {
+      "id": "train-apple-atomic",
+      "split": "train",
+      "source": "苹果，苹果，苹果，苹果。",
+      "positive": ["apple"],
+      "negative": ["push", "like", "want"]
+    },
+    {
+      "id": "train-like-apple",
+      "split": "train",
+      "source": "喜欢苹果。喜欢苹果。喜欢苹果。喜欢苹果。",
+      "positive": ["like", "apple"],
+      "negative": ["push", "want"]
+    },
+    {
+      "id": "train-want-atomic",
+      "split": "train",
+      "source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+      "positive": ["want"],
+      "negative": ["push", "like"]
+    },
+    {
+      "id": "train-want-apple",
+      "split": "train",
+      "source": "想要苹果。想要苹果。想要苹果。想要苹果。",
+      "positive": ["want", "apple"],
+      "negative": ["push", "like"]
+    },
+    {
+      "id": "test-sisyphus-push-stone",
+      "split": "test",
+      "source": "西西弗每天都推着石头上山顶。",
+      "positive": ["push", "stone"],
+      "negative": ["like", "want"]
+    },
+    {
+      "id": "test-ming-like-apple",
+      "split": "test",
+      "source": "小明喜欢苹果。小明喜欢苹果。小明喜欢苹果。",
+      "positive": ["like", "apple"],
+      "negative": ["push", "want"]
+    },
+    {
+      "id": "test-ming-want-apple",
+      "split": "test",
+      "source": "小明想要苹果。小明想要苹果。小明想要苹果。",
+      "positive": ["want", "apple"],
+      "negative": ["push", "like"]
+    }
+  ]
+}
