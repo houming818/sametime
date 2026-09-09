@@ -1,0 +1,85 @@
+{
+  "concepts": {
+    "push": ["push", "pushes", "pushed", "pushing"],
+    "carry": ["carry", "carries", "carried", "carrying"],
+    "stone": ["stone", "stones", "rock", "rocks", "boulder", "boulders"],
+    "like": ["like", "likes", "liked", "love", "loves", "loved"],
+    "want": ["want", "wants", "wanted", "wanting"],
+    "eat": ["eat", "eats", "ate", "eating"],
+    "apple": ["apple", "apples"]
+  },
+  "rows": [
+    {
+      "id": "fit-like-single",
+      "split": "fit",
+      "source": "喜欢。",
+      "repeat_source": "喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢，喜欢。",
+      "positive": ["like"],
+      "negative": ["push", "carry", "want"]
+    },
+    {
+      "id": "fit-want-single",
+      "split": "fit",
+      "source": "想要。",
+      "repeat_source": "想要，想要，想要，想要，想要，想要，想要，想要。",
+      "positive": ["want"],
+      "negative": ["push", "carry", "like"]
+    },
+    {
+      "id": "fit-eat-single",
+      "split": "fit",
+      "source": "吃。",
+      "repeat_source": "吃，吃，吃，吃，吃，吃，吃，吃。",
+      "positive": ["eat"],
+      "negative": ["push", "carry", "want"]
+    },
+    {
+      "id": "fit-apple-single",
+      "split": "fit",
+      "source": "苹果。",
+      "repeat_source": "苹果，苹果，苹果，苹果，苹果，苹果，苹果，苹果。",
+      "positive": ["apple"],
+      "negative": ["push", "carry", "want"]
+    },
+    {
+      "id": "test-push-single",
+      "split": "test",
+      "source": "推。",
+      "repeat_source": "推，推，推，推，推，推，推，推。",
+      "positive": ["push"],
+      "negative": ["like", "want", "carry"]
+    },
+    {
+      "id": "test-carry-single",
+      "split": "test",
+      "source": "搬。",
+      "repeat_source": "搬，搬，搬，搬，搬，搬，搬，搬。",
+      "positive": ["carry"],
+      "negative": ["push", "like", "want"]
+    },
+    {
+      "id": "test-stone-single",
+      "split": "test",
+      "source": "石头。",
+      "repeat_source": "石头，石头，石头，石头，石头，石头，石头，石头。",
+      "positive": ["stone"],
+      "negative": ["push", "like", "want"]
+    },
+    {
+      "id": "test-eat-apple-composition",
+      "split": "test",
+      "source": "小明吃苹果。",
+      "repeat_source": "小明吃苹果。小明吃苹果。小明吃苹果。小明吃苹果。",
+      "positive": ["eat", "apple"],
+      "negative": ["push", "carry", "want"]
+    },
+    {
+      "id": "test-sisyphus-composition",
+      "split": "test",
+      "source": "西西弗每天都推着石头上山顶。",
+      "repeat_source": "西西弗推石头。西西弗推石头。西西弗推石头。西西弗推石头。",
+      "positive": ["push", "stone"],
+      "negative": ["like", "want", "carry"]
+    }
+  ]
+}
