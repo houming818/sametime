@@ -30,6 +30,7 @@ FILTER_NAMES = (
     "haar-local-sibling",
     "depth-fine-minus-coarse",
 )
+CENTERED_FILTERS = frozenset(FILTER_NAMES) - {"uniform-gain"}
 INTERFERENCE_PAIRS = (
     ("binomial-left-p025", "binomial-right-p075"),
     ("pascal-middle", "haar-local-sibling"),
@@ -91,7 +92,7 @@ def analytic_filter_bank(active: list[int], device: str) -> tuple[dict[str, torc
             [raw_filter_value(name, meta) for meta in metadata],
             dtype=torch.float64,
         )
-        centered = name != "uniform-gain"
+        centered = name in CENTERED_FILTERS
         values = raw - raw.mean() if centered else raw
         rms = values.square().mean().sqrt()
         if not torch.isfinite(rms) or float(rms) <= 0.0:
@@ -392,7 +393,7 @@ def main() -> None:
             rms = math.sqrt(sum(value * value for value in values) / len(values))
             mean = sum(values) / len(values)
             analytic_contract &= abs(rms - 1.0) <= 1e-6
-            if name != "uniform-gain":
+            if name in CENTERED_FILTERS:
                 analytic_contract &= abs(mean) <= 1e-6
     finite = all(
         math.isfinite(float(row[key]))
