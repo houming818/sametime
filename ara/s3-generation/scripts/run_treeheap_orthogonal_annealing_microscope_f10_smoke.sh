@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd /home/nio/log/holds/SameTime
 
-evidence="ara/s3-generation/evidence/s3_treeheap_orthogonal_annealing_microscope_f10/smoke_seed12101"
+evidence="ara/s3-generation/evidence/s3_treeheap_orthogonal_annealing_microscope_f10/smoke_r1_seed12101"
 mkdir -p "$evidence"
 
 command=(

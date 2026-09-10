@@ -235,7 +235,7 @@ def evaluate(
         for surface in concepts_raw["push"]
     ]
     clean = f04.clean(free_tokens[0].tolist(), eos, pieces)
-    hard_hit = any(f08.contains_subsequence(clean, target) for target in alternatives)
+    hard_hit = any(f08.contains_subsequence(clean, target.tolist()) for target in alternatives)
     stats = target_stats(fixed_logits, alternatives)
     actual_u = U_LIMIT * math.tanh(amplitude)
     return {
@@ -323,7 +323,9 @@ def main() -> None:
                 "specimen": specimen["id"], "source": specimen["source"],
                 "mode": "native", "raw_amplitude": 0.0, "actual_u": 0.0,
                 **base_stats, "fixed_logit_max_abs_delta": 0.0,
-                "hard_push_hit": int(any(f08.contains_subsequence(clean, target) for target in alternatives)),
+                "hard_push_hit": int(any(
+                    f08.contains_subsequence(clean, target.tolist()) for target in alternatives
+                )),
                 "free_text": sp.decode(clean), "fixed_energy_relative_error": 0.0,
                 "free_energy_relative_error": 0.0, "active_nodes_base": -1,
                 "active_nodes_extra": -1,
