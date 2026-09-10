@@ -1,0 +1,337 @@
+{
+  "claim": "S3-TREEHEAP-ORTHOGONAL-ANNEALING-MICROSCOPE-F10",
+  "host": "io",
+  "checkpoint": "ara/s3-generation/evidence/s3_epoch_repeat_scaling_e01/formal_seed11301/treeheap-106m/checkpoint_latest.pt",
+  "checkpoint_sha256": "9b4a67b9057242d3897a593ddf5b2ab6f0f7155e1487175b43bfed368d82d14d",
+  "runtime_source_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "data": "ara/s3-generation/data/cross_language_echo_f08.json",
+  "data_sha256": "bad3908abe41e565bb28c6d19b6f173f3c2595cc82797ffe6a9f4888f055687b",
+  "seed": 12101,
+  "depth": 7,
+  "steps": 16,
+  "raw_amplitudes": [
+    -4.0,
+    -2.0,
+    -1.0,
+    -0.5,
+    0.0,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "u_limit": 0.5,
+  "detail_mix": 0.5,
+  "formula": {
+    "common": "(left + right) / sqrt(2)",
+    "difference": "(left - right) / sqrt(2)",
+    "u": "0.5 * tanh(raw)",
+    "parent": "(common + u * difference) / sqrt(1 + u^2)",
+    "detail": "(-u * common + difference) / sqrt(1 + u^2)"
+  },
+  "gates": {
+    "O0_parent_zero_exact": true,
+    "O1_energy_closure": true,
+    "O2_frozen_and_finite": true,
+    "O3_nonzero_finite_gradient": true
+  },
+  "probes": {
+    "P1_sign_asymmetry_on_complete_sentence": true,
+    "P2_any_complete_sentence_hard_push": false,
+    "P3_any_parent_soft_improvement": true,
+    "P4_any_detail_or_joint_soft_improvement": true
+  },
+  "maximum_energy_relative_error": 2.713363187467621e-07,
+  "zero_max_logit_delta": 0.0,
+  "gradient": {
+    "loss": 6.473350524902344,
+    "metrics": {
+      "loss": 6.473350524902344,
+      "positive_coverage": 0.024037182331085205,
+      "negative_activation": 0.001993844984099269,
+      "eos_coverage": 0.5000976920127869,
+      "expected_repetition": 0.12791495025157928,
+      "rows": [
+        {
+          "id": "push-single",
+          "positive": {
+            "push": 0.000469207763671875
+          },
+          "negative": {
+            "like": 0.004779934883117676,
+            "want": 0.0009441375732421875,
+            "carry": 0.00047403573989868164
+          }
+        },
+        {
+          "id": "sisyphus-single",
+          "positive": {
+            "push": 0.00042814016342163086,
+            "stone": 0.07121419906616211
+          },
+          "negative": {
+            "like": 0.003385484218597412,
+            "want": 0.0004304051399230957,
+            "carry": 0.0019490718841552734
+          }
+        }
+      ]
+    },
+    "finite": true,
+    "abs_max": 0.2611432373523712,
+    "abs_mean": 0.020850399509072304,
+    "router": {
+      "calls": 2,
+      "folds": [
+        {
+          "mode": "parent",
+          "active_nodes": 12,
+          "max_energy_relative_error": 1.374602192072416e-07,
+          "u_min": 0.0,
+          "u_max": 0.0
+        },
+        {
+          "mode": "parent",
+          "active_nodes": 12,
+          "max_energy_relative_error": 1.0600173538932722e-07,
+          "u_min": 0.0,
+          "u_max": 0.0
+        }
+      ],
+      "max_energy_relative_error": 1.374602192072416e-07
+    }
+  },
+  "sign_pairs": [
+    {
+      "specimen": "push-single",
+      "coverage_delta_positive_minus_negative": -0.0005556941032409668,
+      "logit_delta_between_signs_lower_bound": 0.4067707061767578,
+      "negative_text": "The right is to be.",
+      "positive_text": ""
+    },
+    {
+      "specimen": "push-repeat8",
+      "coverage_delta_positive_minus_negative": -2.1457672119140625e-06,
+      "logit_delta_between_signs_lower_bound": 0.9661369323730469,
+      "negative_text": "For the reason, push push, push push push push push push push push push",
+      "positive_text": "For more, push push, push, push, push, push, push,"
+    },
+    {
+      "specimen": "sisyphus-single",
+      "coverage_delta_positive_minus_negative": -0.0005875229835510254,
+      "logit_delta_between_signs_lower_bound": 0.5494339466094971,
+      "negative_text": "The Westin is a kind of a mountainous hillside of the West,",
+      "positive_text": "Westminster Abbey is a great place to stay in the corner of the"
+    },
+    {
+      "specimen": "sisyphus-repeat4",
+      "coverage_delta_positive_minus_negative": -0.0011611580848693848,
+      "logit_delta_between_signs_lower_bound": 1.255615234375,
+      "negative_text": "The Westin is a new one-to-one-the-arthen",
+      "positive_text": "The newest in the West Virginia is the oldest of the world's most"
+    }
+  ],
+  "baselines": {
+    "push-single": {
+      "specimen": "push-single",
+      "source": "推。",
+      "mode": "native",
+      "raw_amplitude": 0.0,
+      "actual_u": 0.0,
+      "push_coverage": 0.000469207763671875,
+      "push_best_rank": 44,
+      "push_best_probability": 0.0002372896415181458,
+      "push_best_token_id": 30,
+      "push_best_step": 5,
+      "probability_entropy": 3.4449069499969482,
+      "fixed_logit_max_abs_delta": 0.0,
+      "hard_push_hit": 0,
+      "free_text": "The following is the example.",
+      "fixed_energy_relative_error": 0.0,
+      "free_energy_relative_error": 0.0,
+      "active_nodes_base": -1,
+      "active_nodes_extra": -1
+    },
+    "push-repeat8": {
+      "specimen": "push-repeat8",
+      "source": "推，推，推，推，推，推，推，推。",
+      "mode": "native",
+      "raw_amplitude": 0.0,
+      "actual_u": 0.0,
+      "push_coverage": 0.9999999403953552,
+      "push_best_rank": 1,
+      "push_best_probability": 0.974869966506958,
+      "push_best_token_id": 10766,
+      "push_best_step": 3,
+      "probability_entropy": 1.557713508605957,
+      "fixed_logit_max_abs_delta": 0.0,
+      "hard_push_hit": 1,
+      "free_text": "For example, pushing push push push push push push push push push push push",
+      "fixed_energy_relative_error": 0.0,
+      "free_energy_relative_error": 0.0,
+      "active_nodes_base": -1,
+      "active_nodes_extra": -1
+    },
+    "sisyphus-single": {
+      "specimen": "sisyphus-single",
+      "source": "西西弗每天都推着石头上山顶。",
+      "mode": "native",
+      "raw_amplitude": 0.0,
+      "actual_u": 0.0,
+      "push_coverage": 0.00042814016342163086,
+      "push_best_rank": 8,
+      "push_best_probability": 0.008013728074729443,
+      "push_best_token_id": 26,
+      "push_best_step": 5,
+      "probability_entropy": 5.745882987976074,
+      "fixed_logit_max_abs_delta": 0.0,
+      "hard_push_hit": 0,
+      "free_text": "The Westin is a stone-somega-sale of the mountain",
+      "fixed_energy_relative_error": 0.0,
+      "free_energy_relative_error": 0.0,
+      "active_nodes_base": -1,
+      "active_nodes_extra": -1
+    },
+    "sisyphus-repeat4": {
+      "specimen": "sisyphus-repeat4",
+      "source": "西西弗推石头。西西弗推石头。西西弗推石头。西西弗推石头。",
+      "mode": "native",
+      "raw_amplitude": 0.0,
+      "actual_u": 0.0,
+      "push_coverage": 0.0012646317481994629,
+      "push_best_rank": 16,
+      "push_best_probability": 0.004708952736109495,
+      "push_best_token_id": 26,
+      "push_best_step": 4,
+      "probability_entropy": 5.4667205810546875,
+      "fixed_logit_max_abs_delta": 0.0,
+      "hard_push_hit": 0,
+      "free_text": "The company is a good example of the company's name, the world'",
+      "fixed_energy_relative_error": 0.0,
+      "free_energy_relative_error": 0.0,
+      "active_nodes_base": -1,
+      "active_nodes_extra": -1
+    }
+  },
+  "best_by_mode": {
+    "push-single": {
+      "parent": {
+        "raw_amplitude": -4.0,
+        "actual_u": -0.4996646498695335,
+        "push_coverage": 0.0007829666137695312,
+        "push_best_rank": 30,
+        "push_best_probability": 0.000741667696274817,
+        "hard_push_hit": 0,
+        "free_text": "The right is to be."
+      },
+      "detail": {
+        "raw_amplitude": -4.0,
+        "actual_u": -0.4996646498695335,
+        "push_coverage": 0.001137852668762207,
+        "push_best_rank": 28,
+        "push_best_probability": 0.0006180203054100275,
+        "hard_push_hit": 0,
+        "free_text": "The word is in the process."
+      },
+      "joint": {
+        "raw_amplitude": -4.0,
+        "actual_u": -0.4996646498695335,
+        "push_coverage": 0.0008079409599304199,
+        "push_best_rank": 34,
+        "push_best_probability": 0.0005793754826299846,
+        "hard_push_hit": 0,
+        "free_text": "The following is the case."
+      }
+    },
+    "push-repeat8": {
+      "parent": {
+        "raw_amplitude": -0.5,
+        "actual_u": -0.23105857863000487,
+        "push_coverage": 0.9999999403953552,
+        "push_best_rank": 1,
+        "push_best_probability": 0.9572478532791138,
+        "hard_push_hit": 1,
+        "free_text": "For example, pushing push push push push push push push push push push push"
+      },
+      "detail": {
+        "raw_amplitude": -4.0,
+        "actual_u": -0.4996646498695335,
+        "push_coverage": 0.9999999403953552,
+        "push_best_rank": 1,
+        "push_best_probability": 0.9617227911949158,
+        "hard_push_hit": 1,
+        "free_text": "For more details, push push push push push push push push push push push push"
+      },
+      "joint": {
+        "raw_amplitude": -4.0,
+        "actual_u": -0.4996646498695335,
+        "push_coverage": 0.9999999403953552,
+        "push_best_rank": 1,
+        "push_best_probability": 0.9407562613487244,
+        "hard_push_hit": 1,
+        "free_text": "For example, pushing push push push push push push push push push push push"
+      }
+    },
+    "sisyphus-single": {
+      "parent": {
+        "raw_amplitude": -1.0,
+        "actual_u": -0.3807970779778824,
+        "push_coverage": 0.0007227659225463867,
+        "push_best_rank": 10,
+        "push_best_probability": 0.007095285225659609,
+        "hard_push_hit": 0,
+        "free_text": "The Westinberg is a daily necessity for the whole of the mountain,"
+      },
+      "detail": {
+        "raw_amplitude": -4.0,
+        "actual_u": -0.4996646498695335,
+        "push_coverage": 0.0005891919136047363,
+        "push_best_rank": 9,
+        "push_best_probability": 0.012550740502774715,
+        "hard_push_hit": 0,
+        "free_text": "The Westin is a full-time-million-dollar collection of"
+      },
+      "joint": {
+        "raw_amplitude": -4.0,
+        "actual_u": -0.4996646498695335,
+        "push_coverage": 0.0008669495582580566,
+        "push_best_rank": 11,
+        "push_best_probability": 0.006942778825759888,
+        "hard_push_hit": 0,
+        "free_text": "The Westin is a daily necessity for the whole of the mountain, and"
+      }
+    },
+    "sisyphus-repeat4": {
+      "parent": {
+        "raw_amplitude": -2.0,
+        "actual_u": -0.48201379003790845,
+        "push_coverage": 0.002037525177001953,
+        "push_best_rank": 17,
+        "push_best_probability": 0.005054879002273083,
+        "hard_push_hit": 0,
+        "free_text": "The Westin is a new one-to-one-the-arthen"
+      },
+      "detail": {
+        "raw_amplitude": -0.5,
+        "actual_u": -0.23105857863000487,
+        "push_coverage": 0.0014980435371398926,
+        "push_best_rank": 18,
+        "push_best_probability": 0.0038174474611878395,
+        "hard_push_hit": 0,
+        "free_text": "The West End of the Western Plus Sedona is a great place to stay"
+      },
+      "joint": {
+        "raw_amplitude": -4.0,
+        "actual_u": -0.4996646498695335,
+        "push_coverage": 0.001968860626220703,
+        "push_best_rank": 18,
+        "push_best_probability": 0.004781312774866819,
+        "hard_push_hit": 0,
+        "free_text": "The Westin is a new one-to-one-the-arthen"
+      }
+    }
+  },
+  "intervention_count": 112,
+  "seconds": 27.296298503875732,
+  "claim_boundary": "frozen orthogonal intervention microscope; detail/joint are interface diagnostics, not a production dual-channel READ"
+}
