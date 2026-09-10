@@ -2,7 +2,7 @@
 
 日期：2026-09-10  
 Claim：`S3-TREEHEAP-DIRECTIONAL-THETA-TRAINING-F11`  
-状态：预注册，等待 smoke。
+状态：smoke 已完成；工程合同通过，方向参数可训练，但 held-out soft/hard 增量均未支持。
 
 ## 1. 起点
 
@@ -52,3 +52,36 @@ P2/P3 是不同层级证据。只通过 P2 表示 soft 路由可训练，不表�
 若 O0--O2 失败，本次实验无效并修复工程合同。若方向头只改善训练集、held-out 不优于等参数
 径向头，当前行为目标不足以学习可迁移方向。若 soft coverage 改善但 hard generation 不变，
 保留方向参数化为候选，但下一步应改进 READ/detail 接口或训练目标，不直接延长同一 smoke。
+
+## 6. Smoke 结果
+
+io taskd 403 完成两臂各 90 steps，用时 168.2 秒。输入哈希复核通过；GPU 保持 270 W 上限，
+最高温度 65 C、最高显存 1118 MiB，未见 OOM、CUDA、NaN/Inf 或重载故障。
+
+两臂参数量均为 30,890，逐 tensor 同初始化，step-zero 文本与 native 完全一致，WMT NLL 差
+均为 0。两臂都有非零有限梯度，冻结的 106M checkpoint 未改变，保存重载一致。因此 O0--O2
+全部通过，实验合同有效。
+
+方向参数确实离开零点。base 的 u 范围为 [-0.28844, 0.27684]，extra 为
+[-0.26233, 0.17530]，能量闭合误差低于 2.5e-7，P1 通过。这只证明公式可训练。
+
+| 状态 | train positive | test positive | hard all-positive / 9 |
+|---|---:|---:|---:|
+| step 0 | 0.631262 | 0.271733 | 5 |
+| radial | 0.630872 | 0.242628 | 4 |
+| directional | 0.603751 | 0.237401 | 3 |
+
+directional 的 held-out positive 比 radial 低 0.005227，hard all-positive 也少 1 次，所以
+P2/P3 均未通过；P4 行为健康门通过。固定 WMT 小样本中 directional NLL 比 radial 高
+0.017339，只作为一致的负面观察，不单独裁决实验。
+
+分深度观察并非一律失败：directional 在 depth 6 和 7 的 soft coverage 高于 radial，但在
+depth 5 明显较差，汇总后仍然落后。这提示方向自由度存在，却没有被当前共享投影和行为目标
+组织成跨深度一致的协议。
+
+## 7. 结论
+
+F11 支持“有界正交方向头可以稳定训练”，不支持“当前词汇行为目标能够把方向头训练成
+可迁移的组合协议”。不能直接延长同一训练，也不能替换默认 FOLD。下一步应先解释深度间
+差异，分别审计逐深度方向分布与共享 projection 的梯度干扰，再决定修改训练目标还是 READ
+接口。
