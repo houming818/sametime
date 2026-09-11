@@ -2,7 +2,7 @@
 
 日期：2026-09-11  
 Claim：`S3-TREEHEAP-LEARNED-POLYTOPE-ROUTER-F13`  
-状态：预注册，待 smoke。
+状态：smoke 已完成；工程合同、方向分化和生成健康通过，NLL 优势未通过。
 
 ## 1. 已知起点
 
@@ -53,3 +53,44 @@ P1 只说明路由头使用了新增自由度。P2/P3 才分别表示概率读�
 失败，说明自由度被训练使用但没有泛化，后续应研究组定义、共享 projection 的干扰或正则化，
 不能仅靠追加 steps。若 grouped 与 scalarized 都改善，但差异很小，则 F12 的局部几何优势未
 转化为当前尺度的学习优势。
+
+## 6. Smoke 结果
+
+io taskd 405 完成两个配对臂各 300 steps，用时 442.93 秒。两个臂均为 32,080 个参数，
+逐 tensor 同初始化，step-zero 相对 native 的 NLL 差为 0。两臂梯度有限非零，最大能量误差
+低于 `3.2e-7`，冻结的 106M checkpoint 未改变，theta 保存重载误差为 0。O0--O2 通过。
+
+grouped 的实际方向发生了清楚分化：base/extra 的组内 `u` 标准差分别为 0.06494 和
+0.00747，平均为 0.03620；P1 通过。base 比 extra 更主动地使用多方向自由度。
+
+| 状态 | valid mean NLL | test mean NLL | BLEU4 median | nonempty min | repetition max |
+|---|---:|---:|---:|---:|---:|
+| native | 4.22856 | 4.20940 | 8.03773 | 1.00 | 0.00693 |
+| scalarized | 4.20069 | 4.19129 | 7.74384 | 1.00 | 0.00243 |
+| grouped | 4.20815 | 4.19894 | 11.60700 | 1.00 | 0.00491 |
+
+两个可学习方向头都比 native 降低了 held-out NLL，但 scalarized 比 grouped 更低。grouped
+相对 scalarized 的 valid/test NLL 分别高 0.00745/0.00765，因此 P2 未通过。这个结果不能用
+“grouped 没学会”解释，因为它确实分化且仍比 native test NLL 低 0.01046。
+
+生成侧出现相反排序。grouped 的 BLEU4 median 比 scalarized 高 3.86316，非空率相同，重复率
+只高 0.00248，P3 通过。逐层 BLEU 表明收益主要来自 depth 6：
+
+| depth | native | scalarized | grouped |
+|---:|---:|---:|---:|
+| 5 | 4.63107 | 4.74749 | 4.68578 |
+| 6 | 8.03773 | 7.74384 | 12.27451 |
+| 7 | 12.10288 | 11.29756 | 11.60700 |
+
+样例中，grouped 在 depth 6 恢复出一条更接近参考的法律条款结构，但其他长句仍有明显幻译。
+因此当前生成收益是值得追踪的信号，不是产品质量结论。
+
+## 7. 当前结论
+
+F13 支持“F12 观察到的分组方向可以由只读 `(left, right, depth)` 的小参数头学出”，并观察到
+**NLL 与自由生成发生帕累托分叉**：单轴头拥有更好的平均 token 概率，多面头在当前小样本上
+越过了更多离散生成边界。它不支持“多面头全面优于单轴头”，也不足以替换默认 FOLD。
+
+由于 BLEU 只使用 16 条生成样本，且增益集中在 depth 6，下一步先扩大冻结 checkpoint 与
+theta 的只读评估，按多个固定数据块检查 BLEU 胜率；不立即增加训练步数，不把一次 median
+跳升写成稳定收益。
