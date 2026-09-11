@@ -2,7 +2,7 @@
 
 日期：2026-09-11  
 Claim：`S3-TREEHEAP-COHERENT-ACCUMULATION-F14`  
-状态：预注册，待只读 smoke。
+状态：只读 smoke 已完成；完整 READ 重复响应通过，root 相干累积解释未通过。
 
 ## 1. 问题
 
@@ -70,3 +70,39 @@ P1/P3 支持 coarse normalized-sum 累积，P2 表示该累积能传到最终 De
 句子中的 `push` 缺失完全由 FOLD 引起。若 root 累积存在但完整 READ 不响应，应优先审计 READ；
 若 native 与 mean-FOLD 无差异，应检查 compressor、UP convolution 或 Decoder；若各层都没有
 目标方向，则问题更可能位于语料、词表或语言底座。
+
+## 6. Smoke 结果
+
+首次 io taskd 407 在输入合同阶段失败：预注册实现沿用了 width 32，但该 checkpoint 的
+Butterfly leaf 上限为 16。任务未进入模型计算，也未改动参数。修正为 width 16 后，taskd 408
+在冻结的 TreeHeap-106M checkpoint 上完成 14 个固定长度样本、三个 protocol depth 的审计，
+运行 3.98 秒。`推`、`看`、`push` 都是单 token，source 真长度统一为 10，零参数 grouped
+FOLD 与 native logits 误差为 0，checkpoint 逐 tensor 未改变；O0--O2 通过。
+
+三个 depth 平均后的结果为：
+
+| `推` 计数 | 0 | 1 | 2 | 4 | 8 |
+|---:|---:|---:|---:|---:|---:|
+| root margin | -15.6896 | -14.6296 | -13.7116 | -13.5912 | -14.8898 |
+| full READ margin | -14.1778 | -12.9832 | -12.4918 | -11.1506 | -9.6214 |
+
+完整 READ 的 margin 随计数单调改善，count 8 比 count 1 高 3.3618，P2 通过；但 root 在
+count 8 比 count 1 低 0.2602，P1 未通过。分 depth 看，root 的 count 8 减 count 1 分别为
+`+1.78, +1.62, -4.19`，失败主要来自 protocol depth 7。
+
+mean-FOLD 的 root margin 从 count 1 的 -12.4208 改善到 count 8 的 -11.0233，增量 1.3975；
+native normalized-sum 的对应增量为 -0.2602。因此 `(l+r)/sqrt(2)` 没有表现出预期的 root
+优势，P3 未通过。去掉 root READ update 的平均损害在 count 1 为 0.3251，在 count 8 反而
+只有 0.1571，P4 也未通过。
+
+逐层累计结果进一步定位了变化。depth 7 中，count 8 相对 count 1 的 margin 差在 cutoff 3
+仍为 -0.93，到 cutoff 4 变为 +4.74，最终 full READ 为 +3.61。levels 按 root-to-leaf
+排列，cutoff 4 是倒数第二层。因此重复信号的有效读出发生在近 leaf 的累计 READ 与路由组合，
+不是 root 单节点激活。所有自由生成仍未出现 `push`，说明 margin 尚未跨过 argmax 生成边界。
+
+## 7. 当前结论与下一步
+
+本实验否定了“重复 `推` 主要经 normalized-sum 在 root 相干放大，再激活 `push`”这一简单
+机制。重复确实提高最终 target margin，但证据指向 near-leaf 累计 READ 与跨层路由。下一步
+应针对 cutoff 3 到 cutoff 4 保存 frontier、branch score、READ kernel update、base/extra
+logit 分量及每个 parent 的干预响应；在定位前不修改 FOLD。
