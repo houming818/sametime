@@ -26,7 +26,7 @@ p=(l+r)/\sqrt{2}
 - 方向固定为中译英，目标 token 固定为 SentencePiece 的 `push`；
 - source 固定为 8 个单 token 位置，取值为 `推` 或中性控制 `看`；
 - 重复计数为 `0, 1, 2, 4, 8`；对 1/2/4 使用四个确定性位置排列；
-- 所有 source 都含相同方向 token、8 个内容 token 和 EOS，并统一 pad 到 width 32；
+- 所有 source 都含相同方向 token、8 个内容 token 和 EOS，并统一 pad 到模型 leaf width 16；
 - protocol depth 分别为 5、6、7。
 
 固定 token 长度消除字符串长度和动态 batch width 的影响。这是合成机制探针，不代表自然 WMT
