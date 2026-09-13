@@ -1,0 +1,70 @@
+{
+  "claim": "S3-TREEHEAP-SEMANTIC-PROBE-CAPACITY-F17",
+  "host": "io",
+  "checkpoint": "ara/s3-generation/evidence/s3_epoch_repeat_scaling_e01/formal_seed11301/treeheap-106m/checkpoint_latest.pt",
+  "checkpoint_state_sha256": "e587931ef0e475467e045aed85d4fbfd6b716610f45cdfec1e297f8023ca31c7",
+  "source_state_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "sample_manifest_sha256": "940c7d11f201c7df45c9ac37f0482d567134d34090f5ced4a51cdf0f5eff61ed",
+  "case_count": 480,
+  "family_counts": {
+    "physical": {
+      "0": 40,
+      "1": 40
+    },
+    "technical": {
+      "0": 40,
+      "1": 40
+    },
+    "abstract": {
+      "0": 40,
+      "1": 40
+    },
+    "press": {
+      "0": 40,
+      "1": 40
+    },
+    "force": {
+      "0": 40,
+      "1": 40
+    },
+    "other_tui": {
+      "0": 40,
+      "1": 40
+    }
+  },
+  "protocol_depths": [
+    5,
+    6,
+    7
+  ],
+  "ridge": 0.001,
+  "macro_auroc": {
+    "input_bow": 0.5266666666666666,
+    "fold_root": 0.5339930555555557,
+    "fold_leaf": 0.5240972222222223,
+    "read_facing_root": 0.5630555555555555,
+    "read_facing_leaf": 0.5240972222222223
+  },
+  "f16_mean_difference_macro_auroc": {
+    "input_bow": 0.5327083333333333,
+    "fold_root": 0.5974305555555555,
+    "fold_leaf": 0.6003124999999999,
+    "read_facing_root": 0.5842013888888888,
+    "read_facing_leaf": 0.6003124999999999
+  },
+  "gates": {
+    "O0_f16_manifest_contract": true,
+    "O1_finite": true,
+    "O2_frozen_checkpoint": true,
+    "C0_shuffled_control_rejected": true,
+    "P1_fold_root_semantic_recoverable": false,
+    "P2_read_root_semantic_recoverable": false,
+    "P3_fold_compression_loss_pattern": false,
+    "P3_read_compression_loss_pattern": false,
+    "P4_fold_root_probe_underfit": false,
+    "P4_read_root_probe_underfit": false
+  },
+  "diagnosis": "strong probe remains weak at leaf and root; build semantic protocol before FOLD change",
+  "seconds": 14.948545932769775,
+  "claim_boundary": "fixed-manifest ridge recoverability, not generation quality"
+}
