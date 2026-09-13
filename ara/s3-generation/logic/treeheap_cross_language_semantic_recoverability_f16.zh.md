@@ -19,7 +19,8 @@ F16 在真实平行语料上冻结同一 TreeHeap-106M checkpoint，检测各层
 - 只使用 source 含与“推”相关线索的六个互斥表达族：`physical`、`technical`、`abstract`、
   `press`、`force`、`other_tui`；
 - 每族确定性抽取 40 个 target 含 `push*` 的正例和 40 个不含 `push*` 的负例，共 480 例；
-- source 必须含至少四个汉字，SentencePiece 长度在 2--32；
+- source 必须含至少四个汉字，正文 SentencePiece 长度在 2--30；加方向 token 与 EOS 后总长不超过
+  底座固定 leaf 宽度 32；
 - 每族正负样本按 source token 长度贪心配对，减少长度泄漏；
 - 保存原始行号、双语文本、表达族、标签、token 长度和样本清单 SHA-256。
 
@@ -64,3 +65,9 @@ F16 在真实平行语料上冻结同一 TreeHeap-106M checkpoint，检测各层
 这是冻结 checkpoint、单一英文词族、自动标签的观察实验。它检测的是“target-side `push*` 标签的跨表达族
 线性可恢复性”，不是哲学意义上的语义，也不证明生成器能输出正确句子。任何结构替换必须在后续成对训练中
 验证；F16 本身不修改退火公式。
+
+## 6. Smoke 修订记录
+
+taskd 416 在首个模型 batch、任何结果产生前失败：初版误把 32 个正文 token 与方向 token、EOS 一起
+装入固定宽度 32 的底座，实际 tensor 宽度成为 34。失败现场保留，不作为阴性实验结果。修订版将正文
+上限改为 30、输入 tensor 总宽度固定为 32；其他样本、分组、指标与门槛不变。

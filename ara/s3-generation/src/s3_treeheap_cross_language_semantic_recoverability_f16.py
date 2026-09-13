@@ -91,7 +91,7 @@ def select_cases(buckets, sp, per_class: int) -> list[dict]:
             valid = []
             for row in buckets[(family, label)]:
                 token_ids = sp.encode(row["zh"], out_type=int)
-                if 2 <= len(token_ids) <= 32:
+                if 2 <= len(token_ids) <= 30:
                     valid.append({**row, "token_ids": token_ids, "source_pieces": len(token_ids)})
             by_label[label] = valid
         positives = sorted(by_label[1], key=lambda row: (row["source_pieces"], row["line"]))
@@ -123,7 +123,7 @@ def select_cases(buckets, sp, per_class: int) -> list[dict]:
 
 
 def collate(rows: list[dict], pieces: int, eos: int, device: str):
-    width = 34
+    width = 32
     source = torch.full((len(rows), width), pieces, dtype=torch.long, device=device)
     lengths = torch.empty(len(rows), dtype=torch.long, device=device)
     for index, row in enumerate(rows):
