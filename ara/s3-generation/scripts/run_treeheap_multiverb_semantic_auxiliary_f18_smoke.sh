@@ -12,7 +12,7 @@ command=(
   --f16-cases ara/s3-generation/evidence/s3_treeheap_cross_language_semantic_recoverability_f16/smoke_seed12701/cases.json
   --eval-wmt-data /home/nio/datasets/wmt_massive/train.massive.zh-en.tsv
   --evidence-dir "$evidence"
-  --candidate-cap 256
+  --candidate-cap 1024
   --train-per-class 32
   --eval-per-class 8
   --head-steps 50

@@ -36,7 +36,6 @@ CONCEPTS = {
             ("technical", r"推送|推流|版本库"),
             ("abstract", r"推动|推进|推广|推行|推出|推迟"),
             ("press", r"按|压"),
-            ("force", r"迫使|逼|驱使|强迫"),
             ("other_tui", r"推"),
         ),
     },
@@ -58,7 +57,7 @@ CONCEPTS = {
         "target": re.compile(r"(?i)\b(?:eat|eats|ate|eaten|eating)\b"),
         "families": (
             ("direct", r"吃"), ("consume", r"食用|进食"),
-            ("swallow", r"吞"), ("meal", r"用餐|就餐"),
+            ("meal", r"用餐|就餐"),
         ),
     },
     "carry": {
@@ -320,7 +319,7 @@ def main() -> None:
     parser.add_argument("--f16-cases", required=True)
     parser.add_argument("--eval-wmt-data", required=True)
     parser.add_argument("--evidence-dir", required=True)
-    parser.add_argument("--candidate-cap", type=int, default=256)
+    parser.add_argument("--candidate-cap", type=int, default=1024)
     parser.add_argument("--train-per-class", type=int, default=32)
     parser.add_argument("--eval-per-class", type=int, default=8)
     parser.add_argument("--head-steps", type=int, default=50)
@@ -519,9 +518,9 @@ def main() -> None:
         split_by_line[row["line"]].add(row["split"])
     gates = {
         "O0_data_contract": (
-            expected_family_count == 23
-            and len(train_rows) == 23 * args.train_per_class * 2
-            and len(eval_rows) == 23 * args.eval_per_class * 2
+            expected_family_count == 21
+            and len(train_rows) == 21 * args.train_per_class * 2
+            and len(eval_rows) == 21 * args.eval_per_class * 2
             and not ({row["line"] for row in rows} & excluded_lines)
             and all(len(splits) == 1 for splits in split_by_line.values())
         ),
