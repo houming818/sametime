@@ -2,7 +2,8 @@
 set -euo pipefail
 
 cd /home/nio/log/holds/SameTime
-evidence="ara/s3-generation/evidence/s3_treeheap_multiverb_semantic_auxiliary_f18/smoke_seed12901"
+evidence="${F18_EVIDENCE_DIR:-ara/s3-generation/evidence/s3_treeheap_multiverb_semantic_auxiliary_f18/smoke_seed12901}"
+seed="${F18_SEED:-12901}"
 mkdir -p "$evidence"
 
 command=(
@@ -24,7 +25,7 @@ command=(
   --joint-head-lr 0.0005
   --model-lr 0.00002
   --aux-weight 0.20
-  --seed 12901
+  --seed "$seed"
   --device cuda
 )
 printf '%q ' "${command[@]}" >"$evidence/command.txt"
