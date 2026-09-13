@@ -63,3 +63,45 @@ F14 只观察当前 Decoder 的目标 margin，不能区分“信息不存在”
 这是合成、冻结、单 source token 的机制审计。即使 root 计数完全可恢复，也不证明 root 已形成中文 `推`
 到英文 `push` 的语义协议；即使不可恢复，也只定位当前 checkpoint 和当前 operator。后续若需要验证语义，必须
 在真实平行语料上用未见上下文训练 target-presence probe，再进行成对重训。
+
+## 6. Smoke 结果
+
+io taskd 409 首次启动时在模型加载前失败。原因是系统更新后，正在运行的 NVIDIA kernel module 为
+`580.173.02`，用户态 NVML 为 `580.178`，CUDA 返回 804；失败现场保存在
+`smoke_seed12601_failed_cuda804_task409`。重启 io 后，kernel module、NVML 与驱动统一为
+`580.178.04`，270 W 功率限制保持不变。taskd 414 随后用同一预注册代码完成实验。
+运行输入中的 logic SHA-256 已对预注册提交 `4e0c17b` 复算并完全匹配；当前文件追加结果后哈希变化，
+不回写或伪造运行时的 `inputs.sha256`。
+
+实验枚举 256 个位置组合，其中训练探针 192 个、测试 64 个。三个 protocol depth 的 root 结果为：
+
+| 状态 | depth 5 R2 | depth 6 R2 | depth 7 R2 | 测试精确计数率 |
+|---|---:|---:|---:|---:|
+| native FOLD root | 0.999027 | 0.999821 | 0.999937 | 100% |
+| native READ-facing root | 0.999159 | 0.999791 | 0.999841 | 100% |
+| mean FOLD root | 0.999027 | 0.999821 | 0.999937 | 100% |
+| mean READ-facing root | 0.999064 | 0.999790 | 0.999844 | 100% |
+
+native READ-facing root 的乱序标签对照 R2 为 `-0.3412, -0.0593, -0.2418`，没有出现高维探针
+偶然泛化。全部 FOLD 与 READ-facing 层在未见位置组合上也都达到近似 1.0 的 R2。O0--O2、C0、
+P1、P2 全部通过，checkpoint 前后逐 tensor 未改变。
+
+同一批样本经过当前 Decoder 后，count 8 相对 count 1 的 root target margin 在 depth 5、6 分别
+改善 `+1.6105`、`+1.5055`，在 depth 7 却恶化 `-4.2142`。因此，depth 7 的失败不能解释为
+source 计数信号没有到达 root。
+
+## 7. 当前结论
+
+F15 否定“递归 FOLD 已经把 `推` 的 source 计数从高层隐态中完全擦除”这一严格命题。当前
+checkpoint 的 root 不仅含有该信号，而且一个位置外推的线性读出可以近乎精确地恢复它；Decoder
+convolution 也没有破坏这种线性可恢复性。
+
+这不否定退火算法存在问题。`(l+r)/sqrt(2)` 与 `(l+r)/2` 对线性探针几乎等价，却在 F14 的
+非线性 Decoder margin 上表现不同，更符合“信息仍在，但能量尺度、目标方向或 READ 非线性进入了
+错误工作区间”，而不是不可逆擦除。F14 所见的 near-leaf 恢复，也应改写为当前读出路径在细尺度上
+更容易访问目标方向，而不是细层重新创造了 source 信息。
+
+下一步需要 F16 真实语义可恢复性审计：从平行语料构造 source 含 `推` 且 target 含/不含 `push`
+的真实上下文，按上下文模板隔离训练和测试，在每层预测 target-side `push` 是否成立。只有当 near-leaf
+探针可泛化而 root 探针失败时，才支持“退火压缩丢失跨语言语义”；若 root 探针成功而原 Decoder
+失败，应优先修 READ/Decoder 的坐标与尺度。

@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_treeheap_root_signal_recoverability_f15.py", line 343, in <module>
+    main()
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_treeheap_root_signal_recoverability_f15.py", line 187, in main
+    payload, _, sp, model, pieces, eos, bos, source_hash = load_runtime(
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/treeheap_epoch_translate_cli.py", line 44, in load_runtime
+    source_cpu, _, config, source_hash, _ = d03.load_model(
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_recursive_depth_probability_exposure.py", line 243, in load_model
+    model = c12.build_arm(
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_multilevel_read_ablation_c12.py", line 63, in build_arm
+    base = c10.build_model(config, vocab, pad)
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_pretrain_task_posterior_pipeline.py", line 115, in build_model
+    ).to(args.device)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1383, in to
+    return self._apply(convert)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 933, in _apply
+    module._apply(fn)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 933, in _apply
+    module._apply(fn)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 964, in _apply
+    param_applied = fn(param)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1369, in convert
+    return t.to(
+  File "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py", line 491, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 804: forward compatibility was attempted on non supported HW
