@@ -71,3 +71,52 @@ F16 在真实平行语料上冻结同一 TreeHeap-106M checkpoint，检测各层
 taskd 416 在首个模型 batch、任何结果产生前失败：初版误把 32 个正文 token 与方向 token、EOS 一起
 装入固定宽度 32 的底座，实际 tensor 宽度成为 34。失败现场保留，不作为阴性实验结果。修订版将正文
 上限改为 30、输入 tensor 总宽度固定为 32；其他样本、分组、指标与门槛不变。
+
+## 7. Smoke 结果
+
+taskd 418 在修订合同下完成。共抽取 480 个真实平行样本，六个表达族各 40 正例、40 负例；样本
+manifest SHA-256 为 `940c7d11f201c7df45c9ac37f0482d567134d34090f5ced4a51cdf0f5eff61ed`。
+运行输入代码与提交 `c5f1685` 的预结果逻辑文件哈希完全一致；当前逻辑文件追加结果后哈希自然变化。
+checkpoint 前后逐 tensor 未变化。GPU 维持 270 W 限制，
+采样最高温度 62 摄氏度、最高显存 878 MiB，未见 CUDA、Xid 或非有限值。
+
+跨六个留出族、三个 protocol depth 的宏平均结果为：
+
+| 特征 | AUROC |
+|---|---:|
+| source token 计数词袋 | 0.5327 |
+| FOLD leaf | 0.6003 |
+| FOLD root | 0.5974 |
+| READ-facing leaf | 0.6003 |
+| READ-facing root | 0.5842 |
+
+FOLD root 相对 leaf 仅下降 `0.0029`，READ-facing root 相对 leaf 下降 `0.0161`，均远小于预注册的
+0.10 压缩损失判据。各 depth 也没有随递归加深而单调恶化：FOLD root 均约 0.60，READ-facing root
+约为 0.58、0.59、0.58。乱序标签对照的 root 宏平均约 0.45--0.47，没有伪造正向泛化。
+
+READ-facing root 按留出表达族汇总后的 AUROC 约为：
+
+| 留出族 | AUROC | 观察 |
+|---|---:|---|
+| physical | 0.53 | 接近随机 |
+| technical | 0.46 | 低于随机，方向不能迁移 |
+| abstract | 0.59 | 弱信号 |
+| press | 0.65 | 局部可恢复 |
+| force | 0.59 | 弱信号 |
+| other_tui | 0.68 | 局部可恢复 |
+
+O0--O2 与 C0 通过；P1、P2 未通过；两项 P3 压缩损失模式均未出现。
+
+## 8. 当前结论
+
+F16 不支持“跨语言 `push` 目标信息主要在 leaf 已形成、随后被高层递归退火抹除”。当前 checkpoint
+从 leaf 开始就没有形成跨六类中文表达稳定泛化的 target-side `push*` 线性方向；root 与 leaf 几乎持平，
+因此不能把这次失败隔离归因于 FOLD 压缩。
+
+隐态约 0.60 的宏平均高于同一探针下的 source token 词袋 0.53，说明模型变换提供了一些额外预测信号，
+但信号按语义族高度分裂：`press` 与 `other_tui` 可部分迁移，`technical` 与 `physical` 不可迁移。
+这更符合“模型学到若干局部翻译协议，但尚未凝聚为统一、跨语境的 `push` 目标方向”。
+
+因此下一步不应立即替换退火公式。更有因果针对性的阶梯是：先用多动词、多义项的目标存在性辅助任务，
+使 leaf 出现稳定的跨族方向；随后在同一 checkpoint 上重跑 F16。只有 leaf 达标而 root 明显落后时，
+才进入 FOLD 算子修订；若 root 同步达标而自由生成仍失败，则转向 READ/Decoder 对齐与目标读出训练。

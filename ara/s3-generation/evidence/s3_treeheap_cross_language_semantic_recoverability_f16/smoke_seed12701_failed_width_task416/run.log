@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_treeheap_cross_language_semantic_recoverability_f16.py", line 377, in <module>
+    main()
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_treeheap_cross_language_semantic_recoverability_f16.py", line 261, in main
+    model_features = extract_features(model, rows, pieces, eos, args.batch_size, args.device)
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_treeheap_cross_language_semantic_recoverability_f16.py", line 208, in extract_features
+    protocol = model.protocol(source, lengths, depth)
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_structural_protocol_capacity_ladder_d11.py", line 127, in protocol
+    levels, masks = d03.condition_states(self.frozen_source, source, lengths, "native")
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_recursive_depth_probability_exposure.py", line 169, in condition_states
+    _, _, _, levels, masks = model.states(
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s3_hstate_multilevel_convolution.py", line 197, in states
+    return self.encoder.states(source, length, intervention, pair_break_depth)
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s2_adaptive_lifting_wmt.py", line 172, in states
+    leaf, root, details, masks = self.fold(src, length, pair_break_depth)
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s2_treeheap_butterfly_wmt.py", line 146, in fold
+    leaf, leaf_mask = self.raw_leaf(src, length)
+  File "/home/nio/log/holds/SameTime/ara/s3-generation/src/s2_treeheap_butterfly_wmt.py", line 139, in raw_leaf
+    padded[:, : src.shape[1]] = src
+RuntimeError: The expanded size of the tensor (32) must match the existing size (34) at non-singleton dimension 1.  Target sizes: [16, 32].  Tensor sizes: [16, 34]
