@@ -1,0 +1,200 @@
+{"stage": "head", "step": 1, "depth": 5, "aux_loss": 1.0356688499450684, "grad_norm": 2.64471435546875}
+{"stage": "head", "step": 10, "depth": 5, "aux_loss": 1.6640369892120361, "grad_norm": 5.8256516456604}
+{"stage": "head", "step": 20, "depth": 6, "aux_loss": 1.0555839538574219, "grad_norm": 4.138607978820801}
+{"stage": "head", "step": 30, "depth": 7, "aux_loss": 1.3092474937438965, "grad_norm": 6.566133499145508}
+{"stage": "head", "step": 40, "depth": 5, "aux_loss": 1.256927251815796, "grad_norm": 5.239139556884766}
+{"stage": "head", "step": 50, "depth": 6, "aux_loss": 1.2945117950439453, "grad_norm": 4.445206642150879}
+{"stage": "joint", "step": 1, "depth": 5, "loss": 3.5384817123413086, "translation_loss": 3.3327839374542236, "auxiliary_loss": 1.028489351272583, "grad_norm": 5.946503162384033, "slot_variance": 0.16941459476947784}
+{"stage": "joint", "step": 10, "depth": 5, "loss": 3.5344626903533936, "translation_loss": 3.36171293258667, "auxiliary_loss": 0.86374831199646, "grad_norm": 6.111079216003418, "slot_variance": 0.1860494613647461}
+{"stage": "joint", "step": 20, "depth": 6, "loss": 3.499028205871582, "translation_loss": 3.3055543899536133, "auxiliary_loss": 0.9673696756362915, "grad_norm": 3.917819023132324, "slot_variance": 0.503597617149353}
+{"stage": "joint", "step": 30, "depth": 7, "loss": 3.525899648666382, "translation_loss": 3.3449525833129883, "auxiliary_loss": 0.9047356843948364, "grad_norm": 5.5784735679626465, "slot_variance": 1.2290339469909668}
+{"stage": "joint", "step": 40, "depth": 5, "loss": 3.813110113143921, "translation_loss": 3.594515800476074, "auxiliary_loss": 1.0929714441299438, "grad_norm": 4.7732439041137695, "slot_variance": 0.20495283603668213}
+{"stage": "joint", "step": 50, "depth": 6, "loss": 3.3851964473724365, "translation_loss": 3.2222163677215576, "auxiliary_loss": 0.8149008750915527, "grad_norm": 3.8796253204345703, "slot_variance": 0.4750685393810272}
+{"stage": "joint", "step": 60, "depth": 7, "loss": 3.3960916996002197, "translation_loss": 3.2153778076171875, "auxiliary_loss": 0.9035696983337402, "grad_norm": 4.407027244567871, "slot_variance": 1.1166613101959229}
+{"stage": "joint", "step": 70, "depth": 5, "loss": 3.4727983474731445, "translation_loss": 3.3252310752868652, "auxiliary_loss": 0.7378361821174622, "grad_norm": 5.298498630523682, "slot_variance": 0.21473683416843414}
+{"stage": "joint", "step": 80, "depth": 6, "loss": 3.3616292476654053, "translation_loss": 3.2075068950653076, "auxiliary_loss": 0.7706118822097778, "grad_norm": 4.5083723068237305, "slot_variance": 0.5492202043533325}
+{"stage": "joint", "step": 90, "depth": 7, "loss": 3.0282812118530273, "translation_loss": 2.8195226192474365, "auxiliary_loss": 1.0437932014465332, "grad_norm": 5.652193546295166, "slot_variance": 1.0405832529067993}
+{"stage": "joint", "step": 100, "depth": 5, "loss": 3.2827329635620117, "translation_loss": 3.097005844116211, "auxiliary_loss": 0.9286357164382935, "grad_norm": 3.863306999206543, "slot_variance": 0.22902710735797882}
+{"stage": "joint", "step": 110, "depth": 6, "loss": 3.3736658096313477, "translation_loss": 3.2023231983184814, "auxiliary_loss": 0.8567131757736206, "grad_norm": 4.471983909606934, "slot_variance": 0.5194416642189026}
+{"stage": "joint", "step": 120, "depth": 7, "loss": 3.4358155727386475, "translation_loss": 3.2426857948303223, "auxiliary_loss": 0.9656493663787842, "grad_norm": 4.133925914764404, "slot_variance": 1.2775397300720215}
+{
+  "claim": "S3-TREEHEAP-MULTIVERB-SEMANTIC-AUXILIARY-F18",
+  "host": "io",
+  "checkpoint": "ara/s3-generation/evidence/s3_epoch_repeat_scaling_e01/formal_seed11301/treeheap-106m/checkpoint_latest.pt",
+  "checkpoint_state_sha256": "e587931ef0e475467e045aed85d4fbfd6b716610f45cdfec1e297f8023ca31c7",
+  "source_state_sha256": "5547eeced555989cacc2e663441729fbb1b971969852eae86165ff3d193d3a1e",
+  "manifest_sha256": "5a0a453b8b670adb5370494d2a6395d4d2ef2ab0472b78795fed89c57e757b3c",
+  "train_instances": 1344,
+  "eval_instances": 336,
+  "unique_corpus_lines": 1680,
+  "concepts": [
+    "push",
+    "like",
+    "want",
+    "eat",
+    "carry"
+  ],
+  "family_count": 21,
+  "head_width": 640,
+  "head_macro_auroc": {
+    "warmup_root": 0.593568287037037,
+    "warmup_leaf": 0.5928509837962963,
+    "final_root": 0.6196712962962962,
+    "final_leaf": 0.6192297453703705
+  },
+  "wmt": {
+    "before": {
+      "per_depth": {
+        "5": {
+          "nll": 4.21522205156489,
+          "ppl": 67.70919913541562,
+          "tokens": 2779,
+          "mean_budget": 4.8515625,
+          "slot_variance": 1.2509465538651805,
+          "between_slot_variance": 0.5957080486696213,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "6": {
+          "nll": 4.1056722041813325,
+          "ppl": 60.68352255809747,
+          "tokens": 2779,
+          "mean_budget": 9.2734375,
+          "slot_variance": 1.6950495144768252,
+          "between_slot_variance": 1.0716286732349545,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "7": {
+          "nll": 4.140315980695057,
+          "ppl": 62.82266906394114,
+          "tokens": 2779,
+          "mean_budget": 18.1328125,
+          "slot_variance": 2.0529226440732398,
+          "between_slot_variance": 1.5847334107384086,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        }
+      },
+      "mean_nll": 4.153736745480426
+    },
+    "after": {
+      "per_depth": {
+        "5": {
+          "nll": 4.158777567069708,
+          "ppl": 63.9932473137078,
+          "tokens": 2779,
+          "mean_budget": 4.8515625,
+          "slot_variance": 1.4104838138165507,
+          "between_slot_variance": 0.7268085358664393,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "6": {
+          "nll": 4.101199089344048,
+          "ppl": 60.41268438967342,
+          "tokens": 2779,
+          "mean_budget": 9.2734375,
+          "slot_variance": 1.8305562624541083,
+          "between_slot_variance": 1.2025123094208539,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        },
+        "7": {
+          "nll": 4.053209818880864,
+          "ppl": 57.58198848459839,
+          "tokens": 2779,
+          "mean_budget": 18.1328125,
+          "slot_variance": 2.0877894798031953,
+          "between_slot_variance": 1.6400561844930053,
+          "route": {
+            "route_pair_overlap": 0.0,
+            "route_pair_cosine": 0.0,
+            "argmax_coverage": 1.0,
+            "owner_leaf_coverage": 1.0
+          }
+        }
+      },
+      "mean_nll": 4.1043954917648735
+    },
+    "mean_nll_delta": -0.049341253715552646
+  },
+  "f16_before": {
+    "d5:fold:root": 0.5952083333333333,
+    "d5:fold:leaf": 0.5986458333333333,
+    "d5:read_facing:root": 0.5808333333333333,
+    "d5:read_facing:leaf": 0.5986458333333333,
+    "d6:fold:root": 0.5977083333333333,
+    "d6:fold:leaf": 0.5980208333333333,
+    "d6:read_facing:root": 0.5870833333333333,
+    "d6:read_facing:leaf": 0.5980208333333333,
+    "d7:fold:root": 0.5993750000000001,
+    "d7:fold:leaf": 0.6042708333333333,
+    "d7:read_facing:root": 0.5846875000000001,
+    "d7:read_facing:leaf": 0.6042708333333333,
+    "macro:fold:root": 0.5974305555555556,
+    "macro:fold:leaf": 0.6003125,
+    "macro:read_facing:root": 0.584201388888889,
+    "macro:read_facing:leaf": 0.6003125
+  },
+  "f16_after": {
+    "d5:fold:root": 0.5953125,
+    "d5:fold:leaf": 0.6028125000000001,
+    "d5:read_facing:root": 0.5859375000000001,
+    "d5:read_facing:leaf": 0.6028125000000001,
+    "d6:fold:root": 0.6016666666666667,
+    "d6:fold:leaf": 0.6003125,
+    "d6:read_facing:root": 0.5919791666666666,
+    "d6:read_facing:leaf": 0.6003125,
+    "d7:fold:root": 0.5988541666666666,
+    "d7:fold:leaf": 0.6029166666666667,
+    "d7:read_facing:root": 0.5929166666666666,
+    "d7:read_facing:leaf": 0.6029166666666667,
+    "macro:fold:root": 0.5986111111111111,
+    "macro:fold:leaf": 0.602013888888889,
+    "macro:read_facing:root": 0.5902777777777778,
+    "macro:read_facing:leaf": 0.602013888888889
+  },
+  "f16_macro_delta": {
+    "fold_root": 0.001180555555555518,
+    "read_facing_root": 0.0060763888888888395
+  },
+  "initial_model_sha256": "e587931ef0e475467e045aed85d4fbfd6b716610f45cdfec1e297f8023ca31c7",
+  "final_model_sha256": "abbfd3fadc16ebcf91f0da692b137cac4c887f0a5841fa2db4c6f349ec099f4d",
+  "checkpoint_file": "ara/s3-generation/evidence/s3_treeheap_multiverb_semantic_auxiliary_f18/formal_seed12902/checkpoint_latest.pt",
+  "gates": {
+    "O0_data_contract": true,
+    "O1_finite": true,
+    "O2_source_frozen": true,
+    "O2_model_updated": true,
+    "O3_checkpoint_reload": true,
+    "S0_wmt_nll_preserved": true,
+    "P1_aux_root_auroc": false,
+    "P2_aux_scale_consistency": true,
+    "P3_f16_fold_root_transfer": false,
+    "P4_f16_read_root_transfer": false
+  },
+  "diagnosis": "semantic pressure insufficient at both scales; do not isolate FOLD",
+  "seconds": 253.99915647506714,
+  "claim_boundary": "small automatic-label task training; not product translation proof"
+}
