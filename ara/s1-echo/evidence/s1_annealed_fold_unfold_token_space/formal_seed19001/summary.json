@@ -1,0 +1,266 @@
+{
+  "claim": "S1-ANNEAL-SPACE-C01",
+  "experiment": "P-S1-ANNEAL-SPACE01",
+  "config": {
+    "seeds": 24,
+    "seed_start": 19001,
+    "categories": 8,
+    "tokens_per_category": 8,
+    "contexts_per_category": 8,
+    "global_contexts": 8,
+    "train_observations": 1200,
+    "test_observations": 600,
+    "depth": 4,
+    "temperatures": [
+      4.0,
+      2.0,
+      1.0,
+      0.5,
+      0.25,
+      0.125,
+      0.0625
+    ],
+    "em_steps": 30,
+    "alpha": 0.05,
+    "device": "cuda"
+  },
+  "vocab": {
+    "tokens": 64,
+    "contexts": 136,
+    "labels_audit_only": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+    ]
+  },
+  "elapsed_seconds": 27.205758571624756,
+  "summary": {
+    "by_mode": {
+      "structured": {
+        "heldout_context_nll": {
+          "mean": 2.774491779467663,
+          "std": 0.007615700064999563,
+          "n": 24
+        },
+        "token_reference_nll": {
+          "mean": 2.6288906452500607,
+          "std": 0.0033577103881898824,
+          "n": 24
+        },
+        "global_reference_nll": {
+          "mean": 4.573053127315711,
+          "std": 0.0034760241893316813,
+          "n": 24
+        },
+        "cluster_purity": {
+          "mean": 1.0,
+          "std": 0.0,
+          "n": 24
+        },
+        "pairwise_f1": {
+          "mean": 0.7437718472820883,
+          "std": 0.045125273540512274,
+          "n": 24
+        },
+        "route_knn_top3": {
+          "mean": 0.8901909722222222,
+          "std": 0.020937060929153362,
+          "n": 24
+        },
+        "leaf_utilization": {
+          "mean": 0.9947916666666666,
+          "std": 0.01727408744976771,
+          "n": 24
+        },
+        "leaf_occupancy_entropy": {
+          "mean": 0.9440723750360503,
+          "std": 0.019311694275891227,
+          "n": 24
+        },
+        "fold_conservation_max_abs": {
+          "mean": 1.0177044392397268e-16,
+          "std": 2.0687784610393942e-17,
+          "n": 24
+        },
+        "route_stability": 0.7093644791975993
+      },
+      "shuffled": {
+        "heldout_context_nll": {
+          "mean": 8.650482264834162,
+          "std": 0.14342710304683123,
+          "n": 24
+        },
+        "token_reference_nll": {
+          "mean": 2.6288906452500607,
+          "std": 0.0033577103881898824,
+          "n": 24
+        },
+        "global_reference_nll": {
+          "mean": 4.573053127315711,
+          "std": 0.0034760241893316813,
+          "n": 24
+        },
+        "cluster_purity": {
+          "mean": 0.3990885416666667,
+          "std": 0.03635938022250834,
+          "n": 24
+        },
+        "pairwise_f1": {
+          "mean": 0.07396515732716684,
+          "std": 0.02186381235683063,
+          "n": 24
+        },
+        "route_knn_top3": {
+          "mean": 0.11480034722222221,
+          "std": 0.036068073938513356,
+          "n": 24
+        },
+        "leaf_utilization": {
+          "mean": 0.9973958333333334,
+          "std": 0.012489144591960207,
+          "n": 24
+        },
+        "leaf_occupancy_entropy": {
+          "mean": 0.9760225917354713,
+          "std": 0.01795151320968523,
+          "n": 24
+        },
+        "fold_conservation_max_abs": {
+          "mean": 5.2909066017292616e-17,
+          "std": 1.0752020790942939e-17,
+          "n": 24
+        },
+        "route_stability": 0.22962556158985395
+      },
+      "random_route": {
+        "heldout_context_nll": {
+          "mean": 3.688608807665263,
+          "std": 0.06357817157785063,
+          "n": 24
+        },
+        "token_reference_nll": {
+          "mean": 2.6288906452500607,
+          "std": 0.0033577103881898824,
+          "n": 24
+        },
+        "global_reference_nll": {
+          "mean": 4.573053127315711,
+          "std": 0.0034760241893316813,
+          "n": 24
+        },
+        "cluster_purity": {
+          "mean": 0.390625,
+          "std": 0.03853814736184568,
+          "n": 24
+        },
+        "pairwise_f1": {
+          "mean": 0.08497660056844249,
+          "std": 0.026193224256165798,
+          "n": 24
+        },
+        "route_knn_top3": {
+          "mean": 0.11046006944444443,
+          "std": 0.04313229520818169,
+          "n": 24
+        },
+        "leaf_utilization": {
+          "mean": 0.9713541666666666,
+          "std": 0.031141304018493226,
+          "n": 24
+        },
+        "leaf_occupancy_entropy": {
+          "mean": 0.9471204127245257,
+          "std": 0.015939283054282573,
+          "n": 24
+        },
+        "fold_conservation_max_abs": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 24
+        },
+        "route_stability": 0.23684176949606098
+      }
+    },
+    "gaps": {
+      "purity_vs_shuffled": 0.6009114583333333,
+      "purity_vs_random": 0.609375,
+      "pairwise_f1_vs_shuffled": 0.6698066899549215,
+      "nll_vs_shuffled": 5.875990485366499,
+      "nll_vs_random": 0.9141170281975999,
+      "stability_vs_shuffled": 0.47973891760774534
+    },
+    "gates": {
+      "purity_vs_shuffled_ge_0_20": true,
+      "purity_vs_random_ge_0_20": true,
+      "pairwise_f1_vs_shuffled_ge_0_20": true,
+      "nll_better_than_shuffled": true,
+      "nll_better_than_random": true,
+      "stability_better_than_shuffled": true,
+      "leaf_utilization_ge_0_75": true,
+      "occupancy_entropy_ge_0_80": true,
+      "conservation_le_1e_6": true
+    },
+    "pilot_supported": true
+  }
+}

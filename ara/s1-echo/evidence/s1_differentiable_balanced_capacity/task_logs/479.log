@@ -1,0 +1,125 @@
+=== taskd run 479 2026-09-16T07:25:36Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_differentiable_balanced_capacity.py", "--evidence-dir", "ara/s1-echo/evidence/s1_differentiable_balanced_capacity/contract_20k_v128", "--max-scan-lines", "20000", "--target-vocab", "128", "--context-vocab", "256", "--depth", "5", "--train-steps", "20", "--sinkhorn-steps", "20", "--seed", "19411", "--device", "cuda"] ===
+{
+  "claim": "S1-BALANCED-CAPACITY-TRAIN-C01",
+  "experiment": "P-S1-BALANCED-CAPACITY03",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s1-echo/evidence/s1_differentiable_balanced_capacity/contract_20k_v128",
+    "max_scan_lines": 20000,
+    "target_vocab": 128,
+    "context_vocab": 256,
+    "window": 4,
+    "max_sentence_tokens": 96,
+    "test_mod": 10,
+    "depth": 5,
+    "split_iterations": 30,
+    "alpha": 0.1,
+    "train_steps": 20,
+    "learning_rate": 0.01,
+    "temperature": 0.08,
+    "sinkhorn_steps": 20,
+    "neighbor_k": 3,
+    "seed": 19411,
+    "device": "cuda"
+  },
+  "corpus": {
+    "train_lines": 18000,
+    "test_lines": 2000,
+    "train_pairs": 365854,
+    "test_pairs": 40267,
+    "valid_lines": 20000,
+    "token_total": 431185,
+    "scan_sha256": "7955a79c3add45d58f4881b9cc4bb66ca9cb0c66e818ab5e4d94625b193f0822"
+  },
+  "frozen_semantic": {
+    "hard_heldout_nll": 4.3223073742991795,
+    "leaf_utilization": 1.0,
+    "leaf_entropy": 1.0,
+    "leaf_count_min": 4,
+    "leaf_count_max": 4,
+    "heldout_neighbor_lcp": 1.6432291666666665,
+    "random_pair_lcp": 0.9791666666666666,
+    "lcp_gain": 0.6640624999999999
+  },
+  "controls": {
+    "random": {
+      "hard_heldout_nll": 4.37165209416137,
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 0.9401041666666666,
+      "random_pair_lcp": 0.9427083333333333,
+      "lcp_gain": -0.0026041666666666297
+    },
+    "frequency": {
+      "hard_heldout_nll": 4.386845982416111,
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 1.2265625,
+      "random_pair_lcp": 1.0416666666666665,
+      "lcp_gain": 0.18489583333333348
+    }
+  },
+  "balanced": {
+    "name": "sinkhorn_balanced",
+    "balanced": true,
+    "initial_train_nll": 4.35324764251709,
+    "final_train_nll": 4.324871063232422,
+    "train_nll_decrease": 0.02837657928466797,
+    "soft_heldout_nll": 4.332561312931152,
+    "hard_heldout_nll": 4.343464201937772,
+    "parameter_delta_l2": 16.802457809448242,
+    "last_gradient_l2": 0.005880810786038637,
+    "finite_gradients": true,
+    "soft_row_mass_error": 0.06957578659057617,
+    "soft_column_mass_error": 9.5367431640625e-07,
+    "leaf_utilization": 1.0,
+    "leaf_entropy": 1.0,
+    "leaf_count_min": 4,
+    "leaf_count_max": 4,
+    "heldout_neighbor_lcp": 1.6666666666666665,
+    "random_pair_lcp": 0.9739583333333333,
+    "lcp_gain": 0.6927083333333333
+  },
+  "unconstrained": {
+    "name": "row_softmax_unconstrained",
+    "balanced": false,
+    "initial_train_nll": 4.357061386108398,
+    "final_train_nll": 4.326364994049072,
+    "train_nll_decrease": 0.030696392059326172,
+    "soft_heldout_nll": 4.331381353066346,
+    "hard_heldout_nll": 4.34232397005521,
+    "parameter_delta_l2": 16.86251449584961,
+    "last_gradient_l2": 0.006031118333339691,
+    "finite_gradients": true,
+    "soft_row_mass_error": 2.384185791015625e-07,
+    "soft_column_mass_error": 3.5346970558166504,
+    "leaf_utilization": 1.0,
+    "leaf_entropy": 0.9818184727951148,
+    "leaf_count_min": 1,
+    "leaf_count_max": 8,
+    "heldout_neighbor_lcp": 1.8072916666666665,
+    "random_pair_lcp": 1.0130208333333333,
+    "lcp_gain": 0.7942708333333333
+  },
+  "gates": {
+    "finite_gradients": true,
+    "train_nll_decrease_ge_0_005": true,
+    "parameters_changed": true,
+    "soft_capacity": false,
+    "exact_hard_capacity": true,
+    "heldout_nll_beats_random": true,
+    "heldout_nll_retains_initializer": true,
+    "neighbor_lcp_beats_controls": true,
+    "neighbor_lcp_retains_initializer": true
+  },
+  "smoke_pass": false,
+  "elapsed_seconds": 4.827107191085815
+}
+=== status=done exit=0 elapsed=6.8s 2026-09-16T07:25:43Z ===

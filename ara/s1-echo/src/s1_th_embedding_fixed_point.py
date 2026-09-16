@@ -43,6 +43,7 @@ class Config:
     depth: int
     rounds: int
     mix: float
+    route_info_weight: float
     steps: int
     batch_size: int
     negatives: int
@@ -197,9 +198,16 @@ class RecurrentTreeHeap(nn.Module):
         nn.init.normal_(self.node_value, std=0.02)
 
     def fall_once(self, state: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+        updated, mass, _route_info = self._fall_once(state, collect_route_info=False)
+        return updated, mass
+
+    def _fall_once(
+        self, state: torch.Tensor, collect_route_info: bool
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         batch, dim = state.shape
         mass = torch.ones((batch, 1), device=state.device, dtype=state.dtype)
         read = torch.zeros_like(state)
+        route_info_terms: List[torch.Tensor] = []
         internal_offset = 0
         value_offset = 0
         for level in range(self.depth):
@@ -208,6 +216,22 @@ class RecurrentTreeHeap(nn.Module):
             bias = self.route_bias[internal_offset : internal_offset + nodes]
             logits = (state @ weight.t()) / math.sqrt(dim) + bias
             right = logits.sigmoid()
+            if collect_route_info:
+                binary_entropy = -(
+                    right * (right + EPS).log2()
+                    + (1.0 - right) * (1.0 - right + EPS).log2()
+                )
+                conditional_entropy = (mass * binary_entropy).sum(dim=1).mean()
+                node_mass = mass.mean(dim=0)
+                node_right_mass = (mass * right).mean(dim=0)
+                marginal_right = node_right_mass / (node_mass + EPS)
+                marginal_entropy = -(
+                    marginal_right * (marginal_right + EPS).log2()
+                    + (1.0 - marginal_right)
+                    * (1.0 - marginal_right + EPS).log2()
+                )
+                marginal_entropy = (node_mass * marginal_entropy).sum()
+                route_info_terms.append(conditional_entropy - marginal_entropy)
             next_mass = torch.stack((mass * (1.0 - right), mass * right), dim=-1).reshape(batch, -1)
             child_values = self.node_value[value_offset : value_offset + 2 * nodes]
             read = read + next_mass @ child_values
@@ -215,7 +239,25 @@ class RecurrentTreeHeap(nn.Module):
             internal_offset += nodes
             value_offset += 2 * nodes
         updated = F.normalize((1.0 - self.mix) * state + self.mix * read / self.depth, dim=-1)
-        return updated, mass
+        route_info = (
+            torch.stack(route_info_terms).mean()
+            if route_info_terms
+            else state.new_zeros(())
+        )
+        return updated, mass, route_info
+
+    def encode_with_route_info(
+        self, ids: torch.Tensor
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        state = F.normalize(self.embedding(ids), dim=-1)
+        route_info_terms = []
+        leaf_mass = torch.empty(0, device=ids.device)
+        for _ in range(self.rounds):
+            state, leaf_mass, route_info = self._fall_once(
+                state, collect_route_info=True
+            )
+            route_info_terms.append(route_info)
+        return state, leaf_mass, torch.stack(route_info_terms).mean()
 
     def encode(
         self, ids: torch.Tensor, return_round_leaves: bool = False
@@ -259,6 +301,25 @@ def encode_batch(
         restored[:batch],
         restored[batch : 2 * batch],
         restored[2 * batch :].view(batch, negative.shape[1], -1),
+    )
+
+
+def encode_batch_tree_with_info(
+    model: RecurrentTreeHeap,
+    center: torch.Tensor,
+    positive: torch.Tensor,
+    negative: torch.Tensor,
+) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    all_ids = torch.cat((center, positive, negative.reshape(-1)))
+    unique, inverse = torch.unique(all_ids, sorted=True, return_inverse=True)
+    encoded, _mass, route_info = model.encode_with_route_info(unique)
+    restored = encoded[inverse]
+    batch = len(center)
+    return (
+        restored[:batch],
+        restored[batch : 2 * batch],
+        restored[2 * batch :].view(batch, negative.shape[1], -1),
+        route_info,
     )
 
 
@@ -380,8 +441,11 @@ def train(cfg: Config, payload: Dict[str, object], evidence: Path) -> Dict[str, 
         baseline_loss.backward()
         baseline_optimizer.step()
 
-        tc, tp, tn = encode_batch(tree, center, positive, negative)
-        tree_loss = pair_loss(tc, tp, tn, cfg.score_scale)
+        tc, tp, tn, route_info_loss = encode_batch_tree_with_info(
+            tree, center, positive, negative
+        )
+        tree_pair_loss = pair_loss(tc, tp, tn, cfg.score_scale)
+        tree_loss = tree_pair_loss + cfg.route_info_weight * route_info_loss
         tree_optimizer.zero_grad(set_to_none=True)
         tree_loss.backward()
         if first_gradients is None:
@@ -398,6 +462,8 @@ def train(cfg: Config, payload: Dict[str, object], evidence: Path) -> Dict[str, 
                 "step": step,
                 "baseline_loss": float(baseline_loss.detach().item()),
                 "tree_loss": float(tree_loss.detach().item()),
+                "tree_pair_loss": float(tree_pair_loss.detach().item()),
+                "route_info_loss": float(route_info_loss.detach().item()),
                 "elapsed_seconds": time.time() - started,
             }
             trace.append(row)
@@ -443,6 +509,7 @@ def main() -> None:
     ap.add_argument("--depth", type=int, default=9)
     ap.add_argument("--rounds", type=int, default=2)
     ap.add_argument("--mix", type=float, default=0.5)
+    ap.add_argument("--route-info-weight", type=float, default=0.0)
     ap.add_argument("--steps", type=int, default=1000)
     ap.add_argument("--batch-size", type=int, default=512)
     ap.add_argument("--negatives", type=int, default=4)
@@ -457,7 +524,8 @@ def main() -> None:
         vocab_size=args.vocab_size, max_sentence_tokens=args.max_sentence_tokens,
         window=args.window, test_mod=args.test_mod, train_pair_cap=args.train_pair_cap,
         test_pair_cap=args.test_pair_cap, dim=args.dim, depth=args.depth,
-        rounds=args.rounds, mix=args.mix, steps=args.steps, batch_size=args.batch_size,
+        rounds=args.rounds, mix=args.mix, route_info_weight=args.route_info_weight,
+        steps=args.steps, batch_size=args.batch_size,
         negatives=args.negatives, lr=args.lr, score_scale=args.score_scale,
         eval_pairs=args.eval_pairs, seed=args.seed, device=args.device,
     )

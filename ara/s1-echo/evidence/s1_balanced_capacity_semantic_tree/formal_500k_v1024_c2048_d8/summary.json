@@ -1,0 +1,404 @@
+{
+  "claim": "S1-BALANCED-CAPACITY-C01",
+  "experiment": "P-S1-BALANCED-CAPACITY01",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s1-echo/evidence/s1_balanced_capacity_semantic_tree/formal_500k_v1024_c2048_d8",
+    "max_scan_lines": 500000,
+    "target_vocab": 1024,
+    "context_vocab": 2048,
+    "window": 4,
+    "max_sentence_tokens": 96,
+    "test_mod": 10,
+    "depth": 8,
+    "iterations": 30,
+    "alpha": 0.1,
+    "neighbor_k": 3,
+    "seed": 19401,
+    "device": "cuda"
+  },
+  "corpus": {
+    "train_lines": 450000,
+    "test_lines": 50000,
+    "train_pairs": 21821268,
+    "test_pairs": 2437423,
+    "valid_lines": 500000,
+    "token_total": 10721557,
+    "scan_sha256": "0cba00c8758c22fe10b457c65e3d07190b7de507de4ef7e1acd7f8fc9bddff44"
+  },
+  "metrics": {
+    "semantic": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 2.7978515625,
+      "random_pair_lcp": 0.9713541666666666,
+      "lcp_gain": 1.8264973958333335,
+      "heldout_context_nll": 5.705395277499953,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581List",
+            "\u2581Used",
+            "\u2581Video",
+            "\u2581Power"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581Design",
+            "\u2581System",
+            "\u2581Management",
+            "\u2581Development"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581Product",
+            "\u2581Products",
+            "\u2581News",
+            "\u2581Location"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581Home",
+            "\u2581Contact",
+            "\u2581About",
+            "\u2581Us"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581Chapter",
+            "\u2581Download",
+            "\u2581Name",
+            "\u2581Videos"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581URL",
+            "\u2581requested",
+            "\u2581File",
+            "\u2581PHP"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581Information",
+            "\u2581Version",
+            "\u2581Microsoft",
+            "\u2581Price"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581Free",
+            "\u2581Room",
+            "\u2581Standard",
+            "\u2581Air"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581THE",
+            "\u2581OF",
+            "\u2581OR",
+            "\u2581AND"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581CO",
+            "\u2581TO",
+            "\u2581IN",
+            "\u2581ST"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581Requested",
+            "\u2581Supplier",
+            "\u2581USD",
+            "\u2581Template"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581Co",
+            "\u2581LTD",
+            "\u2581Type",
+            "\u2581SN"
+          ]
+        }
+      ],
+      "max_capacity_imbalance": 0,
+      "fold_conservation_max_abs": 5.551115123125783e-17
+    },
+    "random": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 0.9921875,
+      "random_pair_lcp": 1.0283203125,
+      "lcp_gain": -0.0361328125,
+      "heldout_context_nll": 5.783943037488151,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581up",
+            "\u2581place",
+            "\u2581Le",
+            "\u2581further"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581stay",
+            "\u2581open",
+            "\u2581Guests",
+            "\u2581Book"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581between",
+            "\u2581Site",
+            "\u2581code",
+            "\u2581Art"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581an",
+            "\u2581project",
+            "\u2581special",
+            "\u2581File"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581front",
+            "\u2581options",
+            "\u2581System",
+            "\u2581operation"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581Website",
+            "\u2581whole",
+            "\u2581images",
+            "\u2581Line"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581be",
+            "\u2581minutes",
+            "\u2581Questions",
+            "\u2581vehicle"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581after",
+            "\u2581second",
+            "\u2581fl",
+            "\u2581Centre"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581including",
+            "\u2581Road",
+            "\u2581La",
+            "\u2581European"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581De",
+            "\u2581bed",
+            "\u2581latest",
+            "\u2581costs"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581is",
+            "\u2581Home",
+            "\u2581choose",
+            "\u2581Israel"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581find",
+            "\u2581Wikipedia",
+            "\u2581during",
+            "\u2581York"
+          ]
+        }
+      ]
+    },
+    "frequency": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 1.2757161458333333,
+      "random_pair_lcp": 0.9886067708333333,
+      "lcp_gain": 0.287109375,
+      "heldout_context_nll": 5.8396723491508284,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581Used",
+            "\u2581Template",
+            "\u2581Prices",
+            "\u2581Real"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581PHP",
+            "\u2581Video",
+            "\u2581SN",
+            "\u2581Any"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581File",
+            "\u2581News",
+            "\u2581Usage",
+            "\u2581Some"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581Book",
+            "\u2581ST",
+            "\u2581Development",
+            "\u2581Location"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581Where",
+            "\u2581En",
+            "\u2581Power",
+            "\u2581Pre"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581List",
+            "\u2581IN",
+            "\u2581Us",
+            "\u2581Server"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581Ex",
+            "\u2581Semiconductor",
+            "\u2581Ne",
+            "\u2581App"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581Name",
+            "\u2581Management",
+            "\u2581Price",
+            "\u2581Videos"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581See",
+            "\u2581Of",
+            "\u2581Top",
+            "\u2581ON"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581Map",
+            "\u2581Pl",
+            "\u2581First",
+            "\u2581Mr"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581About",
+            "\u2581TO",
+            "\u2581Dr",
+            "\u2581steel"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581Check",
+            "\u2581Sc",
+            "\u2581jobs",
+            "\u2581Private"
+          ]
+        }
+      ]
+    }
+  },
+  "gates": {
+    "exact_capacity": true,
+    "full_leaf_use": true,
+    "nll_beats_random": true,
+    "neighbor_lcp_gain_ge_0_25": true,
+    "neighbor_lcp_beats_controls": true,
+    "finite_fold": true
+  },
+  "smoke_pass": true,
+  "elapsed_seconds": 171.17488598823547
+}

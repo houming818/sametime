@@ -1,0 +1,125 @@
+=== taskd run 483 2026-09-16T07:29:58Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_differentiable_balanced_capacity.py", "--evidence-dir", "ara/s1-echo/evidence/s1_differentiable_balanced_capacity/formal_100k_v256_seed19411", "--max-scan-lines", "100000", "--target-vocab", "256", "--context-vocab", "512", "--depth", "6", "--train-steps", "200", "--learning-rate", "0.01", "--temperature", "0.20", "--sinkhorn-steps", "30", "--seed", "19411", "--device", "cuda"] ===
+{
+  "claim": "S1-BALANCED-CAPACITY-TRAIN-C01",
+  "experiment": "P-S1-BALANCED-CAPACITY03",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s1-echo/evidence/s1_differentiable_balanced_capacity/formal_100k_v256_seed19411",
+    "max_scan_lines": 100000,
+    "target_vocab": 256,
+    "context_vocab": 512,
+    "window": 4,
+    "max_sentence_tokens": 96,
+    "test_mod": 10,
+    "depth": 6,
+    "split_iterations": 30,
+    "alpha": 0.1,
+    "train_steps": 200,
+    "learning_rate": 0.01,
+    "temperature": 0.2,
+    "sinkhorn_steps": 30,
+    "neighbor_k": 3,
+    "seed": 19411,
+    "device": "cuda"
+  },
+  "corpus": {
+    "train_lines": 90000,
+    "test_lines": 10000,
+    "train_pairs": 2451081,
+    "test_pairs": 270770,
+    "valid_lines": 100000,
+    "token_total": 2142531,
+    "scan_sha256": "ee465537b3826e9106d9f8fba3fe947081e70bbbb3b57c02064dd727719c9aae"
+  },
+  "frozen_semantic": {
+    "hard_heldout_nll": 4.777788906607269,
+    "leaf_utilization": 1.0,
+    "leaf_entropy": 1.0,
+    "leaf_count_min": 4,
+    "leaf_count_max": 4,
+    "heldout_neighbor_lcp": 2.25,
+    "random_pair_lcp": 0.9140625,
+    "lcp_gain": 1.3359375
+  },
+  "controls": {
+    "random": {
+      "hard_heldout_nll": 4.851593942384738,
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 0.9986979166666666,
+      "random_pair_lcp": 1.0182291666666665,
+      "lcp_gain": -0.01953124999999989
+    },
+    "frequency": {
+      "hard_heldout_nll": 4.8687346334847375,
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 1.15234375,
+      "random_pair_lcp": 0.984375,
+      "lcp_gain": 0.16796875
+    }
+  },
+  "balanced": {
+    "name": "sinkhorn_balanced",
+    "balanced": true,
+    "initial_train_nll": 4.89265251159668,
+    "final_train_nll": 4.779606342315674,
+    "train_nll_decrease": 0.11304616928100586,
+    "soft_heldout_nll": 4.78887127846039,
+    "hard_heldout_nll": 5.614692114042596,
+    "parameter_delta_l2": 221.8355712890625,
+    "last_gradient_l2": 0.0009797823149710894,
+    "finite_gradients": true,
+    "soft_row_mass_error": 3.063678741455078e-05,
+    "soft_column_mass_error": 1.1920928955078125e-06,
+    "leaf_utilization": 1.0,
+    "leaf_entropy": 1.0,
+    "leaf_count_min": 4,
+    "leaf_count_max": 4,
+    "heldout_neighbor_lcp": 2.3502604166666665,
+    "random_pair_lcp": 0.9127604166666666,
+    "lcp_gain": 1.4375
+  },
+  "unconstrained": {
+    "name": "row_softmax_unconstrained",
+    "balanced": false,
+    "initial_train_nll": 4.904208183288574,
+    "final_train_nll": 4.774539470672607,
+    "train_nll_decrease": 0.1296687126159668,
+    "soft_heldout_nll": 4.783902358055909,
+    "hard_heldout_nll": 5.5779910242004,
+    "parameter_delta_l2": 235.27066040039062,
+    "last_gradient_l2": 0.0012058643624186516,
+    "finite_gradients": true,
+    "soft_row_mass_error": 1.1920928955078125e-07,
+    "soft_column_mass_error": 5.107083320617676,
+    "leaf_utilization": 1.0,
+    "leaf_entropy": 0.9421279399373034,
+    "leaf_count_min": 1,
+    "leaf_count_max": 24,
+    "heldout_neighbor_lcp": 2.34765625,
+    "random_pair_lcp": 1.00390625,
+    "lcp_gain": 1.34375
+  },
+  "gates": {
+    "finite_gradients": true,
+    "train_nll_decrease_ge_0_005": true,
+    "parameters_changed": true,
+    "soft_capacity": true,
+    "exact_hard_capacity": true,
+    "heldout_nll_beats_random": false,
+    "heldout_nll_retains_initializer": false,
+    "neighbor_lcp_beats_controls": true,
+    "neighbor_lcp_retains_initializer": true
+  },
+  "smoke_pass": false,
+  "elapsed_seconds": 25.31658697128296
+}
+=== status=done exit=0 elapsed=27.1s 2026-09-16T07:30:25Z ===

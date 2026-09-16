@@ -1,0 +1,404 @@
+{
+  "claim": "S1-BALANCED-CAPACITY-C01",
+  "experiment": "P-S1-BALANCED-CAPACITY01",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s1-echo/evidence/s1_balanced_capacity_semantic_tree/smoke_50k_seed19401_r1",
+    "max_scan_lines": 50000,
+    "target_vocab": 256,
+    "context_vocab": 512,
+    "window": 4,
+    "max_sentence_tokens": 96,
+    "test_mod": 10,
+    "depth": 6,
+    "iterations": 30,
+    "alpha": 0.1,
+    "neighbor_k": 3,
+    "seed": 19401,
+    "device": "cuda"
+  },
+  "corpus": {
+    "train_lines": 45000,
+    "test_lines": 5000,
+    "train_pairs": 1228137,
+    "test_pairs": 137056,
+    "valid_lines": 50000,
+    "token_total": 1074443,
+    "scan_sha256": "7027fcd2b57468a29315a14f157e3e24345368fb55e3b6442d629c0935417ba1"
+  },
+  "metrics": {
+    "semantic": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 2.0221354166666665,
+      "random_pair_lcp": 1.0325520833333333,
+      "lcp_gain": 0.9895833333333333,
+      "heldout_context_nll": 4.788724845849071,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581The",
+            "\u2581Hotel",
+            "\u2581km",
+            "\u2581More"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581St",
+            "\u2581Co",
+            "\u2581International",
+            "\u2581No"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581map",
+            "\u2581hotels",
+            "\u2581Free",
+            "\u2581availability"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581details",
+            "\u2581hours",
+            "\u2581City",
+            "\u2581Hotels"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581Page",
+            "\u2581Datasheet",
+            "\u2581Chapter",
+            "\u2581Room"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581Important",
+            "\u2581By",
+            "\u2581Working",
+            "\u2581Download"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581found",
+            "\u2581server",
+            "\u2581CO",
+            "\u2581Information"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581URL",
+            "\u2581Requested",
+            "\u2581requested",
+            "\u2581Supplier"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581room",
+            "\u2581area",
+            "\u2581features",
+            "\u2581At"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581years",
+            "\u2581All",
+            "\u2581rooms",
+            "\u2581There"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581In",
+            "\u2581For",
+            "\u2581New",
+            "\u2581de"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581China",
+            "\u2581United",
+            "\u2581show",
+            "\u2581States"
+          ]
+        }
+      ],
+      "max_capacity_imbalance": 0,
+      "fold_conservation_max_abs": 5.551115123125783e-17
+    },
+    "random": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 0.9453125,
+      "random_pair_lcp": 0.9440104166666666,
+      "lcp_gain": 0.0013020833333333703,
+      "heldout_context_nll": 4.852551783339194,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581people",
+            "\u2581two",
+            "\u2581each",
+            "\u2581end"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581as",
+            "\u2581her",
+            "\u2581including",
+            "\u2581find"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581about",
+            "\u2581shall",
+            "\u2581some",
+            "\u2581air"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581has",
+            "\u2581my",
+            "\u2581then",
+            "\u2581technology"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581within",
+            "\u2581using",
+            "\u2581book",
+            "\u2581because"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581for",
+            "\u2581data",
+            "\u2581like",
+            "\u2581International"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581time",
+            "\u2581car",
+            "\u2581under",
+            "\u2581away"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581and",
+            "\u2581from",
+            "\u2581hours",
+            "\u2581page"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581to",
+            "\u2581free",
+            "\u2581through",
+            "\u2581United"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581other",
+            "\u2581she",
+            "\u2581after",
+            "\u2581development"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581do",
+            "\u2581He",
+            "\u2581offers",
+            "\u2581change"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581that",
+            "\u2581this",
+            "\u2581part",
+            "\u2581No"
+          ]
+        }
+      ]
+    },
+    "frequency": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 1.2825520833333333,
+      "random_pair_lcp": 0.9596354166666666,
+      "lcp_gain": 0.32291666666666663,
+      "heldout_context_nll": 4.879031185291748,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581Supplier",
+            "\u2581More",
+            "\u2581Download",
+            "\u2581Our"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581Chapter",
+            "\u2581No",
+            "\u2581Hotels",
+            "\u2581At"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581Free",
+            "\u2581When",
+            "\u2581Room",
+            "\u2581Information"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581Working",
+            "\u2581International",
+            "\u2581As",
+            "\u2581There"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581She",
+            "\u2581All",
+            "\u2581How",
+            "\u2581City"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581de",
+            "\u2581near",
+            "\u2581technology",
+            "\u2581air"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581St",
+            "\u2581But",
+            "\u2581By",
+            "\u2581design"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581quality",
+            "\u2581away",
+            "\u2581year",
+            "\u2581features"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581Important",
+            "\u2581CO",
+            "\u2581States",
+            "\u2581different"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581New",
+            "\u2581What",
+            "\u2581website",
+            "\u2581type"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581To",
+            "\u2581show",
+            "\u2581Co",
+            "\u2581development"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581those",
+            "\u2581account",
+            "\u2581offer",
+            "\u2581great"
+          ]
+        }
+      ]
+    }
+  },
+  "gates": {
+    "exact_capacity": true,
+    "full_leaf_use": true,
+    "nll_beats_random": true,
+    "neighbor_lcp_gain_ge_0_25": true,
+    "neighbor_lcp_beats_controls": true,
+    "finite_fold": true
+  },
+  "smoke_pass": true,
+  "elapsed_seconds": 11.538744926452637
+}

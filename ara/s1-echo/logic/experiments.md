@@ -2531,3 +2531,175 @@ fall in hard-leaf utilization is an argmax crowding symptom, not confident
 route collapse. A successor should maximize hierarchical route information by
 reducing per-token conditional branch entropy while retaining marginal branch
 entropy; balancing hard occupancy alone is not the registered intervention.
+
+## P-S1-TH-ROUTE-INFO01: Hierarchical Route Information
+
+**Status:** completed / tested scalar objective rejected
+**Claim:** `S1-TH-ROUTE-INFO-C01`
+**Design:** `th_route_information_objective.md`
+
+Keep seed `19301`, data, batches, model, pair-NCE loss, and evaluation fixed.
+Add only `lambda * (H(B|X,N) - H(B|N))` to the TreeHeap arm. The existing
+zero-weight Smoke is the control; weights `0.05` and `0.20` are the two bounded
+interventions. A read-only route audit decides whether soft decisions sharpen.
+No formal run is permitted until the Smoke weight is selected by the registered
+route-entropy and pair-ordering gates.
+
+Tasks 469--470 show that weights `0.05/0.20` are too small: minimum branch
+entropy moved by less than `1e-5` bit. Both interventions fail the registered
+`0.01`-bit route gate. The step-1 gradient ratio justifies one bounded scale
+calibration at weights `256/1024`, with seed, batches, architecture, and gates
+unchanged. These retries are not formal evidence unless one passes all gates.
+
+## P-S1-BALANCED-CAPACITY01: Balanced Capacity Before Semantics
+
+**Status:** completed / smoke supported
+**Claim:** `S1-BALANCED-CAPACITY-C01`
+**Design:** `balanced_capacity_semantic_tree.md`
+
+Remove NCE and trainable embeddings. Build `P(context|token)` from held-in WMT
+lines, recursively project each node onto two exact equal-capacity children,
+and update child prototypes by FOLD means in Hellinger space. Compare with
+balanced random and balanced frequency ordering under identical leaf capacity.
+Held-out lines evaluate context NLL and semantic-neighbor prefix length. Seed
+`19401` is fixed and used only for controls and audit sampling.
+
+Task 475 is retained as a pre-compute configuration failure. Corrected task
+476 passed every gate: exact four-token leaf capacity, utilization/entropy
+`1.0/1.0`, semantic/random/frequency held-out NLL
+`4.78872/4.85255/4.87903`, semantic/random/frequency held-out neighbor LCP
+`2.02214/0.94531/1.28255`, random-pair LCP `1.03255`, and FOLD conservation
+error `5.55e-17`. Evidence:
+`evidence/s1_balanced_capacity_semantic_tree/smoke_50k_seed19401_r1/`.
+
+## P-S1-BALANCED-CAPACITY02: Vocabulary-Scale Ladder
+
+**Status:** completed / scale supported
+**Claim:** `S1-BALANCED-CAPACITY-C01`
+**Design:** `balanced_capacity_semantic_tree.md`
+
+Run two deterministic scale points using the same construction and immutable
+WMT source: `(200K lines, 512 targets, 1024 contexts, depth 7)` and `(500K
+lines, 1024 targets, 2048 contexts, depth 8)`. Both preserve four token types
+per leaf. Seed `19401` remains restricted to balanced-random controls and
+random-pair audits. Each point must independently report all P01 metrics.
+Scale is supported only if exact capacity/full use/conservation stay valid and
+semantic held-out NLL plus neighbor LCP both beat balanced random and balanced
+frequency controls. Runtime or memory failures stop the ladder; a quality-gate
+failure is recorded without rewriting P01.
+
+Tasks 477--478 completed. At 512 targets, semantic/random/frequency NLL was
+`5.26116/5.33487/5.37730` and neighbor LCP was
+`2.45964/1.01888/1.25065`. At 1024 targets the corresponding values were
+`5.70540/5.78394/5.83967` and `2.79785/0.99219/1.27572`. Both runs retained
+exact four-token leaf capacity, full use, entropy `1.0`, and conservation error
+`5.55e-17`; all registered gates passed. Raw summaries retain the P01 label
+from the initial script; task IDs and this preregistration map them to P02.
+Evidence: `evidence/s1_balanced_capacity_semantic_tree/`.
+
+## P-S1-BALANCED-CAPACITY03: Differentiable Capacity-Constrained Readout
+
+**Status:** completed / discrete readout rejected
+**Claim:** `S1-BALANCED-CAPACITY-TRAIN-C01`
+**Design:** `differentiable_balanced_capacity.md`
+
+Use fixed real-corpus Hellinger observations and deterministic balanced-tree
+initialization. Train only shared leaf context distributions with held-in
+context cross entropy. The intervention obtains token-to-leaf mass through
+log-domain Sinkhorn; a matched row-softmax arm removes only the capacity
+projection. No NCE, negative sampling, random token embedding, or held-out
+gradient is permitted. Smoke uses WMT 100K, 256 targets, 512 contexts, depth
+6, 200 Adam steps at learning rate `0.01`, temperature `0.20`, and 30
+Sinkhorn iterations. Registered gates are defined in the design document.
+
+Pre-formal task 479 exposed insufficient Sinkhorn convergence at temperature
+`0.08`. No-gradient audits 480--481 showed that 120 sharp iterations still
+missed the row-mass gate, while temperature `0.20` with 30 iterations reached
+row/column errors `9.78e-6/9.54e-7`. The temperature amendment was registered
+before any formal gradient run; quality gates were not changed.
+
+Task 483 then passed finite-gradient, train-loss, parameter-motion, soft-mass,
+exact-capacity, and topology gates, but failed both hard NLL gates. Soft/hard
+held-out NLL was `4.78887/5.61469`; frozen/random was `4.77779/4.85159`.
+The zero-sharpening objective is closed as a useful soft mixture but invalid
+discrete readout.
+
+## P-S1-BALANCED-CAPACITY04: Capacity-Safe Route Sharpening
+
+**Status:** completed / registered weight range rejected
+**Claim:** `S1-BALANCED-CAPACITY-SHARP-C01`
+**Design:** `differentiable_balanced_capacity.md`
+
+Repeat task 483 with route conditional-entropy weights
+`0/0.05/0.20/1.00`. Sinkhorn capacity, corpus, initialization, optimizer,
+steps, temperature, seed, controls, and held-out split remain fixed. The same
+weight is also applied to the matched unconstrained arm. All four runs are
+reported; held-out data must not be used to select a weight. Registered gates
+require simultaneous route sharpness, exact capacity, small hard-soft NLL gap,
+hard NLL advantage over random, and held-out topology advantage.
+
+Tasks 484--487 completed. No weight passed: balanced normalized entropy was
+`0.8730/0.8659/0.8539/0.8367`, top-1 mass
+`0.1581/0.1644/0.1745/0.1846`, and hard-soft NLL gap
+`0.8258/0.8221/0.8635/0.8729`. Exact balanced occupancy remained `4..4`.
+The matched unconstrained arm collapsed as far as `0..189` tokens per leaf,
+showing that entropy pressure is not itself an exclusion mechanism. Status:
+completed / registered weight range rejected.
+
+## P-S1-BALANCED-CAPACITY05: Gradient-Calibrated Sharpening
+
+**Status:** completed / calibrated constant weights rejected
+**Claim:** `S1-BALANCED-CAPACITY-CALSHARP-C01`
+**Design:** `differentiable_balanced_capacity.md`
+
+Task 488 measured held-in step-0 context/entropy gradient norms
+`0.00305738/0.01181207`, hence equal-gradient weight `0.258835`. Run the
+unchanged 100K/256/512/depth-6/200-step contract at entropy weights
+`4/16/64`, approximately `15.5/61.8/247.3` equal-gradient units. All runs
+complete regardless of non-monotonic quality. Held-out data is reported but
+cannot select a weight or alter gates.
+
+Tasks 489--491 completed. Normalized entropy remained
+`0.8285/0.8259/0.8253`, top-1 mass `0.1869/0.1863/0.1856`, and hard-soft NLL
+gap `0.9266/0.9344/0.8881`. Exact capacity held, but no registered quality or
+sharpness conjunction passed. The constant-weight axis is closed.
+
+## P-S1-BALANCED-CAPACITY06: Hard Protocol in the Forward Path
+
+**Status:** completed / mechanism supported
+**Claim:** `S1-BALANCED-CAPACITY-HARD-C01`
+**Design:** `differentiable_balanced_capacity.md`
+
+Compare soft Sinkhorn forward prediction with exact equal-capacity one-hot
+forward prediction plus a straight-through Sinkhorn gradient. Both arms use a
+deterministic `0.5 * semantic leaf + 0.5 * global background` initializer,
+WMT 100K, 256 targets, 512 contexts, depth 6, 200 Adam steps, learning rate
+`0.01`, temperature `0.20`, 30 Sinkhorn iterations, and zero route-entropy
+weight. All gates and the required `0.10` hard-NLL advantage over the matched
+soft-forward reference are registered in the design document.
+
+Tasks 492--493 passed every gate. Soft-reference versus straight-through-hard
+final hard NLL was `5.51873/4.77457`; the hard arm beat frozen/random
+`4.77779/4.85159`, reduced train NLL by `0.05563`, retained exact `4..4`
+capacity, and kept held-out neighbor LCP `2.30339` above both controls.
+Evidence: `evidence/s1_balanced_capacity_hard_protocol/`.
+
+## P-S1-BALANCED-CAPACITY07: Hard-Protocol Scale Ladder
+
+**Status:** completed / scale supported through 1024 targets
+**Claim:** `S1-BALANCED-CAPACITY-HARD-SCALE-C01`
+**Design:** `differentiable_balanced_capacity.md`
+
+Run the supported straight-through-hard protocol at `(200K lines, 512 targets,
+1024 contexts, depth 7)` and `(500K, 1024, 2048, depth 8)`. Keep four tokens
+per leaf, 200 steps, deterministic blend `0.50`, learning rate `0.01`,
+temperature `0.20`, 30 Sinkhorn iterations, zero entropy weight, and seed
+`19411` restricted to controls. Both runs complete unless runtime/evidence
+integrity fails. No larger point is authorized by this registration.
+
+Tasks 494--495 passed all gates. At 512 targets, train decrease/hard NLL/frozen
+NLL/random NLL/neighbor LCP were
+`0.07070/5.25649/5.26116/5.32978/2.48307`. At 1024 targets they were
+`0.07902/5.70199/5.70540/5.77995/2.82096`. Both retained exact `4..4`
+capacity, finite gradients, and topology above controls. Evidence:
+`evidence/s1_balanced_capacity_hard_protocol_scale/`.

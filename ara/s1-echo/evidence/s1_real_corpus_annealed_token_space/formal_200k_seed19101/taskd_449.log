@@ -1,0 +1,213 @@
+=== taskd run 449 2026-09-16T02:14:34Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_real_corpus_annealed_token_space.py", "--evidence-dir", "ara/s1-echo/evidence/s1_real_corpus_annealed_token_space/formal_200k_seed19101", "--max-scan-lines", "200000", "--target-vocab", "512", "--context-vocab", "1024", "--depth", "5", "--bootstrap-seeds", "8", "--seed-start", "19101", "--em-steps", "30", "--sgns-steps", "300", "--device", "cuda"] ===
+seed=19101 tree_nll=5.345310 flat_nll=5.366319 shuffle_nll=5.758121 overlap=0.1777
+seed=19102 tree_nll=5.345391 flat_nll=5.362954 shuffle_nll=5.829793 overlap=0.1945
+seed=19103 tree_nll=5.348907 flat_nll=5.363045 shuffle_nll=5.845990 overlap=0.1855
+seed=19104 tree_nll=5.355067 flat_nll=5.364792 shuffle_nll=5.804735 overlap=0.1623
+seed=19105 tree_nll=5.407649 flat_nll=5.364920 shuffle_nll=5.843477 overlap=0.1314
+seed=19106 tree_nll=5.346664 flat_nll=5.363360 shuffle_nll=5.853025 overlap=0.1723
+seed=19107 tree_nll=5.365160 flat_nll=5.357848 shuffle_nll=5.817711 overlap=0.1551
+seed=19108 tree_nll=5.357493 flat_nll=5.357353 shuffle_nll=5.812039 overlap=0.1930
+{
+  "nll": {
+    "tree": {
+      "mean": 5.358954958994073,
+      "std": 0.019522598365796697,
+      "min": 5.345309909399145,
+      "max": 5.407648863014316,
+      "n": 8
+    },
+    "frequency_shuffle": {
+      "mean": 5.820611365544944,
+      "std": 0.028593798749805912,
+      "min": 5.758120868874313,
+      "max": 5.853024683413411,
+      "n": 8
+    },
+    "random_route": {
+      "mean": 5.461013384859996,
+      "std": 0.002995680483644114,
+      "min": 5.4580549692233795,
+      "max": 5.465918050474778,
+      "n": 8
+    },
+    "flat_kmeans": {
+      "mean": 5.362573880601654,
+      "std": 0.0030625534104594667,
+      "min": 5.3573528049113435,
+      "max": 5.3663193603340575,
+      "n": 8
+    },
+    "expected_sgns": {
+      "mean": 5.20324965256053,
+      "std": 0.0008017233774859234,
+      "min": 5.202015554220364,
+      "max": 5.2047904495680894,
+      "n": 8
+    },
+    "token_reference": {
+      "mean": 5.208899332617804,
+      "std": 0.0005016785564793824,
+      "min": 5.207813403364569,
+      "max": 5.209583244601663,
+      "n": 8
+    },
+    "global_reference": {
+      "mean": 5.569782459282078,
+      "std": 3.567448081746096e-05,
+      "min": 5.569722721219154,
+      "max": 5.569831194096575,
+      "n": 8
+    }
+  },
+  "leaf_utilization": {
+    "tree": {
+      "mean": 0.9140625,
+      "std": 0.08230979494416202,
+      "min": 0.71875,
+      "max": 1.0,
+      "n": 8
+    },
+    "frequency_shuffle": {
+      "mean": 0.96484375,
+      "std": 0.024394523431243743,
+      "min": 0.90625,
+      "max": 1.0,
+      "n": 8
+    },
+    "random_route": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "n": 8
+    },
+    "flat_kmeans": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "n": 8
+    }
+  },
+  "occupancy_entropy": {
+    "tree": {
+      "mean": 0.7714073098473974,
+      "std": 0.10296853605397402,
+      "min": 0.5093180355472436,
+      "max": 0.8425887829597173,
+      "n": 8
+    },
+    "frequency_shuffle": {
+      "mean": 0.8266577651730461,
+      "std": 0.026584137332297596,
+      "min": 0.7788795225561038,
+      "max": 0.8584768789356632,
+      "n": 8
+    },
+    "random_route": {
+      "mean": 0.9918245979343163,
+      "std": 0.001899018862602283,
+      "min": 0.9878831299767246,
+      "max": 0.9938241018834324,
+      "n": 8
+    },
+    "flat_kmeans": {
+      "mean": 0.7481561354274291,
+      "std": 0.02140783252599486,
+      "min": 0.6969913613021445,
+      "max": 0.7680378167678054,
+      "n": 8
+    }
+  },
+  "fold_conservation_max_abs": {
+    "mean": 9.71445146547012e-17,
+    "std": 1.962615573354719e-17,
+    "min": 5.551115123125783e-17,
+    "max": 1.1102230246251565e-16,
+    "n": 8
+  },
+  "neighbor_overlap": {
+    "tree_vs_sgns": {
+      "mean": 0.171484375,
+      "std": 0.019958462496388007,
+      "min": 0.1314453125,
+      "max": 0.19453125000000002,
+      "n": 8
+    },
+    "random_vs_sgns": {
+      "mean": 0.0201416015625,
+      "std": 0.002186796892793107,
+      "min": 0.016796875,
+      "max": 0.0234375,
+      "n": 8
+    },
+    "flat_vs_sgns": {
+      "mean": 0.125927734375,
+      "std": 0.0133391967437806,
+      "min": 0.10312500000000001,
+      "max": 0.14375,
+      "n": 8
+    }
+  },
+  "frequency_r2": {
+    "tree": {
+      "mean": 0.31957370690775977,
+      "std": 0.08482064182605364,
+      "min": 0.22471843895545396,
+      "max": 0.4524451271821067,
+      "n": 8
+    },
+    "frequency_shuffle": {
+      "mean": 0.35550611462604725,
+      "std": 0.07652654396182022,
+      "min": 0.2367936800899645,
+      "max": 0.4764161084968105,
+      "n": 8
+    },
+    "random_route": {
+      "mean": 0.06557881924315155,
+      "std": 0.011036365174313598,
+      "min": 0.047213386245452904,
+      "max": 0.08161404903511671,
+      "n": 8
+    },
+    "flat_kmeans": {
+      "mean": 0.25763806200459904,
+      "std": 0.0838543770832623,
+      "min": 0.14904215455186187,
+      "max": 0.3959757963890651,
+      "n": 8
+    }
+  },
+  "stability": {
+    "tree": 0.35096112185267525,
+    "frequency_shuffle": 0.08583059009810486,
+    "random_route": 0.03121754134093816,
+    "flat_kmeans": 0.5918616824744245
+  },
+  "gaps": {
+    "nll_vs_global": 0.2108275002880049,
+    "nll_vs_frequency_shuffle": 0.4616564065508708,
+    "nll_vs_random_route": 0.10205842586592251,
+    "tree_minus_flat_nll": -0.003618921607580816,
+    "stability_vs_shuffle": 0.2651305317545704,
+    "stability_vs_random": 0.31974358051173707,
+    "sgns_overlap_vs_random": 0.1513427734375
+  },
+  "gates": {
+    "tree_nll_better_than_global": true,
+    "tree_nll_better_than_frequency_shuffle": true,
+    "tree_nll_better_than_random_route": true,
+    "tree_stability_better_than_frequency_shuffle": true,
+    "tree_stability_better_than_random_route": true,
+    "tree_sgns_overlap_gap_ge_0_02": true,
+    "tree_flat_nll_gap_le_0_15": true,
+    "tree_leaf_utilization_ge_0_75": true,
+    "tree_occupancy_entropy_ge_0_75": true,
+    "fold_conservation_le_1e_6": true
+  },
+  "claim_supported": true
+}
+=== status=done exit=0 elapsed=92.7s 2026-09-16T02:16:07Z ===

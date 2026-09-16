@@ -1,0 +1,10 @@
+=== taskd run 475 2026-09-16T07:03:31Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_balanced_capacity_semantic_tree.py", "--evidence-dir", "ara/s1-echo/evidence/s1_balanced_capacity_semantic_tree/smoke_50k_seed19401", "--max-scan-lines", "50000", "--target-vocab", "256", "--context-vocab", "512", "--depth", "6", "--iterations", "30", "--seed", "19401", "--device", "cuda"] ===
+Traceback (most recent call last):
+  File "/home/nio/log/holds/SameTime/ara/s1-echo/src/s1_balanced_capacity_semantic_tree.py", line 257, in <module>
+    main()
+  File "/home/nio/log/holds/SameTime/ara/s1-echo/src/s1_balanced_capacity_semantic_tree.py", line 198, in main
+    cfg = Config(**vars(args))
+TypeError: Config.__init__() got an unexpected keyword argument 'evidence_dir'
+=== status=failed exit=1 elapsed=1.3s 2026-09-16T07:03:32Z ===

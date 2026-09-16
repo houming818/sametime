@@ -1,0 +1,404 @@
+{
+  "claim": "S1-BALANCED-CAPACITY-C01",
+  "experiment": "P-S1-BALANCED-CAPACITY01",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s1-echo/evidence/s1_balanced_capacity_semantic_tree/formal_200k_v512_c1024_d7",
+    "max_scan_lines": 200000,
+    "target_vocab": 512,
+    "context_vocab": 1024,
+    "window": 4,
+    "max_sentence_tokens": 96,
+    "test_mod": 10,
+    "depth": 7,
+    "iterations": 30,
+    "alpha": 0.1,
+    "neighbor_k": 3,
+    "seed": 19401,
+    "device": "cuda"
+  },
+  "corpus": {
+    "train_lines": 180000,
+    "test_lines": 20000,
+    "train_pairs": 6599588,
+    "test_pairs": 735369,
+    "valid_lines": 200000,
+    "token_total": 4283059,
+    "scan_sha256": "cee68aef5b76cc40a9ee0fd7f34c2dff9e1ac0dd19be49cd5ba43118dcb4fd4d"
+  },
+  "metrics": {
+    "semantic": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 2.4596354166666665,
+      "random_pair_lcp": 0.95703125,
+      "lcp_gain": 1.5026041666666665,
+      "heldout_context_nll": 5.261162552824057,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581CO",
+            "\u2581Supplier",
+            "\u2581THE",
+            "\u2581OF"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581Co",
+            "\u2581LTD",
+            "\u2581Ltd",
+            "\u2581Contact"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581Information",
+            "\u2581Home",
+            "\u2581Search",
+            "\u2581Product"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581URL",
+            "\u2581Requested",
+            "\u2581requested",
+            "\u2581Version"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581Chapter",
+            "\u2581Room",
+            "\u2581Technology",
+            "\u2581Inc"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581Page",
+            "\u2581Datasheet",
+            "\u2581Texas",
+            "\u2581Instruments"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581map",
+            "\u2581Download",
+            "\u2581Standard",
+            "\u2581Design"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581Important",
+            "\u2581hours",
+            "\u2581Working",
+            "\u2581Wikipedia"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581ferry",
+            "\u2581ticket",
+            "\u2581Ferries",
+            "\u2581passenger"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581prices",
+            "\u2581navigation",
+            "\u2581generate",
+            "\u2581Last"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581details",
+            "\u2581availability",
+            "\u2581photos",
+            "\u2581latest"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581hotels",
+            "\u2581Please",
+            "\u2581view",
+            "\u2581dates"
+          ]
+        }
+      ],
+      "max_capacity_imbalance": 0,
+      "fold_conservation_max_abs": 5.551115123125783e-17
+    },
+    "random": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 1.0188802083333333,
+      "random_pair_lcp": 0.9680989583333333,
+      "lcp_gain": 0.05078125,
+      "heldout_context_nll": 5.334871757956424,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581high",
+            "\u2581quality",
+            "\u2581st",
+            "\u2581provided"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581This",
+            "\u2581new",
+            "\u2581city",
+            "\u2581major"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581work",
+            "\u2581some",
+            "\u2581things",
+            "\u2581key"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581time",
+            "\u2581But",
+            "\u2581City",
+            "\u2581LTD"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581had",
+            "\u2581On",
+            "\u2581location",
+            "\u2581Christ"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581property",
+            "\u2581companies",
+            "\u2581body",
+            "\u2581After"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581and",
+            "\u2581facilities",
+            "\u2581Version",
+            "\u2581file"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581his",
+            "\u2581Hotels",
+            "\u2581My",
+            "\u2581group"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581Hotel",
+            "\u2581up",
+            "\u2581user",
+            "\u2581went"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581for",
+            "\u2581after",
+            "\u2581local",
+            "\u2581Not"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581her",
+            "\u2581area",
+            "\u2581guests",
+            "\u2581South"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581their",
+            "\u2581system",
+            "\u2581where",
+            "\u2581photos"
+          ]
+        }
+      ]
+    },
+    "frequency": {
+      "leaf_utilization": 1.0,
+      "leaf_entropy": 1.0,
+      "leaf_count_min": 4,
+      "leaf_count_max": 4,
+      "heldout_neighbor_lcp": 1.2506510416666665,
+      "random_pair_lcp": 0.9986979166666666,
+      "lcp_gain": 0.2519531249999999,
+      "heldout_context_nll": 5.377298256684144,
+      "readable_leaves": [
+        {
+          "leaf": 0,
+          "pieces": [
+            "\u2581OF",
+            "\u2581Product",
+            "\u2581Contact",
+            "\u2581After"
+          ]
+        },
+        {
+          "leaf": 1,
+          "pieces": [
+            "\u2581THE",
+            "\u2581Best",
+            "\u2581Business",
+            "\u2581Pro"
+          ]
+        },
+        {
+          "leaf": 2,
+          "pieces": [
+            "\u2581Design",
+            "\u2581Not",
+            "\u2581Search",
+            "\u2581Read"
+          ]
+        },
+        {
+          "leaf": 3,
+          "pieces": [
+            "\u2581Download",
+            "\u2581Other",
+            "\u2581One",
+            "\u2581House"
+          ]
+        },
+        {
+          "leaf": 4,
+          "pieces": [
+            "\u2581Inn",
+            "\u2581Inc",
+            "\u2581His",
+            "\u2581Last"
+          ]
+        },
+        {
+          "leaf": 5,
+          "pieces": [
+            "\u2581San",
+            "\u2581Le",
+            "\u2581Beach",
+            "\u2581Instruments"
+          ]
+        },
+        {
+          "leaf": 6,
+          "pieces": [
+            "\u2581Apartment",
+            "\u2581An",
+            "\u2581World",
+            "\u2581Group"
+          ]
+        },
+        {
+          "leaf": 7,
+          "pieces": [
+            "\u2581View",
+            "\u2581National",
+            "\u2581North",
+            "\u2581Kong"
+          ]
+        },
+        {
+          "leaf": 8,
+          "pieces": [
+            "\u2581On",
+            "\u2581De",
+            "\u2581Center",
+            "\u2581Street"
+          ]
+        },
+        {
+          "leaf": 9,
+          "pieces": [
+            "\u2581US",
+            "\u2581South",
+            "\u2581Internet",
+            "\u2581card"
+          ]
+        },
+        {
+          "leaf": 10,
+          "pieces": [
+            "\u2581From",
+            "\u2581video",
+            "\u2581below",
+            "\u2581solutions"
+          ]
+        },
+        {
+          "leaf": 11,
+          "pieces": [
+            "\u2581Park",
+            "\u2581systems",
+            "\u2581related",
+            "\u2581low"
+          ]
+        }
+      ]
+    }
+  },
+  "gates": {
+    "exact_capacity": true,
+    "full_leaf_use": true,
+    "nll_beats_random": true,
+    "neighbor_lcp_gain_ge_0_25": true,
+    "neighbor_lcp_beats_controls": true,
+    "finite_fold": true
+  },
+  "smoke_pass": true,
+  "elapsed_seconds": 54.35460138320923
+}
