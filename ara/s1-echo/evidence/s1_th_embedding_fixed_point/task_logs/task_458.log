@@ -1,0 +1,47 @@
+=== taskd run 458 2026-09-16T05:54:00Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_th_embedding_fixed_point.py", "--pair-cache", "ara/s1-echo/evidence/s1_th_embedding_fixed_point/cache/smoke_20k_v1024.pt", "--evidence-dir", "ara/s1-echo/evidence/s1_th_embedding_fixed_point/smoke_r2_seed19301", "--max-scan-lines", "20000", "--vocab-size", "1024", "--train-pair-cap", "200000", "--test-pair-cap", "30000", "--dim", "32", "--depth", "6", "--rounds", "2", "--steps", "300", "--batch-size", "256", "--negatives", "4", "--eval-pairs", "10000", "--seed", "19301"] ===
+{"step": 1, "baseline_loss": 1.609955906867981, "tree_loss": 1.6107889413833618, "elapsed_seconds": 0.3417513370513916}
+{"step": 30, "baseline_loss": 1.4845435619354248, "tree_loss": 1.4834098815917969, "elapsed_seconds": 0.5820386409759521}
+{"step": 60, "baseline_loss": 1.449804425239563, "tree_loss": 1.4484803676605225, "elapsed_seconds": 0.8306469917297363}
+{"step": 90, "baseline_loss": 1.5058715343475342, "tree_loss": 1.5039360523223877, "elapsed_seconds": 1.0795986652374268}
+{"step": 120, "baseline_loss": 1.418041706085205, "tree_loss": 1.4169330596923828, "elapsed_seconds": 1.4292190074920654}
+{"step": 150, "baseline_loss": 1.4293992519378662, "tree_loss": 1.4359582662582397, "elapsed_seconds": 1.8630850315093994}
+{"step": 180, "baseline_loss": 1.4066932201385498, "tree_loss": 1.4098501205444336, "elapsed_seconds": 2.29494309425354}
+{"step": 210, "baseline_loss": 1.354361891746521, "tree_loss": 1.3602887392044067, "elapsed_seconds": 2.729046106338501}
+{"step": 240, "baseline_loss": 1.3812541961669922, "tree_loss": 1.3864436149597168, "elapsed_seconds": 3.1460211277008057}
+{"step": 270, "baseline_loss": 1.3952810764312744, "tree_loss": 1.4002964496612549, "elapsed_seconds": 3.5199403762817383}
+{"step": 300, "baseline_loss": 1.4047430753707886, "tree_loss": 1.4064850807189941, "elapsed_seconds": 3.9282736778259277}
+{
+  "evaluation": {
+    "pairs": 10000,
+    "baseline_pair_accuracy": 0.6208999752998352,
+    "tree_pair_accuracy": 0.6240999698638916,
+    "baseline_margin": 0.09600860625505447,
+    "tree_margin": 0.09719108790159225,
+    "leaf_utilization": 0.546875,
+    "occupancy_entropy": 0.6816020266483699,
+    "positive_lcp": 1.5667999982833862,
+    "negative_lcp": 1.4170000553131104,
+    "lcp_margin": 0.14980000257492065,
+    "round_flip_rate": [
+      0.0673828125
+    ]
+  },
+  "gradients": {
+    "embedding": 2.421882390975952,
+    "route_weight": 0.00021279729844536632,
+    "route_bias": 0.00165803253185004,
+    "node_value": 0.06555298715829849
+  },
+  "gates": {
+    "all_gradients_finite_positive": true,
+    "tree_pair_accuracy_gt_0_52": true,
+    "positive_lcp_gt_negative_lcp": true,
+    "leaf_utilization_gt_0_10": true,
+    "occupancy_entropy_gt_0_50": true,
+    "finite_losses": true
+  },
+  "smoke_pass": true
+}
+=== status=done exit=0 elapsed=8.3s 2026-09-16T05:54:09Z ===

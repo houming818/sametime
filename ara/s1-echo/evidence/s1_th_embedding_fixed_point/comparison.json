@@ -1,0 +1,63 @@
+{
+  "claim": "S1-TH-EMBED-FP-C01",
+  "experiment": "P-S1-TH-EMBED-FP01",
+  "contract": {
+    "shared_cache": "cache/formal_100k_v4096.pt",
+    "scan_sha256": "ee465537b3826e9106d9f8fba3fe947081e70bbbb3b57c02064dd727719c9aae",
+    "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+    "valid_lines": 100000,
+    "vocab_size": 4096,
+    "dimension": 64,
+    "tree_depth": 9,
+    "batch_size": 512,
+    "negatives": 4,
+    "eval_pairs": 20000
+  },
+  "r8_1000_step_seed_replication": {
+    "seeds": [19301, 19302, 19303],
+    "tree_minus_baseline_accuracy": [-0.0040000081, 0.0006999969, -0.0016000271],
+    "accuracy_delta_mean": -0.0016333461,
+    "accuracy_delta_sample_sd": 0.0023501797,
+    "tree_minus_baseline_margin": [-0.0014180690, -0.0011893883, -0.0007494316],
+    "margin_delta_mean": -0.0011189630,
+    "margin_delta_sample_sd": 0.0003398364,
+    "leaf_utilization_mean": 0.19921875,
+    "occupancy_entropy_mean": 0.4868630881,
+    "lcp_margin_mean": 0.6363666654
+  },
+  "long_training_seed_19301": {
+    "r2_1000": {
+      "baseline_accuracy": 0.6686999798,
+      "tree_accuracy": 0.6671499610,
+      "accuracy_delta": -0.0015500188,
+      "leaf_utilization": 0.216796875,
+      "occupancy_entropy": 0.4396965286
+    },
+    "r2_5000": {
+      "baseline_accuracy": 0.6808999777,
+      "tree_accuracy": 0.6772499681,
+      "accuracy_delta": -0.0036500096,
+      "leaf_utilization": 0.03515625,
+      "occupancy_entropy": 0.2462080544
+    },
+    "r8_1000": {
+      "baseline_accuracy": 0.6686999798,
+      "tree_accuracy": 0.6646999717,
+      "accuracy_delta": -0.0040000081,
+      "leaf_utilization": 0.283203125,
+      "occupancy_entropy": 0.5392319242
+    },
+    "r8_5000": {
+      "baseline_accuracy": 0.6808999777,
+      "tree_accuracy": 0.6798999906,
+      "accuracy_delta": -0.0009999871,
+      "leaf_utilization": 0.158203125,
+      "occupancy_entropy": 0.4499260460
+    }
+  },
+  "decision": {
+    "mechanism": "supported",
+    "semantic_advantage_under_tested_contract": "not_supported",
+    "scale_exact_objective_unchanged": false
+  }
+}

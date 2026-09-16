@@ -1,0 +1,45 @@
+=== taskd run 459 2026-09-16T05:54:47Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_th_embedding_fixed_point.py", "--pair-cache", "ara/s1-echo/evidence/s1_th_embedding_fixed_point/cache/formal_100k_v4096.pt", "--evidence-dir", "ara/s1-echo/evidence/s1_th_embedding_fixed_point/prep_100k_v4096_seed19301", "--prepare-only", "--max-scan-lines", "100000", "--vocab-size", "4096", "--train-pair-cap", "1000000", "--test-pair-cap", "100000", "--dim", "64", "--depth", "9", "--rounds", "1", "--steps", "1000", "--batch-size", "512", "--negatives", "4", "--eval-pairs", "20000", "--seed", "19301"] ===
+{
+  "claim": "S1-TH-EMBED-FP-C01",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "max_scan_lines": 100000,
+    "vocab_size": 4096,
+    "max_sentence_tokens": 96,
+    "window": 4,
+    "test_mod": 10,
+    "train_pair_cap": 1000000,
+    "test_pair_cap": 100000,
+    "dim": 64,
+    "depth": 9,
+    "rounds": 1,
+    "mix": 0.5,
+    "steps": 1000,
+    "batch_size": 512,
+    "negatives": 4,
+    "lr": 0.002,
+    "score_scale": 5.0,
+    "eval_pairs": 20000,
+    "seed": 19301,
+    "device": "cuda"
+  },
+  "cache": {
+    "max_scan_lines": 100000,
+    "vocab_size": 4096,
+    "max_sentence_tokens": 96,
+    "window": 4,
+    "test_mod": 10,
+    "valid_lines": 100000,
+    "token_total": 2142531,
+    "train_pairs_seen": 10989362,
+    "test_pairs_seen": 1223938,
+    "train_pairs_kept": 1000000,
+    "test_pairs_kept": 100000,
+    "scan_sha256": "ee465537b3826e9106d9f8fba3fe947081e70bbbb3b57c02064dd727719c9aae",
+    "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731"
+  }
+}
+=== status=done exit=0 elapsed=13.8s 2026-09-16T05:55:01Z ===

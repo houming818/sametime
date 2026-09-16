@@ -1,0 +1,147 @@
+{
+  "claim": "S1-TH-EMBED-FP-C01",
+  "experiment": "P-S1-TH-EMBED-FP01",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "max_scan_lines": 100000,
+    "vocab_size": 4096,
+    "max_sentence_tokens": 96,
+    "window": 4,
+    "test_mod": 10,
+    "train_pair_cap": 1000000,
+    "test_pair_cap": 100000,
+    "dim": 64,
+    "depth": 9,
+    "rounds": 8,
+    "mix": 0.5,
+    "steps": 1000,
+    "batch_size": 512,
+    "negatives": 4,
+    "lr": 0.002,
+    "score_scale": 5.0,
+    "eval_pairs": 20000,
+    "seed": 19303,
+    "device": "cuda"
+  },
+  "cache": {
+    "max_scan_lines": 100000,
+    "vocab_size": 4096,
+    "max_sentence_tokens": 96,
+    "window": 4,
+    "test_mod": 10,
+    "valid_lines": 100000,
+    "token_total": 2142531,
+    "train_pairs_seen": 10989362,
+    "test_pairs_seen": 1223938,
+    "train_pairs_kept": 1000000,
+    "test_pairs_kept": 100000,
+    "scan_sha256": "ee465537b3826e9106d9f8fba3fe947081e70bbbb3b57c02064dd727719c9aae",
+    "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731"
+  },
+  "trace": [
+    {
+      "step": 1,
+      "baseline_loss": 1.491414189338684,
+      "tree_loss": 1.486839771270752,
+      "elapsed_seconds": 0.3766777515411377
+    },
+    {
+      "step": 100,
+      "baseline_loss": 1.3415430784225464,
+      "tree_loss": 1.349141240119934,
+      "elapsed_seconds": 6.517057657241821
+    },
+    {
+      "step": 200,
+      "baseline_loss": 1.3524625301361084,
+      "tree_loss": 1.353590488433838,
+      "elapsed_seconds": 12.570160150527954
+    },
+    {
+      "step": 300,
+      "baseline_loss": 1.3202147483825684,
+      "tree_loss": 1.322544813156128,
+      "elapsed_seconds": 18.73781394958496
+    },
+    {
+      "step": 400,
+      "baseline_loss": 1.3114646673202515,
+      "tree_loss": 1.3187100887298584,
+      "elapsed_seconds": 25.027944326400757
+    },
+    {
+      "step": 500,
+      "baseline_loss": 1.2914789915084839,
+      "tree_loss": 1.2949652671813965,
+      "elapsed_seconds": 31.27641773223877
+    },
+    {
+      "step": 600,
+      "baseline_loss": 1.2981338500976562,
+      "tree_loss": 1.298750638961792,
+      "elapsed_seconds": 37.42094922065735
+    },
+    {
+      "step": 700,
+      "baseline_loss": 1.2886743545532227,
+      "tree_loss": 1.2919167280197144,
+      "elapsed_seconds": 43.35759377479553
+    },
+    {
+      "step": 800,
+      "baseline_loss": 1.3019905090332031,
+      "tree_loss": 1.304954171180725,
+      "elapsed_seconds": 49.60692644119263
+    },
+    {
+      "step": 900,
+      "baseline_loss": 1.2954959869384766,
+      "tree_loss": 1.3001766204833984,
+      "elapsed_seconds": 55.67030882835388
+    },
+    {
+      "step": 1000,
+      "baseline_loss": 1.2681723833084106,
+      "tree_loss": 1.2725303173065186,
+      "elapsed_seconds": 61.042848110198975
+    }
+  ],
+  "first_gradients": {
+    "embedding": 1.1017719507217407,
+    "route_weight": 0.0002329755952814594,
+    "route_bias": 0.0013324441388249397,
+    "node_value": 0.13668565452098846
+  },
+  "evaluation": {
+    "pairs": 20000,
+    "baseline_pair_accuracy": 0.6659500002861023,
+    "tree_pair_accuracy": 0.6643499732017517,
+    "baseline_margin": 0.11040060967206955,
+    "tree_margin": 0.10965117812156677,
+    "leaf_utilization": 0.162109375,
+    "occupancy_entropy": 0.4497819057380362,
+    "positive_lcp": 2.4969000816345215,
+    "negative_lcp": 1.9089499711990356,
+    "lcp_margin": 0.5879499912261963,
+    "round_flip_rate": [
+      0.026611328125,
+      0.024658203125,
+      0.031005859375,
+      0.03271484375,
+      0.02587890625,
+      0.025634765625,
+      0.02587890625
+    ]
+  },
+  "elapsed_seconds": 61.18234181404114,
+  "gates": {
+    "all_gradients_finite_positive": true,
+    "tree_pair_accuracy_gt_0_52": true,
+    "positive_lcp_gt_negative_lcp": true,
+    "leaf_utilization_gt_0_10": true,
+    "occupancy_entropy_gt_0_50": false,
+    "finite_losses": true
+  },
+  "smoke_pass": false
+}
