@@ -1,0 +1,212 @@
+{
+  "claim": "S1-COMPACT-CONTENT-ROUTE-C01",
+  "predict": "P-S1-COMPACT-CONTENT-ROUTE01",
+  "purpose": "compact subheap embedding route without dense vocab-count feature materialization",
+  "samples": 400,
+  "vocab": 64,
+  "dim": 8,
+  "vector_mode": "root_unfold",
+  "embedding_audit": {
+    "source": "root_unfold_from_context_counts",
+    "token_count": 64,
+    "context_count": 64,
+    "embedding_dim": 8,
+    "depth": 3,
+    "root_mass_min": 1.0,
+    "root_mass_max": 1.0,
+    "conservation_max_abs": 1.1920928955078125e-07,
+    "initial_context_nll": 1.6407772302627563,
+    "final_context_nll": 1.7107294797897339,
+    "context_nll_decrease": -0.06995224952697754,
+    "finite_gradients": true,
+    "gate_parameter_delta_l2": 0.23171059787273407,
+    "leaf_utilization": 1.0,
+    "leaf_count_min": 4,
+    "leaf_count_max": 16,
+    "leaf_entropy": 0.95181611556833,
+    "route_vector_variance": 0.0004913643933832645,
+    "mean_top1_route_mass": 0.1627296805381775,
+    "trainable_token_parameter_count": 0,
+    "trace": [
+      {
+        "step": 0,
+        "context_nll": 1.6407772302627563,
+        "balance_loss": 0.004137763287872076,
+        "objective": 1.641191005706787,
+        "leaf_min": 4,
+        "leaf_max": 17,
+        "conservation_max_abs": 1.1920928955078125e-07
+      },
+      {
+        "step": 1,
+        "context_nll": 1.6547552347183228,
+        "balance_loss": 0.016658127307891846,
+        "objective": 1.6564210653305054,
+        "leaf_min": 0,
+        "leaf_max": 36,
+        "conservation_max_abs": 5.960464477539063e-08
+      },
+      {
+        "step": 2,
+        "context_nll": 1.6473933458328247,
+        "balance_loss": 0.011404696851968765,
+        "objective": 1.648533821105957,
+        "leaf_min": 2,
+        "leaf_max": 15,
+        "conservation_max_abs": 5.960464477539063e-08
+      },
+      {
+        "step": 3,
+        "context_nll": 1.7107294797897339,
+        "balance_loss": 0.005711058154702187,
+        "objective": 1.7113006114959717,
+        "leaf_min": 4,
+        "leaf_max": 16,
+        "conservation_max_abs": 1.1920928955078125e-07
+      }
+    ]
+  },
+  "max_len": 8,
+  "train_rows": 291,
+  "ood_rows": 109,
+  "complexity": {
+    "train_route_steps": 1280,
+    "ood_route_steps": 672,
+    "compact_memory_mb": 0.2568359375,
+    "dense_prior_memory_mb": 6191.25,
+    "memory_reduction_x_vs_dense_prior": 24105.855513307986,
+    "batches_per_epoch": 10
+  },
+  "metrics": {
+    "train": {
+      "steps": 1280,
+      "routes": 320,
+      "step_acc": 0.5406250357627869,
+      "route_exact": 0.0
+    },
+    "ood": {
+      "steps": 672,
+      "routes": 168,
+      "step_acc": 0.4330357313156128,
+      "route_exact": 0.0
+    },
+    "flat_length_matrix": {
+      "train": {
+        "token_acc": 1.0,
+        "exact": 1.0
+      },
+      "ood": {
+        "token_acc": 0.061500612646341324,
+        "exact": 0.0
+      }
+    },
+    "trace": [
+      {
+        "epoch": 1,
+        "loss": 0.9903792440891266,
+        "step_acc": 0.540625,
+        "epoch_sec": 0.03528189659118652,
+        "eta_sec": 0.0
+      }
+    ]
+  },
+  "pass_checks": {
+    "compact_memory_under_512mb": true,
+    "ood_route_exact_ge_0_99": false,
+    "ood_step_acc_ge_0_99": false,
+    "flat_length_matrix_fails_unseen_lengths": true
+  },
+  "pilot_pass": false,
+  "examples": {
+    "ood": [
+      {
+        "sentence": 0,
+        "token": 39,
+        "node": 1,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 3.9826159477233887,
+        "right_dot": 3.992183208465576,
+        "cur_dot": 7.974799156188965
+      },
+      {
+        "sentence": 0,
+        "token": 39,
+        "node": 3,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 1.9930529594421387,
+        "right_dot": 1.999130129814148,
+        "cur_dot": 3.992183208465576
+      },
+      {
+        "sentence": 0,
+        "token": 39,
+        "node": 7,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 0.9991301894187927,
+        "right_dot": 1.0,
+        "cur_dot": 1.999130129814148
+      },
+      {
+        "sentence": 0,
+        "token": 39,
+        "node": 15,
+        "label": 0,
+        "pred": 2,
+        "left_dot": 0.0,
+        "right_dot": 0.0,
+        "cur_dot": 1.0
+      },
+      {
+        "sentence": 0,
+        "token": 12,
+        "node": 1,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 3.9896490573883057,
+        "right_dot": 3.990560293197632,
+        "cur_dot": 7.980210304260254
+      },
+      {
+        "sentence": 0,
+        "token": 12,
+        "node": 3,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 1.9914301633834839,
+        "right_dot": 1.9991302490234375,
+        "cur_dot": 3.990560293197632
+      },
+      {
+        "sentence": 0,
+        "token": 12,
+        "node": 7,
+        "label": 1,
+        "pred": 2,
+        "left_dot": 1.0,
+        "right_dot": 0.9991301894187927,
+        "cur_dot": 1.9991302490234375
+      },
+      {
+        "sentence": 0,
+        "token": 12,
+        "node": 14,
+        "label": 0,
+        "pred": 2,
+        "left_dot": 0.0,
+        "right_dot": 0.0,
+        "cur_dot": 1.0
+      }
+    ]
+  },
+  "limits": [
+    "root-unfold vectors are trained from held-in context counts only",
+    "query token is supervised",
+    "unique-token query positions only",
+    "not translation",
+    "not unsupervised span discovery"
+  ],
+  "elapsed_sec": 1.2758057117462158
+}

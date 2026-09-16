@@ -1,0 +1,39 @@
+=== taskd run 501 2026-09-16T12:52:52Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_compact_content_treeheap_route_probe.py", "--samples", "20000", "--vocab", "1024", "--dim", "64", "--min-len", "3", "--max-len", "32", "--train-max-len", "24", "--max-queries-per-sentence", "4", "--epochs", "5", "--flat-epochs", "2", "--batch", "1024", "--hidden", "256", "--lr", "0.002", "--flat-lr", "0.05", "--seed", "42", "--device", "cuda", "--vector-mode", "random", "--out", "ara/s1-echo/evidence/s1_root_unfold_embedding_dependency_recheck/compact_random_seed42"] ===
+[2026-09-16 20:52:53] start samples=20000 vocab=1024 dim=64 max_len=32 epochs=5 vector_mode=random
+[2026-09-16 20:52:53] build_compact_heap sec=0.04
+[2026-09-16 20:52:54] complexity_estimate {"train_route_steps": 352110, "ood_route_steps": 44130, "compact_memory_mb": 324.84228515625, "dense_prior_memory_mb": 6191.25, "memory_reduction_x_vs_dense_prior": 19.059249004549983, "batches_per_epoch": 344}
+[2026-09-16 20:52:55] compact_epoch 1/5 loss=0.080865 step_acc=0.9655 epoch_sec=0.51 eta_min=0.0
+[2026-09-16 20:52:55] compact_epoch 2/5 loss=0.002435 step_acc=0.9992 epoch_sec=0.32 eta_min=0.0
+[2026-09-16 20:52:56] compact_epoch 3/5 loss=0.001936 step_acc=0.9994 epoch_sec=0.32 eta_min=0.0
+[2026-09-16 20:52:56] compact_epoch 4/5 loss=0.002177 step_acc=0.9992 epoch_sec=0.32 eta_min=0.0
+[2026-09-16 20:52:56] compact_epoch 5/5 loss=0.001403 step_acc=0.9995 epoch_sec=0.32 eta_min=0.0
+{
+  "pilot_pass": false,
+  "pass_checks": {
+    "compact_memory_under_512mb": true,
+    "ood_route_exact_ge_0_99": false,
+    "ood_step_acc_ge_0_99": true,
+    "flat_length_matrix_fails_unseen_lengths": true
+  },
+  "complexity": {
+    "train_route_steps": 352110,
+    "ood_route_steps": 44130,
+    "compact_memory_mb": 324.84228515625,
+    "dense_prior_memory_mb": 6191.25,
+    "memory_reduction_x_vs_dense_prior": 19.059249004549983,
+    "batches_per_epoch": 344
+  },
+  "ood": {
+    "steps": 44130,
+    "routes": 7355,
+    "step_acc": 0.9970995187759399,
+    "route_exact": 0.9825968728755948
+  },
+  "flat_ood": {
+    "token_acc": 0.002882178872823715,
+    "exact": 0.0
+  }
+}
+=== status=done exit=0 elapsed=7.5s 2026-09-16T12:52:59Z ===

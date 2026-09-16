@@ -1,0 +1,285 @@
+{
+  "claim": "S1-COMPACT-CONTENT-ROUTE-C01",
+  "predict": "P-S1-COMPACT-CONTENT-ROUTE01",
+  "purpose": "compact subheap embedding route without dense vocab-count feature materialization",
+  "samples": 20000,
+  "vocab": 1024,
+  "dim": 64,
+  "vector_mode": "root_unfold",
+  "embedding_audit": {
+    "source": "root_unfold_from_context_counts",
+    "token_count": 1024,
+    "context_count": 1024,
+    "embedding_dim": 64,
+    "depth": 6,
+    "root_mass_min": 1.0,
+    "root_mass_max": 1.0,
+    "conservation_max_abs": 1.1920928955078125e-07,
+    "initial_context_nll": 3.965813398361206,
+    "final_context_nll": 3.954357147216797,
+    "context_nll_decrease": 0.01145625114440918,
+    "finite_gradients": true,
+    "gate_parameter_delta_l2": 33.38990020751953,
+    "leaf_utilization": 0.84375,
+    "leaf_count_min": 0,
+    "leaf_count_max": 87,
+    "leaf_entropy": 0.8737003378812536,
+    "route_vector_variance": 0.00030709116254001856,
+    "mean_top1_route_mass": 0.08059553056955338,
+    "trainable_token_parameter_count": 0,
+    "trace": [
+      {
+        "step": 0,
+        "context_nll": 3.965813398361206,
+        "balance_loss": 0.002664551604539156,
+        "objective": 3.9660799503326416,
+        "leaf_min": 7,
+        "leaf_max": 56,
+        "conservation_max_abs": 1.1920928955078125e-07
+      },
+      {
+        "step": 20,
+        "context_nll": 4.040867328643799,
+        "balance_loss": 0.02712157368659973,
+        "objective": 4.043579578399658,
+        "leaf_min": 0,
+        "leaf_max": 177,
+        "conservation_max_abs": 1.1920928955078125e-07
+      },
+      {
+        "step": 40,
+        "context_nll": 4.014896392822266,
+        "balance_loss": 0.00935344584286213,
+        "objective": 4.01583194732666,
+        "leaf_min": 0,
+        "leaf_max": 122,
+        "conservation_max_abs": 1.1920928955078125e-07
+      },
+      {
+        "step": 60,
+        "context_nll": 4.019906997680664,
+        "balance_loss": 0.004747986327856779,
+        "objective": 4.020381927490234,
+        "leaf_min": 0,
+        "leaf_max": 113,
+        "conservation_max_abs": 1.7881393432617188e-07
+      },
+      {
+        "step": 80,
+        "context_nll": 3.9703431129455566,
+        "balance_loss": 0.003913200460374355,
+        "objective": 3.9707343578338623,
+        "leaf_min": 0,
+        "leaf_max": 89,
+        "conservation_max_abs": 1.7881393432617188e-07
+      },
+      {
+        "step": 100,
+        "context_nll": 3.9599413871765137,
+        "balance_loss": 0.0023338920436799526,
+        "objective": 3.960174798965454,
+        "leaf_min": 0,
+        "leaf_max": 77,
+        "conservation_max_abs": 1.7881393432617188e-07
+      },
+      {
+        "step": 120,
+        "context_nll": 3.9553024768829346,
+        "balance_loss": 0.0018391043413430452,
+        "objective": 3.955486297607422,
+        "leaf_min": 0,
+        "leaf_max": 64,
+        "conservation_max_abs": 1.1920928955078125e-07
+      },
+      {
+        "step": 140,
+        "context_nll": 3.9477367401123047,
+        "balance_loss": 0.0015790571924299002,
+        "objective": 3.94789457321167,
+        "leaf_min": 0,
+        "leaf_max": 56,
+        "conservation_max_abs": 1.7881393432617188e-07
+      },
+      {
+        "step": 160,
+        "context_nll": 3.954357147216797,
+        "balance_loss": 0.011909372173249722,
+        "objective": 3.955548048019409,
+        "leaf_min": 0,
+        "leaf_max": 87,
+        "conservation_max_abs": 1.1920928955078125e-07
+      }
+    ]
+  },
+  "max_len": 32,
+  "train_rows": 18158,
+  "ood_rows": 1842,
+  "complexity": {
+    "train_route_steps": 352110,
+    "ood_route_steps": 44130,
+    "compact_memory_mb": 324.84228515625,
+    "dense_prior_memory_mb": 6191.25,
+    "memory_reduction_x_vs_dense_prior": 19.059249004549983,
+    "batches_per_epoch": 344
+  },
+  "metrics": {
+    "train": {
+      "steps": 352110,
+      "routes": 58685,
+      "step_acc": 0.9273493885993958,
+      "route_exact": 0.6139729061940871
+    },
+    "ood": {
+      "steps": 44130,
+      "routes": 7355,
+      "step_acc": 0.8920009136199951,
+      "route_exact": 0.48198504418762744
+    },
+    "flat_length_matrix": {
+      "train": {
+        "token_acc": 1.0,
+        "exact": 1.0
+      },
+      "ood": {
+        "token_acc": 0.002882178872823715,
+        "exact": 0.0
+      }
+    },
+    "trace": [
+      {
+        "epoch": 1,
+        "loss": 0.30104009504059037,
+        "step_acc": 0.8459742694044474,
+        "epoch_sec": 0.3380014896392822,
+        "eta_sec": 1.3520097732543945
+      },
+      {
+        "epoch": 2,
+        "loss": 0.18699601975945063,
+        "step_acc": 0.9153162364033967,
+        "epoch_sec": 0.4084603786468506,
+        "eta_sec": 1.1197503805160522
+      },
+      {
+        "epoch": 3,
+        "loss": 0.16476216512713138,
+        "step_acc": 0.9255232739768823,
+        "epoch_sec": 0.6024625301361084,
+        "eta_sec": 0.8993452390034994
+      },
+      {
+        "epoch": 4,
+        "loss": 0.15140500755842068,
+        "step_acc": 0.9315980801454091,
+        "epoch_sec": 0.6160764694213867,
+        "eta_sec": 0.49128592014312744
+      },
+      {
+        "epoch": 5,
+        "loss": 0.14677296854037827,
+        "step_acc": 0.9333674135923433,
+        "epoch_sec": 0.6021625995635986,
+        "eta_sec": 0.0
+      }
+    ]
+  },
+  "pass_checks": {
+    "compact_memory_under_512mb": true,
+    "ood_route_exact_ge_0_99": false,
+    "ood_step_acc_ge_0_99": false,
+    "flat_length_matrix_fails_unseen_lengths": true
+  },
+  "pilot_pass": false,
+  "examples": {
+    "ood": [
+      {
+        "sentence": 0,
+        "token": 567,
+        "node": 1,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 8.605958938598633,
+        "right_dot": 14.905415534973145,
+        "cur_dot": 23.511375427246094
+      },
+      {
+        "sentence": 0,
+        "token": 567,
+        "node": 3,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 7.406817436218262,
+        "right_dot": 7.498597621917725,
+        "cur_dot": 14.905415534973145
+      },
+      {
+        "sentence": 0,
+        "token": 567,
+        "node": 7,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 3.7411928176879883,
+        "right_dot": 3.7574048042297363,
+        "cur_dot": 7.498597621917725
+      },
+      {
+        "sentence": 0,
+        "token": 567,
+        "node": 15,
+        "label": 2,
+        "pred": 1,
+        "left_dot": 1.833642840385437,
+        "right_dot": 1.9237620830535889,
+        "cur_dot": 3.7574048042297363
+      },
+      {
+        "sentence": 0,
+        "token": 567,
+        "node": 31,
+        "label": 1,
+        "pred": 1,
+        "left_dot": 1.0,
+        "right_dot": 0.9237620234489441,
+        "cur_dot": 1.9237620830535889
+      },
+      {
+        "sentence": 0,
+        "token": 567,
+        "node": 62,
+        "label": 0,
+        "pred": 0,
+        "left_dot": 0.0,
+        "right_dot": 0.0,
+        "cur_dot": 1.0
+      },
+      {
+        "sentence": 0,
+        "token": 295,
+        "node": 1,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 8.1241455078125,
+        "right_dot": 13.840776443481445,
+        "cur_dot": 21.964923858642578
+      },
+      {
+        "sentence": 0,
+        "token": 295,
+        "node": 3,
+        "label": 2,
+        "pred": 2,
+        "left_dot": 6.896127223968506,
+        "right_dot": 6.944648742675781,
+        "cur_dot": 13.840776443481445
+      }
+    ]
+  },
+  "limits": [
+    "root-unfold vectors are trained from held-in context counts only",
+    "query token is supervised",
+    "unique-token query positions only",
+    "not translation",
+    "not unsupervised span discovery"
+  ],
+  "elapsed_sec": 10.137268304824829
+}

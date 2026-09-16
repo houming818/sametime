@@ -2731,3 +2731,27 @@ The local-argmax diagnostic independently used every leaf with occupancy
 `10..24` and `12..21`, showing that recursive unfold created the branching
 before capacity regularization. Evidence:
 `evidence/s1_root_unfold_token_embedding/`.
+
+## P-S1-ROOT-UNFOLD-DOWNSTREAM09: Earlier Embedding Dependencies
+
+**Status:** completed / mixed
+**Claim:** `S1-ROOT-UNFOLD-DOWNSTREAM-C01`
+**Design:** `root_unfold_embedding_dependency_recheck.md`
+
+Recheck two earlier probes that directly consumed random token coordinates.
+The compact-route pair keeps its original WMT 20K, vocab 1024, dimension 64,
+seed 42, and five-epoch route contract while changing only fixed-random versus
+root-unfold token vectors. The fixed-point pair keeps one immutable 20K pair
+cache, vocab 1024, dimension 32, depth 6, two falls, 300 steps, and seed 19301;
+both TreeHeap and embedding-only arms receive the same initialization within
+each comparison.
+
+Tasks 501--504 completed. Compact root-unfold substitution reduced OOD route
+exact from `0.98260` to `0.48199`, rejecting direct additive composition. In
+the fixed-point probe, TreeHeap pair accuracy rose from random-init `0.62410`
+to root-init `0.64350`, versus root embedding-only `0.62320`. However the
+downstream route collapsed from `35/64` used leaves and LCP margin `0.14980`
+to `1/64` and `0`, even though the input root coordinate used `31/32` leaves
+with entropy `0.93336`. Pair information is supported; old composition and
+hierarchical route repair are not. Evidence:
+`evidence/s1_root_unfold_embedding_dependency_recheck/`.

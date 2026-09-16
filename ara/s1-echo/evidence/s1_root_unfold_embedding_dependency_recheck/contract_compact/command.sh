@@ -1,0 +1,1 @@
+python3 ara/s1-echo/src/s1_compact_content_treeheap_route_probe.py --samples 400 --vocab 64 --dim 8 --min-len 3 --max-len 8 --train-max-len 6 --max-queries-per-sentence 2 --epochs 1 --flat-epochs 1 --batch 128 --hidden 32 --embedding-steps 3 --vector-mode root_unfold --device cuda --out ara/s1-echo/evidence/s1_root_unfold_embedding_dependency_recheck/contract_compact

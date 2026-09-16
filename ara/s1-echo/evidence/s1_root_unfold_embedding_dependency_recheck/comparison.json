@@ -1,0 +1,59 @@
+{
+  "claim": "S1-ROOT-UNFOLD-DOWNSTREAM-C01",
+  "date": "2026-09-16",
+  "tasks": {
+    "contracts": [499, 500],
+    "compact_random": 501,
+    "compact_root_unfold": 502,
+    "fixedpoint_random": 503,
+    "fixedpoint_root_unfold": 504
+  },
+  "compact_route": {
+    "random": {
+      "ood_step_accuracy": 0.9970995187759399,
+      "ood_route_exact": 0.9825968728755948,
+      "compact_memory_mib": 324.84228515625
+    },
+    "root_unfold": {
+      "ood_step_accuracy": 0.8920009136199951,
+      "ood_route_exact": 0.48198504418762744,
+      "compact_memory_mib": 324.84228515625,
+      "input_conservation_max_abs": 1.1920928955078125e-07,
+      "input_leaf_utilization": 0.84375,
+      "input_leaf_entropy": 0.8737003378812536
+    },
+    "root_minus_random_route_exact": -0.5006118286879673,
+    "registered_gate_pass": false
+  },
+  "fixedpoint": {
+    "random": {
+      "embedding_only_pair_accuracy": 0.6208999752998352,
+      "tree_pair_accuracy": 0.6240999698638916,
+      "tree_minus_baseline": 0.0031999945640564,
+      "leaf_utilization": 0.546875,
+      "occupancy_entropy": 0.6816020266483699,
+      "lcp_margin": 0.14980000257492065
+    },
+    "root_unfold": {
+      "embedding_only_pair_accuracy": 0.623199999332428,
+      "tree_pair_accuracy": 0.6434999704360962,
+      "tree_minus_baseline": 0.0202999711036682,
+      "leaf_utilization": 0.015625,
+      "occupancy_entropy": 0.0,
+      "lcp_margin": 0.0,
+      "input_conservation_max_abs": 1.1920928955078125e-07,
+      "input_leaf_utilization": 0.96875,
+      "input_leaf_entropy": 0.9333583123968243
+    },
+    "root_tree_minus_random_tree": 0.0194000005722046,
+    "pair_accuracy_gate_pass": true,
+    "lcp_preservation_gate_pass": false,
+    "overall_registered_gate_pass": false
+  },
+  "decision": {
+    "pair_information": "supported",
+    "compact_additive_drop_in": "rejected",
+    "fixedpoint_hierarchical_route_repair": "not_supported",
+    "overall": "mixed"
+  }
+}

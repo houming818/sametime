@@ -1,0 +1,39 @@
+=== taskd run 500 2026-09-16T12:50:52Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_th_embedding_fixed_point.py", "--pair-cache", "ara/s1-echo/evidence/s1_root_unfold_embedding_dependency_recheck/cache/contract_v128.pt", "--evidence-dir", "ara/s1-echo/evidence/s1_root_unfold_embedding_dependency_recheck/contract_fixedpoint", "--max-scan-lines", "2000", "--vocab-size", "128", "--max-sentence-tokens", "32", "--train-pair-cap", "10000", "--test-pair-cap", "2000", "--dim", "8", "--depth", "3", "--rounds", "2", "--steps", "3", "--batch-size", "64", "--eval-pairs", "500", "--embedding-init", "root_unfold", "--unfold-steps", "3", "--device", "cuda"] ===
+{"step": 1, "baseline_loss": 4.9923319816589355, "tree_loss": 4.99254035949707, "tree_pair_loss": 4.99254035949707, "route_info_loss": -5.960464477539063e-08, "elapsed_seconds": 0.14292621612548828}
+{"step": 2, "baseline_loss": 4.989743709564209, "tree_loss": 4.989445686340332, "tree_pair_loss": 4.989445686340332, "route_info_loss": -6.95387569749073e-08, "elapsed_seconds": 0.152665376663208}
+{"step": 3, "baseline_loss": 4.986348628997803, "tree_loss": 4.985379695892334, "tree_pair_loss": 4.985379695892334, "route_info_loss": -4.967053968130131e-08, "elapsed_seconds": 0.16266989707946777}
+{
+  "evaluation": {
+    "pairs": 500,
+    "baseline_pair_accuracy": 0.5940000414848328,
+    "tree_pair_accuracy": 0.5900000333786011,
+    "baseline_margin": 0.0023447955027222633,
+    "tree_margin": 0.0024904748424887657,
+    "leaf_utilization": 0.125,
+    "occupancy_entropy": -0.0,
+    "positive_lcp": 3.0,
+    "negative_lcp": 3.0,
+    "lcp_margin": 0.0,
+    "round_flip_rate": [
+      0.0
+    ]
+  },
+  "gradients": {
+    "embedding": 0.09186485409736633,
+    "route_weight": 0.00012404374137986451,
+    "route_bias": 0.0001720178552204743,
+    "node_value": 0.02587815187871456
+  },
+  "gates": {
+    "all_gradients_finite_positive": true,
+    "tree_pair_accuracy_gt_0_52": true,
+    "positive_lcp_gt_negative_lcp": false,
+    "leaf_utilization_gt_0_10": true,
+    "occupancy_entropy_gt_0_50": false,
+    "finite_losses": true
+  },
+  "smoke_pass": false
+}
+=== status=done exit=0 elapsed=3.0s 2026-09-16T12:50:55Z ===

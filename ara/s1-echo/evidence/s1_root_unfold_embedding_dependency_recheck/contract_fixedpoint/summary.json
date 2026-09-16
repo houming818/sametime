@@ -1,0 +1,162 @@
+{
+  "claim": "S1-TH-EMBED-FP-C01",
+  "experiment": "P-S1-TH-EMBED-FP01",
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "max_scan_lines": 2000,
+    "vocab_size": 128,
+    "max_sentence_tokens": 32,
+    "window": 4,
+    "test_mod": 10,
+    "train_pair_cap": 10000,
+    "test_pair_cap": 2000,
+    "dim": 8,
+    "depth": 3,
+    "rounds": 2,
+    "mix": 0.5,
+    "route_info_weight": 0.0,
+    "steps": 3,
+    "batch_size": 64,
+    "negatives": 4,
+    "lr": 0.002,
+    "score_scale": 5.0,
+    "eval_pairs": 500,
+    "seed": 19301,
+    "device": "cuda",
+    "embedding_init": "root_unfold",
+    "unfold_steps": 3
+  },
+  "cache": {
+    "max_scan_lines": 2000,
+    "vocab_size": 128,
+    "max_sentence_tokens": 32,
+    "window": 4,
+    "test_mod": 10,
+    "valid_lines": 2000,
+    "token_total": 36154,
+    "train_pairs_seen": 87644,
+    "test_pairs_seen": 10278,
+    "train_pairs_kept": 10000,
+    "test_pairs_kept": 2000,
+    "scan_sha256": "c80b4b27bd555b7b7161ee18bf9ad5c0b12e6a931bb8e5edacd9439c9689ab7e",
+    "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731"
+  },
+  "initialization_audit": {
+    "source": "root_unfold_from_context_counts",
+    "token_count": 128,
+    "context_count": 128,
+    "embedding_dim": 8,
+    "depth": 3,
+    "root_mass_min": 1.0,
+    "root_mass_max": 1.0,
+    "conservation_max_abs": 1.1920928955078125e-07,
+    "initial_context_nll": 3.930253028869629,
+    "final_context_nll": 3.924497604370117,
+    "context_nll_decrease": 0.005755424499511719,
+    "finite_gradients": true,
+    "gate_parameter_delta_l2": 0.4381040334701538,
+    "leaf_utilization": 1.0,
+    "leaf_count_min": 11,
+    "leaf_count_max": 24,
+    "leaf_entropy": 0.9877877776885126,
+    "route_vector_variance": 0.00031354575185105205,
+    "mean_top1_route_mass": 0.1555325984954834,
+    "trainable_token_parameter_count": 0,
+    "trace": [
+      {
+        "step": 0,
+        "context_nll": 3.930253028869629,
+        "balance_loss": 0.0011265822686254978,
+        "objective": 3.930365800857544,
+        "leaf_min": 12,
+        "leaf_max": 18,
+        "conservation_max_abs": 1.1920928955078125e-07
+      },
+      {
+        "step": 1,
+        "context_nll": 3.9448492527008057,
+        "balance_loss": 0.009984597563743591,
+        "objective": 3.945847749710083,
+        "leaf_min": 4,
+        "leaf_max": 42,
+        "conservation_max_abs": 5.960464477539063e-08
+      },
+      {
+        "step": 2,
+        "context_nll": 3.932358503341675,
+        "balance_loss": 0.004701071884483099,
+        "objective": 3.932828664779663,
+        "leaf_min": 8,
+        "leaf_max": 26,
+        "conservation_max_abs": 1.1920928955078125e-07
+      },
+      {
+        "step": 3,
+        "context_nll": 3.924497604370117,
+        "balance_loss": 0.002021285006776452,
+        "objective": 3.9246997833251953,
+        "leaf_min": 11,
+        "leaf_max": 24,
+        "conservation_max_abs": 1.1920928955078125e-07
+      }
+    ]
+  },
+  "trace": [
+    {
+      "step": 1,
+      "baseline_loss": 4.9923319816589355,
+      "tree_loss": 4.99254035949707,
+      "tree_pair_loss": 4.99254035949707,
+      "route_info_loss": -5.960464477539063e-08,
+      "elapsed_seconds": 0.14292621612548828
+    },
+    {
+      "step": 2,
+      "baseline_loss": 4.989743709564209,
+      "tree_loss": 4.989445686340332,
+      "tree_pair_loss": 4.989445686340332,
+      "route_info_loss": -6.95387569749073e-08,
+      "elapsed_seconds": 0.152665376663208
+    },
+    {
+      "step": 3,
+      "baseline_loss": 4.986348628997803,
+      "tree_loss": 4.985379695892334,
+      "tree_pair_loss": 4.985379695892334,
+      "route_info_loss": -4.967053968130131e-08,
+      "elapsed_seconds": 0.16266989707946777
+    }
+  ],
+  "first_gradients": {
+    "embedding": 0.09186485409736633,
+    "route_weight": 0.00012404374137986451,
+    "route_bias": 0.0001720178552204743,
+    "node_value": 0.02587815187871456
+  },
+  "evaluation": {
+    "pairs": 500,
+    "baseline_pair_accuracy": 0.5940000414848328,
+    "tree_pair_accuracy": 0.5900000333786011,
+    "baseline_margin": 0.0023447955027222633,
+    "tree_margin": 0.0024904748424887657,
+    "leaf_utilization": 0.125,
+    "occupancy_entropy": -0.0,
+    "positive_lcp": 3.0,
+    "negative_lcp": 3.0,
+    "lcp_margin": 0.0,
+    "round_flip_rate": [
+      0.0
+    ]
+  },
+  "elapsed_seconds": 0.1711864471435547,
+  "gates": {
+    "all_gradients_finite_positive": true,
+    "tree_pair_accuracy_gt_0_52": true,
+    "positive_lcp_gt_negative_lcp": false,
+    "leaf_utilization_gt_0_10": true,
+    "occupancy_entropy_gt_0_50": false,
+    "finite_losses": true
+  },
+  "smoke_pass": false
+}

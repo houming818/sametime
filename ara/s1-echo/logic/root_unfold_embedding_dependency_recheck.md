@@ -101,3 +101,58 @@ Passing either experiment supports only that a previously random coordinate
 was a measurable bottleneck for that probe. Failure does not reject the new
 embedding mechanism itself. Neither experiment proves sentence generation,
 translation, polysemy, or a general world model.
+
+## Result
+
+Io tasks 501--504 completed every registered arm on 2026-09-16. Both arms in
+each pair used the same rows, seed, model size, batches, and optimization
+budget. Contract tasks 499--500 completed first and were not used as evidence.
+
+### Compact route: direct substitution failed
+
+| Coordinate | OOD step accuracy | OOD route exact | Compact memory |
+|---|---:|---:|---:|
+| fixed random | `0.99710` | `0.98260` | `324.84 MiB` |
+| root-unfold | `0.89200` | `0.48199` | `324.84 MiB` |
+
+The route-exact delta is `-0.50061`, opposite to the registered `+0.003`
+gate. The new coordinate itself remained finite and nontrivial: conservation
+error `1.19e-7`, utilization `0.84375`, normalized occupancy entropy
+`0.87370`, and token-parameter count zero. The failure therefore occurs at
+the old compact representation contract. Summing probability coordinates
+does not retain the near-orthogonal token-presence evidence supplied by fixed
+random vectors. `S1-COMPACT-CONTENT-ROUTE-C01` is not repaired by direct
+replacement.
+
+### Fixed point: pair ordering improved, hierarchical route collapsed
+
+| Initialization | Embedding-only pair acc. | TreeHeap pair acc. | Tree - baseline | Leaf use | LCP margin |
+|---|---:|---:|---:|---:|---:|
+| random | `0.62090` | `0.62410` | `+0.00320` | `35/64` | `0.14980` |
+| root-unfold | `0.62320` | `0.64350` | `+0.02030` | `1/64` | `0.00000` |
+
+The root-initialized TreeHeap beats the root-initialized embedding-only arm by
+`0.02030` and the random-initialized TreeHeap by `0.01940`. Those accuracy
+gates pass. The registered warm-start condition nevertheless fails because
+the LCP margin falls from `0.14980` to zero. All tokens choose one downstream
+leaf, positive and negative pairs both have LCP depth `6`, and round flip rate
+is zero.
+
+This collapse was introduced downstream. Before fixed-point training, the
+derived 32D coordinate used `31/32` leaves, had normalized occupancy entropy
+`0.93336`, finite gradients, conservation error `1.19e-7`, and no trainable
+token parameter. The old pair-NCE loop improves semantic pair ordering but
+does not preserve or learn a hierarchical route from that coordinate.
+
+## Decision
+
+`S1-ROOT-UNFOLD-DOWNSTREAM-C01` is mixed:
+
+- supported as evidence that the learned coordinate contains useful
+  corpus-pair information under the fixed-point scoring task;
+- rejected as a drop-in replacement for compact additive subheap states;
+- not supported as a repair of fixed-point hierarchical routing.
+
+The next architecture step must specify coordinate-compatible composition and
+a route-preservation objective. More repetitions or a larger vocabulary would
+not address either observed failure by themselves.
