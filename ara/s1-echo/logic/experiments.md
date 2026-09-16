@@ -2703,3 +2703,20 @@ NLL/random NLL/neighbor LCP were
 `0.07902/5.70199/5.70540/5.77995/2.82096`. Both retained exact `4..4`
 capacity, finite gradients, and topology above controls. Evidence:
 `evidence/s1_balanced_capacity_hard_protocol_scale/`.
+
+## P-S1-ROOT-UNFOLD-EMBED08: Unit Root to Derived Leaf Embedding
+
+**Status:** preregistered / not yet executed
+**Claim:** `S1-ROOT-UNFOLD-EMBED-C01`
+**Design:** `root_unfold_token_embedding.md`
+
+Replace the directly optimized token-to-leaf assignment with a recursive
+TreeHeap unfold. Every token begins with root mass `1`; shared internal-node
+gates observe fixed real-corpus context statistics and split that mass through
+widths `1 -> 2 -> 4 -> 8`. The final leaf probability vector is the derived
+embedding. No trainable token lookup or direct token-leaf parameter is
+allowed. Compare local argmax with exact-capacity hard selection under the
+same initialization and context objective. The smoke uses WMT 50K, 128
+targets, 256 contexts, depth 3, 160 steps, and seed `19501` only for controls.
+All gates and the single authorized scale successor are defined in the design
+document.
