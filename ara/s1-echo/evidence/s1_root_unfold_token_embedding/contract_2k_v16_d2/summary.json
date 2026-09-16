@@ -1,0 +1,384 @@
+{
+  "claim": "S1-ROOT-UNFOLD-EMBED-C01",
+  "experiment": "P-S1-ROOT-UNFOLD-EMBED08",
+  "config": {
+    "claim": "S1-ROOT-UNFOLD-EMBED-C01",
+    "experiment": "P-S1-ROOT-UNFOLD-EMBED08",
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s1-echo/evidence/s1_root_unfold_token_embedding/contract_2k_v16_d2",
+    "max_scan_lines": 2000,
+    "target_vocab": 16,
+    "context_vocab": 32,
+    "window": 4,
+    "max_sentence_tokens": 96,
+    "test_mod": 10,
+    "depth": 2,
+    "split_iterations": 5,
+    "alpha": 0.1,
+    "train_steps": 2,
+    "learning_rate": 0.01,
+    "temperature": 0.5,
+    "decoder_blend": 0.5,
+    "balance_weight": 0.1,
+    "neighbor_k": 3,
+    "inspect_pieces": "\u2581push,\u2581bank,\u2581like,\u2581want",
+    "seed": 19501,
+    "device": "cuda"
+  },
+  "corpus": {
+    "train_lines": 1800,
+    "test_lines": 200,
+    "train_pairs": 12806,
+    "test_pairs": 1204,
+    "valid_lines": 2000,
+    "token_total": 42891,
+    "scan_sha256": "c80b4b27bd555b7b7161ee18bf9ad5c0b12e6a931bb8e5edacd9439c9689ab7e",
+    "forced_inspection_pieces": [
+      "\u2581bank",
+      "\u2581like",
+      "\u2581want"
+    ]
+  },
+  "architecture_audit": {
+    "root_input": 1.0,
+    "level_widths": [
+      1,
+      2,
+      4
+    ],
+    "final_embedding_width": 4,
+    "direct_token_leaf_parameter": false,
+    "trainable_token_lookup": false,
+    "token_condition": "fixed sqrt(P_train(context|token))",
+    "unfold_level_mass_ranges": [
+      {
+        "level": 0,
+        "min_sum": 1.0,
+        "max_sum": 1.0
+      },
+      {
+        "level": 1,
+        "min_sum": 1.0,
+        "max_sum": 1.0
+      },
+      {
+        "level": 2,
+        "min_sum": 0.9999998807907104,
+        "max_sum": 1.0
+      }
+    ]
+  },
+  "controls": {
+    "global_context_heldout_nll": 3.0121806595571674,
+    "balanced_random_topology": {
+      "heldout_neighbor_lcp": 0.7708333333333333,
+      "random_pair_lcp": 0.7083333333333333,
+      "lcp_gain": 0.0625
+    },
+    "semantic_initializer_heldout_nll": 2.9744558924914384
+  },
+  "arms": {
+    "local_argmax": {
+      "name": "local_argmax",
+      "selector": "argmax",
+      "initial_train_context_nll": 2.990828037261963,
+      "final_train_context_nll": 2.990323066711426,
+      "train_nll_decrease": 0.0005049705505371094,
+      "initial_objective": 2.9909260272979736,
+      "final_objective": 2.9904427528381348,
+      "initial_gate_gradient_l2": 0.00438639335334301,
+      "initial_decoder_gradient_l2": 0.020659681409597397,
+      "gate_parameter_delta_l2": 0.12950685620307922,
+      "finite_gradients": true,
+      "trainable_token_parameter_count": 0,
+      "trainable_gate_parameter_count": 99,
+      "trainable_decoder_parameter_count": 128,
+      "initial": {
+        "heldout_nll": 2.982934037287456,
+        "shuffled_observation_nll": 3.016395454266883,
+        "input_causal_nll_delta": 0.03346141697942695,
+        "route_agreement_after_shuffle": 0.3125,
+        "route_js_after_shuffle": 0.003899330273270607,
+        "root_mass_min": 1.0,
+        "root_mass_max": 1.0,
+        "unfold_conservation_max_abs": 0.0,
+        "route_vector_variance": 0.0010059673804789782,
+        "mean_top1_route_mass": 0.28894340991973877,
+        "normalized_route_entropy": 0.9940428733825684,
+        "leaf_utilization": 1.0,
+        "leaf_entropy": 1.0,
+        "leaf_count_min": 4,
+        "leaf_count_max": 4,
+        "heldout_neighbor_lcp": 0.6666666666666666,
+        "random_pair_lcp": 0.9166666666666666,
+        "lcp_gain": -0.25
+      },
+      "final": {
+        "heldout_nll": 2.9841235821617826,
+        "shuffled_observation_nll": 3.013663659518947,
+        "input_causal_nll_delta": 0.029540077357164574,
+        "route_agreement_after_shuffle": 0.375,
+        "route_js_after_shuffle": 0.004176562186330557,
+        "root_mass_min": 1.0,
+        "root_mass_max": 1.0,
+        "unfold_conservation_max_abs": 5.960464477539063e-08,
+        "route_vector_variance": 0.0011359532363712788,
+        "mean_top1_route_mass": 0.2917162775993347,
+        "normalized_route_entropy": 0.9935034513473511,
+        "leaf_utilization": 1.0,
+        "leaf_entropy": 0.9886085007312412,
+        "leaf_count_min": 3,
+        "leaf_count_max": 5,
+        "heldout_neighbor_lcp": 0.6666666666666666,
+        "random_pair_lcp": 0.8958333333333333,
+        "lcp_gain": -0.22916666666666663
+      }
+    },
+    "capacity_selected": {
+      "name": "capacity_selected",
+      "selector": "exact_capacity",
+      "initial_train_context_nll": 2.990828037261963,
+      "final_train_context_nll": 2.9887843132019043,
+      "train_nll_decrease": 0.0020437240600585938,
+      "initial_objective": 2.9909260272979736,
+      "final_objective": 2.9888854026794434,
+      "initial_gate_gradient_l2": 0.00438639335334301,
+      "initial_decoder_gradient_l2": 0.020659681409597397,
+      "gate_parameter_delta_l2": 0.13302166759967804,
+      "finite_gradients": true,
+      "trainable_token_parameter_count": 0,
+      "trainable_gate_parameter_count": 99,
+      "trainable_decoder_parameter_count": 128,
+      "initial": {
+        "heldout_nll": 2.982934037287456,
+        "shuffled_observation_nll": 3.016395454266883,
+        "input_causal_nll_delta": 0.03346141697942695,
+        "route_agreement_after_shuffle": 0.3125,
+        "route_js_after_shuffle": 0.003899330273270607,
+        "root_mass_min": 1.0,
+        "root_mass_max": 1.0,
+        "unfold_conservation_max_abs": 0.0,
+        "route_vector_variance": 0.0010059673804789782,
+        "mean_top1_route_mass": 0.28894340991973877,
+        "normalized_route_entropy": 0.9940428733825684,
+        "leaf_utilization": 1.0,
+        "leaf_entropy": 1.0,
+        "leaf_count_min": 4,
+        "leaf_count_max": 4,
+        "heldout_neighbor_lcp": 0.6666666666666666,
+        "random_pair_lcp": 0.9166666666666666,
+        "lcp_gain": -0.25
+      },
+      "final": {
+        "heldout_nll": 2.981274284178205,
+        "shuffled_observation_nll": 3.0177396841890514,
+        "input_causal_nll_delta": 0.036465400010846416,
+        "route_agreement_after_shuffle": 0.3125,
+        "route_js_after_shuffle": 0.004204952158033848,
+        "root_mass_min": 1.0,
+        "root_mass_max": 1.0,
+        "unfold_conservation_max_abs": 1.1920928955078125e-07,
+        "route_vector_variance": 0.0011450271122157574,
+        "mean_top1_route_mass": 0.29184582829475403,
+        "normalized_route_entropy": 0.9935141801834106,
+        "leaf_utilization": 1.0,
+        "leaf_entropy": 1.0,
+        "leaf_count_min": 4,
+        "leaf_count_max": 4,
+        "heldout_neighbor_lcp": 0.6666666666666666,
+        "random_pair_lcp": 0.9166666666666666,
+        "lcp_gain": -0.25
+      }
+    }
+  },
+  "examples": [
+    {
+      "piece": "\u2581bank",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.3119897,
+        0.2347967,
+        0.2458306,
+        0.207383
+      ],
+      "final_leaf_values": [
+        0.3134329,
+        0.2299445,
+        0.2304724,
+        0.2261501
+      ],
+      "selected_leaf": 0
+    },
+    {
+      "piece": "\u2581like",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.2228683,
+        0.2129552,
+        0.2359217,
+        0.3282548
+      ],
+      "final_leaf_values": [
+        0.2190772,
+        0.2029625,
+        0.2190361,
+        0.3589241
+      ],
+      "selected_leaf": 3
+    },
+    {
+      "piece": "\u2581want",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.1821943,
+        0.2006529,
+        0.2324495,
+        0.3847032
+      ],
+      "final_leaf_values": [
+        0.1746534,
+        0.1935194,
+        0.2165911,
+        0.415236
+      ],
+      "selected_leaf": 3
+    },
+    {
+      "piece": "\u2581the",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.2401256,
+        0.2746294,
+        0.2658977,
+        0.2193473
+      ],
+      "final_leaf_values": [
+        0.2401329,
+        0.2717873,
+        0.2473725,
+        0.2407072
+      ],
+      "selected_leaf": 1
+    },
+    {
+      "piece": "\u2581of",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.2838643,
+        0.2531147,
+        0.2654431,
+        0.197578
+      ],
+      "final_leaf_values": [
+        0.2879248,
+        0.2463468,
+        0.2485287,
+        0.2171996
+      ],
+      "selected_leaf": 0
+    },
+    {
+      "piece": "\u2581and",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.2493125,
+        0.2458124,
+        0.2744501,
+        0.230425
+      ],
+      "final_leaf_values": [
+        0.2495908,
+        0.2398846,
+        0.256472,
+        0.2540527
+      ],
+      "selected_leaf": 2
+    },
+    {
+      "piece": "\u2581to",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.2543171,
+        0.2458005,
+        0.2672978,
+        0.2325847
+      ],
+      "final_leaf_values": [
+        0.2555633,
+        0.2361616,
+        0.2499159,
+        0.2583591
+      ],
+      "selected_leaf": 2
+    },
+    {
+      "piece": "\u2581in",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.2684809,
+        0.2569692,
+        0.2636575,
+        0.2108923
+      ],
+      "final_leaf_values": [
+        0.2714621,
+        0.2485888,
+        0.2469626,
+        0.2329866
+      ],
+      "selected_leaf": 0
+    },
+    {
+      "piece": "\u2581is",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.2475249,
+        0.2413718,
+        0.2877078,
+        0.2233954
+      ],
+      "final_leaf_values": [
+        0.2482909,
+        0.2332959,
+        0.2708823,
+        0.2475309
+      ],
+      "selected_leaf": 2
+    },
+    {
+      "piece": "\u2581you",
+      "root": 1.0,
+      "initial_leaf_values": [
+        0.237781,
+        0.2279816,
+        0.2625284,
+        0.271709
+      ],
+      "final_leaf_values": [
+        0.2355132,
+        0.2172834,
+        0.2456917,
+        0.3015117
+      ],
+      "selected_leaf": 3
+    }
+  ],
+  "gates": {
+    "unit_root_mass": true,
+    "unfold_mass_conservation": true,
+    "no_trainable_token_parameters": true,
+    "finite_gradients": true,
+    "shared_gates_receive_gradient": true,
+    "shared_gates_changed": true,
+    "train_nll_decrease_ge_0_01": false,
+    "exact_hard_capacity": true,
+    "heldout_beats_global_by_0_05": false,
+    "heldout_retains_frozen_unfold": true,
+    "input_causality_delta_ge_0_02": true,
+    "topology_beats_balanced_random": false,
+    "derived_embeddings_vary": true
+  },
+  "smoke_pass": false,
+  "elapsed_seconds": 1.334007978439331
+}

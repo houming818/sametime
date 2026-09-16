@@ -98,3 +98,26 @@ operator.
 Passing does not prove that a raw token ID can route without observations,
 that the route supports polysemy, or that a sentence decoder can use the
 embedding for generation or translation.
+
+## Result
+
+Io tasks 497--498 completed both registered points and passed every gate.
+
+| Lines / targets / leaves | Capacity NLL initial -> final | Global / shuffled NLL | Capacity LCP / random | Local argmax use | Conservation |
+|---|---:|---:|---:|---:|---:|
+| 50K / 128 / 8 | `4.38605 -> 4.36042` | `4.46868 / 4.59844` | `1.70833 / 0.84115` | all leaves, `10..24` | `1.19e-7` |
+| 100K / 256 / 16 | `4.89755 -> 4.87234` | `5.02004 / 5.29377` | `2.06120 / 0.94010` | all leaves, `12..21` | `1.79e-7` |
+
+The exact-capacity selector retained `16..16` tokens per leaf at both points.
+More importantly, the local argmax diagnostic used every leaf without the
+capacity projection. Therefore the recursive unfold itself produced a
+nontrivial token-dependent field; the capacity operator regularized occupancy
+but did not create all branching. Shuffling the fixed token observations
+increased NLL by `0.23802` and `0.42143`, while hard-route agreement fell to
+`0.11719` and `0.04297`, respectively.
+
+The claim is supported through 256 targets as a token-context embedding
+mechanism. The result does not remove the mathematical boundary: context
+statistics provide the token-dependent condition. It does not show that
+identical scalar inputs with no condition or mutable state can separate, nor
+does it prove sentence-level decoding, polysemy, generation, or translation.

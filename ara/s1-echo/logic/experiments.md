@@ -2706,7 +2706,7 @@ capacity, finite gradients, and topology above controls. Evidence:
 
 ## P-S1-ROOT-UNFOLD-EMBED08: Unit Root to Derived Leaf Embedding
 
-**Status:** preregistered / not yet executed
+**Status:** completed / supported through 256 targets
 **Claim:** `S1-ROOT-UNFOLD-EMBED-C01`
 **Design:** `root_unfold_token_embedding.md`
 
@@ -2720,3 +2720,14 @@ same initialization and context objective. The smoke uses WMT 50K, 128
 targets, 256 contexts, depth 3, 160 steps, and seed `19501` only for controls.
 All gates and the single authorized scale successor are defined in the design
 document.
+
+Tasks 497--498 passed all registered gates. At 128 targets / 8 leaves,
+capacity-selected held-out NLL moved `4.38605 -> 4.36042`, versus global
+`4.46868` and shuffled-input `4.59844`; neighbor LCP was `1.70833` versus
+balanced-random `0.84115`. At 256 targets / 16 leaves, the corresponding
+values were `4.89755 -> 4.87234`, global `5.02004`, shuffled `5.29377`, and
+LCP `2.06120` versus `0.94010`. Exact occupancy was `16..16` at both points.
+The local-argmax diagnostic independently used every leaf with occupancy
+`10..24` and `12..21`, showing that recursive unfold created the branching
+before capacity regularization. Evidence:
+`evidence/s1_root_unfold_token_embedding/`.
