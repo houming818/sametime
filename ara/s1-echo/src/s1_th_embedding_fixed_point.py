@@ -24,6 +24,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from s1_root_unfold_token_embedding import derive_root_unfold_embedding
+
 
 EPS = 1e-9
 
@@ -52,6 +54,8 @@ class Config:
     eval_pairs: int
     seed: int
     device: str
+    embedding_init: str
+    unfold_steps: int
 
 
 def sha256(path: str) -> str:
@@ -170,6 +174,15 @@ def load_or_prepare(cfg: Config, cache_path: Path) -> Dict[str, object]:
     if actual != expected:
         raise RuntimeError(f"pair cache contract mismatch: {actual} != {expected}")
     return payload
+
+
+def pair_context_counts(train_pairs: torch.Tensor, vocab_size: int) -> torch.Tensor:
+    counts = torch.zeros((vocab_size, vocab_size), dtype=torch.float64)
+    values = torch.ones(train_pairs.shape[0], dtype=counts.dtype)
+    counts.index_put_(
+        (train_pairs[:, 0], train_pairs[:, 1]), values, accumulate=True
+    )
+    return counts
 
 
 class EmbeddingOnly(nn.Module):
@@ -412,8 +425,19 @@ def evaluate(
 def train(cfg: Config, payload: Dict[str, object], evidence: Path) -> Dict[str, object]:
     device = torch.device(cfg.device)
     torch.manual_seed(cfg.seed)
-    initial = torch.empty((cfg.vocab_size, cfg.dim), device=device)
-    nn.init.normal_(initial, std=0.02)
+    initialization_audit = None
+    if cfg.embedding_init == "random":
+        initial = torch.empty((cfg.vocab_size, cfg.dim), device=device)
+        nn.init.normal_(initial, std=0.02)
+    else:
+        counts = pair_context_counts(payload["train_pairs"], cfg.vocab_size)
+        initial, initialization_audit = derive_root_unfold_embedding(
+            counts,
+            cfg.dim,
+            steps=cfg.unfold_steps,
+            device=cfg.device,
+        )
+        initial = initial.to(device)
     baseline = EmbeddingOnly(initial).to(device)
     tree = RecurrentTreeHeap(initial, cfg.depth, cfg.rounds, cfg.mix).to(device)
     baseline_optimizer = torch.optim.AdamW(baseline.parameters(), lr=cfg.lr)
@@ -484,6 +508,7 @@ def train(cfg: Config, payload: Dict[str, object], evidence: Path) -> Dict[str, 
     )
     torch.save(tree.state_dict(), evidence / "treeheap_state.pt")
     return {
+        "initialization_audit": initialization_audit,
         "trace": trace,
         "first_gradients": first_gradients,
         "evaluation": result,
@@ -518,6 +543,8 @@ def main() -> None:
     ap.add_argument("--eval-pairs", type=int, default=20_000)
     ap.add_argument("--seed", type=int, default=19301)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
+    ap.add_argument("--embedding-init", choices=["random", "root_unfold"], default="random")
+    ap.add_argument("--unfold-steps", type=int, default=160)
     args = ap.parse_args()
     cfg = Config(
         data=args.data, spm_model=args.spm_model, max_scan_lines=args.max_scan_lines,
@@ -528,6 +555,7 @@ def main() -> None:
         steps=args.steps, batch_size=args.batch_size,
         negatives=args.negatives, lr=args.lr, score_scale=args.score_scale,
         eval_pairs=args.eval_pairs, seed=args.seed, device=args.device,
+        embedding_init=args.embedding_init, unfold_steps=args.unfold_steps,
     )
     evidence = Path(args.evidence_dir)
     evidence.mkdir(parents=True, exist_ok=True)

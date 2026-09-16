@@ -29,6 +29,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from s1_root_unfold_token_embedding import derive_root_unfold_embedding
+
 
 PAD = "<pad>"
 UNK = "<unk>"
@@ -109,10 +111,41 @@ def fixed_token_vectors(vocab: int, dim: int, seed: int) -> torch.Tensor:
     return vec
 
 
+def context_counts(
+    ids: torch.Tensor,
+    lengths: torch.Tensor,
+    vocab: int,
+    window: int,
+) -> torch.Tensor:
+    counts = torch.zeros((vocab, vocab), dtype=torch.float64)
+    for row, length_value in zip(ids, lengths):
+        length = int(length_value.item())
+        values = row[:length].tolist()
+        for pos, center in enumerate(values):
+            if center == 0:
+                continue
+            lo = max(0, pos - window)
+            hi = min(length, pos + window + 1)
+            contexts = [values[index] for index in range(lo, hi) if index != pos]
+            if contexts:
+                center_index = torch.full((len(contexts),), center, dtype=torch.long)
+                context_index = torch.tensor(contexts, dtype=torch.long)
+                counts.index_put_(
+                    (center_index, context_index),
+                    torch.ones(len(contexts), dtype=counts.dtype),
+                    accumulate=True,
+                )
+    return counts
+
+
 def build_compact_heap(ids: torch.Tensor, layout: HeapLayout, token_vec: torch.Tensor) -> torch.Tensor:
     bsz = ids.shape[0]
     dim = token_vec.shape[1]
-    states = torch.zeros((bsz, layout.node_count, dim), dtype=torch.float32)
+    states = torch.zeros(
+        (bsz, layout.node_count, dim),
+        dtype=torch.float32,
+        device=token_vec.device,
+    )
     mirrored = torch.flip(ids[:, : layout.max_len], dims=[1])
     states[:, layout.leaf_base : layout.leaf_base + layout.max_len] = token_vec[mirrored]
     for node in range(layout.leaf_base - 1, 0, -1):
@@ -182,13 +215,14 @@ def gather_batch(records: torch.Tensor, states: torch.Tensor, token_vec: torch.T
 
 
 def train_kernel(records, states, token_vec, args):
-    model = CompactRouteKernel(token_vec.shape[1], args.hidden)
+    device = token_vec.device
+    model = CompactRouteKernel(token_vec.shape[1], args.hidden).to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-4)
     trace = []
     started = time.time()
     for epoch in range(args.epochs):
         epoch_started = time.time()
-        order = torch.randperm(records.shape[0])
+        order = torch.randperm(records.shape[0], device=device)
         total_loss, total_ok = 0.0, 0
         for i in range(0, records.shape[0], args.batch):
             sel = order[i : i + args.batch]
@@ -225,7 +259,7 @@ def eval_kernel(model, records, states, token_vec, meta_seed):
         ys = []
         examples = []
         for i in range(0, records.shape[0], 4096):
-            sel = torch.arange(i, min(i + 4096, records.shape[0]))
+            sel = torch.arange(i, min(i + 4096, records.shape[0]), device=records.device)
             q, cur, left, right, y = gather_batch(records, states, token_vec, sel)
             pred = model(q, cur, left, right).argmax(-1)
             preds.append(pred)
@@ -247,9 +281,12 @@ def eval_kernel(model, records, states, token_vec, meta_seed):
         y = torch.cat(ys)
     step_acc = float((pred == y).float().mean().item())
     grouped: dict[tuple[int, int], list[bool]] = {}
-    for i, rec in enumerate(records):
+    records_cpu = records.cpu()
+    pred_cpu = pred.cpu()
+    y_cpu = y.cpu()
+    for i, rec in enumerate(records_cpu):
         key = (int(rec[0].item()), int(rec[1].item()))
-        grouped.setdefault(key, []).append(bool(pred[i].item() == y[i].item()))
+        grouped.setdefault(key, []).append(bool(pred_cpu[i].item() == y_cpu[i].item()))
     route_exact = sum(all(v) for v in grouped.values()) / len(grouped)
     return {"steps": int(records.shape[0]), "routes": len(grouped), "step_acc": step_acc, "route_exact": route_exact, "examples": examples}
 
@@ -264,12 +301,16 @@ class FlatLengthRoute(nn.Module):
 
 
 def flat_baseline(lengths, train_mask, ood_mask, layout, args):
-    model = FlatLengthRoute(layout.max_len)
+    device = torch.device(args.device)
+    lengths = lengths.to(device)
+    train_mask = train_mask.to(device)
+    ood_mask = ood_mask.to(device)
+    model = FlatLengthRoute(layout.max_len).to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=args.flat_lr)
-    rows = torch.arange(layout.max_len)
+    rows = torch.arange(layout.max_len, device=device)
     train_lengths = lengths[train_mask]
     for _ in range(args.flat_epochs):
-        order = torch.randperm(train_lengths.shape[0])
+        order = torch.randperm(train_lengths.shape[0], device=device)
         for i in range(0, train_lengths.shape[0], args.batch):
             sel = order[i : i + args.batch]
             batch_lengths = train_lengths[sel]
@@ -303,21 +344,41 @@ def run(args):
     out.mkdir(parents=True, exist_ok=True)
     log(
         f"start samples={args.samples} vocab={args.vocab} dim={args.dim} "
-        f"max_len={args.max_len} epochs={args.epochs}"
+        f"max_len={args.max_len} epochs={args.epochs} vector_mode={args.vector_mode}"
     )
     rows = read_wmt_english(Path(args.wmt_path), samples=args.samples, min_len=args.min_len, max_len=args.max_len, seed=args.seed)
     stoi = build_vocab(rows, args.vocab)
     ids, lengths = encode_rows(rows, stoi, args.max_len)
     layout = HeapLayout(args.max_len)
-    token_vec = fixed_token_vectors(args.vocab, args.dim, args.seed + 1009)
     train_mask = lengths <= args.train_max_len
     ood_mask = lengths > args.train_max_len
+    embedding_audit = None
+    if args.vector_mode == "random":
+        token_vec = fixed_token_vectors(args.vocab, args.dim, args.seed + 1009)
+    else:
+        counts = context_counts(
+            ids[train_mask], lengths[train_mask], args.vocab, args.context_window
+        )
+        token_vec, embedding_audit = derive_root_unfold_embedding(
+            counts,
+            args.dim,
+            steps=args.embedding_steps,
+            temperature=args.embedding_temperature,
+            device=args.device,
+        )
+        token_vec[0].zero_()
+    device = torch.device(args.device)
+    token_vec = token_vec.to(device)
     phase = time.time()
-    train_states = build_compact_heap(ids[train_mask], layout, token_vec)
-    ood_states = build_compact_heap(ids[ood_mask], layout, token_vec)
+    train_ids = ids[train_mask].to(device)
+    ood_ids = ids[ood_mask].to(device)
+    train_states = build_compact_heap(train_ids, layout, token_vec)
+    ood_states = build_compact_heap(ood_ids, layout, token_vec)
     log(f"build_compact_heap sec={time.time() - phase:.2f}")
     train_records, _ = build_route_records(ids[train_mask], lengths[train_mask], layout, args.max_queries_per_sentence)
     ood_records, _ = build_route_records(ids[ood_mask], lengths[ood_mask], layout, args.max_queries_per_sentence)
+    train_records = train_records.to(device)
+    ood_records = ood_records.to(device)
     compact_bytes = (
         train_states.numel() * train_states.element_size()
         + ood_states.numel() * ood_states.element_size()
@@ -351,6 +412,8 @@ def run(args):
         "samples": args.samples,
         "vocab": args.vocab,
         "dim": args.dim,
+        "vector_mode": args.vector_mode,
+        "embedding_audit": embedding_audit,
         "max_len": layout.max_len,
         "train_rows": int(train_mask.sum().item()),
         "ood_rows": int(ood_mask.sum().item()),
@@ -365,7 +428,7 @@ def run(args):
         "pilot_pass": all(pass_checks.values()),
         "examples": {"ood": ood_metrics["examples"]},
         "limits": [
-            "fixed random token vectors, not learned semantic embeddings",
+            "root-unfold vectors are trained from held-in context counts only" if args.vector_mode == "root_unfold" else "fixed random token vectors",
             "query token is supervised",
             "unique-token query positions only",
             "not translation",
@@ -395,6 +458,10 @@ def main():
     p.add_argument("--samples", type=int, default=20000)
     p.add_argument("--vocab", type=int, default=1024)
     p.add_argument("--dim", type=int, default=64)
+    p.add_argument("--vector-mode", choices=["random", "root_unfold"], default="random")
+    p.add_argument("--context-window", type=int, default=4)
+    p.add_argument("--embedding-steps", type=int, default=160)
+    p.add_argument("--embedding-temperature", type=float, default=0.50)
     p.add_argument("--min-len", type=int, default=3)
     p.add_argument("--max-len", type=int, default=32)
     p.add_argument("--train-max-len", type=int, default=24)
@@ -407,6 +474,7 @@ def main():
     p.add_argument("--flat-lr", type=float, default=5e-2)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--log-every", type=int, default=1)
+    p.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     args = p.parse_args()
     summary = run(args)
     print(json.dumps({

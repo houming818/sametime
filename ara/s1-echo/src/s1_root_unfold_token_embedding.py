@@ -169,6 +169,144 @@ def initial_leaf_probability(
     return blend * result + (1.0 - blend) * global_probability[None, :]
 
 
+def derive_root_unfold_embedding(
+    counts: torch.Tensor,
+    embedding_dim: int,
+    *,
+    steps: int = 160,
+    learning_rate: float = 0.01,
+    temperature: float = 0.50,
+    decoder_blend: float = 0.50,
+    balance_weight: float = 0.10,
+    split_iterations: int = 30,
+    alpha: float = 0.10,
+    device: str = "cpu",
+) -> Tuple[torch.Tensor, Dict[str, object]]:
+    """Build a token coordinate from shared root-unfold gates only.
+
+    ``counts`` supplies fixed token-context observations. The returned table is
+    a materialized view of the recursively generated route field, not a
+    trainable token lookup.
+    """
+    if embedding_dim <= 1 or embedding_dim & (embedding_dim - 1):
+        raise ValueError("embedding_dim must be a power of two greater than one")
+    if counts.shape[0] % embedding_dim:
+        raise ValueError("token count must be divisible by embedding_dim")
+    depth = int(math.log2(embedding_dim))
+    train_counts = counts.to(torch.float64).cpu()
+    probability = anneal.distributions(train_counts, alpha)
+    observation = probability.sqrt().to(device, torch.float32)
+    semantic = capacity.build_balanced_semantic_tree(
+        observation, depth, split_iterations
+    )
+    semantic_leaf = semantic["leaf"].cpu()
+    initial_weights, initial_biases = initial_gate_parameters(
+        observation, semantic["routes"], depth
+    )
+    initial_decoder = initial_leaf_probability(
+        semantic_leaf,
+        train_counts,
+        embedding_dim,
+        alpha,
+        decoder_blend,
+    )
+    weights = torch.nn.Parameter(initial_weights.clone())
+    biases = torch.nn.Parameter(initial_biases.clone())
+    decoder_logits = torch.nn.Parameter(
+        initial_decoder.to(device, torch.float32).clamp_min(1e-12).log()
+    )
+    initial_weight_copy = weights.detach().clone()
+    optimizer = torch.optim.Adam(
+        [weights, biases, decoder_logits], lr=learning_rate
+    )
+    train_float = train_counts.to(device, torch.float32)
+    initial_nll = 0.0
+    finite_gradients = True
+    trace: List[Dict[str, float]] = []
+
+    for step in range(steps + 1):
+        route, _levels, conservation = root_unfold(
+            observation, weights, biases, depth, temperature
+        )
+        hard, leaf = select_hard(route, "argmax")
+        decoder = decoder_logits.softmax(dim=1)
+        prediction = (hard @ decoder).clamp_min(1e-12)
+        context_loss = -(
+            train_float * prediction.log()
+        ).sum() / train_float.sum().clamp_min(1.0)
+        leaf_mass = route.mean(dim=0) * embedding_dim
+        balance_loss = (leaf_mass - 1.0).square().mean()
+        objective = context_loss + balance_weight * balance_loss
+        if step == 0:
+            initial_nll = float(context_loss.item())
+        if step % max(1, steps // 8) == 0 or step == steps:
+            occupancy = torch.bincount(leaf, minlength=embedding_dim)
+            trace.append(
+                {
+                    "step": step,
+                    "context_nll": float(context_loss.item()),
+                    "balance_loss": float(balance_loss.item()),
+                    "objective": float(objective.item()),
+                    "leaf_min": int(occupancy.min().item()),
+                    "leaf_max": int(occupancy.max().item()),
+                    "conservation_max_abs": conservation,
+                }
+            )
+        if step == steps:
+            break
+        optimizer.zero_grad(set_to_none=True)
+        objective.backward()
+        gradients = (weights.grad, biases.grad, decoder_logits.grad)
+        if any(
+            gradient is None or not torch.isfinite(gradient).all()
+            for gradient in gradients
+        ):
+            finite_gradients = False
+            break
+        optimizer.step()
+
+    with torch.no_grad():
+        route, levels, conservation = root_unfold(
+            observation, weights, biases, depth, temperature
+        )
+        leaf = route.argmax(dim=1).cpu()
+        route_embedding = route.clamp_min(0.0).sqrt().cpu()
+        occupancy = torch.bincount(leaf, minlength=embedding_dim).to(torch.float64)
+        occupied = occupancy[occupancy > 0]
+        occupancy_probability = occupied / occupied.sum()
+        audit = {
+            "source": "root_unfold_from_context_counts",
+            "token_count": int(counts.shape[0]),
+            "context_count": int(counts.shape[1]),
+            "embedding_dim": embedding_dim,
+            "depth": depth,
+            "root_mass_min": float(levels[0].min().item()),
+            "root_mass_max": float(levels[0].max().item()),
+            "conservation_max_abs": conservation,
+            "initial_context_nll": initial_nll,
+            "final_context_nll": float(trace[-1]["context_nll"]),
+            "context_nll_decrease": initial_nll - float(trace[-1]["context_nll"]),
+            "finite_gradients": finite_gradients,
+            "gate_parameter_delta_l2": float(
+                (weights.detach() - initial_weight_copy).norm().item()
+            ),
+            "leaf_utilization": float(len(occupied) / embedding_dim),
+            "leaf_count_min": int(occupancy.min().item()),
+            "leaf_count_max": int(occupancy.max().item()),
+            "leaf_entropy": float(
+                (
+                    -(occupancy_probability * occupancy_probability.log()).sum()
+                    / math.log(embedding_dim)
+                ).item()
+            ),
+            "route_vector_variance": route_variance(route),
+            "mean_top1_route_mass": float(route.max(dim=1).values.mean().item()),
+            "trainable_token_parameter_count": 0,
+            "trace": trace,
+        }
+    return route_embedding, audit
+
+
 def route_variance(probability: torch.Tensor) -> float:
     return float(probability.var(dim=0, unbiased=False).mean().detach().cpu().item())
 
