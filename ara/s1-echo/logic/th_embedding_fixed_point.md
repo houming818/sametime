@@ -111,19 +111,22 @@ versus `0.68090`. The r8 gap narrowed from `-0.00400` at 1,000 steps to
 `-0.00100` at 5,000 steps, but r2 widened from `-0.00155` to `-0.00365`.
 This is not a consistent fixed-seed training-time trend.
 
-The structural signal remains real but optimization concentrates routes.
-Every run kept positive LCP above negative LCP. However, r2 utilization and
-entropy changed from `0.2168/0.4397` at 1,000 steps to `0.0352/0.2462` at
-5,000, and r8 changed from `0.2832/0.5392` to `0.1582/0.4499`. Repeated falls
-therefore expose nontrivial shared routing, but the current pair-NCE objective
-does not preserve broad occupancy or deliver a semantic-quality gain over a
-matched embedding table.
+The structural signal remains real, but the original hard-leaf metrics alone
+misdescribe the failure. Read-only task 468 found minimum soft branch entropy
+of `0.9971..0.9998` bits across the four fixed-seed checkpoints, and zero
+probability mass at decisions below `0.05` or above `0.95`. The router remains
+almost maximally uncertain. The apparent hard-leaf concentration is produced
+by applying argmax to many probabilities lying only slightly to either side of
+`0.5`; it is not evidence of confident route collapse. Repeated falls expose
+nontrivial ranking structure, but pair-NCE does not teach decisive hierarchical
+splits or deliver a quality gain over a matched embedding table.
 
 ## Decision
 
 `S1-TH-EMBED-FP-C01` is supported only as a mechanism claim. Under the tested
 100K-line, 4,096-token pair-NCE contract, semantic advantage over the matched
 embedding-only baseline is not supported. Do not scale this exact objective
-unchanged. A successor must add an explicit anti-collapse or hierarchical
-information objective and preregister a baseline comparison before using more
-GPU time.
+unchanged. A successor must add a hierarchical information objective that both
+sharpens each token's conditional route and preserves marginal branch use. A
+plain occupancy-balancing penalty would address only the hard argmax symptom.
+The successor must retain a preregistered fixed-seed baseline comparison.

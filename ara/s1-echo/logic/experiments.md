@@ -2523,3 +2523,11 @@ worsened. Route prefix structure remained measurable, but utilization and
 entropy fell with longer optimization. The exact tested objective is closed as
 a mechanism-positive, quality-negative result. See
 `evidence/s1_th_embedding_fixed_point/REPORT.zh.md`.
+
+Read-only task 468 audited all routing levels in the fixed-seed r2/r8 1K/5K
+checkpoints. Soft decisions did not saturate: minimum branch entropy remained
+`0.9971` bits and saturated mass (`p<0.05` or `p>0.95`) was zero. Therefore the
+fall in hard-leaf utilization is an argmax crowding symptom, not confident
+route collapse. A successor should maximize hierarchical route information by
+reducing per-token conditional branch entropy while retaining marginal branch
+entropy; balancing hard occupancy alone is not the registered intervention.

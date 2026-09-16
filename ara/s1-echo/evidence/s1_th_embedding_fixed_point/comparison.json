@@ -58,9 +58,38 @@
       "occupancy_entropy": 0.4499260460
     }
   },
+  "route_audit_task_468": {
+    "method": "read_only_per_level_soft_and_hard_route_profile",
+    "r2_1000": {
+      "minimum_soft_branch_entropy_bits": 0.9997718334,
+      "maximum_saturated_decision_mass": 0.0,
+      "final_hard_leaf_utilization": 0.216796875,
+      "largest_hard_leaf_share": 0.2368164063
+    },
+    "r2_5000": {
+      "minimum_soft_branch_entropy_bits": 0.9970788956,
+      "maximum_saturated_decision_mass": 0.0,
+      "final_hard_leaf_utilization": 0.03515625,
+      "largest_hard_leaf_share": 0.5146484375
+    },
+    "r8_1000": {
+      "minimum_soft_branch_entropy_bits": 0.9998429418,
+      "maximum_saturated_decision_mass": 0.0,
+      "final_hard_leaf_utilization": 0.283203125,
+      "largest_hard_leaf_share": 0.1704101563
+    },
+    "r8_5000": {
+      "minimum_soft_branch_entropy_bits": 0.9989173412,
+      "maximum_saturated_decision_mass": 0.0,
+      "final_hard_leaf_utilization": 0.158203125,
+      "largest_hard_leaf_share": 0.1716308594
+    },
+    "interpretation": "Hard argmax crowding occurs while soft routes remain almost maximally uncertain; this is not confident route collapse."
+  },
   "decision": {
     "mechanism": "supported",
     "semantic_advantage_under_tested_contract": "not_supported",
-    "scale_exact_objective_unchanged": false
+    "scale_exact_objective_unchanged": false,
+    "next_intervention": "fixed-seed hierarchical route information objective: lower conditional route entropy while preserving marginal branch entropy"
   }
 }
