@@ -11,9 +11,12 @@
     "tree_depth": 9,
     "batch_size": 512,
     "negatives": 4,
-    "eval_pairs": 20000
+    "eval_pairs": 20000,
+    "primary_seed": 19301,
+    "seed_policy": "All causal comparisons fix seed 19301; seeds 19302 and 19303 are robustness references only."
   },
-  "r8_1000_step_seed_replication": {
+  "r8_1000_step_seed_reference": {
+    "role": "reference_only_not_pooled_for_causal_decision",
     "seeds": [19301, 19302, 19303],
     "tree_minus_baseline_accuracy": [-0.0040000081, 0.0006999969, -0.0016000271],
     "accuracy_delta_mean": -0.0016333461,

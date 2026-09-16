@@ -85,27 +85,31 @@ mechanism is differentiable and nontrivial, but no quality advantage is shown.
 
 ## Registered Follow-up
 
-Before changing the architecture, run two r8 seed replications (`19302/19303`)
-at 1,000 steps and two longer 5,000-step arms (`r2/r8`, seed 19301). This tests
-seed dependence and under-training separately. All use the existing immutable
-pair cache and matched embedding-only arm. No metric-based early stop is
-allowed.
+Before changing the architecture, run two r8 seed references (`19302/19303`)
+at 1,000 steps and two longer 5,000-step arms (`r2/r8`, seed 19301). The causal
+comparison keeps seed `19301` fixed; the additional seeds are robustness
+references only and must not be pooled into the primary estimate. All use the
+existing immutable pair cache and matched embedding-only arm. No metric-based
+early stop is allowed.
 
 ## Follow-up Result
 
 Tasks 464--467 completed the preregistered follow-up without runtime faults.
-For r8 at 1,000 steps, the three-seed Tree-minus-baseline pair-accuracy
-deltas were `-0.0040`, `+0.0007`, and `-0.0016` (mean `-0.00163`, sample
-SD `0.00235`). The corresponding margin deltas were all negative:
-`-0.00142`, `-0.00119`, and `-0.00075` (mean `-0.00112`). Thus one seed
-slightly crossed the accuracy baseline, but there is no replicated quality
-advantage.
+The primary comparison keeps seed `19301` fixed. At 1,000 steps, r1/r2/r4/r8
+Tree-minus-baseline accuracy deltas were `-0.00120/-0.00155/-0.00380/-0.00400`.
+At 5,000 steps, r2/r8 deltas were `-0.00365/-0.00100`. These fixed-seed results
+do not establish a quality advantage.
+
+Seeds `19302/19303` are reference runs, not members of the primary causal
+estimate. Their r8/1,000-step deltas were `+0.00070/-0.00160`, compared with
+`-0.00400` for seed `19301`; all three margin deltas were negative. The
+references show seed sensitivity and do not reverse the fixed-seed decision.
 
 Longer optimization also did not establish an advantage. At 5,000 steps,
 r2 scored `0.67725` versus baseline `0.68090`, while r8 scored `0.67990`
 versus `0.68090`. The r8 gap narrowed from `-0.00400` at 1,000 steps to
 `-0.00100` at 5,000 steps, but r2 widened from `-0.00155` to `-0.00365`.
-This is not a consistent training-time trend.
+This is not a consistent fixed-seed training-time trend.
 
 The structural signal remains real but optimization concentrates routes.
 Every run kept positive LCP above negative LCP. However, r2 utilization and

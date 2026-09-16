@@ -2513,10 +2513,11 @@ steps, all from scratch on the same immutable cache. These runs distinguish
 seed variance from insufficient optimization; they do not change the model or
 the evaluation contract.
 
-Tasks 464--465 replicated r8 at seeds `19302/19303`. Across seeds
-`19301/19302/19303`, Tree-minus-baseline pair-accuracy deltas were
-`-0.0040/+0.0007/-0.0016`, while all three margin deltas were negative. Tasks
-466--467 extended r2/r8 to 5,000 steps. Their accuracy deltas were
+Tasks 464--465 ran r8 robustness references at seeds `19302/19303`; they are
+not pooled into the causal estimate. Their Tree-minus-baseline accuracy deltas
+were `+0.0007/-0.0016`, compared with `-0.0040` for the fixed primary seed
+`19301`, while all three margin deltas were negative. Tasks 466--467 kept seed
+`19301` fixed and extended r2/r8 to 5,000 steps. Their accuracy deltas were
 `-0.00365/-0.00100`; longer r8 narrowed but did not close the gap, while r2
 worsened. Route prefix structure remained measurable, but utilization and
 entropy fell with longer optimization. The exact tested objective is closed as
