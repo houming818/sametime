@@ -47,8 +47,13 @@ class ParentF(nn.Module):
         self.alpha = alpha
         self.classifier = nn.Linear(dim, groups)
         if mode != "mean":
-            self.query = nn.Linear(dim, dim, bias=False)
-            self.key = nn.Linear(dim, dim, bias=False)
+            if mode.startswith("orthogonal"):
+                self.rotation = nn.Linear(dim, dim, bias=False)
+                nn.init.eye_(self.rotation.weight)
+                nn.utils.parametrizations.orthogonal(self.rotation)
+            else:
+                self.query = nn.Linear(dim, dim, bias=False)
+                self.key = nn.Linear(dim, dim, bias=False)
             self.temperature = nn.Parameter(torch.tensor(1.0))
 
     def forward(self, x: torch.Tensor):
@@ -57,8 +62,12 @@ class ParentF(nn.Module):
             parent = base
             weights = torch.full((x.size(0), x.size(1)), 1.0 / x.size(1), device=x.device)
         else:
-            q = self.query(base).unsqueeze(1)
-            k = self.key(x)
+            if self.mode.startswith("orthogonal"):
+                q = self.rotation(base).unsqueeze(1)
+                k = self.rotation(x)
+            else:
+                q = self.query(base).unsqueeze(1)
+                k = self.key(x)
             scores = (q * k).sum(-1) / math.sqrt(x.size(-1))
             weights = F.softmax(scores / self.temperature.clamp_min(0.05), dim=-1)
             routed = (weights.unsqueeze(-1) * x).sum(dim=1)
@@ -122,7 +131,7 @@ def main() -> None:
     _, _, _, centers = make_data(1, 8, 8, 32, args.seed + 1)
     xtr, ytr, ptr, _ = make_data(2400, 8, 8, 32, args.seed + 2, centers)
     xte, yte, pte, _ = make_data(1200, 8, 8, 32, args.seed + 3, centers)
-    manifest = {"seed": args.seed, "device": str(device), "groups": 8, "children": 8, "dim": 32, "train": 2400, "test": 1200, "steps": args.steps, "modes": ["mean", "dynamic", "dynamic_residual"], "alpha": 0.5}
+    manifest = {"seed": args.seed, "device": str(device), "groups": 8, "children": 8, "dim": 32, "train": 2400, "test": 1200, "steps": args.steps, "modes": ["mean", "dynamic", "dynamic_residual", "orthogonal", "orthogonal_residual"], "alpha": 0.5, "orthogonal_constraint": "R^T R = I"}
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     rows = []
     with (out / "trials.jsonl").open("w", encoding="utf-8") as f:

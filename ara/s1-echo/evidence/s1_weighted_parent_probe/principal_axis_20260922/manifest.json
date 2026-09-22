@@ -1,0 +1,19 @@
+{
+  "seed": 20260922,
+  "device": "cuda",
+  "groups": 8,
+  "children": 8,
+  "dim": 32,
+  "train": 2400,
+  "test": 1200,
+  "steps": 1600,
+  "modes": [
+    "mean",
+    "dynamic",
+    "dynamic_residual",
+    "orthogonal",
+    "orthogonal_residual"
+  ],
+  "alpha": 0.5,
+  "orthogonal_constraint": "R^T R = I"
+}
