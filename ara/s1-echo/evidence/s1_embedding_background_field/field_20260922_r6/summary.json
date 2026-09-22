@@ -1,0 +1,50 @@
+{
+  "manifest": {
+    "seed": 20260922,
+    "device": "cuda",
+    "vocab": 128,
+    "groups": 8,
+    "dim": 32,
+    "steps": 1200,
+    "modes": [
+      "background",
+      "rotation",
+      "rotation_scale"
+    ],
+    "objective": "same-group compactness and different-group separation",
+    "rotation_constraint": "R^T R = I"
+  },
+  "summary": {
+    "background": {
+      "same_distance": 1.2175835371017456,
+      "different_distance": 1.4099866151809692,
+      "distance_gap": 0.19240307807922363,
+      "knn1_purity": 0.6796875,
+      "mean_norm": 1.0,
+      "norm_std": 3.548007398990194e-08,
+      "final_loss": 1.4562429984410603,
+      "final_grad_norm": 0.0
+    },
+    "rotation": {
+      "same_distance": 1.2175835371017456,
+      "different_distance": 1.4099866151809692,
+      "distance_gap": 0.19240307807922363,
+      "knn1_purity": 0.6796875,
+      "mean_norm": 1.0,
+      "norm_std": 3.548007398990194e-08,
+      "final_loss": 1.4562429984410603,
+      "final_grad_norm": 0.0
+    },
+    "rotation_scale": {
+      "same_distance": 0.9342832763989767,
+      "different_distance": 1.0836211840311687,
+      "distance_gap": 0.14933790763219199,
+      "knn1_purity": 0.6796875,
+      "mean_norm": 0.7683581511179606,
+      "norm_std": 0.002134722347060839,
+      "final_loss": 0.9866547584533691,
+      "final_grad_norm": 0.03850052257378896
+    }
+  },
+  "rows": 9
+}
