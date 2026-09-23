@@ -79,3 +79,29 @@ Even a fully supported A12 claim establishes only reproducible corpus-field
 embedding formation. It does not establish semantic categories, READ,
 translation, generation, or Decoder compatibility. Those require a later
 frozen-embedding downstream probe.
+
+## Result
+
+Tasks `563` through `574` completed successfully on `io`. Every arm contains
+512 trace rows, finite scores, at least one accepted proposal, valid FOLD and
+path-residual audits, and leaf utilization above the preregistered threshold.
+
+```text
+depth  leaves  median dev gain  median sealed-test delta  min utilization
+3      8       0.053624         -0.053989                 1.00000
+4      16      0.044896         -0.045092                 1.00000
+5      32      0.048298         -0.050505                 1.00000
+6      64      0.029383         -0.029595                 0.96875
+```
+
+For every depth, all three search seeds exceeded the `0.005` dev-gain gate,
+all three improved over the deterministic initial tree on sealed test, and all
+three beat their random-route control. All four depths therefore meet the
+replication definition, so `S1-F-MC-A12-C01` is supported.
+
+The ladder is not monotonic. Depth 3 has the largest median reconstruction
+gain, while depth 6 has the smallest. This does not prove that eight leaves are
+the best semantic embedding capacity: the objective measures context-field
+reconstruction, not downstream semantic resolution. The next experiment
+should freeze representative shallow and middle-depth embeddings and compare
+their downstream information, rather than selecting a depth from NLL alone.

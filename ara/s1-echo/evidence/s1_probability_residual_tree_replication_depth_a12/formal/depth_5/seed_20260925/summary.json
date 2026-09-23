@@ -1,0 +1,61 @@
+{
+  "claim": "S1-F-MC-A12-C01",
+  "boundary": "Corpus context-field embedding F search only; no next-token, decoder, READ, translation, or generation target.",
+  "config": {
+    "counts": "ara/s1-echo/evidence/s1_real_corpus_annealed_token_space/formal_200k_seed19101/context_counts.pt",
+    "out": "ara/s1-echo/evidence/s1_probability_residual_tree_replication_depth_a12/formal/depth_5/seed_20260925",
+    "depth": 5,
+    "iterations": 512,
+    "fit_ratio": 0.8,
+    "alpha": 0.05,
+    "temperature": 0.02,
+    "seed": 20260924,
+    "split_seed": 20260924,
+    "search_seed": 20260925,
+    "claim": "S1-F-MC-A12-C01",
+    "device": "cuda",
+    "resolved_split_seed": 20260924,
+    "resolved_search_seed": 20260925
+  },
+  "shape": {
+    "tokens": 512,
+    "contexts": 1024,
+    "leaves": 32
+  },
+  "counts": {
+    "fit": 5278851.0,
+    "search_dev": 1320737.0,
+    "sealed_test": 735369.0
+  },
+  "search": {
+    "initial_dev_nll": 5.373435589668923,
+    "best_dev_nll": 5.321270569352049,
+    "dev_gain": 0.05216502031687398,
+    "accepted": 231,
+    "iterations": 512
+  },
+  "sealed_evaluation": {
+    "initial_test_nll": 5.3963719737835865,
+    "best_test_nll": 5.343324661792165,
+    "random_test_nll": 5.459133755754176,
+    "best_minus_initial": -0.05304731199142143,
+    "best_minus_random": -0.11580909396201111
+  },
+  "structure": {
+    "leaf_utilization": 1.0,
+    "occupancy_entropy": 0.8920792063453132,
+    "fold_conservation_max_abs": 2.7755575615628914e-17,
+    "residual_closure_max_abs": 2.7755575615628914e-17
+  },
+  "gates": {
+    "finite": true,
+    "accepted_at_least_one": true,
+    "fold_conservation_le_1e_10": true,
+    "residual_closure_le_1e_10": true,
+    "dev_gain_ge_0_005": true,
+    "sealed_test_not_worse_gt_0_01": true,
+    "sealed_test_better_than_random": true,
+    "leaf_utilization_ge_0_50": true
+  },
+  "claim_supported": true
+}
