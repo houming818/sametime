@@ -1,0 +1,76 @@
+{
+  "claim": "S1-F-CKPT-A13-C01",
+  "boundary": "Corpus context-field embedding F search only; no next-token, decoder, READ, translation, or generation target.",
+  "config": {
+    "counts": "ara/s1-echo/evidence/s1_real_corpus_annealed_token_space/formal_200k_seed19101/context_counts.pt",
+    "out": "ara/s1-echo/evidence/s1_probability_residual_embedding_checkpoint_a13/formal/depth_5_seed20260928",
+    "depth": 5,
+    "iterations": 2048,
+    "fit_ratio": 0.8,
+    "alpha": 0.05,
+    "temperature": 0.02,
+    "seed": 20260924,
+    "split_seed": 20260924,
+    "search_seed": 20260928,
+    "claim": "S1-F-CKPT-A13-C01",
+    "save_checkpoint": true,
+    "vocab_json": "ara/s1-echo/evidence/s1_real_corpus_annealed_token_space/formal_200k_seed19101/vocab.json",
+    "device": "cuda",
+    "resolved_split_seed": 20260924,
+    "resolved_search_seed": 20260928
+  },
+  "shape": {
+    "tokens": 512,
+    "contexts": 1024,
+    "leaves": 32
+  },
+  "counts": {
+    "fit": 5278851.0,
+    "search_dev": 1320737.0,
+    "sealed_test": 735369.0
+  },
+  "search": {
+    "initial_dev_nll": 5.373435589668923,
+    "best_dev_nll": 5.318545770736248,
+    "dev_gain": 0.05488981893267564,
+    "accepted": 352,
+    "iterations": 2048
+  },
+  "sealed_evaluation": {
+    "initial_test_nll": 5.3963719737835865,
+    "best_test_nll": 5.341358107541294,
+    "random_test_nll": 5.457078649609351,
+    "best_minus_initial": -0.055013866242292764,
+    "best_minus_random": -0.1157205420680576
+  },
+  "structure": {
+    "leaf_utilization": 1.0,
+    "occupancy_entropy": 0.9402649452752818,
+    "fold_conservation_max_abs": 1.3877787807814457e-17,
+    "residual_closure_max_abs": 1.3877787807814457e-17
+  },
+  "gates": {
+    "finite": true,
+    "accepted_at_least_one": true,
+    "fold_conservation_le_1e_10": true,
+    "residual_closure_le_1e_10": true,
+    "dev_gain_ge_0_005": true,
+    "sealed_test_not_worse_gt_0_01": true,
+    "sealed_test_better_than_random": true,
+    "leaf_utilization_ge_0_50": true,
+    "checkpoint_reload_exact": true
+  },
+  "claim_supported": true,
+  "checkpoint": {
+    "path": "ara/s1-echo/evidence/s1_probability_residual_embedding_checkpoint_a13/formal/depth_5_seed20260928/embedding_checkpoint.pt",
+    "sha256": "b8beca72cbc5d1e1bc2084f08216e1cc97a3146b25f8021001954a93f6c29f5b",
+    "format": "treeheap_probability_residual_embedding_v1",
+    "target_tokens": 512,
+    "context_tokens": 1024,
+    "leaves": 32,
+    "route_dimensions": 5,
+    "reload_assignment_exact": true,
+    "reload_test_nll_abs_delta": 0.0,
+    "reload_pass": true
+  }
+}

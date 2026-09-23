@@ -54,3 +54,31 @@ their initial tree, beat random routing, and pass the exact reload contract.
 This creates embedding artifacts. It does not yet show that READ, a Decoder,
 translation, or semantic probes can use them. The checkpoints are frozen inputs
 for that next experiment; downstream labels must not retroactively alter A13.
+
+## Result
+
+The two formal arms completed on `io` as tasks `576` and `577`.
+
+```text
+depth                         3                 5
+leaves                        8                32
+initial dev NLL               5.468152         5.373436
+best dev NLL                  5.418536         5.318546
+dev gain                      0.049616         0.054890
+initial sealed-test NLL       5.486780         5.396372
+best sealed-test NLL          5.436473         5.341358
+sealed-test improvement       0.050307         0.055014
+leaf utilization              1.000000         1.000000
+checkpoint reload exact       true             true
+reload NLL absolute delta     0                0
+```
+
+Both arms pass every preregistered gate. `S1-F-CKPT-A13-C01` is supported for
+the frozen 512-target/1024-context WMT field. The resulting artifacts are valid
+TreeHeap probability-residual embedding checkpoints and may be used as frozen
+inputs to downstream probes.
+
+Depth 5 has a modestly larger reconstruction gain in this longer search, but
+that does not select it as the better semantic representation. Both checkpoints
+must remain frozen and be compared under the same downstream data, model,
+initialization, and optimization budget.

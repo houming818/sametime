@@ -1,0 +1,50 @@
+=== taskd run 578 2026-09-23T10:10:44Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "-c", "import torch,json; from pathlib import Path; root=Path('ara/s1-echo/evidence/s1_probability_residual_embedding_checkpoint_a13/formal'); out={}; [out.__setitem__(p.parent.name, {'format':(c:=torch.load(p,map_location='cpu',weights_only=False))['format'], 'depth':c['depth'], 'target_ids':len(c['target_ids']), 'context_ids':len(c['context_ids']), 'axes':list(c['axes'].shape), 'token_path_bits':list(c['token_path_bits'].shape), 'node_probability':list(c['node_probability'].shape), 'node_residual':list(c['node_residual'].shape)}) for p in root.glob('*/embedding_checkpoint.pt')]; print(json.dumps(out,indent=2))"] ===
+{
+  "depth_3_seed20260928": {
+    "format": "treeheap_probability_residual_embedding_v1",
+    "depth": 3,
+    "target_ids": 512,
+    "context_ids": 1024,
+    "axes": [
+      7,
+      1024
+    ],
+    "token_path_bits": [
+      512,
+      3
+    ],
+    "node_probability": [
+      15,
+      1024
+    ],
+    "node_residual": [
+      15,
+      1024
+    ]
+  },
+  "depth_5_seed20260928": {
+    "format": "treeheap_probability_residual_embedding_v1",
+    "depth": 5,
+    "target_ids": 512,
+    "context_ids": 1024,
+    "axes": [
+      31,
+      1024
+    ],
+    "token_path_bits": [
+      512,
+      5
+    ],
+    "node_probability": [
+      63,
+      1024
+    ],
+    "node_residual": [
+      63,
+      1024
+    ]
+  }
+}
+=== status=done exit=0 elapsed=1.3s 2026-09-23T10:10:45Z ===
