@@ -201,6 +201,9 @@ def main() -> None:
     parser.add_argument("--alpha", type=float, default=0.05)
     parser.add_argument("--temperature", type=float, default=0.02)
     parser.add_argument("--seed", type=int, default=20260924)
+    parser.add_argument("--split-seed", type=int)
+    parser.add_argument("--search-seed", type=int)
+    parser.add_argument("--claim", default="S1-F-MC-A11-C01")
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     args = parser.parse_args()
     out = Path(args.out)
@@ -209,7 +212,9 @@ def main() -> None:
     payload = torch.load(args.counts, map_location="cpu", weights_only=False)
     original_train = payload["train"].to(torch.float64)
     sealed_test = payload["test"].to(device=device, dtype=torch.float64)
-    generator = torch.Generator(device="cpu").manual_seed(args.seed)
+    split_seed = args.seed if args.split_seed is None else args.split_seed
+    search_seed = args.seed if args.search_seed is None else args.search_seed
+    generator = torch.Generator(device="cpu").manual_seed(split_seed)
     fit = torch.binomial(original_train, torch.full_like(original_train, args.fit_ratio), generator=generator)
     search_dev = original_train - fit
     fit = fit.to(device)
@@ -223,7 +228,7 @@ def main() -> None:
     initial = SearchState(initial_axes, initial_thresholds, initial_dev)
     current = copy.deepcopy(initial)
     best = copy.deepcopy(initial)
-    rng = random.Random(args.seed + 1)
+    rng = random.Random(search_seed + 1)
     trace: List[Dict[str, object]] = []
     accepted_count = 0
     for iteration in range(args.iterations):
@@ -252,7 +257,7 @@ def main() -> None:
             print(json.dumps(row), flush=True)
 
     best_assignment, _ = route(x, best.axes, best.thresholds, args.depth)
-    random_route = random_assignment(x.shape[0], leaves, args.seed + 2, device)
+    random_route = random_assignment(x.shape[0], leaves, search_seed + 2, device)
     initial_test = nll_for_assignment(fit, sealed_test, initial_assignment, leaves, args.alpha)
     best_test = nll_for_assignment(fit, sealed_test, best_assignment, leaves, args.alpha)
     random_test = nll_for_assignment(fit, sealed_test, random_route, leaves, args.alpha)
@@ -270,9 +275,9 @@ def main() -> None:
         "leaf_utilization_ge_0_50": utilization >= 0.50,
     }
     summary = {
-        "claim": "S1-F-MC-A11-C01",
+        "claim": args.claim,
         "boundary": "Corpus context-field embedding F search only; no next-token, decoder, READ, translation, or generation target.",
-        "config": vars(args),
+        "config": {**vars(args), "resolved_split_seed": split_seed, "resolved_search_seed": search_seed},
         "shape": {"tokens": fit.shape[0], "contexts": fit.shape[1], "leaves": leaves},
         "counts": {"fit": float(fit.sum().item()), "search_dev": float(search_dev.sum().item()), "sealed_test": float(sealed_test.sum().item())},
         "search": {
