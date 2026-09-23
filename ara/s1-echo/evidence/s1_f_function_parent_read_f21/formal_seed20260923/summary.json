@@ -1,0 +1,114 @@
+{
+  "claim": "S1-F-1/F-2",
+  "boundary": "Fixed-topology FOLD and frozen-parent readout only; no READ routing, translation, or generation claim.",
+  "seed": 20260923,
+  "device": "cuda",
+  "data": "/mnt/nas/datasets/wmt17/train.zh-en",
+  "data_meta": {
+    "sentences": 49176,
+    "train_sentences": 39340,
+    "vocab": 256
+  },
+  "train_examples": 12000,
+  "test_examples": 3000,
+  "pretrain_steps": 1500,
+  "read_steps": 750,
+  "arms": [
+    {
+      "arm": "left_deep",
+      "parameter_count": 11360,
+      "pretrain_parent": {
+        "nll": 2.9923737049102783,
+        "ppl": 19.932941300783057,
+        "top1": 0.3889999985694885,
+        "finite": true
+      },
+      "fresh_parent_read": {
+        "nll": 2.9998772144317627,
+        "ppl": 20.083070860524753,
+        "top1": 0.3943333327770233,
+        "finite": true
+      },
+      "fresh_mean_leaf_read": {
+        "nll": 3.278184652328491,
+        "ppl": 26.52757219635762,
+        "top1": 0.3866666555404663,
+        "finite": true
+      },
+      "parent_vs_mean_leaf_nll": -0.2783074378967285,
+      "parent_retention_nll": 0.007503509521484375
+    },
+    {
+      "arm": "balanced",
+      "parameter_count": 11360,
+      "pretrain_parent": {
+        "nll": 3.1526451110839844,
+        "ppl": 23.39787277275163,
+        "top1": 0.3883333206176758,
+        "finite": true
+      },
+      "fresh_parent_read": {
+        "nll": 3.1491594314575195,
+        "ppl": 23.316457260953346,
+        "top1": 0.39499998092651367,
+        "finite": true
+      },
+      "fresh_mean_leaf_read": {
+        "nll": 3.3163580894470215,
+        "ppl": 27.55979725013688,
+        "top1": 0.38066667318344116,
+        "finite": true
+      },
+      "parent_vs_mean_leaf_nll": -0.16719865798950195,
+      "parent_retention_nll": -0.0034856796264648438
+    },
+    {
+      "arm": "right_deep",
+      "parameter_count": 11360,
+      "pretrain_parent": {
+        "nll": 3.365464448928833,
+        "ppl": 28.94693855202425,
+        "top1": 0.39133334159851074,
+        "finite": true
+      },
+      "fresh_parent_read": {
+        "nll": 3.3445241451263428,
+        "ppl": 28.34708335894764,
+        "top1": 0.3930000066757202,
+        "finite": true
+      },
+      "fresh_mean_leaf_read": {
+        "nll": 3.3339192867279053,
+        "ppl": 28.04805493343689,
+        "top1": 0.39133334159851074,
+        "finite": true
+      },
+      "parent_vs_mean_leaf_nll": 0.0106048583984375,
+      "parent_retention_nll": -0.020940303802490234
+    },
+    {
+      "arm": "bag_3step",
+      "parameter_count": 11360,
+      "pretrain_parent": {
+        "nll": 3.228426694869995,
+        "ppl": 25.239915627792865,
+        "top1": 0.39233332872390747,
+        "finite": true
+      },
+      "fresh_parent_read": {
+        "nll": 3.223869800567627,
+        "ppl": 25.1251616595033,
+        "top1": 0.40033331513404846,
+        "finite": true
+      },
+      "fresh_mean_leaf_read": {
+        "nll": 3.3580679893493652,
+        "ppl": 28.733623551459893,
+        "top1": 0.3700000047683716,
+        "finite": true
+      },
+      "parent_vs_mean_leaf_nll": -0.13419818878173828,
+      "parent_retention_nll": -0.004556894302368164
+    }
+  ]
+}
