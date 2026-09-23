@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import math
 import random
@@ -161,6 +162,77 @@ def algebra_audit(fit_counts: torch.Tensor, assignment: torch.Tensor, depth: int
     return {"fold_conservation_max_abs": conservation, "residual_closure_max_abs": closure}
 
 
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def export_embedding_checkpoint(
+    path: Path,
+    fit_counts: torch.Tensor,
+    x: torch.Tensor,
+    assignment: torch.Tensor,
+    visited: torch.Tensor,
+    axes: torch.Tensor,
+    thresholds: torch.Tensor,
+    depth: int,
+    alpha: float,
+    source_payload: Dict[str, object],
+    vocab_metadata: Dict[str, object],
+    claim: str,
+) -> Dict[str, object]:
+    leaves = 2**depth
+    leaf_offset = leaves - 1
+    total_nodes = 2 ** (depth + 1) - 1
+    node_counts = torch.zeros((total_nodes, fit_counts.shape[1]), dtype=fit_counts.dtype, device=fit_counts.device)
+    node_counts[leaf_offset:].index_add_(0, assignment, fit_counts)
+    for node in range(leaf_offset - 1, -1, -1):
+        node_counts[node] = node_counts[2 * node + 1] + node_counts[2 * node + 2]
+    node_mass = node_counts.sum(dim=1)
+    node_probability = node_counts / node_mass[:, None].clamp_min(EPS)
+    node_residual = torch.zeros_like(node_probability)
+    for node in range(1, total_nodes):
+        node_residual[node] = node_probability[node] - node_probability[(node - 1) // 2]
+    rows = torch.arange(x.shape[0], device=x.device)[:, None]
+    local_axes = axes[visited]
+    route_margin = (x[:, None, :] * local_axes).sum(dim=2) - thresholds[visited]
+    path_bits = (route_margin > 0).to(torch.uint8)
+    leaf_smoothed_probability = probability(node_counts[leaf_offset:], alpha)
+    checkpoint = {
+        "format": "treeheap_probability_residual_embedding_v1",
+        "claim": claim,
+        "depth": depth,
+        "target_ids": source_payload.get("target_ids"),
+        "context_ids": source_payload.get("context_ids"),
+        "target_pieces": vocab_metadata.get("target_pieces"),
+        "context_pieces": vocab_metadata.get("context_pieces"),
+        "spm_sha256": vocab_metadata.get("spm_sha256"),
+        "axes": axes.detach().cpu(),
+        "thresholds": thresholds.detach().cpu(),
+        "token_leaf": assignment.detach().cpu(),
+        "token_path_bits": path_bits.detach().cpu(),
+        "token_route_margin": route_margin.detach().cpu(),
+        "token_context_sqrt_probability": x.detach().cpu(),
+        "node_mass": node_mass.detach().cpu(),
+        "node_probability": node_probability.detach().cpu(),
+        "node_residual": node_residual.detach().cpu(),
+        "leaf_smoothed_probability": leaf_smoothed_probability.detach().cpu(),
+    }
+    torch.save(checkpoint, path)
+    return {
+        "path": str(path),
+        "sha256": file_sha256(path),
+        "format": checkpoint["format"],
+        "target_tokens": int(x.shape[0]),
+        "context_tokens": int(x.shape[1]),
+        "leaves": leaves,
+        "route_dimensions": depth,
+    }
+
+
 def propose(state: SearchState, x: torch.Tensor, weights: torch.Tensor, depth: int, rng: random.Random) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, object]]:
     axes = state.axes.clone()
     thresholds = state.thresholds.clone()
@@ -204,6 +276,8 @@ def main() -> None:
     parser.add_argument("--split-seed", type=int)
     parser.add_argument("--search-seed", type=int)
     parser.add_argument("--claim", default="S1-F-MC-A11-C01")
+    parser.add_argument("--save-checkpoint", action="store_true")
+    parser.add_argument("--vocab-json", default="ara/s1-echo/evidence/s1_real_corpus_annealed_token_space/formal_200k_seed19101/vocab.json")
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     args = parser.parse_args()
     out = Path(args.out)
@@ -256,7 +330,7 @@ def main() -> None:
         if iteration == 0 or (iteration + 1) % 32 == 0:
             print(json.dumps(row), flush=True)
 
-    best_assignment, _ = route(x, best.axes, best.thresholds, args.depth)
+    best_assignment, best_visited = route(x, best.axes, best.thresholds, args.depth)
     random_route = random_assignment(x.shape[0], leaves, search_seed + 2, device)
     initial_test = nll_for_assignment(fit, sealed_test, initial_assignment, leaves, args.alpha)
     best_test = nll_for_assignment(fit, sealed_test, best_assignment, leaves, args.alpha)
@@ -298,6 +372,32 @@ def main() -> None:
         "gates": gates,
         "claim_supported": all(gates.values()),
     }
+    if args.save_checkpoint:
+        vocab_metadata = json.loads(Path(args.vocab_json).read_text(encoding="utf-8"))
+        checkpoint_path = out / "embedding_checkpoint.pt"
+        checkpoint = export_embedding_checkpoint(
+            checkpoint_path,
+            fit,
+            x,
+            best_assignment,
+            best_visited,
+            best.axes,
+            best.thresholds,
+            args.depth,
+            args.alpha,
+            payload,
+            vocab_metadata,
+            args.claim,
+        )
+        reloaded = torch.load(checkpoint_path, map_location=device, weights_only=False)
+        reload_assignment, _ = route(x, reloaded["axes"].to(device), reloaded["thresholds"].to(device), args.depth)
+        reload_nll = nll_for_assignment(fit, sealed_test, reload_assignment, leaves, args.alpha)
+        checkpoint["reload_assignment_exact"] = bool(torch.equal(reload_assignment, best_assignment))
+        checkpoint["reload_test_nll_abs_delta"] = abs(reload_nll - best_test)
+        checkpoint["reload_pass"] = checkpoint["reload_assignment_exact"] and checkpoint["reload_test_nll_abs_delta"] <= 1e-12
+        summary["checkpoint"] = checkpoint
+        summary["gates"]["checkpoint_reload_exact"] = checkpoint["reload_pass"]
+        summary["claim_supported"] = all(summary["gates"].values())
     (out / "trace.jsonl").write_text("".join(json.dumps(row) + "\n" for row in trace), encoding="utf-8")
     (out / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     (out / "command.txt").write_text("python3 " + " ".join(__file__ for _ in [0]) + "\n" + json.dumps(vars(args), indent=2) + "\n", encoding="utf-8")
