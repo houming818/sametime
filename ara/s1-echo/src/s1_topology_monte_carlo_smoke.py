@@ -103,6 +103,7 @@ def main():
     rng = random.Random(args.seed + 3)
     current = "balanced"
     current_score = None
+    global_best = None
     temperature = 0.15
     rows = []
     for it in range(args.iterations):
@@ -112,11 +113,13 @@ def main():
         accepted = current_score is None or score >= current_score or rng.random() < math.exp((score - current_score) / temperature)
         if accepted:
             current, current_score = proposal, score
+        if global_best is None or score > global_best["score"]:
+            global_best = {"topology": proposal, "score": score, "accuracy": result["accuracy"], "complexity": result["complexity"], "iteration": it}
         result.update({"iteration": it, "proposal": proposal, "accepted": accepted, "score": score, "current": current, "current_score": current_score, "temperature": temperature})
         rows.append(result)
         temperature *= 0.9
         print(json.dumps(result), flush=True)
-    summary = {"seed": args.seed, "device": str(device), "steps_per_candidate": args.steps, "iterations": args.iterations, "initial": "balanced", "final_current": current, "final_score": current_score, "best_observed": max(rows, key=lambda r: r["score"]), "rows": rows}
+    summary = {"seed": args.seed, "device": str(device), "steps_per_candidate": args.steps, "iterations": args.iterations, "initial": "balanced", "final_current": current, "final_score": current_score, "global_best": global_best, "best_observed": max(rows, key=lambda r: r["score"]), "rows": rows}
     (out / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({k: summary[k] for k in ("final_current", "final_score", "best_observed")}, indent=2), flush=True)
 
