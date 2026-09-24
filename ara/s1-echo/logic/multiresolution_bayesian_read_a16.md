@@ -86,6 +86,16 @@ evaluated by the frozen Bayesian READ equation.
 Both must have exactly the same target and context ID order as their count
 artifacts and the evaluation tokenizer.
 
+### Paired-depth control amendment
+
+The first formal execution made the preregistered two-candidate comparison, but
+those candidates confound corpus scale and depth (`1M/D3` versus `200K/D5`).
+Before interpreting any cross-candidate depth effect, A16-R1 adds the two
+already-sealed complementary checkpoints: `1M/D5` and `200K/D3`. The original
+formal artifact remains unchanged. The paired run uses the identical evaluation
+tensor hash, Bayesian equation, controls, and mechanical gates; it introduces
+no tuned parameter or new metric.
+
 ## Recorded metrics
 
 For every native depth and control:
@@ -123,4 +133,3 @@ reasonable.
 ## Claim
 
 `S1-BAYES-READ-A16-C01` remains open until formal evidence is complete.
-
