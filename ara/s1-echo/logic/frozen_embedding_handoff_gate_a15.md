@@ -129,3 +129,41 @@ artifacts, or a violated fixed contract.
 ## Claim
 
 `S1-F-HANDOFF-A15-C01` remains open until the formal evidence is complete.
+
+## Formal result
+
+Task `602` completed all two candidates, three seeds, and five matched arms.
+The formal artifact is
+`evidence/s1_frozen_embedding_handoff_gate_a15/formal/summary.json` with SHA-256
+`a7df8f0b38263781c631a352ebd62ac3867586ccb2829fc92ebed0d776cc4082`.
+
+| candidate | width | Token READ | Echo token | Echo exact | masked native | masked shuffled | masked random | masked learned |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| A14-1M-D3 | 1038 | 1.0000 | 0.9935 | 0.9587 | 0.2164 | 0.1924 | 0.2632 | 0.2985 |
+| A13-200K-D5 | 1066 | 1.0000 | 0.9972 | 0.9821 | 0.2350 | 0.2120 | 0.2624 | 0.2957 |
+
+All frozen-table hashes were unchanged. For the decoder trained on native
+coordinates, replacing the table with frequency-shuffled rows reduced Echo
+token accuracy by `0.9793` absolute for D3 and `0.9828` for D5; replacing it
+with zero reduced accuracy by `0.9904` and `0.9943`. Both candidates therefore
+pass every preregistered mechanical handoff gate on all three seeds.
+
+The semantic gate fails for both candidates. Native coordinates are better
+than frequency-shuffled coordinates on masked-center prediction, showing that
+the corpus arrangement is not arbitrary. They remain worse than fixed random
+codes and a direct random projection of the probability field, while the
+ordinary learned embedding is strongest. The present concatenation therefore
+contains a readable token code but does not yet supply a better downstream
+semantic geometry. One plausible measured mechanism is crowding: fixed random
+codes preserve token separability more easily, whereas the normalized native
+field intentionally places related token rows near one another.
+
+Status of `S1-F-HANDOFF-A15-C01`:
+
+- mechanical frozen handoff: **supported**;
+- semantic downstream advantage over random: **not supported**;
+- overall claim: **mixed**.
+
+This result permits use of the artifact as a frozen interface in later
+experiments, but it does not justify claiming that the current coordinate
+composition is the final embedding or that it improves language modeling.
