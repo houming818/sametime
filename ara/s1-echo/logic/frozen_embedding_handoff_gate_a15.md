@@ -24,13 +24,30 @@ Two previously sealed checkpoints are tested:
 1. `A14-1M-D3`: the 1,000,000-line, depth-3 A14 endpoint.
 2. `A13-200K-D5`: the independently trained 200,000-line, depth-5 A13 endpoint.
 
-For token `i`, the handoff vector is constructed only from frozen routing state:
+For token `i`, the formal handoff vector contains the frozen square-root
+context-probability coordinate from A11 plus its TreeHeap routing state:
 
 ```text
-z_i = normalize([signed_path_i, tanh(standardized_route_margin_i), leaf_one_hot_i])
+z_i = normalize([x_i,
+                 normalize(signed_path_i),
+                 normalize(tanh(standardized_route_margin_i)),
+                 leaf_one_hot_i])
 ```
 
 No downstream label is used to construct `z_i`.
+
+### Calibration amendment before formal execution
+
+The first smoke (`task 599`) intentionally used only path, margin, and leaf
+features. A longer calibration (`task 600`) showed that this 14-dimensional
+route summary reached only `0.6328` linear Token READ and `0.3564` Echo token
+accuracy, while a matched random fixed code reached `0.9781` Echo accuracy.
+This falsified the assumption that a routing summary alone is the installed
+embedding. A11 defines `x_i`, not the route label, as the token's probability
+coordinate; the tree is an additional learned partition of that field.
+
+No formal A15 result existed when this correction was made. The route-only
+smokes remain evidence and are not relabeled as formal runs.
 
 ## Downstream tasks
 
@@ -112,4 +129,3 @@ artifacts, or a violated fixed contract.
 ## Claim
 
 `S1-F-HANDOFF-A15-C01` remains open until the formal evidence is complete.
-

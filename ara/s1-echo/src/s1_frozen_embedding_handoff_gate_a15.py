@@ -74,14 +74,17 @@ def load_checkpoint(path: Path) -> Dict:
 
 
 def make_treeheap_coordinates(payload: Dict) -> torch.Tensor:
+    field = F.normalize(payload["token_context_sqrt_probability"].to(torch.float32), dim=1)
     bits = payload["token_path_bits"].to(torch.float32) * 2.0 - 1.0
+    bits = F.normalize(bits, dim=1)
     margins = payload["token_route_margin"].to(torch.float32)
     scale = margins.std(dim=0, unbiased=False).clamp_min(1e-6)
     margins = torch.tanh((margins - margins.mean(dim=0)) / scale)
+    margins = F.normalize(margins, dim=1)
     leaves = payload["token_leaf"].to(torch.long)
     leaf_count = int(leaves.max().item()) + 1
     one_hot = F.one_hot(leaves, num_classes=leaf_count).to(torch.float32)
-    return F.normalize(torch.cat([bits, margins, one_hot], dim=1), dim=1)
+    return F.normalize(torch.cat([field, bits, margins, one_hot], dim=1), dim=1)
 
 
 def make_frequency_shuffle(coords: torch.Tensor, frequency: torch.Tensor, seed: int) -> torch.Tensor:
