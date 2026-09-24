@@ -1,0 +1,116 @@
+{
+  "claim": "S1-F-SCALE-A14-C01",
+  "boundary": "Fixed-vocabulary context-field embedding scale audit; not generation, translation, READ, or Decoder quality.",
+  "contract": {
+    "scales": [
+      2500,
+      5000
+    ],
+    "depths": [
+      3
+    ],
+    "split_seed": 20260924,
+    "alpha": 0.05,
+    "fit_ratio": 0.8,
+    "neighbor_k": 10,
+    "expected_iterations": 32,
+    "sealed_test_sha256": "f2f83114b332c136dc1828d9b9286dc222d1496bdb07ddfe51ec0a15cde08d3c"
+  },
+  "rows": [
+    {
+      "train_lines": 2500,
+      "depth": 3,
+      "leaves": 8,
+      "fit_pairs": 75045.0,
+      "dev_pairs": 18640.0,
+      "sealed_test_pairs": 74414.0,
+      "initial_dev_nll": 5.53438822229257,
+      "best_dev_nll": 5.518070520190461,
+      "dev_gain": 0.01631770210210881,
+      "initial_test_nll": 5.596844118462809,
+      "best_test_nll": 5.577890314727412,
+      "test_gain": 0.018953803735397123,
+      "random_test_nll": 5.617649388115232,
+      "leaf_utilization": 1.0,
+      "occupancy_entropy": 0.6922489725696435,
+      "frequency_r2_by_leaf": 0.26997821896622487,
+      "mechanical_gates_pass": true,
+      "mechanical_gates": {
+        "finite": true,
+        "fold_conservation_le_1e_10": true,
+        "residual_closure_le_1e_10": true,
+        "full_search_budget": true,
+        "routing_index_complete": true
+      },
+      "a11_quality_gates": {
+        "finite": true,
+        "accepted_at_least_one": true,
+        "fold_conservation_le_1e_10": true,
+        "residual_closure_le_1e_10": true,
+        "dev_gain_ge_0_005": true,
+        "sealed_test_not_worse_gt_0_01": true,
+        "sealed_test_better_than_random": true,
+        "leaf_utilization_ge_0_50": true
+      },
+      "assignment_sha256": "66499d64bdaedcf59e0db390e98e9f9be0114a969a8454161d8bc0648673e81f"
+    },
+    {
+      "train_lines": 5000,
+      "depth": 3,
+      "leaves": 8,
+      "fit_pairs": 147350.0,
+      "dev_pairs": 36571.0,
+      "sealed_test_pairs": 74414.0,
+      "initial_dev_nll": 5.5070213232122915,
+      "best_dev_nll": 5.504506425736107,
+      "dev_gain": 0.0025148974761846077,
+      "initial_test_nll": 5.536445083788892,
+      "best_test_nll": 5.533374443166644,
+      "test_gain": 0.003070640622247822,
+      "random_test_nll": 5.561921011726757,
+      "leaf_utilization": 1.0,
+      "occupancy_entropy": 0.7950587989914094,
+      "frequency_r2_by_leaf": 0.36883204942950343,
+      "mechanical_gates_pass": true,
+      "mechanical_gates": {
+        "finite": true,
+        "fold_conservation_le_1e_10": true,
+        "residual_closure_le_1e_10": true,
+        "full_search_budget": true,
+        "routing_index_complete": true
+      },
+      "a11_quality_gates": {
+        "finite": true,
+        "accepted_at_least_one": true,
+        "fold_conservation_le_1e_10": true,
+        "residual_closure_le_1e_10": true,
+        "dev_gain_ge_0_005": false,
+        "sealed_test_not_worse_gt_0_01": true,
+        "sealed_test_better_than_random": true,
+        "leaf_utilization_ge_0_50": true
+      },
+      "assignment_sha256": "6696ab486d60d83e72596646ab35c0c84cdb728c72fa8107ecf3f29f93439bc5"
+    }
+  ],
+  "adjacent_scale": [
+    {
+      "from_train_lines": 2500,
+      "to_train_lines": 5000,
+      "depth": 3,
+      "test_nll_delta": -0.04451587156076808,
+      "test_gain_delta": -0.0158831631131493,
+      "partition_co_cluster_f1": 0.33279703573692165,
+      "top10_context_neighbor_jaccard": 0.21155849714709576,
+      "frequency_r2_delta": 0.09885383046327856
+    }
+  ],
+  "by_depth": {
+    "3": {
+      "best_scale": 5000,
+      "best_test_nll": 5.533374443166644,
+      "strictly_nonincreasing_test_nll": true,
+      "endpoint_test_nll_delta": -0.04451587156076808
+    }
+  },
+  "mechanical_contract_pass": true
+}

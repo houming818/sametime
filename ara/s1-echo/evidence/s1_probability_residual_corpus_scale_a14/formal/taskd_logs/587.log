@@ -1,0 +1,112 @@
+=== taskd run 587 2026-09-24T01:05:08Z ===
+=== cwd=/home/nio/log/holds/SameTime ===
+=== cmd=["python3", "ara/s1-echo/src/s1_fixed_test_corpus_ladder_a14.py", "--data", "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv", "--spm-model", "/home/nio/datasets/wmt_massive/sp_bpe_massive.model", "--vocab-json", "ara/s1-echo/evidence/s1_real_corpus_annealed_token_space/formal_200k_seed19101/vocab.json", "--out", "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts", "--train-scales", "50000,100000,200000,500000,1000000", "--test-lines", "100000"] ===
+{"snapshot": 50000, "train_valid_lines": 50000, "train_pairs": 1832228, "train_region_sha256": "7027fcd2b57468a29315a14f157e3e24345368fb55e3b6442d629c0935417ba1", "last_raw_line_index": 49999}
+{"snapshot": 100000, "train_valid_lines": 100000, "train_pairs": 3662003, "train_region_sha256": "ee465537b3826e9106d9f8fba3fe947081e70bbbb3b57c02064dd727719c9aae", "last_raw_line_index": 99999}
+{"snapshot": 200000, "train_valid_lines": 200000, "train_pairs": 7334957, "train_region_sha256": "cee68aef5b76cc40a9ee0fd7f34c2dff9e1ac0dd19be49cd5ba43118dcb4fd4d", "last_raw_line_index": 199999}
+{"snapshot": 500000, "train_valid_lines": 500000, "train_pairs": 18364695, "train_region_sha256": "0cba00c8758c22fe10b457c65e3d07190b7de507de4ef7e1acd7f8fc9bddff44", "last_raw_line_index": 499999}
+{"snapshot": 1000000, "train_valid_lines": 1000000, "train_pairs": 36826566, "train_region_sha256": "30ebf33085199476c51e99688aa5361be0b21b826d174b562da9c0479db13ef6", "last_raw_line_index": 999999}
+{"sealed_test_lines": 10000, "test_pairs": 363557}
+{"sealed_test_lines": 20000, "test_pairs": 732717}
+{"sealed_test_lines": 30000, "test_pairs": 1096233}
+{"sealed_test_lines": 40000, "test_pairs": 1464277}
+{"sealed_test_lines": 50000, "test_pairs": 1832322}
+{"sealed_test_lines": 60000, "test_pairs": 2201551}
+{"sealed_test_lines": 70000, "test_pairs": 2566254}
+{"sealed_test_lines": 80000, "test_pairs": 2936088}
+{"sealed_test_lines": 90000, "test_pairs": 3302006}
+{"sealed_test_lines": 100000, "test_pairs": 3670609}
+{
+  "claim": "S1-F-SCALE-A14-C01",
+  "format": "fixed_vocab_fixed_sealed_test_corpus_ladder_v1",
+  "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+  "data_size_bytes": 2520995022,
+  "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+  "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+  "vocab_json": "ara/s1-echo/evidence/s1_real_corpus_annealed_token_space/formal_200k_seed19101/vocab.json",
+  "vocab_sha256": "ac18d75136e97a721b6969220ccbb25171953acbf4dece8ed099518a40d49164",
+  "target_tokens": 512,
+  "context_tokens": 1024,
+  "window": 4,
+  "max_sentence_tokens": 96,
+  "train_scales": [
+    50000,
+    100000,
+    200000,
+    500000,
+    1000000
+  ],
+  "sealed_test_start_valid_line": 1000000,
+  "sealed_test_valid_lines": 100000,
+  "sealed_test_pairs": 3670609,
+  "sealed_test_sha256": "5b194125733e0b346de0886640231ef37745e9fd4cfbf5d5eca990af6b5f1512",
+  "last_raw_line_index": 1099999,
+  "arms": [
+    {
+      "train_valid_lines": 50000,
+      "train_pairs": 1832228,
+      "train_region_sha256": "7027fcd2b57468a29315a14f157e3e24345368fb55e3b6442d629c0935417ba1",
+      "last_raw_line_index": 49999,
+      "sealed_test_start_valid_line": 1000000,
+      "sealed_test_valid_lines": 100000,
+      "sealed_test_pairs": 3670609,
+      "sealed_test_sha256": "5b194125733e0b346de0886640231ef37745e9fd4cfbf5d5eca990af6b5f1512",
+      "sealed_test_nonempty_target_rows": 512,
+      "counts_path": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_0050000/context_counts.pt",
+      "counts_sha256": "a51ed5fc96af6efca2c42278e8bcdf313036d256d877c4d2af01a7aaad0416aa"
+    },
+    {
+      "train_valid_lines": 100000,
+      "train_pairs": 3662003,
+      "train_region_sha256": "ee465537b3826e9106d9f8fba3fe947081e70bbbb3b57c02064dd727719c9aae",
+      "last_raw_line_index": 99999,
+      "sealed_test_start_valid_line": 1000000,
+      "sealed_test_valid_lines": 100000,
+      "sealed_test_pairs": 3670609,
+      "sealed_test_sha256": "5b194125733e0b346de0886640231ef37745e9fd4cfbf5d5eca990af6b5f1512",
+      "sealed_test_nonempty_target_rows": 512,
+      "counts_path": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_0100000/context_counts.pt",
+      "counts_sha256": "d222ad8b9cb45316119c69486186da4cc519571549c3ec9ea35556543229188c"
+    },
+    {
+      "train_valid_lines": 200000,
+      "train_pairs": 7334957,
+      "train_region_sha256": "cee68aef5b76cc40a9ee0fd7f34c2dff9e1ac0dd19be49cd5ba43118dcb4fd4d",
+      "last_raw_line_index": 199999,
+      "sealed_test_start_valid_line": 1000000,
+      "sealed_test_valid_lines": 100000,
+      "sealed_test_pairs": 3670609,
+      "sealed_test_sha256": "5b194125733e0b346de0886640231ef37745e9fd4cfbf5d5eca990af6b5f1512",
+      "sealed_test_nonempty_target_rows": 512,
+      "counts_path": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_0200000/context_counts.pt",
+      "counts_sha256": "a1c1b49745345e89dc55b82ccaa94fa095fdcd9b0d68dbf01d7d2a4306b099e7"
+    },
+    {
+      "train_valid_lines": 500000,
+      "train_pairs": 18364695,
+      "train_region_sha256": "0cba00c8758c22fe10b457c65e3d07190b7de507de4ef7e1acd7f8fc9bddff44",
+      "last_raw_line_index": 499999,
+      "sealed_test_start_valid_line": 1000000,
+      "sealed_test_valid_lines": 100000,
+      "sealed_test_pairs": 3670609,
+      "sealed_test_sha256": "5b194125733e0b346de0886640231ef37745e9fd4cfbf5d5eca990af6b5f1512",
+      "sealed_test_nonempty_target_rows": 512,
+      "counts_path": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_0500000/context_counts.pt",
+      "counts_sha256": "91ea39eea71de0d489e84b5bd2f0011a6691d0333e0149f6eee98a57f22cbeaa"
+    },
+    {
+      "train_valid_lines": 1000000,
+      "train_pairs": 36826566,
+      "train_region_sha256": "30ebf33085199476c51e99688aa5361be0b21b826d174b562da9c0479db13ef6",
+      "last_raw_line_index": 999999,
+      "sealed_test_start_valid_line": 1000000,
+      "sealed_test_valid_lines": 100000,
+      "sealed_test_pairs": 3670609,
+      "sealed_test_sha256": "5b194125733e0b346de0886640231ef37745e9fd4cfbf5d5eca990af6b5f1512",
+      "sealed_test_nonempty_target_rows": 512,
+      "counts_path": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_1000000/context_counts.pt",
+      "counts_sha256": "c4a2a0aad79a4357cbbd6e1591a8a31a873dfa2918fb62b8bda2d5925917f864"
+    }
+  ]
+}
+=== status=done exit=0 elapsed=83.7s 2026-09-24T01:06:31Z ===

@@ -1,0 +1,51 @@
+{
+  "claim": "S1-F-SCALE-A14-C01",
+  "format": "fixed_vocab_fixed_sealed_test_corpus_ladder_v1",
+  "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+  "data_size_bytes": 2520995022,
+  "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+  "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+  "vocab_json": "ara/s1-echo/evidence/s1_real_corpus_annealed_token_space/formal_200k_seed19101/vocab.json",
+  "vocab_sha256": "ac18d75136e97a721b6969220ccbb25171953acbf4dece8ed099518a40d49164",
+  "target_tokens": 512,
+  "context_tokens": 1024,
+  "window": 4,
+  "max_sentence_tokens": 96,
+  "train_scales": [
+    2500,
+    5000
+  ],
+  "sealed_test_start_valid_line": 5000,
+  "sealed_test_valid_lines": 2000,
+  "sealed_test_pairs": 74414,
+  "sealed_test_sha256": "f2f83114b332c136dc1828d9b9286dc222d1496bdb07ddfe51ec0a15cde08d3c",
+  "last_raw_line_index": 6999,
+  "arms": [
+    {
+      "train_valid_lines": 2500,
+      "train_pairs": 93685,
+      "train_region_sha256": "e8f2d8baed6acccc43096cdabcde071b4b829198d1761afce81e136c83efbd48",
+      "last_raw_line_index": 2499,
+      "sealed_test_start_valid_line": 5000,
+      "sealed_test_valid_lines": 2000,
+      "sealed_test_pairs": 74414,
+      "sealed_test_sha256": "f2f83114b332c136dc1828d9b9286dc222d1496bdb07ddfe51ec0a15cde08d3c",
+      "sealed_test_nonempty_target_rows": 512,
+      "counts_path": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/smoke_r1/counts/train_0002500/context_counts.pt",
+      "counts_sha256": "fa0676e299c13b98ff67e69c66d257fc67ca4b33b238442258049a3504d2c6dd"
+    },
+    {
+      "train_valid_lines": 5000,
+      "train_pairs": 183921,
+      "train_region_sha256": "a624a84bcdb91e5501661990f719b26db280cb9bb154d56600b003424a1aede8",
+      "last_raw_line_index": 4999,
+      "sealed_test_start_valid_line": 5000,
+      "sealed_test_valid_lines": 2000,
+      "sealed_test_pairs": 74414,
+      "sealed_test_sha256": "f2f83114b332c136dc1828d9b9286dc222d1496bdb07ddfe51ec0a15cde08d3c",
+      "sealed_test_nonempty_target_rows": 512,
+      "counts_path": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/smoke_r1/counts/train_0005000/context_counts.pt",
+      "counts_sha256": "a483c0c386b5a489b48e09cf949238d9eba3e9df7cacbdf03e8638ebb4da3e45"
+    }
+  ]
+}
