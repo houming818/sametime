@@ -80,6 +80,7 @@ def main() -> None:
     parser.add_argument("--test-lines", type=int, default=100000)
     parser.add_argument("--window", type=int, default=4)
     parser.add_argument("--max-sentence-tokens", type=int, default=96)
+    parser.add_argument("--allow-empty-test-rows", action="store_true")
     args = parser.parse_args()
 
     data_path = Path(args.data)
@@ -145,7 +146,7 @@ def main() -> None:
 
     test_tensor = torch.from_numpy(test).to(torch.float64)
     test_nonempty_rows = int((test_tensor.sum(dim=1) > 0).sum().item())
-    if test_nonempty_rows != len(target_ids):
+    if test_nonempty_rows != len(target_ids) and not args.allow_empty_test_rows:
         raise RuntimeError(f"sealed test has {test_nonempty_rows}/{len(target_ids)} nonempty target rows")
 
     arms = []

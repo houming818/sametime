@@ -79,6 +79,7 @@ def main() -> None:
     parser.add_argument("--alpha", type=float, default=0.05)
     parser.add_argument("--fit-ratio", type=float, default=0.8)
     parser.add_argument("--neighbor-k", type=int, default=10)
+    parser.add_argument("--expected-iterations", type=int, default=1024)
     args = parser.parse_args()
     root = Path(args.root)
     out = Path(args.out)
@@ -108,6 +109,13 @@ def main() -> None:
             summary = json.loads((run_dir / "summary.json").read_text(encoding="utf-8"))
             assignment = [int(value) for value in summary["embedding_index"]["token_leaf"]]
             assignments[(scale, depth)] = assignment
+            mechanical_gates = {
+                "finite": bool(summary["gates"]["finite"]),
+                "fold_conservation_le_1e_10": bool(summary["gates"]["fold_conservation_le_1e_10"]),
+                "residual_closure_le_1e_10": bool(summary["gates"]["residual_closure_le_1e_10"]),
+                "full_search_budget": int(summary["search"]["iterations"]) == args.expected_iterations,
+                "routing_index_complete": len(assignment) == counts.shape[0],
+            }
             row = {
                 "train_lines": scale,
                 "depth": depth,
@@ -125,7 +133,9 @@ def main() -> None:
                 "leaf_utilization": summary["structure"]["leaf_utilization"],
                 "occupancy_entropy": summary["structure"]["occupancy_entropy"],
                 "frequency_r2_by_leaf": frequency_r2(counts, assignment),
-                "mechanical_gates_pass": all(summary["gates"].values()),
+                "mechanical_gates_pass": all(mechanical_gates.values()),
+                "mechanical_gates": mechanical_gates,
+                "a11_quality_gates": summary["gates"],
                 "assignment_sha256": summary["embedding_index"]["assignment_sha256"],
             }
             rows.append(row)
@@ -171,6 +181,7 @@ def main() -> None:
             "alpha": args.alpha,
             "fit_ratio": args.fit_ratio,
             "neighbor_k": args.neighbor_k,
+            "expected_iterations": args.expected_iterations,
             "sealed_test_sha256": next(iter(sealed_hashes)),
         },
         "rows": rows,
