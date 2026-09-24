@@ -369,6 +369,12 @@ def main() -> None:
             "best_minus_random": best_test - random_test,
         },
         "structure": {"leaf_utilization": utilization, "occupancy_entropy": occupancy_entropy, **audit},
+        "embedding_index": {
+            "token_leaf": best_assignment.detach().cpu().tolist(),
+            "assignment_sha256": hashlib.sha256(
+                best_assignment.detach().cpu().numpy().tobytes()
+            ).hexdigest(),
+        },
         "gates": gates,
         "claim_supported": all(gates.values()),
     }
