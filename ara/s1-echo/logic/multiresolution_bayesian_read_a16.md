@@ -133,3 +133,54 @@ reasonable.
 ## Claim
 
 `S1-BAYES-READ-A16-C01` remains open until formal evidence is complete.
+
+## Formal result
+
+Tasks `604` and `605` completed without training any parameter. Task `605`
+contains the complete paired-depth control on one identical 50,000-example
+evaluation tensor. Its summary SHA-256 is
+`6ac2fa0b1e216516a34524cdbd9acd37f2be146d160b75af6d19dd5a000eb6c9`.
+
+All mechanical gates passed. Probability simplex error was at most `1.12e-15`,
+node residual closure at most `1.39e-17`, and token residual closure at most
+`2.78e-17`. Depth zero matched the prior-only arm exactly.
+
+### Frozen field causality
+
+| corpus | native full top-1 | shuffled full median top-1 | native full NLL |
+|---|---:|---:|---:|
+| 1M | 0.20458 | 0.02142 | 4.08918 |
+| 200K | 0.20056 | 0.02066 | 4.28190 |
+
+The prior-only top-1 was `0.08930`. Preserving every probability row while
+breaking only the token-to-row correspondence removed most predictive power in
+all three shuffle seeds. The installed conditional field therefore has causal
+predictive information under this frozen READ equation.
+
+### Resolution retention
+
+| corpus/depth | leaf top-1 | full top-1 | retained top-1 gain | retained NLL gain |
+|---|---:|---:|---:|---:|
+| 1M / D3 | 0.11200 | 0.20458 | 0.1969 | 0.1835 |
+| 1M / D5 | 0.14756 | 0.20458 | 0.5054 | 0.3715 |
+| 200K / D3 | 0.11498 | 0.20056 | 0.2308 | 0.2129 |
+| 200K / D5 | 0.15048 | 0.20056 | 0.5499 | 0.4460 |
+
+The exact D5 values for the 1M arm are taken from the paired formal artifact.
+Both corpus scales reproduce the same ordering: D5 preserves substantially more
+of the full-token field's predictive gain than D3. Native leaf top-1 also beats
+the matched path-shuffle median in every arm; the margin is about `0.05-0.11`.
+
+The resolution curves are not interpreted as a proof that the current search F
+is optimal. They do establish that the probability-residual hierarchy is a
+valid multiresolution representation: progressively deeper native states add
+held-out Bayesian READ information, and the final token residual restores the
+full installed field exactly.
+
+Status of `S1-BAYES-READ-A16-C01`: **supported** for these fixed vocabularies,
+corpora, checkpoints, context window, and held-out WMT region.
+
+The remaining architectural problem is now localized. D5 leaf compression
+still loses roughly half of the full-token predictive gain, so later work must
+improve the tree partition or allocate residual capacity; it should not ask a
+free downstream Decoder to relearn the missing field.
