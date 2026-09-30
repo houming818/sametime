@@ -1,0 +1,32 @@
+{
+  "claim": "S1-RECURSIVE-CONTEXT-CODEC-A19-C01",
+  "boundary": "Shared recursive context-field codec dimension ladder; not sentence generation or translation.",
+  "counts": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_1000000/context_counts.pt",
+  "counts_sha256": "c4a2a0aad79a4357cbbd6e1591a8a31a873dfa2918fb62b8bda2d5925917f864",
+  "source_sha256": "fc59568318a618f5418b9dd85fce13580e610c38a3518554afcd4963805e301f",
+  "shape": [
+    512,
+    1024
+  ],
+  "levels": 10,
+  "fit_pairs": 29460566.0,
+  "dev_pairs": 7366000.0,
+  "sealed_test_pairs": 3670609.0,
+  "target_ids_sha256": "35480ad2e0c0c12c2afcab31abbda202b8fc32e5e0bcf07b5b0c57b8328bffa8",
+  "context_ids_sha256": "817ed82c98a2ab78f299c41902864e887d3dc0d63a284ae57cdec67525173ee7",
+  "config": {
+    "counts": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_1000000/context_counts.pt",
+    "out": "ara/s1-echo/evidence/s1_recursive_context_codec_dimension_ladder_a19/formal_seed20260930",
+    "dimensions": "2,4,8,16",
+    "fit_ratio": 0.8,
+    "alpha": 0.05,
+    "epochs": 200,
+    "batch_size": 64,
+    "learning_rate": 0.002,
+    "weight_decay": 1e-05,
+    "seed": 20260930,
+    "split_seed": 20260924,
+    "eval_epochs": "1,5,10,25,50,100,150,200",
+    "device": "cuda"
+  }
+}
