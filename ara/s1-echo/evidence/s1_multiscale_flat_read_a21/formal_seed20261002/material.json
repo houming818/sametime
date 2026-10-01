@@ -1,0 +1,118 @@
+{
+  "claims": [
+    "S1-MULTISCALE-FLAT-READ-A21-C01",
+    "S1-MULTISCALE-FLAT-READ-A21-C02"
+  ],
+  "counts": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_1000000/context_counts.pt",
+  "counts_sha256": "c4a2a0aad79a4357cbbd6e1591a8a31a873dfa2918fb62b8bda2d5925917f864",
+  "source_checkpoint": "ara/s1-echo/evidence/s1_conditional_residual_evidence_fold_a20/formal_seed20261001/evidence_fold_dimension_16.pt",
+  "source_checkpoint_sha256": "659ac6ce527f23e310f503433f1a57bf4532d611adce20439282bb8c68b41e07",
+  "source_encoder_state_sha256": "a5eb8aa1c01ccaecc7b5b45bb76a7d61d3d8cb6f95a39494c196c808eaabbafc",
+  "source_sha256": "a6f9c3f3339b9ab4019405127cb86c639c8e63e2dcfd65446b6cf22eb6bae268",
+  "shape": [
+    512,
+    1024
+  ],
+  "levels": 10,
+  "dimension": 16,
+  "frozen_level_shapes": [
+    [
+      512,
+      1024,
+      16
+    ],
+    [
+      512,
+      512,
+      16
+    ],
+    [
+      512,
+      256,
+      16
+    ],
+    [
+      512,
+      128,
+      16
+    ],
+    [
+      512,
+      64,
+      16
+    ],
+    [
+      512,
+      32,
+      16
+    ],
+    [
+      512,
+      16,
+      16
+    ],
+    [
+      512,
+      8,
+      16
+    ],
+    [
+      512,
+      4,
+      16
+    ],
+    [
+      512,
+      2,
+      16
+    ],
+    [
+      512,
+      1,
+      16
+    ]
+  ],
+  "frozen_level_sha256": [
+    "cefb59a66cea4cbbc6ed988c1e0123ef75f6725b4d56c512ef7b0a6dd2fa7efc",
+    "73b7413b41ff72cd07c6dea065d89d8c7f4f5a8129c1f4e330e27ff5f7b3efb7",
+    "9a76f9bb0090ff286a23326bd766b05b24bf125d3f036b9a6b255436f1092136",
+    "71c6ca83fdf4776b2d96f8eca127826c5555491c33bb3c835646053190e5e6b9",
+    "8b84d82d073d172fd66763965e2775f8fff5ca63ad32145ab8820a5f3e6e79b8",
+    "a79b6db21e946c4c014bb2f1ea17ec72baaa26471a0030cc7be5a9eaca50ac8c",
+    "7c5278cbc4654f11f08b9fcf572f9445ba08823db6f88b9dd20f7407537a01d4",
+    "aceb087ebe84001b5e8bc608cdd4e08d3102742062ce6d44e823ffc8ba9514a5",
+    "715a2cb2bd9d9c2861afa07493e7c6a00c208dbd6589c92d71a2de3610e4d967",
+    "e14d374c49a98450def1141c2b3eee03cbac98ce7a1a226b51488c04985137c3",
+    "44631ec64c6c039e54a3ffab22d1a4fccb543297c39ecf5b57fdc7ce6696eac2"
+  ],
+  "frozen_root_sha256": "05d19ff7f777cad68aea1de63ac07cfe8f3eaa4cecb72651fe07c72de69b08eb",
+  "global_prior_test": {
+    "nll": 5.5556960105896,
+    "ppl": 258.70697021484375,
+    "row_top1": 0.337890625,
+    "finite": true
+  },
+  "source_native_test": {
+    "nll": 5.467702865600586,
+    "ppl": 236.91534423828125,
+    "row_top1": 0.638671875,
+    "finite": true
+  },
+  "config": {
+    "counts": "ara/s1-echo/evidence/s1_probability_residual_corpus_scale_a14/formal/counts/train_1000000/context_counts.pt",
+    "source_checkpoint": "ara/s1-echo/evidence/s1_conditional_residual_evidence_fold_a20/formal_seed20261001/evidence_fold_dimension_16.pt",
+    "out": "ara/s1-echo/evidence/s1_multiscale_flat_read_a21/formal_seed20261002",
+    "arms": "root_unfold,leaf_only,flat_coarse,flat_all",
+    "dimension": 16,
+    "fit_ratio": 0.8,
+    "alpha": 0.05,
+    "epochs": 200,
+    "batch_size": 64,
+    "learning_rate": 0.002,
+    "weight_decay": 1e-05,
+    "seed": 20261002,
+    "split_seed": 20260924,
+    "eval_epochs": "1,5,10,20,50,100,150,200",
+    "device": "cuda"
+  }
+}

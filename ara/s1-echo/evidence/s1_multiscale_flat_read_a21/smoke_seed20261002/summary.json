@@ -1,0 +1,84 @@
+{
+  "claims": [
+    "S1-MULTISCALE-FLAT-READ-A21-C01",
+    "S1-MULTISCALE-FLAT-READ-A21-C02"
+  ],
+  "global_prior_test": {
+    "nll": 5.5556960105896,
+    "ppl": 258.70697021484375,
+    "row_top1": 0.337890625,
+    "finite": true
+  },
+  "source_native_test": {
+    "nll": 5.467702865600586,
+    "ppl": 236.91534423828125,
+    "row_top1": 0.638671875,
+    "finite": true
+  },
+  "rows": [
+    {
+      "arm": "root_unfold",
+      "test_nll": 5.527712821960449,
+      "test_ppl": 251.56785583496094,
+      "test_row_top1": 0.455078125,
+      "parameters_total": 1148,
+      "parameters_with_gradient": 1121,
+      "finite": true,
+      "full_budget": true,
+      "reload_exact": true,
+      "step0_exact": true
+    },
+    {
+      "arm": "leaf_only",
+      "test_nll": 5.282635688781738,
+      "test_ppl": 196.8881378173828,
+      "test_row_top1": 0.6640625,
+      "parameters_total": 1148,
+      "parameters_with_gradient": 17,
+      "finite": true,
+      "full_budget": true,
+      "reload_exact": true,
+      "step0_exact": true
+    },
+    {
+      "arm": "flat_coarse",
+      "test_nll": 5.197535514831543,
+      "test_ppl": 180.8260498046875,
+      "test_row_top1": 0.716796875,
+      "parameters_total": 1148,
+      "parameters_with_gradient": 1148,
+      "finite": true,
+      "full_budget": true,
+      "reload_exact": true,
+      "step0_exact": true
+    },
+    {
+      "arm": "flat_all",
+      "test_nll": 5.186670780181885,
+      "test_ppl": 178.87205505371094,
+      "test_row_top1": 0.716796875,
+      "parameters_total": 1148,
+      "parameters_with_gradient": 1148,
+      "finite": true,
+      "full_budget": true,
+      "reload_exact": true,
+      "step0_exact": true
+    }
+  ],
+  "flat_gain_over_root_unfold": 0.34104204177856445,
+  "flat_disable_coarse_damage": 0.16199588775634766,
+  "flat_coarse_attention": 0.7449105381965637,
+  "integrity": {
+    "all_arms_completed": true,
+    "all_finite": true,
+    "all_full_budget": true,
+    "all_reload_exact": true,
+    "all_step0_exact": true,
+    "encoder_unchanged": true
+  },
+  "claim_gates": {
+    "flat_exposure_c01": true,
+    "coarse_contribution_c02": true
+  },
+  "supported": true
+}
