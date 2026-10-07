@@ -1,0 +1,32 @@
+{
+  "schema": "nio.teacher-blind-eval.t0.v1",
+  "model": "/home/nio/models/Qwen3-8B",
+  "model_config_sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+  "embedding_summary_sha256": "ff2ac2a81e8deafda202f590bf98d840b19949a9e52429044eeadd815098d194",
+  "items": 120,
+  "calibration_items": 40,
+  "blind_items": 80,
+  "paired_parse_rate": 1.0,
+  "calibration_accuracy": 0.725,
+  "order_consistency": 0.325,
+  "blind_comparisons": {
+    "random": {
+      "tree": 16,
+      "control": 23,
+      "tie": 1
+    },
+    "sgns": {
+      "tree": 14,
+      "control": 26,
+      "tie": 0
+    }
+  },
+  "peak_gpu_bytes": 16417814528,
+  "seconds": 220.07409739494324,
+  "gates": {
+    "parse_rate_ge_0_95": true,
+    "calibration_accuracy_ge_0_75": false,
+    "order_consistency_ge_0_90": false
+  },
+  "boundary": "Supplemental local-teacher observation only; no labels enter embedding construction."
+}
