@@ -1,0 +1,1893 @@
+{
+  "claim": [
+    "S1-MS-MICROSCOPE-M1-I02"
+  ],
+  "config": {
+    "data": "/home/nio/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "output": "ara/s1-echo/evidence/s1_multiscale_probability_field_microscope_m1/smoke_20k_seed20261011",
+    "max_lines": 20000,
+    "target_vocab": 2048,
+    "context_vocab": 1024,
+    "max_events": 5000,
+    "window": 4,
+    "depth": 4,
+    "power_steps": 5,
+    "alpha": 0.05,
+    "context_steps": "1,2,4",
+    "controls": 3,
+    "batch_size": 128,
+    "spectrum_events": 128,
+    "seed": 20261011,
+    "device": "cuda"
+  },
+  "inputs": {
+    "data_sha256": "3f4a5189a6b2f06a8a928165a69e119d6e0afe71ffece2bbe7c049ecef7a44df",
+    "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+    "valid_lines": 20000,
+    "token_total": 431185,
+    "scan_sha256": "7955a79c3add45d58f4881b9cc4bb66ca9cb0c66e818ab5e4d94625b193f0822",
+    "count_stats": {
+      "train_lines": 18000,
+      "test_lines": 2000,
+      "train_pairs": 1274205,
+      "test_pairs": 143746
+    },
+    "event_stats": {
+      "test_lines_scanned": 421,
+      "candidate_positions": 6817,
+      "paired_events": 5000
+    },
+    "events": 5000
+  },
+  "structure": {
+    "split_trace": [
+      {
+        "level": 0,
+        "node": 0,
+        "contexts": 1024,
+        "left": 512,
+        "right": 512,
+        "projection_std": 0.17390790581703186
+      },
+      {
+        "level": 1,
+        "node": 0,
+        "contexts": 512,
+        "left": 256,
+        "right": 256,
+        "projection_std": 0.13515442609786987
+      },
+      {
+        "level": 1,
+        "node": 1,
+        "contexts": 512,
+        "left": 256,
+        "right": 256,
+        "projection_std": 0.11472958326339722
+      },
+      {
+        "level": 2,
+        "node": 0,
+        "contexts": 256,
+        "left": 128,
+        "right": 128,
+        "projection_std": 0.09600929915904999
+      },
+      {
+        "level": 2,
+        "node": 1,
+        "contexts": 256,
+        "left": 128,
+        "right": 128,
+        "projection_std": 0.13447216153144836
+      },
+      {
+        "level": 2,
+        "node": 2,
+        "contexts": 256,
+        "left": 128,
+        "right": 128,
+        "projection_std": 0.044384993612766266
+      },
+      {
+        "level": 2,
+        "node": 3,
+        "contexts": 256,
+        "left": 128,
+        "right": 128,
+        "projection_std": 0.11802415549755096
+      },
+      {
+        "level": 3,
+        "node": 0,
+        "contexts": 128,
+        "left": 64,
+        "right": 64,
+        "projection_std": 0.10309265553951263
+      },
+      {
+        "level": 3,
+        "node": 1,
+        "contexts": 128,
+        "left": 64,
+        "right": 64,
+        "projection_std": 0.050786200910806656
+      },
+      {
+        "level": 3,
+        "node": 2,
+        "contexts": 128,
+        "left": 64,
+        "right": 64,
+        "projection_std": 0.1581391543149948
+      },
+      {
+        "level": 3,
+        "node": 3,
+        "contexts": 128,
+        "left": 64,
+        "right": 64,
+        "projection_std": 0.16736021637916565
+      },
+      {
+        "level": 3,
+        "node": 4,
+        "contexts": 128,
+        "left": 64,
+        "right": 64,
+        "projection_std": 0.05654501914978027
+      },
+      {
+        "level": 3,
+        "node": 5,
+        "contexts": 128,
+        "left": 64,
+        "right": 64,
+        "projection_std": 0.042818862944841385
+      },
+      {
+        "level": 3,
+        "node": 6,
+        "contexts": 128,
+        "left": 64,
+        "right": 64,
+        "projection_std": 0.05403857305645943
+      },
+      {
+        "level": 3,
+        "node": 7,
+        "contexts": 128,
+        "left": 64,
+        "right": 64,
+        "projection_std": 0.12777233123779297
+      }
+    ]
+  },
+  "learned": {
+    "name": "learned",
+    "transitions": [
+      {
+        "events": 5000,
+        "max_abs_log_closure": 0.0,
+        "mean_kl_fine_to_coarse": 0.0947329714179039,
+        "mean_js": 0.02429284723997116,
+        "mean_entropy_drop": 0.10655710945129394,
+        "mean_gold_log_probability_gain": 0.14167550315856933,
+        "gold_gain_positive_fraction": 0.8026,
+        "mean_residual_energy": 0.1620645916700363,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.8813762572639087,
+          "top4": 1.0,
+          "top16": 1.0,
+          "effective_rank": 1.439324486319564
+        },
+        "contexts": 1,
+        "coarse_bins": 1,
+        "fine_bins": 2
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 1.9073486328125e-06,
+        "mean_kl_fine_to_coarse": 0.04400276712775231,
+        "mean_js": 0.011529111090302467,
+        "mean_entropy_drop": 0.05020790338516235,
+        "mean_gold_log_probability_gain": 0.07174651870727539,
+        "gold_gain_positive_fraction": 0.6574,
+        "mean_residual_energy": 0.07631817456483841,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.6552099802219782,
+          "top4": 0.9999999999999998,
+          "top16": 0.9999999999999999,
+          "effective_rank": 2.451995924793226
+        },
+        "contexts": 1,
+        "coarse_bins": 2,
+        "fine_bins": 4
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 1.9073486328125e-06,
+        "mean_kl_fine_to_coarse": 0.04592391483187676,
+        "mean_js": 0.012204993557929993,
+        "mean_entropy_drop": 0.0474982780456543,
+        "mean_gold_log_probability_gain": 0.06162832350730896,
+        "gold_gain_positive_fraction": 0.642,
+        "mean_residual_energy": 0.07563342899084091,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.3389257230521223,
+          "top4": 0.8654528085761396,
+          "top16": 0.9999999999999997,
+          "effective_rank": 5.2954719689832865
+        },
+        "contexts": 1,
+        "coarse_bins": 4,
+        "fine_bins": 8
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 2.86102294921875e-06,
+        "mean_kl_fine_to_coarse": 0.04513539667725563,
+        "mean_js": 0.012148199005424977,
+        "mean_entropy_drop": 0.050600028896331785,
+        "mean_gold_log_probability_gain": 0.06276728014945984,
+        "gold_gain_positive_fraction": 0.6406,
+        "mean_residual_energy": 0.070563816177845,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.23687959828399535,
+          "top4": 0.6650764104903888,
+          "top16": 0.9999999999999999,
+          "effective_rank": 9.294860688347786
+        },
+        "contexts": 1,
+        "coarse_bins": 8,
+        "fine_bins": 16
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 9.5367431640625e-07,
+        "mean_kl_fine_to_coarse": 0.1917759078979492,
+        "mean_js": 0.049627731215953826,
+        "mean_entropy_drop": 0.1980356855392456,
+        "mean_gold_log_probability_gain": 0.20636264700889587,
+        "gold_gain_positive_fraction": 0.7854,
+        "mean_residual_energy": 0.26257865073680875,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.8690414104178849,
+          "top4": 0.9999999999999999,
+          "top16": 0.9999999999999999,
+          "effective_rank": 1.474331904818127
+        },
+        "contexts": 2,
+        "coarse_bins": 1,
+        "fine_bins": 2
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 3.814697265625e-06,
+        "mean_kl_fine_to_coarse": 0.08669828949570656,
+        "mean_js": 0.022446491226553917,
+        "mean_entropy_drop": 0.09762040853500366,
+        "mean_gold_log_probability_gain": 0.10500923080444335,
+        "gold_gain_positive_fraction": 0.7096,
+        "mean_residual_energy": 0.14661427845954894,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.6113302955628654,
+          "top4": 0.999999955656658,
+          "top16": 1.0,
+          "effective_rank": 2.674755983294851
+        },
+        "contexts": 2,
+        "coarse_bins": 2,
+        "fine_bins": 4
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 3.814697265625e-06,
+        "mean_kl_fine_to_coarse": 0.09622553906440735,
+        "mean_js": 0.025230284637212753,
+        "mean_entropy_drop": 0.10497907781600953,
+        "mean_gold_log_probability_gain": 0.09168940558433533,
+        "gold_gain_positive_fraction": 0.6472,
+        "mean_residual_energy": 0.15149516308307648,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.328861313175896,
+          "top4": 0.8800238092714336,
+          "top16": 0.9999999999999999,
+          "effective_rank": 5.17421046214571
+        },
+        "contexts": 2,
+        "coarse_bins": 4,
+        "fine_bins": 8
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 5.7220458984375e-06,
+        "mean_kl_fine_to_coarse": 0.08972613205313683,
+        "mean_js": 0.0237123618721962,
+        "mean_entropy_drop": 0.10360188217163085,
+        "mean_gold_log_probability_gain": 0.0880403263092041,
+        "gold_gain_positive_fraction": 0.6526,
+        "mean_residual_energy": 0.13846167196035386,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.238780968349934,
+          "top4": 0.7176383109372987,
+          "top16": 0.9999999501176454,
+          "effective_rank": 8.600448708377876
+        },
+        "contexts": 2,
+        "coarse_bins": 8,
+        "fine_bins": 16
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 3.814697265625e-06,
+        "mean_kl_fine_to_coarse": 0.34085984091758725,
+        "mean_js": 0.08853466539382934,
+        "mean_entropy_drop": 0.3354198405265808,
+        "mean_gold_log_probability_gain": 0.19457658867835997,
+        "gold_gain_positive_fraction": 0.7288,
+        "mean_residual_energy": 0.33668780860900877,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.8546984468667994,
+          "top4": 0.999999999646474,
+          "top16": 1.0,
+          "effective_rank": 1.5135713774614319
+        },
+        "contexts": 4,
+        "coarse_bins": 1,
+        "fine_bins": 2
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 5.7220458984375e-06,
+        "mean_kl_fine_to_coarse": 0.15970004844665528,
+        "mean_js": 0.04086901305913925,
+        "mean_entropy_drop": 0.1611196891784668,
+        "mean_gold_log_probability_gain": 0.08739001622200013,
+        "gold_gain_positive_fraction": 0.6534,
+        "mean_residual_energy": 0.25358011243343354,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.5844790518592295,
+          "top4": 0.9999999482336326,
+          "top16": 0.9999999975305457,
+          "effective_rank": 2.8321508036785814
+        },
+        "contexts": 4,
+        "coarse_bins": 2,
+        "fine_bins": 4
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 1.1444091796875e-05,
+        "mean_kl_fine_to_coarse": 0.1889111450791359,
+        "mean_js": 0.04796209615767002,
+        "mean_entropy_drop": 0.19474601802825928,
+        "mean_gold_log_probability_gain": 0.08711079258918762,
+        "gold_gain_positive_fraction": 0.6098,
+        "mean_residual_energy": 0.2896942853689194,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.42025075517393734,
+          "top4": 0.8997287230256363,
+          "top16": 0.9999999555024836,
+          "effective_rank": 4.76845062826532
+        },
+        "contexts": 4,
+        "coarse_bins": 4,
+        "fine_bins": 8
+      },
+      {
+        "events": 5000,
+        "max_abs_log_closure": 1.1444091796875e-05,
+        "mean_kl_fine_to_coarse": 0.16852662615776062,
+        "mean_js": 0.04299756366312504,
+        "mean_entropy_drop": 0.19416370449066161,
+        "mean_gold_log_probability_gain": 0.052733290576934815,
+        "gold_gain_positive_fraction": 0.593,
+        "mean_residual_energy": 0.2638147963285446,
+        "residual_spectrum": {
+          "events": 128,
+          "top1": 0.3128802025782116,
+          "top4": 0.7914303777842584,
+          "top16": 0.9999999086126907,
+          "effective_rank": 7.139817636856697
+        },
+        "contexts": 4,
+        "coarse_bins": 8,
+        "fine_bins": 16
+      }
+    ]
+  },
+  "random_controls": [
+    {
+      "name": "random_0",
+      "transitions": [
+        {
+          "events": 5000,
+          "max_abs_log_closure": 0.0,
+          "mean_kl_fine_to_coarse": 0.005330359311401844,
+          "mean_js": 0.0013470939934253693,
+          "mean_entropy_drop": 0.004887962341308593,
+          "mean_gold_log_probability_gain": 0.0066258377075195315,
+          "gold_gain_positive_fraction": 0.5408,
+          "mean_residual_energy": 0.01039416486620903,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.9664696772845394,
+            "top4": 1.0,
+            "top16": 1.0,
+            "effective_rank": 1.158130962592082
+          },
+          "contexts": 1,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 9.5367431640625e-07,
+          "mean_kl_fine_to_coarse": 0.013197344464063645,
+          "mean_js": 0.0033870034486055372,
+          "mean_entropy_drop": 0.013275105571746826,
+          "mean_gold_log_probability_gain": 0.019500100231170655,
+          "gold_gain_positive_fraction": 0.59,
+          "mean_residual_energy": 0.024599887883663178,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.63628035161372,
+            "top4": 0.9999999999999999,
+            "top16": 1.0,
+            "effective_rank": 2.585469289788039
+          },
+          "contexts": 1,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.02116923382282257,
+          "mean_js": 0.005527949492633343,
+          "mean_entropy_drop": 0.021430981922149657,
+          "mean_gold_log_probability_gain": 0.03889392371177673,
+          "gold_gain_positive_fraction": 0.6058,
+          "mean_residual_energy": 0.037769018703699114,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.34017025038688264,
+            "top4": 0.9076072475009687,
+            "top16": 0.9999999999999998,
+            "effective_rank": 5.178508744139644
+          },
+          "contexts": 1,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.034342901885509494,
+          "mean_js": 0.009022412064671517,
+          "mean_entropy_drop": 0.035980134105682376,
+          "mean_gold_log_probability_gain": 0.054471064043045046,
+          "gold_gain_positive_fraction": 0.6336,
+          "mean_residual_energy": 0.05924121481776237,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.22503967327720578,
+            "top4": 0.6656363012252098,
+            "top16": 0.9999999999999999,
+            "effective_rank": 9.371443784556487
+          },
+          "contexts": 1,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.010596734103560448,
+          "mean_js": 0.002664363142848015,
+          "mean_entropy_drop": 0.010033787059783935,
+          "mean_gold_log_probability_gain": 0.012792007350921631,
+          "gold_gain_positive_fraction": 0.6602,
+          "mean_residual_energy": 0.020710937228798867,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.9367244244845059,
+            "top4": 1.0000000000000002,
+            "top16": 1.0000000000000002,
+            "effective_rank": 1.2660312956262207
+          },
+          "contexts": 2,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.025870507967472076,
+          "mean_js": 0.006527714106440544,
+          "mean_entropy_drop": 0.02666452407836914,
+          "mean_gold_log_probability_gain": 0.0336967432975769,
+          "gold_gain_positive_fraction": 0.607,
+          "mean_residual_energy": 0.04928592929840088,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5528209187197803,
+            "top4": 0.9999999669368533,
+            "top16": 0.9999999999999998,
+            "effective_rank": 2.836783310912189
+          },
+          "contexts": 2,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.04195817517638206,
+          "mean_js": 0.010750140741467476,
+          "mean_entropy_drop": 0.042531678295135496,
+          "mean_gold_log_probability_gain": 0.06673009161949157,
+          "gold_gain_positive_fraction": 0.6434,
+          "mean_residual_energy": 0.0768237845659256,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.3279108666623151,
+            "top4": 0.887520371720352,
+            "top16": 0.9999999916288103,
+            "effective_rank": 5.390203330108033
+          },
+          "contexts": 2,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.06780688399672508,
+          "mean_js": 0.017369590669870375,
+          "mean_entropy_drop": 0.07046497964859008,
+          "mean_gold_log_probability_gain": 0.08500805616378784,
+          "gold_gain_positive_fraction": 0.6418,
+          "mean_residual_energy": 0.12099679238796233,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.2622080131385354,
+            "top4": 0.630738547376264,
+            "top16": 0.9999999251884941,
+            "effective_rank": 9.654028140508736
+          },
+          "contexts": 2,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.020159889322519303,
+          "mean_js": 0.005034979388862848,
+          "mean_entropy_drop": 0.02012090129852295,
+          "mean_gold_log_probability_gain": 0.017787172412872313,
+          "gold_gain_positive_fraction": 0.6428,
+          "mean_residual_energy": 0.03939795140028,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.8922488447111745,
+            "top4": 0.9999999967666874,
+            "top16": 1.0,
+            "effective_rank": 1.4074620490746552
+          },
+          "contexts": 4,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 4.76837158203125e-06,
+          "mean_kl_fine_to_coarse": 0.05198628004491329,
+          "mean_js": 0.012697352209687233,
+          "mean_entropy_drop": 0.050633753490448,
+          "mean_gold_log_probability_gain": 0.04771783208847046,
+          "gold_gain_positive_fraction": 0.5922,
+          "mean_residual_energy": 0.10289821268320083,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.478527538856309,
+            "top4": 0.9999998627179646,
+            "top16": 0.9999999706148939,
+            "effective_rank": 2.961993373678683
+          },
+          "contexts": 4,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 7.62939453125e-06,
+          "mean_kl_fine_to_coarse": 0.08204073350429535,
+          "mean_js": 0.02035934310555458,
+          "mean_entropy_drop": 0.07950223217010498,
+          "mean_gold_log_probability_gain": 0.07329214601516723,
+          "gold_gain_positive_fraction": 0.612,
+          "mean_residual_energy": 0.15602372808456422,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.3498596779385973,
+            "top4": 0.885863509516863,
+            "top16": 0.9999999167379704,
+            "effective_rank": 5.238481776165813
+          },
+          "contexts": 4,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 9.5367431640625e-06,
+          "mean_kl_fine_to_coarse": 0.13209994568824768,
+          "mean_js": 0.032550690937042236,
+          "mean_entropy_drop": 0.13963515768051146,
+          "mean_gold_log_probability_gain": 0.10575427436828613,
+          "gold_gain_positive_fraction": 0.6162,
+          "mean_residual_energy": 0.24382023308277131,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.33952710182331014,
+            "top4": 0.6991069948473615,
+            "top16": 0.999999867799187,
+            "effective_rank": 8.260687891661485
+          },
+          "contexts": 4,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        }
+      ]
+    },
+    {
+      "name": "random_1",
+      "transitions": [
+        {
+          "events": 5000,
+          "max_abs_log_closure": 0.0,
+          "mean_kl_fine_to_coarse": 0.0078062495604157445,
+          "mean_js": 0.001992581173032522,
+          "mean_entropy_drop": 0.009319629764556884,
+          "mean_gold_log_probability_gain": 0.013080204629898071,
+          "gold_gain_positive_fraction": 0.5736,
+          "mean_residual_energy": 0.01486651474237442,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.9356829581582097,
+            "top4": 0.9999999999999999,
+            "top16": 0.9999999999999999,
+            "effective_rank": 1.2695777646344235
+          },
+          "contexts": 1,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.010984631335735321,
+          "mean_js": 0.002812592915445566,
+          "mean_entropy_drop": 0.012600154685974122,
+          "mean_gold_log_probability_gain": 0.02225874810218811,
+          "gold_gain_positive_fraction": 0.5884,
+          "mean_residual_energy": 0.02073546765446663,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4955019030409701,
+            "top4": 0.9999999999999998,
+            "top16": 1.0,
+            "effective_rank": 2.6331278565339447
+          },
+          "contexts": 1,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.023817195156216622,
+          "mean_js": 0.006165795083343983,
+          "mean_entropy_drop": 0.02460908441543579,
+          "mean_gold_log_probability_gain": 0.04008828258514404,
+          "gold_gain_positive_fraction": 0.6288,
+          "mean_residual_energy": 0.04313177522718906,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.362452622034386,
+            "top4": 0.8889977659661272,
+            "top16": 0.9999999999999997,
+            "effective_rank": 5.065266218062779
+          },
+          "contexts": 1,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.036499266922473905,
+          "mean_js": 0.009661593437194825,
+          "mean_entropy_drop": 0.03720327625274658,
+          "mean_gold_log_probability_gain": 0.05096103525161743,
+          "gold_gain_positive_fraction": 0.6348,
+          "mean_residual_energy": 0.06193685907125473,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.20447303579121495,
+            "top4": 0.5778543696273581,
+            "top16": 0.9999999999999997,
+            "effective_rank": 10.461422379599028
+          },
+          "contexts": 1,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.015664219810068606,
+          "mean_js": 0.00394569346383214,
+          "mean_entropy_drop": 0.017760444259643553,
+          "mean_gold_log_probability_gain": 0.022601046705245972,
+          "gold_gain_positive_fraction": 0.6652,
+          "mean_residual_energy": 0.030297414907813073,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.8912622297709577,
+            "top4": 1.0,
+            "top16": 1.0,
+            "effective_rank": 1.4103931118641833
+          },
+          "contexts": 2,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.021462773701548577,
+          "mean_js": 0.0054390889108181,
+          "mean_entropy_drop": 0.024160084342956543,
+          "mean_gold_log_probability_gain": 0.03385622673034668,
+          "gold_gain_positive_fraction": 0.656,
+          "mean_residual_energy": 0.04092119890451431,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4805557458984333,
+            "top4": 0.9999999649326584,
+            "top16": 1.0,
+            "effective_rank": 2.7766065412031407
+          },
+          "contexts": 2,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.04692669475078583,
+          "mean_js": 0.011865770795941352,
+          "mean_entropy_drop": 0.0466872859954834,
+          "mean_gold_log_probability_gain": 0.06404988651275635,
+          "gold_gain_positive_fraction": 0.6156,
+          "mean_residual_energy": 0.08777730885148048,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.37976115673099275,
+            "top4": 0.8869015440794331,
+            "top16": 0.9999999988437963,
+            "effective_rank": 5.008048560205712
+          },
+          "contexts": 2,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.0720808607339859,
+          "mean_js": 0.018593537083268167,
+          "mean_entropy_drop": 0.0738254895210266,
+          "mean_gold_log_probability_gain": 0.0915307270526886,
+          "gold_gain_positive_fraction": 0.6396,
+          "mean_residual_energy": 0.12669321060180663,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.20288370344900858,
+            "top4": 0.6071336564986363,
+            "top16": 0.999999931359591,
+            "effective_rank": 10.294725762392916
+          },
+          "contexts": 2,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.030323410388827323,
+          "mean_js": 0.0074829257473349575,
+          "mean_entropy_drop": 0.0330694338798523,
+          "mean_gold_log_probability_gain": 0.024746849966049193,
+          "gold_gain_positive_fraction": 0.6352,
+          "mean_residual_energy": 0.0599629442691803,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.7700008518431904,
+            "top4": 0.9999999884713084,
+            "top16": 1.0,
+            "effective_rank": 1.7147651991437973
+          },
+          "contexts": 4,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.03979475798308849,
+          "mean_js": 0.009951453046500683,
+          "mean_entropy_drop": 0.046729590702056886,
+          "mean_gold_log_probability_gain": 0.038269748401641844,
+          "gold_gain_positive_fraction": 0.6174,
+          "mean_residual_energy": 0.07655331997275353,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5369615732055018,
+            "top4": 0.9999998615477494,
+            "top16": 0.9999999695393897,
+            "effective_rank": 2.745538365319818
+          },
+          "contexts": 4,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 7.62939453125e-06,
+          "mean_kl_fine_to_coarse": 0.0892188958644867,
+          "mean_js": 0.021829518109560013,
+          "mean_entropy_drop": 0.08931643085479736,
+          "mean_gold_log_probability_gain": 0.08471874256134033,
+          "gold_gain_positive_fraction": 0.6094,
+          "mean_residual_energy": 0.17302311086654662,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.42012724654857686,
+            "top4": 0.9042308615944963,
+            "top16": 0.9999998924338882,
+            "effective_rank": 4.591362675157922
+          },
+          "contexts": 4,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 9.5367431640625e-06,
+          "mean_kl_fine_to_coarse": 0.13911904953718185,
+          "mean_js": 0.034505332374572754,
+          "mean_entropy_drop": 0.13803872117996216,
+          "mean_gold_log_probability_gain": 0.10326109704971313,
+          "gold_gain_positive_fraction": 0.606,
+          "mean_residual_energy": 0.2542007264614105,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.2410582341440634,
+            "top4": 0.6501519210696506,
+            "top16": 0.9999998775907124,
+            "effective_rank": 9.536346750303457
+          },
+          "contexts": 4,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        }
+      ]
+    },
+    {
+      "name": "random_2",
+      "transitions": [
+        {
+          "events": 5000,
+          "max_abs_log_closure": 0.0,
+          "mean_kl_fine_to_coarse": 0.006583223296701908,
+          "mean_js": 0.001706757934577763,
+          "mean_entropy_drop": 0.006612787055969238,
+          "mean_gold_log_probability_gain": 0.010005662536621093,
+          "gold_gain_positive_fraction": 0.5508,
+          "mean_residual_energy": 0.012073227497935294,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.9264005277545414,
+            "top4": 1.0,
+            "top16": 1.0,
+            "effective_rank": 1.300633809084913
+          },
+          "contexts": 1,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.010222475069761277,
+          "mean_js": 0.0026188457943499086,
+          "mean_entropy_drop": 0.010690364360809326,
+          "mean_gold_log_probability_gain": 0.022461035299301147,
+          "gold_gain_positive_fraction": 0.5848,
+          "mean_residual_energy": 0.0192761748790741,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.48867728804319377,
+            "top4": 0.9999999999999998,
+            "top16": 0.9999999999999999,
+            "effective_rank": 2.627035727602099
+          },
+          "contexts": 1,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.02052490672171116,
+          "mean_js": 0.005347778557240963,
+          "mean_entropy_drop": 0.02289794120788574,
+          "mean_gold_log_probability_gain": 0.031044021129608156,
+          "gold_gain_positive_fraction": 0.5982,
+          "mean_residual_energy": 0.03680732673108578,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.33636956968530896,
+            "top4": 0.8745503682709012,
+            "top16": 0.9999999999999999,
+            "effective_rank": 5.337442118121712
+          },
+          "contexts": 1,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.03824406742453575,
+          "mean_js": 0.010044687502086163,
+          "mean_entropy_drop": 0.03874127340316773,
+          "mean_gold_log_probability_gain": 0.05732424569129944,
+          "gold_gain_positive_fraction": 0.6448,
+          "mean_residual_energy": 0.0655720768392086,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.2275275977287468,
+            "top4": 0.5871683164139407,
+            "top16": 0.9999999999999998,
+            "effective_rank": 10.732654537877458
+          },
+          "contexts": 1,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.012783496319502593,
+          "mean_js": 0.0032341653268784286,
+          "mean_entropy_drop": 0.013192637920379639,
+          "mean_gold_log_probability_gain": 0.01777940573692322,
+          "gold_gain_positive_fraction": 0.6284,
+          "mean_residual_energy": 0.024492787025868892,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.8495844674869857,
+            "top4": 1.0,
+            "top16": 1.0,
+            "effective_rank": 1.5271908796980456
+          },
+          "contexts": 2,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.020218633845448496,
+          "mean_js": 0.0051265192419290544,
+          "mean_entropy_drop": 0.020978209495544433,
+          "mean_gold_log_probability_gain": 0.03283001108169556,
+          "gold_gain_positive_fraction": 0.6268,
+          "mean_residual_energy": 0.03855091985464096,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.49775917899661337,
+            "top4": 0.999999973813537,
+            "top16": 0.9999999999999999,
+            "effective_rank": 2.818292324609198
+          },
+          "contexts": 2,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.04039687243700028,
+          "mean_js": 0.010298378263413906,
+          "mean_entropy_drop": 0.0437884726524353,
+          "mean_gold_log_probability_gain": 0.053797518920898436,
+          "gold_gain_positive_fraction": 0.6186,
+          "mean_residual_energy": 0.07482860304117203,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.3151811039025702,
+            "top4": 0.8779369474496197,
+            "top16": 0.9999999940128387,
+            "effective_rank": 5.232699486056619
+          },
+          "contexts": 2,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.07513096785545349,
+          "mean_js": 0.019264568349719048,
+          "mean_entropy_drop": 0.07632467708587647,
+          "mean_gold_log_probability_gain": 0.09219670114517212,
+          "gold_gain_positive_fraction": 0.658,
+          "mean_residual_energy": 0.13260520052909852,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.24965650762913763,
+            "top4": 0.6304101898550398,
+            "top16": 0.9999999184723436,
+            "effective_rank": 9.937750791661278
+          },
+          "contexts": 2,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.025505887960642577,
+          "mean_js": 0.0061860020795837046,
+          "mean_entropy_drop": 0.025998711776733397,
+          "mean_gold_log_probability_gain": 0.020115786266326905,
+          "gold_gain_positive_fraction": 0.6036,
+          "mean_residual_energy": 0.05267830726057291,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.7201900034582515,
+            "top4": 0.9999999832043597,
+            "top16": 1.0,
+            "effective_rank": 1.809002274467081
+          },
+          "contexts": 4,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.03885862057209015,
+          "mean_js": 0.009700968897342682,
+          "mean_entropy_drop": 0.0411481840133667,
+          "mean_gold_log_probability_gain": 0.034895159435272216,
+          "gold_gain_positive_fraction": 0.5998,
+          "mean_residual_energy": 0.07516690685749054,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4643389357128873,
+            "top4": 0.9999998904274289,
+            "top16": 0.999999974970693,
+            "effective_rank": 3.012009352602197
+          },
+          "contexts": 4,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 7.62939453125e-06,
+          "mean_kl_fine_to_coarse": 0.07869919939041138,
+          "mean_js": 0.01938332644701004,
+          "mean_entropy_drop": 0.08289084196090699,
+          "mean_gold_log_probability_gain": 0.06708436479568482,
+          "gold_gain_positive_fraction": 0.6066,
+          "mean_residual_energy": 0.15255193078517915,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.34945095220345596,
+            "top4": 0.9032019272287968,
+            "top16": 0.9999998974973255,
+            "effective_rank": 4.885431711755305
+          },
+          "contexts": 4,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 9.5367431640625e-06,
+          "mean_kl_fine_to_coarse": 0.14642725150585176,
+          "mean_js": 0.03607246887683868,
+          "mean_entropy_drop": 0.1450798005104065,
+          "mean_gold_log_probability_gain": 0.10382313508987427,
+          "gold_gain_positive_fraction": 0.624,
+          "mean_residual_energy": 0.26750810058116914,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.32587500029151206,
+            "top4": 0.6815672065113345,
+            "top16": 0.999999874708496,
+            "effective_rank": 8.775510719618874
+          },
+          "contexts": 4,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        }
+      ]
+    }
+  ],
+  "leaf_permutation_controls": [
+    {
+      "name": "leaf_permutation_0",
+      "transitions": [
+        {
+          "events": 5000,
+          "max_abs_log_closure": 0.0,
+          "mean_kl_fine_to_coarse": 0.01979457058608532,
+          "mean_js": 0.005124043942987919,
+          "mean_entropy_drop": 0.020029155254364012,
+          "mean_gold_log_probability_gain": 0.03245582871437073,
+          "gold_gain_positive_fraction": 0.6262,
+          "mean_residual_energy": 0.03598614273071289,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.9106252513604179,
+            "top4": 1.0,
+            "top16": 1.0,
+            "effective_rank": 1.3513293721275448
+          },
+          "contexts": 1,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.047265110540390017,
+          "mean_js": 0.012339035680890084,
+          "mean_entropy_drop": 0.048856096935272215,
+          "mean_gold_log_probability_gain": 0.07704325642585755,
+          "gold_gain_positive_fraction": 0.6868,
+          "mean_residual_energy": 0.08241437308788299,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.6096038146765906,
+            "top4": 0.9999999999999999,
+            "top16": 1.0,
+            "effective_rank": 2.7081753764413867
+          },
+          "contexts": 1,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.04913601684570312,
+          "mean_js": 0.01287852017134428,
+          "mean_entropy_drop": 0.04976019115447998,
+          "mean_gold_log_probability_gain": 0.07041513304710388,
+          "gold_gain_positive_fraction": 0.668,
+          "mean_residual_energy": 0.08294750633239746,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4265524013911972,
+            "top4": 0.8565818810496645,
+            "top16": 0.9999999999999999,
+            "effective_rank": 5.003817392745369
+          },
+          "contexts": 1,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.1248091161608696,
+          "mean_js": 0.03425551377534866,
+          "mean_entropy_drop": 0.13621787738800048,
+          "mean_gold_log_probability_gain": 0.1579034067630768,
+          "gold_gain_positive_fraction": 0.7418,
+          "mean_residual_energy": 0.1625349647283554,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4485372581966772,
+            "top4": 0.7586888036236774,
+            "top16": 1.0,
+            "effective_rank": 6.675786640368977
+          },
+          "contexts": 1,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.04147228379249573,
+          "mean_js": 0.010610752741992474,
+          "mean_entropy_drop": 0.03930223398208618,
+          "mean_gold_log_probability_gain": 0.05460606269836426,
+          "gold_gain_positive_fraction": 0.6426,
+          "mean_residual_energy": 0.07533559060096741,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.8535574910010195,
+            "top4": 1.0,
+            "top16": 1.0,
+            "effective_rank": 1.516626260710785
+          },
+          "contexts": 2,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.09931616132259369,
+          "mean_js": 0.0251355641245842,
+          "mean_entropy_drop": 0.09989096384048463,
+          "mean_gold_log_probability_gain": 0.1270135498046875,
+          "gold_gain_positive_fraction": 0.7024,
+          "mean_residual_energy": 0.17569434970617295,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5920664114994718,
+            "top4": 0.9999999973025631,
+            "top16": 1.0,
+            "effective_rank": 2.7917985693252025
+          },
+          "contexts": 2,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.10147203741073609,
+          "mean_js": 0.02588405681848526,
+          "mean_entropy_drop": 0.10676318588256836,
+          "mean_gold_log_probability_gain": 0.10565566782951355,
+          "gold_gain_positive_fraction": 0.652,
+          "mean_residual_energy": 0.1695365259885788,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.43189368387449817,
+            "top4": 0.8604856312182413,
+            "top16": 0.9999999982933717,
+            "effective_rank": 4.962995887460282
+          },
+          "contexts": 2,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.21906178030967713,
+          "mean_js": 0.05957816728949547,
+          "mean_entropy_drop": 0.25828067026138307,
+          "mean_gold_log_probability_gain": 0.20382632832527162,
+          "gold_gain_positive_fraction": 0.7412,
+          "mean_residual_energy": 0.2521121426582336,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5084927351080365,
+            "top4": 0.8151236118796926,
+            "top16": 0.9999999591279218,
+            "effective_rank": 5.627151200881666
+          },
+          "contexts": 2,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.08873658015727996,
+          "mean_js": 0.022147517991065978,
+          "mean_entropy_drop": 0.07560502634048462,
+          "mean_gold_log_probability_gain": 0.05876861662864685,
+          "gold_gain_positive_fraction": 0.6374,
+          "mean_residual_energy": 0.16023477010726928,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.7386151181494283,
+            "top4": 0.9999999940048567,
+            "top16": 0.9999999999999998,
+            "effective_rank": 1.7762439223804531
+          },
+          "contexts": 4,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 7.62939453125e-06,
+          "mean_kl_fine_to_coarse": 0.21026623828411103,
+          "mean_js": 0.051392341899871824,
+          "mean_entropy_drop": 0.21168483180999756,
+          "mean_gold_log_probability_gain": 0.14928486671447755,
+          "gold_gain_positive_fraction": 0.6738,
+          "mean_residual_energy": 0.3359025007724762,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5703602447381028,
+            "top4": 0.9999998966119045,
+            "top16": 0.9999999875705917,
+            "effective_rank": 2.8103051995622055
+          },
+          "contexts": 4,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.1444091796875e-05,
+          "mean_kl_fine_to_coarse": 0.18630011327266693,
+          "mean_js": 0.04680587158203125,
+          "mean_entropy_drop": 0.20213668127059936,
+          "mean_gold_log_probability_gain": 0.11772534494400025,
+          "gold_gain_positive_fraction": 0.63,
+          "mean_residual_energy": 0.28814768562316895,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4656674906946517,
+            "top4": 0.8898175227354737,
+            "top16": 0.9999999458131746,
+            "effective_rank": 4.425542924998648
+          },
+          "contexts": 4,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.1444091796875e-05,
+          "mean_kl_fine_to_coarse": 0.3393151556253433,
+          "mean_js": 0.08874948756098747,
+          "mean_entropy_drop": 0.3960227114677429,
+          "mean_gold_log_probability_gain": 0.09603186082839966,
+          "gold_gain_positive_fraction": 0.6474,
+          "mean_residual_energy": 0.38864334840774534,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5682101419380245,
+            "top4": 0.8803346633817561,
+            "top16": 0.9999998969782155,
+            "effective_rank": 4.386767271634769
+          },
+          "contexts": 4,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        }
+      ]
+    },
+    {
+      "name": "leaf_permutation_1",
+      "transitions": [
+        {
+          "events": 5000,
+          "max_abs_log_closure": 0.0,
+          "mean_kl_fine_to_coarse": 0.01837889086008072,
+          "mean_js": 0.004795345121622086,
+          "mean_entropy_drop": 0.018435927486419677,
+          "mean_gold_log_probability_gain": 0.03370735559463501,
+          "gold_gain_positive_fraction": 0.601,
+          "mean_residual_energy": 0.03290595840215683,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.8786359053241624,
+            "top4": 0.9999999999999999,
+            "top16": 0.9999999999999999,
+            "effective_rank": 1.4472049462907017
+          },
+          "contexts": 1,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.03340930443406105,
+          "mean_js": 0.0087161878824234,
+          "mean_entropy_drop": 0.03440231161117554,
+          "mean_gold_log_probability_gain": 0.046525938415527344,
+          "gold_gain_positive_fraction": 0.6286,
+          "mean_residual_energy": 0.058414349901676176,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5806279900735389,
+            "top4": 0.9999999999999998,
+            "top16": 0.9999999999999999,
+            "effective_rank": 2.6954877976188354
+          },
+          "contexts": 1,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.05328679768443108,
+          "mean_js": 0.01429160071015358,
+          "mean_entropy_drop": 0.05684864892959595,
+          "mean_gold_log_probability_gain": 0.08213983821868896,
+          "gold_gain_positive_fraction": 0.6572,
+          "mean_residual_energy": 0.08519470009207726,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.34508530225139045,
+            "top4": 0.8384083572195496,
+            "top16": 0.9999999999999999,
+            "effective_rank": 5.487002246635236
+          },
+          "contexts": 1,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.1303805080652237,
+          "mean_js": 0.03517883256673813,
+          "mean_entropy_drop": 0.14517643308639527,
+          "mean_gold_log_probability_gain": 0.1754444926261902,
+          "gold_gain_positive_fraction": 0.7878,
+          "mean_residual_energy": 0.17530726816654205,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5250626747934967,
+            "top4": 0.7992206041678331,
+            "top16": 1.0,
+            "effective_rank": 5.70530172447517
+          },
+          "contexts": 1,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 9.5367431640625e-07,
+          "mean_kl_fine_to_coarse": 0.038018482410907745,
+          "mean_js": 0.009693194404244423,
+          "mean_entropy_drop": 0.03677976856231689,
+          "mean_gold_log_probability_gain": 0.05927799081802368,
+          "gold_gain_positive_fraction": 0.7072,
+          "mean_residual_energy": 0.06997658003568649,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.816813285936074,
+            "top4": 1.0,
+            "top16": 1.0,
+            "effective_rank": 1.6099311413777324
+          },
+          "contexts": 2,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.06989045135974883,
+          "mean_js": 0.017520610132813454,
+          "mean_entropy_drop": 0.06887270908355712,
+          "mean_gold_log_probability_gain": 0.08289049496650695,
+          "gold_gain_positive_fraction": 0.6478,
+          "mean_residual_energy": 0.1269220979332924,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5854734903364969,
+            "top4": 0.9999999645389935,
+            "top16": 0.9999999999999998,
+            "effective_rank": 2.7878779414741
+          },
+          "contexts": 2,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.10991327142119407,
+          "mean_js": 0.028735607898235323,
+          "mean_entropy_drop": 0.12045152339935303,
+          "mean_gold_log_probability_gain": 0.1261197479724884,
+          "gold_gain_positive_fraction": 0.669,
+          "mean_residual_energy": 0.1761495100736618,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.36737537286824523,
+            "top4": 0.8506307127929054,
+            "top16": 0.9999999991468752,
+            "effective_rank": 5.3428410548168355
+          },
+          "contexts": 2,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.23344294934272766,
+          "mean_js": 0.06308228934407234,
+          "mean_entropy_drop": 0.278133052444458,
+          "mean_gold_log_probability_gain": 0.22281337294578552,
+          "gold_gain_positive_fraction": 0.777,
+          "mean_residual_energy": 0.26405303473472597,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5822649896071159,
+            "top4": 0.8584875462199881,
+            "top16": 0.9999999432530767,
+            "effective_rank": 4.662018715569808
+          },
+          "contexts": 2,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.08319220832586288,
+          "mean_js": 0.02020101905465126,
+          "mean_entropy_drop": 0.0742020712852478,
+          "mean_gold_log_probability_gain": 0.06730948829650879,
+          "gold_gain_positive_fraction": 0.6628,
+          "mean_residual_energy": 0.1611416268825531,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.6815787621245829,
+            "top4": 0.9999999888761238,
+            "top16": 0.9999999999999997,
+            "effective_rank": 1.8695064205720762
+          },
+          "contexts": 4,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.14388034648895265,
+          "mean_js": 0.034607171857357025,
+          "mean_entropy_drop": 0.13967083196640015,
+          "mean_gold_log_probability_gain": 0.11043065395355224,
+          "gold_gain_positive_fraction": 0.6422,
+          "mean_residual_energy": 0.24654609112739562,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5681540364072388,
+            "top4": 0.9999998811345248,
+            "top16": 0.9999999725713532,
+            "effective_rank": 2.898816848696668
+          },
+          "contexts": 4,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 7.62939453125e-06,
+          "mean_kl_fine_to_coarse": 0.21441056851148604,
+          "mean_js": 0.05427804859280586,
+          "mean_entropy_drop": 0.2538798544883728,
+          "mean_gold_log_probability_gain": 0.1115637267112732,
+          "gold_gain_positive_fraction": 0.6276,
+          "mean_residual_energy": 0.33293160829544066,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.3975199896097895,
+            "top4": 0.8875078385305324,
+            "top16": 0.9999999339108215,
+            "effective_rank": 4.877773310007049
+          },
+          "contexts": 4,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.1444091796875e-05,
+          "mean_kl_fine_to_coarse": 0.3765481090545654,
+          "mean_js": 0.09845799543261528,
+          "mean_entropy_drop": 0.4176964956283569,
+          "mean_gold_log_probability_gain": 0.13250681829452515,
+          "gold_gain_positive_fraction": 0.6768,
+          "mean_residual_energy": 0.39233139662742617,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.6296701882267383,
+            "top4": 0.9109438289580638,
+            "top16": 0.9999998775120377,
+            "effective_rank": 3.731422948630788
+          },
+          "contexts": 4,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        }
+      ]
+    },
+    {
+      "name": "leaf_permutation_2",
+      "transitions": [
+        {
+          "events": 5000,
+          "max_abs_log_closure": 0.0,
+          "mean_kl_fine_to_coarse": 0.020449959176778793,
+          "mean_js": 0.005364434392750263,
+          "mean_entropy_drop": 0.02013498401641846,
+          "mean_gold_log_probability_gain": 0.037389599084854126,
+          "gold_gain_positive_fraction": 0.6116,
+          "mean_residual_energy": 0.036045024991035464,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.8763654533372999,
+            "top4": 0.9999999999999999,
+            "top16": 0.9999999999999999,
+            "effective_rank": 1.4536891427760459
+          },
+          "contexts": 1,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.03176687563061714,
+          "mean_js": 0.008253179690241814,
+          "mean_entropy_drop": 0.030157121086120606,
+          "mean_gold_log_probability_gain": 0.044650028562545775,
+          "gold_gain_positive_fraction": 0.6358,
+          "mean_residual_energy": 0.056526725912094115,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4966450614768739,
+            "top4": 0.9999999999999997,
+            "top16": 0.9999999999999998,
+            "effective_rank": 2.900749038113768
+          },
+          "contexts": 1,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.06409188216924668,
+          "mean_js": 0.016811965906620027,
+          "mean_entropy_drop": 0.06457444505691529,
+          "mean_gold_log_probability_gain": 0.0946317569732666,
+          "gold_gain_positive_fraction": 0.6976,
+          "mean_residual_energy": 0.10515756731033325,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5089900091677251,
+            "top4": 0.8795288411516807,
+            "top16": 0.9999999999999999,
+            "effective_rank": 4.391191136928498
+          },
+          "contexts": 1,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.11689191030263901,
+          "mean_js": 0.031676907354593276,
+          "mean_entropy_drop": 0.13999677038192748,
+          "mean_gold_log_probability_gain": 0.16114624037742614,
+          "gold_gain_positive_fraction": 0.773,
+          "mean_residual_energy": 0.1584749610543251,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4032575717010648,
+            "top4": 0.7491674673066513,
+            "top16": 0.9999999999999999,
+            "effective_rank": 7.200594541193106
+          },
+          "contexts": 1,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.9073486328125e-06,
+          "mean_kl_fine_to_coarse": 0.0426620718061924,
+          "mean_js": 0.010880403631925583,
+          "mean_entropy_drop": 0.039728769111633304,
+          "mean_gold_log_probability_gain": 0.06552326035499573,
+          "gold_gain_positive_fraction": 0.7046,
+          "mean_residual_energy": 0.07807077088356018,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.8051636681186746,
+            "top4": 0.9999999999999999,
+            "top16": 0.9999999999999999,
+            "effective_rank": 1.637482809977474
+          },
+          "contexts": 2,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 2.86102294921875e-06,
+          "mean_kl_fine_to_coarse": 0.0672539094209671,
+          "mean_js": 0.016911870589852333,
+          "mean_entropy_drop": 0.06302972850799561,
+          "mean_gold_log_probability_gain": 0.08035506520271302,
+          "gold_gain_positive_fraction": 0.668,
+          "mean_residual_energy": 0.12360511338710785,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.48029501745273234,
+            "top4": 0.9999999690217065,
+            "top16": 0.9999999999999999,
+            "effective_rank": 3.0582231719469504
+          },
+          "contexts": 2,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.12802059803009033,
+          "mean_js": 0.03316536537408829,
+          "mean_entropy_drop": 0.1398121859550476,
+          "mean_gold_log_probability_gain": 0.14529079608917236,
+          "gold_gain_positive_fraction": 0.6924,
+          "mean_residual_energy": 0.19634816122055054,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5375200959887706,
+            "top4": 0.8919702707596602,
+            "top16": 0.9999999982646505,
+            "effective_rank": 4.158799836489084
+          },
+          "contexts": 2,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.20594307336807252,
+          "mean_js": 0.05542279576063156,
+          "mean_entropy_drop": 0.26166636762619017,
+          "mean_gold_log_probability_gain": 0.1999324873447418,
+          "gold_gain_positive_fraction": 0.7462,
+          "mean_residual_energy": 0.2502340299606323,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.4531649201049632,
+            "top4": 0.7954848222911157,
+            "top16": 0.9999999425371933,
+            "effective_rank": 6.288888708617332
+          },
+          "contexts": 2,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 3.814697265625e-06,
+          "mean_kl_fine_to_coarse": 0.09578430273532867,
+          "mean_js": 0.023010692951083184,
+          "mean_entropy_drop": 0.08057263946533202,
+          "mean_gold_log_probability_gain": 0.0864767379283905,
+          "gold_gain_positive_fraction": 0.6754,
+          "mean_residual_energy": 0.18750862560272216,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.743411902476787,
+            "top4": 0.9999999964110684,
+            "top16": 0.9999999999999999,
+            "effective_rank": 1.7673092674072504
+          },
+          "contexts": 4,
+          "coarse_bins": 1,
+          "fine_bins": 2
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 5.7220458984375e-06,
+          "mean_kl_fine_to_coarse": 0.1460441100716591,
+          "mean_js": 0.035189357441663745,
+          "mean_entropy_drop": 0.14374159679412843,
+          "mean_gold_log_probability_gain": 0.09079871068000793,
+          "gold_gain_positive_fraction": 0.6326,
+          "mean_residual_energy": 0.2548416238069534,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.46630326434320263,
+            "top4": 0.9999999107007604,
+            "top16": 0.9999999849358294,
+            "effective_rank": 3.201358469489848
+          },
+          "contexts": 4,
+          "coarse_bins": 2,
+          "fine_bins": 4
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.1444091796875e-05,
+          "mean_kl_fine_to_coarse": 0.23127622866630554,
+          "mean_js": 0.059120138961076735,
+          "mean_entropy_drop": 0.26285543699264524,
+          "mean_gold_log_probability_gain": 0.14060951852798462,
+          "gold_gain_positive_fraction": 0.6548,
+          "mean_residual_energy": 0.3298856415271759,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.605227813851718,
+            "top4": 0.9280390470350734,
+            "top16": 0.9999999426687558,
+            "effective_rank": 3.4055889639087464
+          },
+          "contexts": 4,
+          "coarse_bins": 4,
+          "fine_bins": 8
+        },
+        {
+          "events": 5000,
+          "max_abs_log_closure": 1.1444091796875e-05,
+          "mean_kl_fine_to_coarse": 0.33397319431304934,
+          "mean_js": 0.08716439595222474,
+          "mean_entropy_drop": 0.39827957458496094,
+          "mean_gold_log_probability_gain": 0.10392572631835938,
+          "gold_gain_positive_fraction": 0.6608,
+          "mean_residual_energy": 0.3846057794570923,
+          "residual_spectrum": {
+            "events": 128,
+            "top1": 0.5001615595924759,
+            "top4": 0.8562199320471442,
+            "top16": 0.9999998958434206,
+            "effective_rank": 5.117363972438246
+          },
+          "contexts": 4,
+          "coarse_bins": 8,
+          "fine_bins": 16
+        }
+      ]
+    }
+  ],
+  "integrity": {
+    "max_abs_log_closure": 1.1444091796875e-05,
+    "posterior_refinement_le_2e_5": true,
+    "all_16_leaves_used": true
+  },
+  "all_finite": true,
+  "integrity_pass": true
+}
