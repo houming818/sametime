@@ -1,0 +1,68 @@
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 136/399 [00:00<00:00, 1297.02it/s]Loading weights:  68%|██████▊   | 270/399 [00:00<00:00, 1304.83it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 1309.05it/s]
+{"done": 1, "total": 24, "accepted": 0}
+{"done": 2, "total": 24, "accepted": 1}
+{"done": 3, "total": 24, "accepted": 2}
+{"done": 4, "total": 24, "accepted": 3}
+{"done": 5, "total": 24, "accepted": 3}
+{"done": 6, "total": 24, "accepted": 4}
+{"done": 7, "total": 24, "accepted": 5}
+{"done": 8, "total": 24, "accepted": 5}
+{"done": 9, "total": 24, "accepted": 6}
+{"done": 10, "total": 24, "accepted": 7}
+{"done": 11, "total": 24, "accepted": 7}
+{"done": 12, "total": 24, "accepted": 7}
+{"done": 13, "total": 24, "accepted": 8}
+{"done": 14, "total": 24, "accepted": 8}
+{"done": 15, "total": 24, "accepted": 8}
+{"done": 16, "total": 24, "accepted": 8}
+{"done": 17, "total": 24, "accepted": 8}
+{"done": 18, "total": 24, "accepted": 8}
+{"done": 19, "total": 24, "accepted": 9}
+{"done": 20, "total": 24, "accepted": 10}
+{"done": 21, "total": 24, "accepted": 11}
+{"done": 22, "total": 24, "accepted": 11}
+{"done": 23, "total": 24, "accepted": 12}
+{"done": 24, "total": 24, "accepted": 12}
+{
+  "schema": "nio.s3.multiresolution-language-curriculum.t0.v1",
+  "claim": "S3-MULTIRES-CURRICULUM-T0-C01",
+  "config": {
+    "items": 24,
+    "seed": 20261012,
+    "max_input": 1024,
+    "max_output": 256
+  },
+  "inputs": {
+    "data": "/home/nio/datasets/nio/releases/NioClean-ZHEN-S098-7M-v2/pairs.tsv",
+    "data_sha256": "299134867398720cc6d407eadd6de4fb237812319d113fbe12071758e79d92c8",
+    "eligible_rows": 3864242,
+    "material_sha256": "f021546ca0f996ab79aba59415bf9f6ecb96e028b9cd1c581f082fcd3ad75519"
+  },
+  "teacher": {
+    "model": "/home/nio/models/Qwen3-8B",
+    "config_sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+    "decode": "greedy",
+    "peak_gpu_bytes": 16488057856
+  },
+  "results": {
+    "rows": 24,
+    "parsed": 24,
+    "monotonic": 20,
+    "accepted": 12,
+    "parse_rate": 1.0,
+    "monotonic_rate": 0.8333333333333334,
+    "acceptance_rate": 0.5
+  },
+  "gates": {
+    "parse_rate_ge_0_95": true,
+    "monotonic_rate_ge_0_85": false,
+    "acceptance_rate_ge_0_80": false
+  },
+  "artifacts": {
+    "all_sha256": "a66066cafdd39432cf6bf0aec05ed888ab9368f4c4d72f0cd8127ce243fa0f44",
+    "accepted_sha256": "1205de738dbc0985d18fae17063d9d5a86a91e0c5410bc2b510bc4d948ea2f83"
+  },
+  "seconds": 90.55963277816772,
+  "boundary": "Teacher-synthetic candidates only; formal gates do not establish semantic faithfulness or downstream TreeHeap benefit.",
+  "formal_release_allowed": false
+}

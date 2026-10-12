@@ -1,0 +1,43 @@
+{
+  "schema": "nio.s3.multiresolution-language-curriculum.t0.v1",
+  "claim": "S3-MULTIRES-CURRICULUM-T0-R2-C01",
+  "config": {
+    "items": 24,
+    "seed": 20261012,
+    "max_input": 1024,
+    "max_output": 256
+  },
+  "inputs": {
+    "data": "/home/nio/datasets/nio/releases/NioClean-ZHEN-S098-7M-v2/pairs.tsv",
+    "data_sha256": "299134867398720cc6d407eadd6de4fb237812319d113fbe12071758e79d92c8",
+    "eligible_rows": 3150838,
+    "material_sha256": "437dec4d6b8cc2e858fa497ae753545e3ecb6aa6b38403f7debd8fbee039362c"
+  },
+  "teacher": {
+    "model": "/home/nio/models/Qwen3-8B",
+    "config_sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+    "decode": "greedy",
+    "peak_gpu_bytes": 16506228736
+  },
+  "results": {
+    "rows": 24,
+    "parsed": 24,
+    "monotonic": 23,
+    "accepted": 14,
+    "parse_rate": 1.0,
+    "monotonic_rate": 0.9583333333333334,
+    "acceptance_rate": 0.5833333333333334
+  },
+  "gates": {
+    "parse_rate_ge_0_95": true,
+    "monotonic_rate_ge_0_85": true,
+    "acceptance_rate_ge_0_80": false
+  },
+  "artifacts": {
+    "all_sha256": "1c1a2db4f0af9cbf3fcf0d461f7251055b73507963a18e9079d3583e1278f6c3",
+    "accepted_sha256": "6d4fa0dd4687c00d6366d43f80c2a9a8bbd5e7a5c3cbbd4240a480ca2c3306b7"
+  },
+  "seconds": 75.55019760131836,
+  "boundary": "Teacher-synthetic candidates only; formal gates do not establish semantic faithfulness or downstream TreeHeap benefit.",
+  "formal_release_allowed": false
+}
