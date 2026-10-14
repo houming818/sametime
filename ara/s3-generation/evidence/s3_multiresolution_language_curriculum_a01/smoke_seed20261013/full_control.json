@@ -1,0 +1,326 @@
+{
+  "arm": "full_control",
+  "parameters": 34448396,
+  "initial_parameter_hash": "c7f3ea78f9a753ea16097a6a1b3751ea28a2f071865fb1012879a0e333ea52a9",
+  "final_parameter_hash": "0492bff909cf787677373efb89cb1574e2e66f752dd7a3eddf13a6e09d6d98b7",
+  "finite_gradients": true,
+  "updates": 24,
+  "target_tokens_seen": 20720,
+  "trace": [
+    {
+      "arm": "full_control",
+      "epoch": 1,
+      "updates": 12,
+      "train_nll_equal_scale_mean": 9.480257560809454,
+      "train_nll_by_depth": {
+        "core": 17.670146067937214,
+        "short": 9.082830667495728,
+        "reduced": 6.000514507293701,
+        "full": 5.167539000511169
+      },
+      "target_tokens_seen": 10360,
+      "elapsed_sec": 5.119675159454346
+    },
+    {
+      "arm": "full_control",
+      "epoch": 2,
+      "updates": 24,
+      "train_nll_equal_scale_mean": 8.973386690020561,
+      "train_nll_by_depth": {
+        "core": 16.832059462865193,
+        "short": 8.36355714003245,
+        "reduced": 5.742360512415568,
+        "full": 4.9555696447690325
+      },
+      "target_tokens_seen": 20720,
+      "elapsed_sec": 9.615729093551636
+    }
+  ],
+  "valid_by_epoch": {
+    "0": {
+      "scales": {
+        "core": {
+          "nll": 28.98196101833034,
+          "tokens": 37,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.7664041994750656,
+          "generation_unique_ratio": 1.0
+        },
+        "short": {
+          "nll": 12.378774007161459,
+          "tokens": 57,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.7375328083989502,
+          "generation_unique_ratio": 1.0
+        },
+        "reduced": {
+          "nll": 6.38877079036686,
+          "tokens": 143,
+          "generation_mean_tokens": 93.66666666666667,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.03513481269386781,
+          "generation_unique_ratio": 1.0
+        },
+        "full": {
+          "nll": 5.019719683537717,
+          "tokens": 305,
+          "generation_mean_tokens": 18.666666666666668,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.022727272727272724,
+          "generation_unique_ratio": 1.0
+        }
+      },
+      "mean_length_strictly_increasing": false,
+      "examples": [
+        {
+          "source_line": 3889302,
+          "scale": "core",
+          "depth": 0,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前扫描",
+          "generated": "目前当前当前当前当前现现现现当前当前当前现现当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "short",
+          "depth": 2,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前扫描收集数据",
+          "generated": "在当前运行之前之前,当前的工作程序是当前的几个当前的几个运行eseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseses"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "reduced",
+          "depth": 3,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前患者数次扫描收集数据",
+          "generated": "预先处理程序,如下信息: 镜头会在法律要求,更好地掌握到多个数据。"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "full",
+          "depth": 5,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "目前所采用的工作流如下:手术前,患者进行数次扫描,收集畸形部位的必要数据。",
+          "generated": " ⁇ ,在工作之前,在工作之前,在不同的阶段,需要进行交流。"
+        }
+      ]
+    },
+    "1": {
+      "scales": {
+        "core": {
+          "nll": 28.423710384884394,
+          "tokens": 37,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.6286089238845144,
+          "generation_unique_ratio": 1.0
+        },
+        "short": {
+          "nll": 12.264410253156695,
+          "tokens": 57,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.5616797900262468,
+          "generation_unique_ratio": 1.0
+        },
+        "reduced": {
+          "nll": 6.29203396243649,
+          "tokens": 143,
+          "generation_mean_tokens": 95.83333333333333,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.017103045046198494,
+          "generation_unique_ratio": 1.0
+        },
+        "full": {
+          "nll": 4.985222713282851,
+          "tokens": 305,
+          "generation_mean_tokens": 20.833333333333332,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.027777777777777776,
+          "generation_unique_ratio": 1.0
+        }
+      },
+      "mean_length_strictly_increasing": false,
+      "examples": [
+        {
+          "source_line": 3889302,
+          "scale": "core",
+          "depth": 0,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前扫描",
+          "generated": "目前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "short",
+          "depth": 2,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前扫描收集数据",
+          "generated": "在当前运行之前之前,当前当前的程序运行当前的工作过程当前当前的程序之前,当前的几个当前eseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseses"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "reduced",
+          "depth": 3,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前患者数次扫描收集数据",
+          "generated": "预先处理程序,如下信息: 镜头会在法律要求,更好地掌握到数据。"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "full",
+          "depth": 5,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "目前所采用的工作流如下:手术前,患者进行数次扫描,收集畸形部位的必要数据。",
+          "generated": " ⁇ ,在工作之前,在工作之前,在不同的阶段,需要进行交流。"
+        }
+      ]
+    },
+    "2": {
+      "scales": {
+        "core": {
+          "nll": 27.97322536159206,
+          "tokens": 37,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.6194225721784777,
+          "generation_unique_ratio": 1.0
+        },
+        "short": {
+          "nll": 12.219761229397959,
+          "tokens": 57,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.5616797900262468,
+          "generation_unique_ratio": 1.0
+        },
+        "reduced": {
+          "nll": 6.21461577515502,
+          "tokens": 143,
+          "generation_mean_tokens": 82.33333333333333,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.03133202099737533,
+          "generation_unique_ratio": 1.0
+        },
+        "full": {
+          "nll": 4.95461190645812,
+          "tokens": 305,
+          "generation_mean_tokens": 19.666666666666668,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.0,
+          "generation_unique_ratio": 1.0
+        }
+      },
+      "mean_length_strictly_increasing": false,
+      "examples": [
+        {
+          "source_line": 3889302,
+          "scale": "core",
+          "depth": 0,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前扫描",
+          "generated": "目前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前当前"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "short",
+          "depth": 2,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前扫描收集数据",
+          "generated": "在当前运行之前之前,当前当前的程序当前的工作是当前的当前的工作流程的当前当前的工作,当前的几个运行eseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseseses"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "reduced",
+          "depth": 3,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "手术前患者数次扫描收集数据",
+          "generated": "预先处理程序,如下: 重复的请求,然后再进入多个数据,更好地将数据转移到所需的数据。"
+        },
+        {
+          "source_line": 3889302,
+          "scale": "full",
+          "depth": 5,
+          "source": "The current workflow is as follows: Before the operation, the patient undergoes several scanning sessions to gather the required data on the deformity.",
+          "target": "目前所采用的工作流如下:手术前,患者进行数次扫描,收集畸形部位的必要数据。",
+          "generated": " ⁇ ,在工作之前,在工作之前,在不同的阶段,需要进行交流。"
+        }
+      ]
+    }
+  },
+  "test": {
+    "scales": {
+      "core": {
+        "nll": 24.88761749267578,
+        "tokens": 40,
+        "generation_mean_tokens": 128.0,
+        "generation_nonempty": 1.0,
+        "generation_repeat_adjacent": 0.7270341207349081,
+        "generation_unique_ratio": 1.0
+      },
+      "short": {
+        "nll": 11.49270531439012,
+        "tokens": 62,
+        "generation_mean_tokens": 128.0,
+        "generation_nonempty": 1.0,
+        "generation_repeat_adjacent": 0.3215223097112861,
+        "generation_unique_ratio": 1.0
+      },
+      "reduced": {
+        "nll": 6.835762172937393,
+        "tokens": 128,
+        "generation_mean_tokens": 83.83333333333333,
+        "generation_nonempty": 1.0,
+        "generation_repeat_adjacent": 0.16907510848893179,
+        "generation_unique_ratio": 1.0
+      },
+      "full": {
+        "nll": 5.327918500785368,
+        "tokens": 332,
+        "generation_mean_tokens": 24.333333333333332,
+        "generation_nonempty": 1.0,
+        "generation_repeat_adjacent": 0.012691570881226055,
+        "generation_unique_ratio": 1.0
+      }
+    },
+    "mean_length_strictly_increasing": false,
+    "examples": [
+      {
+        "source_line": 3969141,
+        "scale": "core",
+        "depth": 0,
+        "source": "Therefore, it's important to look at the October 2015 Visa Bulletin to determine who can do this.",
+        "target": "查看签证公告",
+        "generated": "因此 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以 所以"
+      },
+      {
+        "source_line": 3969141,
+        "scale": "short",
+        "depth": 2,
+        "source": "Therefore, it's important to look at the October 2015 Visa Bulletin to determine who can do this.",
+        "target": "查看签证公告确定资格",
+        "generated": "要查看此链接,看看该看看看看哪些方法查看 2007 年看看看看谁来看看谁来看看谁来看看谁来决定做到这一点决定做到这一点决定做到这一点决定做到决定做到这一点决定做到这一点决定做到这一点决定做到这一点决定做到这一点决定做到这一点决定这么做去做决定去做决定这样去做决定去做决定这样去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做决定去做去做决定去做去做决定去做去做决定去做去做决定去做去做决定去做去做决定去做去做决定去做去做决定去做去做决定去做去做去做"
+      },
+      {
+        "source_line": 3969141,
+        "scale": "reduced",
+        "depth": 3,
+        "source": "Therefore, it's important to look at the October 2015 Visa Bulletin to determine who can do this.",
+        "target": "因此需查看2015年10月签证公告",
+        "generated": "怎么看这个不看看待这个结果。"
+      },
+      {
+        "source_line": 3969141,
+        "scale": "full",
+        "depth": 5,
+        "source": "Therefore, it's important to look at the October 2015 Visa Bulletin to determine who can do this.",
+        "target": "因此, 重要的是要看看 十月 2015 签证公告 以确定谁可以做到这一点.",
+        "generated": " ⁇ ,在东南亚最重要,在十月底日,该签证,以了解哪些人可以访问该类。"
+      }
+    ]
+  },
+  "peak_gpu_memory_mb": 1203.41552734375
+}

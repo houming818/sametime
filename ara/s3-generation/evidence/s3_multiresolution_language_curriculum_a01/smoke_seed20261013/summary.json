@@ -1,0 +1,115 @@
+{
+  "claim": "S3-MULTIRES-CURRICULUM-A01-C01",
+  "mode": "smoke",
+  "host": "io",
+  "elapsed_sec": 34.00556921958923,
+  "config": {
+    "mode": "smoke",
+    "data": "ara/s3-generation/evidence/s3_multiresolution_language_curriculum_t0/formal_r3_512_seed20261012/accepted_curriculum.jsonl",
+    "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_latest.pt",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "reranker": "/home/nio/models/bge-reranker-v2-m3",
+    "output": "ara/s3-generation/evidence/s3_multiresolution_language_curriculum_a01/smoke_seed20261013",
+    "seed": 20261013,
+    "max_items": 96,
+    "epochs": 2,
+    "eval_epochs": [
+      1,
+      2
+    ],
+    "batch_size": 8,
+    "reranker_batch": 32,
+    "generate_items": 16,
+    "example_items": 16,
+    "max_generate": 128,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "heap_width": 256,
+    "max_content": 253,
+    "dim": 256,
+    "hidden": 256,
+    "coupling_scale": 0.25,
+    "device": "cuda"
+  },
+  "hashes": {
+    "data": "9c259b3790a5dd88f380318203cef1d1b6b1610abbeaba2cfbbfdc6d126a5b16",
+    "checkpoint": "b20298638f26faf542eb1033fd990f3a37b81dd814d6631c5c7d0f5272c9ff1e",
+    "spm_model": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731"
+  },
+  "rows": {
+    "train": 81,
+    "valid": 7,
+    "test": 8
+  },
+  "semantic_audit": {
+    "reranker": {
+      "core": {
+        "aligned_mean_logit": 2.421483357747396,
+        "shuffled_mean_logit": -9.260476430257162,
+        "paired_delta_mean": 11.681959788004557,
+        "aligned_win_rate": 1.0
+      },
+      "short": {
+        "aligned_mean_logit": 4.5633970896403,
+        "shuffled_mean_logit": -9.725624084472656,
+        "paired_delta_mean": 14.289021174112955,
+        "aligned_win_rate": 1.0
+      },
+      "reduced": {
+        "aligned_mean_logit": 7.048136393229167,
+        "shuffled_mean_logit": -10.099848429361979,
+        "paired_delta_mean": 17.147984822591145,
+        "aligned_win_rate": 1.0
+      }
+    },
+    "invariants": {
+      "core": {
+        "number_items": 47,
+        "number_recall": 0.0851063829787234,
+        "negated_rows": 31,
+        "negation_recall": 0.16129032258064516
+      },
+      "short": {
+        "number_items": 47,
+        "number_recall": 0.23404255319148937,
+        "negated_rows": 31,
+        "negation_recall": 0.22580645161290322
+      },
+      "reduced": {
+        "number_items": 47,
+        "number_recall": 0.5106382978723404,
+        "negated_rows": 31,
+        "negation_recall": 0.4838709677419355
+      }
+    },
+    "aligned_better_scales": 3
+  },
+  "same_initialization": true,
+  "parameter_matched": true,
+  "finite_gradients": true,
+  "comparison": {
+    "core": {
+      "curriculum_minus_control_nll": -0.3725193023681612,
+      "control_generation_mean_tokens": 128.0,
+      "curriculum_generation_mean_tokens": 128.0
+    },
+    "short": {
+      "curriculum_minus_control_nll": -0.16911808136970663,
+      "control_generation_mean_tokens": 128.0,
+      "curriculum_generation_mean_tokens": 128.0
+    },
+    "reduced": {
+      "curriculum_minus_control_nll": -0.02451273798942566,
+      "control_generation_mean_tokens": 83.83333333333333,
+      "curriculum_generation_mean_tokens": 96.66666666666667
+    },
+    "full": {
+      "curriculum_minus_control_nll": -0.00798105906291191,
+      "control_generation_mean_tokens": 24.333333333333332,
+      "curriculum_generation_mean_tokens": 24.166666666666668
+    }
+  },
+  "control_length_order": false,
+  "curriculum_length_order": false,
+  "boundary": "Teacher-synthetic small-data depth-conditioning experiment; not human semantic truth, general summarization, energy efficiency, or Transformer superiority."
+}

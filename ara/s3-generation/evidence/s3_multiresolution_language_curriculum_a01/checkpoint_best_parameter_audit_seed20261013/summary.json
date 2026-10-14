@@ -1,0 +1,114 @@
+{
+  "claim": "S3-MULTIRES-CURRICULUM-A01-R2-C01",
+  "mode": "formal",
+  "host": "io",
+  "elapsed_sec": 13.011802911758423,
+  "config": {
+    "mode": "formal",
+    "data": "ara/s3-generation/evidence/s3_multiresolution_language_curriculum_t0/formal_r3_512_seed20261012/accepted_curriculum.jsonl",
+    "checkpoint": "ara/s3-generation/evidence/s3_treeheap_butterfly_bilingual_full/checkpoint_best.pt",
+    "spm_model": "/home/nio/datasets/wmt_massive/sp_bpe_massive.model",
+    "reranker": "/home/nio/models/bge-reranker-v2-m3",
+    "output": "ara/s3-generation/evidence/s3_multiresolution_language_curriculum_a01/checkpoint_best_parameter_audit_seed20261013",
+    "seed": 20261013,
+    "max_items": 0,
+    "epochs": 0,
+    "eval_epochs": [
+      0
+    ],
+    "batch_size": 8,
+    "reranker_batch": 32,
+    "generate_items": 16,
+    "example_items": 16,
+    "max_generate": 128,
+    "lr": 1e-05,
+    "weight_decay": 0.01,
+    "heap_width": 256,
+    "max_content": 253,
+    "dim": 256,
+    "hidden": 256,
+    "coupling_scale": 0.25,
+    "device": "cuda"
+  },
+  "hashes": {
+    "data": "9c259b3790a5dd88f380318203cef1d1b6b1610abbeaba2cfbbfdc6d126a5b16",
+    "checkpoint": "821ce8123d78817b37ff8f0a68458fd59427a7af555f93c7c87c297f28861c1d",
+    "spm_model": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731"
+  },
+  "rows": {
+    "train": 396,
+    "valid": 46,
+    "test": 46
+  },
+  "semantic_audit": {
+    "reranker": {
+      "core": {
+        "aligned_mean_logit": 2.1983205607680025,
+        "shuffled_mean_logit": -9.471513904508997,
+        "paired_delta_mean": 11.669834465276999,
+        "aligned_win_rate": 0.9979508196721312
+      },
+      "short": {
+        "aligned_mean_logit": 4.240499840408075,
+        "shuffled_mean_logit": -9.974551904396932,
+        "paired_delta_mean": 14.215051744805008,
+        "aligned_win_rate": 1.0
+      },
+      "reduced": {
+        "aligned_mean_logit": 7.025302073994621,
+        "shuffled_mean_logit": -10.16603063364498,
+        "paired_delta_mean": 17.1913327076396,
+        "aligned_win_rate": 1.0
+      }
+    },
+    "invariants": {
+      "core": {
+        "number_items": 286,
+        "number_recall": 0.13636363636363635,
+        "negated_rows": 149,
+        "negation_recall": 0.24161073825503357
+      },
+      "short": {
+        "number_items": 286,
+        "number_recall": 0.26573426573426573,
+        "negated_rows": 149,
+        "negation_recall": 0.3087248322147651
+      },
+      "reduced": {
+        "number_items": 286,
+        "number_recall": 0.5734265734265734,
+        "negated_rows": 149,
+        "negation_recall": 0.5503355704697986
+      }
+    },
+    "aligned_better_scales": 3
+  },
+  "same_initialization": true,
+  "parameter_matched": true,
+  "finite_gradients": true,
+  "comparison": {
+    "core": {
+      "curriculum_minus_control_nll": 0.0,
+      "control_generation_mean_tokens": 128.0,
+      "curriculum_generation_mean_tokens": 128.0
+    },
+    "short": {
+      "curriculum_minus_control_nll": 0.0,
+      "control_generation_mean_tokens": 123.625,
+      "curriculum_generation_mean_tokens": 123.625
+    },
+    "reduced": {
+      "curriculum_minus_control_nll": 0.0,
+      "control_generation_mean_tokens": 108.75,
+      "curriculum_generation_mean_tokens": 108.75
+    },
+    "full": {
+      "curriculum_minus_control_nll": 0.0,
+      "control_generation_mean_tokens": 21.375,
+      "curriculum_generation_mean_tokens": 21.375
+    }
+  },
+  "control_length_order": false,
+  "curriculum_length_order": false,
+  "boundary": "Teacher-synthetic small-data depth-conditioning experiment; not human semantic truth, general summarization, energy efficiency, or Transformer superiority."
+}

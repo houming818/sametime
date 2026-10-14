@@ -1,0 +1,710 @@
+{
+  "arm": "prefix_control",
+  "parameters": 34448396,
+  "initial_parameter_hash": "db8317ec8b7023ca3d9ca78436e79d289294065ef06f103e140f451be0c9bb86",
+  "final_parameter_hash": "10459cb3aa80c8978b2267074665c7ba37ea3e093a8b561eaab374ace7fec429",
+  "finite_gradients": true,
+  "updates": 102,
+  "target_tokens_seen": 48550,
+  "trace": [
+    {
+      "arm": "prefix_control",
+      "epoch": 1,
+      "updates": 51,
+      "train_nll_equal_scale_mean": 8.52621101277831,
+      "train_nll_by_depth": {
+        "core": 15.00709480259962,
+        "short": 8.240766874001755,
+        "reduced": 5.8308374782302845,
+        "full": 5.026144896281585
+      },
+      "target_tokens_seen": 24275,
+      "elapsed_sec": 16.33891272544861
+    },
+    {
+      "arm": "prefix_control",
+      "epoch": 2,
+      "updates": 102,
+      "train_nll_equal_scale_mean": 7.608713542378635,
+      "train_nll_by_depth": {
+        "core": 12.721225564882063,
+        "short": 7.472222616104632,
+        "reduced": 5.417244959523993,
+        "full": 4.8241610290038635
+      },
+      "target_tokens_seen": 48550,
+      "elapsed_sec": 31.180437803268433
+    }
+  ],
+  "valid_by_epoch": {
+    "0": {
+      "scales": {
+        "core": {
+          "nll": 20.33194725642041,
+          "tokens": 248,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.7937992125984252,
+          "generation_unique_ratio": 1.0
+        },
+        "short": {
+          "nll": 10.285823030895957,
+          "tokens": 381,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.37746062992125984,
+          "generation_unique_ratio": 1.0
+        },
+        "reduced": {
+          "nll": 6.746476707659552,
+          "tokens": 680,
+          "generation_mean_tokens": 113.6875,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.11870592507494257,
+          "generation_unique_ratio": 1.0
+        },
+        "full": {
+          "nll": 5.120910218076273,
+          "tokens": 1540,
+          "generation_mean_tokens": 20.9375,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.002717391304347826,
+          "generation_unique_ratio": 1.0
+        }
+      },
+      "mean_length_strictly_increasing": false,
+      "examples": [
+        {
+          "source_line": 241477,
+          "scale": "core",
+          "depth": 0,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉",
+          "generated": "我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "core",
+          "depth": 0,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "博客论坛社交促客户",
+          "generated": "通过社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "core",
+          "depth": 0,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "美术中心办展",
+          "generated": "Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "core",
+          "depth": 0,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "设置参数",
+          "generated": "地图移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动"
+        },
+        {
+          "source_line": 241477,
+          "scale": "short",
+          "depth": 2,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉十字架",
+          "generated": "我肉肉肉肉肉肉肉肉肉肉肉活肉活肉活肉活肉活肉活肉活肉的生活肉活活的生活住在活的生活住在的生活活的生活住在活着的生活活着的生活活着的生活活着的生活活着的生活活着的生活活着的生活活着活着活着的生活活着活着活着活着活着的生活肉活着肉的生活肉住在肉住在肉肉肉肉肉肉肉肉住在肉的生活肉的生活肉的生活肉的生活肉的生活肉住在肉住在肉的生活肉的生活肉的生活肉的生活肉的生活肉住在肉住在肉的生活肉的生活肉的生活肉的生活肉住在肉住在肉的生活肉的生活肉的生活肉的生活"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "short",
+          "depth": 2,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "博客论坛社交促客户洞察美誉",
+          "generated": "通过 通过 通过 通过 通过 通过 通过 通过博博 通过 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博 通过 通过博博博博 通过博博 通过 通过博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博博"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "short",
+          "depth": 2,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "市民美术中心举办展览",
+          "generated": "展览艺术汉朝韩汉诺汉汉汉韩汉诺汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩汉韩 Hanaz Han Han Hanaz Han Hanaz Han Hanaz Hanaz Hanaz Hanaz Hanaz Han"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "short",
+          "depth": 2,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "设置圆形参数",
+          "generated": "Motion Move Move 向左箭头箭头左箭头箭头左箭头箭头左箭头箭头左箭头箭头左箭头方圆左箭头箭头左箭头方圆圆圆左箭头左箭头箭头左箭头方圆左箭头箭头号码左箭头方圆左箭头左箭头方圆滑圆圆圆左箭头左箭头方圆滑圆圆滑圆圆左箭头左箭头方圆滑圆圆滑圆圆滑左箭头左箭头方圆滑圆圆滑圆圆滑左箭头左箭头方圆滑圆圆滑左箭头左箭头方圆滑圆圆滑左箭头左箭头方圆滑圆圆滑左"
+        },
+        {
+          "source_line": 241477,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉十字架，基督活我内，因信子而活",
+          "generated": "我,我活了,我活了肉身,活活活活的生活,活活我活了肉身的生活,活活活活的生活里活活的生活,活活我活活肉活肉活肉活肉的生活,活活活肉活肉的生活,活活活活的生活里活活的生活活活活活的生活,活活活肉活肉的生活,活活活活活肉的生活,活活在我的生活里活活的生活活活的生活,活活在我的生活里活活的生活活活的生活,活在我父活活肉的生活里活活的生活,活活"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "通过博客、论坛和社交媒体可促进潜在客户、提供洞察、建立美誉度",
+          "generated": "服务, 社交, 社交媒体,媒体, 社交媒体,媒体, 驱动器, 驾驶队, 驾驶队, 驾驶队, 驾驶队, 驾驶队, 驾驶队, 驾驶队, 驾驶队, 驾驶员, 驾驶队, 驾驶员, 向您带来一个特殊的客户带来带来带来带来带来巨大的优势. 带来客户带来带来带来带来带来巨大的优势. 胶带客户带来带来带来带来巨大的优势."
+        },
+        {
+          "source_line": 3254053,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "市民美术中心举办特别展、艺术研讨会、门厅音乐会等",
+          "generated": "贡献者 艺术中心艺术 艺术中心向南亚纳提卡亚纳提斯亚纳斯亚拉玛拉玛拉玛拉玛斯橄榄(Rashar Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby R"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "移动指针设置圆形外观及参数",
+          "generated": "例如,指指的指头指向指头,指箭头指头部指头指头部指头指头部指头指头部指头指头指头指头部指头指头部指头指头指头指头部指头指头部指头指头部指头指头指头指头部箭头方向箭头箭头方向箭头箭头方向箭头方向箭头方向箭头方向箭头方向箭头方向箭头方向箭头方向。箭头动作,箭头方向箭头方向箭头方向箭头方向面的箭头,向箭头方向箭头方向箭头方向面的箭头,然后向左箭头方向箭头方向"
+        },
+        {
+          "source_line": 241477,
+          "scale": "full",
+          "depth": 6,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我已经与基督 同钉十字架;现在活着的,不再是我,而是基督 活在我里面;如今在肉身中活着的我,是因信 神的儿子而活的;他爱我,为我舍己。",
+          "generated": " ⁇ 子,我只见一个孩子,我只见一个孩子,我只想"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "full",
+          "depth": 6,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "通过博客、论坛和社交媒体一体化,可以促进符合资格的潜在客户,提供独特的客户洞察力,建立美誉度,激励关于您产品和服务的交流对话。",
+          "generated": " ⁇ ,博客,社会,社会,社会,社会,社会,社会,商业化,社会科学服务。"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "full",
+          "depth": 6,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "东大阪市花园橄榄球场南面的市民美术中心,除了市民举办的展览会以外,还举办特别展、艺术研讨会、门厅音乐会等。",
+          "generated": " ⁇ 斯山丘夫人, 沿线 沿线 沿线 音乐会 音乐会和音乐会 音乐会"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "full",
+          "depth": 6,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "把鼠标指针移到浮动按钮处,通过浮动菜单设置圆形的外观,比如圆圈数,箭头大小和方向等。",
+          "generated": " ⁇ 子 ⁇ 子,在图中,包括一个数字,包括大小,并显示一个数字的例子。"
+        }
+      ]
+    },
+    "1": {
+      "scales": {
+        "core": {
+          "nll": 18.04638324577301,
+          "tokens": 248,
+          "generation_mean_tokens": 128.0,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.6530511811023623,
+          "generation_unique_ratio": 1.0
+        },
+        "short": {
+          "nll": 9.805580013605162,
+          "tokens": 381,
+          "generation_mean_tokens": 126.4375,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.33033715454685814,
+          "generation_unique_ratio": 1.0
+        },
+        "reduced": {
+          "nll": 6.509100105342975,
+          "tokens": 680,
+          "generation_mean_tokens": 93.125,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.1586427636669017,
+          "generation_unique_ratio": 1.0
+        },
+        "full": {
+          "nll": 4.938410864717149,
+          "tokens": 1540,
+          "generation_mean_tokens": 27.5625,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.01201923076923077,
+          "generation_unique_ratio": 1.0
+        }
+      },
+      "mean_length_strictly_increasing": false,
+      "examples": [
+        {
+          "source_line": 241477,
+          "scale": "core",
+          "depth": 0,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉",
+          "generated": "我和我肉肉肉肉和我肉肉肉肉和我和我和我肉和我和我和我肉和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我和我"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "core",
+          "depth": 0,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "博客论坛社交促客户",
+          "generated": "通过社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体社交媒体"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "core",
+          "depth": 0,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "美术中心办展",
+          "generated": "Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "core",
+          "depth": 0,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "设置参数",
+          "generated": "地图移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动"
+        },
+        {
+          "source_line": 241477,
+          "scale": "short",
+          "depth": 2,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉十字架",
+          "generated": "我肉肉肉肉肉肉活肉活肉活肉活肉活肉活肉活肉活肉活活的生活活活活活活活的生活活活活的生活活活活的生活活活活的生活活活活的生活活活活的生活活活活的生活活活活的生活住在我住在 我肉活肉住在肉活肉住在肉活肉住在肉活肉的生活住在活肉住在肉的生活肉活活的生活住在 我住在的生活肉住在肉住在肉住在肉的生活肉活活的生活 我住在肉的生活肉活住在住在肉的生活肉活住在住在肉的生活肉活住在住在肉"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "short",
+          "depth": 2,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "博客论坛社交促客户洞察美誉",
+          "generated": "通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "short",
+          "depth": 2,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "市民美术中心举办展览",
+          "generated": "展览艺术艺术艺术的目的是汉南汉汉汉汉汉汉汉汉汉汉汉汉汉汉汉韩汉诺 Han Han Han Han Han Han Han Hanaz Han Hanaz Han Hanaz Han Hanaz Han Hanaz Han Hanaz Han Hanaz Hanaz Hanaz Han Hanaz Hanaz Hanaz Han Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Han"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "short",
+          "depth": 2,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "设置圆形参数",
+          "generated": "Motion Move Move Move Move Move Move Move Move Move 向左移方箭头方向左箭头箭头指示左箭头箭头指示箭头方指示方向面的数字指示表格指示方箭头左方向箭头数字箭头左箭头方号方圆圆圆圆圆圆圆圆圆圆圆圆圆滑圆圆圆左箭头滑移移动圆圆圆圆圆圆滑圆圆圆滑圆圆圆滑圆圆圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑圆滑"
+        },
+        {
+          "source_line": 241477,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉十字架，基督活我内，因信子而活",
+          "generated": "我,我活了,我活了,我活了,我活了肉身,活活了,活活了活活的生活,活了肉身,活活我活了肉身,活活活活的生活,活活我活活了活活的生活,活活我活活了活活的生活,活活我活活了活活的生活,活活了活活的生活,活活活活活活活活活活活肉活肉活肉活肉活肉的生活,活活活活活活活活活活活活活活活活活肉活"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "通过博客、论坛和社交媒体可促进潜在客户、提供洞察、建立美誉度",
+          "generated": "服务, 社交, 社交媒体,媒体, 社交媒体,媒体, 驱动器, 驱动, 驾驶者, 驾驶队, 驾驶员, 驾驶队, 驾驶员, 驾驶队, 驾驶员, 推动客户, 推动客户带来带来带来带来带来带来带来巨大的优势, 产生. 奇妙带,带来一个带客户带来带来带来带来巨大的优势, 带来一个客户带来带来带来带来带来巨大的优势."
+        },
+        {
+          "source_line": 3254053,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "市民美术中心举办特别展、艺术研讨会、门厅音乐会等",
+          "generated": "贡献者 艺术中心艺术艺术中心艺术 艺术中心向南亚纳提斯亚拉玛拉纳玛拉纳(Rasharaz Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby Rugby R"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "移动指针设置圆形外观及参数",
+          "generated": "例如,指指的指针方向,向箭头方向面的指头指指,指指的头部箭头方向面的箭头,箭头箭头方向箭头箭头方向箭头方向箭头方向箭头方向,箭头方向箭头箭头方向箭头箭头方向箭头方向箭头方向箭头方向,箭头方向箭头箭头方向箭头方向箭头方向箭头方向。"
+        },
+        {
+          "source_line": 241477,
+          "scale": "full",
+          "depth": 6,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我已经与基督 同钉十字架;现在活着的,不再是我,而是基督 活在我里面;如今在肉身中活着的我,是因信 神的儿子而活的;他爱我,为我舍己。",
+          "generated": " ⁇ 子,我只见一个孩子,我只见一个孩子,我只爱他们,我住在这里,我爱他们。"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "full",
+          "depth": 6,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "通过博客、论坛和社交媒体一体化,可以促进符合资格的潜在客户,提供独特的客户洞察力,建立美誉度,激励关于您产品和服务的交流对话。",
+          "generated": " ⁇ ,博客,社会,社会,社会,社会,社会,社会,创造性的声誉,鼓励和支持。"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "full",
+          "depth": 6,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "东大阪市花园橄榄球场南面的市民美术中心,除了市民举办的展览会以外,还举办特别展、艺术研讨会、门厅音乐会等。",
+          "generated": " ⁇ 斯山丘夫人,在南高效率的东部,你会发现大量的音乐,以及大堂和音乐厅。"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "full",
+          "depth": 6,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "把鼠标指针移到浮动按钮处,通过浮动菜单设置圆形的外观,比如圆圈数,箭头大小和方向等。",
+          "generated": " ⁇ 子 ⁇ 子,在图中,包括一个数字,包括图表, 箭头, 箭头, 箭头, 函数, 函数, 教练."
+        }
+      ]
+    },
+    "2": {
+      "scales": {
+        "core": {
+          "nll": 16.569530858377544,
+          "tokens": 248,
+          "generation_mean_tokens": 120.0,
+          "generation_nonempty": 0.9375,
+          "generation_repeat_adjacent": 0.5393700787401575,
+          "generation_unique_ratio": 1.0
+        },
+        "short": {
+          "nll": 9.442538046529835,
+          "tokens": 381,
+          "generation_mean_tokens": 119.625,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.2984406360969585,
+          "generation_unique_ratio": 1.0
+        },
+        "reduced": {
+          "nll": 6.282361880503595,
+          "tokens": 680,
+          "generation_mean_tokens": 63.5,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.10170818919746398,
+          "generation_unique_ratio": 1.0
+        },
+        "full": {
+          "nll": 4.839323139601317,
+          "tokens": 1540,
+          "generation_mean_tokens": 33.375,
+          "generation_nonempty": 1.0,
+          "generation_repeat_adjacent": 0.010485197368421052,
+          "generation_unique_ratio": 1.0
+        }
+      },
+      "mean_length_strictly_increasing": false,
+      "examples": [
+        {
+          "source_line": 241477,
+          "scale": "core",
+          "depth": 0,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉",
+          "generated": "我肉 我和我肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉肉和我和我肉肉 我和我和我肉 我和我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我和我和我肉 我"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "core",
+          "depth": 0,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "博客论坛社交促客户",
+          "generated": "通过社交媒体社交媒体社交媒体社交媒体, 通过社交媒体, 通过社交媒体, 通过 通过社交媒体, 通过社交媒体, 通过 通过 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体, 通过社交媒体"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "core",
+          "depth": 0,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "美术中心办展",
+          "generated": "该景点 Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han Han"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "core",
+          "depth": 0,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "设置参数",
+          "generated": "地图移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动移动"
+        },
+        {
+          "source_line": 241477,
+          "scale": "short",
+          "depth": 2,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉十字架",
+          "generated": "我活肉肉肉肉肉活肉活肉活肉活肉活我活我肉活活活活活活肉活肉活活活活活肉活肉活肉活肉活肉活肉活肉活肉活肉活肉活肉住在肉活活的生活活活活活肉活肉住在肉活肉住在肉活肉住在肉活肉住在肉活肉住在肉活肉的生活肉活肉住在肉活肉住在肉的生活肉活活的生活肉活肉住在肉住在肉的生活肉活活的生活肉活肉住在肉住在肉的生活肉活活的生活肉活"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "short",
+          "depth": 2,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "博客论坛社交促客户洞察美誉",
+          "generated": "通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过 通过"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "short",
+          "depth": 2,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "市民美术中心举办展览",
+          "generated": "展览艺术艺术艺术艺术艺术中心向南汉汉汉汉韩汉诺 Han Han Han Han Han Hanaz Han Hanaz Han Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Hanaz Han"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "short",
+          "depth": 2,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "设置圆形参数",
+          "generated": "Motion Move Move Move Move Move Move Move Move Move Move Move Move 向移动方向移向左箭头箭头指示箭头方移方箭头方号滑圆圆圆圆圆滑圆圆圆滑圆圆圆滑圆圆圆滑圆圆圆滑圆圆圆滑圆圆圆滑圆圆圆滑圆圆圆滑圆圆圆滑圆滑圆滑圆滑移动 Move Move移动滑圆圆圆圆圆圆滑圆圆圆滑圆滑圆滑圆滑移动移动 Move Move滑圆圆圆圆圆滑圆圆滑圆滑圆滑左头滑圆圆滑圆滑圆滑"
+        },
+        {
+          "source_line": 241477,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我与基督同钉十字架，基督活我内，因信子而活",
+          "generated": "我,我活了,我活了,我活了,我活了肉身,活了,我活了肉身,活活了,活活了活活的生活,活了我,我活了肉身,活活了活活活活的生活,活了肉活肉活肉活肉活肉活肉的生活,活了我,我活了肉活活活活活活活活活活活活活活活活活活活活活活活活活活活活活活活肉活活肉活活肉活活肉的生活,活活了"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "通过博客、论坛和社交媒体可促进潜在客户、提供洞察、建立美誉度",
+          "generated": "服务, 社交媒体, 社交媒体, 社交媒体, 社交媒体, 蚂蚁, 蚂蚁, 跨越高, 越高, 越高, 越高, 越高, 越好, 越好, 越好, 您能带给您带来带来真正的客户."
+        },
+        {
+          "source_line": 3254053,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "市民美术中心举办特别展、艺术研讨会、门厅音乐会等",
+          "generated": "贡献者 艺术中心艺术艺术中心艺术展 艺术中心 艺术中心 举行"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "reduced",
+          "depth": 4,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "移动指针设置圆形外观及参数",
+          "generated": "例如,指指的指针方向,向箭头方向的指针方向指向指头,箭头方向箭头箭头方向箭头方向箭头方向箭头方向,箭头箭头方向箭头箭头方向箭头箭头方向箭头箭头方向箭头箭头方向箭头方向箭头方向。"
+        },
+        {
+          "source_line": 241477,
+          "scale": "full",
+          "depth": 6,
+          "source": "I have been crucified with Christ, and it is no longer I that live, but Christ living in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+          "target": "我已经与基督 同钉十字架;现在活着的,不再是我,而是基督 活在我里面;如今在肉身中活着的我,是因信 神的儿子而活的;他爱我,为我舍己。",
+          "generated": " ⁇ 子,我只见一个基督,是基督,祂在基督里,祂住在永生,我住在那里,我住在那里,我爱他们,我爱他们。"
+        },
+        {
+          "source_line": 6362964,
+          "scale": "full",
+          "depth": 6,
+          "source": "Through blogs, forums, social media integration you can drive qualified leads, bring unique customer insights, build a reputation and encourage conversations about your products and services.",
+          "target": "通过博客、论坛和社交媒体一体化,可以促进符合资格的潜在客户,提供独特的客户洞察力,建立美誉度,激励关于您产品和服务的交流对话。",
+          "generated": " ⁇ ,博客,社会,社会,社会,可以实时的声誉,并鼓励他们建立服务。"
+        },
+        {
+          "source_line": 3254053,
+          "scale": "full",
+          "depth": 6,
+          "source": "The citizens' art center to the south of the Higashiosaka City Hanazono Rugby Stadium holds local artist exhibitions as well as special exhibitions, project exhibitions, and lobby concerts.",
+          "target": "东大阪市花园橄榄球场南面的市民美术中心,除了市民举办的展览会以外,还举办特别展、艺术研讨会、门厅音乐会等。",
+          "generated": " ⁇ 斯山丘夫人,在南高斯大阪市体育馆附近,当地的艺术家展台。"
+        },
+        {
+          "source_line": 2885920,
+          "scale": "full",
+          "depth": 6,
+          "source": "Move the pointer towards the floating button to configure the diagram, including the circle numbers, arrow size and direction. Let's take the Circular Motion 3 as an example.",
+          "target": "把鼠标指针移到浮动按钮处,通过浮动菜单设置圆形的外观,比如圆圈数,箭头大小和方向等。",
+          "generated": " ⁇ 子 ⁇ 子,在想创建一个数字,包括一个数字,包括大小,方向和方向, 让我们来创建一个视频。"
+        }
+      ]
+    }
+  },
+  "test": {
+    "scales": {
+      "core": {
+        "nll": 15.956330955703146,
+        "tokens": 234,
+        "generation_mean_tokens": 120.1875,
+        "generation_nonempty": 1.0,
+        "generation_repeat_adjacent": 0.7185039370078741,
+        "generation_unique_ratio": 1.0
+      },
+      "short": {
+        "nll": 9.161082879270332,
+        "tokens": 345,
+        "generation_mean_tokens": 114.0,
+        "generation_nonempty": 1.0,
+        "generation_repeat_adjacent": 0.26279527559055116,
+        "generation_unique_ratio": 1.0
+      },
+      "reduced": {
+        "nll": 6.4619609334812855,
+        "tokens": 633,
+        "generation_mean_tokens": 88.8125,
+        "generation_nonempty": 1.0,
+        "generation_repeat_adjacent": 0.23549402063217778,
+        "generation_unique_ratio": 1.0
+      },
+      "full": {
+        "nll": 4.857107862560328,
+        "tokens": 1512,
+        "generation_mean_tokens": 25.25,
+        "generation_nonempty": 1.0,
+        "generation_repeat_adjacent": 0.01839143615005684,
+        "generation_unique_ratio": 1.0
+      }
+    },
+    "mean_length_strictly_increasing": false,
+    "examples": [
+      {
+        "source_line": 584807,
+        "scale": "core",
+        "depth": 0,
+        "source": "Currently, China-EU relations enjoy a sound development in general, with the four partnerships of peace, growth, reform and civilization steadily forging ahead, and practical cooperation in various fields continuously being deepened and advanced.",
+        "target": "关系稳步",
+        "generated": "继续继续,继续继续,继续继续,继续继续继续继续继续继续争,继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续继续"
+      },
+      {
+        "source_line": 4543916,
+        "scale": "core",
+        "depth": 0,
+        "source": "1 All the commandments which I command thee this day shall ye observe to do, that ye may live, and multiply, and go in and possess the land which the LORD sware unto your fathers.",
+        "target": "诫命守",
+        "generated": "1命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令命令"
+      },
+      {
+        "source_line": 5955003,
+        "scale": "core",
+        "depth": 0,
+        "source": "Residents have until the end of business day January 31, 2014 to pay for the annual license fee for the dogs and/or cats in order to avoid warnings and possible summonses.",
+        "target": "付牌照费",
+        "generated": "2011持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续持续"
+      },
+      {
+        "source_line": 4816767,
+        "scale": "core",
+        "depth": 0,
+        "source": "Integrating F5 Software Defined Application Services (SDAS) into the Cisco Application Centric Infrastructure (ACITM) enables a powerful new network architecture that simplifies and automates L2-L7 application delivery for existing and next-generation data centers.",
+        "target": "集成 SDAS 获得好处",
+        "generated": "infrastructure融合融合融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合闪存融合"
+      },
+      {
+        "source_line": 584807,
+        "scale": "short",
+        "depth": 2,
+        "source": "Currently, China-EU relations enjoy a sound development in general, with the four partnerships of peace, growth, reform and civilization steadily forging ahead, and practical cooperation in various fields continuously being deepened and advanced.",
+        "target": "中欧关系稳步发展",
+        "generated": "深中四十四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四四个四"
+      },
+      {
+        "source_line": 4543916,
+        "scale": "short",
+        "depth": 2,
+        "source": "1 All the commandments which I command thee this day shall ye observe to do, that ye may live, and multiply, and go in and possess the land which the LORD sware unto your fathers.",
+        "target": "诫命守以得地",
+        "generated": "你命令你,这其中,其中,你做的,做的其中, 这遍, 你做的,做些做,做的, 这遍地, 你这样做,做遍做的, 你做的,做你的, 这遍, 你做的,做你的, 这遍地, 你做的,做你的, 这遍地, 你做的,做你的, 这遍地, 你做的,做你的, 这遍地, 你做的,做你的, 这遍地, 你做的, 这遍地, 你这样做, 这遍地,的地, 这遍地, 你这样做, 这遍地, 你这样做, 这"
+      },
+      {
+        "source_line": 5955003,
+        "scale": "short",
+        "depth": 2,
+        "source": "Residents have until the end of business day January 31, 2014 to pay for the annual license fee for the dogs and/or cats in order to avoid warnings and possible summonses.",
+        "target": "居民须付狗猫牌照费",
+        "generated": "运营商的年度活动持续年度活动指示年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度警告年度"
+      },
+      {
+        "source_line": 4816767,
+        "scale": "short",
+        "depth": 2,
+        "source": "Integrating F5 Software Defined Application Services (SDAS) into the Cisco Application Centric Infrastructure (ACITM) enables a powerful new network architecture that simplifies and automates L2-L7 application delivery for existing and next-generation data centers.",
+        "target": "集成 SDAS 获得虚拟化好处",
+        "generated": "思集成集成 应用集成 应用集成 应用 应用集成 应用简化集成简化集成简化集成简化思简化集成简化思简化集成简化思简化集成简化思简化思思思思思简化数据中心简化思简化思思思简化数据中心简化思简化思思思简化数据中心简化思简化思思思简化数据中心简化思简化思思思简化数据中心简化思简化思简化数据中心简化思简化思简化数据中心简化思简化思简化数据中心简化思简化思简化数据中心简化思简化思简化数据中心简化现有简化数据中心简化思简化数据中心简化思简化数据中心简化思简化数据中心简化思简化数据中心简化思简化数据中心简化思"
+      },
+      {
+        "source_line": 584807,
+        "scale": "reduced",
+        "depth": 4,
+        "source": "Currently, China-EU relations enjoy a sound development in general, with the four partnerships of peace, growth, reform and civilization steadily forging ahead, and practical cooperation in various fields continuously being deepened and advanced.",
+        "target": "中欧关系总体良好，四大伙伴关系稳步推进",
+        "generated": "冯母耳边向前迈进,在一般的表现为,一般,一般,一般,与一般和平共建四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四四"
+      },
+      {
+        "source_line": 4543916,
+        "scale": "reduced",
+        "depth": 4,
+        "source": "1 All the commandments which I command thee this day shall ye observe to do, that ye may live, and multiply, and go in and possess the land which the LORD sware unto your fathers.",
+        "target": "诫命须守以存续并得应许之地",
+        "generated": "命令你,你必要去,我必使你的香,你向耶和华你列祖起誓要,要要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪,要去哪呢,要去哪,"
+      },
+      {
+        "source_line": 5955003,
+        "scale": "reduced",
+        "depth": 4,
+        "source": "Residents have until the end of business day January 31, 2014 to pay for the annual license fee for the dogs and/or cats in order to avoid warnings and possible summonses.",
+        "target": "居民须于1月31日付狗猫牌照费",
+        "generated": "冯母耳的收入和收入的,直到,以收入为准许和收入,以为准许和警告,"
+      },
+      {
+        "source_line": 4816767,
+        "scale": "reduced",
+        "depth": 4,
+        "source": "Integrating F5 Software Defined Application Services (SDAS) into the Cisco Application Centric Infrastructure (ACITM) enables a powerful new network architecture that simplifies and automates L2-L7 application delivery for existing and next-generation data centers.",
+        "target": "集成 SDAS 到 ACITM 可获虚拟化体系结构好处",
+        "generated": "整合了5 融合的应用程序, 敏捷的应用程序整合(基于ASAS)基础架构的强大功能强大,强大,强大,能实现简化自动化自动化自动化的自动化仪表,为实现自动化,自动实现自动化,自动化的自动化,为实现自动化,自动实现自动化,为实现现有自动化和自动化的模式,为实现现有自动化和自动化的模式,为实现现有自动化和两层模式,为实现现有和未来的自动化的模式,为实现现有自动化和两层模式进行。"
+      },
+      {
+        "source_line": 584807,
+        "scale": "full",
+        "depth": 6,
+        "source": "Currently, China-EU relations enjoy a sound development in general, with the four partnerships of peace, growth, reform and civilization steadily forging ahead, and practical cooperation in various fields continuously being deepened and advanced.",
+        "target": "当前,中欧关系总体发展良好,和平、增长、改革、文明四大伙伴关系稳步推进,各领域务实合作持续走深走实。",
+        "generated": " ⁇ ,中国,在欧盟,在世界各地,在世界各地,在世界各地,建立了广泛的互利的,并推动各种领域。"
+      },
+      {
+        "source_line": 4543916,
+        "scale": "full",
+        "depth": 6,
+        "source": "1 All the commandments which I command thee this day shall ye observe to do, that ye may live, and multiply, and go in and possess the land which the LORD sware unto your fathers.",
+        "target": "申命记 8 1 我今日所吩咐的一切诫命,你们要谨守遵行,好叫你们存活,人数增多,且进去得耶和华向你们列祖起誓应许的那地。",
+        "generated": " ⁇ 子,我吩咐你们,你们你们要守着这棵大的东西,你们要作你们列祖的子孙。"
+      },
+      {
+        "source_line": 5955003,
+        "scale": "full",
+        "depth": 6,
+        "source": "Residents have until the end of business day January 31, 2014 to pay for the annual license fee for the dogs and/or cats in order to avoid warnings and possible summonses.",
+        "target": "居民直到业务结束一天一月 31, 2014 支付每年的牌照费,以狗和/或猫,以避免警告和可能的传票.",
+        "generated": " ⁇ 子,在2016年1月30日,我们为狗狗和野生动物的安排,以便在狗和动物之间进行斗争。"
+      },
+      {
+        "source_line": 4816767,
+        "scale": "full",
+        "depth": 6,
+        "source": "Integrating F5 Software Defined Application Services (SDAS) into the Cisco Application Centric Infrastructure (ACITM) enables a powerful new network architecture that simplifies and automates L2-L7 application delivery for existing and next-generation data centers.",
+        "target": "通过将 F5 的软件定义的应用服务 (SDAS) 集成到 Cisco 以应用为中心的基础架构 (ACITM ) , 客户可获得应用架构已集成到网络架构的虚拟化体系结构的好处。",
+        "generated": "结合了5个定义,SDI,将它们应用到数据中心和基础设施应用(基础设施ITM)之间的新一代应用架构。"
+      }
+    ]
+  },
+  "peak_gpu_memory_mb": 1203.41552734375
+}
