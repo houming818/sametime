@@ -1,0 +1,704 @@
+{
+  "claim": "S3-TREE-QK-PATH-C01",
+  "claim_scope": "one-seed real-corpus wiring and mechanism smoke",
+  "host": "io",
+  "seconds": 12.010346174240112,
+  "config": {
+    "data": "/mnt/nas/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/mnt/nas/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_tree_qk_path_encoding_smoke/smoke_contract_r2_seed20261017",
+    "seed": 20261017,
+    "source_col": 1,
+    "target_col": 0,
+    "train_samples": 256,
+    "valid_samples": 64,
+    "test_samples": 64,
+    "generation_samples": 16,
+    "max_scan": 20000,
+    "min_len": 16,
+    "max_len": 31,
+    "heap_width": 32,
+    "dim": 32,
+    "hidden": 32,
+    "batch_size": 32,
+    "epochs": 1,
+    "lr": 0.002,
+    "audit_batches": 1,
+    "arms": [
+      "uniform",
+      "qk_no_path",
+      "qk_fixed_path",
+      "qk_learned_path"
+    ],
+    "device": "cuda"
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "selected_rows_sha256": "90217e0fd47104a93991f71b698ccb168351e303c82290d5f2f199ac22f82c7b",
+    "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+    "scanned": 20000,
+    "eligible": 4666,
+    "selected": 384,
+    "sampling": "deterministic_reservoir_then_shuffle"
+  },
+  "contracts": {
+    "shared_initial_state_equal": true,
+    "shared_initial_sha256": "97d5d6b461d2811be132ea4dbb8095f1e7b0205818a1166a71d1afebccae194b",
+    "qk_no_path_vs_learned_step_zero_nll_delta": 0.0,
+    "same_selected_rows_and_batch_seed": true,
+    "balanced_heap_width": 32,
+    "relation_is_qk": true,
+    "read_is_separate_value_sum": true
+  },
+  "results": {
+    "uniform": {
+      "arm": "uniform",
+      "parameters": 4149985,
+      "learned_path_parameters": 0,
+      "finite_gradients": true,
+      "initial_shared_sha256": "97d5d6b461d2811be132ea4dbb8095f1e7b0205818a1166a71d1afebccae194b",
+      "step_zero_nll": 10.381110191345215,
+      "final_model_sha256": "3a74c387abb33e163fa3e7cb2f2e78dd22fb7750331a8fdb748cdbec0bda4c1c",
+      "seconds": 2.3145551681518555,
+      "trace": [
+        {
+          "arm": "uniform",
+          "epoch": 1,
+          "train_nll": 10.343535423278809,
+          "valid_nll": 10.276389701909222,
+          "route_depth_entropy": [
+            0.6931471824645996,
+            1.2075923681259155,
+            1.7409908771514893,
+            2.3217720985412598,
+            2.938429832458496
+          ],
+          "elapsed_sec": 0.8983309268951416
+        }
+      ],
+      "test": {
+        "nll": 10.280090712707901,
+        "ppl": 29146.517393141465,
+        "tokens": 1443,
+        "route_depth_mass": [
+          0.6931471824645996,
+          1.2292530536651611,
+          1.8086810111999512,
+          2.4219536781311035,
+          3.054180145263672
+        ]
+      },
+      "generation": {
+        "nll": 10.283717030338922,
+        "ppl": 29252.40379587622,
+        "tokens": 343,
+        "route_depth_mass": [
+          0.6931471824645996,
+          1.1480250358581543,
+          1.7436983585357666,
+          2.4043543338775635,
+          3.035227060317993
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.28365086592896266,
+        "examples": [
+          {
+            "en": "Taiwan ict Electric Motor Parts & Accessories List - Manufacturers, Suppliers and Exporters on ict.taiwantrade.com",
+            "reference_zh": "Taiwantrade |马达零配件在 taiwantrade.com.tw 列表-制造商,供应商 和出口商 主页",
+            "hypothesis_zh": "禁止 Hostelworld而 trains 课程控不断西只能只能 companies拍去拍请选择您要 miles miles feels分析分析:4.0.30319;:4.0.30319; eco eco控 downloads:4.0.30319;:4.0.30319;存在于收藏"
+          },
+          {
+            "en": "In 1995 Thailand became the first developing country to produce a generic antiretroviral drug.",
+            "reference_zh": "1995年泰国成为第一个能够批量生产抗逆转录病毒药物的发展中国家。",
+            "hypothesis_zh": "禁止种子面包分析分析:4.0.30319;慕 (,:4.0.30319.36:4.0.30319.36 在 埃及分析分析UV惨透 sup信 大 insulation 埃及:4.0.30319.36.见到关联"
+          },
+          {
+            "en": "There is no cure for genital warts, but many treatments are available. No Treatment",
+            "reference_zh": "没有证据显示生殖器 ⁇ 是否治疗与发展成宫颈癌相关。",
+            "hypothesis_zh": "爾结构爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾"
+          },
+          {
+            "en": "The information relates to existing or anticipated legal proceedings between you and Credit Suisse and would not be accessible by the process of discovery",
+            "reference_zh": "信息与您与瑞信现有或预计的法律诉讼相关,通过发现程序没法访问;",
+            "hypothesis_zh": "餐厅各种 pride结构犹豫))结构2016出口面包"
+          },
+          {
+            "en": "News-Wafangdian Guangda Bearing Manufacturing Co., LTD(WSW bearing)",
+            "reference_zh": "Certificate-Wafangdian Guangda Bearing Manufacturing Co . , LTD(WSW bearing)",
+            "hypothesis_zh": "禁止 在预订表格预订表格 网站设计爾结构爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾爾"
+          },
+          {
+            "en": "But if you're right, they won't appear until the rest of this show is triggered.\"",
+            "reference_zh": "但如果你是对的,它们要等到剩余的这场演出被启动之后才会现身 。 」",
+            "hypothesis_zh": "爾怎么爾爾爾爾 holid爾爾 holid爾爾 holid爾爾 holid爾爾 holid爾爾 holid爾爾 holid爾爾 holid爾爾"
+          },
+          {
+            "en": "Saint Helena, Ascension and Tristan da Cunha has a world share of 0.0% .",
+            "reference_zh": "圣赫勒拿岛,阿森松岛和特里斯坦 - 达库尼亚 所占比例为 0.0 % .",
+            "hypothesis_zh": "怎么怎么分析怎么unction.见到emen 大描述标记體方面 。 大方面 。)结构由 。 大只能只能id街区是一家 MACH"
+          },
+          {
+            "en": "\"Yes; I am a magistrate, and can get admittance for you.",
+            "reference_zh": "冯某佳就感激地看着他,那我给你泡茶去。",
+            "hypothesis_zh": "埃及在此新建 Securities气能Am结构雀ello方面 。"
+          },
+          {
+            "en": "Thread Safety: EJB makes all components thread-safe and highly performant in ways athat are completely invisible.",
+            "reference_zh": "线程安全: EJB 使用完全不可见的方式确保所有组件线程安全并具有高性能。",
+            "hypothesis_zh": "就只能idheng开发人员118:4.0.30319;网站或资源的可用性负责))结构您将当时的 您所 repeated彻ipe结构出口城市LTD通用出口柴更是 gathered分析分析:4.0.30319;:4.0.30319;"
+          },
+          {
+            "en": "Furthermore, the BioSpec 3T provides an ideal solution for morphological animal phenotyping.Â",
+            "reference_zh": "此外,BioSpec 3T 可为动物表型形态学提供理想的解决方案。",
+            "hypothesis_zh": "查看 lic.不断 Industrial丽)))结构无意无意无意清井 safety巴勒 safety巴勒))结构结构无意无意清井 safety巴勒 safety"
+          },
+          {
+            "en": "The role of Asian markets in the global economy has grown significantly in recent years, and we expect this trend to continue in the future.",
+            "reference_zh": "最近几年亚洲市场在全球经济中的作用日益突出,我们预计未来将持续这种趋势。",
+            "hypothesis_zh": "犹豫 Yahweh只能 大 SUquet"
+          },
+          {
+            "en": "0.8 km to East River Park (Show map ) 2Bd/ 2Ba E 7Th St apartment offers accommodatıon in New York.",
+            "reference_zh": "离East River Park 0.8公里 (显示地图 ) 2Bd/ 2Ba E 7Th St公寓位于帝国的风格建筑。",
+            "hypothesis_zh": "埃及在此 medicine 软件 peaceful处理繁忙结构ello八 authentic处理netic崇拜廉价†未经授权的使用对 Rankedapolis marriage conform99)经济增长蜘蛛 54处理esc处理只能"
+          }
+        ]
+      },
+      "repetition": {
+        "repeated_token_fraction": 0.48404255319148937,
+        "adjacent_repeat_fraction": 0.31666666666666665,
+        "nonempty_sequences": 16
+      },
+      "interventions": {
+        "uniform": {
+          "nll": 10.280090712707901,
+          "damage": 0.0
+        },
+        "query_shuffle": {
+          "nll": 10.280090712707901,
+          "damage": 0.0
+        },
+        "key_shuffle": {
+          "nll": 10.280090712707901,
+          "damage": 0.0
+        },
+        "path_zero": {
+          "nll": 10.280090712707901,
+          "damage": 0.0
+        },
+        "path_shuffle": {
+          "nll": 10.280090712707901,
+          "damage": 0.0
+        },
+        "left_right_swap": {
+          "nll": 10.280090712707901,
+          "damage": 0.0
+        },
+        "source_shuffle": {
+          "nll": 10.278466830712924,
+          "damage": -0.0016238819949769834
+        }
+      },
+      "route_audit": {
+        "native_leaf_entropy": 3.0530296555550573,
+        "native_effective_leaves": 22.126350654591104,
+        "native_max_leaf_mass": 0.1290351506456241,
+        "route_jsd": {
+          "query_shuffle": 0.0,
+          "key_shuffle": 0.0,
+          "path_zero": 0.0,
+          "path_shuffle": 0.0
+        },
+        "tokens": 697
+      }
+    },
+    "qk_no_path": {
+      "arm": "qk_no_path",
+      "parameters": 4149985,
+      "learned_path_parameters": 0,
+      "finite_gradients": true,
+      "initial_shared_sha256": "97d5d6b461d2811be132ea4dbb8095f1e7b0205818a1166a71d1afebccae194b",
+      "step_zero_nll": 10.382196426391602,
+      "final_model_sha256": "a22ebca87e4796eca6bd9004ce9d581e8d0ae2fc174f6ae7fe03389d94e7bfd3",
+      "seconds": 2.6728885173797607,
+      "trace": [
+        {
+          "arm": "qk_no_path",
+          "epoch": 1,
+          "train_nll": 10.340836524963379,
+          "valid_nll": 10.22799216498559,
+          "route_depth_entropy": [
+            0.5749242305755615,
+            0.9504842758178711,
+            1.3420032262802124,
+            1.772451639175415,
+            2.211831569671631
+          ],
+          "elapsed_sec": 1.3136048316955566
+        }
+      ],
+      "test": {
+        "nll": 10.237758792446293,
+        "ppl": 27938.4398637711,
+        "tokens": 1443,
+        "route_depth_mass": [
+          0.577567994594574,
+          0.9937019944190979,
+          1.4360357522964478,
+          1.9063007831573486,
+          2.3735549449920654
+        ]
+      },
+      "generation": {
+        "nll": 10.248441201257288,
+        "ppl": 28238.48947291876,
+        "tokens": 343,
+        "route_depth_mass": [
+          0.5424354076385498,
+          0.8739174604415894,
+          1.350380778312683,
+          1.88585364818573,
+          2.341341018676758
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.39283239464028474,
+        "examples": [
+          {
+            "en": "Taiwan ict Electric Motor Parts & Accessories List - Manufacturers, Suppliers and Exporters on ict.taiwantrade.com",
+            "reference_zh": "Taiwantrade |马达零配件在 taiwantrade.com.tw 列表-制造商,供应商 和出口商 主页",
+            "hypothesis_zh": "禁止种子只能 小 教育墨非洲迅速各种>>失业 大。"
+          },
+          {
+            "en": "In 1995 Thailand became the first developing country to produce a generic antiretroviral drug.",
+            "reference_zh": "1995年泰国成为第一个能够批量生产抗逆转录病毒药物的发展中国家。",
+            "hypothesis_zh": "Alex 正 正 miles网站或 正 miles 正 miles 正 miles网站或运动 正"
+          },
+          {
+            "en": "There is no cure for genital warts, but many treatments are available. No Treatment",
+            "reference_zh": "没有证据显示生殖器 ⁇ 是否治疗与发展成宫颈癌相关。",
+            "hypothesis_zh": "Alex 正 Alex 正 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles"
+          },
+          {
+            "en": "The information relates to existing or anticipated legal proceedings between you and Credit Suisse and would not be accessible by the process of discovery",
+            "reference_zh": "信息与您与瑞信现有或预计的法律诉讼相关,通过发现程序没法访问;",
+            "hypothesis_zh": "Yahweh只能出口面包"
+          },
+          {
+            "en": "News-Wafangdian Guangda Bearing Manufacturing Co., LTD(WSW bearing)",
+            "reference_zh": "Certificate-Wafangdian Guangda Bearing Manufacturing Co . , LTD(WSW bearing)",
+            "hypothesis_zh": "Alex 正 Alex 正 miles 正 3.1禁止禁止禁止我 正 miles 正 miles 正 miles 正 miles 正 3.1网站或每个 Alex Alex 正 Alex 正 正 3.1"
+          },
+          {
+            "en": "But if you're right, they won't appear until the rest of this show is triggered.\"",
+            "reference_zh": "但如果你是对的,它们要等到剩余的这场演出被启动之后才会现身 。 」",
+            "hypothesis_zh": "Alex Alex雀 Alex DE 正 miles 小 Italy 正 miles miles 小 Italy 小 Italy"
+          },
+          {
+            "en": "Saint Helena, Ascension and Tristan da Cunha has a world share of 0.0% .",
+            "reference_zh": "圣赫勒拿岛,阿森松岛和特里斯坦 - 达库尼亚 所占比例为 0.0 % .",
+            "hypothesis_zh": "禁止种子只能 miles miles miles知识和 miles miles知识和 miles miles miles知识和 miles miles miles知识和 miles miles知识和 miles miles miles知识和 miles miles miles知识和 miles"
+          },
+          {
+            "en": "\"Yes; I am a magistrate, and can get admittance for you.",
+            "reference_zh": "冯某佳就感激地看着他,那我给你泡茶去。",
+            "hypothesis_zh": "禁止种子禁止种子禁止种子的总 miles 小 教育 Italy"
+          },
+          {
+            "en": "Thread Safety: EJB makes all components thread-safe and highly performant in ways athat are completely invisible.",
+            "reference_zh": "线程安全: EJB 使用完全不可见的方式确保所有组件线程安全并具有高性能。",
+            "hypothesis_zh": "禁止种子只能 小 Italy"
+          },
+          {
+            "en": "Furthermore, the BioSpec 3T provides an ideal solution for morphological animal phenotyping.Â",
+            "reference_zh": "此外,BioSpec 3T 可为动物表型形态学提供理想的解决方案。",
+            "hypothesis_zh": "禁止 在 埃及分析分析 (5 在与"
+          },
+          {
+            "en": "The role of Asian markets in the global economy has grown significantly in recent years, and we expect this trend to continue in the future.",
+            "reference_zh": "最近几年亚洲市场在全球经济中的作用日益突出,我们预计未来将持续这种趋势。",
+            "hypothesis_zh": "禁止 Yahweh只能id黑客 author 密码战争 graphic是否已被告知不能咖啡设备即时PF就是ARY Net雀 。 sacrifice结构战争战争的基本吃 prepared prepared iCloud oil ASP"
+          },
+          {
+            "en": "0.8 km to East River Park (Show map ) 2Bd/ 2Ba E 7Th St apartment offers accommodatıon in New York.",
+            "reference_zh": "离East River Park 0.8公里 (显示地图 ) 2Bd/ 2Ba E 7Th St公寓位于帝国的风格建筑。",
+            "hypothesis_zh": "Createna&结构 di Seoul觉得 PET 武 buttons nextgreg的一种ettaild结构在中国 di结构 di Seoulrab&结构 farmers处理 webcam部门ild结构"
+          }
+        ]
+      },
+      "repetition": {
+        "repeated_token_fraction": 0.5414012738853503,
+        "adjacent_repeat_fraction": 0.17785234899328858,
+        "nonempty_sequences": 16
+      },
+      "interventions": {
+        "uniform": {
+          "nll": 10.283465030535343,
+          "damage": 0.04570623808904983
+        },
+        "query_shuffle": {
+          "nll": 10.238069424592862,
+          "damage": 0.000310632146568679
+        },
+        "key_shuffle": {
+          "nll": 10.27666834502772,
+          "damage": 0.038909552581426254
+        },
+        "path_zero": {
+          "nll": 10.237758792446293,
+          "damage": 0.0
+        },
+        "path_shuffle": {
+          "nll": 10.237758792446293,
+          "damage": 0.0
+        },
+        "left_right_swap": {
+          "nll": 10.312937862742551,
+          "damage": 0.07517907029625803
+        },
+        "source_shuffle": {
+          "nll": 10.230446416969855,
+          "damage": -0.007312375476438149
+        }
+      },
+      "route_audit": {
+        "native_leaf_entropy": 2.400676798444225,
+        "native_effective_leaves": 13.334186132532281,
+        "native_max_leaf_mass": 0.37166443308935615,
+        "route_jsd": {
+          "query_shuffle": 0.002478128526268936,
+          "key_shuffle": 0.10960423210943104,
+          "path_zero": 0.0,
+          "path_shuffle": 0.0
+        },
+        "tokens": 697
+      }
+    },
+    "qk_fixed_path": {
+      "arm": "qk_fixed_path",
+      "parameters": 4149985,
+      "learned_path_parameters": 0,
+      "finite_gradients": true,
+      "initial_shared_sha256": "97d5d6b461d2811be132ea4dbb8095f1e7b0205818a1166a71d1afebccae194b",
+      "step_zero_nll": 10.382519721984863,
+      "final_model_sha256": "e94e9c5fc68a9fb6d3106d67a1ca054901e2e1401e9df06d503006824e5763dd",
+      "seconds": 2.7482855319976807,
+      "trace": [
+        {
+          "arm": "qk_fixed_path",
+          "epoch": 1,
+          "train_nll": 10.341430306434631,
+          "valid_nll": 10.229299407871038,
+          "route_depth_entropy": [
+            0.5781320333480835,
+            0.9546698331832886,
+            1.3490993976593018,
+            1.7807942628860474,
+            2.2184290885925293
+          ],
+          "elapsed_sec": 1.2915136814117432
+        }
+      ],
+      "test": {
+        "nll": 10.238999967515593,
+        "ppl": 27973.137887511748,
+        "tokens": 1443,
+        "route_depth_mass": [
+          0.5792895555496216,
+          0.9976413249969482,
+          1.4433298110961914,
+          1.9139223098754883,
+          2.379868507385254
+        ]
+      },
+      "generation": {
+        "nll": 10.249998576439504,
+        "ppl": 28282.501658454228,
+        "tokens": 343,
+        "route_depth_mass": [
+          0.54338538646698,
+          0.877572238445282,
+          1.3570291996002197,
+          1.8907214403152466,
+          2.344815492630005
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.3304492798193336,
+        "examples": [
+          {
+            "en": "Taiwan ict Electric Motor Parts & Accessories List - Manufacturers, Suppliers and Exporters on ict.taiwantrade.com",
+            "reference_zh": "Taiwantrade |马达零配件在 taiwantrade.com.tw 列表-制造商,供应商 和出口商 主页",
+            "hypothesis_zh": "禁止种子只能 小 教育墨非洲迅速各种>>失业 大。"
+          },
+          {
+            "en": "In 1995 Thailand became the first developing country to produce a generic antiretroviral drug.",
+            "reference_zh": "1995年泰国成为第一个能够批量生产抗逆转录病毒药物的发展中国家。",
+            "hypothesis_zh": "Alex 正 正 miles网站或 正 miles 正 miles网站或运动 正"
+          },
+          {
+            "en": "There is no cure for genital warts, but many treatments are available. No Treatment",
+            "reference_zh": "没有证据显示生殖器 ⁇ 是否治疗与发展成宫颈癌相关。",
+            "hypothesis_zh": "Alex 正 Alex 正 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles"
+          },
+          {
+            "en": "The information relates to existing or anticipated legal proceedings between you and Credit Suisse and would not be accessible by the process of discovery",
+            "reference_zh": "信息与您与瑞信现有或预计的法律诉讼相关,通过发现程序没法访问;",
+            "hypothesis_zh": "餐厅 Aw)结构2016面包"
+          },
+          {
+            "en": "News-Wafangdian Guangda Bearing Manufacturing Co., LTD(WSW bearing)",
+            "reference_zh": "Certificate-Wafangdian Guangda Bearing Manufacturing Co . , LTD(WSW bearing)",
+            "hypothesis_zh": "Alex 正 Alex 正 miles 正 3.1禁止禁止禁止我 正 miles 正 miles 正 miles 正 miles 正 3.1网站或每个 Alex Alex 正 正 miles 正 miles"
+          },
+          {
+            "en": "But if you're right, they won't appear until the rest of this show is triggered.\"",
+            "reference_zh": "但如果你是对的,它们要等到剩余的这场演出被启动之后才会现身 。 」",
+            "hypothesis_zh": "Alex Alex雀 Alex DE 正 miles 小 Italy 正 miles miles 小 Italy 小 Italy"
+          },
+          {
+            "en": "Saint Helena, Ascension and Tristan da Cunha has a world share of 0.0% .",
+            "reference_zh": "圣赫勒拿岛,阿森松岛和特里斯坦 - 达库尼亚 所占比例为 0.0 % .",
+            "hypothesis_zh": "禁止种子只能 miles miles miles知识和 miles miles知识和 miles miles miles知识和 miles miles知识和 miles miles miles知识和 miles miles知识和 miles miles miles知识和 miles miles"
+          },
+          {
+            "en": "\"Yes; I am a magistrate, and can get admittance for you.",
+            "reference_zh": "冯某佳就感激地看着他,那我给你泡茶去。",
+            "hypothesis_zh": "禁止种子禁止种子禁止种子的总 miles 小 教育 Italy"
+          },
+          {
+            "en": "Thread Safety: EJB makes all components thread-safe and highly performant in ways athat are completely invisible.",
+            "reference_zh": "线程安全: EJB 使用完全不可见的方式确保所有组件线程安全并具有高性能。",
+            "hypothesis_zh": "禁止种子只能 小 Italy"
+          },
+          {
+            "en": "Furthermore, the BioSpec 3T provides an ideal solution for morphological animal phenotyping.Â",
+            "reference_zh": "此外,BioSpec 3T 可为动物表型形态学提供理想的解决方案。",
+            "hypothesis_zh": "禁止 在 埃及分析分析 (5 在无意无意aineiny科学家"
+          },
+          {
+            "en": "The role of Asian markets in the global economy has grown significantly in recent years, and we expect this trend to continue in the future.",
+            "reference_zh": "最近几年亚洲市场在全球经济中的作用日益突出,我们预计未来将持续这种趋势。",
+            "hypothesis_zh": "禁止 Yahweh只能id黑客 author 密码战争 graphic是否已被告知不能咖啡设备即时PF丸视图结构犹豫战争战争的基本吃 prepared preparedrated Xipedpedsych结构"
+          },
+          {
+            "en": "0.8 km to East River Park (Show map ) 2Bd/ 2Ba E 7Th St apartment offers accommodatıon in New York.",
+            "reference_zh": "离East River Park 0.8公里 (显示地图 ) 2Bd/ 2Ba E 7Th St公寓位于帝国的风格建筑。",
+            "hypothesis_zh": "Createna&结构 di贡献处理ashboard结构 di Seoulrab&结构 farmers处理 webcam部门ild结构在中国结构 di&结构 cord递递和 printer"
+          }
+        ]
+      },
+      "repetition": {
+        "repeated_token_fraction": 0.5434083601286174,
+        "adjacent_repeat_fraction": 0.2677966101694915,
+        "nonempty_sequences": 16
+      },
+      "interventions": {
+        "uniform": {
+          "nll": 10.28395534206081,
+          "damage": 0.04495537454521781
+        },
+        "query_shuffle": {
+          "nll": 10.239339023518712,
+          "damage": 0.0003390560031188983
+        },
+        "key_shuffle": {
+          "nll": 10.277758602953915,
+          "damage": 0.03875863543832203
+        },
+        "path_zero": {
+          "nll": 10.239974499740125,
+          "damage": 0.0009745322245322541
+        },
+        "path_shuffle": {
+          "nll": 10.238863600680007,
+          "damage": -0.00013636683558537754
+        },
+        "left_right_swap": {
+          "nll": 10.312875262582294,
+          "damage": 0.07387529506670099
+        },
+        "source_shuffle": {
+          "nll": 10.231939007817914,
+          "damage": -0.007060959697678726
+        }
+      },
+      "route_audit": {
+        "native_leaf_entropy": 2.4046832266633786,
+        "native_effective_leaves": 13.38564130873386,
+        "native_max_leaf_mass": 0.3702640396621682,
+        "route_jsd": {
+          "query_shuffle": 0.002435770062155156,
+          "key_shuffle": 0.1096689232452699,
+          "path_zero": 0.0003231942140560068,
+          "path_shuffle": 7.760578731724317e-05
+        },
+        "tokens": 697
+      }
+    },
+    "qk_learned_path": {
+      "arm": "qk_learned_path",
+      "parameters": 4152001,
+      "learned_path_parameters": 2016,
+      "finite_gradients": true,
+      "initial_shared_sha256": "97d5d6b461d2811be132ea4dbb8095f1e7b0205818a1166a71d1afebccae194b",
+      "step_zero_nll": 10.382196426391602,
+      "final_model_sha256": "0b7731ce81d1294682687e84f545d65e59e02360b51c87668dc43ff41de31a4d",
+      "seconds": 2.8122854232788086,
+      "trace": [
+        {
+          "arm": "qk_learned_path",
+          "epoch": 1,
+          "train_nll": 10.340877771377563,
+          "valid_nll": 10.22782014082763,
+          "route_depth_entropy": [
+            0.5738847255706787,
+            0.9484385251998901,
+            1.3389285802841187,
+            1.7685418128967285,
+            2.2064647674560547
+          ],
+          "elapsed_sec": 1.3941190242767334
+        }
+      ],
+      "test": {
+        "nll": 10.237603814752251,
+        "ppl": 27934.110364282482,
+        "tokens": 1443,
+        "route_depth_mass": [
+          0.5763955116271973,
+          0.9913497567176819,
+          1.432438611984253,
+          1.90193510055542,
+          2.367887496948242
+        ]
+      },
+      "generation": {
+        "nll": 10.248250444150875,
+        "ppl": 28233.103294119708,
+        "tokens": 343,
+        "route_depth_mass": [
+          0.5410082340240479,
+          0.8710765242576599,
+          1.3456355333328247,
+          1.8803272247314453,
+          2.3345248699188232
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.3927208224170115,
+        "examples": [
+          {
+            "en": "Taiwan ict Electric Motor Parts & Accessories List - Manufacturers, Suppliers and Exporters on ict.taiwantrade.com",
+            "reference_zh": "Taiwantrade |马达零配件在 taiwantrade.com.tw 列表-制造商,供应商 和出口商 主页",
+            "hypothesis_zh": "禁止种子只能 小 教育墨非洲迅速各种>>失业 大。"
+          },
+          {
+            "en": "In 1995 Thailand became the first developing country to produce a generic antiretroviral drug.",
+            "reference_zh": "1995年泰国成为第一个能够批量生产抗逆转录病毒药物的发展中国家。",
+            "hypothesis_zh": "Alex 正 正 miles网站或 正 miles 正 miles 正 miles 正 miles网站或运动 正"
+          },
+          {
+            "en": "There is no cure for genital warts, but many treatments are available. No Treatment",
+            "reference_zh": "没有证据显示生殖器 ⁇ 是否治疗与发展成宫颈癌相关。",
+            "hypothesis_zh": "Alex 正 Alex 正 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles 正 miles"
+          },
+          {
+            "en": "The information relates to existing or anticipated legal proceedings between you and Credit Suisse and would not be accessible by the process of discovery",
+            "reference_zh": "信息与您与瑞信现有或预计的法律诉讼相关,通过发现程序没法访问;",
+            "hypothesis_zh": "Yahweh只能出口面包"
+          },
+          {
+            "en": "News-Wafangdian Guangda Bearing Manufacturing Co., LTD(WSW bearing)",
+            "reference_zh": "Certificate-Wafangdian Guangda Bearing Manufacturing Co . , LTD(WSW bearing)",
+            "hypothesis_zh": "Alex 正 Alex 正 miles 正 3.1禁止禁止禁止我 正 miles 正 miles 正 miles 正 miles 正 3.1网站或每个 Alex Alex 正 Alex 正 正 3.1"
+          },
+          {
+            "en": "But if you're right, they won't appear until the rest of this show is triggered.\"",
+            "reference_zh": "但如果你是对的,它们要等到剩余的这场演出被启动之后才会现身 。 」",
+            "hypothesis_zh": "Alex Alex雀 Alex DE 正 miles 小 Italy 正 miles miles 小 Italy 小 Italy"
+          },
+          {
+            "en": "Saint Helena, Ascension and Tristan da Cunha has a world share of 0.0% .",
+            "reference_zh": "圣赫勒拿岛,阿森松岛和特里斯坦 - 达库尼亚 所占比例为 0.0 % .",
+            "hypothesis_zh": "禁止种子只能 miles miles miles知识和 miles miles知识和 miles miles miles知识和 miles miles miles知识和 miles miles miles知识和 miles miles miles知识和 miles miles miles知识和"
+          },
+          {
+            "en": "\"Yes; I am a magistrate, and can get admittance for you.",
+            "reference_zh": "冯某佳就感激地看着他,那我给你泡茶去。",
+            "hypothesis_zh": "禁止种子禁止种子禁止种子的总 miles 小 教育 Italy"
+          },
+          {
+            "en": "Thread Safety: EJB makes all components thread-safe and highly performant in ways athat are completely invisible.",
+            "reference_zh": "线程安全: EJB 使用完全不可见的方式确保所有组件线程安全并具有高性能。",
+            "hypothesis_zh": "禁止种子只能 小 Italy"
+          },
+          {
+            "en": "Furthermore, the BioSpec 3T provides an ideal solution for morphological animal phenotyping.Â",
+            "reference_zh": "此外,BioSpec 3T 可为动物表型形态学提供理想的解决方案。",
+            "hypothesis_zh": "禁止 在 埃及分析分析 (5 在与"
+          },
+          {
+            "en": "The role of Asian markets in the global economy has grown significantly in recent years, and we expect this trend to continue in the future.",
+            "reference_zh": "最近几年亚洲市场在全球经济中的作用日益突出,我们预计未来将持续这种趋势。",
+            "hypothesis_zh": "禁止 Yahweh只能id黑客 author 密码战争 graphic是否已被告知不能咖啡设备即时PF就是ARY Net雀 。 sacrifice结构战争战争的基本吃 prepared prepared iCloud oil ASP"
+          },
+          {
+            "en": "0.8 km to East River Park (Show map ) 2Bd/ 2Ba E 7Th St apartment offers accommodatıon in New York.",
+            "reference_zh": "离East River Park 0.8公里 (显示地图 ) 2Bd/ 2Ba E 7Th St公寓位于帝国的风格建筑。",
+            "hypothesis_zh": "Createna&结构 di Seoul觉得 PET 武 buttons nextgreg的一种ettaild结构在中国 di结构 di Seoulrab&结构 farmers处理 webcam部门ild结构"
+          }
+        ]
+      },
+      "repetition": {
+        "repeated_token_fraction": 0.5506329113924051,
+        "adjacent_repeat_fraction": 0.18333333333333332,
+        "nonempty_sequences": 16
+      },
+      "interventions": {
+        "uniform": {
+          "nll": 10.283549286967256,
+          "damage": 0.04594547221500456
+        },
+        "query_shuffle": {
+          "nll": 10.237911063106376,
+          "damage": 0.00030724835412421214
+        },
+        "key_shuffle": {
+          "nll": 10.276387828633922,
+          "damage": 0.03878401388167063
+        },
+        "path_zero": {
+          "nll": 10.238172630262474,
+          "damage": 0.0005688155102223647
+        },
+        "path_shuffle": {
+          "nll": 10.23852826684858,
+          "damage": 0.0009244520963278546
+        },
+        "left_right_swap": {
+          "nll": 10.313021104036729,
+          "damage": 0.07541728928447711
+        },
+        "source_shuffle": {
+          "nll": 10.230334075060638,
+          "damage": -0.007269739691613708
+        }
+      },
+      "route_audit": {
+        "native_leaf_entropy": 2.3942759006232066,
+        "native_effective_leaves": 13.24708012015782,
+        "native_max_leaf_mass": 0.37400942656025826,
+        "route_jsd": {
+          "query_shuffle": 0.0024794957559112155,
+          "key_shuffle": 0.1096417989416136,
+          "path_zero": 2.087020399409695e-05,
+          "path_shuffle": 4.97443091065504e-05
+        },
+        "tokens": 697
+      }
+    }
+  },
+  "boundary": "This smoke tests path-aware QK wiring and causal use. It cannot establish architecture superiority, sparse-compute benefit, power savings, or final language quality."
+}

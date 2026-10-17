@@ -1,0 +1,816 @@
+{
+  "claim": "S3-TREE-QK-PATH-C01",
+  "claim_scope": "one-seed real-corpus wiring and mechanism smoke",
+  "host": "io",
+  "seconds": 210.02464294433594,
+  "config": {
+    "data": "/mnt/nas/datasets/wmt_massive/train.massive.zh-en.tsv",
+    "spm_model": "/mnt/nas/datasets/wmt_massive/sp_bpe_massive.model",
+    "evidence_dir": "ara/s3-generation/evidence/s3_tree_qk_path_encoding_smoke/formal_seed20261017",
+    "seed": 20261017,
+    "source_col": 1,
+    "target_col": 0,
+    "train_samples": 6000,
+    "valid_samples": 1000,
+    "test_samples": 1000,
+    "generation_samples": 128,
+    "max_scan": 120000,
+    "min_len": 16,
+    "max_len": 31,
+    "heap_width": 32,
+    "dim": 96,
+    "hidden": 96,
+    "batch_size": 64,
+    "epochs": 3,
+    "lr": 0.002,
+    "audit_batches": 4,
+    "arms": [
+      "uniform",
+      "qk_no_path",
+      "qk_fixed_path",
+      "qk_learned_path"
+    ],
+    "device": "cuda"
+  },
+  "data": {
+    "direction": "en_to_zh",
+    "selected_rows_sha256": "5271a5fb90633eedff5b8746147c38c768c0f2bd9a0480ca94c3f4ac36c3a3e9",
+    "spm_sha256": "9956eff597852f8c684c4ad23243d15889da6a9b138f8fd025570147324cc731",
+    "scanned": 120000,
+    "eligible": 27943,
+    "selected": 8000,
+    "sampling": "deterministic_reservoir_then_shuffle"
+  },
+  "contracts": {
+    "shared_initial_state_equal": true,
+    "shared_initial_sha256": "34d43fc32350cd36ebd05eb20f71a2d019b3a2541c64f85c75cf1bcec2acc64a",
+    "qk_no_path_vs_learned_step_zero_nll_delta": 0.0,
+    "same_selected_rows_and_batch_seed": true,
+    "balanced_heap_width": 32,
+    "relation_is_qk": true,
+    "read_is_separate_value_sum": true
+  },
+  "results": {
+    "uniform": {
+      "arm": "uniform",
+      "parameters": 12514977,
+      "learned_path_parameters": 0,
+      "finite_gradients": true,
+      "initial_shared_sha256": "34d43fc32350cd36ebd05eb20f71a2d019b3a2541c64f85c75cf1bcec2acc64a",
+      "step_zero_nll": 10.377138137817383,
+      "final_model_sha256": "b57055fd745b4044e27a631b6c7c062d8e79502e48ca349c8c0c621bc15c174c",
+      "seconds": 36.28848695755005,
+      "trace": [
+        {
+          "arm": "uniform",
+          "epoch": 1,
+          "train_nll": 8.48541776170122,
+          "valid_nll": 7.946660913308921,
+          "route_depth_entropy": [
+            0.6931472420692444,
+            1.214361310005188,
+            1.7923338413238525,
+            2.3958253860473633,
+            3.020935297012329
+          ],
+          "elapsed_sec": 8.946868181228638
+        },
+        {
+          "arm": "uniform",
+          "epoch": 2,
+          "train_nll": 7.501327996558332,
+          "valid_nll": 7.612606379831254,
+          "route_depth_entropy": [
+            0.6931472420692444,
+            1.214361310005188,
+            1.7923338413238525,
+            2.3958253860473633,
+            3.020935297012329
+          ],
+          "elapsed_sec": 17.794392108917236
+        },
+        {
+          "arm": "uniform",
+          "epoch": 3,
+          "train_nll": 6.976497041418197,
+          "valid_nll": 7.4510642769130095,
+          "route_depth_entropy": [
+            0.6931472420692444,
+            1.214361310005188,
+            1.7923338413238525,
+            2.3958253860473633,
+            3.020935297012329
+          ],
+          "elapsed_sec": 26.638960599899292
+        }
+      ],
+      "test": {
+        "nll": 7.465373768445204,
+        "ppl": 1746.5082159016858,
+        "tokens": 22228,
+        "route_depth_mass": [
+          0.6931471228599548,
+          1.2035986185073853,
+          1.7724326848983765,
+          2.373284339904785,
+          2.9980392456054688
+        ]
+      },
+      "generation": {
+        "nll": 7.589719228821768,
+        "ppl": 1977.7581383002935,
+        "tokens": 2839,
+        "route_depth_mass": [
+          0.6931471824645996,
+          1.2048847675323486,
+          1.7788972854614258,
+          2.366447925567627,
+          2.990550994873047
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.9201541508836637,
+        "examples": [
+          {
+            "en": "A list of the courses you are currently taking and the courses you have already taken.",
+            "reference_zh": "列举所有您正在参与的课程和已经参与的课程的清单。",
+            "hypothesis_zh": " ⁇ ,在在,并在,并在。"
+          },
+          {
+            "en": "IMHO that here netak vsmysle processed in adobe RGB?",
+            "reference_zh": "恕我直言,在这里netak vsmysle处理在Adobe RGB?",
+            "hypothesis_zh": "? ?"
+          },
+          {
+            "en": "You are governed by beliefs and assumptions and have not really taken the greater journey yet.",
+            "reference_zh": "你被信仰和假设支配着,还未真正开展那个更伟大旅程。",
+            "hypothesis_zh": ",我,我,我,我和和和和和。"
+          },
+          {
+            "en": "Tooling expert Multi spindle heads for drilling and tapping threads on NC and CNC machines",
+            "reference_zh": "舒能工具专家生产用于在 NC 和 CNC 加工机床上钻孔和攻丝的多轴头。",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,并和和和和和和和和和和和和和。"
+          },
+          {
+            "en": "Various archaeological sites, villages, churches, caves, gorges and wonderful beaches are embellishing the charming area.",
+            "reference_zh": "各种考古遗址,村落,教堂,洞穴,峡谷和美丽的海滩都美化了迷人的地区。",
+            "hypothesis_zh": ", , , , , , , , ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,"
+          },
+          {
+            "en": "For colder, faster iced tea, you can put the tea in the freezer for an hour or two.",
+            "reference_zh": "如果需要在更短的时间内做出更冰的冰红茶,可以把茶冷冻一两个小时。",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,"
+          },
+          {
+            "en": "Taiwan Homeliving Sleepwear & Underwear List - Manufacturers, Suppliers and Exporters on homeliving.taiwantrade.com",
+            "reference_zh": "Taiwantrade |男性内衣裤在 taiwantrade.com.tw 列表-制造商,供应商 和出口商",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,供应商 和出口商"
+          },
+          {
+            "en": "Use common sense when using Hot or Not and deciding whether to meet up with people in real life.",
+            "reference_zh": "当您用Hot or Not安排在现实生活中见面时,请用常识确保自己的安全意识。",
+            "hypothesis_zh": ",在,在在,在在,并在,并在,并在。"
+          },
+          {
+            "en": "Press Room Nero Announces Sigma Designs is First Partner to Receive Nero DigitalTM AVC High Profile Certification",
+            "reference_zh": "Nero 宣布 Sigma Designs 是首个获得Nero DigitalTM AVC 高级配置文件认证的合作伙伴",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,"
+          },
+          {
+            "en": "Drag the Rotate wheel or enter a degree value in the adjacent field to specify the angle at which you want to rotate the object.",
+            "reference_zh": "拖移\"旋转\"轮或在相邻栏中输入角度值,以指定要旋转对象的角度。",
+            "hypothesis_zh": "我们在在,在在在,在在在在,并在在在。"
+          },
+          {
+            "en": "Find out more about Services in La Nopalera with deals,visit in images and the users top ten for Services in Distrito Federal .",
+            "reference_zh": "寻找更多关于 服务 在 La Nopalera 透过 交易,游览图片 and 用户10大首选 服务 在 Distrito Federal .",
+            "hypothesis_zh": "在在,在在在,在在在在,在在在 (显示地图 )"
+          },
+          {
+            "en": "Ripped jock assfucked outdoors doggystyle 5:57",
+            "reference_zh": "撕开 乔克 assfucked 户外活动 狗的风格 5:57",
+            "hypothesis_zh": " ⁇  / 2 2 2 2 2 2 2 2 2 2 2  ⁇ ,  ⁇ "
+          }
+        ]
+      },
+      "repetition": {
+        "repeated_token_fraction": 0.7616320687186829,
+        "adjacent_repeat_fraction": 0.08589647411852963,
+        "nonempty_sequences": 128
+      },
+      "interventions": {
+        "uniform": {
+          "nll": 7.465373768445204,
+          "damage": 0.0
+        },
+        "query_shuffle": {
+          "nll": 7.465373768445204,
+          "damage": 0.0
+        },
+        "key_shuffle": {
+          "nll": 7.465373768445204,
+          "damage": 0.0
+        },
+        "path_zero": {
+          "nll": 7.465373768445204,
+          "damage": 0.0
+        },
+        "path_shuffle": {
+          "nll": 7.465373768445204,
+          "damage": 0.0
+        },
+        "left_right_swap": {
+          "nll": 7.465373768445204,
+          "damage": 0.0
+        },
+        "source_shuffle": {
+          "nll": 8.252085146338514,
+          "damage": 0.7867113778933099
+        }
+      },
+      "route_audit": {
+        "native_leaf_entropy": 3.019784936102061,
+        "native_effective_leaves": 21.56643067266203,
+        "native_max_leaf_mass": 0.14780182282493837,
+        "route_jsd": {
+          "query_shuffle": 0.0,
+          "key_shuffle": 0.0,
+          "path_zero": 0.0,
+          "path_shuffle": 0.0
+        },
+        "tokens": 5678
+      }
+    },
+    "qk_no_path": {
+      "arm": "qk_no_path",
+      "parameters": 12514977,
+      "learned_path_parameters": 0,
+      "finite_gradients": true,
+      "initial_shared_sha256": "34d43fc32350cd36ebd05eb20f71a2d019b3a2541c64f85c75cf1bcec2acc64a",
+      "step_zero_nll": 10.376093864440918,
+      "final_model_sha256": "30ef0e20f66bae91cd99f853239e43b99ba7024134890593e7acdea9a0ca495c",
+      "seconds": 55.53577709197998,
+      "trace": [
+        {
+          "arm": "qk_no_path",
+          "epoch": 1,
+          "train_nll": 8.395709058071704,
+          "valid_nll": 7.913260148070283,
+          "route_depth_entropy": [
+            0.6434385776519775,
+            1.1980607509613037,
+            1.7380422353744507,
+            2.134005308151245,
+            2.5189545154571533
+          ],
+          "elapsed_sec": 15.368313074111938
+        },
+        {
+          "arm": "qk_no_path",
+          "epoch": 2,
+          "train_nll": 7.473206880244803,
+          "valid_nll": 7.608954223170528,
+          "route_depth_entropy": [
+            0.6345469355583191,
+            1.198773741722107,
+            1.763533592224121,
+            2.107534885406494,
+            2.4311294555664062
+          ],
+          "elapsed_sec": 30.71583080291748
+        },
+        {
+          "arm": "qk_no_path",
+          "epoch": 3,
+          "train_nll": 6.941100759709135,
+          "valid_nll": 7.475209670514034,
+          "route_depth_entropy": [
+            0.6277205348014832,
+            1.1873184442520142,
+            1.7694392204284668,
+            2.064910888671875,
+            2.3413615226745605
+          ],
+          "elapsed_sec": 46.01918077468872
+        }
+      ],
+      "test": {
+        "nll": 7.484447864356048,
+        "ppl": 1780.141019090221,
+        "tokens": 22228,
+        "route_depth_mass": [
+          0.6240115165710449,
+          1.1768009662628174,
+          1.755614995956421,
+          2.0495355129241943,
+          2.3380472660064697
+        ]
+      },
+      "generation": {
+        "nll": 7.617759196680169,
+        "ppl": 2033.9992272259117,
+        "tokens": 2839,
+        "route_depth_mass": [
+          0.6247180700302124,
+          1.1768124103546143,
+          1.7545148134231567,
+          2.044764518737793,
+          2.3303117752075195
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 1.1686110220626393,
+        "examples": [
+          {
+            "en": "A list of the courses you are currently taking and the courses you have already taken.",
+            "reference_zh": "列举所有您正在参与的课程和已经参与的课程的清单。",
+            "hypothesis_zh": " ⁇ ,在 taiwantrade,在 taiwantrade,并在 taiwantrade.com."
+          },
+          {
+            "en": "IMHO that here netak vsmysle processed in adobe RGB?",
+            "reference_zh": "恕我直言,在这里netak vsmysle处理在Adobe RGB?",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,在在,  ⁇ ,我"
+          },
+          {
+            "en": "You are governed by beliefs and assumptions and have not really taken the greater journey yet.",
+            "reference_zh": "你被信仰和假设支配着,还未真正开展那个更伟大旅程。",
+            "hypothesis_zh": " ⁇ ,并和和,并和和和和,并并并。"
+          },
+          {
+            "en": "Tooling expert Multi spindle heads for drilling and tapping threads on NC and CNC machines",
+            "reference_zh": "舒能工具专家生产用于在 NC 和 CNC 加工机床上钻孔和攻丝的多轴头。",
+            "hypothesis_zh": "密钥生成和和和和和和和和和和和和和和和和和和和和和和和和和和和和"
+          },
+          {
+            "en": "Various archaeological sites, villages, churches, caves, gorges and wonderful beaches are embellishing the charming area.",
+            "reference_zh": "各种考古遗址,村落,教堂,洞穴,峡谷和美丽的海滩都美化了迷人的地区。",
+            "hypothesis_zh": " ⁇ ,我,我,我,我,我,我,我,我,我"
+          },
+          {
+            "en": "For colder, faster iced tea, you can put the tea in the freezer for an hour or two.",
+            "reference_zh": "如果需要在更短的时间内做出更冰的冰红茶,可以把茶冷冻一两个小时。",
+            "hypothesis_zh": " ⁇ ,在在 taiwantrade,在在,在在 taiwantrade,在在,在在,在在,在在。"
+          },
+          {
+            "en": "Taiwan Homeliving Sleepwear & Underwear List - Manufacturers, Suppliers and Exporters on homeliving.taiwantrade.com",
+            "reference_zh": "Taiwantrade |男性内衣裤在 taiwantrade.com.tw 列表-制造商,供应商 和出口商",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,供应商 和出口商"
+          },
+          {
+            "en": "Use common sense when using Hot or Not and deciding whether to meet up with people in real life.",
+            "reference_zh": "当您用Hot or Not安排在现实生活中见面时,请用常识确保自己的安全意识。",
+            "hypothesis_zh": " ⁇ ,在在,在在,在在,以在在,并在在,并在在。"
+          },
+          {
+            "en": "Press Room Nero Announces Sigma Designs is First Partner to Receive Nero DigitalTM AVC High Profile Certification",
+            "reference_zh": "Nero 宣布 Sigma Designs 是首个获得Nero DigitalTM AVC 高级配置文件认证的合作伙伴",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,"
+          },
+          {
+            "en": "Drag the Rotate wheel or enter a degree value in the adjacent field to specify the angle at which you want to rotate the object.",
+            "reference_zh": "拖移\"旋转\"轮或在相邻栏中输入角度值,以指定要旋转对象的角度。",
+            "hypothesis_zh": " ⁇ ,在在 taiwantrade,在在 taiwantrade,在在 taiwantrade.com."
+          },
+          {
+            "en": "Find out more about Services in La Nopalera with deals,visit in images and the users top ten for Services in Distrito Federal .",
+            "reference_zh": "寻找更多关于 服务 在 La Nopalera 透过 交易,游览图片 and 用户10大首选 服务 在 Distrito Federal .",
+            "hypothesis_zh": " ⁇ 在 在在在,在在在在在在在在在中,在在在在在在在在城市在中,"
+          },
+          {
+            "en": "Ripped jock assfucked outdoors doggystyle 5:57",
+            "reference_zh": "撕开 乔克 assfucked 户外活动 狗的风格 5:57",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,"
+          }
+        ]
+      },
+      "repetition": {
+        "repeated_token_fraction": 0.6902552204176334,
+        "adjacent_repeat_fraction": 0.12449145646867373,
+        "nonempty_sequences": 128
+      },
+      "interventions": {
+        "uniform": {
+          "nll": 7.6531384481636335,
+          "damage": 0.16869058380758517
+        },
+        "query_shuffle": {
+          "nll": 7.494654541674634,
+          "damage": 0.010206677318585378
+        },
+        "key_shuffle": {
+          "nll": 7.698430312415647,
+          "damage": 0.21398244805959887
+        },
+        "path_zero": {
+          "nll": 7.484447864356048,
+          "damage": 0.0
+        },
+        "path_shuffle": {
+          "nll": 7.484447864356048,
+          "damage": 0.0
+        },
+        "left_right_swap": {
+          "nll": 8.393541155861977,
+          "damage": 0.9090932915059282
+        },
+        "source_shuffle": {
+          "nll": 8.038358305649124,
+          "damage": 0.553910441293076
+        }
+      },
+      "route_audit": {
+        "native_leaf_entropy": 2.344735463012394,
+        "native_effective_leaves": 10.73788584366194,
+        "native_max_leaf_mass": 0.20116211990942287,
+        "route_jsd": {
+          "query_shuffle": 0.013706695365838578,
+          "key_shuffle": 0.36674644091298103,
+          "path_zero": 0.0,
+          "path_shuffle": 0.0
+        },
+        "tokens": 5678
+      }
+    },
+    "qk_fixed_path": {
+      "arm": "qk_fixed_path",
+      "parameters": 12514977,
+      "learned_path_parameters": 0,
+      "finite_gradients": true,
+      "initial_shared_sha256": "34d43fc32350cd36ebd05eb20f71a2d019b3a2541c64f85c75cf1bcec2acc64a",
+      "step_zero_nll": 10.376025199890137,
+      "final_model_sha256": "065980fc366a25f973ee12faca910b8ed9db8c475be2951f8bddc680ee39dda1",
+      "seconds": 56.55609345436096,
+      "trace": [
+        {
+          "arm": "qk_fixed_path",
+          "epoch": 1,
+          "train_nll": 8.40220398598529,
+          "valid_nll": 7.916154549663065,
+          "route_depth_entropy": [
+            0.6594341993331909,
+            1.1938624382019043,
+            1.7153456211090088,
+            2.067793369293213,
+            2.4472270011901855
+          ],
+          "elapsed_sec": 15.62394094467163
+        },
+        {
+          "arm": "qk_fixed_path",
+          "epoch": 2,
+          "train_nll": 7.479863430591339,
+          "valid_nll": 7.5997402504733795,
+          "route_depth_entropy": [
+            0.6373845338821411,
+            1.1778438091278076,
+            1.735960602760315,
+            2.134463310241699,
+            2.4773712158203125
+          ],
+          "elapsed_sec": 31.147560834884644
+        },
+        {
+          "arm": "qk_fixed_path",
+          "epoch": 3,
+          "train_nll": 6.944789597328673,
+          "valid_nll": 7.46638510456115,
+          "route_depth_entropy": [
+            0.6456813216209412,
+            1.188742995262146,
+            1.776798129081726,
+            2.1442339420318604,
+            2.447415828704834
+          ],
+          "elapsed_sec": 46.73116087913513
+        }
+      ],
+      "test": {
+        "nll": 7.473946302769874,
+        "ppl": 1761.5445753013726,
+        "tokens": 22228,
+        "route_depth_mass": [
+          0.6434708833694458,
+          1.1783519983291626,
+          1.761662244796753,
+          2.1250011920928955,
+          2.4391427040100098
+        ]
+      },
+      "generation": {
+        "nll": 7.592265377333568,
+        "ppl": 1982.800220461892,
+        "tokens": 2839,
+        "route_depth_mass": [
+          0.644225001335144,
+          1.1781822443008423,
+          1.767946720123291,
+          2.120469093322754,
+          2.427234172821045
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 0.7648595991175181,
+        "examples": [
+          {
+            "en": "A list of the courses you are currently taking and the courses you have already taken.",
+            "reference_zh": "列举所有您正在参与的课程和已经参与的课程的清单。",
+            "hypothesis_zh": " ⁇ ,在 taiwantrade,并在 taiwantrade,并在 taiwantrade。"
+          },
+          {
+            "en": "IMHO that here netak vsmysle processed in adobe RGB?",
+            "reference_zh": "恕我直言,在这里netak vsmysle处理在Adobe RGB?",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,我在,  ⁇ ,我在,  ⁇ ,我"
+          },
+          {
+            "en": "You are governed by beliefs and assumptions and have not really taken the greater journey yet.",
+            "reference_zh": "你被信仰和假设支配着,还未真正开展那个更伟大旅程。",
+            "hypothesis_zh": " ⁇ ,并和和,并和和和,并和和。"
+          },
+          {
+            "en": "Tooling expert Multi spindle heads for drilling and tapping threads on NC and CNC machines",
+            "reference_zh": "舒能工具专家生产用于在 NC 和 CNC 加工机床上钻孔和攻丝的多轴头。",
+            "hypothesis_zh": " ⁇ 和和和和和和和和和和和和和和和和和和和和和和和和和和和和"
+          },
+          {
+            "en": "Various archaeological sites, villages, churches, caves, gorges and wonderful beaches are embellishing the charming area.",
+            "reference_zh": "各种考古遗址,村落,教堂,洞穴,峡谷和美丽的海滩都美化了迷人的地区。",
+            "hypothesis_zh": " ⁇ ,我,我,我,我,我,我,我"
+          },
+          {
+            "en": "For colder, faster iced tea, you can put the tea in the freezer for an hour or two.",
+            "reference_zh": "如果需要在更短的时间内做出更冰的冰红茶,可以把茶冷冻一两个小时。",
+            "hypothesis_zh": " ⁇ ,在在 taiwantrade,在,在,在,在在,在在,在在,在在,在"
+          },
+          {
+            "en": "Taiwan Homeliving Sleepwear & Underwear List - Manufacturers, Suppliers and Exporters on homeliving.taiwantrade.com",
+            "reference_zh": "Taiwantrade |男性内衣裤在 taiwantrade.com.tw 列表-制造商,供应商 和出口商",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,在 taiwantrade.com.com.com.com.com.com.com.com"
+          },
+          {
+            "en": "Use common sense when using Hot or Not and deciding whether to meet up with people in real life.",
+            "reference_zh": "当您用Hot or Not安排在现实生活中见面时,请用常识确保自己的安全意识。",
+            "hypothesis_zh": " ⁇ ,在在 taiwantrade,在在,并在,并在,并在在。"
+          },
+          {
+            "en": "Press Room Nero Announces Sigma Designs is First Partner to Receive Nero DigitalTM AVC High Profile Certification",
+            "reference_zh": "Nero 宣布 Sigma Designs 是首个获得Nero DigitalTM AVC 高级配置文件认证的合作伙伴",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,"
+          },
+          {
+            "en": "Drag the Rotate wheel or enter a degree value in the adjacent field to specify the angle at which you want to rotate the object.",
+            "reference_zh": "拖移\"旋转\"轮或在相邻栏中输入角度值,以指定要旋转对象的角度。",
+            "hypothesis_zh": " ⁇ ,在在 taiwantrade,在在 taiwantrade,在在 taiwantrade.com.com.com.com.com."
+          },
+          {
+            "en": "Find out more about Services in La Nopalera with deals,visit in images and the users top ten for Services in Distrito Federal .",
+            "reference_zh": "寻找更多关于 服务 在 La Nopalera 透过 交易,游览图片 and 用户10大首选 服务 在 Distrito Federal .",
+            "hypothesis_zh": " ⁇ 在过去的在在在在过去的中,在在在在在在在在在过去的中,在在在在在在在"
+          },
+          {
+            "en": "Ripped jock assfucked outdoors doggystyle 5:57",
+            "reference_zh": "撕开 乔克 assfucked 户外活动 狗的风格 5:57",
+            "hypothesis_zh": " ⁇  ⁇ ,  ⁇  ⁇ ,我将,我将将 ⁇ 。"
+          }
+        ]
+      },
+      "repetition": {
+        "repeated_token_fraction": 0.6724409448818898,
+        "adjacent_repeat_fraction": 0.11276948590381426,
+        "nonempty_sequences": 128
+      },
+      "interventions": {
+        "uniform": {
+          "nll": 7.642131009804638,
+          "damage": 0.16818470703476418
+        },
+        "query_shuffle": {
+          "nll": 7.486770121897213,
+          "damage": 0.01282381912733932
+        },
+        "key_shuffle": {
+          "nll": 7.692508199821171,
+          "damage": 0.21856189705129747
+        },
+        "path_zero": {
+          "nll": 7.478949911499573,
+          "damage": 0.005003608729698961
+        },
+        "path_shuffle": {
+          "nll": 7.488530443022314,
+          "damage": 0.014584140252440037
+        },
+        "left_right_swap": {
+          "nll": 8.319263336747289,
+          "damage": 0.8453170339774152
+        },
+        "source_shuffle": {
+          "nll": 8.014759238769795,
+          "damage": 0.540812935999921
+        }
+      },
+      "route_audit": {
+        "native_leaf_entropy": 2.4482906888429024,
+        "native_effective_leaves": 11.908125385258893,
+        "native_max_leaf_mass": 0.18714912309744022,
+        "route_jsd": {
+          "query_shuffle": 0.020601329353335206,
+          "key_shuffle": 0.3257134824875754,
+          "path_zero": 0.0038168888018138814,
+          "path_shuffle": 0.006835812706055462
+        },
+        "tokens": 5678
+      }
+    },
+    "qk_learned_path": {
+      "arm": "qk_learned_path",
+      "parameters": 12521025,
+      "learned_path_parameters": 6048,
+      "finite_gradients": true,
+      "initial_shared_sha256": "34d43fc32350cd36ebd05eb20f71a2d019b3a2541c64f85c75cf1bcec2acc64a",
+      "step_zero_nll": 10.376093864440918,
+      "final_model_sha256": "b9f7bd08f2121085ecd7e6094f79f9b4751038567845ea9d31bd12746a85bdc9",
+      "seconds": 59.82949137687683,
+      "trace": [
+        {
+          "arm": "qk_learned_path",
+          "epoch": 1,
+          "train_nll": 8.398259061448117,
+          "valid_nll": 7.92525948847182,
+          "route_depth_entropy": [
+            0.6596663594245911,
+            1.2113276720046997,
+            1.779757022857666,
+            2.0716536045074463,
+            2.3883721828460693
+          ],
+          "elapsed_sec": 16.61992883682251
+        },
+        {
+          "arm": "qk_learned_path",
+          "epoch": 2,
+          "train_nll": 7.489813495189585,
+          "valid_nll": 7.599406013310314,
+          "route_depth_entropy": [
+            0.6408209800720215,
+            1.1455320119857788,
+            1.7201063632965088,
+            2.067439079284668,
+            2.382935047149658
+          ],
+          "elapsed_sec": 33.351481199264526
+        },
+        {
+          "arm": "qk_learned_path",
+          "epoch": 3,
+          "train_nll": 6.940366050030323,
+          "valid_nll": 7.456652590011696,
+          "route_depth_entropy": [
+            0.6260398030281067,
+            1.1512635946273804,
+            1.7345845699310303,
+            2.111748218536377,
+            2.3910067081451416
+          ],
+          "elapsed_sec": 49.93761444091797
+        }
+      ],
+      "test": {
+        "nll": 7.468155530538622,
+        "ppl": 1751.3733499379641,
+        "tokens": 22228,
+        "route_depth_mass": [
+          0.6254450082778931,
+          1.1419589519500732,
+          1.718479871749878,
+          2.097470760345459,
+          2.3848419189453125
+        ]
+      },
+      "generation": {
+        "nll": 7.603432381560409,
+        "ppl": 2005.0662499430805,
+        "tokens": 2839,
+        "route_depth_mass": [
+          0.6243053674697876,
+          1.1459976434707642,
+          1.7296090126037598,
+          2.0987253189086914,
+          2.386164665222168
+        ],
+        "exact": 0.0,
+        "nonempty": 1.0,
+        "token_bleu4": 1.1111148934113093,
+        "examples": [
+          {
+            "en": "A list of the courses you are currently taking and the courses you have already taken.",
+            "reference_zh": "列举所有您正在参与的课程和已经参与的课程的清单。",
+            "hypothesis_zh": " ⁇ 在 taiwantrade,在在 taiwantrade.com.com.com."
+          },
+          {
+            "en": "IMHO that here netak vsmysle processed in adobe RGB?",
+            "reference_zh": "恕我直言,在这里netak vsmysle处理在Adobe RGB?",
+            "hypothesis_zh": " ⁇ , 建议在, 建议在,我在?"
+          },
+          {
+            "en": "You are governed by beliefs and assumptions and have not really taken the greater journey yet.",
+            "reference_zh": "你被信仰和假设支配着,还未真正开展那个更伟大旅程。",
+            "hypothesis_zh": " ⁇ 和和和和,并和和,并并你。"
+          },
+          {
+            "en": "Tooling expert Multi spindle heads for drilling and tapping threads on NC and CNC machines",
+            "reference_zh": "舒能工具专家生产用于在 NC 和 CNC 加工机床上钻孔和攻丝的多轴头。",
+            "hypothesis_zh": " ⁇ 和和和和和和和和和和和和和和和和和和和和和和和和和和和和"
+          },
+          {
+            "en": "Various archaeological sites, villages, churches, caves, gorges and wonderful beaches are embellishing the charming area.",
+            "reference_zh": "各种考古遗址,村落,教堂,洞穴,峡谷和美丽的海滩都美化了迷人的地区。",
+            "hypothesis_zh": " ⁇ ,我,我,我,我,我,我,我,我,我,我 。 ”"
+          },
+          {
+            "en": "For colder, faster iced tea, you can put the tea in the freezer for an hour or two.",
+            "reference_zh": "如果需要在更短的时间内做出更冰的冰红茶,可以把茶冷冻一两个小时。",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,在,在,在在,在在,在在,在在,在在。"
+          },
+          {
+            "en": "Taiwan Homeliving Sleepwear & Underwear List - Manufacturers, Suppliers and Exporters on homeliving.taiwantrade.com",
+            "reference_zh": "Taiwantrade |男性内衣裤在 taiwantrade.com.tw 列表-制造商,供应商 和出口商",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ .com.com.com.com.com.com."
+          },
+          {
+            "en": "Use common sense when using Hot or Not and deciding whether to meet up with people in real life.",
+            "reference_zh": "当您用Hot or Not安排在现实生活中见面时,请用常识确保自己的安全意识。",
+            "hypothesis_zh": " ⁇ ,在在 taiwantrade,在在,以在在,并在在。"
+          },
+          {
+            "en": "Press Room Nero Announces Sigma Designs is First Partner to Receive Nero DigitalTM AVC High Profile Certification",
+            "reference_zh": "Nero 宣布 Sigma Designs 是首个获得Nero DigitalTM AVC 高级配置文件认证的合作伙伴",
+            "hypothesis_zh": " ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇   ⁇ "
+          },
+          {
+            "en": "Drag the Rotate wheel or enter a degree value in the adjacent field to specify the angle at which you want to rotate the object.",
+            "reference_zh": "拖移\"旋转\"轮或在相邻栏中输入角度值,以指定要旋转对象的角度。",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,在在 taiwantrade,在在在 taiwantrade,在在在 taiwantrade."
+          },
+          {
+            "en": "Find out more about Services in La Nopalera with deals,visit in images and the users top ten for Services in Distrito Federal .",
+            "reference_zh": "寻找更多关于 服务 在 La Nopalera 透过 交易,游览图片 and 用户10大首选 服务 在 Distrito Federal .",
+            "hypothesis_zh": " ⁇ 在 在在在,在在在在在在在在在,在在在在在在在在在,在在在"
+          },
+          {
+            "en": "Ripped jock assfucked outdoors doggystyle 5:57",
+            "reference_zh": "撕开 乔克 assfucked 户外活动 狗的风格 5:57",
+            "hypothesis_zh": " ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇ ,  ⁇  ⁇ ,"
+          }
+        ]
+      },
+      "repetition": {
+        "repeated_token_fraction": 0.6358183376178235,
+        "adjacent_repeat_fraction": 0.08204895738893926,
+        "nonempty_sequences": 128
+      },
+      "interventions": {
+        "uniform": {
+          "nll": 7.608740089393164,
+          "damage": 0.1405845588545418
+        },
+        "query_shuffle": {
+          "nll": 7.477066904987516,
+          "damage": 0.008911374448893561
+        },
+        "key_shuffle": {
+          "nll": 7.640476415585073,
+          "damage": 0.17232088504645038
+        },
+        "path_zero": {
+          "nll": 7.4824954422982835,
+          "damage": 0.014339911759661206
+        },
+        "path_shuffle": {
+          "nll": 7.519633615962975,
+          "damage": 0.05147808542435239
+        },
+        "left_right_swap": {
+          "nll": 8.009891671329516,
+          "damage": 0.5417361407908938
+        },
+        "source_shuffle": {
+          "nll": 8.015539856121784,
+          "damage": 0.5473843255831614
+        }
+      },
+      "route_audit": {
+        "native_leaf_entropy": 2.421572597566815,
+        "native_effective_leaves": 11.675167759609458,
+        "native_max_leaf_mass": 0.20808743338804928,
+        "route_jsd": {
+          "query_shuffle": 0.02004614578413686,
+          "key_shuffle": 0.3141067735995151,
+          "path_zero": 0.016110107822290564,
+          "path_shuffle": 0.04667122610104928
+        },
+        "tokens": 5678
+      }
+    }
+  },
+  "boundary": "This smoke tests path-aware QK wiring and causal use. It cannot establish architecture superiority, sparse-compute benefit, power savings, or final language quality."
+}
